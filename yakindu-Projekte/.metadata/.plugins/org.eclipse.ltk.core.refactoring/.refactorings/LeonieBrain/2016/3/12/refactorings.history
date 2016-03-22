@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;LeonieBrain/LightSwitch.sct&apos; to &apos;leonieBrain.sct&apos;" description="Rename resource &apos;LightSwitch.sct&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="LightSwitch.sct" name="leonieBrain.sct" stamp="1458656542005" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;LeonieBrain/leonieBrain.sct&apos; to &apos;LeonieBrain.sct&apos;" description="Rename resource &apos;leonieBrain.sct&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="leonieBrain.sct" name="LeonieBrain.sct" stamp="1458656551535" updateReferences="true"/>
+</session>

@@ -1,0 +1,332 @@
+
+#include "LightSwitch.h"
+#include <string.h>
+/*! \file Implementation of the state machine 'LightSwitch'
+*/
+
+LightSwitch::LightSwitch() {
+	
+	
+	stateConfVectorPosition = 0;
+	
+}
+
+LightSwitch::~LightSwitch() {
+}
+
+
+void LightSwitch::init()
+{
+	for (int i = 0; i < maxOrthogonalStates; ++i)
+		stateConfVector[i] = LightSwitch_last_state;
+	
+	stateConfVectorPosition = 0;
+
+	clearInEvents();
+	clearOutEvents();
+	
+	/* Default init sequence for statechart LightSwitch */
+	ifaceAciPerson.name = "";
+	ifaceAciPerson.age = 0;
+	ifaceAciPerson.gender = false;
+	ifaceAciPerson.ethnicty = 0;
+	ifaceAciPerson.glasses = false;
+	ifaceAciPerson.attractiveness = 0;
+	ifaceAciPerson.speaking = false;
+	ifaceAciPerson.emotions = "";
+
+}
+
+void LightSwitch::enter()
+{
+	/* Default enter sequence for statechart LightSwitch */
+	enseq_main_region_default();
+}
+
+void LightSwitch::exit()
+{
+	/* Default exit sequence for statechart LightSwitch */
+	exseq_main_region();
+}
+
+sc_boolean LightSwitch::isActive() {
+	return stateConfVector[0] != LightSwitch_last_state;
+}
+
+/* 
+ * Always returns 'false' since this state machine can never become final.
+ */
+sc_boolean LightSwitch::isFinal(){
+   return false;}
+
+void LightSwitch::runCycle() {
+	
+	clearOutEvents();
+	
+	for (stateConfVectorPosition = 0;
+		stateConfVectorPosition < maxOrthogonalStates;
+		stateConfVectorPosition++) {
+			
+		switch (stateConfVector[stateConfVectorPosition]) {
+		case main_region_Off : {
+			react_main_region_Off();
+			break;
+		}
+		case main_region_On : {
+			react_main_region_On();
+			break;
+		}
+		case main_region_Test : {
+			react_main_region_Test();
+			break;
+		}
+		default:
+			break;
+		}
+	}
+	
+	clearInEvents();
+}
+
+void LightSwitch::clearInEvents() {
+	ifaceInternalSCI.operate_raised = false; 
+	ifaceInternalSCI.faceFound_raised = false; 
+}
+
+void LightSwitch::clearOutEvents() {
+}
+
+
+sc_boolean LightSwitch::isStateActive(LightSwitchStates state) {
+	switch (state) {
+		case main_region_Off : 
+			return (sc_boolean) (stateConfVector[0] == main_region_Off
+			);
+		case main_region_On : 
+			return (sc_boolean) (stateConfVector[0] == main_region_On
+			);
+		case main_region_Test : 
+			return (sc_boolean) (stateConfVector[0] == main_region_Test
+			);
+		default: return false;
+	}
+}
+
+LightSwitch::SCI_AciPerson* LightSwitch::getSCI_AciPerson() {
+	return &ifaceAciPerson;
+}
+
+
+sc_string LightSwitch::SCI_AciPerson::get_name() {
+	return name;
+}
+
+void LightSwitch::SCI_AciPerson::set_name(sc_string value) {
+	name = value;
+}
+
+sc_integer LightSwitch::SCI_AciPerson::get_age() {
+	return age;
+}
+
+void LightSwitch::SCI_AciPerson::set_age(sc_integer value) {
+	age = value;
+}
+
+sc_boolean LightSwitch::SCI_AciPerson::get_gender() {
+	return gender;
+}
+
+void LightSwitch::SCI_AciPerson::set_gender(sc_boolean value) {
+	gender = value;
+}
+
+sc_integer LightSwitch::SCI_AciPerson::get_ethnicty() {
+	return ethnicty;
+}
+
+void LightSwitch::SCI_AciPerson::set_ethnicty(sc_integer value) {
+	ethnicty = value;
+}
+
+sc_boolean LightSwitch::SCI_AciPerson::get_glasses() {
+	return glasses;
+}
+
+void LightSwitch::SCI_AciPerson::set_glasses(sc_boolean value) {
+	glasses = value;
+}
+
+sc_integer LightSwitch::SCI_AciPerson::get_attractiveness() {
+	return attractiveness;
+}
+
+void LightSwitch::SCI_AciPerson::set_attractiveness(sc_integer value) {
+	attractiveness = value;
+}
+
+sc_boolean LightSwitch::SCI_AciPerson::get_speaking() {
+	return speaking;
+}
+
+void LightSwitch::SCI_AciPerson::set_speaking(sc_boolean value) {
+	speaking = value;
+}
+
+sc_string LightSwitch::SCI_AciPerson::get_emotions() {
+	return emotions;
+}
+
+void LightSwitch::SCI_AciPerson::set_emotions(sc_string value) {
+	emotions = value;
+}
+
+
+void LightSwitch::InternalSCI::raise_operate() {
+	operate_raised = true;
+}
+
+sc_boolean LightSwitch::InternalSCI::isRaised_operate() {
+	return operate_raised;
+}
+
+void LightSwitch::InternalSCI::raise_faceFound() {
+	faceFound_raised = true;
+}
+
+sc_boolean LightSwitch::InternalSCI::isRaised_faceFound() {
+	return faceFound_raised;
+}
+
+
+// implementations of all internal functions
+
+sc_boolean LightSwitch::check_main_region_Off_tr0_tr0() {
+	return ifaceInternalSCI.operate_raised;
+}
+
+sc_boolean LightSwitch::check_main_region_Off_tr1_tr1() {
+	return (strcmp(ifaceAciPerson.name, "Max") == 0)
+	;
+}
+
+sc_boolean LightSwitch::check_main_region_On_tr0_tr0() {
+	return ifaceInternalSCI.operate_raised;
+}
+
+void LightSwitch::effect_main_region_Off_tr0() {
+	exseq_main_region_Off();
+	enseq_main_region_On_default();
+}
+
+void LightSwitch::effect_main_region_Off_tr1() {
+	exseq_main_region_Off();
+	enseq_main_region_Test_default();
+}
+
+void LightSwitch::effect_main_region_On_tr0() {
+	exseq_main_region_On();
+	enseq_main_region_Off_default();
+}
+
+/* 'default' enter sequence for state Off */
+void LightSwitch::enseq_main_region_Off_default() {
+	/* 'default' enter sequence for state Off */
+	stateConfVector[0] = main_region_Off;
+	stateConfVectorPosition = 0;
+}
+
+/* 'default' enter sequence for state On */
+void LightSwitch::enseq_main_region_On_default() {
+	/* 'default' enter sequence for state On */
+	stateConfVector[0] = main_region_On;
+	stateConfVectorPosition = 0;
+}
+
+/* 'default' enter sequence for state Test */
+void LightSwitch::enseq_main_region_Test_default() {
+	/* 'default' enter sequence for state Test */
+	stateConfVector[0] = main_region_Test;
+	stateConfVectorPosition = 0;
+}
+
+/* 'default' enter sequence for region main region */
+void LightSwitch::enseq_main_region_default() {
+	/* 'default' enter sequence for region main region */
+	react_main_region__entry_Default();
+}
+
+/* Default exit sequence for state Off */
+void LightSwitch::exseq_main_region_Off() {
+	/* Default exit sequence for state Off */
+	stateConfVector[0] = LightSwitch_last_state;
+	stateConfVectorPosition = 0;
+}
+
+/* Default exit sequence for state On */
+void LightSwitch::exseq_main_region_On() {
+	/* Default exit sequence for state On */
+	stateConfVector[0] = LightSwitch_last_state;
+	stateConfVectorPosition = 0;
+}
+
+/* Default exit sequence for state Test */
+void LightSwitch::exseq_main_region_Test() {
+	/* Default exit sequence for state Test */
+	stateConfVector[0] = LightSwitch_last_state;
+	stateConfVectorPosition = 0;
+}
+
+/* Default exit sequence for region main region */
+void LightSwitch::exseq_main_region() {
+	/* Default exit sequence for region main region */
+	/* Handle exit of all possible states (of LightSwitch.main_region) at position 0... */
+	switch(stateConfVector[ 0 ]) {
+		case main_region_Off : {
+			exseq_main_region_Off();
+			break;
+		}
+		case main_region_On : {
+			exseq_main_region_On();
+			break;
+		}
+		case main_region_Test : {
+			exseq_main_region_Test();
+			break;
+		}
+		default: break;
+	}
+}
+
+/* The reactions of state Off. */
+void LightSwitch::react_main_region_Off() {
+	/* The reactions of state Off. */
+	if (check_main_region_Off_tr0_tr0()) { 
+		effect_main_region_Off_tr0();
+	}  else {
+		if (check_main_region_Off_tr1_tr1()) { 
+			effect_main_region_Off_tr1();
+		} 
+	}
+}
+
+/* The reactions of state On. */
+void LightSwitch::react_main_region_On() {
+	/* The reactions of state On. */
+	if (check_main_region_On_tr0_tr0()) { 
+		effect_main_region_On_tr0();
+	} 
+}
+
+/* The reactions of state Test. */
+void LightSwitch::react_main_region_Test() {
+	/* The reactions of state Test. */
+}
+
+/* Default react sequence for initial entry  */
+void LightSwitch::react_main_region__entry_Default() {
+	/* Default react sequence for initial entry  */
+	enseq_main_region_Off_default();
+}
+
+

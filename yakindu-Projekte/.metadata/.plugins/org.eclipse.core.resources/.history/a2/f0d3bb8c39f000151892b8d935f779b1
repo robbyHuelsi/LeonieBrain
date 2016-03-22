@@ -1,0 +1,28 @@
+package org.yakindu.scr.lightswitch;
+import org.yakindu.scr.IStatemachine;
+
+public interface ILightSwitchStatemachine extends IStatemachine {
+
+	public interface SCIAciPerson {
+		public String getName();
+		public void setName(String value);
+		public long getAge();
+		public void setAge(long value);
+		public boolean getGender();
+		public void setGender(boolean value);
+		public long getEthnicty();
+		public void setEthnicty(long value);
+		public boolean getGlasses();
+		public void setGlasses(boolean value);
+		public long getAttractiveness();
+		public void setAttractiveness(long value);
+		public boolean getSpeaking();
+		public void setSpeaking(boolean value);
+		public String getEmotions();
+		public void setEmotions(String value);
+
+	}
+
+	public SCIAciPerson getSCIAciPerson();
+
+}

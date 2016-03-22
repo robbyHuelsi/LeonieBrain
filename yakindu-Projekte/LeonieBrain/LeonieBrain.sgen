@@ -1,0 +1,11 @@
+GeneratorModel for yakindu::cpp {
+
+	statechart LeonieBrain {
+
+		feature Outlet {
+			targetProject = "LeonieBrain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+	}
+}
