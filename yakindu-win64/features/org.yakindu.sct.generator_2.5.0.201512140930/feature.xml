@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.yakindu.sct.generator"
+      label="YAKINDU Generator All-In-One Feature"
+      version="2.5.0.201512140930"
+      provider-name="yakindu.org"
+      plugin="org.yakindu.sct.doc.user">
+
+   <description url="http://www.statecharts.org">
+      %description
+   </description>
+
+   <copyright url="%licenseURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <includes
+         id="org.yakindu.sct.generator.c"
+         version="2.5.0.201512140930"/>
+
+   <includes
+         id="org.yakindu.sct.generator.java"
+         version="2.5.0.201512140930"/>
+
+   <includes
+         id="org.yakindu.sct.generator.cpp"
+         version="2.5.0.201512140930"/>
+
+   <requires>
+      <import feature="org.yakindu.sct" version="2.5.0.qualifier"/>
+   </requires>
+
+</feature>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.yakindu.sct.generator.java"
+      label="YAKINDU Java Generator Feature"
+      version="2.5.0.201512140930"
+      provider-name="statecharts.org"
+      plugin="org.yakindu.sct.doc.user">
+
+   <description>
+      %description
+   </description>
+
+   <copyright url="%licenseURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.yakindu.sct" version="2.5.0.qualifier"/>
+   </requires>
+
+   <plugin
+         id="org.yakindu.sct.generator.java"
+         download-size="272"
+         install-size="901"
+         version="2.5.0.201512140930"
+         unpack="false"/>
+
+</feature>

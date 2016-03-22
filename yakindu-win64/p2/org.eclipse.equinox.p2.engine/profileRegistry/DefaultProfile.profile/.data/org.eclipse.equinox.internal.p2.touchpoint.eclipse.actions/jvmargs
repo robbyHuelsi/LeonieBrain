@@ -1,0 +1,3 @@
+#Mon Dec 14 17:50:22 CET 2015
+-Xms=256m
+-Xmx=3G
