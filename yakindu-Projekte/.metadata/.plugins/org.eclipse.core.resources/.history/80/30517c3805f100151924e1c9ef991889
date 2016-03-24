@@ -20,15 +20,8 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 		/*! Enumeration of all states */ 
 		typedef enum {
 			main_region_Init,
-			main_region_FaceDataInterpretation,
-			main_region_FaceDataInterpretation__region0_PersonKnown,
-			main_region_FaceDataInterpretation__region0_PersonUnknown,
-			main_region_TurnToNoise,
-			main_region_Idle,
-			main_region_MoveToPerson,
-			main_region_SearchForChar,
-			main_region_SearchForChar__region0_Standing,
-			main_region_SearchForChar__region0_Walking,
+			main_region_IdleStanding,
+			main_region_IdleWalking,
 			LeonieBrain_last_state
 		} LeonieBrainStates;
 		
@@ -41,12 +34,6 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 				
 				/*! Sets the value of the variable 'name' that is defined in the interface scope 'AciPerson'. */ 
 				void set_name(sc_string value);
-				
-				/*! Gets the value of the variable 'confidence' that is defined in the interface scope 'AciPerson'. */ 
-				sc_integer get_confidence();
-				
-				/*! Sets the value of the variable 'confidence' that is defined in the interface scope 'AciPerson'. */ 
-				void set_confidence(sc_integer value);
 				
 				/*! Gets the value of the variable 'age' that is defined in the interface scope 'AciPerson'. */ 
 				sc_integer get_age();
@@ -94,7 +81,6 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 			private:
 				friend class LeonieBrain;
 				sc_string name;
-				sc_integer confidence;
 				sc_integer age;
 				sc_boolean gender;
 				sc_integer ethnicty;
@@ -112,11 +98,11 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 		class SCI_Aci {
 			
 			public:
-				/*! Gets the value of the variable 'onOffPTU' that is defined in the interface scope 'Aci'. */ 
-				sc_boolean get_onOffPTU();
+				/*! Gets the value of the variable 'onOff' that is defined in the interface scope 'Aci'. */ 
+				sc_boolean get_onOff();
 				
-				/*! Sets the value of the variable 'onOffPTU' that is defined in the interface scope 'Aci'. */ 
-				void set_onOffPTU(sc_boolean value);
+				/*! Sets the value of the variable 'onOff' that is defined in the interface scope 'Aci'. */ 
+				void set_onOff(sc_boolean value);
 				
 				/*! Gets the value of the variable 'countFoundFaces' that is defined in the interface scope 'Aci'. */ 
 				sc_integer get_countFoundFaces();
@@ -127,100 +113,13 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 				
 			private:
 				friend class LeonieBrain;
-				sc_boolean onOffPTU;
+				sc_boolean onOff;
 				sc_integer countFoundFaces;
 		};
 				
 		
 		/*! Returns an instance of the interface class 'SCI_Aci'. */
 		SCI_Aci* getSCI_Aci();
-		
-		//! Inner class for Kinect interface scope.
-		class SCI_Kinect {
-			
-			public:
-				/*! Gets the value of the variable 'geste' that is defined in the interface scope 'Kinect'. */ 
-				sc_string get_geste();
-				
-				/*! Sets the value of the variable 'geste' that is defined in the interface scope 'Kinect'. */ 
-				void set_geste(sc_string value);
-				
-				
-			private:
-				friend class LeonieBrain;
-				sc_string geste;
-		};
-				
-		
-		/*! Returns an instance of the interface class 'SCI_Kinect'. */
-		SCI_Kinect* getSCI_Kinect();
-		
-		//! Inner class for LeapMotion interface scope.
-		class SCI_LeapMotion {
-			
-			public:
-				/*! Gets the value of the variable 'geste' that is defined in the interface scope 'LeapMotion'. */ 
-				sc_string get_geste();
-				
-				/*! Sets the value of the variable 'geste' that is defined in the interface scope 'LeapMotion'. */ 
-				void set_geste(sc_string value);
-				
-				
-			private:
-				friend class LeonieBrain;
-				sc_string geste;
-		};
-				
-		
-		/*! Returns an instance of the interface class 'SCI_LeapMotion'. */
-		SCI_LeapMotion* getSCI_LeapMotion();
-		
-		//! Inner class for ScitosRemoteControl interface scope.
-		class SCI_ScitosRemoteControl {
-			
-			public:
-				/*! Gets the value of the variable 'emergencyStop' that is defined in the interface scope 'ScitosRemoteControl'. */ 
-				sc_boolean get_emergencyStop();
-				
-				/*! Sets the value of the variable 'emergencyStop' that is defined in the interface scope 'ScitosRemoteControl'. */ 
-				void set_emergencyStop(sc_boolean value);
-				
-				
-			private:
-				friend class LeonieBrain;
-				sc_boolean emergencyStop;
-		};
-				
-		
-		/*! Returns an instance of the interface class 'SCI_ScitosRemoteControl'. */
-		SCI_ScitosRemoteControl* getSCI_ScitosRemoteControl();
-		
-		//! Inner class for openDail interface scope.
-		class SCI_OpenDail {
-			
-			public:
-				/*! Gets the value of the variable 'speakerMsg' that is defined in the interface scope 'openDail'. */ 
-				sc_string get_speakerMsg();
-				
-				/*! Sets the value of the variable 'speakerMsg' that is defined in the interface scope 'openDail'. */ 
-				void set_speakerMsg(sc_string value);
-				
-				/*! Gets the value of the variable 'leonieMsg' that is defined in the interface scope 'openDail'. */ 
-				sc_string get_leonieMsg();
-				
-				/*! Sets the value of the variable 'leonieMsg' that is defined in the interface scope 'openDail'. */ 
-				void set_leonieMsg(sc_string value);
-				
-				
-			private:
-				friend class LeonieBrain;
-				sc_string speakerMsg;
-				sc_string leonieMsg;
-		};
-				
-		
-		/*! Returns an instance of the interface class 'SCI_OpenDail'. */
-		SCI_OpenDail* getSCI_OpenDail();
 		
 		//! Inner class for Mira interface scope.
 		class SCI_Mira {
@@ -241,26 +140,6 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 		
 		/*! Returns an instance of the interface class 'SCI_Mira'. */
 		SCI_Mira* getSCI_Mira();
-		
-		//! Inner class for FaceAnimation interface scope.
-		class SCI_FaceAnimation {
-			
-			public:
-				/*! Gets the value of the variable 'emotion' that is defined in the interface scope 'FaceAnimation'. */ 
-				sc_string get_emotion();
-				
-				/*! Sets the value of the variable 'emotion' that is defined in the interface scope 'FaceAnimation'. */ 
-				void set_emotion(sc_string value);
-				
-				
-			private:
-				friend class LeonieBrain;
-				sc_string emotion;
-		};
-				
-		
-		/*! Returns an instance of the interface class 'SCI_FaceAnimation'. */
-		SCI_FaceAnimation* getSCI_FaceAnimation();
 		
 		
 		
@@ -345,71 +224,33 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 		
 		SCI_AciPerson ifaceAciPerson;
 		SCI_Aci ifaceAci;
-		SCI_Kinect ifaceKinect;
-		SCI_LeapMotion ifaceLeapMotion;
-		SCI_ScitosRemoteControl ifaceScitosRemoteControl;
-		SCI_OpenDail ifaceOpenDail;
 		SCI_Mira ifaceMira;
-		SCI_FaceAnimation ifaceFaceAnimation;
 		InternalSCI ifaceInternalSCI;
 		
 		// prototypes of all internal functions
 		
 		sc_boolean check_main_region_Init_tr0_tr0();
-		sc_boolean check_main_region_TurnToNoise_tr0_tr0();
-		sc_boolean check_main_region_MoveToPerson_tr0_tr0();
-		sc_boolean check_main_region_SearchForChar__region0_Standing_tr0_tr0();
-		sc_boolean check_main_region_SearchForChar__region0_Standing_tr1_tr1();
-		sc_boolean check_main_region_SearchForChar__region0_Standing_tr2_tr2();
-		sc_boolean check_main_region_SearchForChar__region0_Walking_tr0_tr0();
-		sc_boolean check_main_region_SearchForChar__region0_Walking_tr1_tr1();
-		sc_boolean check_main_region_SearchForChar__region0_Walking_tr2_tr2();
+		sc_boolean check_main_region_IdleStanding_tr0_tr0();
+		sc_boolean check_main_region_IdleWalking_tr0_tr0();
 		void effect_main_region_Init_tr0();
-		void effect_main_region_TurnToNoise_tr0();
-		void effect_main_region_MoveToPerson_tr0();
-		void effect_main_region_SearchForChar__region0_Standing_tr0();
-		void effect_main_region_SearchForChar__region0_Standing_tr1();
-		void effect_main_region_SearchForChar__region0_Standing_tr2();
-		void effect_main_region_SearchForChar__region0_Walking_tr0();
-		void effect_main_region_SearchForChar__region0_Walking_tr1();
-		void effect_main_region_SearchForChar__region0_Walking_tr2();
-		void enact_main_region_SearchForChar__region0_Standing();
-		void enact_main_region_SearchForChar__region0_Walking();
-		void exact_main_region_SearchForChar__region0_Standing();
-		void exact_main_region_SearchForChar__region0_Walking();
+		void effect_main_region_IdleStanding_tr0();
+		void effect_main_region_IdleWalking_tr0();
+		void enact_main_region_IdleStanding();
+		void enact_main_region_IdleWalking();
+		void exact_main_region_IdleStanding();
+		void exact_main_region_IdleWalking();
 		void enseq_main_region_Init_default();
-		void enseq_main_region_FaceDataInterpretation_default();
-		void enseq_main_region_FaceDataInterpretation__region0_PersonKnown_default();
-		void enseq_main_region_FaceDataInterpretation__region0_PersonUnknown_default();
-		void enseq_main_region_TurnToNoise_default();
-		void enseq_main_region_MoveToPerson_default();
-		void enseq_main_region_SearchForChar__region0_Standing_default();
-		void enseq_main_region_SearchForChar__region0_Walking_default();
+		void enseq_main_region_IdleStanding_default();
+		void enseq_main_region_IdleWalking_default();
 		void enseq_main_region_default();
-		void enseq_main_region_FaceDataInterpretation__region0_default();
 		void exseq_main_region_Init();
-		void exseq_main_region_FaceDataInterpretation__region0_PersonKnown();
-		void exseq_main_region_FaceDataInterpretation__region0_PersonUnknown();
-		void exseq_main_region_TurnToNoise();
-		void exseq_main_region_Idle();
-		void exseq_main_region_MoveToPerson();
-		void exseq_main_region_SearchForChar();
-		void exseq_main_region_SearchForChar__region0_Standing();
-		void exseq_main_region_SearchForChar__region0_Walking();
+		void exseq_main_region_IdleStanding();
+		void exseq_main_region_IdleWalking();
 		void exseq_main_region();
-		void exseq_main_region_FaceDataInterpretation__region0();
-		void exseq_main_region_SearchForChar__region0();
 		void react_main_region_Init();
-		void react_main_region_FaceDataInterpretation__region0_PersonKnown();
-		void react_main_region_FaceDataInterpretation__region0_PersonUnknown();
-		void react_main_region_TurnToNoise();
-		void react_main_region_Idle();
-		void react_main_region_MoveToPerson();
-		void react_main_region_SearchForChar__region0_Standing();
-		void react_main_region_SearchForChar__region0_Walking();
+		void react_main_region_IdleStanding();
+		void react_main_region_IdleWalking();
 		void react_main_region__entry_Default();
-		void react_main_region_FaceDataInterpretation__region0__entry_Default();
-		void react_main_region_SearchForChar__region0__sync0();
 		void clearInEvents();
 		void clearOutEvents();
 		
