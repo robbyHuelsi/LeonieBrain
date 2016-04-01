@@ -194,7 +194,7 @@
                   <children xsi:type="notation:Compartment" xmi:id="_SKwP6hBBEeGQ0KsLDV4EFg" type="StateFigureCompartment"/>
                   <styles xsi:type="notation:ShapeStyle" xmi:id="_SKwP4RBBEeGQ0KsLDV4EFg" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
                   <styles xsi:type="notation:FontStyle" xmi:id="_SKwP4hBBEeGQ0KsLDV4EFg"/>
-                  <layoutConstraint xsi:type="notation:Bounds" xmi:id="_SKwP4xBBEeGQ0KsLDV4EFg" x="383" y="514" width="210"/>
+                  <layoutConstraint xsi:type="notation:Bounds" xmi:id="_SKwP4xBBEeGQ0KsLDV4EFg" x="383" y="514" width="273" height="80"/>
                 </children>
                 <children xmi:id="_fPRkMBBDEeGQ0KsLDV4EFg" type="State" element="_fO-pQBBDEeGQ0KsLDV4EFg">
                   <children xsi:type="notation:DecorationNode" xmi:id="_fPRkNBBDEeGQ0KsLDV4EFg" type="StateName">

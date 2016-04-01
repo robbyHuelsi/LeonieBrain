@@ -1,0 +1,23 @@
+package org.yakindu.scr.testbrain.interfaceImplementation;
+
+import java.net.InetAddress;
+
+import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIPrintDataInterface;
+import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIPrintDataInterfaceOperationCallback;
+import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIUdpInterface;
+import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIUdpInterfaceOperationCallback;
+
+import udp.ReceiveUDP;
+
+public class UDPReceiveData implements SCIUdpInterfaceOperationCallback
+{
+	@Override
+	public String receive()
+	{
+		ReceiveUDP receiveUDP = new ReceiveUDP(InetAddress.getLoopbackAddress(), 8888);
+
+		String result = receiveUDP.receive(true, InetAddress.getLoopbackAddress(), 9999);
+
+		return result.trim();
+	}
+}

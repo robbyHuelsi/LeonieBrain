@@ -1,0 +1,10 @@
+GeneratorModel for yakindu::java {
+	statechart LeonieBrain {
+
+		feature Outlet {
+			targetProject = "LeonieBrain"
+			targetFolder = "jsrc-gen"
+			libraryTargetFolder = "src"
+		}
+	}
+}

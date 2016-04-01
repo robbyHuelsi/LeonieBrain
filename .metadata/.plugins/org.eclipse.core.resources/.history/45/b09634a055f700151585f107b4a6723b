@@ -1,0 +1,39 @@
+package mainTest;
+
+import java.net.InetAddress;
+
+import org.yakindu.scr.testbrain.TestBrainStatemachine;
+
+import udp.ReceiveUDP;
+
+public class Test
+{
+	TestBrainStatemachine testBrain;
+	
+	public Test()
+	{
+		testBrain = new TestBrainStatemachine();
+	}
+	
+	public static void main(String[] args) throws Exception
+	{
+		Test t = new Test();
+
+		t.testBrain.init();
+		t.testBrain.enter();
+
+		while (true)
+		{
+//			String incomingMessage = receive.receive(true, InetAddress.getLoopbackAddress(), 9999);
+//			incomingMessage = incomingMessage.trim();
+////			System.out.println("Msg: " + incomingMessage);
+//			if (incomingMessage != null && incomingMessage.equals("Klick"))
+//			{
+//				System.out.println("Switch klicked");
+//				lightSwitch.getSCIUser().raiseOperate();
+//			}
+			t.testBrain.runCycle();
+//			Thread.sleep(500);
+		}
+	}
+}

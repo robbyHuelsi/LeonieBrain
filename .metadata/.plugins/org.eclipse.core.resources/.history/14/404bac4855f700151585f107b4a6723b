@@ -1,0 +1,16 @@
+package org.yakindu.scr.testbrain.interfaceImplementation;
+
+import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIPrintDataInterface;
+import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIPrintDataInterfaceOperationCallback;
+
+public class PrintDataImplementation implements SCIPrintDataInterface
+{
+
+	@Override
+	public void setSCIPrintDataInterfaceOperationCallback(SCIPrintDataInterfaceOperationCallback operationCallback)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+}

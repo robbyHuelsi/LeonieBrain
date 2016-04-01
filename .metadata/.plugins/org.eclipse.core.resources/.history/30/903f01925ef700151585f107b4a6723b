@@ -1,0 +1,27 @@
+package org.yakindu.scr.testbrain.interfaceImplementation;
+
+import java.net.InetAddress;
+
+import mainTest.Test;
+import udp.ReceiveUDP;
+
+public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIPrintDataInterfaceOperationCallback
+{
+	@Override
+	public void receive()
+	{
+		ReceiveUDP receiveUDP = new ReceiveUDP(InetAddress.getLoopbackAddress(), 8888);
+
+		String result = receiveUDP.receive(true, InetAddress.getLoopbackAddress(), 9999);
+
+		Test.instanceOf().getTestBrain().getSCIUdpInterface().setData(result.trim());
+		System.out.println("receive test output: " + result);
+//		Test.instanceOf().getTestBrain().raiseOnReceivedData();
+	}
+	
+	@Override
+	public void print()
+	{
+		System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());		
+	}
+}

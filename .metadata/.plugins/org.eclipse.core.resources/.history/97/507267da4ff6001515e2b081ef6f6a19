@@ -1,0 +1,11 @@
+GeneratorModel for yakindu::java {
+
+	statechart LightSwitch {
+
+		feature Outlet {
+			targetProject = "UDPBrain_Test"
+			targetFolder = "src"
+			libraryTargetFolder = "src-lib"
+		}
+	}
+}

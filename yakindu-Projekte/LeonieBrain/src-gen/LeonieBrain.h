@@ -19,105 +19,126 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 		
 		/*! Enumeration of all states */ 
 		typedef enum {
-			main_region_Init,
-			main_region_FaceDataInterpretation,
-			main_region_FaceDataInterpretation__region0_PersonKnown,
-			main_region_FaceDataInterpretation__region0_PersonUnknown,
-			main_region_TurnToNoise,
-			main_region_Idle,
-			main_region_MoveToPerson,
-			main_region_SearchForChar,
-			main_region_SearchForChar__region0_Standing,
-			main_region_SearchForChar__region0_Walking,
+			_0_Init,
+			_0_FaceDataInterpretation,
+			_0_FaceDataInterpretation__region0_PersonKnown,
+			_0_FaceDataInterpretation__region0_PersonUnknown,
+			_0_TurnToNoise,
+			_0_Idle,
+			_0_MoveToPerson,
+			_0_SearchForChar,
+			_0_SearchForChar__region0_Standing,
+			_0_SearchForChar__region0_Walking,
 			LeonieBrain_last_state
 		} LeonieBrainStates;
 		
-		//! Inner class for AciPerson interface scope.
-		class SCI_AciPerson {
+		//! Inner class for ACIface_stat interface scope.
+		class SCI_ACIface_stat {
 			
 			public:
-				/*! Gets the value of the variable 'name' that is defined in the interface scope 'AciPerson'. */ 
-				sc_string get_name();
+				/*! Gets the value of the variable 'faceID' that is defined in the interface scope 'ACIface_stat'. */ 
+				sc_string get_faceID();
 				
-				/*! Sets the value of the variable 'name' that is defined in the interface scope 'AciPerson'. */ 
-				void set_name(sc_string value);
+				/*! Sets the value of the variable 'faceID' that is defined in the interface scope 'ACIface_stat'. */ 
+				void set_faceID(sc_string value);
 				
-				/*! Gets the value of the variable 'confidence' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Gets the value of the variable 'confidence' that is defined in the interface scope 'ACIface_stat'. */ 
 				sc_integer get_confidence();
 				
-				/*! Sets the value of the variable 'confidence' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Sets the value of the variable 'confidence' that is defined in the interface scope 'ACIface_stat'. */ 
 				void set_confidence(sc_integer value);
 				
-				/*! Gets the value of the variable 'age' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Gets the value of the variable 'age' that is defined in the interface scope 'ACIface_stat'. */ 
 				sc_integer get_age();
 				
-				/*! Sets the value of the variable 'age' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Sets the value of the variable 'age' that is defined in the interface scope 'ACIface_stat'. */ 
 				void set_age(sc_integer value);
 				
-				/*! Gets the value of the variable 'gender' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Gets the value of the variable 'gender' that is defined in the interface scope 'ACIface_stat'. */ 
 				sc_boolean get_gender();
 				
-				/*! Sets the value of the variable 'gender' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Sets the value of the variable 'gender' that is defined in the interface scope 'ACIface_stat'. */ 
 				void set_gender(sc_boolean value);
 				
-				/*! Gets the value of the variable 'ethnicty' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Gets the value of the variable 'ethnicty' that is defined in the interface scope 'ACIface_stat'. */ 
 				sc_integer get_ethnicty();
 				
-				/*! Sets the value of the variable 'ethnicty' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Sets the value of the variable 'ethnicty' that is defined in the interface scope 'ACIface_stat'. */ 
 				void set_ethnicty(sc_integer value);
 				
-				/*! Gets the value of the variable 'glasses' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Gets the value of the variable 'glasses' that is defined in the interface scope 'ACIface_stat'. */ 
 				sc_boolean get_glasses();
 				
-				/*! Sets the value of the variable 'glasses' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Sets the value of the variable 'glasses' that is defined in the interface scope 'ACIface_stat'. */ 
 				void set_glasses(sc_boolean value);
 				
-				/*! Gets the value of the variable 'attractiveness' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Gets the value of the variable 'attractiveness' that is defined in the interface scope 'ACIface_stat'. */ 
 				sc_integer get_attractiveness();
 				
-				/*! Sets the value of the variable 'attractiveness' that is defined in the interface scope 'AciPerson'. */ 
+				/*! Sets the value of the variable 'attractiveness' that is defined in the interface scope 'ACIface_stat'. */ 
 				void set_attractiveness(sc_integer value);
-				
-				/*! Gets the value of the variable 'speaking' that is defined in the interface scope 'AciPerson'. */ 
-				sc_boolean get_speaking();
-				
-				/*! Sets the value of the variable 'speaking' that is defined in the interface scope 'AciPerson'. */ 
-				void set_speaking(sc_boolean value);
-				
-				/*! Gets the value of the variable 'emotions' that is defined in the interface scope 'AciPerson'. */ 
-				sc_string get_emotions();
-				
-				/*! Sets the value of the variable 'emotions' that is defined in the interface scope 'AciPerson'. */ 
-				void set_emotions(sc_string value);
 				
 				
 			private:
 				friend class LeonieBrain;
-				sc_string name;
+				sc_string faceID;
 				sc_integer confidence;
 				sc_integer age;
 				sc_boolean gender;
 				sc_integer ethnicty;
 				sc_boolean glasses;
 				sc_integer attractiveness;
-				sc_boolean speaking;
-				sc_string emotions;
 		};
 				
 		
-		/*! Returns an instance of the interface class 'SCI_AciPerson'. */
-		SCI_AciPerson* getSCI_AciPerson();
+		/*! Returns an instance of the interface class 'SCI_ACIface_stat'. */
+		SCI_ACIface_stat* getSCI_ACIface_stat();
+		
+		//! Inner class for ACIface_dyn interface scope.
+		class SCI_ACIface_dyn {
+			
+			public:
+				/*! Gets the value of the variable 'headGestures' that is defined in the interface scope 'ACIface_dyn'. */ 
+				sc_integer get_headGestures();
+				
+				/*! Sets the value of the variable 'headGestures' that is defined in the interface scope 'ACIface_dyn'. */ 
+				void set_headGestures(sc_integer value);
+				
+				/*! Gets the value of the variable 'speaking' that is defined in the interface scope 'ACIface_dyn'. */ 
+				sc_boolean get_speaking();
+				
+				/*! Sets the value of the variable 'speaking' that is defined in the interface scope 'ACIface_dyn'. */ 
+				void set_speaking(sc_boolean value);
+				
+				/*! Gets the value of the variable 'emotions' that is defined in the interface scope 'ACIface_dyn'. */ 
+				sc_string get_emotions();
+				
+				/*! Sets the value of the variable 'emotions' that is defined in the interface scope 'ACIface_dyn'. */ 
+				void set_emotions(sc_string value);
+				
+				/*! Gets the value of the variable 'distance' that is defined in the interface scope 'ACIface_dyn'. */ 
+				sc_integer get_distance();
+				
+				/*! Sets the value of the variable 'distance' that is defined in the interface scope 'ACIface_dyn'. */ 
+				void set_distance(sc_integer value);
+				
+				
+			private:
+				friend class LeonieBrain;
+				sc_integer headGestures;
+				sc_boolean speaking;
+				sc_string emotions;
+				sc_integer distance;
+		};
+				
+		
+		/*! Returns an instance of the interface class 'SCI_ACIface_dyn'. */
+		SCI_ACIface_dyn* getSCI_ACIface_dyn();
 		
 		//! Inner class for Aci interface scope.
 		class SCI_Aci {
 			
 			public:
-				/*! Gets the value of the variable 'onOffPTU' that is defined in the interface scope 'Aci'. */ 
-				sc_boolean get_onOffPTU();
-				
-				/*! Sets the value of the variable 'onOffPTU' that is defined in the interface scope 'Aci'. */ 
-				void set_onOffPTU(sc_boolean value);
-				
 				/*! Gets the value of the variable 'countFoundFaces' that is defined in the interface scope 'Aci'. */ 
 				sc_integer get_countFoundFaces();
 				
@@ -127,7 +148,6 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 				
 			private:
 				friend class LeonieBrain;
-				sc_boolean onOffPTU;
 				sc_integer countFoundFaces;
 		};
 				
@@ -312,6 +332,12 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 				/*! Checks if the out event 'faceFound' that is defined in the internal scope has been raised. */ 
 				sc_boolean isRaised_faceFound();
 				
+				/*! Raises the in event 'noiseDetected' that is defined in the internal scope. */ 
+				void raise_noiseDetected();
+				
+				/*! Checks if the out event 'noiseDetected' that is defined in the internal scope has been raised. */ 
+				sc_boolean isRaised_noiseDetected();
+				
 				/*! Raises the in event 'textMsg' that is defined in the internal scope. */ 
 				void raise_textMsg();
 				
@@ -329,6 +355,7 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 				friend class LeonieBrain;
 				sc_boolean start_raised;
 				sc_boolean faceFound_raised;
+				sc_boolean noiseDetected_raised;
 				sc_boolean textMsg_raised;
 				sc_integer t;
 		};
@@ -343,7 +370,8 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 		
 		sc_ushort stateConfVectorPosition;
 		
-		SCI_AciPerson ifaceAciPerson;
+		SCI_ACIface_stat ifaceACIface_stat;
+		SCI_ACIface_dyn ifaceACIface_dyn;
 		SCI_Aci ifaceAci;
 		SCI_Kinect ifaceKinect;
 		SCI_LeapMotion ifaceLeapMotion;
@@ -355,61 +383,61 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 		
 		// prototypes of all internal functions
 		
-		sc_boolean check_main_region_Init_tr0_tr0();
-		sc_boolean check_main_region_TurnToNoise_tr0_tr0();
-		sc_boolean check_main_region_MoveToPerson_tr0_tr0();
-		sc_boolean check_main_region_SearchForChar__region0_Standing_tr0_tr0();
-		sc_boolean check_main_region_SearchForChar__region0_Standing_tr1_tr1();
-		sc_boolean check_main_region_SearchForChar__region0_Standing_tr2_tr2();
-		sc_boolean check_main_region_SearchForChar__region0_Walking_tr0_tr0();
-		sc_boolean check_main_region_SearchForChar__region0_Walking_tr1_tr1();
-		sc_boolean check_main_region_SearchForChar__region0_Walking_tr2_tr2();
-		void effect_main_region_Init_tr0();
-		void effect_main_region_TurnToNoise_tr0();
-		void effect_main_region_MoveToPerson_tr0();
-		void effect_main_region_SearchForChar__region0_Standing_tr0();
-		void effect_main_region_SearchForChar__region0_Standing_tr1();
-		void effect_main_region_SearchForChar__region0_Standing_tr2();
-		void effect_main_region_SearchForChar__region0_Walking_tr0();
-		void effect_main_region_SearchForChar__region0_Walking_tr1();
-		void effect_main_region_SearchForChar__region0_Walking_tr2();
-		void enact_main_region_SearchForChar__region0_Standing();
-		void enact_main_region_SearchForChar__region0_Walking();
-		void exact_main_region_SearchForChar__region0_Standing();
-		void exact_main_region_SearchForChar__region0_Walking();
-		void enseq_main_region_Init_default();
-		void enseq_main_region_FaceDataInterpretation_default();
-		void enseq_main_region_FaceDataInterpretation__region0_PersonKnown_default();
-		void enseq_main_region_FaceDataInterpretation__region0_PersonUnknown_default();
-		void enseq_main_region_TurnToNoise_default();
-		void enseq_main_region_MoveToPerson_default();
-		void enseq_main_region_SearchForChar__region0_Standing_default();
-		void enseq_main_region_SearchForChar__region0_Walking_default();
-		void enseq_main_region_default();
-		void enseq_main_region_FaceDataInterpretation__region0_default();
-		void exseq_main_region_Init();
-		void exseq_main_region_FaceDataInterpretation__region0_PersonKnown();
-		void exseq_main_region_FaceDataInterpretation__region0_PersonUnknown();
-		void exseq_main_region_TurnToNoise();
-		void exseq_main_region_Idle();
-		void exseq_main_region_MoveToPerson();
-		void exseq_main_region_SearchForChar();
-		void exseq_main_region_SearchForChar__region0_Standing();
-		void exseq_main_region_SearchForChar__region0_Walking();
-		void exseq_main_region();
-		void exseq_main_region_FaceDataInterpretation__region0();
-		void exseq_main_region_SearchForChar__region0();
-		void react_main_region_Init();
-		void react_main_region_FaceDataInterpretation__region0_PersonKnown();
-		void react_main_region_FaceDataInterpretation__region0_PersonUnknown();
-		void react_main_region_TurnToNoise();
-		void react_main_region_Idle();
-		void react_main_region_MoveToPerson();
-		void react_main_region_SearchForChar__region0_Standing();
-		void react_main_region_SearchForChar__region0_Walking();
-		void react_main_region__entry_Default();
-		void react_main_region_FaceDataInterpretation__region0__entry_Default();
-		void react_main_region_SearchForChar__region0__sync0();
+		sc_boolean check__0_Init_tr0_tr0();
+		sc_boolean check__0_TurnToNoise_tr0_tr0();
+		sc_boolean check__0_MoveToPerson_tr0_tr0();
+		sc_boolean check__0_SearchForChar__region0_Standing_tr0_tr0();
+		sc_boolean check__0_SearchForChar__region0_Standing_tr1_tr1();
+		sc_boolean check__0_SearchForChar__region0_Standing_tr2_tr2();
+		sc_boolean check__0_SearchForChar__region0_Walking_tr0_tr0();
+		sc_boolean check__0_SearchForChar__region0_Walking_tr1_tr1();
+		sc_boolean check__0_SearchForChar__region0_Walking_tr2_tr2();
+		void effect__0_Init_tr0();
+		void effect__0_TurnToNoise_tr0();
+		void effect__0_MoveToPerson_tr0();
+		void effect__0_SearchForChar__region0_Standing_tr0();
+		void effect__0_SearchForChar__region0_Standing_tr1();
+		void effect__0_SearchForChar__region0_Standing_tr2();
+		void effect__0_SearchForChar__region0_Walking_tr0();
+		void effect__0_SearchForChar__region0_Walking_tr1();
+		void effect__0_SearchForChar__region0_Walking_tr2();
+		void enact__0_SearchForChar__region0_Standing();
+		void enact__0_SearchForChar__region0_Walking();
+		void exact__0_SearchForChar__region0_Standing();
+		void exact__0_SearchForChar__region0_Walking();
+		void enseq__0_Init_default();
+		void enseq__0_FaceDataInterpretation_default();
+		void enseq__0_FaceDataInterpretation__region0_PersonKnown_default();
+		void enseq__0_FaceDataInterpretation__region0_PersonUnknown_default();
+		void enseq__0_TurnToNoise_default();
+		void enseq__0_MoveToPerson_default();
+		void enseq__0_SearchForChar__region0_Standing_default();
+		void enseq__0_SearchForChar__region0_Walking_default();
+		void enseq__0_default();
+		void enseq__0_FaceDataInterpretation__region0_default();
+		void exseq__0_Init();
+		void exseq__0_FaceDataInterpretation__region0_PersonKnown();
+		void exseq__0_FaceDataInterpretation__region0_PersonUnknown();
+		void exseq__0_TurnToNoise();
+		void exseq__0_Idle();
+		void exseq__0_MoveToPerson();
+		void exseq__0_SearchForChar();
+		void exseq__0_SearchForChar__region0_Standing();
+		void exseq__0_SearchForChar__region0_Walking();
+		void exseq__0();
+		void exseq__0_FaceDataInterpretation__region0();
+		void exseq__0_SearchForChar__region0();
+		void react__0_Init();
+		void react__0_FaceDataInterpretation__region0_PersonKnown();
+		void react__0_FaceDataInterpretation__region0_PersonUnknown();
+		void react__0_TurnToNoise();
+		void react__0_Idle();
+		void react__0_MoveToPerson();
+		void react__0_SearchForChar__region0_Standing();
+		void react__0_SearchForChar__region0_Walking();
+		void react__0__entry_Default();
+		void react__0_FaceDataInterpretation__region0__entry_Default();
+		void react__0_SearchForChar__region0__sync0();
 		void clearInEvents();
 		void clearOutEvents();
 		

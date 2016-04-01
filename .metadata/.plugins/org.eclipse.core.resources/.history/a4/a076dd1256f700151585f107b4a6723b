@@ -1,0 +1,13 @@
+package org.yakindu.scr.testbrain.interfaceImplementation;
+
+import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIPrintDataInterfaceOperationCallback;
+
+public class PrintDataImplementation implements SCIPrintDataInterfaceOperationCallback
+{
+	@Override
+	public void print()
+	{
+		System.out.println();
+		
+	}
+}

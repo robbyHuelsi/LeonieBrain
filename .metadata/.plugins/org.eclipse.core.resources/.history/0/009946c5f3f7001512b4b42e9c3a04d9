@@ -1,0 +1,39 @@
+package org.yakindu.scr.testbrain;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIPrintDataInterfaceOperationCallback;
+import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIUdpInterfaceOperationCallback;
+
+import mainTest.Test;
+import udp.ReceiveUDP;
+
+public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIPrintDataInterfaceOperationCallback
+{
+	@Override
+	public void receive()
+	{
+		String result = null;
+		try
+		{
+			ReceiveUDP receiveUDP = new ReceiveUDP(InetAddress.getLocalHost(), 8888);
+
+			result = receiveUDP.receive(true, InetAddress.getByName("134.103.205.227"), 8888);
+		} catch (UnknownHostException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Test.instanceOf().getTestBrain().getSCIUdpInterface().setData(result.trim());
+		System.out.println("receive test output: " + result);
+//		Test.instanceOf().getTestBrain().raiseOnReceivedData();
+	}
+	
+	@Override
+	public void print()
+	{
+		System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());		
+	}
+}

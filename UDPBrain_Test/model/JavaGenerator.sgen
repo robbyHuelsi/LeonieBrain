@@ -1,0 +1,11 @@
+GeneratorModel for yakindu::java {
+
+	statechart TestBrain {
+
+		feature Outlet {
+			targetProject = "UDPBrain_Test"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+	}
+}
