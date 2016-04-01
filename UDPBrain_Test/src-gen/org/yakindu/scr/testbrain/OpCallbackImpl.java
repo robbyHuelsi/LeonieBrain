@@ -31,6 +31,9 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIPrin
 //	}
 	
 	@Override
+	/**
+	 * receiving data from UDP, using sockets -> blocking!
+	 */
 	public void receive()
 	{
 		String result = null;

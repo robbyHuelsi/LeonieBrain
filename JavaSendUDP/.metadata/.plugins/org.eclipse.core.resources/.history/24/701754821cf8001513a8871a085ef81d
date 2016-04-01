@@ -1,0 +1,38 @@
+package testing;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
+public class TestSocket {
+	public static void main(String[] args) {
+		System.out.println("Starting...");
+
+		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+		String sentence = null;
+
+		while (true) {
+			try {
+				System.out.println("Type message: ");
+				sentence = inFromUser.readLine();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			try
+			{
+				new TestSocket().send(sentence, InetAddress.getByName("134.103.120.108"), 8888);
+			} catch (UnknownHostException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
