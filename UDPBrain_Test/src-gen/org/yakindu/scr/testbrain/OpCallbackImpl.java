@@ -7,6 +7,7 @@ import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIPrintDataInterfaceOpe
 import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIUdpInterfaceOperationCallback;
 
 import mainTest.Test;
+import udp.MessageParser;
 import udp.ReceiveUDP;
 import udp.SendUDP;
 
@@ -37,6 +38,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIPrin
 	@Override
 	public void receive()
 	{
+		/* UDP establish connection & receive */
 		String result = null;
 		ReceiveUDP receiveUDP = null;
 		try
@@ -49,8 +51,14 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIPrin
 		}
 		
 		result = receiveUDP.receiveSocket();
-		Test.instanceOf().getTestBrain().getSCIUdpInterface().setData(result.trim());
-		System.out.println("receive test output: " + result);
+		/* END */
+		
+		
+		// Beispiel string: #VBRAIN#0;1/2;A;Nachname;1994;12;25;false;0;false;0.0		
+		MessageParser.ParseMessage(result);
+		
+//		Test.instanceOf().getTestBrain().getSCIUdpInterface().setData(result.trim());
+//		System.out.println("receive test output: " + result);
 	}
 	
 	@Override

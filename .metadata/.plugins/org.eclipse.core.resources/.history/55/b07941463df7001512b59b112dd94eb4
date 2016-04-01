@@ -1,6 +1,0 @@
-package org.yakindu.scr.lightswitch;
-import org.yakindu.scr.IStatemachine;
-
-public interface ILightSwitchStatemachine extends IStatemachine {
-
-}
