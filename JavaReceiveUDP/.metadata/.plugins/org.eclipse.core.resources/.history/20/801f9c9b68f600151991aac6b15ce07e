@@ -1,0 +1,33 @@
+package udp;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+
+public class ReceiveString {
+
+	public static void main(String[] args) {
+		DatagramSocket socket;
+
+		System.out.println("Starting...");
+		try {
+			socket = new DatagramSocket();
+
+			InetAddress host = InetAddress.getLocalHost();// getByName("134.103.110.161");
+			int port = 8888;
+
+			DatagramPacket request = new DatagramPacket(new byte[5], 5, host, port);
+			System.out.println("Packet empfangen: " + request.getAddress() + ":" + request.getPort() + " -> "
+					+ new String(request.getData()));
+			while (true) {
+				socket.receive(request);
+				System.out.println("Packet empfangen: " + request.getAddress() + ":" + request.getPort() + " -> "
+						+ new String(request.getData()));
+			}
+
+		} catch (IOException e) {
+			System.exit(-1);
+		}
+	}
+}

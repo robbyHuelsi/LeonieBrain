@@ -1,0 +1,12 @@
+package udp;
+
+public class Grunt extends Infantrie{
+	private int grenade;
+
+	public Grunt(int hp, int damage, int attack, int speed, int numbers, int grenade) {
+		super(hp, damage, attack, speed, numbers);
+		this.grenade = grenade;
+	}
+	
+	
+}

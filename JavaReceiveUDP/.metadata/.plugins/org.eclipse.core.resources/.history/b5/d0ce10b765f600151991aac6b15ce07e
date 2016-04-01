@@ -1,0 +1,25 @@
+package udp;
+
+public class ReceiveString {
+
+	public static void main(String[] args) {
+String sendString = "Hello world!";
+		
+		DatagramSocket socket;
+        try {
+            socket = new DatagramSocket();
+
+            byte [] b=sendString.getBytes();
+            
+            InetAddress host= InetAddress.getByName("134.103.110.161");
+            int port=8888;
+            
+            DatagramPacket request=new DatagramPacket(b,b.length, host, port);
+            socket.send(request);
+//            System.out.println("Packet versendet an: " + host);
+
+        } catch (IOException e) {
+            System.exit(-1);
+        }
+	}
+}

@@ -1,0 +1,47 @@
+package udp;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
+
+public class SendStringChannel
+{
+	public static void main(String[] args) throws Exception
+	{
+		System.out.println("Starting...");
+
+		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+		String sentence = null;
+		ByteBuffer packet = ByteBuffer.allocate(1024);
+
+		InetAddress adress = InetAddress.getLocalHost();// getByName("134.103.110.161");
+		int port = 8888;
+		SocketAddress target = new InetSocketAddress(adress, port);
+
+		DatagramChannel channel = DatagramChannel.open();
+		channel.connect(target);
+
+		while (true)
+		{
+			System.out.println("Type message: ");
+			sentence = inFromUser.readLine();
+
+			packet = ByteBuffer.wrap(sentence.getBytes());
+
+			System.out.println(channel.send(packet, target));
+			
+			System.out.println(channel.isConnected() + "Packet versendet: " + channel.getRemoteAddress() + " -> "
+					+ new String(packet.array()));
+
+//			System.out.println(channel.isConnected() + "Packet versendet: " + ((InetSocketAddress) target).getAddress() + ":" + ((InetSocketAddress) target).getPort() + " -> "
+//					+ new String(packet.array()));
+		}
+	}
+}

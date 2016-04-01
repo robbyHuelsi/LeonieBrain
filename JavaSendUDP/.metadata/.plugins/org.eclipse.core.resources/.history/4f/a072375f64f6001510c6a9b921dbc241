@@ -1,0 +1,12 @@
+package udp;
+
+public abstract class Infantrie extends Unit {
+	public int numbers;
+
+	public Infantrie(int hp, int damage, int attack, int speed, int numbers) {
+		super(hp, damage, attack, speed);
+		this.numbers = numbers;
+	}
+	
+	
+}

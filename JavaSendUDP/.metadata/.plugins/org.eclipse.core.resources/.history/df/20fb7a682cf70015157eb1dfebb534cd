@@ -1,0 +1,44 @@
+package udp;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
+
+public class SendStringChannel
+{
+	public void send(String text)
+	{
+		InetAddress adress = InetAddress.getLoopbackAddress();// InetAddress.getLocalHost();// getByName("134.103.110.161");
+		int port = 8888;
+		SocketAddress receivingSocket = new InetSocketAddress(adress, port);
+		SocketAddress sendingSocket = new InetSocketAddress(adress, 9999);
+
+		ByteBuffer packet = ByteBuffer.allocate(1024);
+		
+		DatagramChannel channel = DatagramChannel.open();
+		channel.socket().bind(sendingSocket);
+		channel.connect(receivingSocket);
+
+		while (true)
+		{
+			System.out.println("Type message: ");
+			
+
+			packet.clear();
+			packet.put(text.getBytes());
+			packet.flip();
+
+			System.out.println(channel.send(packet, receivingSocket));
+
+			System.out.println("Packet versendet: " + ((InetSocketAddress) sendingSocket).getAddress() + ":" + ((InetSocketAddress) sendingSocket).getPort()
+					+ " -> " + new String(packet.array()));
+		}
+	}
+}

@@ -1,0 +1,4 @@
+1459508753993	Rename type 'SendString'
+1459509980896	Rename local variable 'host'
+1459510191526	Convert local variable 'socket' to field
+1459510389658	Rename local variable 'text'

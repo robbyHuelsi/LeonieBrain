@@ -1,0 +1,21 @@
+package udp;
+
+public abstract class Unit {
+	public int hp;
+	public int damage;
+	public int attack;
+	public int speed;
+	
+	public Unit(int hp, int damage, int attack, int speed) {
+		super();
+		this.hp = hp;
+		this.damage = damage;
+		this.attack = attack;
+		this.speed = speed;
+	}
+	
+	public boolean shoot(Unit target)
+	{
+		
+	}
+}
