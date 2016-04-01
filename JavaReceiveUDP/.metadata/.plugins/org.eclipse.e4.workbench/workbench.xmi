@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_VSRy0fZlEeWFX825FZJU_g" elementId="org.eclipse.e4.legacy.ide.application" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_VSRy0vZlEeWFX825FZJU_g" bindingContexts="_VSRy1PZlEeWFX825FZJU_g">
-  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workbench>&#xD;&#xA;&lt;mruList>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ReceiveUDP.java&quot; tooltip=&quot;JavaReceiveUDP/src/udp/ReceiveUDP.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/udp/ReceiveUDP.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;LightSwitchStatemachine.java&quot; tooltip=&quot;JavaReceiveUDP/src/lightswitch/LightSwitchStatemachine.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/lightswitch/LightSwitchStatemachine.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;IStatemachine.java&quot; tooltip=&quot;JavaReceiveUDP/src/lightswitch/IStatemachine.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/lightswitch/IStatemachine.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ILightSwitchStatemachine.java&quot; tooltip=&quot;JavaReceiveUDP/src/lightswitch/ILightSwitchStatemachine.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/lightswitch/ILightSwitchStatemachine.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Test.java&quot; tooltip=&quot;JavaReceiveUDP/src/mainTest/Test.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/mainTest/Test.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ReceiveStringChannel.java&quot; tooltip=&quot;JavaReceiveUDP/src/udp/ReceiveStringChannel.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/udp/ReceiveStringChannel.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ReceiveString.java&quot; tooltip=&quot;JavaReceiveUDP/src/udp/ReceiveString.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/udp/ReceiveString.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;/mruList>&#xD;&#xA;&lt;/workbench>"/>
+  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workbench>&#xD;&#xA;&lt;mruList>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Test.java&quot; tooltip=&quot;JavaReceiveUDP/src/mainTest/Test.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/mainTest/Test.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ReceiveUDP.java&quot; tooltip=&quot;JavaReceiveUDP/src/udp/ReceiveUDP.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/udp/ReceiveUDP.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ReceiveStringChannel.java&quot; tooltip=&quot;JavaReceiveUDP/src/udp/ReceiveStringChannel.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/udp/ReceiveStringChannel.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ReceiveString.java&quot; tooltip=&quot;JavaReceiveUDP/src/udp/ReceiveString.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/udp/ReceiveString.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;LightSwitchStatemachine.java&quot; tooltip=&quot;JavaReceiveUDP/src/lightswitch/LightSwitchStatemachine.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/lightswitch/LightSwitchStatemachine.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;IStatemachine.java&quot; tooltip=&quot;JavaReceiveUDP/src/lightswitch/IStatemachine.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/lightswitch/IStatemachine.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ILightSwitchStatemachine.java&quot; tooltip=&quot;JavaReceiveUDP/src/lightswitch/ILightSwitchStatemachine.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/JavaReceiveUDP/src/lightswitch/ILightSwitchStatemachine.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;/mruList>&#xD;&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
   <children xsi:type="basic:TrimmedWindow" xmi:id="_VSRy0vZlEeWFX825FZJU_g" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_V5HJU_ZlEeWFX825FZJU_g" label="%trimmedwindow.label.eclipseSDK" x="0" y="0" width="1024" height="768">
@@ -153,7 +153,7 @@
                 <children xsi:type="advanced:Placeholder" xmi:id="_abkn7PZlEeWFX825FZJU_g" elementId="org.eclipse.egit.ui.RepositoriesView" toBeRendered="false" ref="_abiLoPZlEeWFX825FZJU_g"/>
               </children>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_abkn7fZlEeWFX825FZJU_g" containerData="7500" selectedElement="_abkn9_ZlEeWFX825FZJU_g">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_abkn7fZlEeWFX825FZJU_g" containerData="7500" selectedElement="_abkn7vZlEeWFX825FZJU_g">
               <children xsi:type="basic:PartSashContainer" xmi:id="_abkn7vZlEeWFX825FZJU_g" containerData="7500" selectedElement="_abkn7_ZlEeWFX825FZJU_g" horizontal="true">
                 <children xsi:type="advanced:Placeholder" xmi:id="_abkn7_ZlEeWFX825FZJU_g" elementId="org.eclipse.ui.editorss" containerData="7500" ref="_WSLwoPZlEeWFX825FZJU_g"/>
                 <children xsi:type="basic:PartSashContainer" xmi:id="_abkn8PZlEeWFX825FZJU_g" toBeRendered="false" containerData="2500">
@@ -170,7 +170,6 @@
               </children>
               <children xsi:type="basic:PartStack" xmi:id="_abkn9_ZlEeWFX825FZJU_g" elementId="bottom" containerData="2500" selectedElement="_abkn_PZlEeWFX825FZJU_g">
                 <tags>org.eclipse.e4.secondaryDataStack</tags>
-                <tags>active</tags>
                 <children xsi:type="advanced:Placeholder" xmi:id="_abkn-PZlEeWFX825FZJU_g" elementId="org.eclipse.ui.views.ProblemView" ref="_abbd8PZlEeWFX825FZJU_g"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_abkn-fZlEeWFX825FZJU_g" elementId="org.eclipse.jdt.ui.JavadocView" ref="_abcsEPZlEeWFX825FZJU_g"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_abkn-vZlEeWFX825FZJU_g" elementId="org.eclipse.jdt.ui.SourceView" ref="_abd6MPZlEeWFX825FZJU_g"/>
@@ -207,50 +206,23 @@
       <tags>categoryTag:Help</tags>
     </sharedElements>
     <sharedElements xsi:type="advanced:Area" xmi:id="_WSLwoPZlEeWFX825FZJU_g" elementId="org.eclipse.ui.editorss" selectedElement="_WSLwofZlEeWFX825FZJU_g">
-      <children xsi:type="basic:PartStack" xmi:id="_WSLwofZlEeWFX825FZJU_g" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_eibIgPZlEeWFX825FZJU_g">
+      <children xsi:type="basic:PartStack" xmi:id="_WSLwofZlEeWFX825FZJU_g" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_HD55kPgbEeWzR4VCO-Ulkw">
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
-        <children xsi:type="basic:Part" xmi:id="_eibIgPZlEeWFX825FZJU_g" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="ReceiveString.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ReceiveString.java&quot; partName=&quot;ReceiveString.java&quot; title=&quot;ReceiveString.java&quot; tooltip=&quot;JavaReceiveUDP/src/udp/ReceiveString.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaReceiveUDP/src/udp/ReceiveString.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;417&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
+        <tags>active</tags>
+        <children xsi:type="basic:Part" xmi:id="_GFXNsPgbEeWzR4VCO-Ulkw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="ReceiveUDP.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ReceiveUDP.java&quot; partName=&quot;ReceiveUDP.java&quot; title=&quot;ReceiveUDP.java&quot; tooltip=&quot;JavaReceiveUDP/src/udp/ReceiveUDP.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaReceiveUDP/src/udp/ReceiveUDP.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;0&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
         </children>
-        <children xsi:type="basic:Part" xmi:id="_rx__kPcSEeWdrqlLNVdSRw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="ReceiveStringChannel.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ReceiveStringChannel.java&quot; partName=&quot;ReceiveStringChannel.java&quot; title=&quot;ReceiveStringChannel.java&quot; tooltip=&quot;JavaReceiveUDP/src/udp/ReceiveStringChannel.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaReceiveUDP/src/udp/ReceiveStringChannel.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;335&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
+        <children xsi:type="basic:Part" xmi:id="_HD55kPgbEeWzR4VCO-Ulkw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="Test.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Test.java&quot; partName=&quot;Test.java&quot; title=&quot;Test.java&quot; tooltip=&quot;JavaReceiveUDP/src/mainTest/Test.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaReceiveUDP/src/mainTest/Test.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;522&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_FnSGEPcUEeWdrqlLNVdSRw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="Test.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Test.java&quot; partName=&quot;Test.java&quot; title=&quot;Test.java&quot; tooltip=&quot;JavaReceiveUDP/src/mainTest/Test.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaReceiveUDP/src/mainTest/Test.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;450&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
-          <tags>removeOnHide</tags>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_GZhbUPcUEeWdrqlLNVdSRw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="ILightSwitchStatemachine.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ILightSwitchStatemachine.java&quot; partName=&quot;ILightSwitchStatemachine.java&quot; title=&quot;ILightSwitchStatemachine.java&quot; tooltip=&quot;JavaReceiveUDP/src/lightswitch/ILightSwitchStatemachine.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaReceiveUDP/src/lightswitch/ILightSwitchStatemachine.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;80&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
-          <tags>removeOnHide</tags>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_Nnfd4PcUEeWdrqlLNVdSRw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="IStatemachine.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;IStatemachine.java&quot; partName=&quot;IStatemachine.java&quot; title=&quot;IStatemachine.java&quot; tooltip=&quot;JavaReceiveUDP/src/lightswitch/IStatemachine.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaReceiveUDP/src/lightswitch/IStatemachine.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;20&quot; selectionOffset=&quot;0&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
-          <tags>removeOnHide</tags>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_SDGGgPcUEeWdrqlLNVdSRw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="LightSwitchStatemachine.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;LightSwitchStatemachine.java&quot; partName=&quot;LightSwitchStatemachine.java&quot; title=&quot;LightSwitchStatemachine.java&quot; tooltip=&quot;JavaReceiveUDP/src/lightswitch/LightSwitchStatemachine.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaReceiveUDP/src/lightswitch/LightSwitchStatemachine.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;20&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
-          <tags>removeOnHide</tags>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_ucdIwPcUEeWJvYZWzwG9Gw" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="ReceiveUDP.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ReceiveUDP.java&quot; partName=&quot;ReceiveUDP.java&quot; title=&quot;ReceiveUDP.java&quot; tooltip=&quot;JavaReceiveUDP/src/udp/ReceiveUDP.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/JavaReceiveUDP/src/udp/ReceiveUDP.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1439&quot; selectionTopPixel=&quot;238&quot;/>&#xD;&#xA;&lt;/editor>"/>
-          <tags>Editor</tags>
-          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
-          <tags>removeOnHide</tags>
+          <tags>active</tags>
+          <tags>activeOnClose</tags>
         </children>
       </children>
     </sharedElements>
@@ -349,8 +321,6 @@
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:General</tags>
-      <tags>active</tags>
-      <tags>activeOnClose</tags>
       <menus xmi:id="_jJvccPZmEeWFX825FZJU_g" elementId="org.eclipse.ui.console.ConsoleView">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -388,7 +358,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_V8wTMPZlEeWFX825FZJU_g" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_C-9n0Pf3EeWApaD2IBazmw" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_VT0D6fZlEeWFX825FZJU_g"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_MQyqoPgaEeWzR4VCO-Ulkw" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_VT0D6fZlEeWFX825FZJU_g"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_V8w6QPZlEeWFX825FZJU_g" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -412,7 +382,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_V8xhUPZlEeWFX825FZJU_g" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_C_Duc_f3EeWApaD2IBazmw" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_VTwZk_ZlEeWFX825FZJU_g"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_MQ-34PgaEeWzR4VCO-Ulkw" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_VTwZk_ZlEeWFX825FZJU_g"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_V8yIYPZlEeWFX825FZJU_g" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>

@@ -9,6 +9,7 @@ public class Test
 {
 	public static void main(String[] args) throws Exception
 	{
+		String result = null;
 		ReceiveUDP receiveUDP = null;
 		try
 		{
@@ -20,6 +21,6 @@ public class Test
 		}
 		
 		while (true)
-				System.out.println(receiveUDP.receiveSocket().trim());
+				System.out.println(result = receiveUDP.receiveSocket().trim());
 	}
 }
