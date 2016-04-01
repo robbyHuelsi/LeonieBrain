@@ -8,7 +8,7 @@ import org.yakindu.scr.testbrain.ITestBrainStatemachine.SCIUdpInterfaceOperation
 
 import mainTest.Test;
 import udp.ReceiveUDP;
-import udp.SendUDP;
+import udp.SendStringSocket;
 
 public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIPrintDataInterfaceOperationCallback
 {
@@ -30,11 +30,10 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIPrin
 //		System.out.println("receive test output: " + result);
 //	}
 	
-	
+	@Override
 	/**
 	 * receiving data from UDP, using sockets -> blocking!
 	 */
-	@Override
 	public void receive()
 	{
 		String result = null;
@@ -56,11 +55,10 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIPrin
 	@Override
 	public void print()
 	{
-		
+		SendStringSocket sss = new SendStringSocket();
 		try
 		{
-			SendUDP sss = new SendUDP(InetAddress.getLocalHost(), 1234);
-			sss.sendSocket(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData(), InetAddress.getByName("134.103.120.108"), 8888);
+			sss.send(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData(), InetAddress.getByName("134.103.120.108"), 8888);
 		} catch (UnknownHostException e)
 		{
 			e.printStackTrace();
