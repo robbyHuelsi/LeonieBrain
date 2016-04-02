@@ -78,7 +78,7 @@ public class ReceiveUDP
 		DatagramPacket request = null;
 		try
 		{
-			DatagramSocket socket = new DatagramSocket(8884, myReceiverAdress);
+			DatagramSocket socket = new DatagramSocket(8888, myReceiverAdress);
 
 			byte[] receiveData = new byte[1024];
 			request = new DatagramPacket(receiveData, receiveData.length);

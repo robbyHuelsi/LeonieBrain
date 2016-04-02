@@ -25,19 +25,17 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback
 		ReceiveUDP receiveUDP = null;
 		try
 		{
-			receiveUDP = new ReceiveUDP(InetAddress.getByName("134.103.109.51"), 8888);
+			receiveUDP = new ReceiveUDP(InetAddress.getByName("192.168.178.38"), 8888);
 		} catch (UnknownHostException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		result = receiveUDP.receiveSocket();
 		/* END */
 		
 		
 		// Beispiel string: #VBRAIN#0;1/2;A;Nachname;1994;12;25;false;0;false;0.0		
-		
 		
 		Start.instanceOf().getBrain().getSCIUdpInterface().setMessage(result.trim());
 //		System.out.println("receive test output: " + result);
@@ -60,7 +58,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback
 
 	@Override
 	public void parseString() {
-		// TODO Auto-generated method stub
+		System.out.println(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
 		MessageParser.ParseMessage(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
 	}
 }

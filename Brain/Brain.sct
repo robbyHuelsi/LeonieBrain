@@ -7,6 +7,7 @@
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_KGTtoPiqEeWcn8poFBqj7w" specification="" name="Init" incomingTransitions="_KGTGkviqEeWcn8poFBqj7w">
         <outgoingTransitions xmi:id="_KGUUsPiqEeWcn8poFBqj7w" specification="start" target="_KGi-MviqEeWcn8poFBqj7w"/>
+        <outgoingTransitions xmi:id="_M0UYwPi6EeWcn8poFBqj7w" specification="always" target="_KGnPoviqEeWcn8poFBqj7w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_KGdeo_iqEeWcn8poFBqj7w" specification="" name="FaceDataInterpretation">
         <outgoingTransitions xmi:id="_KGeFsPiqEeWcn8poFBqj7w" specification="always" target="_KGhwE_iqEeWcn8poFBqj7w"/>
@@ -44,7 +45,7 @@
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_KGmomPiqEeWcn8poFBqj7w" name="GatherData">
         <regions xmi:id="_KGnPofiqEeWcn8poFBqj7w">
-          <vertices xsi:type="sgraph:State" xmi:id="_KGnPoviqEeWcn8poFBqj7w" specification="entry /&#xD;&#xA;UdpInterface.receive()" name="ReceiveUDPString" incomingTransitions="_KGodx_iqEeWcn8poFBqj7w _KGmokPiqEeWcn8poFBqj7w _KGkMU_iqEeWcn8poFBqj7w">
+          <vertices xsi:type="sgraph:State" xmi:id="_KGnPoviqEeWcn8poFBqj7w" specification="entry /&#xD;&#xA;UdpInterface.receive()" name="ReceiveUDPString" incomingTransitions="_KGodx_iqEeWcn8poFBqj7w _KGmokPiqEeWcn8poFBqj7w _KGkMU_iqEeWcn8poFBqj7w _M0UYwPi6EeWcn8poFBqj7w">
             <outgoingTransitions xmi:id="_KGn2tviqEeWcn8poFBqj7w" specification="always" target="_KGn2ufiqEeWcn8poFBqj7w"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_KGn2ufiqEeWcn8poFBqj7w" specification="entry /&#xD;&#xA;UdpInterface.parseString()&#xD;&#xA;&#xD;&#xA;" name="ParseStringForData" incomingTransitions="_KGn2tviqEeWcn8poFBqj7w">
@@ -515,6 +516,17 @@
       <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_KG4VePiqEeWcn8poFBqj7w" points="[-23, 67, 58, -162]$[-78, 215, 3, -14]"/>
       <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_KG4VefiqEeWcn8poFBqj7w" id="(0.16544117647058823,0.0)"/>
       <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_KG4VeviqEeWcn8poFBqj7w" id="(0.5887096774193549,0.22535211267605634)"/>
+    </edges>
+    <edges xmi:id="_M0bGcPi6EeWcn8poFBqj7w" type="Transition" element="_M0UYwPi6EeWcn8poFBqj7w" source="_KGM__viqEeWcn8poFBqj7w" target="_KGNAlfiqEeWcn8poFBqj7w">
+      <children xsi:type="notation:DecorationNode" xmi:id="_M0btgfi6EeWcn8poFBqj7w" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_M0btgvi6EeWcn8poFBqj7w"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_M0btg_i6EeWcn8poFBqj7w" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_M0bGcfi6EeWcn8poFBqj7w" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_M0btgPi6EeWcn8poFBqj7w" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_M0bGcvi6EeWcn8poFBqj7w" points="[0, 0, -481, -81]$[482, 75, 1, -6]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_M0ibMPi6EeWcn8poFBqj7w" id="(1.0,0.8301886792452831)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_M0ibMfi6EeWcn8poFBqj7w" id="(0.04790419161676647,0.03524229074889868)"/>
     </edges>
   </notation:Diagram>
 </xmi:XMI>

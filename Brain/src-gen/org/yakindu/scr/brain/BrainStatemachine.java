@@ -543,6 +543,10 @@ public class BrainStatemachine implements IBrainStatemachine {
 		return start;
 	}
 
+	private boolean check__0_Init_tr1_tr1() {
+		return true;
+	}
+
 	private boolean check__0_FaceDataInterpretation_tr0_tr0() {
 		return true;
 	}
@@ -607,6 +611,12 @@ public class BrainStatemachine implements IBrainStatemachine {
 		exitSequence__0_Init();
 
 		enterSequence__0_SearchForChar__region0_Standing_default();
+	}
+
+	private void effect__0_Init_tr1() {
+		exitSequence__0_Init();
+
+		enterSequence__0_GatherData__region0_ReceiveUDPString_default();
 	}
 
 	private void effect__0_FaceDataInterpretation_tr0() {
@@ -978,6 +988,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void react__0_Init() {
 		if (check__0_Init_tr0_tr0()) {
 			effect__0_Init_tr0();
+		} else {
+			effect__0_Init_tr1();
 		}
 	}
 
