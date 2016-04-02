@@ -3,7 +3,7 @@
   <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workbench>&#xD;&#xA;&lt;mruList>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;LeonieBrain.cpp&quot; tooltip=&quot;LeonieBrain/src-gen/LeonieBrain.cpp&quot;>&#xD;&#xA;&lt;persistable path=&quot;/LeonieBrain/src-gen/LeonieBrain.cpp&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.yakindu.sct.ui.editor.editor.StatechartDiagramEditor&quot; name=&quot;LeonieBrain.sct&quot; tooltip=&quot;LeonieBrain/LeonieBrain.sct&quot;>&#xD;&#xA;&lt;persistable path=&quot;/LeonieBrain/LeonieBrain.sct&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.yakindu.sct.ui.editor.editor.StatechartDiagramEditor&quot; name=&quot;Watch.sct&quot; tooltip=&quot;digital_watch/Watch.sct&quot;>&#xD;&#xA;&lt;persistable path=&quot;/digital_watch/Watch.sct&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;LeonieBrain.h&quot; tooltip=&quot;LeonieBrain/src-gen/LeonieBrain.h&quot;>&#xD;&#xA;&lt;persistable path=&quot;/LeonieBrain/src-gen/LeonieBrain.h&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.yakindu.sct.generator.genmodel.SGen&quot; name=&quot;LeonieBrain.sgen&quot; tooltip=&quot;LeonieBrain/LeonieBrain.sgen&quot;>&#xD;&#xA;&lt;persistable path=&quot;/LeonieBrain/LeonieBrain.sgen&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.yakindu.sct.generator.genmodel.SGen&quot; name=&quot;default.sgen&quot; tooltip=&quot;LeonieBrain/default.sgen&quot;>&#xD;&#xA;&lt;persistable path=&quot;/LeonieBrain/default.sgen&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;LightSwitch.cpp&quot; tooltip=&quot;light_switch/src-gen/LightSwitch.cpp&quot;>&#xD;&#xA;&lt;persistable path=&quot;/light_switch/src-gen/LightSwitch.cpp&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.yakindu.sct.generator.genmodel.SGen&quot; name=&quot;default.sgen&quot; tooltip=&quot;light_switch/default.sgen&quot;>&#xD;&#xA;&lt;persistable path=&quot;/light_switch/default.sgen&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;LightSwitchStatemachine.java&quot; tooltip=&quot;light_switch/src-gen/org/yakindu/scr/lightswitch/LightSwitchStatemachine.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/light_switch/src-gen/org/yakindu/scr/lightswitch/LightSwitchStatemachine.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ILightSwitchStatemachine.java&quot; tooltip=&quot;light_switch/src-gen/org/yakindu/scr/lightswitch/ILightSwitchStatemachine.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/light_switch/src-gen/org/yakindu/scr/lightswitch/ILightSwitchStatemachine.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;IStatemachine.java&quot; tooltip=&quot;light_switch/src/org/yakindu/scr/IStatemachine.java&quot;>&#xD;&#xA;&lt;persistable path=&quot;/light_switch/src/org/yakindu/scr/IStatemachine.java&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.yakindu.sct.generator.genmodel.SGen&quot; name=&quot;light_switch.sgen&quot; tooltip=&quot;light_switch/light_switch.sgen&quot;>&#xD;&#xA;&lt;persistable path=&quot;/light_switch/light_switch.sgen&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.yakindu.sct.ui.editor.editor.StatechartDiagramEditor&quot; name=&quot;TrafficLightWaiting.sct&quot; tooltip=&quot;traffic_light/model/TrafficLightWaiting.sct&quot;>&#xD;&#xA;&lt;persistable path=&quot;/traffic_light/model/TrafficLightWaiting.sct&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.yakindu.sct.generator.genmodel.SGen&quot; name=&quot;GenModelJava.sgen&quot; tooltip=&quot;traffic_light/model/GenModelJava.sgen&quot;>&#xD;&#xA;&lt;persistable path=&quot;/traffic_light/model/GenModelJava.sgen&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.yakindu.sct.ui.editor.editor.StatechartDiagramEditor&quot; name=&quot;LightSwitch.sct&quot; tooltip=&quot;light_switch/LightSwitch.sct&quot;>&#xD;&#xA;&lt;persistable path=&quot;/light_switch/LightSwitch.sct&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;/mruList>&#xD;&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_ZIo9gvAcEeWNzZ4FnjYeNA" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_ZViKA_AcEeWNzZ4FnjYeNA" x="2091" y="139" width="1024" height="768">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_ZIo9gvAcEeWNzZ4FnjYeNA" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_ZViKA_AcEeWNzZ4FnjYeNA" x="0" y="0" width="1024" height="768">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="true"/>
     <persistedState key="isRestored" value="true"/>
@@ -11,7 +11,6 @@
     <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workingSets/>"/>
     <persistedState key="aggregateWorkingSetId" value="Aggregate for window 1458644047172"/>
     <tags>topLevel</tags>
-    <tags>shellMaximized</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_ZViKA_AcEeWNzZ4FnjYeNA" selectedElement="_ZViKBPAcEeWNzZ4FnjYeNA" horizontal="true">
       <children xsi:type="advanced:PerspectiveStack" xmi:id="_ZViKBPAcEeWNzZ4FnjYeNA" elementId="org.eclipse.ui.ide.perspectivestack" containerData="7500" selectedElement="_jCbGEvAcEeWNzZ4FnjYeNA">
         <children xsi:type="advanced:Perspective" xmi:id="_ZaHIBfAcEeWNzZ4FnjYeNA" elementId="org.yakindu.sct.ui.ModelingPerspective" selectedElement="_ZaHIBvAcEeWNzZ4FnjYeNA" label="SC Modeling" iconURI="platform:/plugin/org.yakindu.sct.ui/icons/modeling_perspective.png">
@@ -84,7 +83,7 @@
               </children>
             </children>
           </children>
-          <windows xsi:type="basic:TrimmedWindow" xmi:id="_ofDRkPBCEeWNzZ4FnjYeNA" selectedElement="_ofDRkfBCEeWNzZ4FnjYeNA" x="577" y="27" width="331" height="974">
+          <windows xsi:type="basic:TrimmedWindow" xmi:id="_ofDRkPBCEeWNzZ4FnjYeNA" selectedElement="_ofDRkfBCEeWNzZ4FnjYeNA" x="956" y="0" width="331" height="974">
             <children xsi:type="basic:PartStack" xmi:id="_ofDRkfBCEeWNzZ4FnjYeNA" elementId="PartStack@6b2cfdef" selectedElement="_BVgfsPBBEeWNzZ4FnjYeNA">
               <children xsi:type="basic:Part" xmi:id="_BVgfsPBBEeWNzZ4FnjYeNA" elementId="org.eclipse.ui.views.ProblemView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Problems" iconURI="platform:/plugin/org.eclipse.ui.ide/icons/full/eview16/problems_view.png" tooltip="" closeable="true">
                 <tags>View</tags>
@@ -97,7 +96,7 @@
               </children>
             </children>
           </windows>
-          <windows xsi:type="basic:TrimmedWindow" xmi:id="_r0x3QPBCEeWNzZ4FnjYeNA" selectedElement="_TxJNEPHMEeWLEJBSswC79g" x="1139" y="45" width="318" height="969">
+          <windows xsi:type="basic:TrimmedWindow" xmi:id="_r0x3QPBCEeWNzZ4FnjYeNA" selectedElement="_TxJNEPHMEeWLEJBSswC79g" x="1290" y="0" width="318" height="969">
             <children xsi:type="basic:PartSashContainer" xmi:id="_TxJNEPHMEeWLEJBSswC79g" containerData="4307" selectedElement="_jCbGFPAcEeWNzZ4FnjYeNA">
               <children xsi:type="basic:PartStack" xmi:id="_jCbGFPAcEeWNzZ4FnjYeNA" elementId="left" containerData="5000" selectedElement="_jCbGFfAcEeWNzZ4FnjYeNA">
                 <children xsi:type="advanced:Placeholder" xmi:id="_jCbGFfAcEeWNzZ4FnjYeNA" elementId="org.eclipse.ui.navigator.ProjectExplorer" ref="_ZaHIAPAcEeWNzZ4FnjYeNA"/>
@@ -108,7 +107,7 @@
               </children>
             </children>
           </windows>
-          <windows xsi:type="basic:TrimmedWindow" xmi:id="_UJjtEPHMEeWLEJBSswC79g" selectedElement="_UJjtEfHMEeWLEJBSswC79g" x="1355" y="99" width="312" height="918">
+          <windows xsi:type="basic:TrimmedWindow" xmi:id="_UJjtEPHMEeWLEJBSswC79g" selectedElement="_UJjtEfHMEeWLEJBSswC79g" x="1609" y="0" width="312" height="918">
             <children xsi:type="basic:PartStack" xmi:id="_UJjtEfHMEeWLEJBSswC79g" elementId="PartStack@423763f" selectedElement="_jCbGIPAcEeWNzZ4FnjYeNA">
               <children xsi:type="advanced:Placeholder" xmi:id="_jCbGIPAcEeWNzZ4FnjYeNA" elementId="org.yakindu.sct.simulation.ui.declarationview" ref="_jCU_cPAcEeWNzZ4FnjYeNA"/>
             </children>
@@ -256,7 +255,7 @@
           <tags>removeOnHide</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_e1Q7kPA8EeWNzZ4FnjYeNA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="LeonieBrain.cpp" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/obj16/c_file_obj.gif" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;LeonieBrain.cpp&quot; partName=&quot;LeonieBrain.cpp&quot; title=&quot;LeonieBrain.cpp&quot; tooltip=&quot;LeonieBrain/src-gen/LeonieBrain.cpp&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/LeonieBrain/src-gen/LeonieBrain.cpp&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;3&quot; selectionOffset=&quot;3063&quot; selectionTopPixel=&quot;1185&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;LeonieBrain.cpp&quot; partName=&quot;LeonieBrain.cpp&quot; title=&quot;LeonieBrain.cpp&quot; tooltip=&quot;LeonieBrain/src-gen/LeonieBrain.cpp&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/LeonieBrain/src-gen/LeonieBrain.cpp&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;3&quot; selectionOffset=&quot;3063&quot; selectionTopPixel=&quot;1740&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.cdt.ui.editor.CEditor</tags>
           <tags>removeOnHide</tags>
@@ -361,7 +360,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_ZWZFoPAcEeWNzZ4FnjYeNA" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_h7F9kPG8EeWLEJBSswC79g" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_ZJHfbPAcEeWNzZ4FnjYeNA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_R0CksPWREeWZyYcQevd3Bw" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_ZJHfbPAcEeWNzZ4FnjYeNA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_ZWZFofAcEeWNzZ4FnjYeNA" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -385,7 +384,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_ZWZFpfAcEeWNzZ4FnjYeNA" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_h7MEMPG8EeWLEJBSswC79g" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_ZJHe-PAcEeWNzZ4FnjYeNA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_R0FA8PWREeWZyYcQevd3Bw" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_ZJHe-PAcEeWNzZ4FnjYeNA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_ZWZFpvAcEeWNzZ4FnjYeNA" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>

@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Build-Jdk: 1.7.0_79
-Built-By: jboss
-Created-By: Apache Maven 3.0.5
-Archiver-Version: Plexus Archiver
-
-Name: feature.xml
-SHA-256-Digest: ohQnZQULw269c0/5bA3HyCOW7rZ6CbHFZWBFw1cldhU=
-
