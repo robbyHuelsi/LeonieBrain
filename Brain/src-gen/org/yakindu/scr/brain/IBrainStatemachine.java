@@ -1,8 +1,8 @@
-package org.yakindu.scr.leoniebrain;
+package org.yakindu.scr.brain;
 import org.yakindu.scr.IStatemachine;
 import org.yakindu.scr.ITimerCallback;
 
-public interface ILeonieBrainStatemachine extends ITimerCallback, IStatemachine {
+public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 
 	public interface SCIUdpInterface {
 		public String getMessage();

@@ -1,0 +1,15 @@
+GeneratorModel for yakindu::java {
+
+	statechart Brain {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+
+		feature GeneralFeatures {
+			TimerService = true
+		}
+	}
+}

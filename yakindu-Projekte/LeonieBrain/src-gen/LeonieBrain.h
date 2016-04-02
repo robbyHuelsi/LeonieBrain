@@ -29,8 +29,43 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 			_0_SearchForChar,
 			_0_SearchForChar__region0_Standing,
 			_0_SearchForChar__region0_Walking,
+			_0_GatherData,
+			_0_GatherData__region0_ReceiveUDPString,
+			_0_GatherData__region0_ParseStringForData,
 			LeonieBrain_last_state
 		} LeonieBrainStates;
+		
+		//! Inner class for UdpInterface interface scope.
+		class SCI_UdpInterface {
+			
+			public:
+				/*! Gets the value of the variable 'message' that is defined in the interface scope 'UdpInterface'. */ 
+				sc_string get_message();
+				
+				/*! Sets the value of the variable 'message' that is defined in the interface scope 'UdpInterface'. */ 
+				void set_message(sc_string value);
+				
+				
+			private:
+				friend class LeonieBrain;
+				sc_string message;
+		};
+				
+				//! Inner class for UdpInterface interface scope operation callbacks.
+				class SCI_UdpInterface_OCB {
+					public:
+						virtual ~SCI_UdpInterface_OCB() = 0;
+						
+						virtual void receive() = 0;
+						
+						virtual void parseString() = 0;
+				};
+				
+				/*! Set the working instance of the operation callback interface 'SCI_UdpInterface_OCB'. */
+				void setSCI_UdpInterface_OCB(SCI_UdpInterface_OCB* operationCallback);
+		
+		/*! Returns an instance of the interface class 'SCI_UdpInterface'. */
+		SCI_UdpInterface* getSCI_UdpInterface();
 		
 		//! Inner class for ACIface_stat interface scope.
 		class SCI_ACIface_stat {
@@ -344,6 +379,12 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 				/*! Checks if the out event 'textMsg' that is defined in the internal scope has been raised. */ 
 				sc_boolean isRaised_textMsg();
 				
+				/*! Raises the in event 'onTriggerDataGatherer' that is defined in the internal scope. */ 
+				void raise_onTriggerDataGatherer();
+				
+				/*! Checks if the out event 'onTriggerDataGatherer' that is defined in the internal scope has been raised. */ 
+				sc_boolean isRaised_onTriggerDataGatherer();
+				
 				/*! Gets the value of the variable 't' that is defined in the internal scope. */ 
 				sc_integer get_t();
 				
@@ -357,6 +398,7 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 				sc_boolean faceFound_raised;
 				sc_boolean noiseDetected_raised;
 				sc_boolean textMsg_raised;
+				sc_boolean onTriggerDataGatherer_raised;
 				sc_integer t;
 		};
 	
@@ -370,6 +412,8 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 		
 		sc_ushort stateConfVectorPosition;
 		
+		SCI_UdpInterface ifaceUdpInterface;
+		SCI_UdpInterface_OCB* ifaceUdpInterface_OCB;
 		SCI_ACIface_stat ifaceACIface_stat;
 		SCI_ACIface_dyn ifaceACIface_dyn;
 		SCI_Aci ifaceAci;
@@ -384,38 +428,56 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 		// prototypes of all internal functions
 		
 		sc_boolean check__0_Init_tr0_tr0();
+		sc_boolean check__0_FaceDataInterpretation_tr0_tr0();
 		sc_boolean check__0_TurnToNoise_tr0_tr0();
 		sc_boolean check__0_MoveToPerson_tr0_tr0();
 		sc_boolean check__0_SearchForChar__region0_Standing_tr0_tr0();
 		sc_boolean check__0_SearchForChar__region0_Standing_tr1_tr1();
 		sc_boolean check__0_SearchForChar__region0_Standing_tr2_tr2();
+		sc_boolean check__0_SearchForChar__region0_Standing_tr3_tr3();
 		sc_boolean check__0_SearchForChar__region0_Walking_tr0_tr0();
 		sc_boolean check__0_SearchForChar__region0_Walking_tr1_tr1();
 		sc_boolean check__0_SearchForChar__region0_Walking_tr2_tr2();
+		sc_boolean check__0_SearchForChar__region0_Walking_tr3_tr3();
+		sc_boolean check__0_GatherData__region0_ReceiveUDPString_tr0_tr0();
+		sc_boolean check__0_GatherData__region0_ParseStringForData_tr0_tr0();
+		sc_boolean check__0_FaceDataInterpretation__region0__choice_0_tr0_tr0();
+		sc_boolean check__0_FaceDataInterpretation__region0__choice_0_tr1_tr1();
 		void effect__0_Init_tr0();
+		void effect__0_FaceDataInterpretation_tr0();
 		void effect__0_TurnToNoise_tr0();
 		void effect__0_MoveToPerson_tr0();
 		void effect__0_SearchForChar__region0_Standing_tr0();
 		void effect__0_SearchForChar__region0_Standing_tr1();
 		void effect__0_SearchForChar__region0_Standing_tr2();
+		void effect__0_SearchForChar__region0_Standing_tr3();
 		void effect__0_SearchForChar__region0_Walking_tr0();
 		void effect__0_SearchForChar__region0_Walking_tr1();
 		void effect__0_SearchForChar__region0_Walking_tr2();
+		void effect__0_SearchForChar__region0_Walking_tr3();
+		void effect__0_GatherData__region0_ReceiveUDPString_tr0();
+		void effect__0_GatherData__region0_ParseStringForData_tr0();
+		void effect__0_FaceDataInterpretation__region0__choice_0_tr0();
+		void effect__0_FaceDataInterpretation__region0__choice_0_tr1();
 		void enact__0_SearchForChar__region0_Standing();
 		void enact__0_SearchForChar__region0_Walking();
+		void enact__0_GatherData__region0_ReceiveUDPString();
+		void enact__0_GatherData__region0_ParseStringForData();
 		void exact__0_SearchForChar__region0_Standing();
 		void exact__0_SearchForChar__region0_Walking();
 		void enseq__0_Init_default();
-		void enseq__0_FaceDataInterpretation_default();
 		void enseq__0_FaceDataInterpretation__region0_PersonKnown_default();
 		void enseq__0_FaceDataInterpretation__region0_PersonUnknown_default();
 		void enseq__0_TurnToNoise_default();
+		void enseq__0_Idle_default();
 		void enseq__0_MoveToPerson_default();
 		void enseq__0_SearchForChar__region0_Standing_default();
 		void enseq__0_SearchForChar__region0_Walking_default();
+		void enseq__0_GatherData__region0_ReceiveUDPString_default();
+		void enseq__0_GatherData__region0_ParseStringForData_default();
 		void enseq__0_default();
-		void enseq__0_FaceDataInterpretation__region0_default();
 		void exseq__0_Init();
+		void exseq__0_FaceDataInterpretation();
 		void exseq__0_FaceDataInterpretation__region0_PersonKnown();
 		void exseq__0_FaceDataInterpretation__region0_PersonUnknown();
 		void exseq__0_TurnToNoise();
@@ -424,9 +486,12 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 		void exseq__0_SearchForChar();
 		void exseq__0_SearchForChar__region0_Standing();
 		void exseq__0_SearchForChar__region0_Walking();
+		void exseq__0_GatherData__region0_ReceiveUDPString();
+		void exseq__0_GatherData__region0_ParseStringForData();
 		void exseq__0();
 		void exseq__0_FaceDataInterpretation__region0();
 		void exseq__0_SearchForChar__region0();
+		void exseq__0_GatherData__region0();
 		void react__0_Init();
 		void react__0_FaceDataInterpretation__region0_PersonKnown();
 		void react__0_FaceDataInterpretation__region0_PersonUnknown();
@@ -435,11 +500,13 @@ class LeonieBrain : public TimedStatemachineInterface, public StatemachineInterf
 		void react__0_MoveToPerson();
 		void react__0_SearchForChar__region0_Standing();
 		void react__0_SearchForChar__region0_Walking();
+		void react__0_GatherData__region0_ReceiveUDPString();
+		void react__0_GatherData__region0_ParseStringForData();
+		void react__0_FaceDataInterpretation__region0__choice_0();
 		void react__0__entry_Default();
-		void react__0_FaceDataInterpretation__region0__entry_Default();
-		void react__0_SearchForChar__region0__sync0();
 		void clearInEvents();
 		void clearOutEvents();
 		
 };
+inline LeonieBrain::SCI_UdpInterface_OCB::~SCI_UdpInterface_OCB() {}
 #endif /* LEONIEBRAIN_H_ */

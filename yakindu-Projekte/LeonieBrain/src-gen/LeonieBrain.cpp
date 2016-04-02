@@ -6,6 +6,7 @@
 
 LeonieBrain::LeonieBrain() {
 	
+	ifaceUdpInterface_OCB = null;
 	
 	stateConfVectorPosition = 0;
 	
@@ -27,6 +28,7 @@ void LeonieBrain::init()
 	clearOutEvents();
 	
 	/* Default init sequence for statechart LeonieBrain */
+	ifaceUdpInterface.message = "";
 	ifaceACIface_stat.faceID = "";
 	ifaceACIface_stat.confidence = 0;
 	ifaceACIface_stat.age = 0;
@@ -113,6 +115,14 @@ void LeonieBrain::runCycle() {
 			react__0_SearchForChar__region0_Walking();
 			break;
 		}
+		case _0_GatherData__region0_ReceiveUDPString : {
+			react__0_GatherData__region0_ReceiveUDPString();
+			break;
+		}
+		case _0_GatherData__region0_ParseStringForData : {
+			react__0_GatherData__region0_ParseStringForData();
+			break;
+		}
 		default:
 			break;
 		}
@@ -126,6 +136,7 @@ void LeonieBrain::clearInEvents() {
 	ifaceInternalSCI.faceFound_raised = false; 
 	ifaceInternalSCI.noiseDetected_raised = false; 
 	ifaceInternalSCI.textMsg_raised = false; 
+	ifaceInternalSCI.onTriggerDataGatherer_raised = false; 
 	timeEvents[0] = false; 
 	timeEvents[1] = false; 
 }
@@ -180,10 +191,35 @@ sc_boolean LeonieBrain::isStateActive(LeonieBrainStates state) {
 		case _0_SearchForChar__region0_Walking : 
 			return (sc_boolean) (stateConfVector[0] == _0_SearchForChar__region0_Walking
 			);
+		case _0_GatherData : 
+			return (sc_boolean) (stateConfVector[0] >= _0_GatherData
+				&& stateConfVector[0] <= _0_GatherData__region0_ParseStringForData);
+		case _0_GatherData__region0_ReceiveUDPString : 
+			return (sc_boolean) (stateConfVector[0] == _0_GatherData__region0_ReceiveUDPString
+			);
+		case _0_GatherData__region0_ParseStringForData : 
+			return (sc_boolean) (stateConfVector[0] == _0_GatherData__region0_ParseStringForData
+			);
 		default: return false;
 	}
 }
 
+LeonieBrain::SCI_UdpInterface* LeonieBrain::getSCI_UdpInterface() {
+	return &ifaceUdpInterface;
+}
+
+
+sc_string LeonieBrain::SCI_UdpInterface::get_message() {
+	return message;
+}
+
+void LeonieBrain::SCI_UdpInterface::set_message(sc_string value) {
+	message = value;
+}
+
+void LeonieBrain::setSCI_UdpInterface_OCB(SCI_UdpInterface_OCB* operationCallback) {
+	ifaceUdpInterface_OCB = operationCallback;
+}
 LeonieBrain::SCI_ACIface_stat* LeonieBrain::getSCI_ACIface_stat() {
 	return &ifaceACIface_stat;
 }
@@ -414,6 +450,14 @@ sc_boolean LeonieBrain::InternalSCI::isRaised_textMsg() {
 	return textMsg_raised;
 }
 
+void LeonieBrain::InternalSCI::raise_onTriggerDataGatherer() {
+	onTriggerDataGatherer_raised = true;
+}
+
+sc_boolean LeonieBrain::InternalSCI::isRaised_onTriggerDataGatherer() {
+	return onTriggerDataGatherer_raised;
+}
+
 sc_integer LeonieBrain::InternalSCI::get_t() {
 	return t;
 }
@@ -429,6 +473,10 @@ sc_boolean LeonieBrain::check__0_Init_tr0_tr0() {
 	return ifaceInternalSCI.start_raised;
 }
 
+sc_boolean LeonieBrain::check__0_FaceDataInterpretation_tr0_tr0() {
+	return true;
+}
+
 sc_boolean LeonieBrain::check__0_TurnToNoise_tr0_tr0() {
 	return ifaceInternalSCI.faceFound_raised;
 }
@@ -442,11 +490,15 @@ sc_boolean LeonieBrain::check__0_SearchForChar__region0_Standing_tr0_tr0() {
 }
 
 sc_boolean LeonieBrain::check__0_SearchForChar__region0_Standing_tr1_tr1() {
-	return ifaceInternalSCI.faceFound_raised && isStateActive(_0_SearchForChar__region0_Walking) && ifaceInternalSCI.faceFound_raised;
+	return ifaceInternalSCI.noiseDetected_raised;
 }
 
 sc_boolean LeonieBrain::check__0_SearchForChar__region0_Standing_tr2_tr2() {
-	return ifaceInternalSCI.noiseDetected_raised;
+	return ifaceInternalSCI.onTriggerDataGatherer_raised;
+}
+
+sc_boolean LeonieBrain::check__0_SearchForChar__region0_Standing_tr3_tr3() {
+	return ifaceInternalSCI.faceFound_raised;
 }
 
 sc_boolean LeonieBrain::check__0_SearchForChar__region0_Walking_tr0_tr0() {
@@ -454,16 +506,41 @@ sc_boolean LeonieBrain::check__0_SearchForChar__region0_Walking_tr0_tr0() {
 }
 
 sc_boolean LeonieBrain::check__0_SearchForChar__region0_Walking_tr1_tr1() {
-	return ifaceInternalSCI.faceFound_raised && isStateActive(_0_SearchForChar__region0_Standing) && ifaceInternalSCI.faceFound_raised;
+	return ifaceInternalSCI.noiseDetected_raised;
 }
 
 sc_boolean LeonieBrain::check__0_SearchForChar__region0_Walking_tr2_tr2() {
-	return ifaceInternalSCI.noiseDetected_raised;
+	return ifaceInternalSCI.onTriggerDataGatherer_raised;
+}
+
+sc_boolean LeonieBrain::check__0_SearchForChar__region0_Walking_tr3_tr3() {
+	return ifaceInternalSCI.faceFound_raised;
+}
+
+sc_boolean LeonieBrain::check__0_GatherData__region0_ReceiveUDPString_tr0_tr0() {
+	return true;
+}
+
+sc_boolean LeonieBrain::check__0_GatherData__region0_ParseStringForData_tr0_tr0() {
+	return true;
+}
+
+sc_boolean LeonieBrain::check__0_FaceDataInterpretation__region0__choice_0_tr0_tr0() {
+	return ifaceACIface_stat.confidence < 90;
+}
+
+sc_boolean LeonieBrain::check__0_FaceDataInterpretation__region0__choice_0_tr1_tr1() {
+	return ifaceACIface_stat.confidence >= 90;
 }
 
 void LeonieBrain::effect__0_Init_tr0() {
 	exseq__0_Init();
 	enseq__0_SearchForChar__region0_Standing_default();
+}
+
+void LeonieBrain::effect__0_FaceDataInterpretation_tr0() {
+	exseq__0_FaceDataInterpretation();
+	enseq__0_Idle_default();
 }
 
 void LeonieBrain::effect__0_TurnToNoise_tr0() {
@@ -473,7 +550,7 @@ void LeonieBrain::effect__0_TurnToNoise_tr0() {
 
 void LeonieBrain::effect__0_MoveToPerson_tr0() {
 	exseq__0_MoveToPerson();
-	enseq__0_FaceDataInterpretation_default();
+	react__0_FaceDataInterpretation__region0__choice_0();
 }
 
 void LeonieBrain::effect__0_SearchForChar__region0_Standing_tr0() {
@@ -482,12 +559,18 @@ void LeonieBrain::effect__0_SearchForChar__region0_Standing_tr0() {
 }
 
 void LeonieBrain::effect__0_SearchForChar__region0_Standing_tr1() {
-	react__0_SearchForChar__region0__sync0();
+	exseq__0_SearchForChar();
+	enseq__0_TurnToNoise_default();
 }
 
 void LeonieBrain::effect__0_SearchForChar__region0_Standing_tr2() {
 	exseq__0_SearchForChar();
-	enseq__0_TurnToNoise_default();
+	enseq__0_GatherData__region0_ReceiveUDPString_default();
+}
+
+void LeonieBrain::effect__0_SearchForChar__region0_Standing_tr3() {
+	exseq__0_SearchForChar();
+	enseq__0_MoveToPerson_default();
 }
 
 void LeonieBrain::effect__0_SearchForChar__region0_Walking_tr0() {
@@ -496,12 +579,36 @@ void LeonieBrain::effect__0_SearchForChar__region0_Walking_tr0() {
 }
 
 void LeonieBrain::effect__0_SearchForChar__region0_Walking_tr1() {
-	react__0_SearchForChar__region0__sync0();
+	exseq__0_SearchForChar();
+	enseq__0_TurnToNoise_default();
 }
 
 void LeonieBrain::effect__0_SearchForChar__region0_Walking_tr2() {
 	exseq__0_SearchForChar();
-	enseq__0_TurnToNoise_default();
+	enseq__0_GatherData__region0_ReceiveUDPString_default();
+}
+
+void LeonieBrain::effect__0_SearchForChar__region0_Walking_tr3() {
+	exseq__0_SearchForChar();
+	enseq__0_MoveToPerson_default();
+}
+
+void LeonieBrain::effect__0_GatherData__region0_ReceiveUDPString_tr0() {
+	exseq__0_GatherData__region0_ReceiveUDPString();
+	enseq__0_GatherData__region0_ParseStringForData_default();
+}
+
+void LeonieBrain::effect__0_GatherData__region0_ParseStringForData_tr0() {
+	exseq__0_GatherData__region0_ParseStringForData();
+	enseq__0_GatherData__region0_ReceiveUDPString_default();
+}
+
+void LeonieBrain::effect__0_FaceDataInterpretation__region0__choice_0_tr0() {
+	enseq__0_FaceDataInterpretation__region0_PersonUnknown_default();
+}
+
+void LeonieBrain::effect__0_FaceDataInterpretation__region0__choice_0_tr1() {
+	enseq__0_FaceDataInterpretation__region0_PersonKnown_default();
 }
 
 /* Entry action for state 'Standing'. */
@@ -516,6 +623,18 @@ void LeonieBrain::enact__0_SearchForChar__region0_Walking() {
 	/* Entry action for state 'Walking'. */
 	timer->setTimer(this, &timeEvents[1], 20 * 1000, false);
 	ifaceMira.randMove = true;
+}
+
+/* Entry action for state 'ReceiveUDPString'. */
+void LeonieBrain::enact__0_GatherData__region0_ReceiveUDPString() {
+	/* Entry action for state 'ReceiveUDPString'. */
+	ifaceUdpInterface_OCB->receive();
+}
+
+/* Entry action for state 'ParseStringForData'. */
+void LeonieBrain::enact__0_GatherData__region0_ParseStringForData() {
+	/* Entry action for state 'ParseStringForData'. */
+	ifaceUdpInterface_OCB->parseString();
 }
 
 /* Exit action for state 'Standing'. */
@@ -537,12 +656,6 @@ void LeonieBrain::enseq__0_Init_default() {
 	stateConfVectorPosition = 0;
 }
 
-/* 'default' enter sequence for state FaceDataInterpretation */
-void LeonieBrain::enseq__0_FaceDataInterpretation_default() {
-	/* 'default' enter sequence for state FaceDataInterpretation */
-	enseq__0_FaceDataInterpretation__region0_default();
-}
-
 /* 'default' enter sequence for state PersonKnown */
 void LeonieBrain::enseq__0_FaceDataInterpretation__region0_PersonKnown_default() {
 	/* 'default' enter sequence for state PersonKnown */
@@ -561,6 +674,13 @@ void LeonieBrain::enseq__0_FaceDataInterpretation__region0_PersonUnknown_default
 void LeonieBrain::enseq__0_TurnToNoise_default() {
 	/* 'default' enter sequence for state TurnToNoise */
 	stateConfVector[0] = _0_TurnToNoise;
+	stateConfVectorPosition = 0;
+}
+
+/* 'default' enter sequence for state Idle */
+void LeonieBrain::enseq__0_Idle_default() {
+	/* 'default' enter sequence for state Idle */
+	stateConfVector[0] = _0_Idle;
 	stateConfVectorPosition = 0;
 }
 
@@ -587,16 +707,26 @@ void LeonieBrain::enseq__0_SearchForChar__region0_Walking_default() {
 	stateConfVectorPosition = 0;
 }
 
+/* 'default' enter sequence for state ReceiveUDPString */
+void LeonieBrain::enseq__0_GatherData__region0_ReceiveUDPString_default() {
+	/* 'default' enter sequence for state ReceiveUDPString */
+	enact__0_GatherData__region0_ReceiveUDPString();
+	stateConfVector[0] = _0_GatherData__region0_ReceiveUDPString;
+	stateConfVectorPosition = 0;
+}
+
+/* 'default' enter sequence for state ParseStringForData */
+void LeonieBrain::enseq__0_GatherData__region0_ParseStringForData_default() {
+	/* 'default' enter sequence for state ParseStringForData */
+	enact__0_GatherData__region0_ParseStringForData();
+	stateConfVector[0] = _0_GatherData__region0_ParseStringForData;
+	stateConfVectorPosition = 0;
+}
+
 /* 'default' enter sequence for region 0 */
 void LeonieBrain::enseq__0_default() {
 	/* 'default' enter sequence for region 0 */
 	react__0__entry_Default();
-}
-
-/* 'default' enter sequence for region null */
-void LeonieBrain::enseq__0_FaceDataInterpretation__region0_default() {
-	/* 'default' enter sequence for region null */
-	react__0_FaceDataInterpretation__region0__entry_Default();
 }
 
 /* Default exit sequence for state Init */
@@ -604,6 +734,12 @@ void LeonieBrain::exseq__0_Init() {
 	/* Default exit sequence for state Init */
 	stateConfVector[0] = LeonieBrain_last_state;
 	stateConfVectorPosition = 0;
+}
+
+/* Default exit sequence for state FaceDataInterpretation */
+void LeonieBrain::exseq__0_FaceDataInterpretation() {
+	/* Default exit sequence for state FaceDataInterpretation */
+	exseq__0_FaceDataInterpretation__region0();
 }
 
 /* Default exit sequence for state PersonKnown */
@@ -663,6 +799,20 @@ void LeonieBrain::exseq__0_SearchForChar__region0_Walking() {
 	exact__0_SearchForChar__region0_Walking();
 }
 
+/* Default exit sequence for state ReceiveUDPString */
+void LeonieBrain::exseq__0_GatherData__region0_ReceiveUDPString() {
+	/* Default exit sequence for state ReceiveUDPString */
+	stateConfVector[0] = LeonieBrain_last_state;
+	stateConfVectorPosition = 0;
+}
+
+/* Default exit sequence for state ParseStringForData */
+void LeonieBrain::exseq__0_GatherData__region0_ParseStringForData() {
+	/* Default exit sequence for state ParseStringForData */
+	stateConfVector[0] = LeonieBrain_last_state;
+	stateConfVectorPosition = 0;
+}
+
 /* Default exit sequence for region 0 */
 void LeonieBrain::exseq__0() {
 	/* Default exit sequence for region 0 */
@@ -698,6 +848,14 @@ void LeonieBrain::exseq__0() {
 		}
 		case _0_SearchForChar__region0_Walking : {
 			exseq__0_SearchForChar__region0_Walking();
+			break;
+		}
+		case _0_GatherData__region0_ReceiveUDPString : {
+			exseq__0_GatherData__region0_ReceiveUDPString();
+			break;
+		}
+		case _0_GatherData__region0_ParseStringForData : {
+			exseq__0_GatherData__region0_ParseStringForData();
 			break;
 		}
 		default: break;
@@ -738,6 +896,23 @@ void LeonieBrain::exseq__0_SearchForChar__region0() {
 	}
 }
 
+/* Default exit sequence for region null */
+void LeonieBrain::exseq__0_GatherData__region0() {
+	/* Default exit sequence for region null */
+	/* Handle exit of all possible states (of LeonieBrain._0.GatherData._region0) at position 0... */
+	switch(stateConfVector[ 0 ]) {
+		case _0_GatherData__region0_ReceiveUDPString : {
+			exseq__0_GatherData__region0_ReceiveUDPString();
+			break;
+		}
+		case _0_GatherData__region0_ParseStringForData : {
+			exseq__0_GatherData__region0_ParseStringForData();
+			break;
+		}
+		default: break;
+	}
+}
+
 /* The reactions of state Init. */
 void LeonieBrain::react__0_Init() {
 	/* The reactions of state Init. */
@@ -749,11 +924,13 @@ void LeonieBrain::react__0_Init() {
 /* The reactions of state PersonKnown. */
 void LeonieBrain::react__0_FaceDataInterpretation__region0_PersonKnown() {
 	/* The reactions of state PersonKnown. */
+	effect__0_FaceDataInterpretation_tr0();
 }
 
 /* The reactions of state PersonUnknown. */
 void LeonieBrain::react__0_FaceDataInterpretation__region0_PersonUnknown() {
 	/* The reactions of state PersonUnknown. */
+	effect__0_FaceDataInterpretation_tr0();
 }
 
 /* The reactions of state TurnToNoise. */
@@ -788,7 +965,11 @@ void LeonieBrain::react__0_SearchForChar__region0_Standing() {
 		}  else {
 			if (check__0_SearchForChar__region0_Standing_tr2_tr2()) { 
 				effect__0_SearchForChar__region0_Standing_tr2();
-			} 
+			}  else {
+				if (check__0_SearchForChar__region0_Standing_tr3_tr3()) { 
+					effect__0_SearchForChar__region0_Standing_tr3();
+				} 
+			}
 		}
 	}
 }
@@ -804,8 +985,36 @@ void LeonieBrain::react__0_SearchForChar__region0_Walking() {
 		}  else {
 			if (check__0_SearchForChar__region0_Walking_tr2_tr2()) { 
 				effect__0_SearchForChar__region0_Walking_tr2();
-			} 
+			}  else {
+				if (check__0_SearchForChar__region0_Walking_tr3_tr3()) { 
+					effect__0_SearchForChar__region0_Walking_tr3();
+				} 
+			}
 		}
+	}
+}
+
+/* The reactions of state ReceiveUDPString. */
+void LeonieBrain::react__0_GatherData__region0_ReceiveUDPString() {
+	/* The reactions of state ReceiveUDPString. */
+	effect__0_GatherData__region0_ReceiveUDPString_tr0();
+}
+
+/* The reactions of state ParseStringForData. */
+void LeonieBrain::react__0_GatherData__region0_ParseStringForData() {
+	/* The reactions of state ParseStringForData. */
+	effect__0_GatherData__region0_ParseStringForData_tr0();
+}
+
+/* The reactions of state null. */
+void LeonieBrain::react__0_FaceDataInterpretation__region0__choice_0() {
+	/* The reactions of state null. */
+	if (check__0_FaceDataInterpretation__region0__choice_0_tr0_tr0()) { 
+		effect__0_FaceDataInterpretation__region0__choice_0_tr0();
+	}  else {
+		if (check__0_FaceDataInterpretation__region0__choice_0_tr1_tr1()) { 
+			effect__0_FaceDataInterpretation__region0__choice_0_tr1();
+		} 
 	}
 }
 
@@ -813,20 +1022,6 @@ void LeonieBrain::react__0_SearchForChar__region0_Walking() {
 void LeonieBrain::react__0__entry_Default() {
 	/* Default react sequence for initial entry  */
 	enseq__0_Init_default();
-}
-
-/* Default react sequence for initial entry  */
-void LeonieBrain::react__0_FaceDataInterpretation__region0__entry_Default() {
-	/* Default react sequence for initial entry  */
-	enseq__0_FaceDataInterpretation__region0_PersonKnown_default();
-	enseq__0_FaceDataInterpretation__region0_PersonUnknown_default();
-}
-
-/* The reactions of state null. */
-void LeonieBrain::react__0_SearchForChar__region0__sync0() {
-	/* The reactions of state null. */
-	exseq__0_SearchForChar();
-	enseq__0_MoveToPerson_default();
 }
 
 

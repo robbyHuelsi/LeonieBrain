@@ -1,7 +1,7 @@
-package org.yakindu.scr.leoniebrain;
+package org.yakindu.scr.brain;
 import org.yakindu.scr.ITimer;
 
-public class LeonieBrainStatemachine implements ILeonieBrainStatemachine {
+public class BrainStatemachine implements IBrainStatemachine {
 
 	protected class SCIUdpInterfaceImpl implements SCIUdpInterface {
 
@@ -303,7 +303,7 @@ public class LeonieBrainStatemachine implements ILeonieBrainStatemachine {
 		return t;
 	}
 
-	public LeonieBrainStatemachine() {
+	public BrainStatemachine() {
 
 		sCIUdpInterface = new SCIUdpInterfaceImpl();
 		sCIACIface_stat = new SCIACIface_statImpl();

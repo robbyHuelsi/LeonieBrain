@@ -1,10 +1,10 @@
-GeneratorModel for yakindu::cpp {
+GeneratorModel for yakindu::java {
 
 	statechart LeonieBrain {
 
 		feature Outlet {
 			targetProject = "LeonieBrain"
-			targetFolder = "src-gen"
+			targetFolder = "jsrc-gen"
 			libraryTargetFolder = "src"
 		}
 	}
