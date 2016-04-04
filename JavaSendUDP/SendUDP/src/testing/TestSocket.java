@@ -33,7 +33,7 @@ public class TestSocket {
 			{
 				InetAddress senderAdress = InetAddress.getLoopbackAddress();
 				int senderPort = 9999;
-				new SendUDP(senderAdress, senderPort).sendSocket(sentence, InetAddress.getByName("192.168.178.38"), 8888);
+				new SendUDP(senderAdress, senderPort).sendSocket(sentence, InetAddress.getByName("134.103.120.108"), 8888);
 			} catch (UnknownHostException e)
 			{
 				e.printStackTrace();

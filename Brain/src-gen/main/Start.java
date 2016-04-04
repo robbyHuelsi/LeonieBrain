@@ -11,6 +11,39 @@ public class Start
 	
 	BrainStatemachine brain;
 	
+	static private String ipListen = "134.103.120.123";
+	static private int portListen = 8888;
+	
+	//VBrain
+	static private String ipSendVBrain = "";
+	static private int portSendVBrain = 0;
+	
+	//HBrain
+	static private String ipSendHBrain = "134.103.120.135";
+	static private int portSendHBrain = 11005;
+	
+	//STT
+	static private String ipSendSTT = "";
+	static private int portSendSTT = 0;
+	
+	//Kinect1
+	
+	//Kinect2
+	static private String ipSendKinect2 = "";
+	static private int portSendKinect2 = 0;
+	
+	//LeapMotion
+	static private String ipSendLeapMotion = "";
+	static private int portSendLeapMotion = 0;
+	
+	//Scitos Remote Control
+	static private String ipSendSRC = "";
+	static private int portSendSRC = 0;
+	
+	//Navigation
+	static private String ipSendNavigation = "";
+	static private int portSendNavigation = 0;
+	
 	private Start()
 	{
 		brain = new BrainStatemachine();
@@ -34,6 +67,8 @@ public class Start
 	{
 		Start t = Start.instanceOf();
 
+		System.out.println("Start!");
+		
 		OpCallbackImpl opCallback = new OpCallbackImpl();
 		t.brain.getSCIUdpInterface().setSCIUdpInterfaceOperationCallback(opCallback);
 		
@@ -53,5 +88,69 @@ public class Start
 			t.brain.runCycle();
 //			Thread.sleep(500);
 		}
+	}
+
+	public static String getIpListen() {
+		return ipListen;
+	}
+
+	public static int getPortListen() {
+		return portListen;
+	}
+
+	public static String getIpSendVBrain() {
+		return ipSendVBrain;
+	}
+
+	public static int getPortSendVBrain() {
+		return portSendVBrain;
+	}
+
+	public static String getIpSendHBrain() {
+		return ipSendHBrain;
+	}
+
+	public static int getPortSendHBrain() {
+		return portSendHBrain;
+	}
+
+	public static String getIpSendSTT() {
+		return ipSendSTT;
+	}
+
+	public static int getPortSendSTT() {
+		return portSendSTT;
+	}
+
+	public static String getIpSendKinect2() {
+		return ipSendKinect2;
+	}
+
+	public static int getPortSendKinect2() {
+		return portSendKinect2;
+	}
+
+	public static String getIpSendLeapMotion() {
+		return ipSendLeapMotion;
+	}
+
+	public static int getPortSendLeapMotion() {
+		return portSendLeapMotion;
+	}
+
+	public static String getIpSendSRC() {
+		return ipSendSRC;
+	}
+
+	public static int getPortSendSRC() {
+		return portSendSRC;
+	}
+
+	public static String getIpSendNavigation() {
+		return ipSendNavigation;
+	}
+
+	public static int getPortSendNavigation() {
+		return portSendNavigation;
 	}
 }

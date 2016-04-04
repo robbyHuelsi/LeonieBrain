@@ -3,12 +3,20 @@ package udp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.yakindu.scr.brain.BrainStatemachine;
+
+import main.Start;
+
 import vbrain.Person;
 
 public class MessageParser
 {
+	
 	// Expected form of message: #SENDER#DATA
 	public static boolean ParseMessage(String message){
+		Start start = Start.instanceOf();
+		BrainStatemachine brain = start.getBrain();
+		
 		// Get sender and process message
 		String sender;
 		String data;
@@ -21,20 +29,83 @@ public class MessageParser
 		Pattern pattern = Pattern.compile("\\A#([\\w]*)#([\\S]*)");
 		Matcher m = pattern.matcher(message);
 		if(m.find()){
+
 			sender = m.group(1);
 			data = m.group(2);
 			
+			//System.out.println(sender + ": " + data);
+			
 			// Decide what should be done, depending on sender
 			switch (sender){
-				case "VBRAIN" : Person p = Person.createObjectFromString(data);
-								// TODO: Use filename of DB
-								p.serialize("DATABANK.txt");
-								break;
-				// TODO: Add missing cases
-				default : return false;				
+				case "VBRAIN" : 		Person p = Person.createObjectFromString(data);
+										// TODO: Use filename of DB
+										p.serialize("DATABANK.txt");
+										
+										brain.getSCIACIface_stat().setFaceID(0);
+										brain.getSCIACIface_stat().setConfidence(0);
+										brain.getSCIACIface_stat().setAge(0);
+										// TODO: Die Variablen 
+										
+										return true;
+										//break;
+										
+				case "HBRAIN" :			System.out.println("HBrain");
+				
+										return true;
+										//break;
+										
+				case "NOISEDETECTION" :	String[] attributePartsND = data.split(";");
+										if(attributePartsND[2].contains("1")){
+											System.out.println("Noise detected: " + attributePartsND[0]);
+											brain.getSCIKinect2().setNoiseDetected(true);
+											//brain.getSCIKinect2().setNoiseAngle(Integer.parseInt(attributePartsND[0]));
+											brain.getSCIKinect2().setNoiseAngle(attributePartsND[0]);
+										}else{
+											brain.getSCIKinect2().setNoiseDetected(false);
+										}
+										return true;
+										//break;
+										
+				case "HANDGESTURES" :	String[] attributePartsHG = data.split(";");	
+										System.out.println("Handgesture: " + attributePartsHG[0]);
+										if(true){ //attributePartsHG[2].contains("1")){
+											System.out.println("Noise detected: " + attributePartsHG[0]);
+											brain.getSCILeapMotion().setGestureDetected(true);
+											brain.getSCILeapMotion().setGesture(attributePartsHG[0]);
+										}else{
+											brain.getSCILeapMotion().setGestureDetected(true);
+										}
+										return true;
+										//break;
+										
+				case "SMARTCONTROL" :	System.out.println("SMARTCONTROL");
+							
+										return true;
+										//break;
+										
+				case "STT" :			System.out.println("Input text: " + data);
+										return true;
+										//break;
+										
+				case "NAV" :			System.out.println("NAV");
+										return true;
+										//break;
+										
+				case "ATTRACT" :		System.out.println("Attractiveness: " + data);
+										return true;
+										//break;
+									
+				case "":
+				default :				System.out.println(sender + ": " + data);
+										return false;
+										//break;							
 			}
 		}		
+
+		System.out.println("Unfound: " + m.toString());
 		
 		return false;		
 	}
+	
+	
 }

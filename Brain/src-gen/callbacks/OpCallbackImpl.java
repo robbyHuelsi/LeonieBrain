@@ -23,9 +23,12 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback
 		/* UDP establish connection & receive */
 		String result = null;
 		ReceiveUDP receiveUDP = null;
+		
+		//System.out.println("ReceiveUDP...");
+		
 		try
 		{
-			receiveUDP = new ReceiveUDP(InetAddress.getByName("192.168.178.38"), 8888);
+			receiveUDP = new ReceiveUDP(InetAddress.getByName(Start.getIpListen()), Start.getPortListen());
 		} catch (UnknownHostException e)
 		{
 			// TODO Auto-generated catch block
@@ -42,23 +45,61 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback
 	}
 	
 	
-	public void sendMessage()
+	private void sendMessage(String ip, int port, String text)
 	{
-		
 		try
 		{
 			SendUDP sss = new SendUDP(InetAddress.getLocalHost(), 1234);
-			sss.sendSocket(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage(), InetAddress.getByName("134.103.120.108"), 8888);
+			//sss.sendSocket(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage(), InetAddress.getByName("134.103.120.108"), 8888);
+			sss.sendSocket(text, InetAddress.getByName(ip), port);
 		} catch (UnknownHostException e)
 		{
 			e.printStackTrace();
 		}
 //		System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());		
 	}
+	
+	public void sendToVBrain_(){
+		
+	}
+	
+	public void sendToHBrain_TTS(String inText){
+		//System.out.println(inText);
+		this.sendMessage(Start.getIpSendHBrain(), Start.getPortSendHBrain(), inText + "\0");
+	}
+	
+	public void sendToHBrain_TTSWithPos(String inPos, String inText){
+		//System.out.println(inText);
+		sendToHBrain_TTS("{0;" + inPos + "}" + inText);
+	}
+	
+	public void sendToHBrain_PersonPosition(){
+		
+	}
+	
+	public void sendToKinect2_detectionOnOff(boolean inOnOff){
+		this.sendMessage(Start.getIpSendKinect2(), Start.getPortSendKinect2(), (inOnOff?"1":"0"));
+	}
+	
+	public void sendToLeapMotion_detectionOnOff(boolean inOnOff){
+		this.sendMessage(Start.getIpSendLeapMotion(), Start.getPortSendLeapMotion(), (inOnOff?"1":"0"));
+	}
+	
+	public void sendToSTT_detectionOnOff(boolean inOnOff){
+		this.sendMessage(Start.getIpSendSTT(), Start.getPortSendSTT(), (inOnOff?"1":"0"));
+	}
+	
+	public void sendToSmartphone_(){
+		
+	}
+	
+	public void sendToNavi_(){
+		
+	}
 
 	@Override
 	public void parseString() {
-		System.out.println(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
+		//System.out.println(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
 		MessageParser.ParseMessage(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
 	}
 }
