@@ -22,7 +22,7 @@
           </vertices>
         </regions>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_KGhJAPiqEeWcn8poFBqj7w" specification="entry /&#xD;&#xA;UdpInterface.sendToHBrain_TTSWithPos(Kinect2.noiseAngle,LeapMotion.gesture)" name="TurnToNoise" incomingTransitions="_AeOYBPl5EeWfQ5nCnvwPLA">
+      <vertices xsi:type="sgraph:State" xmi:id="_KGhJAPiqEeWcn8poFBqj7w" specification="entry /&#xD;&#xA;UdpInterface.sendToHBrain_TTS(&quot;Hello&quot;)" name="TurnToNoise" incomingTransitions="_AeOYBPl5EeWfQ5nCnvwPLA">
         <outgoingTransitions xmi:id="_KGhJAviqEeWcn8poFBqj7w" specification="[Aci.countFoundFaces > 0]" target="_KGhwFfiqEeWcn8poFBqj7w"/>
         <outgoingTransitions xmi:id="_a_G9QPmbEeWF0KlMMmhPrg" specification="[Aci.countFoundFaces > 0] # > EntrySearchForChat" target="_KGiXJ_iqEeWcn8poFBqj7w"/>
       </vertices>

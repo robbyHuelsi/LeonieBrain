@@ -918,7 +918,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'TurnToNoise'. */
 	private void entryAction_MainBrain_TurnToNoise() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTSWithPos(sCIKinect2.noiseAngle, sCILeapMotion.gesture);
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hello");
 	}
 
 	/* Entry action for state 'Standing'. */
