@@ -15,8 +15,8 @@ public class Start
 	static private int portListen = 8888;
 	
 	//VBrain
-	static private String ipSendVBrain = "";
-	static private int portSendVBrain = 0;
+	static private String ipSendVBrain = "134.103.120.108";
+	static private int portSendVBrain = 8889;
 	
 	//HBrain
 	static private String ipSendHBrain = "134.103.120.135";

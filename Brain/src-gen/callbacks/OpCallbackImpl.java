@@ -59,8 +59,9 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback
 //		System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());		
 	}
 	
-	public void sendToVBrain_(){
-		
+	public void sendToVBrain_onOff(boolean inOnOff){
+		System.out.println(inOnOff?"ACI on":"ACI off");
+		this.sendMessage(Start.getIpSendVBrain(), Start.getPortSendVBrain(), inOnOff?"#VBRAIN#11#":"#VBRAIN#00#" + "\0");
 	}
 	
 	public void sendToHBrain_TTS(String inText){
@@ -93,9 +94,21 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback
 		
 	}
 	
-	public void sendToNavi_(){
-		
+	public void sendToNav_goTo(String inWayPoint){
+		System.out.println("Go to " + inWayPoint);
+		this.sendMessage(Start.getIpSendNavigation(), Start.getPortSendNavigation(), "#NAV#" + inWayPoint + "\0");
 	}
+	
+	public void sendToNav_turn(int inAngle){
+		System.out.println("Turn " + inAngle + " degrees");
+		this.sendMessage(Start.getIpSendNavigation(), Start.getPortSendNavigation(), "#NAV#" + inAngle + "\0");
+	}
+	
+	public void sendToNav_searchOnOff(boolean inOnOff){
+		System.out.println(inOnOff?"Moving from WP to WP":"Standing");
+		this.sendMessage(Start.getIpSendNavigation(), Start.getPortSendNavigation(), "#NAV#" + (inOnOff?"visit":"stop") + "\0");
+	}
+	
 
 	@Override
 	public void parseString() {

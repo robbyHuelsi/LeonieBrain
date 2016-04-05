@@ -103,6 +103,16 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	protected class SCIACIface_dynImpl implements SCIACIface_dyn {
 
+		private boolean faceFound;
+
+		public boolean getFaceFound() {
+			return faceFound;
+		}
+
+		public void setFaceFound(boolean value) {
+			this.faceFound = value;
+		}
+
 		private long headGestures;
 
 		public long getHeadGestures() {
@@ -418,7 +428,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private boolean initialized = false;
 
 	public enum State {
-		mainBrain_Init, mainBrain_FaceDataInterpretation, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnown, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonUnknown, mainBrain_TurnToNoise, mainBrain_Idle, mainBrain_MoveToPerson, mainBrain_SearchForChat, mainBrain_SearchForChat_SearchForChat_Standing, mainBrain_SearchForChat_SearchForChat_Walking, mainBrain_StartGatherData, gatherData_ReceiveUDPString, gatherData_ParseStringForData, gatherData_InitGatherData, test_InitTest, test_Speak, $NullState$
+		mainBrain_Init, mainBrain_FaceDataInterpretation, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnown, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonUnknown, mainBrain_TurnToNoise, mainBrain_Idle, mainBrain_MoveToPerson, mainBrain_SearchForChat, mainBrain_SearchForChat_SearchForChat_Standing, mainBrain_SearchForChat_SearchForChat_Walking, gatherData_ReceiveUDPString, gatherData_ParseStringForData, gatherData_InitGatherData, test_InitTest, test_Speak, $NullState$
 	};
 
 	private final State[] stateVector = new State[3];
@@ -487,6 +497,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCIACIface_stat.setGlasses(false);
 
 		sCIACIface_stat.setAttractiveness(0);
+
+		sCIACIface_dyn.setFaceFound(false);
 
 		sCIACIface_dyn.setHeadGestures(0);
 
@@ -631,8 +643,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 				return stateVector[0] == State.mainBrain_SearchForChat_SearchForChat_Standing;
 			case mainBrain_SearchForChat_SearchForChat_Walking :
 				return stateVector[0] == State.mainBrain_SearchForChat_SearchForChat_Walking;
-			case mainBrain_StartGatherData :
-				return stateVector[0] == State.mainBrain_StartGatherData;
 			case gatherData_ReceiveUDPString :
 				return stateVector[1] == State.gatherData_ReceiveUDPString;
 			case gatherData_ParseStringForData :
@@ -762,10 +772,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		return sCIAci.countFoundFaces > 0;
 	}
 
-	private boolean check_MainBrain_StartGatherData_tr0_tr0() {
-		return true;
-	}
-
 	private boolean check_GatherData_ReceiveUDPString_tr0_tr0() {
 		return true;
 	}
@@ -797,7 +803,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void effect_MainBrain_Init_tr0() {
 		exitSequence_MainBrain_Init();
 
-		enterSequence_MainBrain_StartGatherData_default();
+		enterSequence_MainBrain_SearchForChat_EntrySearchForChat();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_tr0() {
@@ -872,12 +878,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		react_MainBrain_SearchForChat_SearchForChat_ExitFaceFound();
 	}
 
-	private void effect_MainBrain_StartGatherData_tr0() {
-		exitSequence_MainBrain_StartGatherData();
-
-		enterSequence_MainBrain_SearchForChat_EntrySearchForChat();
-	}
-
 	private void effect_GatherData_ReceiveUDPString_tr0() {
 		exitSequence_GatherData_ReceiveUDPString();
 
@@ -916,6 +916,13 @@ public class BrainStatemachine implements IBrainStatemachine {
 		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnown_default();
 	}
 
+	/* Entry action for state 'Init'. */
+	private void entryAction_MainBrain_Init() {
+		raiseOnTriggerDataGatherer();
+
+		sCIUdpInterface.operationCallback.sendToVBrain_onOff(true);
+	}
+
 	/* Entry action for state 'TurnToNoise'. */
 	private void entryAction_MainBrain_TurnToNoise() {
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hello");
@@ -935,11 +942,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		timer.setTimer(this, 1, 20 * 1000, false);
 
 		sCIMira.setRandMove(true);
-	}
-
-	/* Entry action for state 'StartGatherData'. */
-	private void entryAction_MainBrain_StartGatherData() {
-		raiseOnTriggerDataGatherer();
 	}
 
 	/* Entry action for state 'ReceiveUDPString'. */
@@ -977,6 +979,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* 'default' enter sequence for state Init */
 	private void enterSequence_MainBrain_Init_default() {
+		entryAction_MainBrain_Init();
+
 		nextStateIndex = 0;
 		stateVector[0] = State.mainBrain_Init;
 	}
@@ -1037,14 +1041,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 		nextStateIndex = 0;
 		stateVector[0] = State.mainBrain_SearchForChat_SearchForChat_Walking;
-	}
-
-	/* 'default' enter sequence for state StartGatherData */
-	private void enterSequence_MainBrain_StartGatherData_default() {
-		entryAction_MainBrain_StartGatherData();
-
-		nextStateIndex = 0;
-		stateVector[0] = State.mainBrain_StartGatherData;
 	}
 
 	/* 'default' enter sequence for state ReceiveUDPString */
@@ -1170,12 +1166,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		exitAction_MainBrain_SearchForChat_SearchForChat_Walking();
 	}
 
-	/* Default exit sequence for state StartGatherData */
-	private void exitSequence_MainBrain_StartGatherData() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-
 	/* Default exit sequence for state ReceiveUDPString */
 	private void exitSequence_GatherData_ReceiveUDPString() {
 		nextStateIndex = 1;
@@ -1241,10 +1231,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 			case mainBrain_SearchForChat_SearchForChat_Walking :
 				exitSequence_MainBrain_SearchForChat_SearchForChat_Walking();
-				break;
-
-			case mainBrain_StartGatherData :
-				exitSequence_MainBrain_StartGatherData();
 				break;
 
 			default :
@@ -1387,11 +1373,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		}
 	}
 
-	/* The reactions of state StartGatherData. */
-	private void react_MainBrain_StartGatherData() {
-		effect_MainBrain_StartGatherData_tr0();
-	}
-
 	/* The reactions of state ReceiveUDPString. */
 	private void react_GatherData_ReceiveUDPString() {
 		effect_GatherData_ReceiveUDPString_tr0();
@@ -1502,9 +1483,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 					break;
 				case mainBrain_SearchForChat_SearchForChat_Walking :
 					react_MainBrain_SearchForChat_SearchForChat_Walking();
-					break;
-				case mainBrain_StartGatherData :
-					react_MainBrain_StartGatherData();
 					break;
 				case gatherData_ReceiveUDPString :
 					react_GatherData_ReceiveUDPString();

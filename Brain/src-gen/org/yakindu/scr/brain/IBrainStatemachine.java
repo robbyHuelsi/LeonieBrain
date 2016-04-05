@@ -14,6 +14,7 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	public interface SCIUdpInterfaceOperationCallback {
 		public void receive();
 		public void parseString();
+		public void sendToVBrain_onOff(boolean inOnOff);
 		public void sendToHBrain_TTS(String inText);
 		public void sendToHBrain_TTSWithPos(String inPos, String inText);
 		public void sendToHBrain_PersonPosition();
@@ -45,6 +46,8 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	public SCIACIface_stat getSCIACIface_stat();
 
 	public interface SCIACIface_dyn {
+		public boolean getFaceFound();
+		public void setFaceFound(boolean value);
 		public long getHeadGestures();
 		public void setHeadGestures(long value);
 		public boolean getSpeaking();
