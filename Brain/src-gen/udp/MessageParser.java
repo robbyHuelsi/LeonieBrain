@@ -37,13 +37,30 @@ public class MessageParser
 			
 			// Decide what should be done, depending on sender
 			switch (sender){
-				case "VBRAIN" : 		Person p = Person.createObjectFromString(data);
-										// TODO: Use filename of DB
-										p.serialize("DATABANK.txt");
+				case "VBRAIN" : 		Pattern vbrainPattern = Pattern.compile("\\A#([\\w]*)#([\\S]*)");
+										Matcher vbrainbM = vbrainPattern.matcher(data);
 										
-										brain.getSCIACIface_stat().setFaceID(0);
-										brain.getSCIACIface_stat().setConfidence(0);
-										brain.getSCIACIface_stat().setAge(0);
+										if (vbrainbM.group(1).equals("STAT")){
+											String[] attributePartsVBS = vbrainbM.group(2).split(";");
+											
+											brain.getSCIACIface_stat().setFaceID(Integer.parseInt(attributePartsVBS[0]));
+											brain.getSCIACIface_stat().setConfidence(0);
+											brain.getSCIACIface_stat().setAge(Integer.parseInt(attributePartsVBS[1]));
+											brain.getSCIACIface_stat().setGender(attributePartsVBS[2].contains("1")?true:false);
+											brain.getSCIACIface_stat().setEthnicty(Integer.parseInt(attributePartsVBS[3]));
+											brain.getSCIACIface_stat().setGlasses(attributePartsVBS[4].contains("1")?true:false);
+											brain.getSCIACIface_stat().setAttractiveness(Integer.parseInt(attributePartsVBS[5]));
+										}else{
+											
+										}
+										
+										
+										
+										//Person p = Person.createObjectFromString(data);
+										// TODO: Use filename of DB
+										//p.serialize("DATABANK.txt");
+										
+										
 										// TODO: Die Variablen 
 										
 										return true;
@@ -67,12 +84,13 @@ public class MessageParser
 										//break;
 										
 				case "HANDGESTURES" :	String[] attributePartsHG = data.split(";");	
-										System.out.println("Handgesture: " + attributePartsHG[0]);
-										if(true){ //attributePartsHG[2].contains("1")){
-											System.out.println("Noise detected: " + attributePartsHG[0]);
+										//System.out.println(attributePartsHG[0]);
+										if(attributePartsHG[0].contains("1")){
+											System.out.println("Handgestutre detected: " + attributePartsHG[1]);
 											brain.getSCILeapMotion().setGestureDetected(true);
-											brain.getSCILeapMotion().setGesture(attributePartsHG[0]);
+											brain.getSCILeapMotion().setGesture(attributePartsHG[1]);
 										}else{
+											System.out.println("Handgestutre not detected");
 											brain.getSCILeapMotion().setGestureDetected(true);
 										}
 										return true;
@@ -102,7 +120,7 @@ public class MessageParser
 			}
 		}		
 
-		System.out.println("Unfound: " + m.toString());
+		System.out.println("Unfound: " + m.toString() + "\n" + message);
 		
 		return false;		
 	}
