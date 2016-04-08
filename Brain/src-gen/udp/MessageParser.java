@@ -111,6 +111,7 @@ public class MessageParser
 										//break;
 										
 				case "STT" :			System.out.println("Input text: " + data);
+										brain.getSCISTT().setSpeakerMsg(data);
 										return true;
 										//break;
 										

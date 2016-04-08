@@ -22,7 +22,7 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void sendToLeapMotion_detectionOnOff(boolean inOnOff);
 		public void sendToSTT_detectionOnOff(boolean inOnOff);
 		public void sendToNav_goToGWP(String inWayPoint);
-		public void sendToNav_goToLC(long inX, long inY);
+		public void sendToNav_goToLC(String inX, String inY);
 		public void sendToNav_searchOnOff(boolean inOnOff);
 	}
 
@@ -139,6 +139,14 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	}
 
 	public SCIOpenDail getSCIOpenDail();
+
+	public interface SCISTT {
+		public String getSpeakerMsg();
+		public void setSpeakerMsg(String value);
+
+	}
+
+	public SCISTT getSCISTT();
 
 	public interface SCIFaceAnimation {
 		public String getEmotion();

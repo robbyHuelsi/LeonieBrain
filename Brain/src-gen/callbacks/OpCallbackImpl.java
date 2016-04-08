@@ -87,7 +87,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback
 	}
 	
 	public void sendToSTT_detectionOnOff(boolean inOnOff){
-		this.sendMessage(Start.getIpSendSTT(), Start.getPortSendSTT(), (inOnOff?"1":"0"));
+		this.sendMessage(Start.getIpSendSTT(), Start.getPortSendSTT(), "#STT#" + (inOnOff?"1":"0"));
 	}
 	
 	public void sendToSmartphone_(){
@@ -106,7 +106,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback
 	
 	public void sendToNav_searchOnOff(boolean inOnOff){
 		System.out.println(inOnOff?"Moving from WP to WP":"Standing");
-		this.sendMessage(Start.getIpSendNavigation(), Start.getPortSendNavigation(), "#NAV##SEARCH#" + (inOnOff?"0":"1") + "#\0");
+		this.sendMessage(Start.getIpSendNavigation(), Start.getPortSendNavigation(), "#NAV##RUN#" + (inOnOff?"1":"0") + "#\0");
 	}
 	
 
@@ -114,5 +114,12 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback
 	public void parseString() {
 		//System.out.println(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
 		MessageParser.ParseMessage(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
+	}
+
+
+	@Override
+	public void sendToNav_goToLC(long inX, long inY) {
+		// TODO Auto-generated method stub
+		
 	}
 }

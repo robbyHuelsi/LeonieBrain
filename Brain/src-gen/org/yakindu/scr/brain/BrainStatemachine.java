@@ -393,6 +393,22 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	protected SCIOpenDailImpl sCIOpenDail;
 
+	protected class SCISTTImpl implements SCISTT {
+
+		private String speakerMsg;
+
+		public String getSpeakerMsg() {
+			return speakerMsg;
+		}
+
+		public void setSpeakerMsg(String value) {
+			this.speakerMsg = value;
+		}
+
+	}
+
+	protected SCISTTImpl sCISTT;
+
 	protected class SCIFaceAnimationImpl implements SCIFaceAnimation {
 
 		private String emotion;
@@ -450,6 +466,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCILeapMotion = new SCILeapMotionImpl();
 		sCIScitosRemoteControl = new SCIScitosRemoteControlImpl();
 		sCIOpenDail = new SCIOpenDailImpl();
+		sCISTT = new SCISTTImpl();
 		sCIFaceAnimation = new SCIFaceAnimationImpl();
 	}
 
@@ -530,6 +547,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCIOpenDail.setSpeakerMsg("");
 
 		sCIOpenDail.setLeonieMsg("");
+
+		sCISTT.setSpeakerMsg("");
 
 		sCIFaceAnimation.setEmotion("");
 
@@ -689,6 +708,9 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	public SCIOpenDail getSCIOpenDail() {
 		return sCIOpenDail;
+	}
+	public SCISTT getSCISTT() {
+		return sCISTT;
 	}
 	public SCIFaceAnimation getSCIFaceAnimation() {
 		return sCIFaceAnimation;
@@ -907,7 +929,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Oh, somebody is behind me");
 
-		sCIUdpInterface.operationCallback.sendToNav_goToLC(0, 1);
+		sCIUdpInterface.operationCallback.sendToNav_goToLC("0", "1");
 	}
 
 	/* Entry action for state 'MoveToPerson'. */
