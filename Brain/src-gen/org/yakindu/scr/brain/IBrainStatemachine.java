@@ -14,13 +14,16 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	public interface SCIUdpInterfaceOperationCallback {
 		public void receive();
 		public void parseString();
-		public void sendToVBrain_onOff(boolean inOnOff);
+		public void sendToVBrain_ACIonOff(boolean inOnOff);
 		public void sendToHBrain_TTS(String inText);
 		public void sendToHBrain_TTSWithPos(String inPos, String inText);
 		public void sendToHBrain_PersonPosition();
 		public void sendToKinect2_detectionOnOff(boolean inOnOff);
 		public void sendToLeapMotion_detectionOnOff(boolean inOnOff);
 		public void sendToSTT_detectionOnOff(boolean inOnOff);
+		public void sendToNav_goToGWP(String inWayPoint);
+		public void sendToNav_goToLC(long inX, long inY);
+		public void sendToNav_searchOnOff(boolean inOnOff);
 	}
 
 	public SCIUdpInterface getSCIUdpInterface();
@@ -136,14 +139,6 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	}
 
 	public SCIOpenDail getSCIOpenDail();
-
-	public interface SCIMira {
-		public boolean getRandMove();
-		public void setRandMove(boolean value);
-
-	}
-
-	public SCIMira getSCIMira();
 
 	public interface SCIFaceAnimation {
 		public String getEmotion();

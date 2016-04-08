@@ -393,22 +393,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	protected SCIOpenDailImpl sCIOpenDail;
 
-	protected class SCIMiraImpl implements SCIMira {
-
-		private boolean randMove;
-
-		public boolean getRandMove() {
-			return randMove;
-		}
-
-		public void setRandMove(boolean value) {
-			this.randMove = value;
-		}
-
-	}
-
-	protected SCIMiraImpl sCIMira;
-
 	protected class SCIFaceAnimationImpl implements SCIFaceAnimation {
 
 		private String emotion;
@@ -466,7 +450,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCILeapMotion = new SCILeapMotionImpl();
 		sCIScitosRemoteControl = new SCIScitosRemoteControlImpl();
 		sCIOpenDail = new SCIOpenDailImpl();
-		sCIMira = new SCIMiraImpl();
 		sCIFaceAnimation = new SCIFaceAnimationImpl();
 	}
 
@@ -547,8 +530,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCIOpenDail.setSpeakerMsg("");
 
 		sCIOpenDail.setLeonieMsg("");
-
-		sCIMira.setRandMove(false);
 
 		sCIFaceAnimation.setEmotion("");
 
@@ -708,9 +689,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	public SCIOpenDail getSCIOpenDail() {
 		return sCIOpenDail;
-	}
-	public SCIMira getSCIMira() {
-		return sCIMira;
 	}
 	public SCIFaceAnimation getSCIFaceAnimation() {
 		return sCIFaceAnimation;
@@ -920,12 +898,21 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void entryAction_MainBrain_Init() {
 		raiseOnTriggerDataGatherer();
 
-		sCIUdpInterface.operationCallback.sendToVBrain_onOff(true);
+		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(true);
 	}
 
 	/* Entry action for state 'TurnToNoise'. */
 	private void entryAction_MainBrain_TurnToNoise() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hello");
+		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(true);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Oh, somebody is behind me");
+
+		sCIUdpInterface.operationCallback.sendToNav_goToLC(0, 1);
+	}
+
+	/* Entry action for state 'MoveToPerson'. */
+	private void entryAction_MainBrain_MoveToPerson() {
+		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(true);
 	}
 
 	/* Entry action for state 'Standing'. */
@@ -933,7 +920,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 		timer.setTimer(this, 0, 10 * 1000, false);
 
-		sCIMira.setRandMove(false);
+		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(false);
 	}
 
 	/* Entry action for state 'Walking'. */
@@ -941,7 +928,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 		timer.setTimer(this, 1, 20 * 1000, false);
 
-		sCIMira.setRandMove(true);
+		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(true);
 	}
 
 	/* Entry action for state 'ReceiveUDPString'. */
@@ -1018,6 +1005,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* 'default' enter sequence for state MoveToPerson */
 	private void enterSequence_MainBrain_MoveToPerson_default() {
+		entryAction_MainBrain_MoveToPerson();
+
 		nextStateIndex = 0;
 		stateVector[0] = State.mainBrain_MoveToPerson;
 	}

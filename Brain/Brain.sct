@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
-  <sgraph:Statechart xmi:id="_uc0CEPipEeWcn8poFBqj7w" specification="interface UdpInterface:&#xD;&#xA;&#x9;var message:string&#xD;&#xA;&#x9;operation receive():void&#xD;&#xA;&#x9;operation parseString():void&#xD;&#xA;&#x9;operation sendToVBrain_onOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation sendToHBrain_TTS(inText : string):void&#xD;&#xA;&#x9;operation sendToHBrain_TTSWithPos(inPos : string, inText : string):void&#xD;&#xA;&#x9;operation sendToHBrain_PersonPosition():void&#xD;&#xA;&#x9;operation sendToKinect2_detectionOnOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation sendToLeapMotion_detectionOnOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation sendToSTT_detectionOnOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation sendToNav_goTo(inWayPoint : string):void&#xD;&#xA;&#x9;operation sendToNav_turn(inAngle : integer):void&#xD;&#xA;&#x9;operation sendToNav_searchOnOff(inOnOff : boolean):void&#xA;interface ACIface_stat:&#xD;&#xA;&#x9;var faceID : integer&#xD;&#xA;&#x9;var confidence : integer&#xD;&#xA;&#x9;var age : integer&#xD;&#xA;&#x9;var gender : boolean&#xD;&#xA;&#x9;var ethnicty : integer&#xD;&#xA;&#x9;var glasses : boolean&#xD;&#xA;&#x9;var attractiveness : integer&#xA;interface ACIface_dyn:&#xD;&#xA;&#x9;var faceFound : boolean&#xD;&#xA;&#x9;var headGestures : integer&#xD;&#xA;&#x9;var speaking : boolean&#xD;&#xA;&#x9;var emotions : string&#xD;&#xA;&#x9;var distance : integer&#xA;interface Person:&#xD;&#xA;&#x9;var personID : integer&#xD;&#xA;&#x9;var ACIface : string&#xD;&#xA;&#x9;var firstname : string&#xD;&#xA;&#x9;var lastname : string&#xD;&#xA;&#x9;var bdDay : integer&#xD;&#xA;&#x9;var bdMounth : integer&#xD;&#xA;&#x9;var bdYear : integer&#xD;&#xA;&#x9;var gender : boolean&#xD;&#xA;&#x9;var ethnic : integer&#xD;&#xA;&#x9;var glasses : boolean&#xD;&#xA;&#x9;var attractiveness : integer&#xA;interface Aci:&#xD;&#xA;&#x9;var countFoundFaces : integer&#xA;interface Kinect2:&#xD;&#xA;&#x9;var gesture : string&#xD;&#xA;&#x9;var noiseDetected : boolean&#xD;&#xA;&#x9;//var noiseAngle : integer&#xD;&#xA;&#x9;var noiseAngle : string&#xA;interface LeapMotion:&#xD;&#xA;&#x9;var gestureDetected : boolean&#xD;&#xA;&#x9;var gesture : string&#xA;interface ScitosRemoteControl:&#xD;&#xA;&#x9;var emergencyStop : boolean&#xA;interface openDail:&#xD;&#xA;&#x9;var speakerMsg : string&#xD;&#xA;&#x9;var leonieMsg : string&#xA;interface FaceAnimation:&#xD;&#xA;&#x9;var emotion : string&#xA;internal:&#xD;&#xA;&#x9;event start&#xD;&#xA;&#x9;event textMsg&#xD;&#xA;&#x9;event onTriggerDataGatherer&#xD;&#xA;&#x9;var t : integer&#xA;" name="Brain">
+  <sgraph:Statechart xmi:id="_uc0CEPipEeWcn8poFBqj7w" specification="interface UdpInterface:&#xD;&#xA;&#x9;var message:string&#xD;&#xA;&#x9;operation receive():void&#xD;&#xA;&#x9;operation parseString():void&#xD;&#xA;&#x9;operation sendToVBrain_ACIonOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation sendToHBrain_TTS(inText : string):void&#xD;&#xA;&#x9;operation sendToHBrain_TTSWithPos(inPos : string, inText : string):void&#xD;&#xA;&#x9;operation sendToHBrain_PersonPosition():void&#xD;&#xA;&#x9;operation sendToKinect2_detectionOnOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation sendToLeapMotion_detectionOnOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation sendToSTT_detectionOnOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation sendToNav_goToGWP(inWayPoint : string):void&#xD;&#xA;&#x9;operation sendToNav_goToLC(inX : string, inY : string):void&#xD;&#xA;&#x9;operation sendToNav_searchOnOff(inOnOff : boolean):void&#xA;interface ACIface_stat:&#xD;&#xA;&#x9;var faceID : integer&#xD;&#xA;&#x9;var confidence : integer&#xD;&#xA;&#x9;var age : integer&#xD;&#xA;&#x9;var gender : boolean&#xD;&#xA;&#x9;var ethnicty : integer&#xD;&#xA;&#x9;var glasses : boolean&#xD;&#xA;&#x9;var attractiveness : integer&#xA;interface ACIface_dyn:&#xD;&#xA;&#x9;var faceFound : boolean&#xD;&#xA;&#x9;var headGestures : integer&#xD;&#xA;&#x9;var speaking : boolean&#xD;&#xA;&#x9;var emotions : string&#xD;&#xA;&#x9;var distance : integer&#xA;interface Person:&#xD;&#xA;&#x9;var personID : integer&#xD;&#xA;&#x9;var ACIface : string&#xD;&#xA;&#x9;var firstname : string&#xD;&#xA;&#x9;var lastname : string&#xD;&#xA;&#x9;var bdDay : integer&#xD;&#xA;&#x9;var bdMounth : integer&#xD;&#xA;&#x9;var bdYear : integer&#xD;&#xA;&#x9;var gender : boolean&#xD;&#xA;&#x9;var ethnic : integer&#xD;&#xA;&#x9;var glasses : boolean&#xD;&#xA;&#x9;var attractiveness : integer&#xA;interface Aci:&#xD;&#xA;&#x9;var countFoundFaces : integer&#xA;interface Kinect2:&#xD;&#xA;&#x9;var gesture : string&#xD;&#xA;&#x9;var noiseDetected : boolean&#xD;&#xA;&#x9;//var noiseAngle : integer&#xD;&#xA;&#x9;var noiseAngle : string&#xA;interface LeapMotion:&#xD;&#xA;&#x9;var gestureDetected : boolean&#xD;&#xA;&#x9;var gesture : string&#xA;interface ScitosRemoteControl:&#xD;&#xA;&#x9;var emergencyStop : boolean&#xA;interface openDail:&#xD;&#xA;&#x9;var speakerMsg : string&#xD;&#xA;&#x9;var leonieMsg : string&#xA;interface FaceAnimation:&#xD;&#xA;&#x9;var emotion : string&#xA;internal:&#xD;&#xA;&#x9;event start&#xD;&#xA;&#x9;event textMsg&#xD;&#xA;&#x9;event onTriggerDataGatherer&#xD;&#xA;&#x9;var t : integer&#xA;" name="Brain">
     <regions xmi:id="_KGTGkPiqEeWcn8poFBqj7w" name="MainBrain">
       <vertices xsi:type="sgraph:Entry" xmi:id="_KGTGkfiqEeWcn8poFBqj7w">
         <outgoingTransitions xmi:id="_KGTGkviqEeWcn8poFBqj7w" target="_KGTtoPiqEeWcn8poFBqj7w"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_KGTtoPiqEeWcn8poFBqj7w" specification="entry /&#xD;&#xA;raise onTriggerDataGatherer; &#xD;&#xA;UdpInterface.sendToVBrain_onOff(true)" name="Init" incomingTransitions="_KGTGkviqEeWcn8poFBqj7w">
+      <vertices xsi:type="sgraph:State" xmi:id="_KGTtoPiqEeWcn8poFBqj7w" specification="entry / raise onTriggerDataGatherer; &#xD;&#xA;UdpInterface.sendToVBrain_ACIonOff(true)" name="Init" incomingTransitions="_KGTGkviqEeWcn8poFBqj7w">
         <outgoingTransitions xmi:id="_D2sSe_tXEeWdM5G-rEQqWA" specification="always # > EntrySearchForChat" target="_KGiXJ_iqEeWcn8poFBqj7w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_KGdeo_iqEeWcn8poFBqj7w" specification="// Leonie redet mit Mensch" name="FaceDataInterpretation" incomingTransitions="_KGhwF_iqEeWcn8poFBqj7w">
@@ -22,12 +22,12 @@
           </vertices>
         </regions>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_KGhJAPiqEeWcn8poFBqj7w" specification="entry /&#xD;&#xA;UdpInterface.sendToVBrain_onOff(true);&#xD;&#xA;UdpInterface.sendToHBrain_TTS(&quot;Oh, somebody is behind me&quot;);&#xD;&#xA;Ud" name="TurnToNoise" incomingTransitions="_AeOYBPl5EeWfQ5nCnvwPLA">
+      <vertices xsi:type="sgraph:State" xmi:id="_KGhJAPiqEeWcn8poFBqj7w" specification="entry /&#xD;&#xA;UdpInterface.sendToVBrain_ACIonOff(true);&#xD;&#xA;UdpInterface.sendToHBrain_TTS(&quot;Oh, somebody is behind me&quot;);&#xD;&#xA;UdpInterface.sendToNav_goToLC(0,1)" name="TurnToNoise" incomingTransitions="_AeOYBPl5EeWfQ5nCnvwPLA">
         <outgoingTransitions xmi:id="_KGhJAviqEeWcn8poFBqj7w" specification="[Aci.countFoundFaces > 0]" target="_KGhwFfiqEeWcn8poFBqj7w"/>
         <outgoingTransitions xmi:id="_a_G9QPmbEeWF0KlMMmhPrg" specification="[Aci.countFoundFaces > 0] # > EntrySearchForChat" target="_KGiXJ_iqEeWcn8poFBqj7w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_KGhwE_iqEeWcn8poFBqj7w" specification="// Stehen und passiv zuhören -> Sprecher ansehen" name="Idle" incomingTransitions="_KGeFsPiqEeWcn8poFBqj7w"/>
-      <vertices xsi:type="sgraph:State" xmi:id="_KGhwFfiqEeWcn8poFBqj7w" specification="entry /&#xD;&#xA;UdpInterface.sendToVBrain_onOff(true)" name="MoveToPerson" incomingTransitions="_KGhJAviqEeWcn8poFBqj7w _AeZ-N_l5EeWfQ5nCnvwPLA">
+      <vertices xsi:type="sgraph:State" xmi:id="_KGhwFfiqEeWcn8poFBqj7w" specification="entry / UdpInterface.sendToVBrain_ACIonOff(true)" name="MoveToPerson" incomingTransitions="_KGhJAviqEeWcn8poFBqj7w _AeZ-N_l5EeWfQ5nCnvwPLA">
         <outgoingTransitions xmi:id="_KGhwF_iqEeWcn8poFBqj7w" specification="[ACIface_dyn.distance &lt; 10] # > EntryFaceDataInterpretation" target="_KGdeo_iqEeWcn8poFBqj7w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_KGiXJ_iqEeWcn8poFBqj7w" specification="// Raum durchsuchen abwechselnd Stehen und Fahren" name="SearchForChat" incomingTransitions="_D2sSe_tXEeWdM5G-rEQqWA _a_G9QPmbEeWF0KlMMmhPrg">
@@ -154,7 +154,7 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_KGNAQPiqEeWcn8poFBqj7w" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_KGNAQfiqEeWcn8poFBqj7w"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_KGNAQviqEeWcn8poFBqj7w" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_KGNAQ_iqEeWcn8poFBqj7w" x="799" y="151" width="431" height="73"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_KGNAQ_iqEeWcn8poFBqj7w" x="799" y="151" width="456" height="87"/>
         </children>
         <children xmi:id="_KGNARPiqEeWcn8poFBqj7w" type="State" element="_KGhwE_iqEeWcn8poFBqj7w">
           <children xsi:type="notation:DecorationNode" xmi:id="_KGNARfiqEeWcn8poFBqj7w" type="StateName">
@@ -208,7 +208,7 @@
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_KGNAtPiqEeWcn8poFBqj7w"/>
       </children>
       <styles xsi:type="notation:ShapeStyle" xmi:id="_KGNAtfiqEeWcn8poFBqj7w" fontName="Verdana" fillColor="15790320" lineColor="12632256"/>
-      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_KGNAtviqEeWcn8poFBqj7w" x="575" y="10" width="1266" height="730"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_KGNAtviqEeWcn8poFBqj7w" x="575" y="10" width="1291" height="730"/>
     </children>
     <children xmi:id="_PwbTkPl1EeWfQ5nCnvwPLA" type="Region" element="_PwaFcPl1EeWfQ5nCnvwPLA">
       <children xsi:type="notation:DecorationNode" xmi:id="_PwbTk_l1EeWfQ5nCnvwPLA" type="RegionName">
@@ -280,7 +280,7 @@
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Pwb6ofl1EeWfQ5nCnvwPLA"/>
       </children>
       <styles xsi:type="notation:ShapeStyle" xmi:id="_PwbTkfl1EeWfQ5nCnvwPLA" fontName="Verdana" fillColor="15790320" lineColor="12632256"/>
-      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_PwbTkvl1EeWfQ5nCnvwPLA" x="1870" y="10" width="533" height="362"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_PwbTkvl1EeWfQ5nCnvwPLA" x="1895" y="10" width="533" height="362"/>
     </children>
     <children xmi:id="_ax_kgPouEeW6g4WQSTCNvg" type="Region" element="_axa8wPouEeW6g4WQSTCNvg">
       <children xsi:type="notation:DecorationNode" xmi:id="_ax_kg_ouEeW6g4WQSTCNvg" type="RegionName">
@@ -336,7 +336,7 @@
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_ax_kh_ouEeW6g4WQSTCNvg"/>
       </children>
       <styles xsi:type="notation:ShapeStyle" xmi:id="_ax_kgfouEeW6g4WQSTCNvg" fontName="Verdana" fillColor="15790320" lineColor="12632256"/>
-      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_ax_kgvouEeW6g4WQSTCNvg" x="1870" y="390" width="566" height="347"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_ax_kgvouEeW6g4WQSTCNvg" x="1895" y="390" width="566" height="347"/>
     </children>
     <styles xsi:type="notation:DiagramStyle" xmi:id="_uc3FYfipEeWcn8poFBqj7w"/>
     <edges xmi:id="_KG0rAPiqEeWcn8poFBqj7w" type="Transition" element="_KGTGkviqEeWcn8poFBqj7w" source="_KGM_9fiqEeWcn8poFBqj7w" target="_KGM__viqEeWcn8poFBqj7w">
