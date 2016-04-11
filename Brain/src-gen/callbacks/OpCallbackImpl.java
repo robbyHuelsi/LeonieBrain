@@ -116,10 +116,5 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback
 		MessageParser.ParseMessage(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
 	}
 
-
-	@Override
-	public void sendToNav_goToLC(long inX, long inY) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

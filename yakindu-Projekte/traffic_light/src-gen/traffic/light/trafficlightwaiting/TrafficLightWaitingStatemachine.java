@@ -1,5 +1,4 @@
-/**
-Copyright (c) 2012-2015 committers of YAKINDU and others.
+/** Copyright (c) 2012-2015 committers of YAKINDU and others.
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v1.0
 which accompanies this distribution, and is available at
@@ -7,7 +6,7 @@ http://www.eclipse.org/legal/epl-v10.html
 
 Contributors:
     committers of YAKINDU - initial API and implementation
-�*/
+� */
 package traffic.light.trafficlightwaiting;
 import traffic.light.ITimer;
 
@@ -157,7 +156,7 @@ public class TrafficLightWaitingStatemachine implements ITrafficLightWaitingStat
 	public void enter() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The statemachine needs to be initialized first by calling the init() function.");
+					"The state machine needs to be initialized first by calling the init() function.");
 
 		if (timer == null) {
 			throw new IllegalStateException("timer not set.");
@@ -180,7 +179,7 @@ public class TrafficLightWaitingStatemachine implements ITrafficLightWaitingStat
 	/** 
 	* Always returns 'false' since this state machine can never become final.
 	*
-	 * @see IStatemachine#isFinal() 
+	 * @see IStatemachine#isFinal()
 	 */
 	public boolean isFinal() {
 		return false;
@@ -1074,7 +1073,7 @@ public class TrafficLightWaitingStatemachine implements ITrafficLightWaitingStat
 	public void runCycle() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The statemachine needs to be initialized first by calling the init() function.");
+					"The state machine needs to be initialized first by calling the init() function.");
 
 		clearOutEvents();
 

@@ -1,5 +1,4 @@
-/**
-Copyright (c) 2012-2015 committers of YAKINDU and others.
+/** Copyright (c) 2012-2015 committers of YAKINDU and others.
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v1.0
 which accompanies this distribution, and is available at
@@ -7,38 +6,38 @@ http://www.eclipse.org/legal/epl-v10.html
 
 Contributors:
     committers of YAKINDU - initial API and implementation
-�*/
+� */
 package traffic.light;
 
 /**
- * Basic interface for statemachines.
+ * Basic interface for state machines.
  */
 public interface IStatemachine {
 
 	/**
-	 * Initializes the statemachine. Use to init internal variables etc.
+	 * Initializes the state machine. Used to initialize internal variables etc.
 	 */
 	public void init();
 
 	/**
-	 * Enters the statemachine. Sets the statemachine in a defined state.
+	 * Enters the state machine. Sets the state machine into a defined state.
 	 */
 	public void enter();
 
 	/**
-	 * Exits the statemachine. Leaves the statemachine with a defined state.
+	 * Exits the state machine. Leaves the state machine with a defined state.
 	 */
 	public void exit();
 
 	/**
-	 * Checks if the statemachine is active. 
-	 * A statemachine is active if it was entered. It is inactive if it has not been entered at all or if it was exited.
+	 * Checks whether the state machine is active. 
+	 * A state machine is active if it has been entered. It is inactive if it has not been entered at all or if it has been exited.
 	 */
 	public boolean isActive();
 
 	/**
-	 * Checks if all active states are final. 
-	 * If there are no active states then the statemachine is considered as incative and this method returns false.
+	 * Checks whether all active states are final. 
+	 * If there are no active states then the state machine is considered being incative. In this case this method returns <code>false</code>.
 	 */
 	public boolean isFinal();
 

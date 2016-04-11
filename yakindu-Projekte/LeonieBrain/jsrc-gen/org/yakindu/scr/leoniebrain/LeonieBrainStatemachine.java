@@ -375,7 +375,7 @@ public class LeonieBrainStatemachine implements ILeonieBrainStatemachine {
 	public void enter() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The statemachine needs to be initialized first by calling the init() function.");
+					"The state machine needs to be initialized first by calling the init() function.");
 
 		if (timer == null) {
 			throw new IllegalStateException("timer not set.");
@@ -398,7 +398,7 @@ public class LeonieBrainStatemachine implements ILeonieBrainStatemachine {
 	/** 
 	* Always returns 'false' since this state machine can never become final.
 	*
-	 * @see IStatemachine#isFinal() 
+	 * @see IStatemachine#isFinal()
 	 */
 	public boolean isFinal() {
 		return false;
@@ -1076,7 +1076,7 @@ public class LeonieBrainStatemachine implements ILeonieBrainStatemachine {
 	public void runCycle() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The statemachine needs to be initialized first by calling the init() function.");
+					"The state machine needs to be initialized first by calling the init() function.");
 
 		clearOutEvents();
 
