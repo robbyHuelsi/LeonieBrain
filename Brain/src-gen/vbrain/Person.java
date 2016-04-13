@@ -6,21 +6,67 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 import java.util.StringJoiner;
 import java.util.Vector;
 
+import org.yakindu.scr.brain.BrainStatemachine;
+
+import vbrain.PersonDynData;
+
+
 public class Person {	
-	private int personID = -1;
-	private Vector<Integer> ACIfaces;
+	private BrainStatemachine brain;
+	
+	private int personID; // = -1;
+	private Map<Integer, Float> resemblance;
+	private boolean known;
 	private String firstName;
 	private String lastName;
 	private int bdYear;
 	private int bdMonth;
 	private int bdDay;
 	private boolean gender; // male = 0, female = 1
-	private int ethnicGroup; // white = 0, black = 1, asian = 2
+	private int ethnicity; // european = 0, africa = 1, asian = 2
 	private boolean glasses;
 	private double attractiveness;
+	private Vector<PersonDynData> dynData;
+	
+	public Person (){
+		
+	}
+	
+	public Person (BrainStatemachine inBrain){
+		this.brain = inBrain;
+	}
+	
+	public Person (BrainStatemachine inBrain, String attributeData){
+		this.brain = inBrain;
+		
+		String[] attributeParts = attributeData.split(";");
+
+		this.setPersonID(Integer.parseInt(attributeParts[0]));
+		this.setKnown(false);
+//		person.setFirstName(attributeParts[2]);
+//		person.setLastName(attributeParts[3]);
+		this.setBdYear(Integer.parseInt(attributeParts[1]));
+//		person.setBdMonth(Integer.parseInt(attributeParts[5]));
+//		person.setBdDay(Integer.parseInt(attributeParts[6]));
+		this.setGender(Boolean.valueOf(attributeParts[2]));
+		this.setEthnicity(Integer.parseInt(attributeParts[3]));
+		this.setGlasses(Boolean.valueOf(attributeParts[4]));
+		this.setAttractiveness(Double.parseDouble(attributeParts[5]));
+		
+		String[] confOfIds = attributeParts[6].split("_");
+		if(confOfIds.length > 0){
+			for(int i = 0; i < confOfIds.length; i++){
+				String[] confOfId = confOfIds[i].split("=");
+				this.addResemblance(Integer.parseInt(confOfId[0]), Float.parseFloat(confOfId[1]));
+			}
+		}
+		
+	}
+	
 
 	public int getPersonID() {
 		return personID;
@@ -28,14 +74,20 @@ public class Person {
 
 	public void setPersonID(int personID) {
 		this.personID = personID;
+		if(brain != null){
+			brain.getSCICurrPerson().setId(personID);
+		}
 	}
-
-	public Vector<Integer> getACIfaces() {
-		return ACIfaces;
+	
+	public boolean isKnown(){
+		return this.known;
 	}
-
-	public void setACIfaces(Vector<Integer> aCIfaces) {
-		ACIfaces = aCIfaces;
+	
+	public void setKnown(boolean inKnown){
+		this.known = inKnown;
+		if(brain != null){
+			brain.getSCICurrPerson().setKnown(inKnown);
+		}
 	}
 
 	public String getFirstName() {
@@ -44,6 +96,9 @@ public class Person {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+		if(brain != null){
+			brain.getSCICurrPerson().setFirstname(firstName);
+		}
 	}
 
 	public String getLastName() {
@@ -52,6 +107,9 @@ public class Person {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+		if(brain != null){
+			brain.getSCICurrPerson().setLastname(lastName);
+		}
 	}
 
 	public int getBdYear() {
@@ -60,6 +118,9 @@ public class Person {
 
 	public void setBdYear(int bdYear) {
 		this.bdYear = bdYear;
+		if(brain != null){
+			brain.getSCICurrPerson().setBdYear(bdYear);
+		}
 	}
 
 	public int getBdMonth() {
@@ -69,6 +130,10 @@ public class Person {
 	public boolean setBdMonth(int bdMonth) {
 		if(bdMonth >= 1 && bdMonth <= 12){
 			this.bdMonth = bdMonth;
+			
+			if(brain != null){
+				brain.getSCICurrPerson().setBdMounth(bdMonth);
+			}
 			return true;
 		}
 		
@@ -82,6 +147,10 @@ public class Person {
 	public boolean setBdDay(int bdDay) {
 		if(bdDay >= 1 && bdDay <= 31){
 			this.bdDay = bdDay;
+			
+			if(brain != null){
+				brain.getSCICurrPerson().setBdDay(bdDay);
+			}
 			return true;
 		}
 		
@@ -94,15 +163,23 @@ public class Person {
 
 	public void setGender(boolean gender) {
 		this.gender = gender;
+		
+		if(brain != null){
+			brain.getSCICurrPerson().setGender(gender);
+		}
 	}
 
-	public int getEthnicGroup() {
-		return ethnicGroup;
+	public int getEthnicity() {
+		return ethnicity;
 	}
 
-	public boolean setEthnicGroup(int ethnicGroup) {
+	public boolean setEthnicity(int ethnicGroup) {
 		if(ethnicGroup >= 0 && ethnicGroup <= 2){		
-			this.ethnicGroup = ethnicGroup;
+			this.ethnicity = ethnicGroup;
+			
+			if(brain != null){
+				brain.getSCICurrPerson().setEthnicity(ethnicGroup);
+			}
 			return true;
 		}
 		
@@ -115,6 +192,10 @@ public class Person {
 
 	public void setGlasses(boolean glasses) {
 		this.glasses = glasses;
+		
+		if(brain != null){
+			brain.getSCICurrPerson().setGlasses(glasses);
+		}
 	}
 
 	public double getAttractiveness() {
@@ -123,13 +204,41 @@ public class Person {
 
 	public void setAttractiveness(double attractiveness) {
 		this.attractiveness = attractiveness;
+		
+		if(brain != null){
+			brain.getSCICurrPerson().setAttractiveness(attractiveness);
+		}
+	}
+	
+	public Map<Integer, Float> getResemblances() {
+		return resemblance;
+	}
+
+	public void setResemblances(Map<Integer, Float> inC) {
+		resemblance = inC;
+	}
+	
+	public void addResemblance(Integer inId, Float inC){
+		this.resemblance.put(inId, inC);
+	}
+	
+	public void addDynData(PersonDynData inDD){
+		this.dynData.add(inDD);
+	}
+	
+	public void addDynData(String dataString){
+		this.dynData.add(new PersonDynData(brain, dataString));
+	}
+	
+	public PersonDynData getCurrDynData(){
+		return this.dynData.lastElement();
 	}
 	
 	// Returns a string containing the values of all attributes of this object
 	// The values are divided by semicolons and they are ordered as follows:
 	// ID; ACIfaces; firstName; lastName; bdYear; bdMonth; bdDay; gender; ethnicGroup; glasses; attractiveness
 	// The elements of ACIfaces are separated by "/"
-	private String convertDataToString()
+	/*private String convertDataToString()
 	{
 		StringJoiner sj = new StringJoiner(";");
 		
@@ -162,11 +271,11 @@ public class Person {
 		sj.add(Double.toString(getAttractiveness()));
 		
 		return sj.toString();
-	}
+	}*/
 	
 	// Write object data to a new line at the end of a textFile
 	// Return whether operation was successful
-	public boolean serialize(String filename)	{
+	/*public boolean serialize(String filename)	{
 		try(PrintWriter output = new PrintWriter(new FileWriter(filename, true))){				
 		    output.println(convertDataToString());
 		} catch (FileNotFoundException e) {
@@ -178,12 +287,12 @@ public class Person {
 		}
 			
 		return true;
-	}
+	}*/
 	
 	// Read textFile which contains data for objects of this class,
 	// create those objects and return them in a Vector
 	// Returns null in case of error
-	static public Vector<Person> deserialize(String filename){
+	/*static public Vector<Person> deserialize(String filename){
 		try(BufferedReader fileReader = new BufferedReader(new FileReader(filename))){
 			Vector<Person> result = new Vector<Person>(0,1);
 			
@@ -201,36 +310,11 @@ public class Person {
 			System.out.println("Some error occurred");
 			return null;
 		}
-	}
+	}*/
+	
+	
 	
 	// Create object from string with the following form:
 	// ID;V1/V2/V3/...;firstName;lastName;year;month;day;gender;ethnicGroup;glasses;attractiveness
-	static public Person createObjectFromString(String attributeData){
-		String[] attributeParts = attributeData.split(";");
-
-		Person person = new Person();
-		person.setPersonID(Integer.parseInt(attributeParts[0]));
-		
-		//Create ACIfaces vector
-		String[] vectorParts = attributeParts[1].split("/");
-		if(vectorParts.length > 0){
-			Vector<Integer> ACIf = new Vector<Integer>(1,1);
-			for(String vectorElement : vectorParts){
-				ACIf.add(Integer.parseInt(vectorElement));
-			}
-			person.setACIfaces(ACIf);
-		}
-		
-		person.setFirstName(attributeParts[2]);
-		person.setLastName(attributeParts[3]);
-		person.setBdYear(Integer.parseInt(attributeParts[4]));
-		person.setBdMonth(Integer.parseInt(attributeParts[5]));
-		person.setBdDay(Integer.parseInt(attributeParts[6]));
-		person.setGender(Boolean.valueOf(attributeParts[7]));
-		person.setEthnicGroup(Integer.parseInt(attributeParts[8]));
-		person.setGlasses(Boolean.valueOf(attributeParts[9]));
-		person.setAttractiveness(Double.parseDouble(attributeParts[10]));
-		
-		return person;
-	}
+	
 }

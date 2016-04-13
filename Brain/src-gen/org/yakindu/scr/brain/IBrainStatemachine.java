@@ -12,8 +12,9 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	}
 
 	public interface SCIUdpInterfaceOperationCallback {
-		public void receive();
+		public void receive(String myAdress, long myPort);
 		public void parseString();
+		public void print(String msg);
 		public void sendToVBrain_ACIonOff(boolean inOnOff);
 		public void sendToHBrain_TTS(String inText);
 		public void sendToHBrain_TTSWithPos(String inPos, String inText);
@@ -28,70 +29,6 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 
 	public SCIUdpInterface getSCIUdpInterface();
 
-	public interface SCIACIface_stat {
-		public long getFaceID();
-		public void setFaceID(long value);
-		public long getConfidence();
-		public void setConfidence(long value);
-		public long getAge();
-		public void setAge(long value);
-		public boolean getGender();
-		public void setGender(boolean value);
-		public long getEthnicty();
-		public void setEthnicty(long value);
-		public boolean getGlasses();
-		public void setGlasses(boolean value);
-		public long getAttractiveness();
-		public void setAttractiveness(long value);
-
-	}
-
-	public SCIACIface_stat getSCIACIface_stat();
-
-	public interface SCIACIface_dyn {
-		public boolean getFaceFound();
-		public void setFaceFound(boolean value);
-		public long getHeadGestures();
-		public void setHeadGestures(long value);
-		public boolean getSpeaking();
-		public void setSpeaking(boolean value);
-		public String getEmotions();
-		public void setEmotions(String value);
-		public long getDistance();
-		public void setDistance(long value);
-
-	}
-
-	public SCIACIface_dyn getSCIACIface_dyn();
-
-	public interface SCIPerson {
-		public long getPersonID();
-		public void setPersonID(long value);
-		public String getACIface();
-		public void setACIface(String value);
-		public String getFirstname();
-		public void setFirstname(String value);
-		public String getLastname();
-		public void setLastname(String value);
-		public long getBdDay();
-		public void setBdDay(long value);
-		public long getBdMounth();
-		public void setBdMounth(long value);
-		public long getBdYear();
-		public void setBdYear(long value);
-		public boolean getGender();
-		public void setGender(boolean value);
-		public long getEthnic();
-		public void setEthnic(long value);
-		public boolean getGlasses();
-		public void setGlasses(boolean value);
-		public long getAttractiveness();
-		public void setAttractiveness(long value);
-
-	}
-
-	public SCIPerson getSCIPerson();
-
 	public interface SCIAci {
 		public long getCountFoundFaces();
 		public void setCountFoundFaces(long value);
@@ -99,6 +36,42 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	}
 
 	public SCIAci getSCIAci();
+
+	public interface SCICurrPerson {
+		public long getId();
+		public void setId(long value);
+		public boolean getKnown();
+		public void setKnown(boolean value);
+		public String getFirstname();
+		public void setFirstname(String value);
+		public String getLastname();
+		public void setLastname(String value);
+		public long getBdYear();
+		public void setBdYear(long value);
+		public long getBdMounth();
+		public void setBdMounth(long value);
+		public long getBdDay();
+		public void setBdDay(long value);
+		public boolean getGender();
+		public void setGender(boolean value);
+		public long getEthnicity();
+		public void setEthnicity(long value);
+		public boolean getGlasses();
+		public void setGlasses(boolean value);
+		public double getAttractiveness();
+		public void setAttractiveness(double value);
+		public long getCurrHeadgestures();
+		public void setCurrHeadgestures(long value);
+		public boolean getCurrSpeaking();
+		public void setCurrSpeaking(boolean value);
+		public long getCurrEmotion();
+		public void setCurrEmotion(long value);
+		public double getCurrDistance();
+		public void setCurrDistance(double value);
+
+	}
+
+	public SCICurrPerson getSCICurrPerson();
 
 	public interface SCIKinect2 {
 		public String getGesture();

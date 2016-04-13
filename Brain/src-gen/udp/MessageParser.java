@@ -7,7 +7,8 @@ import org.yakindu.scr.brain.BrainStatemachine;
 
 import main.Start;
 
-//import vbrain.Person;
+import vbrain.Person;
+import vbrain.PersonList;
 
 public class MessageParser
 {
@@ -16,6 +17,7 @@ public class MessageParser
 	public static boolean ParseMessage(String message){
 		Start start = Start.instanceOf();
 		BrainStatemachine brain = start.getBrain();
+		PersonList personList = start.getPersonList();
 		
 		// Get sender and process message
 		String sender;
@@ -40,34 +42,59 @@ public class MessageParser
 				case "VBRAIN" : 		Pattern vbrainPattern = Pattern.compile("\\A#([\\w]*)#([\\S]*)");
 										Matcher vbrainbM = vbrainPattern.matcher(data);
 										if(vbrainbM.find()){
-											System.out.println(vbrainbM.group(0));
+											//System.out.println(vbrainbM.group(0));
 											if (vbrainbM.group(0).equals("STAT")){
+												
 												String[] attributePartsVBS = vbrainbM.group(2).split(";");
 												
-												brain.getSCIACIface_stat().setFaceID(Integer.parseInt(attributePartsVBS[0]));
+												int faceId = Integer.parseInt(attributePartsVBS[0]);
+												
+												/*brain.getSCIACIface_stat().setFaceID(Integer.parseInt(attributePartsVBS[0]));
 												brain.getSCIACIface_stat().setConfidence(0);
 												brain.getSCIACIface_stat().setAge(Integer.parseInt(attributePartsVBS[1]));
 												brain.getSCIACIface_stat().setGender(attributePartsVBS[2].contains("1")?true:false);
 												brain.getSCIACIface_stat().setEthnicty(Integer.parseInt(attributePartsVBS[3]));
 												brain.getSCIACIface_stat().setGlasses(attributePartsVBS[4].contains("1")?true:false);
-												brain.getSCIACIface_stat().setAttractiveness(Integer.parseInt(attributePartsVBS[5]));
+												brain.getSCIACIface_stat().setAttractiveness(Integer.parseInt(attributePartsVBS[5]));*/
+												
+												personList.setCurrPersonID(faceId);
+												if(personList.hasPersonWithID(faceId)){
+													//Person already exists
+												}else{
+													Person p = new Person(brain, vbrainbM.group(2));
+													personList.addPerson(p);
+												}
+												
+												// TODO: Use filename of DB
+												// p.serialize("DATABANK.txt");
+												
 											}else if (vbrainbM.group(1).equals("DYN")){
 												String[] attributePartsVBD = vbrainbM.group(2).split(";");
-												brain.getSCIACIface_dyn().setFaceFound(attributePartsVBD[0].contains("1")?true:false);
-												//brain.getSCIACIface_dyn().setHeadGestures(Integer.parseInt(attributePartsVBD[1]));
 												
-												if(brain.getSCIACIface_dyn().getFaceFound()){
+												/*brain.getSCIACIface_dyn().setFaceFound(attributePartsVBD[0].contains("1")?true:false);
+												brain.getSCIACIface_dyn().setHeadGestures(Integer.parseInt(attributePartsVBD[1]));
+												brain.getSCIACIface_dyn().setSpeaking(attributePartsVBD[2].contains("1")?true:false);
+												brain.getSCIACIface_dyn().setEmotions(Integer.parseInt(attributePartsVBD[3]));
+												brain.getSCIACIface_dyn().setDistance(Integer.parseInt(attributePartsVBD[4]));*/
+												
+												if(attributePartsVBD[0].contains("1")){
 													System.out.println("Face found");
+													
+													int faceId = Integer.parseInt(attributePartsVBD[1]);
+													personList.setCurrPersonID(faceId);
+													if(personList.hasPersonWithID(faceId)){
+														Person p = personList.getPersonByID(faceId);
+														p.addDynData(vbrainbM.group(2));
+													}
+													
 												}else{
-													System.out.println("  no face");
+													//System.out.println("  no face");
 												}
 											}
 										}
 										
 										
-										//Person p = Person.createObjectFromString(data);
-										// TODO: Use filename of DB
-										//p.serialize("DATABANK.txt");
+										
 										
 										
 										// TODO: Die Variablen 

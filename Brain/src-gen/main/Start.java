@@ -5,11 +5,14 @@ import org.yakindu.scr.brain.BrainStatemachine;
 
 import callbacks.OpCallbackImpl;
 
+import vbrain.PersonList;
+
 public class Start
 {
 	private static Start instance = null;
 	
 	BrainStatemachine brain;
+	static private PersonList personList;
 	
 	static private String ipListen = "134.103.120.123";
 	static private int portListen = 8888;
@@ -23,7 +26,7 @@ public class Start
 	static private int portSendHBrain = 11005;
 	
 	//STT
-	static private String ipSendSTT = "";
+	static private String ipSendSTT = "134.103.120.";
 	static private int portSendSTT = 0;
 	
 	//Kinect1
@@ -48,6 +51,8 @@ public class Start
 	{
 		brain = new BrainStatemachine();
 		brain.setTimer(new TimerService());
+		
+		personList = new PersonList();
 	}
 	
 	public static Start instanceOf()
@@ -63,11 +68,13 @@ public class Start
 		return brain;
 	}
 	
+	public static PersonList getPersonList(){
+		return personList;
+	}
+	
 	public static void main(String[] args) throws Exception
 	{
 		Start t = Start.instanceOf();
-
-		System.out.println("Start!");
 		
 		OpCallbackImpl opCallback = new OpCallbackImpl();
 		t.brain.getSCIUdpInterface().setSCIUdpInterfaceOperationCallback(opCallback);

@@ -25,158 +25,42 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	protected SCIUdpInterfaceImpl sCIUdpInterface;
 
-	protected class SCIACIface_statImpl implements SCIACIface_stat {
+	protected class SCIAciImpl implements SCIAci {
 
-		private long faceID;
+		private long countFoundFaces;
 
-		public long getFaceID() {
-			return faceID;
+		public long getCountFoundFaces() {
+			return countFoundFaces;
 		}
 
-		public void setFaceID(long value) {
-			this.faceID = value;
-		}
-
-		private long confidence;
-
-		public long getConfidence() {
-			return confidence;
-		}
-
-		public void setConfidence(long value) {
-			this.confidence = value;
-		}
-
-		private long age;
-
-		public long getAge() {
-			return age;
-		}
-
-		public void setAge(long value) {
-			this.age = value;
-		}
-
-		private boolean gender;
-
-		public boolean getGender() {
-			return gender;
-		}
-
-		public void setGender(boolean value) {
-			this.gender = value;
-		}
-
-		private long ethnicty;
-
-		public long getEthnicty() {
-			return ethnicty;
-		}
-
-		public void setEthnicty(long value) {
-			this.ethnicty = value;
-		}
-
-		private boolean glasses;
-
-		public boolean getGlasses() {
-			return glasses;
-		}
-
-		public void setGlasses(boolean value) {
-			this.glasses = value;
-		}
-
-		private long attractiveness;
-
-		public long getAttractiveness() {
-			return attractiveness;
-		}
-
-		public void setAttractiveness(long value) {
-			this.attractiveness = value;
+		public void setCountFoundFaces(long value) {
+			this.countFoundFaces = value;
 		}
 
 	}
 
-	protected SCIACIface_statImpl sCIACIface_stat;
+	protected SCIAciImpl sCIAci;
 
-	protected class SCIACIface_dynImpl implements SCIACIface_dyn {
+	protected class SCICurrPersonImpl implements SCICurrPerson {
 
-		private boolean faceFound;
+		private long id;
 
-		public boolean getFaceFound() {
-			return faceFound;
+		public long getId() {
+			return id;
 		}
 
-		public void setFaceFound(boolean value) {
-			this.faceFound = value;
+		public void setId(long value) {
+			this.id = value;
 		}
 
-		private long headGestures;
+		private boolean known;
 
-		public long getHeadGestures() {
-			return headGestures;
+		public boolean getKnown() {
+			return known;
 		}
 
-		public void setHeadGestures(long value) {
-			this.headGestures = value;
-		}
-
-		private boolean speaking;
-
-		public boolean getSpeaking() {
-			return speaking;
-		}
-
-		public void setSpeaking(boolean value) {
-			this.speaking = value;
-		}
-
-		private String emotions;
-
-		public String getEmotions() {
-			return emotions;
-		}
-
-		public void setEmotions(String value) {
-			this.emotions = value;
-		}
-
-		private long distance;
-
-		public long getDistance() {
-			return distance;
-		}
-
-		public void setDistance(long value) {
-			this.distance = value;
-		}
-
-	}
-
-	protected SCIACIface_dynImpl sCIACIface_dyn;
-
-	protected class SCIPersonImpl implements SCIPerson {
-
-		private long personID;
-
-		public long getPersonID() {
-			return personID;
-		}
-
-		public void setPersonID(long value) {
-			this.personID = value;
-		}
-
-		private String aCIface;
-
-		public String getACIface() {
-			return aCIface;
-		}
-
-		public void setACIface(String value) {
-			this.aCIface = value;
+		public void setKnown(boolean value) {
+			this.known = value;
 		}
 
 		private String firstname;
@@ -199,14 +83,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 			this.lastname = value;
 		}
 
-		private long bdDay;
+		private long bdYear;
 
-		public long getBdDay() {
-			return bdDay;
+		public long getBdYear() {
+			return bdYear;
 		}
 
-		public void setBdDay(long value) {
-			this.bdDay = value;
+		public void setBdYear(long value) {
+			this.bdYear = value;
 		}
 
 		private long bdMounth;
@@ -219,14 +103,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 			this.bdMounth = value;
 		}
 
-		private long bdYear;
+		private long bdDay;
 
-		public long getBdYear() {
-			return bdYear;
+		public long getBdDay() {
+			return bdDay;
 		}
 
-		public void setBdYear(long value) {
-			this.bdYear = value;
+		public void setBdDay(long value) {
+			this.bdDay = value;
 		}
 
 		private boolean gender;
@@ -239,14 +123,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 			this.gender = value;
 		}
 
-		private long ethnic;
+		private long ethnicity;
 
-		public long getEthnic() {
-			return ethnic;
+		public long getEthnicity() {
+			return ethnicity;
 		}
 
-		public void setEthnic(long value) {
-			this.ethnic = value;
+		public void setEthnicity(long value) {
+			this.ethnicity = value;
 		}
 
 		private boolean glasses;
@@ -259,35 +143,59 @@ public class BrainStatemachine implements IBrainStatemachine {
 			this.glasses = value;
 		}
 
-		private long attractiveness;
+		private double attractiveness;
 
-		public long getAttractiveness() {
+		public double getAttractiveness() {
 			return attractiveness;
 		}
 
-		public void setAttractiveness(long value) {
+		public void setAttractiveness(double value) {
 			this.attractiveness = value;
 		}
 
-	}
+		private long currHeadgestures;
 
-	protected SCIPersonImpl sCIPerson;
-
-	protected class SCIAciImpl implements SCIAci {
-
-		private long countFoundFaces;
-
-		public long getCountFoundFaces() {
-			return countFoundFaces;
+		public long getCurrHeadgestures() {
+			return currHeadgestures;
 		}
 
-		public void setCountFoundFaces(long value) {
-			this.countFoundFaces = value;
+		public void setCurrHeadgestures(long value) {
+			this.currHeadgestures = value;
+		}
+
+		private boolean currSpeaking;
+
+		public boolean getCurrSpeaking() {
+			return currSpeaking;
+		}
+
+		public void setCurrSpeaking(boolean value) {
+			this.currSpeaking = value;
+		}
+
+		private long currEmotion;
+
+		public long getCurrEmotion() {
+			return currEmotion;
+		}
+
+		public void setCurrEmotion(long value) {
+			this.currEmotion = value;
+		}
+
+		private double currDistance;
+
+		public double getCurrDistance() {
+			return currDistance;
+		}
+
+		public void setCurrDistance(double value) {
+			this.currDistance = value;
 		}
 
 	}
 
-	protected SCIAciImpl sCIAci;
+	protected SCICurrPersonImpl sCICurrPerson;
 
 	protected class SCIKinect2Impl implements SCIKinect2 {
 
@@ -458,10 +366,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 	public BrainStatemachine() {
 
 		sCIUdpInterface = new SCIUdpInterfaceImpl();
-		sCIACIface_stat = new SCIACIface_statImpl();
-		sCIACIface_dyn = new SCIACIface_dynImpl();
-		sCIPerson = new SCIPersonImpl();
 		sCIAci = new SCIAciImpl();
+		sCICurrPerson = new SCICurrPersonImpl();
 		sCIKinect2 = new SCIKinect2Impl();
 		sCILeapMotion = new SCILeapMotionImpl();
 		sCIScitosRemoteControl = new SCIScitosRemoteControlImpl();
@@ -484,53 +390,37 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 		sCIUdpInterface.setMessage("");
 
-		sCIACIface_stat.setFaceID(0);
-
-		sCIACIface_stat.setConfidence(0);
-
-		sCIACIface_stat.setAge(0);
-
-		sCIACIface_stat.setGender(false);
-
-		sCIACIface_stat.setEthnicty(0);
-
-		sCIACIface_stat.setGlasses(false);
-
-		sCIACIface_stat.setAttractiveness(0);
-
-		sCIACIface_dyn.setFaceFound(false);
-
-		sCIACIface_dyn.setHeadGestures(0);
-
-		sCIACIface_dyn.setSpeaking(false);
-
-		sCIACIface_dyn.setEmotions("");
-
-		sCIACIface_dyn.setDistance(0);
-
-		sCIPerson.setPersonID(0);
-
-		sCIPerson.setACIface("");
-
-		sCIPerson.setFirstname("");
-
-		sCIPerson.setLastname("");
-
-		sCIPerson.setBdDay(0);
-
-		sCIPerson.setBdMounth(0);
-
-		sCIPerson.setBdYear(0);
-
-		sCIPerson.setGender(false);
-
-		sCIPerson.setEthnic(0);
-
-		sCIPerson.setGlasses(false);
-
-		sCIPerson.setAttractiveness(0);
-
 		sCIAci.setCountFoundFaces(0);
+
+		sCICurrPerson.setId(0);
+
+		sCICurrPerson.setKnown(false);
+
+		sCICurrPerson.setFirstname("");
+
+		sCICurrPerson.setLastname("");
+
+		sCICurrPerson.setBdYear(0);
+
+		sCICurrPerson.setBdMounth(0);
+
+		sCICurrPerson.setBdDay(0);
+
+		sCICurrPerson.setGender(false);
+
+		sCICurrPerson.setEthnicity(0);
+
+		sCICurrPerson.setGlasses(false);
+
+		sCICurrPerson.setAttractiveness(0.0);
+
+		sCICurrPerson.setCurrHeadgestures(0);
+
+		sCICurrPerson.setCurrSpeaking(false);
+
+		sCICurrPerson.setCurrEmotion(0);
+
+		sCICurrPerson.setCurrDistance(0.0);
 
 		sCIKinect2.setGesture("");
 
@@ -685,17 +575,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	public SCIUdpInterface getSCIUdpInterface() {
 		return sCIUdpInterface;
 	}
-	public SCIACIface_stat getSCIACIface_stat() {
-		return sCIACIface_stat;
-	}
-	public SCIACIface_dyn getSCIACIface_dyn() {
-		return sCIACIface_dyn;
-	}
-	public SCIPerson getSCIPerson() {
-		return sCIPerson;
-	}
 	public SCIAci getSCIAci() {
 		return sCIAci;
+	}
+	public SCICurrPerson getSCICurrPerson() {
+		return sCICurrPerson;
 	}
 	public SCIKinect2 getSCIKinect2() {
 		return sCIKinect2;
@@ -729,7 +613,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_Init_tr0_tr0() {
-		return true;
+		return sCICurrPerson.id > 3;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_tr0_tr0() {
@@ -745,31 +629,23 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_MoveToPerson_tr0_tr0() {
-		return sCIACIface_dyn.distance < 10;
+		return sCICurrPerson.currDistance < 10;
+	}
+
+	private boolean check_MainBrain_SearchForChat_tr0_tr0() {
+		return sCIKinect2.noiseDetected == true;
+	}
+
+	private boolean check_MainBrain_SearchForChat_tr1_tr1() {
+		return sCIAci.countFoundFaces > 0;
 	}
 
 	private boolean check_MainBrain_SearchForChat_SearchForChat_Standing_tr0_tr0() {
 		return timeEvents[0];
 	}
 
-	private boolean check_MainBrain_SearchForChat_SearchForChat_Standing_tr1_tr1() {
-		return sCIKinect2.noiseDetected == true;
-	}
-
-	private boolean check_MainBrain_SearchForChat_SearchForChat_Standing_tr2_tr2() {
-		return sCIAci.countFoundFaces > 0;
-	}
-
 	private boolean check_MainBrain_SearchForChat_SearchForChat_Walking_tr0_tr0() {
 		return timeEvents[1];
-	}
-
-	private boolean check_MainBrain_SearchForChat_SearchForChat_Walking_tr1_tr1() {
-		return sCIKinect2.noiseDetected == true;
-	}
-
-	private boolean check_MainBrain_SearchForChat_SearchForChat_Walking_tr2_tr2() {
-		return sCIAci.countFoundFaces > 0;
 	}
 
 	private boolean check_GatherData_ReceiveUDPString_tr0_tr0() {
@@ -785,25 +661,25 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_Test_InitTest_tr0_tr0() {
-		return sCILeapMotion.gestureDetected == true;
+		return 0 == 1;
 	}
 
-	private boolean check_Test_Speak_tr0_tr0() {
+	private boolean check_Test_InitTest_tr1_tr1() {
 		return timeEvents[2];
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr0_tr0() {
-		return sCIACIface_stat.confidence < 90;
+		return sCICurrPerson.known == true;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr1_tr1() {
-		return sCIACIface_stat.confidence >= 90;
+		return sCICurrPerson.known == true;
 	}
 
 	private void effect_MainBrain_Init_tr0() {
 		exitSequence_MainBrain_Init();
 
-		enterSequence_MainBrain_SearchForChat_EntrySearchForChat();
+		enterSequence_MainBrain_SearchForChat_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_tr0() {
@@ -821,13 +697,13 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void effect_MainBrain_TurnToNoise_tr1() {
 		exitSequence_MainBrain_TurnToNoise();
 
-		enterSequence_MainBrain_SearchForChat_EntrySearchForChat();
+		enterSequence_MainBrain_SearchForChat_default();
 	}
 
 	private void effect_MainBrain_MoveToPerson_tr0() {
 		exitSequence_MainBrain_MoveToPerson();
 
-		enterSequence_MainBrain_FaceDataInterpretation_EntryFaceDataInterpretation();
+		enterSequence_MainBrain_FaceDataInterpretation_default();
 	}
 
 	private void effect_MainBrain_SearchForChat_tr0() {
@@ -848,34 +724,10 @@ public class BrainStatemachine implements IBrainStatemachine {
 		enterSequence_MainBrain_SearchForChat_SearchForChat_Walking_default();
 	}
 
-	private void effect_MainBrain_SearchForChat_SearchForChat_Standing_tr1() {
-		exitSequence_MainBrain_SearchForChat_SearchForChat_Standing();
-
-		react_MainBrain_SearchForChat_SearchForChat_ExitNoiseDetected();
-	}
-
-	private void effect_MainBrain_SearchForChat_SearchForChat_Standing_tr2() {
-		exitSequence_MainBrain_SearchForChat_SearchForChat_Standing();
-
-		react_MainBrain_SearchForChat_SearchForChat_ExitFaceFound();
-	}
-
 	private void effect_MainBrain_SearchForChat_SearchForChat_Walking_tr0() {
 		exitSequence_MainBrain_SearchForChat_SearchForChat_Walking();
 
 		enterSequence_MainBrain_SearchForChat_SearchForChat_Standing_default();
-	}
-
-	private void effect_MainBrain_SearchForChat_SearchForChat_Walking_tr1() {
-		exitSequence_MainBrain_SearchForChat_SearchForChat_Walking();
-
-		react_MainBrain_SearchForChat_SearchForChat_ExitNoiseDetected();
-	}
-
-	private void effect_MainBrain_SearchForChat_SearchForChat_Walking_tr2() {
-		exitSequence_MainBrain_SearchForChat_SearchForChat_Walking();
-
-		react_MainBrain_SearchForChat_SearchForChat_ExitFaceFound();
 	}
 
 	private void effect_GatherData_ReceiveUDPString_tr0() {
@@ -902,8 +754,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 		enterSequence_Test_Speak_default();
 	}
 
-	private void effect_Test_Speak_tr0() {
-		exitSequence_Test_Speak();
+	private void effect_Test_InitTest_tr1() {
+		exitSequence_Test_InitTest();
 
 		enterSequence_Test_InitTest_default();
 	}
@@ -925,7 +777,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'TurnToNoise'. */
 	private void entryAction_MainBrain_TurnToNoise() {
-		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(true);
+		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(false);
 
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Oh, somebody is behind me");
 
@@ -934,28 +786,32 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'MoveToPerson'. */
 	private void entryAction_MainBrain_MoveToPerson() {
-		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(true);
+		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(false);
 	}
 
 	/* Entry action for state 'Standing'. */
 	private void entryAction_MainBrain_SearchForChat_SearchForChat_Standing() {
 
-		timer.setTimer(this, 0, 10 * 1000, false);
+		timer.setTimer(this, 0, 5 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(false);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Standing");
 	}
 
 	/* Entry action for state 'Walking'. */
 	private void entryAction_MainBrain_SearchForChat_SearchForChat_Walking() {
 
-		timer.setTimer(this, 1, 20 * 1000, false);
+		timer.setTimer(this, 1, 5 * 1000, false);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hello2");
 
 		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(true);
 	}
 
 	/* Entry action for state 'ReceiveUDPString'. */
 	private void entryAction_GatherData_ReceiveUDPString() {
-		sCIUdpInterface.operationCallback.receive();
+		sCIUdpInterface.operationCallback.receive("134.103.120.123", 8888);
 	}
 
 	/* Entry action for state 'ParseStringForData'. */
@@ -963,12 +819,12 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCIUdpInterface.operationCallback.parseString();
 	}
 
-	/* Entry action for state 'Speak'. */
-	private void entryAction_Test_Speak() {
+	/* Entry action for state 'InitTest'. */
+	private void entryAction_Test_InitTest() {
 
 		timer.setTimer(this, 2, 5 * 1000, false);
 
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS(sCILeapMotion.gesture);
+		sCIUdpInterface.operationCallback.print("Test alle 5 Sekunden");
 	}
 
 	/* Exit action for state 'Standing'. */
@@ -981,8 +837,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 		timer.unsetTimer(this, 1);
 	}
 
-	/* Exit action for state 'Speak'. */
-	private void exitAction_Test_Speak() {
+	/* Exit action for state 'InitTest'. */
+	private void exitAction_Test_InitTest() {
 		timer.unsetTimer(this, 2);
 	}
 
@@ -994,9 +850,9 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.mainBrain_Init;
 	}
 
-	/* 'EntryFaceDataInterpretation' enter sequence for state FaceDataInterpretation */
-	private void enterSequence_MainBrain_FaceDataInterpretation_EntryFaceDataInterpretation() {
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_EntryFaceDataInterpretation();
+	/* 'default' enter sequence for state FaceDataInterpretation */
+	private void enterSequence_MainBrain_FaceDataInterpretation_default() {
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_default();
 	}
 
 	/* 'default' enter sequence for state PersonKnown */
@@ -1033,9 +889,9 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.mainBrain_MoveToPerson;
 	}
 
-	/* 'EntrySearchForChat' enter sequence for state SearchForChat */
-	private void enterSequence_MainBrain_SearchForChat_EntrySearchForChat() {
-		enterSequence_MainBrain_SearchForChat_SearchForChat_EntrySearchForChat();
+	/* 'default' enter sequence for state SearchForChat */
+	private void enterSequence_MainBrain_SearchForChat_default() {
+		enterSequence_MainBrain_SearchForChat_SearchForChat_default();
 	}
 
 	/* 'default' enter sequence for state Standing */
@@ -1078,14 +934,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* 'default' enter sequence for state InitTest */
 	private void enterSequence_Test_InitTest_default() {
+		entryAction_Test_InitTest();
+
 		nextStateIndex = 2;
 		stateVector[2] = State.test_InitTest;
 	}
 
 	/* 'default' enter sequence for state Speak */
 	private void enterSequence_Test_Speak_default() {
-		entryAction_Test_Speak();
-
 		nextStateIndex = 2;
 		stateVector[2] = State.test_Speak;
 	}
@@ -1095,14 +951,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 		react_MainBrain__entry_Default();
 	}
 
-	/* 'EntryFaceDataInterpretation' enter sequence for region FaceDataInterpretation */
-	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_EntryFaceDataInterpretation() {
-		react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_EntryFaceDataInterpretation();
+	/* 'default' enter sequence for region FaceDataInterpretation */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_default() {
+		react_MainBrain_FaceDataInterpretation_FaceDataInterpretation__entry_Default();
 	}
 
-	/* 'EntrySearchForChat' enter sequence for region SearchForChat */
-	private void enterSequence_MainBrain_SearchForChat_SearchForChat_EntrySearchForChat() {
-		react_MainBrain_SearchForChat_SearchForChat_EntrySearchForChat();
+	/* 'default' enter sequence for region SearchForChat */
+	private void enterSequence_MainBrain_SearchForChat_SearchForChat_default() {
+		react_MainBrain_SearchForChat_SearchForChat__entry_Default();
 	}
 
 	/* 'default' enter sequence for region GatherData */
@@ -1199,14 +1055,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void exitSequence_Test_InitTest() {
 		nextStateIndex = 2;
 		stateVector[2] = State.$NullState$;
+
+		exitAction_Test_InitTest();
 	}
 
 	/* Default exit sequence for state Speak */
 	private void exitSequence_Test_Speak() {
 		nextStateIndex = 2;
 		stateVector[2] = State.$NullState$;
-
-		exitAction_Test_Speak();
 	}
 
 	/* Default exit sequence for region MainBrain */
@@ -1319,7 +1175,9 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* The reactions of state Init. */
 	private void react_MainBrain_Init() {
-		effect_MainBrain_Init_tr0();
+		if (check_MainBrain_Init_tr0_tr0()) {
+			effect_MainBrain_Init_tr0();
+		}
 	}
 
 	/* The reactions of state PersonKnown. */
@@ -1356,14 +1214,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* The reactions of state Standing. */
 	private void react_MainBrain_SearchForChat_SearchForChat_Standing() {
-		if (check_MainBrain_SearchForChat_SearchForChat_Standing_tr0_tr0()) {
-			effect_MainBrain_SearchForChat_SearchForChat_Standing_tr0();
+		if (check_MainBrain_SearchForChat_tr0_tr0()) {
+			effect_MainBrain_SearchForChat_tr0();
 		} else {
-			if (check_MainBrain_SearchForChat_SearchForChat_Standing_tr1_tr1()) {
-				effect_MainBrain_SearchForChat_SearchForChat_Standing_tr1();
+			if (check_MainBrain_SearchForChat_tr1_tr1()) {
+				effect_MainBrain_SearchForChat_tr1();
 			} else {
-				if (check_MainBrain_SearchForChat_SearchForChat_Standing_tr2_tr2()) {
-					effect_MainBrain_SearchForChat_SearchForChat_Standing_tr2();
+				if (check_MainBrain_SearchForChat_SearchForChat_Standing_tr0_tr0()) {
+					effect_MainBrain_SearchForChat_SearchForChat_Standing_tr0();
 				}
 			}
 		}
@@ -1371,14 +1229,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* The reactions of state Walking. */
 	private void react_MainBrain_SearchForChat_SearchForChat_Walking() {
-		if (check_MainBrain_SearchForChat_SearchForChat_Walking_tr0_tr0()) {
-			effect_MainBrain_SearchForChat_SearchForChat_Walking_tr0();
+		if (check_MainBrain_SearchForChat_tr0_tr0()) {
+			effect_MainBrain_SearchForChat_tr0();
 		} else {
-			if (check_MainBrain_SearchForChat_SearchForChat_Walking_tr1_tr1()) {
-				effect_MainBrain_SearchForChat_SearchForChat_Walking_tr1();
+			if (check_MainBrain_SearchForChat_tr1_tr1()) {
+				effect_MainBrain_SearchForChat_tr1();
 			} else {
-				if (check_MainBrain_SearchForChat_SearchForChat_Walking_tr2_tr2()) {
-					effect_MainBrain_SearchForChat_SearchForChat_Walking_tr2();
+				if (check_MainBrain_SearchForChat_SearchForChat_Walking_tr0_tr0()) {
+					effect_MainBrain_SearchForChat_SearchForChat_Walking_tr0();
 				}
 			}
 		}
@@ -1405,14 +1263,15 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void react_Test_InitTest() {
 		if (check_Test_InitTest_tr0_tr0()) {
 			effect_Test_InitTest_tr0();
+		} else {
+			if (check_Test_InitTest_tr1_tr1()) {
+				effect_Test_InitTest_tr1();
+			}
 		}
 	}
 
 	/* The reactions of state Speak. */
 	private void react_Test_Speak() {
-		if (check_Test_Speak_tr0_tr0()) {
-			effect_Test_Speak_tr0();
-		}
 	}
 
 	/* The reactions of state null. */
@@ -1431,13 +1290,13 @@ public class BrainStatemachine implements IBrainStatemachine {
 		enterSequence_MainBrain_Init_default();
 	}
 
-	/* Default react sequence for initial entry EntryFaceDataInterpretation */
-	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_EntryFaceDataInterpretation() {
+	/* Default react sequence for initial entry  */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation__entry_Default() {
 		react_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_0();
 	}
 
-	/* Default react sequence for initial entry EntrySearchForChat */
-	private void react_MainBrain_SearchForChat_SearchForChat_EntrySearchForChat() {
+	/* Default react sequence for initial entry  */
+	private void react_MainBrain_SearchForChat_SearchForChat__entry_Default() {
 		enterSequence_MainBrain_SearchForChat_SearchForChat_Standing_default();
 	}
 
@@ -1449,16 +1308,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Default react sequence for initial entry  */
 	private void react_Test__entry_Default() {
 		enterSequence_Test_InitTest_default();
-	}
-
-	/* The reactions of exit ExitNoiseDetected. */
-	private void react_MainBrain_SearchForChat_SearchForChat_ExitNoiseDetected() {
-		effect_MainBrain_SearchForChat_tr0();
-	}
-
-	/* The reactions of exit ExitFaceFound. */
-	private void react_MainBrain_SearchForChat_SearchForChat_ExitFaceFound() {
-		effect_MainBrain_SearchForChat_tr1();
 	}
 
 	public void runCycle() {
