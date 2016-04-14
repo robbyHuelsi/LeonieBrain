@@ -5,15 +5,12 @@ import org.yakindu.scr.ITimerCallback;
 public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 
 	public interface SCIUdpInterface {
-		public String getMessage();
-		public void setMessage(String value);
 
 		public void setSCIUdpInterfaceOperationCallback(SCIUdpInterfaceOperationCallback operationCallback);
 	}
 
 	public interface SCIUdpInterfaceOperationCallback {
-		public void receive(String myAdress, long myPort);
-		public void parseString();
+		public void receive();
 		public void print(String msg);
 		public void sendToVBrain_ACIonOff(boolean inOnOff);
 		public void sendToHBrain_TTS(String inText);

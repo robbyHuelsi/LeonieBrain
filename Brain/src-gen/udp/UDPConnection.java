@@ -9,55 +9,109 @@ import java.net.UnknownHostException;
 
 public class UDPConnection
 {
+	private boolean runThread = true;
+	private String message = "";
+
+	public String getMessage()
+	{
+		return message.trim();
+	}
 	
+	public boolean isRunThread()
+	{
+		return runThread;
+	}
+
+	public void setRunThread(boolean runThread)
+	{
+		this.runThread = runThread;
+	}
+
 	/**
 	 * Receives String from UDP
 	 * 
-	 * @param myAdress the IP Adress from the interface I want to receive from
-	 * @param myPort the Port I want to listen to
+	 * @param myAdress
+	 *            the IP Adress from the interface I want to receive from
+	 * @param myPort
+	 *            the Port I want to listen to
 	 * @return the received message
 	 */
-	public String receiveSocket(InetAddress myAdress, int myPort)
+	public void receiveSocket(InetAddress myAdress, int myPort, boolean useThread)
 	{
-		DatagramPacket request = null;
-		try
+		if (!useThread)
 		{
-			DatagramSocket socket = new DatagramSocket(myPort, myAdress);
+			DatagramPacket request = null;
+			try
+			{
+				DatagramSocket socket = new DatagramSocket(myPort, myAdress);
 
-			byte[] receiveData = new byte[1024];
-			request = new DatagramPacket(receiveData, receiveData.length);
+				byte[] receiveData = new byte[1024];
+				request = new DatagramPacket(receiveData, receiveData.length);
 
-			socket.receive(request);
+				socket.receive(request);
 
-			socket.close();
-		} catch (UnknownHostException e)
+				message = new String(request.getData(), request.getOffset(), request.getLength());
+
+				socket.close();
+			} catch (UnknownHostException e)
+			{
+				System.err.println("Host Adress not found!");
+				e.printStackTrace();
+			} catch (SocketException e)
+			{
+				System.err.println("Socket creation error!");
+				e.printStackTrace();
+			} catch (IOException e)
+			{
+				System.err.println("Error on receiving package!");
+				e.printStackTrace();
+			}
+
+		} else
 		{
-			System.err.println("Host Adress not found!");
-			e.printStackTrace();
-		} catch (SocketException e)
-		{
-			System.err.println("Socket creation error!");
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			System.err.println("Error on receiving package!");
-			e.printStackTrace();
+			Thread t = new Thread(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					try
+					{
+						DatagramSocket socket = new DatagramSocket(myPort, myAdress);
+						byte[] receiveData = new byte[1024];
+						DatagramPacket request = new DatagramPacket(receiveData, receiveData.length);
+
+						while (isRunThread())
+						{
+							socket.receive(request);
+							message = new String(request.getData(), request.getOffset(), request.getLength());
+							MessageParser.ParseMessage(message.trim());
+						}
+						socket.close();
+					} catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+			t.start();
 		}
-
-		return new String(request.getData(), request.getOffset(), request.getLength());
 	}
 
 	/**
 	 * Send message via UDP
 	 * 
-	 * @param message the Message
-	 * @param targetAdress IP adress of the target
-	 * @param targetPort Port of the target
+	 * @param message
+	 *            the Message
+	 * @param targetAdress
+	 *            IP adress of the target
+	 * @param targetPort
+	 *            Port of the target
 	 */
 	public void sendSocket(String message, InetAddress targetAdress, int targetPort)
 	{
 		DatagramSocket socket;
-		
+
 		DatagramPacket request = null;
 		try
 		{

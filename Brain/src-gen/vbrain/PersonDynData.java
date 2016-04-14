@@ -26,22 +26,23 @@ public class PersonDynData {
 	public PersonDynData(BrainStatemachine inBrain, int inHeadgesture, boolean inSpeaking, int inEmotions, float inDistance){
 		this.brain = inBrain;
 		
-		this.headgesture = inHeadgesture;
-		this.speaking = inSpeaking;
-		this.emotion = inEmotions;
-		this.distance = inDistance;
+		this.setHeadgesture(inHeadgesture);
+		this.setSpeaking(inSpeaking);
+		this.setEmotion(inEmotions);
+		this.setDistance(inDistance);
 	}
 	
 	public PersonDynData(BrainStatemachine inBrain, String attributeData){
 		this.brain = inBrain;
 		
 		String[] attributeParts = attributeData.split(";");
-		this.headgesture = Integer.parseInt(attributeParts[2]);
-		this.speaking = Boolean.valueOf(attributeParts[3]);
-		this.emotion = Integer.parseInt(attributeParts[4]);
-		this.distance = Float.parseFloat(attributeParts[5]);
+		this.setHeadgesture(Integer.parseInt(attributeParts[2]));
+		this.setSpeaking(Boolean.valueOf(attributeParts[3]));
+		this.setEmotion(Integer.parseInt(attributeParts[4]));
+		this.setDistance(Float.parseFloat(attributeParts[5]));
 		
 	}
+	 
 
 	public int getHeadgesture() {
 		return headgesture;

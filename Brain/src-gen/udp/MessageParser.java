@@ -17,7 +17,7 @@ public class MessageParser
 	public static boolean ParseMessage(String message){
 		Start start = Start.instanceOf();
 		BrainStatemachine brain = start.getBrain();
-		PersonList personList = start.getPersonList();
+		PersonList personList = Start.getPersonList();
 		
 		// Get sender and process message
 		String sender;
@@ -80,6 +80,8 @@ public class MessageParser
 												if(attributePartsVBD[0].contains("1")){
 													System.out.println("Face found");
 													
+													brain.getSCIAci().setCountFoundFaces(1);
+													
 													int faceId = Integer.parseInt(attributePartsVBD[1]);
 													personList.setCurrPersonID(faceId);
 													if(personList.hasPersonWithID(faceId)){
@@ -88,6 +90,7 @@ public class MessageParser
 													}
 													
 												}else{
+													brain.getSCIAci().setCountFoundFaces(0);
 													//System.out.println("  no face");
 												}
 											}

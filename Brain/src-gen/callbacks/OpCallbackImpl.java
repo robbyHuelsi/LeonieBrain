@@ -21,8 +21,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback //, SCIC
 	 * receiving data from UDP, using sockets -> blocking!
 	 */
 	@Override
-	public void receive(String myAdress, long myPort)
-	{
+	public void receive(){
 		/* UDP establish connection & receive */
 		String result = null;
 		UDPConnection  udpConnection = new UDPConnection();
@@ -31,10 +30,12 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback //, SCIC
 		
 		try
 		{
-			result = udpConnection.receiveSocket(InetAddress.getByName(myAdress), (int)myPort);
+			udpConnection.receiveSocket(InetAddress.getByName(Start.getIpListen()), Start.getPortListen(), true);
+			result = udpConnection.getMessage();
+			System.out.println(InetAddress.getByName(Start.getIpListen())+"X:" + result);
+//			udpConnection.setRunThread(false);
 		} catch (UnknownHostException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -43,8 +44,8 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback //, SCIC
 		
 		// Beispiel string: #VBRAIN#0;1/2;A;Nachname;1994;12;25;false;0;false;0.0		
 		
-		Start.instanceOf().getBrain().getSCIUdpInterface().setMessage(result.trim());
-//		System.out.println("receive test output: " + result);
+		//MessageParser.ParseMessage(result.trim());
+		//System.out.println("receive test output: " + result);
 	}
 	
 	public void print(String msg){
@@ -112,7 +113,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback //, SCIC
 	
 	public void sendToNav_searchOnOff(boolean inOnOff){
 		System.out.println(inOnOff?"Moving from WP to WP":"Standing");
-		this.sendMessage("#NAV##RUN#" + (inOnOff?"1":"0") + "#\0", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		this.sendMessage("#NAV##RUN#" + (inOnOff?"1":"0") + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
 	}
 	
 	
@@ -181,10 +182,10 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback //, SCIC
 	}*/
 	
 
-	@Override
-	public void parseString() {
-		//System.out.println(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
-		MessageParser.ParseMessage(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
-	}
+//	@Override
+//	public void parseString() {
+//		//System.out.println(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
+//		MessageParser.ParseMessage(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
+//	}
 	
 }

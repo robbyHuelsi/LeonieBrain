@@ -1,5 +1,7 @@
 package main;
 
+import java.net.Inet4Address;
+
 import org.yakindu.scr.TimerService;
 import org.yakindu.scr.brain.BrainStatemachine;
 
@@ -14,12 +16,15 @@ public class Start
 	BrainStatemachine brain;
 	static private PersonList personList;
 	
-	static private String ipListen = "134.103.120.123";
+	//static private String ipListen = "134.103.120.123";
+	static private String ipListen = "192.168.1.21";
 	static private int portListen = 8888;
 	
 	//VBrain
-	static private String ipSendVBrain = "134.103.120.108";
-	static private int portSendVBrain = 8889;
+	//static private String ipSendVBrain = "134.103.120.108";
+	//static private String ipSendVBrain = "192.168.1.7";
+	static private String ipSendVBrain = "192.168.1.25";
+	static private int portSendVBrain = 7777;
 	
 	//HBrain
 	static private String ipSendHBrain = "134.103.120.135";
@@ -44,8 +49,8 @@ public class Start
 	static private int portSendSRC = 0;
 	
 	//Navigation
-	static private String ipSendNavigation = "";
-	static private int portSendNavigation = 0;
+	static private String ipSendNavigation = "192.168.1.7";
+	static private int portSendNavigation = 8888;
 	
 	private Start()
 	{
