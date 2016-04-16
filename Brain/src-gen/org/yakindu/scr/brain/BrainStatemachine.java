@@ -436,7 +436,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	public void enter() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The state machine needs to be initialized first by calling the init() function.");
+					"The statemachine needs to be initialized first by calling the init() function.");
 
 		if (timer == null) {
 			throw new IllegalStateException("timer not set.");
@@ -468,7 +468,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/** 
 	* Always returns 'false' since this state machine can never become final.
 	*
-	 * @see IStatemachine#isFinal()
+	 * @see IStatemachine#isFinal() 
 	 */
 	public boolean isFinal() {
 		return false;
@@ -606,10 +606,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		return 1 == 0;
 	}
 
-	private boolean check_MainBrain_FaceDataInterpretation_tr1_tr1() {
-		return sCIAci.countFoundFaces < 0;
-	}
-
 	private boolean check_MainBrain_TurnToNoise_tr0_tr0() {
 		return sCIAci.countFoundFaces > 0;
 	}
@@ -664,12 +660,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		exitSequence_MainBrain_FaceDataInterpretation();
 
 		enterSequence_MainBrain_Idle_default();
-	}
-
-	private void effect_MainBrain_FaceDataInterpretation_tr1() {
-		exitSequence_MainBrain_FaceDataInterpretation();
-
-		enterSequence_MainBrain_SearchForChat_default();
 	}
 
 	private void effect_MainBrain_TurnToNoise_tr0() {
@@ -1111,10 +1101,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
 			effect_MainBrain_FaceDataInterpretation_tr0();
 		} else {
-			if (check_MainBrain_FaceDataInterpretation_tr1_tr1()) {
-				effect_MainBrain_FaceDataInterpretation_tr1();
-			} else {
-			}
 		}
 	}
 
@@ -1123,10 +1109,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
 			effect_MainBrain_FaceDataInterpretation_tr0();
 		} else {
-			if (check_MainBrain_FaceDataInterpretation_tr1_tr1()) {
-				effect_MainBrain_FaceDataInterpretation_tr1();
-			} else {
-			}
 		}
 	}
 
@@ -1241,7 +1223,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	public void runCycle() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The state machine needs to be initialized first by calling the init() function.");
+					"The statemachine needs to be initialized first by calling the init() function.");
 
 		clearOutEvents();
 

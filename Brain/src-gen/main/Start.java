@@ -16,20 +16,27 @@ public class Start
 	BrainStatemachine brain;
 	static private PersonList personList;
 	
-	//static private String ipListen = "134.103.120.123";
-	static private String ipListen = "192.168.1.21";
+	
+	// ---- BRAIN -------------------------------------------------------------
+	//static private String ipListen = "134.103.120.123";	//myCampus PC
+	//static private String ipListen = "192.168.1.21";		//Netgear PC
+	static private String ipListen = "192.168.188.24"; //FritzBox Laptop
 	static private int portListen = 8888;
+	// ------------------------------------------------------------------------
 	
-	//VBrain
-	//static private String ipSendVBrain = "134.103.120.108";
-	//static private String ipSendVBrain = "192.168.1.7";
-	static private String ipSendVBrain = "192.168.1.25";
+	
+	// ---- VBrain ------------------------------------------------------------
+	//static private String ipSendVBrain = "134.103.120.108"; //myCampus Scitos
+	//static private String ipSendVBrain = "192.168.1.7"; //Netgear Scitos
+	//static private String ipSendVBrain = "192.168.1.25"; //Netgear NUC
+	static private String ipSendVBrain = "192.168.188.22"; //FritzBox NUC
 	static private int portSendVBrain = 7777;
+	// -------------------------------------------------------------------------
 	
-	//HBrain
-	static private String ipSendHBrain = "134.103.120.135";
+	// ---- HBrain -----------------------------------------
+	static private String ipSendHBrain = "192.168.188.22";
 	static private int portSendHBrain = 11005;
-	
+	// -----------------------------------------------------
 	//STT
 	static private String ipSendSTT = "134.103.120.";
 	static private int portSendSTT = 0;
@@ -49,7 +56,8 @@ public class Start
 	static private int portSendSRC = 0;
 	
 	//Navigation
-	static private String ipSendNavigation = "192.168.1.7";
+	//static private String ipSendNavigation = "192.168.1.7"; //Netgear Scitos
+	static private String ipSendNavigation = "192.168.188.21"; //FritzBox Scitos
 	static private int portSendNavigation = 8888;
 	
 	private Start()

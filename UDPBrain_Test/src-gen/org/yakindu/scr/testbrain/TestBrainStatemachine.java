@@ -70,7 +70,7 @@ public class TestBrainStatemachine implements ITestBrainStatemachine {
 	public void enter() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The state machine needs to be initialized first by calling the init() function.");
+					"The statemachine needs to be initialized first by calling the init() function.");
 
 		enterSequence_main_region_default();
 	}
@@ -90,7 +90,7 @@ public class TestBrainStatemachine implements ITestBrainStatemachine {
 	/** 
 	* Always returns 'false' since this state machine can never become final.
 	*
-	 * @see IStatemachine#isFinal()
+	 * @see IStatemachine#isFinal() 
 	 */
 	public boolean isFinal() {
 		return false;
@@ -232,7 +232,7 @@ public class TestBrainStatemachine implements ITestBrainStatemachine {
 	public void runCycle() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The state machine needs to be initialized first by calling the init() function.");
+					"The statemachine needs to be initialized first by calling the init() function.");
 
 		clearOutEvents();
 
