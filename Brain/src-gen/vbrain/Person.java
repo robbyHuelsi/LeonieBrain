@@ -23,6 +23,7 @@ public class Person {
 	private boolean known;
 	private String firstName;
 	private String lastName;
+	private int estimatedAge;
 	private int bdYear;
 	private int bdMonth;
 	private int bdDay;
@@ -111,11 +112,22 @@ public class Person {
 			brain.getSCICurrPerson().setLastname(lastName);
 		}
 	}
+	
+	public int getEstimatedAge() {
+		return estimatedAge;
+	}
+	
+	public void setEstimatedAge(int estimatedAge) {
+		this.estimatedAge = estimatedAge;
+		if(brain != null){
+			brain.getSCICurrPerson().setEstimatedAge(estimatedAge);
+		}
+	}
 
 	public int getBdYear() {
 		return bdYear;
 	}
-
+	
 	public void setBdYear(int bdYear) {
 		this.bdYear = bdYear;
 		if(brain != null){

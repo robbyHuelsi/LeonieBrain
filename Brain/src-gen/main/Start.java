@@ -60,6 +60,14 @@ public class Start
 	static private String ipSendNavigation = "192.168.188.21"; //FritzBox Scitos
 	static private int portSendNavigation = 8888;
 	
+//	public enum Emotion {
+//	    neutral, happy, sad, laugthing, angry;
+//		private final int value;
+//		private static Emotion[] allValues = values();
+//		public static Emotion fromInt(int n) {return allValues[n];}
+//		 public int getValue() {return value;}
+//	}
+	
 	private Start()
 	{
 		brain = new BrainStatemachine();

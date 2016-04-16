@@ -14,6 +14,8 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void print(String msg);
 		public void sendToVBrain_ACIonOff(boolean inOnOff);
 		public void sendToHBrain_TTS(String inText);
+		public void sendToHBrain_TTS2(String inT1, String inT2);
+		public void sendToHBrain_TTS3(String inT1, String inT2, String inT3);
 		public void sendToHBrain_TTSWithPos(String inPos, String inText);
 		public void sendToHBrain_PersonPosition();
 		public void sendToKinect2_detectionOnOff(boolean inOnOff);
@@ -26,13 +28,13 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 
 	public SCIUdpInterface getSCIUdpInterface();
 
-	public interface SCIAci {
+	public interface SCIVBrain {
 		public long getCountFoundFaces();
 		public void setCountFoundFaces(long value);
 
 	}
 
-	public SCIAci getSCIAci();
+	public SCIVBrain getSCIVBrain();
 
 	public interface SCICurrPerson {
 		public long getId();
@@ -43,6 +45,8 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void setFirstname(String value);
 		public String getLastname();
 		public void setLastname(String value);
+		public long getEstimatedAge();
+		public void setEstimatedAge(long value);
 		public long getBdYear();
 		public void setBdYear(long value);
 		public long getBdMounth();
@@ -69,6 +73,14 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	}
 
 	public SCICurrPerson getSCICurrPerson();
+
+	public interface SCIHBrain {
+		public boolean getTTSReady();
+		public void setTTSReady(boolean value);
+
+	}
+
+	public SCIHBrain getSCIHBrain();
 
 	public interface SCIKinect2 {
 		public String getGesture();

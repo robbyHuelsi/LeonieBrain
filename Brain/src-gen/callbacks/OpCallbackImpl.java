@@ -76,6 +76,14 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback //, SCIC
 		this.sendMessage(inText + "\0", Start.getIpSendHBrain(), Start.getPortSendHBrain());
 	}
 	
+	public void sendToHBrain_TTS2(String inT1, String inT2){
+		this.sendToHBrain_TTS(inT1 + inT2);
+	}
+	
+	public void sendToHBrain_TTS3(String inT1, String inT2, String inT3){
+		this.sendToHBrain_TTS(inT1 + inT2 + inT3);
+	}
+	
 	public void sendToHBrain_TTSWithPos(String inPos, String inText){
 		//System.out.println(inText);
 		sendToHBrain_TTS("{0;" + inPos + "}" + inText);
@@ -90,7 +98,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback //, SCIC
 	}
 	
 	public void sendToLeapMotion_detectionOnOff(boolean inOnOff){
-		this.sendMessage((inOnOff?"1":"0"), Start.getIpSendLeapMotion(), Start.getPortSendLeapMotion());
+		this.sendMessage("#HANDGESTURES#" + (inOnOff?"1":"0") + "#", Start.getIpSendLeapMotion(), Start.getPortSendLeapMotion());
 	}
 	
 	public void sendToSTT_detectionOnOff(boolean inOnOff){

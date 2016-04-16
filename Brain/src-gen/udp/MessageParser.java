@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 import org.yakindu.scr.brain.BrainStatemachine;
 
 import main.Start;
-
 import vbrain.Person;
 import vbrain.PersonList;
 
@@ -80,7 +79,7 @@ public class MessageParser
 												if(attributePartsVBD[0].contains("1")){
 													System.out.println("Face found");
 													
-													brain.getSCIAci().setCountFoundFaces(1);
+													brain.getSCIVBrain().setCountFoundFaces(1);
 													
 													int faceId = Integer.parseInt(attributePartsVBD[1]);
 													personList.setCurrPersonID(faceId);
@@ -90,8 +89,19 @@ public class MessageParser
 													}
 													
 												}else{
-													brain.getSCIAci().setCountFoundFaces(0);
+													brain.getSCIVBrain().setCountFoundFaces(0);
 													//System.out.println("  no face");
+												}
+											}else if (vbrainbM.group(1).equals("EMOTION")){
+												
+												//Emotion e;
+												//e.fromInt(Integer.parseInt(vbrainbM.group(2)));
+												
+												System.out.println("Emotion: " + vbrainbM.group(2));
+												
+												Person p = personList.getCurrPerson();
+												if(p != null){
+													p.getCurrDynData().setEmotion(Integer.parseInt(vbrainbM.group(2)));
 												}
 											}
 										}
