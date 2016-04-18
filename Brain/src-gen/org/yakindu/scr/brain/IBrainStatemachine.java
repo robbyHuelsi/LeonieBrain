@@ -4,6 +4,20 @@ import org.yakindu.scr.ITimerCallback;
 
 public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 
+	public interface SCIBGF {
+		public long getRandNum();
+		public void setRandNum(long value);
+
+		public void setSCIBGFOperationCallback(SCIBGFOperationCallback operationCallback);
+	}
+
+	public interface SCIBGFOperationCallback {
+		public void print(String msg);
+		public void newRandNum(long max);
+	}
+
+	public SCIBGF getSCIBGF();
+
 	public interface SCIUdpInterface {
 
 		public void setSCIUdpInterfaceOperationCallback(SCIUdpInterfaceOperationCallback operationCallback);
@@ -11,7 +25,6 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 
 	public interface SCIUdpInterfaceOperationCallback {
 		public void receive();
-		public void print(String msg);
 		public void sendToVBrain_ACIonOff(boolean inOnOff);
 		public void sendToHBrain_TTS(String inText);
 		public void sendToHBrain_TTS2(String inT1, String inT2);
@@ -123,6 +136,8 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	public SCIOpenDail getSCIOpenDail();
 
 	public interface SCISTT {
+		public boolean getSTTready();
+		public void setSTTready(boolean value);
 		public String getSpeakerMsg();
 		public void setSpeakerMsg(String value);
 

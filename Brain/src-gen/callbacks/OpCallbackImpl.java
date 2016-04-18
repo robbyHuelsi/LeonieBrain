@@ -4,7 +4,9 @@ package callbacks;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Random;
 
+import org.yakindu.scr.brain.IBrainStatemachine.SCIBGFOperationCallback;
 //import org.yakindu.scr.brain.IBrainStatemachine.SCICurrPersonOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIUdpInterfaceOperationCallback;
 
@@ -13,43 +15,38 @@ import udp.MessageParser;
 import udp.UDPConnection;
 import vbrain.PersonList;
 
-public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback //, SCICurrPersonOperationCallback
+public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFOperationCallback //, SCICurrPersonOperationCallback
 {
 	private PersonList personList = Start.getPersonList();
 	
-	/**
-	 * receiving data from UDP, using sockets -> blocking!
-	 */
-	@Override
+	
+	// ---- Brain General Functions Interface ---- //
+	public void print(String msg){
+		System.out.println(msg);
+	}
+	
+	public void newRandNum(long max){
+		Random randGen = new Random();
+		Start.instanceOf().getBrain().getSCIBGF().setRandNum(randGen.nextInt((int)max-1));
+	}
+	
+	
+	
+	// ---- UDP Interface ----------------------- //
+	
 	public void receive(){
 		/* UDP establish connection & receive */
 		String result = null;
 		UDPConnection  udpConnection = new UDPConnection();
-		
-		//System.out.println("ReceiveUDP...");
-		
-		try
-		{
+				
+		try{
 			udpConnection.receiveSocket(InetAddress.getByName(Start.getIpListen()), Start.getPortListen(), true);
 			result = udpConnection.getMessage();
 			System.out.println(InetAddress.getByName(Start.getIpListen())+"X:" + result);
 //			udpConnection.setRunThread(false);
-		} catch (UnknownHostException e)
-		{
+		} catch (UnknownHostException e){
 			e.printStackTrace();
 		}
-		
-		/* END */
-		
-		
-		// Beispiel string: #VBRAIN#0;1/2;A;Nachname;1994;12;25;false;0;false;0.0		
-		
-		//MessageParser.ParseMessage(result.trim());
-		//System.out.println("receive test output: " + result);
-	}
-	
-	public void print(String msg){
-		System.out.println(msg);
 	}
 	
 	private void sendMessage(String text, String targetAdress, int targetPort)
@@ -124,6 +121,13 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback //, SCIC
 		this.sendMessage("#NAV##RUN#" + (inOnOff?"1":"0") + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
 	}
 	
+	public long randomNumber(){
+		Random randomGenerator = new Random();
+	      int randomInt = randomGenerator.nextInt(4);
+		return randomInt;	
+	}
+
+
 	
 	/*public long getId(){
 		return personList.getCurrPerson().getPersonID();
