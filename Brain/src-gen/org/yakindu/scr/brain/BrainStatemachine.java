@@ -384,7 +384,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private boolean initialized = false;
 
 	public enum State {
-		mainBrain_Init, mainBrain_FaceDataInterpretation, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownGirl, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownFemaleTeen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownWomen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownBoy, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownMaleTeen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownMen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPerson, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_UnknownPerson, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPersonWithoutName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_4, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation__final_, mainBrain_TurnToNoise, mainBrain_Idle, mainBrain_MoveToPerson, mainBrain_SearchForChat, mainBrain_SearchForChat_SearchForChat_Standing, mainBrain_SearchForChat_SearchForChat_Walking, $NullState$
+		mainBrain_Init, mainBrain_FaceDataInterpretation, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownGirl, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownFemaleTeen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownWomen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownBoy, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownMaleTeen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownMen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPerson, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_UnknownPerson, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPersonWithoutName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_4, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation__final_, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6, mainBrain_TurnToNoise, mainBrain_Idle, mainBrain_MoveToPerson, mainBrain_SearchForChat, mainBrain_SearchForChat_SearchForChat_Standing, mainBrain_SearchForChat_SearchForChat_Walking, $NullState$
 	};
 
 	private final State[] stateVector = new State[1];
@@ -550,7 +550,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 				return stateVector[0] == State.mainBrain_Init;
 			case mainBrain_FaceDataInterpretation :
 				return stateVector[0].ordinal() >= State.mainBrain_FaceDataInterpretation.ordinal() && stateVector[0]
-						.ordinal() <= State.mainBrain_FaceDataInterpretation_FaceDataInterpretation__final_.ordinal();
+						.ordinal() <= State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6.ordinal();
 			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName :
 				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName;
 			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownGirl :
@@ -603,12 +603,34 @@ public class BrainStatemachine implements IBrainStatemachine {
 				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3;
 			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2 :
 				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2;
-			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv :
-				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1 :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1;
 			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3 :
 				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3;
 			case mainBrain_FaceDataInterpretation_FaceDataInterpretation__final_ :
 				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation__final_;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1 :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2 :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4 :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3 :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4 :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2 :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3 :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5 :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2 :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing;
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6 :
+				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6;
 			case mainBrain_TurnToNoise :
 				return stateVector[0] == State.mainBrain_TurnToNoise;
 			case mainBrain_Idle :
@@ -754,7 +776,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_2_tr0_tr0() {
-		return (sCISTT.speakerMsg == null ? "#STT#yes" == null : sCISTT.speakerMsg.equals("#STT#yes"));
+		return sCIHBrain.tTSReady == true;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_1_tr0_tr0() {
@@ -817,7 +839,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 		return true;
 	}
 
-	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_tr0_tr0() {
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2_tr2_tr2() {
+		return sCIBGF.randNum == 1;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1_tr0_tr0() {
 		return sCIHBrain.tTSReady == true;
 	}
 
@@ -831,6 +857,50 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3_tr2_tr2() {
 		return sCIBGF.randNum == 0;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1_tr0_tr0() {
+		return sCISTT.sTTready == true;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2_tr0_tr0() {
+		return sCISTT.sTTready == true;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4_tr0_tr0() {
+		return sCIHBrain.tTSReady == true;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3_tr0_tr0() {
+		return sCISTT.sTTready == true;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4_tr0_tr0() {
+		return sCISTT.sTTready == true;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2_tr0_tr0() {
+		return sCIHBrain.tTSReady == true;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3_tr0_tr0() {
+		return sCIHBrain.tTSReady == true;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5_tr0_tr0() {
+		return sCISTT.sTTready == true;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2_tr0_tr0() {
+		return sCIHBrain.tTSReady == true;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing_tr0_tr0() {
+		return sCIHBrain.tTSReady == true;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6_tr0_tr0() {
+		return sCISTT.sTTready == true;
 	}
 
 	private boolean check_MainBrain_TurnToNoise_tr0_tr0() {
@@ -910,10 +980,18 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_5_tr0_tr0() {
-		return (sCISTT.speakerMsg == null ? "#STT#yes" == null : sCISTT.speakerMsg.equals("#STT#yes"));
+		return (sCISTT.speakerMsg == null ? "yes" == null : sCISTT.speakerMsg.equals("yes"));
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_5_tr1_tr1() {
+		return true;
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_6_tr0_tr0() {
+		return (sCISTT.speakerMsg == null ? "yes" == null : sCISTT.speakerMsg.equals("yes"));
+	}
+
+	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_6_tr1_tr1() {
 		return true;
 	}
 
@@ -944,7 +1022,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName_tr0() {
 		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName();
 
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPersonWithoutName_default();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownFemaleTeen_tr0() {
@@ -980,13 +1058,13 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPerson_tr0() {
 		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPerson();
 
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_1_default();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_UnknownPerson_tr0() {
 		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_UnknownPerson();
 
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_default();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPersonWithoutName_tr0() {
@@ -998,37 +1076,37 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1_tr0() {
 		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1();
 
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_default();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2_tr0() {
 		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2();
 
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_default();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1_tr0() {
 		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1();
 
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_default();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2_tr0() {
 		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2();
 
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_default();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_2_tr0() {
 		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_2();
 
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3_default();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_1_tr0() {
 		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_1();
 
-		react_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_5();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_tr0() {
@@ -1100,7 +1178,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3_tr0() {
 		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3();
 
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_default();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2_tr0() {
@@ -1115,10 +1193,16 @@ public class BrainStatemachine implements IBrainStatemachine {
 		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2_default();
 	}
 
-	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_tr0() {
-		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv();
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2_tr2() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2();
 
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1_default();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1();
+
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3_tr0() {
@@ -1137,6 +1221,72 @@ public class BrainStatemachine implements IBrainStatemachine {
 		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3();
 
 		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1();
+
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2();
+
+		react_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_6();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4();
+
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3();
+
+		react_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_5();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4();
+
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2();
+
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3();
+
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5();
+
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2();
+
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_1_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing();
+
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6_tr0() {
+		exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6();
+
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPersonWithoutName_default();
 	}
 
 	private void effect_MainBrain_TurnToNoise_tr0() {
@@ -1234,7 +1384,15 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_5_tr1() {
-		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_default();
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_6_tr0() {
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3_default();
+	}
+
+	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_6_tr1() {
+		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4_default();
 	}
 
 	/* Entry action for state 'Init'. */
@@ -1353,7 +1511,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'AfterGreetings'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings() {
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
-				"You have a nice name. Sadly, I am quite bad with names. I do apologize if I cannot recall your name the next time we meet");
+				"You have a nice name. Sadly, I am quite bad with names. I do apologize if I mispronounce your name the next time we meet");
 	}
 
 	/* Entry action for state 'Farewell_1'. */
@@ -1398,14 +1556,72 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCIBGF.operationCallback.newRandNum(2);
 	}
 
-	/* Entry action for state 'AlternativeConv'. */
-	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Why not");
+	/* Entry action for state 'AlternativeConv_1'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1() {
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Why?");
+
+		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
 
 	/* Entry action for state 'Selection_3'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3() {
 		sCIBGF.operationCallback.newRandNum(3);
+	}
+
+	/* Entry action for state 'STT_1'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1() {
+		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(false);
+	}
+
+	/* Entry action for state 'STT_2'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2() {
+		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(false);
+	}
+
+	/* Entry action for state 'RandomTopic_4'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4() {
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hahah, I will tell you anyway");
+	}
+
+	/* Entry action for state 'STT_3'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3() {
+		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(false);
+	}
+
+	/* Entry action for state 'STT_4'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4() {
+		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(false);
+	}
+
+	/* Entry action for state 'AlternativeConv_2'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2() {
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Oh I see");
+	}
+
+	/* Entry action for state 'AboutRobotica_3'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3() {
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("It is my first time here.");
+	}
+
+	/* Entry action for state 'STT_5'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5() {
+		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(false);
+	}
+
+	/* Entry action for state 'AfterGreetings_2'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2() {
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Good to know");
+	}
+
+	/* Entry action for state 'Closing'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing() {
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
+				"Would love to chat with you more, but so many people to meet, so little time. hahah");
+	}
+
+	/* Entry action for state 'STT_6'. */
+	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6() {
+		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(false);
 	}
 
 	/* Entry action for state 'TurnToNoise'. */
@@ -1660,12 +1876,12 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2;
 	}
 
-	/* 'default' enter sequence for state AlternativeConv */
-	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_default() {
-		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv();
+	/* 'default' enter sequence for state AlternativeConv_1 */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1();
 
 		nextStateIndex = 0;
-		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1;
 	}
 
 	/* 'default' enter sequence for state Selection_3 */
@@ -1680,6 +1896,94 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation__final__default() {
 		nextStateIndex = 0;
 		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation__final_;
+	}
+
+	/* 'default' enter sequence for state STT_1 */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1;
+	}
+
+	/* 'default' enter sequence for state STT_2 */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2;
+	}
+
+	/* 'default' enter sequence for state RandomTopic_4 */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4;
+	}
+
+	/* 'default' enter sequence for state STT_3 */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3;
+	}
+
+	/* 'default' enter sequence for state STT_4 */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4;
+	}
+
+	/* 'default' enter sequence for state AlternativeConv_2 */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2;
+	}
+
+	/* 'default' enter sequence for state AboutRobotica_3 */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3;
+	}
+
+	/* 'default' enter sequence for state STT_5 */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5;
+	}
+
+	/* 'default' enter sequence for state AfterGreetings_2 */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2;
+	}
+
+	/* 'default' enter sequence for state Closing */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing;
+	}
+
+	/* 'default' enter sequence for state STT_6 */
+	private void enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6_default() {
+		entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6;
 	}
 
 	/* 'default' enter sequence for state TurnToNoise */
@@ -1909,8 +2213,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 
-	/* Default exit sequence for state AlternativeConv */
-	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv() {
+	/* Default exit sequence for state AlternativeConv_1 */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -1923,6 +2227,72 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Default exit sequence for final state. */
 	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation__final_() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state STT_1 */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state STT_2 */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state RandomTopic_4 */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state STT_3 */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state STT_4 */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state AlternativeConv_2 */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state AboutRobotica_3 */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state STT_5 */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state AfterGreetings_2 */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state Closing */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state STT_6 */
+	private void exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -2073,8 +2443,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2();
 				break;
 
-			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv :
-				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv();
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1();
 				break;
 
 			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3 :
@@ -2083,6 +2453,50 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 			case mainBrain_FaceDataInterpretation_FaceDataInterpretation__final_ :
 				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation__final_();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6();
 				break;
 
 			case mainBrain_TurnToNoise :
@@ -2217,8 +2631,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2();
 				break;
 
-			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv :
-				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv();
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1();
 				break;
 
 			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3 :
@@ -2227,6 +2641,50 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 			case mainBrain_FaceDataInterpretation_FaceDataInterpretation__final_ :
 				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation__final_();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing();
+				break;
+
+			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6 :
+				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6();
 				break;
 
 			default :
@@ -2545,13 +3003,13 @@ public class BrainStatemachine implements IBrainStatemachine {
 		}
 	}
 
-	/* The reactions of state AlternativeConv. */
-	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv() {
+	/* The reactions of state AlternativeConv_1. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1() {
 		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
 			effect_MainBrain_FaceDataInterpretation_tr0();
 		} else {
-			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_tr0_tr0()) {
-				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_tr0();
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1_tr0();
 			}
 		}
 	}
@@ -2570,6 +3028,127 @@ public class BrainStatemachine implements IBrainStatemachine {
 		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
 			effect_MainBrain_FaceDataInterpretation_tr0();
 		} else {
+		}
+	}
+
+	/* The reactions of state STT_1. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1() {
+		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_tr0();
+		} else {
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1_tr0();
+			}
+		}
+	}
+
+	/* The reactions of state STT_2. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2() {
+		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_tr0();
+		} else {
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2_tr0();
+			}
+		}
+	}
+
+	/* The reactions of state RandomTopic_4. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4() {
+		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_tr0();
+		} else {
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4_tr0();
+			}
+		}
+	}
+
+	/* The reactions of state STT_3. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3() {
+		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_tr0();
+		} else {
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3_tr0();
+			}
+		}
+	}
+
+	/* The reactions of state STT_4. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4() {
+		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_tr0();
+		} else {
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4_tr0();
+			}
+		}
+	}
+
+	/* The reactions of state AlternativeConv_2. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2() {
+		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_tr0();
+		} else {
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2_tr0();
+			}
+		}
+	}
+
+	/* The reactions of state AboutRobotica_3. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3() {
+		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_tr0();
+		} else {
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3_tr0();
+			}
+		}
+	}
+
+	/* The reactions of state STT_5. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5() {
+		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_tr0();
+		} else {
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5_tr0();
+			}
+		}
+	}
+
+	/* The reactions of state AfterGreetings_2. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2() {
+		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_tr0();
+		} else {
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2_tr0();
+			}
+		}
+	}
+
+	/* The reactions of state Closing. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing() {
+		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_tr0();
+		} else {
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing_tr0();
+			}
+		}
+	}
+
+	/* The reactions of state STT_6. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6() {
+		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_tr0();
+		} else {
+			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6_tr0_tr0()) {
+				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6_tr0();
+			}
 		}
 	}
 
@@ -2687,6 +3266,15 @@ public class BrainStatemachine implements IBrainStatemachine {
 		}
 	}
 
+	/* The reactions of state null. */
+	private void react_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_6() {
+		if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_6_tr0_tr0()) {
+			effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_6_tr0();
+		} else {
+			effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_6_tr1();
+		}
+	}
+
 	/* Default react sequence for initial entry  */
 	private void react_MainBrain__entry_Default() {
 		enterSequence_MainBrain_Init_default();
@@ -2793,14 +3381,47 @@ public class BrainStatemachine implements IBrainStatemachine {
 				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2 :
 					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2();
 					break;
-				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv :
-					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv();
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1 :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1();
 					break;
 				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3 :
 					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3();
 					break;
 				case mainBrain_FaceDataInterpretation_FaceDataInterpretation__final_ :
 					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation__final_();
+					break;
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1 :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1();
+					break;
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2 :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2();
+					break;
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4 :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4();
+					break;
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3 :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3();
+					break;
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4 :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4();
+					break;
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2 :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2();
+					break;
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3 :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3();
+					break;
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5 :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5();
+					break;
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2 :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2();
+					break;
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing();
+					break;
+				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6 :
+					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6();
 					break;
 				case mainBrain_TurnToNoise :
 					react_MainBrain_TurnToNoise();

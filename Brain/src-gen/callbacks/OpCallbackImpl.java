@@ -121,13 +121,6 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 		this.sendMessage("#NAV##RUN#" + (inOnOff?"1":"0") + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
 	}
 	
-	public long randomNumber(){
-		Random randomGenerator = new Random();
-	      int randomInt = randomGenerator.nextInt(4);
-		return randomInt;	
-	}
-
-
 	
 	/*public long getId(){
 		return personList.getCurrPerson().getPersonID();
