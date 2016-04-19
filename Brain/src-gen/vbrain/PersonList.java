@@ -7,7 +7,7 @@ import vbrain.Person;
 public class PersonList {
 	
 	private Vector<Person> personList;
-	private int currPersonID;
+	private int currPersonID = -1;
 	
 	
 	public boolean hasPersons(){
@@ -28,6 +28,7 @@ public class PersonList {
 	}
 	
 	public Person getPersonByID(int id){
+		if(id == -1) return null;
 		for (Person p : personList){
 			if (p.getPersonID() == id) return p;
 		}

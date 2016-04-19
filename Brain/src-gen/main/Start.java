@@ -19,8 +19,8 @@ public class Start
 	
 	// ---- BRAIN -------------------------------------------------------------
 	//static private String ipListen = "134.103.120.123";	//myCampus PC
-	//static private String ipListen = "192.168.1.21";		//Netgear PC
-	static private String ipListen = "192.168.188.24"; //FritzBox Laptop
+	static private String ipListen = "192.168.1.21";		//Netgear PC
+	//static private String ipListen = "192.168.188.24"; //FritzBox Laptop
 	static private int portListen = 8888;
 	// ------------------------------------------------------------------------
 	
@@ -56,8 +56,8 @@ public class Start
 	static private int portSendSRC = 0;
 	
 	//Navigation
-	//static private String ipSendNavigation = "192.168.1.7"; //Netgear Scitos
-	static private String ipSendNavigation = "192.168.188.21"; //FritzBox Scitos
+	static private String ipSendNavigation = "192.168.1.7"; //Netgear Scitos
+	//static private String ipSendNavigation = "192.168.188.21"; //FritzBox Scitos
 	static private int portSendNavigation = 8888;
 	
 //	public enum Emotion {

@@ -83,6 +83,18 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public double getCurrDistance();
 		public void setCurrDistance(double value);
 
+		public void setSCICurrPersonOperationCallback(SCICurrPersonOperationCallback operationCallback);
+	}
+
+	public interface SCICurrPersonOperationCallback {
+		public void setKnown(boolean inKnown);
+		public void setFirstname(String inFirstname);
+		public void setLastname(String inLastname);
+		public void setBdYear(long inBdYear);
+		public void setBdMounth(long inBdMointh);
+		public void setBdDay(long inBdDay);
+		public void setGender(boolean inGender);
+		public void setEthnicity(long inEthnicity);
 	}
 
 	public SCICurrPerson getSCICurrPerson();
@@ -140,7 +152,14 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void setSTTready(boolean value);
 		public String getSpeakerMsg();
 		public void setSpeakerMsg(String value);
+		public String getFilteredMsg();
+		public void setFilteredMsg(String value);
 
+		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
+	}
+
+	public interface SCISTTOperationCallback {
+		public void filter(String filterString);
 	}
 
 	public SCISTT getSCISTT();

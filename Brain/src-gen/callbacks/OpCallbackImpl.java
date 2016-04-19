@@ -7,15 +7,15 @@ import java.net.UnknownHostException;
 import java.util.Random;
 
 import org.yakindu.scr.brain.IBrainStatemachine.SCIBGFOperationCallback;
-//import org.yakindu.scr.brain.IBrainStatemachine.SCICurrPersonOperationCallback;
+import org.yakindu.scr.brain.IBrainStatemachine.SCICurrPersonOperationCallback;
+import org.yakindu.scr.brain.IBrainStatemachine.SCISTTOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIUdpInterfaceOperationCallback;
 
 import main.Start;
-import udp.MessageParser;
 import udp.UDPConnection;
 import vbrain.PersonList;
 
-public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFOperationCallback //, SCICurrPersonOperationCallback
+public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFOperationCallback, SCISTTOperationCallback, SCICurrPersonOperationCallback
 {
 	private PersonList personList = Start.getPersonList();
 	
@@ -120,77 +120,94 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 		System.out.println(inOnOff?"Moving from WP to WP":"Standing");
 		this.sendMessage("#NAV##RUN#" + (inOnOff?"1":"0") + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
 	}
+
 	
-	
-	/*public long getId(){
-		return personList.getCurrPerson().getPersonID();
-	}
-	
-	public boolean isKnown(){
-		if (personList.hasPersons()){
-			return personList.getCurrPerson().isKnown();
-		}else
-			return false;
+	public void filter(String filterString) {
+		String input = Start.instanceOf().getBrain().getSCISTT().getSpeakerMsg();
+		String output = Start.instanceOf().getBrain().getSCISTT().getFilteredMsg();
+		
+		if(filterString == ""){
+			if (input.contains("yes") || input.contains("yep") ||input.contains("ja") ||input.contains("si") ||input.contains("yeah") ||input.contains("correct") ||input.contains("ok") ||input.contains("alright")||input.contains("okay")){
+				input = "yes";
+			}
+			
+			if (input.contains("no") || input.contains("nope") ||input.contains("nein") ||input.contains("nada") ||input.contains("cancel") ||input.contains("nö")){
+				input = "no";
+			}
+			
+		}else{
+			if (input.contains(filterString)){
+				input = filterString;
+			}else{
+				input = "";
+			}
+		}
+		
+		Start.instanceOf().getBrain().getSCISTT().setFilteredMsg(output);
+		
+		
+		
 		
 	}
+
 	
-	public String getFirstname(){
-		return Start.getPersonList().getCurrPerson().getFirstName();
+	public void setKnown(boolean inKnown) {
+		if(personList.getCurrPerson() != null){
+			personList.getCurrPerson().setKnown(inKnown);
+		}
 	}
+
 	
-	public String getLastname(){
-		return Start.getPersonList().getCurrPerson().getLastName();
+	public void setFirstname(String inFirstname) {
+		if(personList.getCurrPerson() != null){
+			personList.getCurrPerson().setFirstName(inFirstname);
+		}		
 	}
+
 	
-	public long getBdYear(){
-		return Start.getPersonList().getCurrPerson().getBdYear();
+	public void setLastname(String inLastname) {
+		if(personList.getCurrPerson() != null){
+			personList.getCurrPerson().setLastName(inLastname);
+		}		
 	}
+
 	
-	public long getBdMounth(){
-		return Start.getPersonList().getCurrPerson().getBdMonth();
+	public void setBdYear(long inBdYear) {
+		if(personList.getCurrPerson() != null){
+			personList.getCurrPerson().setBdYear((int)inBdYear);
+		}			
 	}
+
 	
-	public long getBdDay(){
-		return Start.getPersonList().getCurrPerson().getBdDay();
+	public void setBdMounth(long inBdMointh) {
+		if(personList.getCurrPerson() != null){
+			personList.getCurrPerson().setBdMonth((int)inBdMointh);
+		}	
 	}
+
 	
-	public boolean getGender(){
-		return Start.getPersonList().getCurrPerson().getGender();
+	public void setBdDay(long inBdDay) {
+		if(personList.getCurrPerson() != null){
+			personList.getCurrPerson().setBdDay((int)inBdDay);
+		}			
 	}
+
 	
-	public long getEthnicity(){
-		return Start.getPersonList().getCurrPerson().getEthnicity();
+	public void setGender(boolean inGender) {
+		if(personList.getCurrPerson() != null){
+			personList.getCurrPerson().setGender(inGender);
+		}	
 	}
+
 	
-	public boolean hasGlasses(){
-		return Start.getPersonList().getCurrPerson().hasGlasses();
+	public void setEthnicity(long inEthnicity) {
+		if(personList.getCurrPerson() != null){
+			personList.getCurrPerson().setEthnicity((int)inEthnicity);
+		}			
 	}
-	
-	public double getAttractiveness(){
-		return Start.getPersonList().getCurrPerson().getAttractiveness();
-	}
-	
-	public long getCurrHeadgestures(){
-		return Start.getPersonList().getCurrPerson().getCurrDynData().getHeadgesture();
-	}
-	
-	public boolean isCurrSpeaking(){
-		return Start.getPersonList().getCurrPerson().getCurrDynData().isSpeaking();
-	}
-	
-	public long getCurrEmotion(){
-		return Start.getPersonList().getCurrPerson().getCurrDynData().getEmotion();
-	}
-	
-	public double getCurrDistance(){
-		return Start.getPersonList().getCurrPerson().getCurrDynData().getDistance();
-	}*/
+
+
 	
 
-//	@Override
-//	public void parseString() {
-//		//System.out.println(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
-//		MessageParser.ParseMessage(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage());
-//	}
 	
 }
