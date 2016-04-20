@@ -12,7 +12,7 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	}
 
 	public interface SCIBGFOperationCallback {
-		public void print(String msg);
+		public void printToConsole(String msg);
 		public void newRandNum(long max);
 	}
 

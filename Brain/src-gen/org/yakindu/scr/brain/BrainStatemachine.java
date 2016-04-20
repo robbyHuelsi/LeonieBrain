@@ -415,7 +415,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	private ITimer timer;
 
-	private final boolean[] timeEvents = new boolean[8];
+	private final boolean[] timeEvents = new boolean[9];
 
 	private long t;
 
@@ -736,7 +736,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_Init_tr0_tr0() {
-		return true;
+		return timeEvents[0];
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_tr0_tr0() {
@@ -888,11 +888,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1_tr0_tr0() {
-		return (timeEvents[0]) && (sCISTT.sTTready == true);
+		return (timeEvents[1]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2_tr0_tr0() {
-		return (timeEvents[1]) && (sCISTT.sTTready == true);
+		return (timeEvents[2]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4_tr0_tr0() {
@@ -900,11 +900,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3_tr0_tr0() {
-		return (timeEvents[2]) && (sCISTT.sTTready == true);
+		return (timeEvents[3]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4_tr0_tr0() {
-		return (timeEvents[3]) && (sCISTT.sTTready == true);
+		return (timeEvents[4]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2_tr0_tr0() {
@@ -916,7 +916,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5_tr0_tr0() {
-		return (timeEvents[4]) && (sCISTT.sTTready == true);
+		return (timeEvents[5]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2_tr0_tr0() {
@@ -928,7 +928,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6_tr0_tr0() {
-		return (timeEvents[5]) && (sCISTT.sTTready == true);
+		return (timeEvents[6]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_filter_tr0_tr0() {
@@ -968,11 +968,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_SearchForChat_SearchForChat_Standing_tr0_tr0() {
-		return timeEvents[6];
+		return timeEvents[7];
 	}
 
 	private boolean check_MainBrain_SearchForChat_SearchForChat_Walking_tr0_tr0() {
-		return timeEvents[7];
+		return timeEvents[8];
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr1_tr1() {
@@ -1433,6 +1433,9 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'Init'. */
 	private void entryAction_MainBrain_Init() {
+
+		timer.setTimer(this, 0, 1 * 1000, false);
+
 		sCIUdpInterface.operationCallback.receive();
 
 		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(true);
@@ -1600,7 +1603,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_1'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1() {
 
-		timer.setTimer(this, 0, 3 * 1000, false);
+		timer.setTimer(this, 1, 3 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1608,7 +1611,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_2'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2() {
 
-		timer.setTimer(this, 1, 2 * 1000, false);
+		timer.setTimer(this, 2, 2 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1621,7 +1624,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_3'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3() {
 
-		timer.setTimer(this, 2, 2 * 1000, false);
+		timer.setTimer(this, 3, 2 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1629,7 +1632,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_4'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4() {
 
-		timer.setTimer(this, 3, 4 * 1000, false);
+		timer.setTimer(this, 4, 4 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1649,7 +1652,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_5'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5() {
 
-		timer.setTimer(this, 4, 3 * 1000, false);
+		timer.setTimer(this, 5, 3 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1670,7 +1673,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_6'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6() {
 
-		timer.setTimer(this, 5, 3 * 1000, false);
+		timer.setTimer(this, 6, 3 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1708,61 +1711,62 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'Standing'. */
 	private void entryAction_MainBrain_SearchForChat_SearchForChat_Standing() {
 
-		timer.setTimer(this, 6, 3 * 1000, false);
+		timer.setTimer(this, 7, 3 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(false);
-
-		sCIBGF.operationCallback.print("Standing");
 	}
 
 	/* Entry action for state 'Walking'. */
 	private void entryAction_MainBrain_SearchForChat_SearchForChat_Walking() {
 
-		timer.setTimer(this, 7, 3 * 1000, false);
+		timer.setTimer(this, 8, 3 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(true);
+	}
 
-		sCIBGF.operationCallback.print("Standing");
+	/* Exit action for state 'Init'. */
+	private void exitAction_MainBrain_Init() {
+		timer.unsetTimer(this, 0);
 	}
 
 	/* Exit action for state 'STT_1'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1() {
-		timer.unsetTimer(this, 0);
+		timer.unsetTimer(this, 1);
 	}
 
 	/* Exit action for state 'STT_2'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2() {
-		timer.unsetTimer(this, 1);
+		timer.unsetTimer(this, 2);
 	}
 
 	/* Exit action for state 'STT_3'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3() {
-		timer.unsetTimer(this, 2);
+		timer.unsetTimer(this, 3);
 	}
 
 	/* Exit action for state 'STT_4'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4() {
-		timer.unsetTimer(this, 3);
+		timer.unsetTimer(this, 4);
 	}
 
 	/* Exit action for state 'STT_5'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5() {
-		timer.unsetTimer(this, 4);
+		timer.unsetTimer(this, 5);
 	}
 
 	/* Exit action for state 'STT_6'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6() {
-		timer.unsetTimer(this, 5);
+		timer.unsetTimer(this, 6);
 	}
 
 	/* Exit action for state 'Standing'. */
 	private void exitAction_MainBrain_SearchForChat_SearchForChat_Standing() {
-		timer.unsetTimer(this, 6);
+		timer.unsetTimer(this, 7);
 	}
 
 	/* Exit action for state 'Walking'. */
 	private void exitAction_MainBrain_SearchForChat_SearchForChat_Walking() {
-		timer.unsetTimer(this, 7);
+		timer.unsetTimer(this, 8);
 	}
 
 	/* 'default' enter sequence for state Init */
@@ -2174,6 +2178,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void exitSequence_MainBrain_Init() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+
+		exitAction_MainBrain_Init();
 	}
 
 	/* Default exit sequence for state FaceDataInterpretation */
@@ -2878,7 +2884,9 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* The reactions of state Init. */
 	private void react_MainBrain_Init() {
-		effect_MainBrain_Init_tr0();
+		if (check_MainBrain_Init_tr0_tr0()) {
+			effect_MainBrain_Init_tr0();
+		}
 	}
 
 	/* The reactions of state PersonKnownWithName. */

@@ -114,7 +114,7 @@ public class Start
 //				lightSwitch.getSCIUser().raiseOperate();
 //			}
 			t.brain.runCycle();
-//			Thread.sleep(500);
+			Thread.sleep(500);
 		}
 	}
 

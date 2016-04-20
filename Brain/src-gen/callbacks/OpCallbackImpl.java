@@ -21,7 +21,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 	
 	
 	// ---- Brain General Functions Interface ---- //
-	public void print(String msg){
+	public void printToConsole(String msg){
 		System.out.println(msg);
 	}
 	

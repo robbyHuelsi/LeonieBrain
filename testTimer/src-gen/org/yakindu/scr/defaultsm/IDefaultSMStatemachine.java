@@ -9,7 +9,7 @@ public interface IDefaultSMStatemachine extends ITimerCallback, IStatemachine {
 	}
 
 	public interface SCInterfaceOperationCallback {
-		public void print(String msg);
+		public void printTonConsole(String msg);
 	}
 
 	public SCInterface getSCInterface();

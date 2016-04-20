@@ -27,7 +27,7 @@ public class DefaultSMStatemachine implements IDefaultSMStatemachine {
 
 	private ITimer timer;
 
-	private final boolean[] timeEvents = new boolean[1];
+	private final boolean[] timeEvents = new boolean[2];
 
 	public DefaultSMStatemachine() {
 
@@ -142,21 +142,44 @@ public class DefaultSMStatemachine implements IDefaultSMStatemachine {
 		return timeEvents[0];
 	}
 
+	private boolean check_main_region_StateB_tr0_tr0() {
+		return timeEvents[1];
+	}
+
 	private void effect_main_region_StateA_tr0() {
 		exitSequence_main_region_StateA();
 
 		enterSequence_main_region_StateB_default();
 	}
 
+	private void effect_main_region_StateB_tr0() {
+		exitSequence_main_region_StateB();
+
+		enterSequence_main_region_StateA_default();
+	}
+
 	/* Entry action for state 'StateA'. */
 	private void entryAction_main_region_StateA() {
 
-		timer.setTimer(this, 0, 3 * 1000, false);
+		timer.setTimer(this, 0, 2 * 1000, false);
+
+		sCInterface.operationCallback.printTonConsole("A");
+	}
+
+	/* Entry action for state 'StateB'. */
+	private void entryAction_main_region_StateB() {
+
+		timer.setTimer(this, 1, 3 * 1000, false);
 	}
 
 	/* Exit action for state 'StateA'. */
 	private void exitAction_main_region_StateA() {
 		timer.unsetTimer(this, 0);
+	}
+
+	/* Exit action for state 'StateB'. */
+	private void exitAction_main_region_StateB() {
+		timer.unsetTimer(this, 1);
 	}
 
 	/* 'default' enter sequence for state StateA */
@@ -169,6 +192,8 @@ public class DefaultSMStatemachine implements IDefaultSMStatemachine {
 
 	/* 'default' enter sequence for state StateB */
 	private void enterSequence_main_region_StateB_default() {
+		entryAction_main_region_StateB();
+
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_StateB;
 	}
@@ -190,6 +215,8 @@ public class DefaultSMStatemachine implements IDefaultSMStatemachine {
 	private void exitSequence_main_region_StateB() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+
+		exitAction_main_region_StateB();
 	}
 
 	/* Default exit sequence for region main region */
@@ -217,6 +244,9 @@ public class DefaultSMStatemachine implements IDefaultSMStatemachine {
 
 	/* The reactions of state StateB. */
 	private void react_main_region_StateB() {
+		if (check_main_region_StateB_tr0_tr0()) {
+			effect_main_region_StateB_tr0();
+		}
 	}
 
 	/* Default react sequence for initial entry  */
