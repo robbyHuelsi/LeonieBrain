@@ -95,4 +95,12 @@ public class PersonDynData {
 	public LocalDateTime getDateAdded() {
 		return dateAdded;
 	}
+
+	@Override
+	public String toString() {
+		return "PersonDynData [brain=" + brain + ", dateAdded=" + dateAdded + ", headgesture=" + headgesture
+				+ ", speaking=" + speaking + ", emotion=" + emotion + ", distance=" + distance + "]";
+	}
+	
+	
 }

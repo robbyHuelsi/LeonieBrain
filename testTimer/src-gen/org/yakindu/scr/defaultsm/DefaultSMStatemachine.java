@@ -51,7 +51,7 @@ public class DefaultSMStatemachine implements IDefaultSMStatemachine {
 	public void enter() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The state machine needs to be initialized first by calling the init() function.");
+					"The statemachine needs to be initialized first by calling the init() function.");
 
 		if (timer == null) {
 			throw new IllegalStateException("timer not set.");
@@ -74,7 +74,7 @@ public class DefaultSMStatemachine implements IDefaultSMStatemachine {
 	/** 
 	* Always returns 'false' since this state machine can never become final.
 	*
-	 * @see IStatemachine#isFinal()
+	 * @see IStatemachine#isFinal() 
 	 */
 	public boolean isFinal() {
 		return false;
@@ -257,7 +257,7 @@ public class DefaultSMStatemachine implements IDefaultSMStatemachine {
 	public void runCycle() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The state machine needs to be initialized first by calling the init() function.");
+					"The statemachine needs to be initialized first by calling the init() function.");
 
 		clearOutEvents();
 

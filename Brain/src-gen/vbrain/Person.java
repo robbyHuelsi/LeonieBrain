@@ -34,15 +34,16 @@ public class Person {
 	private Vector<PersonDynData> dynData;
 	
 	public Person (){
-		
+		dynData = new Vector<PersonDynData>();
 	}
 	
 	public Person (BrainStatemachine inBrain){
+		this();
 		this.brain = inBrain;
 	}
 	
 	public Person (BrainStatemachine inBrain, String attributeData){
-		this.brain = inBrain;
+		this(inBrain);
 		
 		String[] attributeParts = attributeData.split(";");
 
@@ -50,16 +51,17 @@ public class Person {
 		this.setKnown(false);
 //		person.setFirstName(attributeParts[2]);
 //		person.setLastName(attributeParts[3]);
-		this.setBdYear(Integer.parseInt(attributeParts[1]));
+		this.setEstimatedAge(Integer.parseInt(attributeParts[1]));
+//		person.setBdYear();
 //		person.setBdMonth(Integer.parseInt(attributeParts[5]));
 //		person.setBdDay(Integer.parseInt(attributeParts[6]));
-		this.setGender(Boolean.valueOf(attributeParts[2]));
+		this.setGender(attributeParts[2]=="1"?true:false);
 		this.setEthnicity(Integer.parseInt(attributeParts[3]));
 		this.setGlasses(Boolean.valueOf(attributeParts[4]));
 		this.setAttractiveness(Double.parseDouble(attributeParts[5]));
 		
-		String[] confOfIds = attributeParts[6].split("_");
-		if(confOfIds.length > 0){
+		if(attributeParts[6].contains("_")){
+			String[] confOfIds = attributeParts[6].split("_");
 			for(int i = 0; i < confOfIds.length; i++){
 				String[] confOfId = confOfIds[i].split("=");
 				this.addResemblance(Integer.parseInt(confOfId[0]), Float.parseFloat(confOfId[1]));
@@ -245,6 +247,17 @@ public class Person {
 	public PersonDynData getCurrDynData(){
 		return this.dynData.lastElement();
 	}
+
+	@Override
+	public String toString() {
+		return "Person [brain=" + brain + ", personID=" + personID + ", resemblance=" + resemblance + ", known=" + known
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", estimatedAge=" + estimatedAge + ", bdYear="
+				+ bdYear + ", bdMonth=" + bdMonth + ", bdDay=" + bdDay + ", gender=" + (gender == true?"female":"male") + ", ethnicity="
+				+ (ethnicity==0?"white":(ethnicity==1?"black":"asian")) + ", glasses=" + glasses + ", attractiveness=" + attractiveness + ", dynData=" + dynData
+				+ "]";
+	}
+	
+	
 	
 	// Returns a string containing the values of all attributes of this object
 	// The values are divided by semicolons and they are ordered as follows:

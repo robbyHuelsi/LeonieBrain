@@ -9,6 +9,9 @@ public class PersonList {
 	private Vector<Person> personList;
 	private int currPersonID = -1;
 	
+	public PersonList(){
+		personList = new Vector<Person>();
+	}
 	
 	public boolean hasPersons(){
 		return !personList.isEmpty();

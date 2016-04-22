@@ -38,43 +38,37 @@ public class MessageParser
 			
 			// Decide what should be done, depending on sender
 			switch (sender){
-				case "VBRAIN" : 		Pattern vbrainPattern = Pattern.compile("\\A#([\\w]*)#([\\S]*)");
-										Matcher vbrainbM = vbrainPattern.matcher(data);
-										if(vbrainbM.find()){
-											//System.out.println(vbrainbM.group(0));
-											if (vbrainbM.group(0).equals("STAT")){
-												
-												String[] attributePartsVBS = vbrainbM.group(2).split(";");
+				case "VBRAIN" : 		//Pattern vbrainPattern = Pattern.compile("\\A#([\\w]*)#([\\S]*)");
+										//Matcher vbrainbM = vbrainPattern.matcher(data);
+										//System.out.println(data);
+										//if(vbrainbM.find()){
+											
+											if (data.contains("#STAT#")){
+												String dataStat = data.substring(6);
+												System.out.println("Statische Daten: " + dataStat);
+												String[] attributePartsVBS = dataStat.split(";");
 												
 												int faceId = Integer.parseInt(attributePartsVBS[0]);
+												System.out.println("Face ID: " + faceId);
 												
-												/*brain.getSCIACIface_stat().setFaceID(Integer.parseInt(attributePartsVBS[0]));
-												brain.getSCIACIface_stat().setConfidence(0);
-												brain.getSCIACIface_stat().setAge(Integer.parseInt(attributePartsVBS[1]));
-												brain.getSCIACIface_stat().setGender(attributePartsVBS[2].contains("1")?true:false);
-												brain.getSCIACIface_stat().setEthnicty(Integer.parseInt(attributePartsVBS[3]));
-												brain.getSCIACIface_stat().setGlasses(attributePartsVBS[4].contains("1")?true:false);
-												brain.getSCIACIface_stat().setAttractiveness(Integer.parseInt(attributePartsVBS[5]));*/
 												
 												personList.setCurrPersonID(faceId);
 												if(personList.hasPersonWithID(faceId)){
 													//Person already exists
+													
 												}else{
-													Person p = new Person(brain, vbrainbM.group(2));
+													
+													Person p = new Person(brain, dataStat);
+													System.out.println(p.toString());
 													personList.addPerson(p);
 												}
+
 												
-												// TODO: Use filename of DB
-												// p.serialize("DATABANK.txt");
+											}else if (data.contains("#DYN#")){
+												String dataDyn = data.substring(5);
+												System.out.println("Dynamische Daten: " + dataDyn);
+												String[] attributePartsVBD = dataDyn.split(";");
 												
-											}else if (vbrainbM.group(1).equals("DYN")){
-												String[] attributePartsVBD = vbrainbM.group(2).split(";");
-												
-												/*brain.getSCIACIface_dyn().setFaceFound(attributePartsVBD[0].contains("1")?true:false);
-												brain.getSCIACIface_dyn().setHeadGestures(Integer.parseInt(attributePartsVBD[1]));
-												brain.getSCIACIface_dyn().setSpeaking(attributePartsVBD[2].contains("1")?true:false);
-												brain.getSCIACIface_dyn().setEmotions(Integer.parseInt(attributePartsVBD[3]));
-												brain.getSCIACIface_dyn().setDistance(Integer.parseInt(attributePartsVBD[4]));*/
 												
 												if(attributePartsVBD[0].contains("1")){
 													System.out.println("Face found");
@@ -82,29 +76,32 @@ public class MessageParser
 													brain.getSCIVBrain().setCountFoundFaces(1);
 													
 													int faceId = Integer.parseInt(attributePartsVBD[1]);
+													System.out.println("Face ID: " + faceId);
 													personList.setCurrPersonID(faceId);
 													if(personList.hasPersonWithID(faceId)){
 														Person p = personList.getPersonByID(faceId);
-														p.addDynData(vbrainbM.group(2));
+														p.addDynData(dataDyn);
+														System.out.println(p.getCurrDynData().toString());
 													}
 													
 												}else{
 													brain.getSCIVBrain().setCountFoundFaces(0);
 													//System.out.println("  no face");
 												}
-											}else if (vbrainbM.group(1).equals("EMOTION")){
-												
+											}else if (data.contains("#EMOTION#")){
+												String dataEmo = data.substring(9);
 												//Emotion e;
 												//e.fromInt(Integer.parseInt(vbrainbM.group(2)));
 												
-												System.out.println("Emotion: " + vbrainbM.group(2));
+												System.out.println("Emotion: " + dataEmo);
 												
 												Person p = personList.getCurrPerson();
 												if(p != null){
-													p.getCurrDynData().setEmotion(Integer.parseInt(vbrainbM.group(2)));
+													p.getCurrDynData().setEmotion(Integer.parseInt(dataEmo));
+													System.out.println(p.toString());
 												}
 											}
-										}
+										//}
 										
 										
 										
@@ -115,8 +112,15 @@ public class MessageParser
 										return true;
 										//break;
 										
-				case "HBRAIN" :			System.out.println("HBrain");
-				
+				case "HBRAIN" :			
+										if(data == "1"){
+											brain.getSCIHBrain().setTTSReady(false);
+											System.out.println("TSS jabbering");
+										}else{
+											brain.getSCIHBrain().setTTSReady(true);
+											System.out.println("TTS ready");
+										}
+									
 										return true;
 										//break;
 										
@@ -155,7 +159,7 @@ public class MessageParser
 										return true;
 										//break;
 										
-				case "NAV" :			System.out.println("NAV");
+				case "NAV" :			System.out.println("NAV: " + data);
 										return true;
 										//break;
 										

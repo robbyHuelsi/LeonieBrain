@@ -6,7 +6,7 @@ import org.yakindu.scr.TimerService;
 import org.yakindu.scr.brain.BrainStatemachine;
 
 import callbacks.OpCallbackImpl;
-
+import vbrain.Person;
 import vbrain.PersonList;
 
 public class Start
@@ -19,8 +19,8 @@ public class Start
 	
 	// ---- BRAIN -------------------------------------------------------------
 	//static private String ipListen = "134.103.120.123";	//myCampus PC
-	static private String ipListen = "192.168.1.21";		//Netgear PC
-	//static private String ipListen = "192.168.188.24"; //FritzBox Laptop
+	//static private String ipListen = "192.168.1.21";		//Netgear PC
+	static private String ipListen = "192.168.188.23";	//FritzBox Laptop
 	static private int portListen = 8888;
 	// ------------------------------------------------------------------------
 	
@@ -29,12 +29,12 @@ public class Start
 	//static private String ipSendVBrain = "134.103.120.108"; //myCampus Scitos
 	//static private String ipSendVBrain = "192.168.1.7"; //Netgear Scitos
 	//static private String ipSendVBrain = "192.168.1.25"; //Netgear NUC
-	static private String ipSendVBrain = "192.168.188.22"; //FritzBox NUC
+	static private String ipSendVBrain = "192.168.188.11"; //FritzBox NUC
 	static private int portSendVBrain = 7777;
 	// -------------------------------------------------------------------------
 	
 	// ---- HBrain -----------------------------------------
-	static private String ipSendHBrain = "192.168.188.22";
+	static private String ipSendHBrain = "192.168.188.11";
 	static private int portSendHBrain = 11005;
 	// -----------------------------------------------------
 	//STT
@@ -56,7 +56,7 @@ public class Start
 	static private int portSendSRC = 0;
 	
 	//Navigation
-	static private String ipSendNavigation = "192.168.1.7"; //Netgear Scitos
+	static private String ipSendNavigation = "192.168.188.10"; //Netgear Scitos
 	//static private String ipSendNavigation = "192.168.188.21"; //FritzBox Scitos
 	static private int portSendNavigation = 8888;
 	

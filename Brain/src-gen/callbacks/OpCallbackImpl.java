@@ -65,12 +65,12 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 	
 	public void sendToVBrain_ACIonOff(boolean inOnOff){
 		System.out.println(inOnOff?"ACI on":"ACI off");
-		this.sendMessage(inOnOff?"#BRAIN#1#":"#BRAIN#0#" + "\0", Start.getIpSendVBrain(), Start.getPortSendVBrain());
+		this.sendMessage(inOnOff?"#BRAIN#1#":"#BRAIN#0#" + "#", Start.getIpSendVBrain(), Start.getPortSendVBrain());
 	}
 	
 	public void sendToHBrain_TTS(String inText){
 		//System.out.println(inText);
-		this.sendMessage(inText + "\0", Start.getIpSendHBrain(), Start.getPortSendHBrain());
+		this.sendMessage("#BRAIN##TEXT#" + inText + "#", Start.getIpSendHBrain(), Start.getPortSendHBrain());
 	}
 	
 	public void sendToHBrain_TTS2(String inT1, String inT2){
@@ -108,12 +108,12 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 	
 	public void sendToNav_goToGWP(String inWayPoint){
 		System.out.println("Go to global way point " + inWayPoint);
-		this.sendMessage("#NAV##GWP#" + inWayPoint + "#\0", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		this.sendMessage("#NAV##GWP#" + inWayPoint + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
 	}
 	
 	public void sendToNav_goToLC(String inX, String inY){
 		System.out.println("Go to local coordinates: x=" + inX + ", y=" + inY);
-		this.sendMessage("#NAV##LC#" + inX + ";" + inY + ";#\0", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		this.sendMessage("#NAV##LC#" + inX + ";" + inY + ";#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
 	}
 	
 	public void sendToNav_searchOnOff(boolean inOnOff){

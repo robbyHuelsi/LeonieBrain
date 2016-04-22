@@ -132,6 +132,12 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	public interface SCIScitosRemoteControl {
 		public boolean getEmergencyStop();
 		public void setEmergencyStop(boolean value);
+		public boolean getBumpered();
+		public void setBumpered(boolean value);
+		public boolean getBlocked();
+		public void setBlocked(boolean value);
+		public boolean getArrivedWP();
+		public void setArrivedWP(boolean value);
 
 	}
 
