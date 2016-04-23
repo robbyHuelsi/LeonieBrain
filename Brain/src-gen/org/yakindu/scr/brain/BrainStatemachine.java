@@ -263,13 +263,13 @@ public class BrainStatemachine implements IBrainStatemachine {
 			this.noiseDetected = value;
 		}
 
-		private String noiseAngle;
+		private long noiseAngle;
 
-		public String getNoiseAngle() {
+		public long getNoiseAngle() {
 			return noiseAngle;
 		}
 
-		public void setNoiseAngle(String value) {
+		public void setNoiseAngle(long value) {
 			this.noiseAngle = value;
 		}
 
@@ -526,7 +526,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 		sCIKinect2.setNoiseDetected(false);
 
-		sCIKinect2.setNoiseAngle("");
+		sCIKinect2.setNoiseAngle(0);
 
 		sCILeapMotion.setGestureDetected(false);
 
@@ -775,12 +775,20 @@ public class BrainStatemachine implements IBrainStatemachine {
 		return timeEvents[0];
 	}
 
+	private boolean check_MainBrain_Init_tr1_tr1() {
+		return sCIVBrain.countFoundFaces > 0;
+	}
+
+	private boolean check_MainBrain_Init_tr2_tr2() {
+		return sCIKinect2.noiseAngle < 0;
+	}
+
 	private boolean check_MainBrain_FaceDataInterpretation_tr0_tr0() {
 		return 1 == 0;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName_tr0_tr0() {
-		return sCIHBrain.tTSReady == true;
+		return true;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownGirl_tr0_tr0() {
@@ -788,7 +796,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName_tr0_tr0() {
-		return sCIHBrain.tTSReady == true;
+		return true;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownFemaleTeen_tr0_tr0() {
@@ -996,10 +1004,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_SearchForChat_tr0_tr0() {
-		return sCIKinect2.noiseDetected == true;
-	}
-
-	private boolean check_MainBrain_SearchForChat_tr1_tr1() {
 		return sCIVBrain.countFoundFaces > 0;
 	}
 
@@ -1063,6 +1067,18 @@ public class BrainStatemachine implements IBrainStatemachine {
 		exitSequence_MainBrain_Init();
 
 		enterSequence_MainBrain_SearchForChat_default();
+	}
+
+	private void effect_MainBrain_Init_tr1() {
+		exitSequence_MainBrain_Init();
+
+		enterSequence_MainBrain_FaceDataInterpretation_default();
+	}
+
+	private void effect_MainBrain_Init_tr2() {
+		exitSequence_MainBrain_Init();
+
+		enterSequence_MainBrain_TurnToNoise_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_tr0() {
@@ -1398,12 +1414,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void effect_MainBrain_SearchForChat_tr0() {
 		exitSequence_MainBrain_SearchForChat();
 
-		enterSequence_MainBrain_TurnToNoise_default();
-	}
-
-	private void effect_MainBrain_SearchForChat_tr1() {
-		exitSequence_MainBrain_SearchForChat();
-
 		enterSequence_MainBrain_StopLeonie_default();
 	}
 
@@ -1470,7 +1480,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'Init'. */
 	private void entryAction_MainBrain_Init() {
 
-		timer.setTimer(this, 0, 1 * 1000, false);
+		timer.setTimer(this, 0, 100 * 1000, false);
 
 		sCIUdpInterface.operationCallback.receive();
 
@@ -1515,7 +1525,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'UnknownMen'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownMen() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hi handsome guy");
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hey guy");
 	}
 
 	/* Entry action for state 'Greetings_KnownPerson'. */
@@ -1525,9 +1535,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'Greetings_UnknownPerson'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_UnknownPerson() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("I have never seen you before. What is your name?");
-
-		sCICurrPerson.operationCallback.setKnown(true);
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("I have never seen you before What is your name");
 	}
 
 	/* Entry action for state 'Greetings_KnownPersonWithoutName'. */
@@ -1554,13 +1562,13 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'RandomTopic_1'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1() {
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
-				"My university is located in Reutlingen, the ninth largest city in Baden-Württemberg. Besides that, Reutlingen is nicknamed The Gate to the Swabian Alb. The landscape surrounding my university is truly breathtaking");
+				"My university is located in Reutlingen, the ninth largest city in Baden-Württemberg. ");
 	}
 
 	/* Entry action for state 'RandomTopic_2'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2() {
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
-				"Do you know? There are not enough women in academic life in Germany. This means that a great deal of talent and potential, which the country needs in order to strengthen its ability to compete on the international stage, is going to waste. Thus one of the main goals that my university strives toward is Gender Equality. And it goes beyond simple affirmative action for women, the principle of equal opportunities also includes men.  Diversity is the motto at my University, because equal opportunities are by no means the same as simple levelling, but rather an innovative orientation towards the diversity of our students and staff as well as our partners in the region, in international cooperation, in the academic world and in business. ");
+				" My home, Reutlingen is nicknamed The Gate to the Swabian Alb. The landscape surrounding my university is truly breathtaking");
 	}
 
 	/* Entry action for state 'Prompt_2'. */
@@ -1730,11 +1738,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'TurnToNoise'. */
 	private void entryAction_MainBrain_TurnToNoise() {
-		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(false);
-
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Oh, somebody is behind me");
 
 		sCIUdpInterface.operationCallback.sendToNav_goToLC("0", "1");
+
+		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(false);
 	}
 
 	/* Entry action for state 'StopLeonie'. */
@@ -2920,6 +2928,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void react_MainBrain_Init() {
 		if (check_MainBrain_Init_tr0_tr0()) {
 			effect_MainBrain_Init_tr0();
+		} else {
+			if (check_MainBrain_Init_tr1_tr1()) {
+				effect_MainBrain_Init_tr1();
+			} else {
+				if (check_MainBrain_Init_tr2_tr2()) {
+					effect_MainBrain_Init_tr2();
+				}
+			}
 		}
 	}
 
@@ -2928,9 +2944,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
 			effect_MainBrain_FaceDataInterpretation_tr0();
 		} else {
-			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName_tr0_tr0()) {
-				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName_tr0();
-			}
+			effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName_tr0();
 		}
 	}
 
@@ -2950,9 +2964,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 		if (check_MainBrain_FaceDataInterpretation_tr0_tr0()) {
 			effect_MainBrain_FaceDataInterpretation_tr0();
 		} else {
-			if (check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName_tr0_tr0()) {
-				effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName_tr0();
-			}
+			effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName_tr0();
 		}
 	}
 
@@ -3413,12 +3425,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 		if (check_MainBrain_SearchForChat_tr0_tr0()) {
 			effect_MainBrain_SearchForChat_tr0();
 		} else {
-			if (check_MainBrain_SearchForChat_tr1_tr1()) {
-				effect_MainBrain_SearchForChat_tr1();
-			} else {
-				if (check_MainBrain_SearchForChat_SearchForChat_Standing_tr0_tr0()) {
-					effect_MainBrain_SearchForChat_SearchForChat_Standing_tr0();
-				}
+			if (check_MainBrain_SearchForChat_SearchForChat_Standing_tr0_tr0()) {
+				effect_MainBrain_SearchForChat_SearchForChat_Standing_tr0();
 			}
 		}
 	}
@@ -3428,12 +3436,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 		if (check_MainBrain_SearchForChat_tr0_tr0()) {
 			effect_MainBrain_SearchForChat_tr0();
 		} else {
-			if (check_MainBrain_SearchForChat_tr1_tr1()) {
-				effect_MainBrain_SearchForChat_tr1();
-			} else {
-				if (check_MainBrain_SearchForChat_SearchForChat_Walking_tr0_tr0()) {
-					effect_MainBrain_SearchForChat_SearchForChat_Walking_tr0();
-				}
+			if (check_MainBrain_SearchForChat_SearchForChat_Walking_tr0_tr0()) {
+				effect_MainBrain_SearchForChat_SearchForChat_Walking_tr0();
 			}
 		}
 	}

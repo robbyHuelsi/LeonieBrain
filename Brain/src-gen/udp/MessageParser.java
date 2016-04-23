@@ -128,8 +128,8 @@ public class MessageParser
 										if(attributePartsND[2].contains("1")){
 											System.out.println("Noise detected: " + attributePartsND[0]);
 											brain.getSCIKinect2().setNoiseDetected(true);
+											brain.getSCIKinect2().setNoiseAngle(Integer.parseInt(attributePartsND[0]));
 											//brain.getSCIKinect2().setNoiseAngle(Integer.parseInt(attributePartsND[0]));
-											brain.getSCIKinect2().setNoiseAngle(attributePartsND[0]);
 										}else{
 											brain.getSCIKinect2().setNoiseDetected(false);
 										}

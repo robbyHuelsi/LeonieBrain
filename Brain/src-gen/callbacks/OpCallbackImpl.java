@@ -70,7 +70,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 	
 	public void sendToHBrain_TTS(String inText){
 		//System.out.println(inText);
-		this.sendMessage("#BRAIN##TEXT#" + inText + "#", Start.getIpSendHBrain(), Start.getPortSendHBrain());
+		this.sendMessage("#BRAIN##TEXT#" + inText , Start.getIpSendHBrain(), Start.getPortSendHBrain()); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendToHBrain_TTS2(String inT1, String inT2){

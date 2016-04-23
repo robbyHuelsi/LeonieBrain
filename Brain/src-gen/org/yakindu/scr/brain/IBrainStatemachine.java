@@ -112,8 +112,8 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void setGesture(String value);
 		public boolean getNoiseDetected();
 		public void setNoiseDetected(boolean value);
-		public String getNoiseAngle();
-		public void setNoiseAngle(String value);
+		public long getNoiseAngle();
+		public void setNoiseAngle(long value);
 
 	}
 
