@@ -38,8 +38,8 @@ public class Start
 	static private int portSendHBrain = 11005;
 	// -----------------------------------------------------
 	//STT
-	static private String ipSendSTT = "134.103.120.184";
-	static private int portSendSTT = 8888;
+	static private String ipSendSTT = "192.168.56.1";
+	static private int portSendSTT = 57;
 	
 	//Kinect1
 	

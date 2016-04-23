@@ -1500,7 +1500,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'PersonKnownWithoutName'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName() {
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
-				"Hey there. You look familiar. I did not get your name last time. Please tell me your name");
+				"Hey there You look familiar I did not get your name last time Please tell me your name");
 	}
 
 	/* Entry action for state 'UnknownFemaleTeen'. */
@@ -1530,7 +1530,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'Greetings_KnownPerson'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPerson() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("How are you doing?");
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("How are you doing");
 	}
 
 	/* Entry action for state 'Greetings_UnknownPerson'. */
@@ -1556,30 +1556,29 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'AboutRobotica_2'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2() {
 		sCIUdpInterface.operationCallback
-				.sendToHBrain_TTS("Oh I saw a handsome robot just now. If only I can talk to him");
+				.sendToHBrain_TTS("Oh I saw a handsome robot just now If only I can talk to him");
 	}
 
 	/* Entry action for state 'RandomTopic_1'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1() {
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
-				"My university is located in Reutlingen, the ninth largest city in Baden-Württemberg. ");
+				"My university is located in Reutlingen the ninth largest city in Baden-Württemberg ");
 	}
 
 	/* Entry action for state 'RandomTopic_2'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2() {
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
-				" My home, Reutlingen is nicknamed The Gate to the Swabian Alb. The landscape surrounding my university is truly breathtaking");
+				"My home Reutlingen is nicknamed The Gate to the Swabian Alb The landscape surrounding my university is truly breathtaking");
 	}
 
 	/* Entry action for state 'Prompt_2'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_2() {
-		sCIUdpInterface.operationCallback
-				.sendToHBrain_TTS("Do you want to know more about where I come from? Please say yes.");
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Do you want to know more about where I come from ");
 	}
 
 	/* Entry action for state 'Prompt_1'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_1() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Are you having fun here? Please answer yes or no");
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Are you having fun here");
 	}
 
 	/* Entry action for state 'AfterGreetings'. */
@@ -1589,28 +1588,28 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCICurrPerson.operationCallback.setFirstname(sCISTT.speakerMsg);
 
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
-				"You have a nice name. Sadly, I am quite bad with names. I do apologize if I mispronounce your name the next time we meet");
+				"You have a nice name Sadly I am quite bad with names I do apologize if I mispronounce your name the next time we meet");
 	}
 
 	/* Entry action for state 'Farewell_1'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_1() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("It is nice meeting you. Till next time, take care.");
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("It is nice meeting you Till next time take care");
 	}
 
 	/* Entry action for state 'Farewell_2'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_2() {
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
-				"We might not see each other again, which is sad. I like you human. I wish you all the best in your future undertakings. Stay happy and healthy");
+				"We might not see each other again which is sad I like you human I wish you all the best in your future undertakings Stay happy and healthy");
 	}
 
 	/* Entry action for state 'Farewell_3'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_3() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Pleasure to meet you, dear human.");
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Pleasure to meet you dear human.");
 	}
 
 	/* Entry action for state 'Farewell_4'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_4() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("See you again, auf Wiedersehen");
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("See you again auf Wiedersehen");
 	}
 
 	/* Entry action for state 'Selection'. */
@@ -1625,8 +1624,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'RandomTopic_3'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
-				"My family is called the RT Lions. They are an awesome bunch and I love them very much");
+		sCIUdpInterface.operationCallback
+				.sendToHBrain_TTS("My family is called the RT Lions They are an awesome and I love them very much");
 	}
 
 	/* Entry action for state 'Selection_2'. */
@@ -1636,7 +1635,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'AlternativeConv_1'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Why?");
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Why");
 	}
 
 	/* Entry action for state 'Selection_3'. */
@@ -1690,7 +1689,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'AboutRobotica_3'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("It is my first time here.");
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("It is my first time here");
 	}
 
 	/* Entry action for state 'STT_5'. */
@@ -1710,8 +1709,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'Closing'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
-				"Would love to chat with you more, but so many people to meet, so little time. hahah");
+		sCIUdpInterface.operationCallback
+				.sendToHBrain_TTS("Would love to chat with you more but so many people to meet so little time hahah");
 	}
 
 	/* Entry action for state 'STT_6'. */
