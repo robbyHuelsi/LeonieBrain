@@ -8,7 +8,7 @@
       <vertices xsi:type="sgraph:State" xmi:id="_KGTtoPiqEeWcn8poFBqj7w" specification="entry /UdpInterface.receive(); &#xD;&#xA;UdpInterface.sendToVBrain_ACIonOff(true)" name="Init" incomingTransitions="_KGTGkviqEeWcn8poFBqj7w">
         <outgoingTransitions xmi:id="_D2sSe_tXEeWdM5G-rEQqWA" specification="after 100s" target="_KGiXJ_iqEeWcn8poFBqj7w"/>
         <outgoingTransitions xmi:id="_eUgIIAi3Eea5mrepxMU4NQ" specification="[VBrain.countFoundFaces > 0]" target="_KGdeo_iqEeWcn8poFBqj7w"/>
-        <outgoingTransitions xmi:id="_AeOYBPl5EeWfQ5nCnvwPLA" specification="[Kinect2.noiseAngle &lt; 0]" target="_KGhJAPiqEeWcn8poFBqj7w"/>
+        <outgoingTransitions xmi:id="_AeOYBPl5EeWfQ5nCnvwPLA" specification="[Kinect2.noiseDetected == true]&#xA;" target="_KGhJAPiqEeWcn8poFBqj7w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_KGdeo_iqEeWcn8poFBqj7w" specification="// Leonie redet mit Mensch" name="FaceDataInterpretation" incomingTransitions="_KGhwF_iqEeWcn8poFBqj7w _eUgIIAi3Eea5mrepxMU4NQ">
         <outgoingTransitions xmi:id="_wPFY0AYOEeaduODZSyGwBA" specification="[1 == 0]" target="_KGhwE_iqEeWcn8poFBqj7w"/>

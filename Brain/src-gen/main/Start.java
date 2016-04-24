@@ -44,12 +44,12 @@ public class Start
 	//Kinect1
 	
 	//Kinect2
-	static private String ipSendKinect2 = "";
-	static private int portSendKinect2 = 0;
+	static private String ipSendKinect2 = "192.168.188.12";
+	static private int portSendKinect2 = 8000;
 	
 	//LeapMotion
-	static private String ipSendLeapMotion = "";
-	static private int portSendLeapMotion = 0;
+	static private String ipSendLeapMotion = "192.168.188.12";
+	static private int portSendLeapMotion = 7000;
 	
 	//Scitos Remote Control
 	static private String ipSendSRC = "";
