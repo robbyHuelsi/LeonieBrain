@@ -162,6 +162,17 @@ public class MessageParser {
 
 			case "NAV":
 				System.out.println("NAV: " + data);
+				//Arrived waypoint by pilot:  #NAV##ARR_WP#1#   //#NAV##ARR_WP#1# (=> arrived at global waypoint 
+				//Path blocked:  #NAV##PATH_BLOCKED#1#      	//#NAV##PATH_BLOCKED#1#  (=> path is blocked
+				//Bumpered: #NAV##BUMPERED#1#            		//#NAV##BUMPERED#1#  (=> leonie is bumpered
+				if (data.contains("#ARR_WP#")) {
+					System.out.println("Arrived at next waypoint: ");
+					brain.getSCIScitosRemoteControl().setArrivedWP(true);
+				} else {
+					System.out.println("Arrived not at next waypoint: ");
+					//brain.getSCIScitosRemoteControl().setArrivedWP(false);
+				}
+
 				return true;
 			// break;
 

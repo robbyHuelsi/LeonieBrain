@@ -58,7 +58,7 @@ public class Start
 	//Navigation
 	static private String ipSendNavigation = "192.168.188.10"; //Netgear Scitos
 	//static private String ipSendNavigation = "192.168.188.21"; //FritzBox Scitos
-	static private int portSendNavigation = 8888;
+	static private int portSendNavigation = 5000;
 	
 //	public enum Emotion {
 //	    neutral, happy, sad, laugthing, angry;

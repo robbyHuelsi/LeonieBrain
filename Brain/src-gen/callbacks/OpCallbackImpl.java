@@ -91,7 +91,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 	}
 	
 	public void sendToKinect2_detectionOnOff(boolean inOnOff){
-		this.sendMessage((inOnOff?"1":"0"), Start.getIpSendKinect2(), Start.getPortSendKinect2());
+		this.sendMessage("#NOISEDETECTION#" + (inOnOff?"1":"0") + "#", Start.getIpSendKinect2(), Start.getPortSendKinect2());
 	}
 	
 	public void sendToLeapMotion_detectionOnOff(boolean inOnOff){
@@ -114,6 +114,11 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 	public void sendToNav_goToLC(String inX, String inY){
 		System.out.println("Go to local coordinates: x=" + inX + ", y=" + inY);
 		this.sendMessage("#NAV##LC#" + inX + ";" + inY + ";#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+	}
+	
+	public void sendToNav_turnBody(String inAngle){  //#NAV##ROTBODY#360#
+		System.out.println("Turn Body: angle=" + inAngle);
+		this.sendMessage("#NAV##ROTBODY#" + inAngle + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
 	}
 	
 	public void sendToNav_searchOnOff(boolean inOnOff){

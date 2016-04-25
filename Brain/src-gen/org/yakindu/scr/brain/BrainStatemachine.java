@@ -436,7 +436,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private boolean initialized = false;
 
 	public enum State {
-		mainBrain_Init, mainBrain_FaceDataInterpretation, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownGirl, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownFemaleTeen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownWomen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownBoy, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownMaleTeen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownMen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPerson, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_UnknownPerson, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPersonWithoutName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_4, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation__final_, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6, mainBrain_FaceDataInterpretation_FaceDataInterpretation_filter, mainBrain_FaceDataInterpretation_FaceDataInterpretation_filter_2, mainBrain_TurnToNoise, mainBrain_Idle, mainBrain_StopLeonie, mainBrain_SearchForChat, mainBrain_SearchForChat_SearchForChat_Standing, mainBrain_SearchForChat_SearchForChat_Walking, $NullState$
+		mainBrain_Init, mainBrain_FaceDataInterpretation, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownGirl, mainBrain_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownFemaleTeen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownWomen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownBoy, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownMaleTeen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_UnknownMen, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPerson, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_UnknownPerson, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Greetings_KnownPersonWithoutName, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Prompt_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Farewell_4, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Selection_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation__final_, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5, mainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2, mainBrain_FaceDataInterpretation_FaceDataInterpretation_Closing, mainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6, mainBrain_FaceDataInterpretation_FaceDataInterpretation_filter, mainBrain_FaceDataInterpretation_FaceDataInterpretation_filter_2, mainBrain_GoToWP02, mainBrain_Idle, mainBrain_StopLeonie, mainBrain_SearchForChat, mainBrain_SearchForChat_SearchForChat_Standing, mainBrain_SearchForChat_SearchForChat_Walking, mainBrain_GoToWP03_Noise, mainBrain_Copy_2_TurnToNoise, mainBrain_GoToWP01, mainBrain_AtWP02, mainBrain_AtWP03_FingerAlphabet, mainBrain_AtWP01, $NullState$
 	};
 
 	private final State[] stateVector = new State[1];
@@ -695,8 +695,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_filter;
 			case mainBrain_FaceDataInterpretation_FaceDataInterpretation_filter_2 :
 				return stateVector[0] == State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_filter_2;
-			case mainBrain_TurnToNoise :
-				return stateVector[0] == State.mainBrain_TurnToNoise;
+			case mainBrain_GoToWP02 :
+				return stateVector[0] == State.mainBrain_GoToWP02;
 			case mainBrain_Idle :
 				return stateVector[0] == State.mainBrain_Idle;
 			case mainBrain_StopLeonie :
@@ -708,6 +708,18 @@ public class BrainStatemachine implements IBrainStatemachine {
 				return stateVector[0] == State.mainBrain_SearchForChat_SearchForChat_Standing;
 			case mainBrain_SearchForChat_SearchForChat_Walking :
 				return stateVector[0] == State.mainBrain_SearchForChat_SearchForChat_Walking;
+			case mainBrain_GoToWP03_Noise :
+				return stateVector[0] == State.mainBrain_GoToWP03_Noise;
+			case mainBrain_Copy_2_TurnToNoise :
+				return stateVector[0] == State.mainBrain_Copy_2_TurnToNoise;
+			case mainBrain_GoToWP01 :
+				return stateVector[0] == State.mainBrain_GoToWP01;
+			case mainBrain_AtWP02 :
+				return stateVector[0] == State.mainBrain_AtWP02;
+			case mainBrain_AtWP03_FingerAlphabet :
+				return stateVector[0] == State.mainBrain_AtWP03_FingerAlphabet;
+			case mainBrain_AtWP01 :
+				return stateVector[0] == State.mainBrain_AtWP01;
 			default :
 				return false;
 		}
@@ -772,14 +784,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_Init_tr0_tr0() {
-		return timeEvents[0];
-	}
-
-	private boolean check_MainBrain_Init_tr1_tr1() {
-		return sCIVBrain.countFoundFaces > 0;
-	}
-
-	private boolean check_MainBrain_Init_tr2_tr2() {
 		return sCIKinect2.noiseDetected == true;
 	}
 
@@ -932,11 +936,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1_tr0_tr0() {
-		return (timeEvents[1]) && (sCISTT.sTTready == true);
+		return (timeEvents[0]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2_tr0_tr0() {
-		return (timeEvents[2]) && (sCISTT.sTTready == true);
+		return (timeEvents[1]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4_tr0_tr0() {
@@ -944,11 +948,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3_tr0_tr0() {
-		return (timeEvents[3]) && (sCISTT.sTTready == true);
+		return (timeEvents[2]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4_tr0_tr0() {
-		return (timeEvents[4]) && (sCISTT.sTTready == true);
+		return (timeEvents[3]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2_tr0_tr0() {
@@ -960,7 +964,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5_tr0_tr0() {
-		return (timeEvents[5]) && (sCISTT.sTTready == true);
+		return (timeEvents[4]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2_tr0_tr0() {
@@ -972,7 +976,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6_tr0_tr0() {
-		return (timeEvents[6]) && (sCISTT.sTTready == true);
+		return (timeEvents[5]) && (sCISTT.sTTready == true);
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_filter_tr0_tr0() {
@@ -991,12 +995,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 		return true;
 	}
 
-	private boolean check_MainBrain_TurnToNoise_tr0_tr0() {
-		return sCIVBrain.countFoundFaces > 0;
-	}
-
-	private boolean check_MainBrain_TurnToNoise_tr1_tr1() {
-		return sCIVBrain.countFoundFaces < 0;
+	private boolean check_MainBrain_GoToWP02_tr0_tr0() {
+		return sCIScitosRemoteControl.arrivedWP == true;
 	}
 
 	private boolean check_MainBrain_StopLeonie_tr0_tr0() {
@@ -1008,11 +1008,43 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_SearchForChat_SearchForChat_Standing_tr0_tr0() {
-		return timeEvents[7];
+		return timeEvents[6];
 	}
 
 	private boolean check_MainBrain_SearchForChat_SearchForChat_Walking_tr0_tr0() {
+		return timeEvents[7];
+	}
+
+	private boolean check_MainBrain_GoToWP03_Noise_tr0_tr0() {
+		return sCIScitosRemoteControl.arrivedWP == true;
+	}
+
+	private boolean check_MainBrain_Copy_2_TurnToNoise_tr0_tr0() {
+		return sCIVBrain.countFoundFaces > 0;
+	}
+
+	private boolean check_MainBrain_Copy_2_TurnToNoise_tr1_tr1() {
 		return timeEvents[8];
+	}
+
+	private boolean check_MainBrain_Copy_2_TurnToNoise_tr2_tr2() {
+		return sCIVBrain.countFoundFaces > 0;
+	}
+
+	private boolean check_MainBrain_Copy_2_TurnToNoise_tr3_tr3() {
+		return sCIVBrain.countFoundFaces < -1000;
+	}
+
+	private boolean check_MainBrain_GoToWP01_tr0_tr0() {
+		return sCIScitosRemoteControl.arrivedWP == true;
+	}
+
+	private boolean check_MainBrain_AtWP02_tr0_tr0() {
+		return sCIKinect2.noiseDetected == true;
+	}
+
+	private boolean check_MainBrain_AtWP03_FingerAlphabet_tr0_tr0() {
+		return sCIKinect2.noiseDetected == true;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr1_tr1() {
@@ -1066,19 +1098,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void effect_MainBrain_Init_tr0() {
 		exitSequence_MainBrain_Init();
 
-		enterSequence_MainBrain_SearchForChat_default();
-	}
-
-	private void effect_MainBrain_Init_tr1() {
-		exitSequence_MainBrain_Init();
-
-		enterSequence_MainBrain_FaceDataInterpretation_default();
-	}
-
-	private void effect_MainBrain_Init_tr2() {
-		exitSequence_MainBrain_Init();
-
-		enterSequence_MainBrain_TurnToNoise_default();
+		enterSequence_MainBrain_GoToWP02_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_tr0() {
@@ -1393,16 +1413,10 @@ public class BrainStatemachine implements IBrainStatemachine {
 		enterSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1_default();
 	}
 
-	private void effect_MainBrain_TurnToNoise_tr0() {
-		exitSequence_MainBrain_TurnToNoise();
+	private void effect_MainBrain_GoToWP02_tr0() {
+		exitSequence_MainBrain_GoToWP02();
 
-		enterSequence_MainBrain_StopLeonie_default();
-	}
-
-	private void effect_MainBrain_TurnToNoise_tr1() {
-		exitSequence_MainBrain_TurnToNoise();
-
-		enterSequence_MainBrain_SearchForChat_default();
+		enterSequence_MainBrain_AtWP02_default();
 	}
 
 	private void effect_MainBrain_StopLeonie_tr0() {
@@ -1427,6 +1441,54 @@ public class BrainStatemachine implements IBrainStatemachine {
 		exitSequence_MainBrain_SearchForChat_SearchForChat_Walking();
 
 		enterSequence_MainBrain_SearchForChat_SearchForChat_Standing_default();
+	}
+
+	private void effect_MainBrain_GoToWP03_Noise_tr0() {
+		exitSequence_MainBrain_GoToWP03_Noise();
+
+		enterSequence_MainBrain_AtWP03_FingerAlphabet_default();
+	}
+
+	private void effect_MainBrain_Copy_2_TurnToNoise_tr0() {
+		exitSequence_MainBrain_Copy_2_TurnToNoise();
+
+		enterSequence_MainBrain_StopLeonie_default();
+	}
+
+	private void effect_MainBrain_Copy_2_TurnToNoise_tr1() {
+		exitSequence_MainBrain_Copy_2_TurnToNoise();
+
+		enterSequence_MainBrain_SearchForChat_default();
+	}
+
+	private void effect_MainBrain_Copy_2_TurnToNoise_tr2() {
+		exitSequence_MainBrain_Copy_2_TurnToNoise();
+
+		enterSequence_MainBrain_FaceDataInterpretation_default();
+	}
+
+	private void effect_MainBrain_Copy_2_TurnToNoise_tr3() {
+		exitSequence_MainBrain_Copy_2_TurnToNoise();
+
+		enterSequence_MainBrain_SearchForChat_default();
+	}
+
+	private void effect_MainBrain_GoToWP01_tr0() {
+		exitSequence_MainBrain_GoToWP01();
+
+		enterSequence_MainBrain_AtWP01_default();
+	}
+
+	private void effect_MainBrain_AtWP02_tr0() {
+		exitSequence_MainBrain_AtWP02();
+
+		enterSequence_MainBrain_GoToWP03_Noise_default();
+	}
+
+	private void effect_MainBrain_AtWP03_FingerAlphabet_tr0() {
+		exitSequence_MainBrain_AtWP03_FingerAlphabet();
+
+		enterSequence_MainBrain_GoToWP01_default();
 	}
 
 	private void effect_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr1() {
@@ -1479,12 +1541,13 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'Init'. */
 	private void entryAction_MainBrain_Init() {
-
-		timer.setTimer(this, 0, 100 * 1000, false);
-
 		sCIUdpInterface.operationCallback.receive();
 
+		sCIKinect2.setNoiseDetected(false);
+
 		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(true);
+
+		sCIUdpInterface.operationCallback.sendToKinect2_detectionOnOff(false);
 	}
 
 	/* Entry action for state 'PersonKnownWithName'. */
@@ -1646,7 +1709,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_1'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1() {
 
-		timer.setTimer(this, 1, 3 * 1000, false);
+		timer.setTimer(this, 0, 3 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1654,7 +1717,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_2'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2() {
 
-		timer.setTimer(this, 2, 2 * 1000, false);
+		timer.setTimer(this, 1, 2 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1667,7 +1730,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_3'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3() {
 
-		timer.setTimer(this, 3, 2 * 1000, false);
+		timer.setTimer(this, 2, 2 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1675,7 +1738,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_4'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4() {
 
-		timer.setTimer(this, 4, 4 * 1000, false);
+		timer.setTimer(this, 3, 4 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1695,7 +1758,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_5'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5() {
 
-		timer.setTimer(this, 5, 3 * 1000, false);
+		timer.setTimer(this, 4, 3 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1716,7 +1779,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'STT_6'. */
 	private void entryAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6() {
 
-		timer.setTimer(this, 6, 3 * 1000, false);
+		timer.setTimer(this, 5, 3 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(true);
 	}
@@ -1735,13 +1798,18 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCISTT.operationCallback.filter("");
 	}
 
-	/* Entry action for state 'TurnToNoise'. */
-	private void entryAction_MainBrain_TurnToNoise() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Oh, somebody is behind me");
+	/* Entry action for state 'GoToWP02'. */
+	private void entryAction_MainBrain_GoToWP02() {
+		sCIKinect2.setNoiseDetected(false);
 
-		sCIUdpInterface.operationCallback.sendToNav_goToLC("0", "1");
+		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(false);
 
-		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(false);
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("WP02 I am coming");
+
+		sCIUdpInterface.operationCallback
+				.sendToHBrain_TTS("{35,27}[:-)] I am happy {35,27}[:-(] I am said {Person}[:-|] I am neutral");
+
+		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(true);
 	}
 
 	/* Entry action for state 'StopLeonie'. */
@@ -1752,7 +1820,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'Standing'. */
 	private void entryAction_MainBrain_SearchForChat_SearchForChat_Standing() {
 
-		timer.setTimer(this, 7, 5 * 1000, false);
+		timer.setTimer(this, 6, 5 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(false);
 	}
@@ -1760,53 +1828,113 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'Walking'. */
 	private void entryAction_MainBrain_SearchForChat_SearchForChat_Walking() {
 
-		timer.setTimer(this, 8, 200 * 1000, false);
+		timer.setTimer(this, 7, 200 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(true);
 	}
 
-	/* Exit action for state 'Init'. */
-	private void exitAction_MainBrain_Init() {
-		timer.unsetTimer(this, 0);
+	/* Entry action for state 'GoToWP03-Noise'. */
+	private void entryAction_MainBrain_GoToWP03_Noise() {
+		sCIUdpInterface.operationCallback
+				.sendToHBrain_TTS("Oh some noise behind me! It is coming from WP03. I am starting");
+
+		sCIUdpInterface.operationCallback.sendToKinect2_detectionOnOff(false);
+
+		sCIKinect2.setNoiseDetected(false);
+
+		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(true);
+	}
+
+	/* Entry action for state 'GoToWP01'. */
+	private void entryAction_MainBrain_GoToWP01() {
+		sCIKinect2.setNoiseDetected(false);
+
+		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(true);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Tobias at WP01, I am coming");
+
+		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(true);
+	}
+
+	/* Entry action for state 'AtWP02'. */
+	private void entryAction_MainBrain_AtWP02() {
+		sCIScitosRemoteControl.setArrivedWP(false);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Nice to be here at Point 02 of my journey");
+
+		sCIKinect2.setNoiseDetected(false);
+
+		sCIUdpInterface.operationCallback.sendToKinect2_detectionOnOff(true);
+	}
+
+	/* Entry action for state 'AtWP03-FingerAlphabet'. */
+	private void entryAction_MainBrain_AtWP03_FingerAlphabet() {
+		sCIScitosRemoteControl.setArrivedWP(false);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Why did you call me?");
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Whom shell I visit now?");
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Can you spell that?");
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("You send me away, you do not like me?");
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("I better go now!");
+
+		sCIKinect2.setNoiseDetected(true);
+	}
+
+	/* Entry action for state 'AtWP01'. */
+	private void entryAction_MainBrain_AtWP01() {
+		sCIScitosRemoteControl.setArrivedWP(false);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hi Tobie");
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Now I will go to sleep, it's late already");
 	}
 
 	/* Exit action for state 'STT_1'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1() {
-		timer.unsetTimer(this, 1);
+		timer.unsetTimer(this, 0);
 	}
 
 	/* Exit action for state 'STT_2'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2() {
-		timer.unsetTimer(this, 2);
+		timer.unsetTimer(this, 1);
 	}
 
 	/* Exit action for state 'STT_3'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3() {
-		timer.unsetTimer(this, 3);
+		timer.unsetTimer(this, 2);
 	}
 
 	/* Exit action for state 'STT_4'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4() {
-		timer.unsetTimer(this, 4);
+		timer.unsetTimer(this, 3);
 	}
 
 	/* Exit action for state 'STT_5'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5() {
-		timer.unsetTimer(this, 5);
+		timer.unsetTimer(this, 4);
 	}
 
 	/* Exit action for state 'STT_6'. */
 	private void exitAction_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6() {
-		timer.unsetTimer(this, 6);
+		timer.unsetTimer(this, 5);
 	}
 
 	/* Exit action for state 'Standing'. */
 	private void exitAction_MainBrain_SearchForChat_SearchForChat_Standing() {
-		timer.unsetTimer(this, 7);
+		timer.unsetTimer(this, 6);
 	}
 
 	/* Exit action for state 'Walking'. */
 	private void exitAction_MainBrain_SearchForChat_SearchForChat_Walking() {
+		timer.unsetTimer(this, 7);
+	}
+
+	/* Exit action for state 'Copy_2_TurnToNoise'. */
+	private void exitAction_MainBrain_Copy_2_TurnToNoise() {
 		timer.unsetTimer(this, 8);
 	}
 
@@ -2157,12 +2285,12 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.mainBrain_FaceDataInterpretation_FaceDataInterpretation_filter_2;
 	}
 
-	/* 'default' enter sequence for state TurnToNoise */
-	private void enterSequence_MainBrain_TurnToNoise_default() {
-		entryAction_MainBrain_TurnToNoise();
+	/* 'default' enter sequence for state GoToWP02 */
+	private void enterSequence_MainBrain_GoToWP02_default() {
+		entryAction_MainBrain_GoToWP02();
 
 		nextStateIndex = 0;
-		stateVector[0] = State.mainBrain_TurnToNoise;
+		stateVector[0] = State.mainBrain_GoToWP02;
 	}
 
 	/* 'default' enter sequence for state Idle */
@@ -2200,6 +2328,46 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.mainBrain_SearchForChat_SearchForChat_Walking;
 	}
 
+	/* 'default' enter sequence for state GoToWP03-Noise */
+	private void enterSequence_MainBrain_GoToWP03_Noise_default() {
+		entryAction_MainBrain_GoToWP03_Noise();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_GoToWP03_Noise;
+	}
+
+	/* 'default' enter sequence for state GoToWP01 */
+	private void enterSequence_MainBrain_GoToWP01_default() {
+		entryAction_MainBrain_GoToWP01();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_GoToWP01;
+	}
+
+	/* 'default' enter sequence for state AtWP02 */
+	private void enterSequence_MainBrain_AtWP02_default() {
+		entryAction_MainBrain_AtWP02();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_AtWP02;
+	}
+
+	/* 'default' enter sequence for state AtWP03-FingerAlphabet */
+	private void enterSequence_MainBrain_AtWP03_FingerAlphabet_default() {
+		entryAction_MainBrain_AtWP03_FingerAlphabet();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_AtWP03_FingerAlphabet;
+	}
+
+	/* 'default' enter sequence for state AtWP01 */
+	private void enterSequence_MainBrain_AtWP01_default() {
+		entryAction_MainBrain_AtWP01();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.mainBrain_AtWP01;
+	}
+
 	/* 'default' enter sequence for region MainBrain */
 	private void enterSequence_MainBrain_default() {
 		react_MainBrain__entry_Default();
@@ -2219,8 +2387,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void exitSequence_MainBrain_Init() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
-
-		exitAction_MainBrain_Init();
 	}
 
 	/* Default exit sequence for state FaceDataInterpretation */
@@ -2492,8 +2658,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 
-	/* Default exit sequence for state TurnToNoise */
-	private void exitSequence_MainBrain_TurnToNoise() {
+	/* Default exit sequence for state GoToWP02 */
+	private void exitSequence_MainBrain_GoToWP02() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -2529,6 +2695,44 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.$NullState$;
 
 		exitAction_MainBrain_SearchForChat_SearchForChat_Walking();
+	}
+
+	/* Default exit sequence for state GoToWP03-Noise */
+	private void exitSequence_MainBrain_GoToWP03_Noise() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state Copy_2_TurnToNoise */
+	private void exitSequence_MainBrain_Copy_2_TurnToNoise() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+
+		exitAction_MainBrain_Copy_2_TurnToNoise();
+	}
+
+	/* Default exit sequence for state GoToWP01 */
+	private void exitSequence_MainBrain_GoToWP01() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state AtWP02 */
+	private void exitSequence_MainBrain_AtWP02() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state AtWP03-FingerAlphabet */
+	private void exitSequence_MainBrain_AtWP03_FingerAlphabet() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state AtWP01 */
+	private void exitSequence_MainBrain_AtWP01() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 
 	/* Default exit sequence for region MainBrain */
@@ -2706,8 +2910,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 				exitSequence_MainBrain_FaceDataInterpretation_FaceDataInterpretation_filter_2();
 				break;
 
-			case mainBrain_TurnToNoise :
-				exitSequence_MainBrain_TurnToNoise();
+			case mainBrain_GoToWP02 :
+				exitSequence_MainBrain_GoToWP02();
 				break;
 
 			case mainBrain_Idle :
@@ -2724,6 +2928,30 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 			case mainBrain_SearchForChat_SearchForChat_Walking :
 				exitSequence_MainBrain_SearchForChat_SearchForChat_Walking();
+				break;
+
+			case mainBrain_GoToWP03_Noise :
+				exitSequence_MainBrain_GoToWP03_Noise();
+				break;
+
+			case mainBrain_Copy_2_TurnToNoise :
+				exitSequence_MainBrain_Copy_2_TurnToNoise();
+				break;
+
+			case mainBrain_GoToWP01 :
+				exitSequence_MainBrain_GoToWP01();
+				break;
+
+			case mainBrain_AtWP02 :
+				exitSequence_MainBrain_AtWP02();
+				break;
+
+			case mainBrain_AtWP03_FingerAlphabet :
+				exitSequence_MainBrain_AtWP03_FingerAlphabet();
+				break;
+
+			case mainBrain_AtWP01 :
+				exitSequence_MainBrain_AtWP01();
 				break;
 
 			default :
@@ -2927,14 +3155,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void react_MainBrain_Init() {
 		if (check_MainBrain_Init_tr0_tr0()) {
 			effect_MainBrain_Init_tr0();
-		} else {
-			if (check_MainBrain_Init_tr1_tr1()) {
-				effect_MainBrain_Init_tr1();
-			} else {
-				if (check_MainBrain_Init_tr2_tr2()) {
-					effect_MainBrain_Init_tr2();
-				}
-			}
 		}
 	}
 
@@ -3397,14 +3617,10 @@ public class BrainStatemachine implements IBrainStatemachine {
 		}
 	}
 
-	/* The reactions of state TurnToNoise. */
-	private void react_MainBrain_TurnToNoise() {
-		if (check_MainBrain_TurnToNoise_tr0_tr0()) {
-			effect_MainBrain_TurnToNoise_tr0();
-		} else {
-			if (check_MainBrain_TurnToNoise_tr1_tr1()) {
-				effect_MainBrain_TurnToNoise_tr1();
-			}
+	/* The reactions of state GoToWP02. */
+	private void react_MainBrain_GoToWP02() {
+		if (check_MainBrain_GoToWP02_tr0_tr0()) {
+			effect_MainBrain_GoToWP02_tr0();
 		}
 	}
 
@@ -3439,6 +3655,57 @@ public class BrainStatemachine implements IBrainStatemachine {
 				effect_MainBrain_SearchForChat_SearchForChat_Walking_tr0();
 			}
 		}
+	}
+
+	/* The reactions of state GoToWP03-Noise. */
+	private void react_MainBrain_GoToWP03_Noise() {
+		if (check_MainBrain_GoToWP03_Noise_tr0_tr0()) {
+			effect_MainBrain_GoToWP03_Noise_tr0();
+		}
+	}
+
+	/* The reactions of state Copy_2_TurnToNoise. */
+	private void react_MainBrain_Copy_2_TurnToNoise() {
+		if (check_MainBrain_Copy_2_TurnToNoise_tr0_tr0()) {
+			effect_MainBrain_Copy_2_TurnToNoise_tr0();
+		} else {
+			if (check_MainBrain_Copy_2_TurnToNoise_tr1_tr1()) {
+				effect_MainBrain_Copy_2_TurnToNoise_tr1();
+			} else {
+				if (check_MainBrain_Copy_2_TurnToNoise_tr2_tr2()) {
+					effect_MainBrain_Copy_2_TurnToNoise_tr2();
+				} else {
+					if (check_MainBrain_Copy_2_TurnToNoise_tr3_tr3()) {
+						effect_MainBrain_Copy_2_TurnToNoise_tr3();
+					}
+				}
+			}
+		}
+	}
+
+	/* The reactions of state GoToWP01. */
+	private void react_MainBrain_GoToWP01() {
+		if (check_MainBrain_GoToWP01_tr0_tr0()) {
+			effect_MainBrain_GoToWP01_tr0();
+		}
+	}
+
+	/* The reactions of state AtWP02. */
+	private void react_MainBrain_AtWP02() {
+		if (check_MainBrain_AtWP02_tr0_tr0()) {
+			effect_MainBrain_AtWP02_tr0();
+		}
+	}
+
+	/* The reactions of state AtWP03-FingerAlphabet. */
+	private void react_MainBrain_AtWP03_FingerAlphabet() {
+		if (check_MainBrain_AtWP03_FingerAlphabet_tr0_tr0()) {
+			effect_MainBrain_AtWP03_FingerAlphabet_tr0();
+		}
+	}
+
+	/* The reactions of state AtWP01. */
+	private void react_MainBrain_AtWP01() {
 	}
 
 	/* The reactions of state null. */
@@ -3648,8 +3915,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 				case mainBrain_FaceDataInterpretation_FaceDataInterpretation_filter_2 :
 					react_MainBrain_FaceDataInterpretation_FaceDataInterpretation_filter_2();
 					break;
-				case mainBrain_TurnToNoise :
-					react_MainBrain_TurnToNoise();
+				case mainBrain_GoToWP02 :
+					react_MainBrain_GoToWP02();
 					break;
 				case mainBrain_Idle :
 					react_MainBrain_Idle();
@@ -3662,6 +3929,24 @@ public class BrainStatemachine implements IBrainStatemachine {
 					break;
 				case mainBrain_SearchForChat_SearchForChat_Walking :
 					react_MainBrain_SearchForChat_SearchForChat_Walking();
+					break;
+				case mainBrain_GoToWP03_Noise :
+					react_MainBrain_GoToWP03_Noise();
+					break;
+				case mainBrain_Copy_2_TurnToNoise :
+					react_MainBrain_Copy_2_TurnToNoise();
+					break;
+				case mainBrain_GoToWP01 :
+					react_MainBrain_GoToWP01();
+					break;
+				case mainBrain_AtWP02 :
+					react_MainBrain_AtWP02();
+					break;
+				case mainBrain_AtWP03_FingerAlphabet :
+					react_MainBrain_AtWP03_FingerAlphabet();
+					break;
+				case mainBrain_AtWP01 :
+					react_MainBrain_AtWP01();
 					break;
 				default :
 					// $NullState$
