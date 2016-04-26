@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -16,7 +17,12 @@ import org.yakindu.scr.brain.BrainStatemachine;
 import vbrain.PersonDynData;
 
 
-public class Person {	
+public class Person implements Serializable{	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private BrainStatemachine brain;
 	
 	private int personID; // = -1;

@@ -74,6 +74,12 @@ public class Start
 		brain.setTimer(new TimerService());
 		
 		personList = new PersonList();
+		Person p = new Person(brain);
+		p.setGender(false);
+		p.setFirstName("Leonie");
+		personList.addPerson(p);
+		
+		personList.save();
 	}
 	
 	public static Start instanceOf()

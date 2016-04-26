@@ -558,7 +558,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	public void enter() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The state machine needs to be initialized first by calling the init() function.");
+					"The statemachine needs to be initialized first by calling the init() function.");
 
 		if (timer == null) {
 			throw new IllegalStateException("timer not set.");
@@ -585,7 +585,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/** 
 	* Always returns 'false' since this state machine can never become final.
 	*
-	 * @see IStatemachine#isFinal()
+	 * @see IStatemachine#isFinal() 
 	 */
 	public boolean isFinal() {
 		return false;
@@ -958,11 +958,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_1_tr0_tr0() {
-		return (timeEvents[1]) && (sCISTT.sTTready == true);
+		return (timeEvents[1]) && sCISTT.sTTready == true;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_2_tr0_tr0() {
-		return (timeEvents[2]) && (sCISTT.sTTready == true);
+		return (timeEvents[2]) && sCISTT.sTTready == true;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_4_tr0_tr0() {
@@ -970,11 +970,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_3_tr0_tr0() {
-		return (timeEvents[3]) && (sCISTT.sTTready == true);
+		return (timeEvents[3]) && sCISTT.sTTready == true;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_4_tr0_tr0() {
-		return (timeEvents[4]) && (sCISTT.sTTready == true);
+		return (timeEvents[4]) && sCISTT.sTTready == true;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_2_tr0_tr0() {
@@ -986,7 +986,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_5_tr0_tr0() {
-		return (timeEvents[5]) && (sCISTT.sTTready == true);
+		return (timeEvents[5]) && sCISTT.sTTready == true;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_AfterGreetings_2_tr0_tr0() {
@@ -998,7 +998,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_STT_6_tr0_tr0() {
-		return (timeEvents[6]) && (sCISTT.sTTready == true);
+		return (timeEvents[6]) && sCISTT.sTTready == true;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation_filter_tr0_tr0() {
@@ -1106,7 +1106,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_SavePersonList_Init_tr0_tr0() {
-		return sCIVBrain.countFoundFaces > 0;
+		return 1 == 0;
 	}
 
 	private boolean check_MainBrain_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr1_tr1() {
@@ -4236,7 +4236,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	public void runCycle() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The state machine needs to be initialized first by calling the init() function.");
+					"The statemachine needs to be initialized first by calling the init() function.");
 
 		clearOutEvents();
 

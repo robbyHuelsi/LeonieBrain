@@ -6,18 +6,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Vector;
 
 import vbrain.Person; 
 
-public class PersonList {
+public class PersonList{
 	
 	private Vector<Person> personList;
 	private int currPersonID = -1;
-	private String filePath = "personList.brain";
+	private String filePath = "PersonList.brain";
 	
 	public PersonList(){
-		if(this.open()){
+		if(this.load()){
 			//personList wurde geladen aus Datei
 			System.out.println(this.toString());
 		}else{
@@ -67,9 +68,9 @@ public class PersonList {
 		return "PersonList [personList=" + personList + ", currPersonID=" + currPersonID + "]";
 	}
 
-	public boolean open(){
+	public boolean load(){
 		File f = new File(this.filePath);
-		if(!f.exists() || f.isDirectory()) { 
+		if(f==null || !f.exists() || f.isDirectory()) { 
 		    System.out.println("No personList-File found");
 		    return false;
 		}
@@ -78,11 +79,18 @@ public class PersonList {
 		try {
 			FileInputStream streamIn = new FileInputStream(filePath);
 		    objectinputstream = new ObjectInputStream(streamIn);
-		    this.personList = (Vector<Person>) objectinputstream.readObject();
+
+		    Object obj= null;
+		      // lese ein objekt nach dem anderen aus dem inputstream. das letzte 
+		      // object, welches gelesen wird, ist null. dieses muss allerdings explizit
+		      // geschrieben worden sein; andernfalls wird eine EOFException geworfen.
+		      while ( (obj= objectinputstream.readObject()) != null ){
+		      	this.addPerson((Person) obj);
+		      }
 		    System.out.println("Opening done");
 		    return true;
 		} catch (Exception e) {
-			System.out.println("Opening failed");
+			System.err.println("Opening failed");
 		    e.printStackTrace();
 		    return false;
 		} finally {
@@ -99,13 +107,18 @@ public class PersonList {
 	public boolean save(){
 		try{  
 			FileOutputStream fout = new FileOutputStream(this.filePath);
-			ObjectOutputStream oos = new ObjectOutputStream(fout);   
-			oos.writeObject(this.personList);
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+			
+			for(Person p : this.personList){
+				oos.writeObject(p);
+			}
+			oos.writeObject( null );
+			oos.flush();
 			oos.close();
 			System.out.println("Saving done");
 			return true;
 		}catch(Exception ex){
-			System.out.println("Saving failed");
+			System.err.println("Saving failed");
 			ex.printStackTrace();
 			return false;
 		}

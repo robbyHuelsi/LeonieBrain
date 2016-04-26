@@ -242,7 +242,7 @@
         <outgoingTransitions xmi:id="_UEH2wAsjEeaBsJCEm19hTg" specification="after 5s" target="_572tYAsiEeaBsJCEm19hTg"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_NTaX8AsjEeaBsJCEm19hTg" name="Init" incomingTransitions="_RgL6YAsjEeaBsJCEm19hTg">
-        <outgoingTransitions xmi:id="_CeOXEAsjEeaBsJCEm19hTg" specification="[VBrain.countFoundFaces > 0]" target="_572tYAsiEeaBsJCEm19hTg"/>
+        <outgoingTransitions xmi:id="_CeOXEAsjEeaBsJCEm19hTg" specification="[1==0]&#xD;&#xA;//[VBrain.countFoundFaces > 0]" target="_572tYAsiEeaBsJCEm19hTg"/>
       </vertices>
     </regions>
   </sgraph:Statechart>
