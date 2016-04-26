@@ -14,6 +14,7 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	public interface SCIBGFOperationCallback {
 		public void printToConsole(String msg);
 		public void newRandNum(long max);
+		public void savePersonList();
 	}
 
 	public SCIBGF getSCIBGF();
@@ -36,6 +37,7 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void sendToSTT_detectionOnOff(boolean inOnOff);
 		public void sendToNav_goToGWP(String inWayPoint);
 		public void sendToNav_turnBody(String inAngle);
+		public void sendToNav_turnHead(String inAngle);
 		public void sendToNav_goToLC(String inX, String inY);
 		public void sendToNav_searchOnOff(boolean inOnOff);
 	}

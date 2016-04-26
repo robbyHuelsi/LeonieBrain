@@ -13,6 +13,7 @@ public class MessageParser {
 
 	// Expected form of message: #SENDER#DATA
 	public static boolean ParseMessage(String message) {
+		System.out.println(message);
 		Start start = Start.instanceOf();
 		BrainStatemachine brain = start.getBrain();
 		PersonList personList = Start.getPersonList();
@@ -72,15 +73,22 @@ public class MessageParser {
 					if (attributePartsVBD[0].contains("1")) {
 						System.out.println("Face found");
 
-						brain.getSCIVBrain().setCountFoundFaces(1);
 
-						int faceId = Integer.parseInt(attributePartsVBD[1]);
-						System.out.println("Face ID: " + faceId);
-						personList.setCurrPersonID(faceId);
-						if (personList.hasPersonWithID(faceId)) {
-							Person p = personList.getPersonByID(faceId);
-							p.addDynData(dataDyn);
-							System.out.println(p.getCurrDynData().toString());
+						if(attributePartsVBD.length > 1){
+							//Gesicht hat schon eine FaceID von VBRain bekommen --> nach 5 Frames
+							brain.getSCIVBrain().setCountFoundFaces(1);
+							int faceId = Integer.parseInt(attributePartsVBD[1]);
+							System.out.println("Face ID: " + faceId);
+							personList.setCurrPersonID(faceId);
+							if (personList.hasPersonWithID(faceId)) {
+								Person p = personList.getPersonByID(faceId);
+								p.addDynData(dataDyn);
+								System.out.println(p.getCurrDynData().toString());
+							}
+						}else{
+							//noch keine FaceID, weil noch vor 5 Frames
+							System.out.println("No face ID");
+							personList.setCurrPersonID(-1);
 						}
 
 					} else {
@@ -108,6 +116,7 @@ public class MessageParser {
 			// break;
 
 			case "HBRAIN":
+				System.out.println("HBrain: " + data);
 				if (data == "1") {
 					brain.getSCIHBrain().setTTSReady(false);
 					System.out.println("TSS jabbering");

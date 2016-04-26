@@ -99,7 +99,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 	}
 	
 	public void sendToSTT_detectionOnOff(boolean inOnOff){
-		this.sendMessage("#STT#" + (inOnOff?"1":"0"), Start.getIpSendSTT(), Start.getPortSendSTT());
+		this.sendMessage("#STT#" + (inOnOff?"1":"0") + "#", Start.getIpSendSTT(), Start.getPortSendSTT());
 	}
 	
 	public void sendToSmartphone_(){
@@ -120,6 +120,12 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 		System.out.println("Turn Body: angle=" + inAngle);
 		this.sendMessage("#NAV##ROTBODY#" + inAngle + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
 	}
+	
+	public void sendToNav_turnHead(String inAngle){  //#NAV##ROTBODY#360#
+		  System.out.println("Turn Body: angle=" + inAngle);
+		  this.sendMessage("#NAV##ROTHEAD#" + inAngle + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		 }
+
 	
 	public void sendToNav_searchOnOff(boolean inOnOff){
 		System.out.println(inOnOff?"Moving from WP to WP":"Standing");
@@ -209,6 +215,11 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 		if(personList.getCurrPerson() != null){
 			personList.getCurrPerson().setEthnicity((int)inEthnicity);
 		}			
+	}
+
+
+	public void savePersonList() {
+		personList.save();
 	}
 
 

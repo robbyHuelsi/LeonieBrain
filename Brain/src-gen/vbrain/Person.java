@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
 import java.util.Vector;
@@ -34,7 +35,8 @@ public class Person {
 	private Vector<PersonDynData> dynData;
 	
 	public Person (){
-		dynData = new Vector<PersonDynData>();
+		this.resemblance = new HashMap<Integer, Float>();
+		this.dynData = new Vector<PersonDynData>();
 	}
 	
 	public Person (BrainStatemachine inBrain){
@@ -63,8 +65,12 @@ public class Person {
 		if(attributeParts[6].contains("_")){
 			String[] confOfIds = attributeParts[6].split("_");
 			for(int i = 0; i < confOfIds.length; i++){
-				String[] confOfId = confOfIds[i].split("=");
-				this.addResemblance(Integer.parseInt(confOfId[0]), Float.parseFloat(confOfId[1]));
+				System.out.println(confOfIds[i]);
+
+				if(confOfIds[i] != ""){
+					String[] confOfId = confOfIds[i].split("=");
+					this.addResemblance(Integer.parseInt(confOfId[0]), Float.parseFloat(confOfId[1]));
+				}
 			}
 		}
 		
