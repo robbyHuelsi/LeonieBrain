@@ -38,8 +38,8 @@ public class Start
 	static private int portSendHBrain = 11005;
 	// -----------------------------------------------------
 	//STT
-	static private String ipSendSTT = "192.168.188.10";
-	static private int portSendSTT = 8888;
+	static private String ipSendSTT = "192.168.188.12";
+	static private int portSendSTT = 7000;
 	
 	//Kinect1
 	
@@ -74,12 +74,13 @@ public class Start
 		brain.setTimer(new TimerService());
 		
 		personList = new PersonList();
-		Person p = new Person(brain);
-		p.setGender(false);
-		p.setFirstName("Leonie");
-		personList.addPerson(p);
 		
-		personList.save();
+		
+//		Person p = new Person(brain);
+//		p.setGender(false);
+//		p.setFirstName("Leonie");
+//		personList.addPerson(p);
+//		personList.save();
 	}
 	
 	public static Start instanceOf()

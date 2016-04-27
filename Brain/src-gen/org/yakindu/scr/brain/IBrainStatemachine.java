@@ -157,8 +157,8 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	public SCIOpenDail getSCIOpenDail();
 
 	public interface SCISTT {
-		public boolean getSTTready();
-		public void setSTTready(boolean value);
+		public boolean getSTTReady();
+		public void setSTTReady(boolean value);
 		public String getSpeakerMsg();
 		public void setSpeakerMsg(String value);
 		public String getFilteredMsg();

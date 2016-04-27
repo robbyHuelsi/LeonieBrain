@@ -13,7 +13,7 @@ public class MessageParser {
 
 	// Expected form of message: #SENDER#DATA
 	public static boolean ParseMessage(String message) {
-		System.out.println(message);
+		//System.out.println(message);
 		Start start = Start.instanceOf();
 		BrainStatemachine brain = start.getBrain();
 		PersonList personList = Start.getPersonList();
@@ -36,7 +36,7 @@ public class MessageParser {
 			sender = m.group(1);
 			data = m.group(2);
 
-			System.out.println(sender + ": " + data);
+			//System.out.println(sender + ": " + data);
 
 			// Decide what should be done, depending on sender
 			switch (sender) {
@@ -67,7 +67,7 @@ public class MessageParser {
 
 				} else if (data.contains("#DYN#")) {
 					String dataDyn = data.substring(5);
-					System.out.println("Dynamische Daten: " + dataDyn);
+					//System.out.println("Dynamische Daten: " + dataDyn);
 					String[] attributePartsVBD = dataDyn.split(";");
 
 					if (attributePartsVBD[0].contains("1")) {
@@ -116,11 +116,11 @@ public class MessageParser {
 			// break;
 
 			case "HBRAIN":
-				System.out.println("HBrain: " + data);
-				if (data == "1") {
+				//System.out.println("HBrain: " + data);
+				if (data.contains("1")) {
 					brain.getSCIHBrain().setTTSReady(false);
 					System.out.println("TSS jabbering");
-				} else {
+				} else if(data.contains("0")){
 					brain.getSCIHBrain().setTTSReady(true);
 					System.out.println("TTS ready");
 				}
@@ -166,6 +166,7 @@ public class MessageParser {
 			case "STT":
 				System.out.println("Input text: " + data);
 				brain.getSCISTT().setSpeakerMsg(data);
+				brain.getSCISTT().setSTTReady(true);
 				return true;
 			// break;
 

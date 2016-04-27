@@ -63,6 +63,10 @@ public class PersonList{
 		return this.getPersonByID(this.getCurrPersonID());
 	}
 	
+	public int getLengthOfList(){
+		return this.personList.size();
+	}
+	
 
 	public String toString() {
 		return "PersonList [personList=" + personList + ", currPersonID=" + currPersonID + "]";
@@ -105,11 +109,13 @@ public class PersonList{
 	}
 	
 	public boolean save(){
-		try{  
-			FileOutputStream fout = new FileOutputStream(this.filePath);
+		try{
+			File f = new File(this.filePath);
+			
+			FileOutputStream fout = new FileOutputStream(f);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 			
-			for(Person p : this.personList){
+			for(Person p : personList){
 				oos.writeObject(p);
 			}
 			oos.writeObject( null );
