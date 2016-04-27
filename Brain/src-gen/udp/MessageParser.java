@@ -82,7 +82,7 @@ public class MessageParser {
 							personList.setCurrPersonID(faceId);
 							if (personList.hasPersonWithID(faceId)) {
 								Person p = personList.getPersonByID(faceId);
-								p.addDynData(dataDyn);
+								p.addDynData(dataDyn, brain);
 								System.out.println(p.getCurrDynData().toString());
 							}
 						}else{
@@ -104,7 +104,7 @@ public class MessageParser {
 
 					Person p = personList.getCurrPerson();
 					if (p != null) {
-						p.getCurrDynData().setEmotion(Integer.parseInt(dataEmo));
+						p.getCurrDynData().setEmotion(Integer.parseInt(dataEmo), brain);
 						System.out.println(p.toString());
 					}
 				}

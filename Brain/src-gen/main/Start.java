@@ -76,9 +76,9 @@ public class Start
 		personList = new PersonList();
 		
 		
-//		Person p = new Person(brain);
-//		p.setGender(false);
-//		p.setFirstName("Leonie");
+//		Person p = new Person();
+//		p.setGender(false, brain);
+//		p.setFirstName("Leonie", brain);
 //		personList.addPerson(p);
 //		personList.save();
 	}

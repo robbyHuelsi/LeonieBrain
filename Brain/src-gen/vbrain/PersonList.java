@@ -89,7 +89,7 @@ public class PersonList{
 		      // object, welches gelesen wird, ist null. dieses muss allerdings explizit
 		      // geschrieben worden sein; andernfalls wird eine EOFException geworfen.
 		      while ( (obj= objectinputstream.readObject()) != null ){
-		      	this.addPerson((Person) obj);
+		      	this.personList = ((Vector<Person>) obj);
 		      }
 		    System.out.println("Opening done");
 		    return true;
@@ -114,10 +114,9 @@ public class PersonList{
 			
 			FileOutputStream fout = new FileOutputStream(f);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
-			
-			for(Person p : personList){
-				oos.writeObject(p);
-			}
+		
+			oos.writeObject(this.personList);
+		
 			oos.writeObject( null );
 			oos.flush();
 			oos.close();

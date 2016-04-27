@@ -169,56 +169,56 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 	
 	public void setKnown(boolean inKnown) {
 		if(personList.getCurrPerson() != null){
-			personList.getCurrPerson().setKnown(inKnown);
+			personList.getCurrPerson().setKnown(inKnown, Start.instanceOf().getBrain());
 		}
 	}
 
 	
 	public void setFirstname(String inFirstname) {
 		if(personList.getCurrPerson() != null){
-			personList.getCurrPerson().setFirstName(inFirstname);
+			personList.getCurrPerson().setFirstName(inFirstname, Start.instanceOf().getBrain());
 		}		
 	}
 
 	
 	public void setLastname(String inLastname) {
 		if(personList.getCurrPerson() != null){
-			personList.getCurrPerson().setLastName(inLastname);
+			personList.getCurrPerson().setLastName(inLastname, Start.instanceOf().getBrain());
 		}		
 	}
 
 	
 	public void setBdYear(long inBdYear) {
 		if(personList.getCurrPerson() != null){
-			personList.getCurrPerson().setBdYear((int)inBdYear);
+			personList.getCurrPerson().setBdYear((int)inBdYear, Start.instanceOf().getBrain());
 		}			
 	}
 
 	
 	public void setBdMounth(long inBdMointh) {
 		if(personList.getCurrPerson() != null){
-			personList.getCurrPerson().setBdMonth((int)inBdMointh);
+			personList.getCurrPerson().setBdMonth((int)inBdMointh, Start.instanceOf().getBrain());
 		}	
 	}
 
 	
 	public void setBdDay(long inBdDay) {
 		if(personList.getCurrPerson() != null){
-			personList.getCurrPerson().setBdDay((int)inBdDay);
+			personList.getCurrPerson().setBdDay((int)inBdDay, Start.instanceOf().getBrain());
 		}			
 	}
 
 	
 	public void setGender(boolean inGender) {
 		if(personList.getCurrPerson() != null){
-			personList.getCurrPerson().setGender(inGender);
+			personList.getCurrPerson().setGender(inGender, Start.instanceOf().getBrain());
 		}	
 	}
 
 	
 	public void setEthnicity(long inEthnicity) {
 		if(personList.getCurrPerson() != null){
-			personList.getCurrPerson().setEthnicity((int)inEthnicity);
+			personList.getCurrPerson().setEthnicity((int)inEthnicity, Start.instanceOf().getBrain());
 		}			
 	}
 
