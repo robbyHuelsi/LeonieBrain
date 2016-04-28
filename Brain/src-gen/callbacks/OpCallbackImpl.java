@@ -8,14 +8,13 @@ import java.util.Random;
 
 import org.yakindu.scr.brain.IBrainStatemachine.SCIBGFOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCICurrPersonOperationCallback;
-import org.yakindu.scr.brain.IBrainStatemachine.SCISTTOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIUdpInterfaceOperationCallback;
 
 import main.Start;
 import udp.UDPConnection;
 import vbrain.PersonList;
 
-public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFOperationCallback, SCISTTOperationCallback, SCICurrPersonOperationCallback
+public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFOperationCallback, SCICurrPersonOperationCallback
 {
 	private PersonList personList = Start.getPersonList();
 	
@@ -137,34 +136,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 		this.sendMessage("#NAV##RUN#" + (inOnOff?"1":"0") + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
 	}
 
-	
-	public void filter(String filterString) {
-		String input = Start.instanceOf().getBrain().getSCISTT().getSpeakerMsg();
-		String output = Start.instanceOf().getBrain().getSCISTT().getFilteredMsg();
-		
-		if(filterString == ""){
-			if (input.contains("yes") || input.contains("yep") ||input.contains("ja") ||input.contains("si") ||input.contains("yeah") ||input.contains("correct") ||input.contains("ok") ||input.contains("alright")||input.contains("okay")){
-				input = "yes";
-			}
-			
-			if (input.contains("no") || input.contains("nope") ||input.contains("nein") ||input.contains("nada") ||input.contains("cancel") ||input.contains("nö")){
-				input = "no";
-			}
-			
-		}else{
-			if (input.contains(filterString)){
-				input = filterString;
-			}else{
-				input = "";
-			}
-		}
-		
-		Start.instanceOf().getBrain().getSCISTT().setFilteredMsg(output);
-		
-		
-		
-		
-	}
+
 
 	
 	public void setKnown(boolean inKnown) {

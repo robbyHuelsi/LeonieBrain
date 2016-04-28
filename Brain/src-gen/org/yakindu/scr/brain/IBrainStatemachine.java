@@ -163,12 +163,9 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void setSpeakerMsg(String value);
 		public String getFilteredMsg();
 		public void setFilteredMsg(String value);
+		public String getFilterBubble();
+		public void setFilterBubble(String value);
 
-		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
-	}
-
-	public interface SCISTTOperationCallback {
-		public void filter(String filterString);
 	}
 
 	public SCISTT getSCISTT();
