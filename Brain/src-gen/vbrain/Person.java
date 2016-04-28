@@ -84,6 +84,7 @@ public class Person implements Serializable{
 		this.personID = personID;
 		if(inB != null){
 			inB.getSCICurrPerson().setId(personID);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 	
@@ -95,6 +96,7 @@ public class Person implements Serializable{
 		this.known = inKnown;
 		if(inB != null){
 			inB.getSCICurrPerson().setKnown(inKnown);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -106,6 +108,7 @@ public class Person implements Serializable{
 		this.firstName = firstName;
 		if(inB != null){
 			inB.getSCICurrPerson().setFirstname(firstName);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -117,6 +120,7 @@ public class Person implements Serializable{
 		this.lastName = lastName;
 		if(inB != null){
 			inB.getSCICurrPerson().setLastname(lastName);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 	
@@ -128,6 +132,7 @@ public class Person implements Serializable{
 		this.estimatedAge = estimatedAge;
 		if(inB != null){
 			inB.getSCICurrPerson().setEstimatedAge(estimatedAge);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -139,6 +144,7 @@ public class Person implements Serializable{
 		this.bdYear = bdYear;
 		if(inB != null){
 			inB.getSCICurrPerson().setBdYear(bdYear);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -152,6 +158,7 @@ public class Person implements Serializable{
 			
 			if(inB != null){
 				inB.getSCICurrPerson().setBdMounth(bdMonth);
+				inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 			}
 			return true;
 		}
@@ -169,6 +176,7 @@ public class Person implements Serializable{
 			
 			if(inB != null){
 				inB.getSCICurrPerson().setBdDay(bdDay);
+				inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 			}
 			return true;
 		}
@@ -185,6 +193,7 @@ public class Person implements Serializable{
 		
 		if(inB != null){
 			inB.getSCICurrPerson().setGender(gender);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -198,6 +207,7 @@ public class Person implements Serializable{
 			
 			if(inB != null){
 				inB.getSCICurrPerson().setEthnicity(ethnicGroup);
+				inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 			}
 			return true;
 		}
@@ -214,6 +224,7 @@ public class Person implements Serializable{
 		
 		if(inB != null){
 			inB.getSCICurrPerson().setGlasses(glasses);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -226,6 +237,7 @@ public class Person implements Serializable{
 		
 		if(inB != null){
 			inB.getSCICurrPerson().setAttractiveness(attractiveness);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 	
@@ -258,7 +270,7 @@ public class Person implements Serializable{
 		return "Person [personID=" + personID + ", resemblance=" + resemblance + ", known=" + known
 				+ ", firstName=" + firstName + ", lastName=" + lastName + ", estimatedAge=" + estimatedAge + ", bdYear="
 				+ bdYear + ", bdMonth=" + bdMonth + ", bdDay=" + bdDay + ", gender=" + (gender == true?"female":"male") + ", ethnicity="
-				+ (ethnicity==0?"white":(ethnicity==1?"black":"asian")) + ", glasses=" + glasses + ", attractiveness=" + attractiveness + ", dynData=" + dynData
+				+ (ethnicity==0?"white":(ethnicity==1?"black":"asian")) + ", glasses=" + glasses + ", attractiveness=" + attractiveness + ", dynData=" + dynData.toString()
 				+ "]";
 	}
 	

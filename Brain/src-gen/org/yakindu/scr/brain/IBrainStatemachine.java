@@ -14,7 +14,6 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	public interface SCIBGFOperationCallback {
 		public void printToConsole(String msg);
 		public void newRandNum(long max);
-		public void savePersonList();
 	}
 
 	public SCIBGF getSCIBGF();
@@ -47,7 +46,14 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	public interface SCIVBrain {
 		public long getCountFoundFaces();
 		public void setCountFoundFaces(long value);
+		public boolean getNessesaryToSavePersonList();
+		public void setNessesaryToSavePersonList(boolean value);
 
+		public void setSCIVBrainOperationCallback(SCIVBrainOperationCallback operationCallback);
+	}
+
+	public interface SCIVBrainOperationCallback {
+		public void savePersonList();
 	}
 
 	public SCIVBrain getSCIVBrain();

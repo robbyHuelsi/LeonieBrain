@@ -1,12 +1,15 @@
 package vbrain;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+
 
 import org.yakindu.scr.brain.BrainStatemachine;
 
-public class PersonDynData {
+public class PersonDynData implements Serializable {
 
-	private LocalDateTime dateAdded;
+	private Date dateAdded;
 	private int headgesture;
 	private boolean speaking;
 	private int emotion;
@@ -14,10 +17,11 @@ public class PersonDynData {
 	
 	
 	public PersonDynData(){
-		this.dateAdded = LocalDateTime.now();
+		this.dateAdded = Calendar.getInstance().getTime();
 	}
 	
 	public PersonDynData(BrainStatemachine inB, int inHeadgesture, boolean inSpeaking, int inEmotions, float inDistance){
+		this();
 		
 		this.setHeadgesture(inHeadgesture, inB);
 		this.setSpeaking(inSpeaking, inB);
@@ -26,6 +30,7 @@ public class PersonDynData {
 	}
 	
 	public PersonDynData(BrainStatemachine inB, String attributeData){
+		this();
 		
 		String[] attributeParts = attributeData.split(";");
 		this.setHeadgesture(Integer.parseInt(attributeParts[2]), inB);
@@ -45,6 +50,7 @@ public class PersonDynData {
 		
 		if(inB != null){
 			inB.getSCICurrPerson().setCurrHeadgestures(headgesture);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -57,6 +63,7 @@ public class PersonDynData {
 		
 		if(inB != null){
 			inB.getSCICurrPerson().setCurrSpeaking(speaking);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -69,6 +76,7 @@ public class PersonDynData {
 		
 		if(inB != null){
 			inB.getSCICurrPerson().setCurrEmotion(emotion);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -81,16 +89,16 @@ public class PersonDynData {
 		
 		if(inB != null){
 			inB.getSCICurrPerson().setCurrDistance(distance);
+			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
-	public LocalDateTime getDateAdded() {
+	public Date getDateAdded() {
 		return dateAdded;
 	}
 
-	@Override
 	public String toString() {
-		return "PersonDynData [dateAdded=" + dateAdded + ", headgesture=" + headgesture + ", speaking=" + speaking + ", emotion=" + emotion + ", distance=" + distance + "]";
+		return "PersonDynData [" + (dateAdded!=null?"dateAdded=" + dateAdded.toString() + ", ":"") + "headgesture=" + headgesture + ", speaking=" + speaking + ", emotion=" + emotion + ", distance=" + distance + "]";
 	}
 	
 	

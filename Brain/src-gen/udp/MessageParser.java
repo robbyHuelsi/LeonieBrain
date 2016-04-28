@@ -71,7 +71,7 @@ public class MessageParser {
 					String[] attributePartsVBD = dataDyn.split(";");
 
 					if (attributePartsVBD[0].contains("1")) {
-						System.out.println("Face found");
+						//System.out.println("Face found");
 
 
 						if(attributePartsVBD.length > 1){
@@ -87,7 +87,7 @@ public class MessageParser {
 							}
 						}else{
 							//noch keine FaceID, weil noch vor 5 Frames
-							System.out.println("No face ID");
+							//System.out.println("No face ID");
 							personList.setCurrPersonID(-1);
 						}
 
@@ -198,9 +198,12 @@ public class MessageParser {
 				if (data.contains("#ARR_WP#")) {
 					System.out.println("Arrived at next waypoint: ");
 					brain.getSCIScitosRemoteControl().setArrivedWP(true);
-				} else {
-					System.out.println("Arrived not at next waypoint: ");
-					//brain.getSCIScitosRemoteControl().setArrivedWP(false);
+				} else if (data.contains("#PATH_BLOCKED#1")) {
+					System.out.println("No way found");
+					brain.getSCIScitosRemoteControl().setBlocked(true);
+				} else if (data.contains("#BUMPERED#1")) {
+					System.out.println("Leonie was bumperd");
+					brain.getSCIScitosRemoteControl().setBumpered(true);
 				}
 
 				return true;

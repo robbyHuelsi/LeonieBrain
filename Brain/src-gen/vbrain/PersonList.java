@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Vector;
 
+import main.Start;
 import vbrain.Person; 
 
 public class PersonList{
@@ -66,6 +67,20 @@ public class PersonList{
 	public int getLengthOfList(){
 		return this.personList.size();
 	}
+	
+	
+	
+	
+	public boolean setCurrPersonFirstname(String inFirstname) {
+		if(this.getCurrPerson() != null){
+			this.getCurrPerson().setFirstName(inFirstname, Start.instanceOf().getBrain());
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	
 	
 
 	public String toString() {

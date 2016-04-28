@@ -7,6 +7,7 @@ import org.yakindu.scr.brain.BrainStatemachine;
 
 import callbacks.OpCallbackImpl;
 import vbrain.Person;
+import vbrain.PersonDynData;
 import vbrain.PersonList;
 
 public class Start
@@ -105,7 +106,11 @@ public class Start
 		Start t = Start.instanceOf();
 		
 		OpCallbackImpl opCallback = new OpCallbackImpl();
+		t.brain.getSCIBGF().setSCIBGFOperationCallback(opCallback);
 		t.brain.getSCIUdpInterface().setSCIUdpInterfaceOperationCallback(opCallback);
+		t.brain.getSCIVBrain().setSCIVBrainOperationCallback(opCallback);
+		t.brain.getSCICurrPerson().setSCICurrPersonOperationCallback(opCallback);
+		
 		
 		t.brain.init();
 		t.brain.enter();

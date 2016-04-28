@@ -9,12 +9,13 @@ import java.util.Random;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIBGFOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCICurrPersonOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIUdpInterfaceOperationCallback;
+import org.yakindu.scr.brain.IBrainStatemachine.SCIVBrainOperationCallback;
 
 import main.Start;
 import udp.UDPConnection;
 import vbrain.PersonList;
 
-public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFOperationCallback, SCICurrPersonOperationCallback
+public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceOperationCallback, SCIVBrainOperationCallback, SCICurrPersonOperationCallback
 {
 	private PersonList personList = Start.getPersonList();
 	
@@ -149,7 +150,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 	public void setFirstname(String inFirstname) {
 		if(personList.getCurrPerson() != null){
 			personList.getCurrPerson().setFirstName(inFirstname, Start.instanceOf().getBrain());
-		}		
+		}	
 	}
 
 	
@@ -198,6 +199,7 @@ public class OpCallbackImpl implements SCIUdpInterfaceOperationCallback, SCIBGFO
 	public void savePersonList() {
 		personList.save();
 	}
+
 
 
 	
