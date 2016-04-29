@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Vector;
 
 import main.Start;
@@ -15,7 +16,7 @@ import vbrain.Person;
 public class PersonList{
 	
 	private Vector<Person> personList;
-	private int currPersonID = -1;
+	private Person currPerson = null;
 	private String filePath = "PersonList.brain";
 	
 	public PersonList(){
@@ -27,6 +28,14 @@ public class PersonList{
 		}
 	}
 	
+	public int getUnusedPersonID(){
+		int hightestID = 0;
+		for(Person p : this.personList){
+			if(hightestID < p.getPersonID()){hightestID = p.getPersonID();}
+		}
+		return ++hightestID;
+	}
+	
 	public boolean hasPersons(){
 		return !personList.isEmpty();
 	}
@@ -35,33 +44,63 @@ public class PersonList{
 		personList.add(inP);
 	}
 
-	public boolean hasPersonWithID(int id){
-		if(personList == null || personList.isEmpty()) return false;
+//	public boolean hasPersonWithID(int id){
+//		if(personList == null || personList.isEmpty()) return false;
+//		
+//		for (Person p : personList){
+//			if (p.getPersonID() == id) return true;
+//		}
+//		return false;
+//	}
+	
+//	public boolean hasPersonWithFaceID(int id){
+//		if(personList == null || personList.isEmpty()) return false;
+//		
+//		for (Person p : personList){
+//			if (p.getFaces().containsKey(id)) return true;
+//		}
+//		return false;
+//	}
+	
+//	public Person getPersonByFaceID(int id){
+//		if(id == -1) return null;
+//		for (Person p : personList){
+//			if (p.getPersonID() == id) return p;
+//		}
+//		return null;
+//	}
+	
+	public Person getPersonByFaceID(int id){
+		if(id == -1) return null;
+		Person p = null;
+		float higthesConfi = (float) 0.699;
 		
-		for (Person p : personList){
-			if (p.getPersonID() == id) return true;
+		for (Person tmpP : this.personList){
+			for(Map.Entry<Integer, Float> f : tmpP.getFaces().entrySet()){
+				if(higthesConfi < f.getValue()){
+					higthesConfi = f.getValue();
+					p = tmpP;
+				}
+			}
 		}
-		return false;
+		
+		return p;
+	}
+
+//	public int getCurrPersonID() {
+//		return currPersonID;
+//	}
+
+	public void setCurrPersonByFaceID(int inFaceID) {
+		this.currPerson = getPersonByFaceID(inFaceID);
 	}
 	
-	public Person getPersonByID(int id){
-		if(id == -1) return null;
-		for (Person p : personList){
-			if (p.getPersonID() == id) return p;
-		}
-		return null;
-	}
-
-	public int getCurrPersonID() {
-		return currPersonID;
-	}
-
-	public void setCurrPersonID(int currPersonID) {
-		this.currPersonID = currPersonID;
+	public void setCurrPerson(Person inCurrPerson) {
+		this.currPerson = inCurrPerson;
 	}
 	
 	public Person getCurrPerson(){
-		return this.getPersonByID(this.getCurrPersonID());
+		return this.currPerson;
 	}
 	
 	public int getLengthOfList(){
@@ -84,7 +123,7 @@ public class PersonList{
 	
 
 	public String toString() {
-		return "PersonList [personList=" + personList + ", currPersonID=" + currPersonID + "]";
+		return "PersonList [personList=" + personList + ", " + (currPerson!=null?("currPerson=" + currPerson.toString()):"no currPerson") + "]";
 	}
 
 	public boolean load(){

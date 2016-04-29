@@ -54,13 +54,13 @@ public class MessageParser {
 					int faceId = Integer.parseInt(attributePartsVBS[0]);
 					System.out.println("Face ID: " + faceId);
 
-					personList.setCurrPersonID(faceId);
-					if (personList.hasPersonWithID(faceId)) {
+					personList.setCurrPersonByFaceID(faceId);
+					if (personList.getPersonByFaceID(faceId) == null) {
 						// Person already exists
 
 					} else {
 
-						Person p = new Person(brain, dataStat);
+						Person p = new Person(personList.getUnusedPersonID(), brain, dataStat);
 						System.out.println(p.toString());
 						personList.addPerson(p);
 					}
@@ -79,16 +79,16 @@ public class MessageParser {
 							brain.getSCIVBrain().setCountFoundFaces(1);
 							int faceId = Integer.parseInt(attributePartsVBD[1]);
 							System.out.println("Face ID: " + faceId);
-							personList.setCurrPersonID(faceId);
-							if (personList.hasPersonWithID(faceId)) {
-								Person p = personList.getPersonByID(faceId);
+							personList.setCurrPersonByFaceID(faceId);
+							Person p = personList.getPersonByFaceID(faceId);
+							if (p == null) {
 								p.addDynData(dataDyn, brain);
 								System.out.println(p.getCurrDynData().toString());
 							}
 						}else{
 							//noch keine FaceID, weil noch vor 5 Frames
 							//System.out.println("No face ID");
-							personList.setCurrPersonID(-1);
+							personList.setCurrPerson(null);
 						}
 
 					} else {

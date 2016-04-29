@@ -24,7 +24,7 @@ public class Person implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private int personID; // = -1;
-	private Map<Integer, Float> resemblance;
+	private Map<Integer, Float> faces;
 	private boolean known;
 	private String firstName;
 	private String lastName;
@@ -38,17 +38,17 @@ public class Person implements Serializable{
 	private double attractiveness;
 	private Vector<PersonDynData> dynData;
 	
-	public Person (){
-		this.resemblance = new HashMap<Integer, Float>();
+	public Person (int inPersonID){
+		this.faces = new HashMap<Integer, Float>();
 		this.dynData = new Vector<PersonDynData>();
 	}
 	
-	public Person (BrainStatemachine inB, String attributeData){
-		this();
+	public Person (int inPersonID, BrainStatemachine inB, String attributeData){
+		this(inPersonID);
 		
 		String[] attributeParts = attributeData.split(";");
 
-		this.setPersonID(Integer.parseInt(attributeParts[0]), inB);
+		//this.setPersonID(Integer.parseInt(attributeParts[0]), inB);
 		this.setKnown(false, inB);
 //		person.setFirstName(attributeParts[2]);
 //		person.setLastName(attributeParts[3]);
@@ -241,16 +241,16 @@ public class Person implements Serializable{
 		}
 	}
 	
-	public Map<Integer, Float> getResemblances() {
-		return resemblance;
+	public Map<Integer, Float> getFaces() {
+		return faces;
 	}
 
-	public void setResemblances(Map<Integer, Float> inC) {
-		resemblance = inC;
+	public void setFaces(Map<Integer, Float> inC) {
+		faces = inC;
 	}
 	
 	public void addResemblance(Integer inId, Float inC){
-		this.resemblance.put(inId, inC);
+		this.faces.put(inId, inC);
 	}
 	
 	public void addDynData(PersonDynData inDD){
@@ -267,7 +267,7 @@ public class Person implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Person [personID=" + personID + ", resemblance=" + resemblance + ", known=" + known
+		return "Person [personID=" + personID + ", faces=" + faces + ", known=" + known
 				+ ", firstName=" + firstName + ", lastName=" + lastName + ", estimatedAge=" + estimatedAge + ", bdYear="
 				+ bdYear + ", bdMonth=" + bdMonth + ", bdDay=" + bdDay + ", gender=" + (gender == true?"female":"male") + ", ethnicity="
 				+ (ethnicity==0?"white":(ethnicity==1?"black":"asian")) + ", glasses=" + glasses + ", attractiveness=" + attractiveness + ", dynData=" + dynData.toString()
