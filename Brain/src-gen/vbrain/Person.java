@@ -58,12 +58,12 @@ public class Person implements Serializable{
 //		person.setBdYear();
 //		person.setBdMonth(Integer.parseInt(attributeParts[5]));
 //		person.setBdDay(Integer.parseInt(attributeParts[6]));
-		this.setGender(attributeParts[2]=="1"?true:false, inB);
+		this.setGender(attributeParts[2].contains("1")?true:false, inB);
 		this.setEthnicity(Integer.parseInt(attributeParts[3]), inB);
 		this.setGlasses(Boolean.valueOf(attributeParts[4]), inB);
 		this.setAttractiveness(Double.parseDouble(attributeParts[5]), inB);
 		
-		if(attributeParts[6].contains("_")){
+		if(attributeParts.length >= 7 && attributeParts[6].contains("_")){
 			String[] confOfIds = attributeParts[6].split("_");
 			for(int i = 0; i < confOfIds.length; i++){
 				System.out.println(confOfIds[i]);
@@ -96,7 +96,7 @@ public class Person implements Serializable{
 	
 	public void setKnown(boolean inKnown, BrainStatemachine inB){
 		this.known = inKnown;
-		System.out.println("Person known = true");
+		System.out.println("Person known = " + inKnown);
 		if(inB != null){
 			inB.getSCICurrPerson().setKnown(inKnown);
 			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
@@ -272,7 +272,7 @@ public class Person implements Serializable{
 	@Override
 	public String toString() {
 		return "Person [personID=" + personID + ", faces=" + faces + ", known=" + known
-				+ ", firstName=" + firstName + ", lastName=" + lastName + ", estimatedAge=" + estimatedAge + ", bdYear="
+				+ ", firstName= " + firstName + " , lastName=" + lastName + ", estimatedAge=" + estimatedAge + ", bdYear="
 				+ bdYear + ", bdMonth=" + bdMonth + ", bdDay=" + bdDay + ", gender=" + (gender == true?"female":"male") + ", ethnicity="
 				+ (ethnicity==0?"white":(ethnicity==1?"black":"asian")) + ", glasses=" + glasses + ", attractiveness=" + attractiveness + ", dynData=" + dynData.toString()
 				+ "]";

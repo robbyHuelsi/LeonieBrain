@@ -80,7 +80,6 @@ public class MessageParser {
 
 						if(attributePartsVBD.length > 1){
 							//Gesicht hat schon eine FaceID von VBRain bekommen --> nach 5 Frames
-							brain.getSCIVBrain().setCountFoundFaces(1);
 							int faceId = Integer.parseInt(attributePartsVBD[1]);
 							System.out.println("Face ID: " + faceId);
 							Person p = personList.getPersonByFaceID(faceId);
@@ -89,6 +88,7 @@ public class MessageParser {
 								System.out.println(p.getCurrDynData().toString());
 							}
 							personList.setCurrPersonByFaceID(faceId);
+							brain.getSCIVBrain().setCountFoundFaces(1);
 						}else{
 							//noch keine FaceID, weil noch vor 5 Frames
 							//System.out.println("No face ID");
@@ -101,6 +101,9 @@ public class MessageParser {
 					}
 				} else if (data.contains("#EMOTION#")) {
 					String dataEmo = data.substring(9);
+					if(dataEmo.contains("[")){
+						dataEmo = dataEmo.substring(1, 2);
+					}
 					// Emotion e;
 					// e.fromInt(Integer.parseInt(vbrainbM.group(2)));
 

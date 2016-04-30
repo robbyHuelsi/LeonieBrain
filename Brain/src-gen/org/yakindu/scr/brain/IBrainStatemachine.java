@@ -33,7 +33,7 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void sendToHBrain_PersonPosition();
 		public void sendToKinect2_detectionOnOff(boolean inOnOff);
 		public void sendToLeapMotion_detectionOnOff(boolean inOnOff);
-		public void sendToSTT_detectionOnOff(boolean inOnOff);
+		public void sendToSTT_detectionOnOff(long inOnOff);
 		public void sendToNav_goToGWP(String inWayPoint);
 		public void sendToNav_turnBody(String inAngle);
 		public void sendToNav_turnHead(String inAngle);

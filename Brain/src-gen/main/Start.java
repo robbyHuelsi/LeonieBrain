@@ -40,7 +40,7 @@ public class Start
 	// -----------------------------------------------------
 	//STT
 	static private String ipSendSTT = "192.168.188.12";
-	static private int portSendSTT = 7000;
+	static private int portSendSTT = 50022;
 	
 	//Kinect1
 	

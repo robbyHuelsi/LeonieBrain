@@ -72,21 +72,27 @@ public class PersonList{
 	public Person getPersonByFaceID(int id){
 		if(id == -1) return null;
 		Person p = null;
-		float higthesConfi = (float) 0.699;
+		
 		
 		for (Person tmpP : this.personList){
 			if(tmpP.getFaces()!=null){
-				for(Map.Entry<Integer, Float> f : tmpP.getFaces().entrySet()){
+				float higthesConfi = 0;
+				int tmpID = 0;
+				
+				for(Map.Entry<Integer, Float> f : tmpP.getFaces().entrySet()){	
 					if(higthesConfi < f.getValue()){
 						higthesConfi = f.getValue();
-						p = tmpP;
-						return p;
+						tmpID = f.getKey();
 					}
 				}
+				
+				if(tmpID == id) return tmpP;
 			}
 		}
 		
-		return p;
+//		return p;
+		
+		return null;
 	}
 
 //	public int getCurrPersonID() {

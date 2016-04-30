@@ -24,6 +24,7 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	public void printToConsole(String msg){
 		System.out.println(msg);
 		System.out.println(personList.toString());
+		System.out.println(Start.instanceOf().getBrain().getSCICurrPerson().getKnown());
 	}
 	
 	public void newRandNum(long max){
@@ -99,9 +100,9 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 		this.sendMessage("#HANDGESTURES#" + (inOnOff?"1":"0") + "#", Start.getIpSendLeapMotion(), Start.getPortSendLeapMotion());
 	}
 	
-	public void sendToSTT_detectionOnOff(boolean inOnOff){
-		this.sendMessage("#STT#" + (inOnOff?"1":"0") + "#", Start.getIpSendSTT(), Start.getPortSendSTT());
-		if(inOnOff){
+	public void sendToSTT_detectionOnOff(long inOnOff){
+		this.sendMessage("#STT#" + (inOnOff==0?"0":(inOnOff==1?"1":"name")) + "#", Start.getIpSendSTT(), Start.getPortSendSTT());
+		if(inOnOff != 0){
 			Start.instanceOf().getBrain().getSCISTT().setSTTReady(false);
 			Start.instanceOf().getBrain().getSCISTT().setSpeakerMsg("");
 			Start.instanceOf().getBrain().getSCISTT().setFilteredMsg("");

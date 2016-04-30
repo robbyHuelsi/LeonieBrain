@@ -78,6 +78,7 @@ public class PersonDynData implements Serializable {
 			inB.getSCICurrPerson().setCurrEmotion(emotion);
 			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
+		
 	}
 
 	public float getDistance() {
