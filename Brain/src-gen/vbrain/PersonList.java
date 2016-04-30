@@ -14,7 +14,6 @@ import main.Start;
 import vbrain.Person; 
 
 public class PersonList{
-	
 	private Vector<Person> personList;
 	private Person currPerson = null;
 	private String filePath = "PersonList.brain";
@@ -76,10 +75,13 @@ public class PersonList{
 		float higthesConfi = (float) 0.699;
 		
 		for (Person tmpP : this.personList){
-			for(Map.Entry<Integer, Float> f : tmpP.getFaces().entrySet()){
-				if(higthesConfi < f.getValue()){
-					higthesConfi = f.getValue();
-					p = tmpP;
+			if(tmpP.getFaces()!=null){
+				for(Map.Entry<Integer, Float> f : tmpP.getFaces().entrySet()){
+					if(higthesConfi < f.getValue()){
+						higthesConfi = f.getValue();
+						p = tmpP;
+						return p;
+					}
 				}
 			}
 		}
@@ -91,12 +93,32 @@ public class PersonList{
 //		return currPersonID;
 //	}
 
-	public void setCurrPersonByFaceID(int inFaceID) {
-		this.currPerson = getPersonByFaceID(inFaceID);
-	}
+	
 	
 	public void setCurrPerson(Person inCurrPerson) {
 		this.currPerson = inCurrPerson;
+		
+		if (inCurrPerson != null){
+			Start.instanceOf().getBrain().getSCICurrPerson().setPersonID(inCurrPerson.getPersonID());
+			Start.instanceOf().getBrain().getSCICurrPerson().setKnown(inCurrPerson.isKnown());
+			Start.instanceOf().getBrain().getSCICurrPerson().setFirstname(inCurrPerson.getFirstName());
+			Start.instanceOf().getBrain().getSCICurrPerson().setLastname(inCurrPerson.getLastName());
+//			Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(inCurrPerson.getEstimatedAge());
+			Start.instanceOf().getBrain().getSCICurrPerson().setBdYear(inCurrPerson.getBdYear());
+			Start.instanceOf().getBrain().getSCICurrPerson().setBdMounth(inCurrPerson.getBdMonth());
+			Start.instanceOf().getBrain().getSCICurrPerson().setBdDay(inCurrPerson.getBdDay());
+//			Start.instanceOf().getBrain().getSCICurrPerson().setGender(inCurrPerson.getGender());
+//			Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(inCurrPerson.getEthnicity());
+//			Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(inCurrPerson.hasGlasses());
+//			Start.instanceOf().getBrain().getSCICurrPerson().setAttractiveness(inCurrPerson.getAttractiveness());
+			
+		}else{
+			
+		}
+	}
+	
+	public void setCurrPersonByFaceID(int inFaceID) {
+		this.setCurrPerson(getPersonByFaceID(inFaceID));
 	}
 	
 	public Person getCurrPerson(){
@@ -169,6 +191,7 @@ public class PersonList{
 			FileOutputStream fout = new FileOutputStream(f);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 		
+			System.out.println(this.personList);
 			oos.writeObject(this.personList);
 		
 			oos.writeObject( null );

@@ -29,7 +29,7 @@ public class MessageParser {
 		// in the string. Store in group 1
 		// ([\\S]*) --> capture every following non-whitespace-character in
 		// group 2
-		Pattern pattern = Pattern.compile("\\A#([\\w]*)#([\\S]*)#");
+		Pattern pattern = Pattern.compile("\\A#([\\w]*)#([\\S\\D]*)#");
 		Matcher m = pattern.matcher(message);
 		if (m.find()) {
 
@@ -48,22 +48,26 @@ public class MessageParser {
 
 				if (data.contains("#STAT#")) {
 					String dataStat = data.substring(6);
-					System.out.println("Statische Daten: " + dataStat);
+					//System.out.println("Statische Daten: " + dataStat);
 					String[] attributePartsVBS = dataStat.split(";");
 
 					int faceId = Integer.parseInt(attributePartsVBS[0]);
 					System.out.println("Face ID: " + faceId);
 
-					personList.setCurrPersonByFaceID(faceId);
-					if (personList.getPersonByFaceID(faceId) == null) {
+					
+					if (personList.getPersonByFaceID(faceId) != null) {
 						// Person already exists
+						System.out.println("Person exists");
 
 					} else {
 
 						Person p = new Person(personList.getUnusedPersonID(), brain, dataStat);
 						System.out.println(p.toString());
 						personList.addPerson(p);
+						System.out.println("Person ID: " + p.getPersonID());
 					}
+					
+					personList.setCurrPersonByFaceID(faceId);
 
 				} else if (data.contains("#DYN#")) {
 					String dataDyn = data.substring(5);
@@ -79,12 +83,12 @@ public class MessageParser {
 							brain.getSCIVBrain().setCountFoundFaces(1);
 							int faceId = Integer.parseInt(attributePartsVBD[1]);
 							System.out.println("Face ID: " + faceId);
-							personList.setCurrPersonByFaceID(faceId);
 							Person p = personList.getPersonByFaceID(faceId);
-							if (p == null) {
+							if (p != null) {
 								p.addDynData(dataDyn, brain);
 								System.out.println(p.getCurrDynData().toString());
 							}
+							personList.setCurrPersonByFaceID(faceId);
 						}else{
 							//noch keine FaceID, weil noch vor 5 Frames
 							//System.out.println("No face ID");

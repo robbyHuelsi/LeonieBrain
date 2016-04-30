@@ -41,6 +41,9 @@ public class Person implements Serializable{
 	public Person (int inPersonID){
 		this.faces = new HashMap<Integer, Float>();
 		this.dynData = new Vector<PersonDynData>();
+		this.personID = inPersonID;
+		
+		
 	}
 	
 	public Person (int inPersonID, BrainStatemachine inB, String attributeData){
@@ -48,7 +51,6 @@ public class Person implements Serializable{
 		
 		String[] attributeParts = attributeData.split(";");
 
-		//this.setPersonID(Integer.parseInt(attributeParts[0]), inB);
 		this.setKnown(false, inB);
 //		person.setFirstName(attributeParts[2]);
 //		person.setLastName(attributeParts[3]);
@@ -83,7 +85,7 @@ public class Person implements Serializable{
 	public void setPersonID(int personID, BrainStatemachine inB) {
 		this.personID = personID;
 		if(inB != null){
-			inB.getSCICurrPerson().setId(personID);
+			inB.getSCICurrPerson().setPersonID(personID);
 			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
@@ -94,6 +96,7 @@ public class Person implements Serializable{
 	
 	public void setKnown(boolean inKnown, BrainStatemachine inB){
 		this.known = inKnown;
+		System.out.println("Person known = true");
 		if(inB != null){
 			inB.getSCICurrPerson().setKnown(inKnown);
 			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
@@ -106,6 +109,7 @@ public class Person implements Serializable{
 
 	public void setFirstName(String firstName, BrainStatemachine inB) {
 		this.firstName = firstName;
+		System.out.println("Person Firstname = " + firstName);
 		if(inB != null){
 			inB.getSCICurrPerson().setFirstname(firstName);
 			inB.getSCIVBrain().setNessesaryToSavePersonList(true);

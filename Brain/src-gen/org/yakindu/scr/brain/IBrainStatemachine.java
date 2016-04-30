@@ -59,8 +59,8 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	public SCIVBrain getSCIVBrain();
 
 	public interface SCICurrPerson {
-		public long getId();
-		public void setId(long value);
+		public long getPersonID();
+		public void setPersonID(long value);
 		public boolean getKnown();
 		public void setKnown(boolean value);
 		public String getFirstname();

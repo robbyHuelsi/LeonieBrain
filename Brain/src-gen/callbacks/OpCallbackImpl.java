@@ -23,6 +23,7 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	// ---- Brain General Functions Interface ---- //
 	public void printToConsole(String msg){
 		System.out.println(msg);
+		System.out.println(personList.toString());
 	}
 	
 	public void newRandNum(long max){
