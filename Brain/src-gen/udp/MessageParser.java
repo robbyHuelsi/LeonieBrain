@@ -54,20 +54,22 @@ public class MessageParser {
 					int faceId = Integer.parseInt(attributePartsVBS[0]);
 					System.out.println("Face ID: " + faceId);
 
-					
-					if (personList.getPersonByFaceID(faceId) != null) {
-						// Person already exists
-						System.out.println("Person exists");
-
-					} else {
-
-						Person p = new Person(personList.getUnusedPersonID(), brain, dataStat);
-						System.out.println(p.toString());
-						personList.addPerson(p);
-						System.out.println("Person ID: " + p.getPersonID());
+					if (personList.getCurrPerson() == null) {
+						//Nur wenn Person noch nicht gesetzt wurde, dann machen
+						if (personList.getPersonByFaceID(faceId) != null) {
+							// Person already exists
+							System.out.println("Person exists");
+							personList.setCurrPersonByFaceID(faceId);
+						} else {
+	
+							Person p = new Person(personList.getUnusedPersonID(), brain, dataStat);
+							System.out.println(p.toString());
+							personList.addPerson(p);
+							System.out.println("Person ID: " + p.getPersonID());
+							personList.setCurrPerson(p);
+						}
 					}
 					
-					personList.setCurrPersonByFaceID(faceId);
 
 				} else if (data.contains("#DYN#")) {
 					String dataDyn = data.substring(5);
@@ -84,15 +86,16 @@ public class MessageParser {
 							System.out.println("Face ID: " + faceId);
 							Person p = personList.getPersonByFaceID(faceId);
 							if (p != null) {
+								//
 								p.addDynData(dataDyn, brain);
-								System.out.println(p.getCurrDynData().toString());
+								//System.out.println(p.getCurrDynData().toString());
 							}
-							personList.setCurrPersonByFaceID(faceId);
+							//personList.setCurrPersonByFaceID(faceId);
 							brain.getSCIVBrain().setCountFoundFaces(1);
 						}else{
 							//noch keine FaceID, weil noch vor 5 Frames
 							//System.out.println("No face ID");
-							personList.setCurrPerson(null);
+							//personList.setCurrPerson(null);
 						}
 
 					} else {
@@ -110,7 +113,7 @@ public class MessageParser {
 					System.out.println("Emotion: " + dataEmo);
 
 					Person p = personList.getCurrPerson();
-					if (p != null) {
+					if (p != null && p.getCurrDynData() != null) {
 						p.getCurrDynData().setEmotion(Integer.parseInt(dataEmo), brain);
 						System.out.println(p.toString());
 					}
@@ -216,7 +219,7 @@ public class MessageParser {
 				return true;
 			// break;
 
-			case "ATTRACT":
+			case "ATTR2":
 				System.out.println("Attractiveness: " + data);
 				return true;
 			// break;

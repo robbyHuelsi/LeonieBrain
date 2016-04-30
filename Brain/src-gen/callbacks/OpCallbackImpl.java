@@ -101,7 +101,7 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	}
 	
 	public void sendToSTT_detectionOnOff(long inOnOff){
-		this.sendMessage("#STT#" + (inOnOff==0?"0":(inOnOff==1?"1":"name")) + "#", Start.getIpSendSTT(), Start.getPortSendSTT());
+		this.sendMessage("#STT#" + (inOnOff==0?"0":(inOnOff==1?"1":(inOnOff==2?"yesno":"name"))) + "#", Start.getIpSendSTT(), Start.getPortSendSTT());
 		if(inOnOff != 0){
 			Start.instanceOf().getBrain().getSCISTT().setSTTReady(false);
 			Start.instanceOf().getBrain().getSCISTT().setSpeakerMsg("");

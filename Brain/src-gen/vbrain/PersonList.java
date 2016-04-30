@@ -76,17 +76,7 @@ public class PersonList{
 		
 		for (Person tmpP : this.personList){
 			if(tmpP.getFaces()!=null){
-				float higthesConfi = 0;
-				int tmpID = 0;
-				
-				for(Map.Entry<Integer, Float> f : tmpP.getFaces().entrySet()){	
-					if(higthesConfi < f.getValue()){
-						higthesConfi = f.getValue();
-						tmpID = f.getKey();
-					}
-				}
-				
-				if(tmpID == id) return tmpP;
+				if(tmpP.getFaceWithHeighestConfi() == id) return tmpP;
 			}
 		}
 		
@@ -98,33 +88,37 @@ public class PersonList{
 //	public int getCurrPersonID() {
 //		return currPersonID;
 //	}
-
 	
 	
 	public void setCurrPerson(Person inCurrPerson) {
-		this.currPerson = inCurrPerson;
-		
-		if (inCurrPerson != null){
-			Start.instanceOf().getBrain().getSCICurrPerson().setPersonID(inCurrPerson.getPersonID());
-			Start.instanceOf().getBrain().getSCICurrPerson().setKnown(inCurrPerson.isKnown());
-			Start.instanceOf().getBrain().getSCICurrPerson().setFirstname(inCurrPerson.getFirstName());
-			Start.instanceOf().getBrain().getSCICurrPerson().setLastname(inCurrPerson.getLastName());
-//			Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(inCurrPerson.getEstimatedAge());
-			Start.instanceOf().getBrain().getSCICurrPerson().setBdYear(inCurrPerson.getBdYear());
-			Start.instanceOf().getBrain().getSCICurrPerson().setBdMounth(inCurrPerson.getBdMonth());
-			Start.instanceOf().getBrain().getSCICurrPerson().setBdDay(inCurrPerson.getBdDay());
-//			Start.instanceOf().getBrain().getSCICurrPerson().setGender(inCurrPerson.getGender());
-//			Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(inCurrPerson.getEthnicity());
-//			Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(inCurrPerson.hasGlasses());
-//			Start.instanceOf().getBrain().getSCICurrPerson().setAttractiveness(inCurrPerson.getAttractiveness());
+		if(this.currPerson != inCurrPerson){
+			this.currPerson = inCurrPerson;
 			
-		}else{
-			
+			if (inCurrPerson != null){
+				Start.instanceOf().getBrain().getSCICurrPerson().setPersonID(inCurrPerson.getPersonID());
+				Start.instanceOf().getBrain().getSCICurrPerson().setKnown(inCurrPerson.isKnown());
+				Start.instanceOf().getBrain().getSCICurrPerson().setFirstname(inCurrPerson.getFirstName());
+				Start.instanceOf().getBrain().getSCICurrPerson().setLastname(inCurrPerson.getLastName());
+//				Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(inCurrPerson.getEstimatedAge());
+				Start.instanceOf().getBrain().getSCICurrPerson().setBdYear(inCurrPerson.getBdYear());
+				Start.instanceOf().getBrain().getSCICurrPerson().setBdMounth(inCurrPerson.getBdMonth());
+				Start.instanceOf().getBrain().getSCICurrPerson().setBdDay(inCurrPerson.getBdDay());
+//				Start.instanceOf().getBrain().getSCICurrPerson().setGender(inCurrPerson.getGender());
+//				Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(inCurrPerson.getEthnicity());
+//				Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(inCurrPerson.hasGlasses());
+//				Start.instanceOf().getBrain().getSCICurrPerson().setAttractiveness(inCurrPerson.getAttractiveness());
+				
+			}else{
+				
+			}
 		}
+
 	}
 	
 	public void setCurrPersonByFaceID(int inFaceID) {
-		this.setCurrPerson(getPersonByFaceID(inFaceID));
+		if(this.currPerson==null || inFaceID != this.getCurrPerson().getFaceWithHeighestConfi()){
+			this.setCurrPerson(getPersonByFaceID(inFaceID));
+		}
 	}
 	
 	public Person getCurrPerson(){

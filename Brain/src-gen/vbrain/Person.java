@@ -248,6 +248,20 @@ public class Person implements Serializable{
 	public Map<Integer, Float> getFaces() {
 		return faces;
 	}
+	
+	public int getFaceWithHeighestConfi(){
+		float higthesConfi = 0;
+		int tmpID = 0;
+		
+		for(Map.Entry<Integer, Float> f : this.getFaces().entrySet()){	
+			if(higthesConfi < f.getValue()){
+				higthesConfi = f.getValue();
+				tmpID = f.getKey();
+			}
+		}
+		
+		return tmpID;
+	}
 
 	public void setFaces(Map<Integer, Float> inC) {
 		faces = inC;
@@ -266,15 +280,16 @@ public class Person implements Serializable{
 	}
 	
 	public PersonDynData getCurrDynData(){
+		if (this.dynData == null || this.dynData.size() == 0) return null;
 		return this.dynData.lastElement();
 	}
 
 	@Override
 	public String toString() {
-		return "Person [personID=" + personID + ", faces=" + faces + ", known=" + known
-				+ ", firstName= " + firstName + " , lastName=" + lastName + ", estimatedAge=" + estimatedAge + ", bdYear="
-				+ bdYear + ", bdMonth=" + bdMonth + ", bdDay=" + bdDay + ", gender=" + (gender == true?"female":"male") + ", ethnicity="
-				+ (ethnicity==0?"white":(ethnicity==1?"black":"asian")) + ", glasses=" + glasses + ", attractiveness=" + attractiveness + ", dynData=" + dynData.toString()
+		return "Person [personID=" + personID + ",\n faces=" + faces + ",\n known=" + known
+				+ ",\n firstName= " + firstName + " ,\n lastName=" + lastName + ",\n estimatedAge=" + estimatedAge + ",\n bdYear="
+				+ bdYear + ",\n bdMonth=" + bdMonth + ",\n bdDay=" + bdDay + ",\n gender=" + (gender == true?"female":"male") + ",\n ethnicity="
+				+ (ethnicity==0?"white":(ethnicity==1?"black":"asian")) + ",\n glasses=" + glasses + ",\n attractiveness=" + attractiveness + ",\n dynData=" + dynData.toString()
 				+ "]";
 	}
 	
