@@ -128,6 +128,18 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 		this.sendMessage("#NAV##ROTBODY#" + inAngle + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
 	}
 	
+	public void sendToNav_bodyUTurn(){  //#NAV##ROTBODY#360#
+		
+		this.sendMessage("#NAV##ROTBODY#90#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		try {
+			Thread.sleep(820);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.sendMessage("#NAV##ROTBODY#90#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+	}
+	
 	public void sendToNav_turnHead(String inAngle){  //#NAV##ROTBODY#360#
 		  System.out.println("Turn Body: angle=" + inAngle);
 		  this.sendMessage("#NAV##ROTHEAD#" + inAngle + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
@@ -200,6 +212,10 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 
 	public void savePersonList() {
 		personList.save();
+	}
+
+	public void resetCurrPerson() {
+		personList.setCurrPerson(null);
 	}
 
 

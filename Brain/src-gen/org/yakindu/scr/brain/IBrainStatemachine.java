@@ -36,6 +36,7 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void sendToSTT_detectionOnOff(long inOnOff);
 		public void sendToNav_goToGWP(String inWayPoint);
 		public void sendToNav_turnBody(String inAngle);
+		public void sendToNav_bodyUTurn();
 		public void sendToNav_turnHead(String inAngle);
 		public void sendToNav_goToLC(String inX, String inY);
 		public void sendToNav_searchOnOff(boolean inOnOff);
@@ -96,6 +97,7 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	}
 
 	public interface SCICurrPersonOperationCallback {
+		public void resetCurrPerson();
 		public void setKnown(boolean inKnown);
 		public void setFirstname(String inFirstname);
 		public void setLastname(String inLastname);
