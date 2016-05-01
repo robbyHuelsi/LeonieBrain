@@ -29,10 +29,11 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void sendToHBrain_TTS(String inText);
 		public void sendToHBrain_TTS2(String inT1, String inT2);
 		public void sendToHBrain_TTS3(String inT1, String inT2, String inT3);
+		public void sendToHBrain_TTS_num(long inNum);
 		public void sendToHBrain_TTSWithPos(String inPos, String inText);
 		public void sendToHBrain_PersonPosition();
 		public void sendToKinect2_detectionOnOff(boolean inOnOff);
-		public void sendToLeapMotion_detectionOnOff(boolean inOnOff);
+		public void sendToLeapMotion_detectionOnOff(long inOnOff);
 		public void sendToSTT_detectionOnOff(long inOnOff);
 		public void sendToNav_goToGWP(String inWayPoint);
 		public void sendToNav_turnBody(String inAngle);
@@ -135,6 +136,10 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void setGestureDetected(boolean value);
 		public String getGesture();
 		public void setGesture(String value);
+		public boolean getStringFinished();
+		public void setStringFinished(boolean value);
+		public String getDetectedString();
+		public void setDetectedString(String value);
 
 	}
 

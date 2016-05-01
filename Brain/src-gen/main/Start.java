@@ -49,8 +49,8 @@ public class Start
 	static private int portSendKinect2 = 8000;
 	
 	//LeapMotion
-	static private String ipSendLeapMotion = "192.168.188.12";
-	static private int portSendLeapMotion = 7000;
+	static private String ipSendLeapMotion = "192.168.188.11";
+	static private int portSendLeapMotion = 50035;
 	
 	//Scitos Remote Control
 	static private String ipSendSRC = "";

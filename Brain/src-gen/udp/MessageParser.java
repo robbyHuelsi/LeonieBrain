@@ -157,12 +157,18 @@ public class MessageParser {
 				String[] attributePartsHG = data.split(";");
 				// System.out.println(attributePartsHG[0]);
 				if (attributePartsHG[0].contains("1")) {
-					System.out.println("Handgestutre detected: " + attributePartsHG[1]);
+					System.out.println("LeapMotion: " + attributePartsHG[1] + "detected ");
 					brain.getSCILeapMotion().setGestureDetected(true);
 					brain.getSCILeapMotion().setGesture(attributePartsHG[1]);
+					
+				} else if (attributePartsHG[0].contains("2")) {
+					System.out.println("LeapMotion: " + attributePartsHG[1] + "detected ");
+					brain.getSCILeapMotion().setDetectedString(attributePartsHG[1]);
+					brain.getSCILeapMotion().setStringFinished(true);
+					
 				} else {
-					System.out.println("Handgestutre not detected");
-					brain.getSCILeapMotion().setGestureDetected(true);
+					System.out.println("LeapMotion: nothing detected");
+					brain.getSCILeapMotion().setGestureDetected(false);
 				}
 				return true;
 			// break;

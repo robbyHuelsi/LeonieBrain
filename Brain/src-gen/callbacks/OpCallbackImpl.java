@@ -29,7 +29,8 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	
 	public void newRandNum(long max){
 		Random randGen = new Random();
-		Start.instanceOf().getBrain().getSCIBGF().setRandNum(randGen.nextInt((int)max-1));
+		Start.instanceOf().getBrain().getSCIBGF().setRandNum(randGen.nextInt((int)max));
+		System.out.println("New Random Numer: " + Start.instanceOf().getBrain().getSCIBGF().getRandNum());
 	}
 	
 	
@@ -75,6 +76,11 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 		this.sendMessage("#BRAIN##TEXT#" + inText , Start.getIpSendHBrain(), Start.getPortSendHBrain()); // # removed cause Leonie reads out the hash too
 	}
 	
+	public void sendToHBrain_TTS_num(long inNum){
+		//System.out.println(inText);
+		this.sendMessage("#BRAIN##TEXT#" + inNum , Start.getIpSendHBrain(), Start.getPortSendHBrain()); // # removed cause Leonie reads out the hash too
+	}
+	
 	public void sendToHBrain_TTS2(String inT1, String inT2){
 		this.sendToHBrain_TTS(inT1 + inT2);
 	}
@@ -96,8 +102,8 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 		this.sendMessage("#NOISEDETECTION#" + (inOnOff?"1":"0") + "#", Start.getIpSendKinect2(), Start.getPortSendKinect2());
 	}
 	
-	public void sendToLeapMotion_detectionOnOff(boolean inOnOff){
-		this.sendMessage("#HANDGESTURES#" + (inOnOff?"1":"0") + "#", Start.getIpSendLeapMotion(), Start.getPortSendLeapMotion());
+	public void sendToLeapMotion_detectionOnOff(long inOnOff){
+		this.sendMessage("#HANDGESTURES#" + inOnOff + "#", Start.getIpSendLeapMotion(), Start.getPortSendLeapMotion());
 	}
 	
 	public void sendToSTT_detectionOnOff(long inOnOff){
