@@ -32,11 +32,16 @@ public class Start
 	//static private String ipSendVBrain = "192.168.1.25"; //Netgear NUC
 	static private String ipSendVBrain = "192.168.188.11"; //FritzBox NUC
 	static private int portSendVBrain = 7777;
+	static private String ipSendAtrac = "192.168.188.10"; //FritzBox NUC
+	static private int portSendAtracPTZ = 5008;
+	static private int portSendAtracWaC = 5009;
 	// -------------------------------------------------------------------------
 	
 	// ---- HBrain -----------------------------------------
 	static private String ipSendHBrain = "192.168.188.11";
 	static private int portSendHBrain = 11005;
+
+
 	// -----------------------------------------------------
 	//STT
 	static private String ipSendSTT = "192.168.188.12";
@@ -48,8 +53,8 @@ public class Start
 	static private String ipSendKinect2 = "192.168.188.12";
 	static private int portSendKinect2 = 8000;
 	
-	//LeapMotion
-	static private String ipSendLeapMotion = "192.168.188.11";
+	//LeapMotion_vorne
+	static private String ipSendLeapMotion = "192.168.188.12";
 	static private int portSendLeapMotion = 50035;
 	
 	//Scitos Remote Control
@@ -110,6 +115,7 @@ public class Start
 		t.brain.getSCIUdpInterface().setSCIUdpInterfaceOperationCallback(opCallback);
 		t.brain.getSCIVBrain().setSCIVBrainOperationCallback(opCallback);
 		t.brain.getSCICurrPerson().setSCICurrPersonOperationCallback(opCallback);
+		t.brain.getSCIAtt().setSCIAttOperationCallback(opCallback);
 		
 		
 		t.brain.init();
@@ -129,6 +135,10 @@ public class Start
 			Thread.sleep(500);
 		}
 	}
+	
+//	public OpCallbackImpl getOpCallbackImpl(){
+//		return this.opCallback;
+//	}
 
 	public static String getIpListen() {
 		return ipListen;
@@ -152,6 +162,18 @@ public class Start
 
 	public static int getPortSendHBrain() {
 		return portSendHBrain;
+	}
+	
+	public static String getIpSendAtrac() {
+		return ipSendAtrac;
+	}
+
+	public static int getPortSendAtracPTZ() {
+		return portSendAtracPTZ;
+	}
+
+	public static int getPortSendAtracWaC() {
+		return portSendAtracWaC;
 	}
 
 	public static String getIpSendSTT() {

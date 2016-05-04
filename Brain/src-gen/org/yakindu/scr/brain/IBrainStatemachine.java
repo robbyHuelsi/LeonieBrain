@@ -107,9 +107,24 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void setBdDay(long inBdDay);
 		public void setGender(boolean inGender);
 		public void setEthnicity(long inEthnicity);
+		public void setAttractiveness(double attr);
 	}
 
 	public SCICurrPerson getSCICurrPerson();
+
+	public interface SCIAtt {
+		public double getOld_attr();
+		public void setOld_attr(double value);
+
+		public void setSCIAttOperationCallback(SCIAttOperationCallback operationCallback);
+	}
+
+	public interface SCIAttOperationCallback {
+		public void sendToAttr_estimate();
+		public void setOldAttr();
+	}
+
+	public SCIAtt getSCIAtt();
 
 	public interface SCIHBrain {
 		public boolean getTTSReady();
@@ -158,16 +173,6 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 	}
 
 	public SCIScitosRemoteControl getSCIScitosRemoteControl();
-
-	public interface SCIOpenDail {
-		public String getSpeakerMsg();
-		public void setSpeakerMsg(String value);
-		public String getLeonieMsg();
-		public void setLeonieMsg(String value);
-
-	}
-
-	public SCIOpenDail getSCIOpenDail();
 
 	public interface SCISTT {
 		public boolean getSTTReady();

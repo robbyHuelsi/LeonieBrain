@@ -6,6 +6,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Random;
 
+import org.yakindu.scr.brain.IBrainStatemachine.SCIAttOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIBGFOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCICurrPersonOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIUdpInterfaceOperationCallback;
@@ -15,7 +16,7 @@ import main.Start;
 import udp.UDPConnection;
 import vbrain.PersonList;
 
-public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceOperationCallback, SCIVBrainOperationCallback, SCICurrPersonOperationCallback
+public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceOperationCallback, SCIVBrainOperationCallback, SCICurrPersonOperationCallback, SCIAttOperationCallback
 {
 	private PersonList personList = Start.getPersonList();
 	
@@ -69,6 +70,9 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	public void sendToVBrain_ACIonOff(boolean inOnOff){
 		System.out.println(inOnOff?"ACI on":"ACI off");
 		this.sendMessage(inOnOff?"#BRAIN#1#":"#BRAIN#0#" + "#", Start.getIpSendVBrain(), Start.getPortSendVBrain());
+		this.sendMessage("#TRACRESET#", Start.getIpSendAtrac(), Start.getPortSendAtracPTZ());
+		this.sendMessage("#TRACRESET#", Start.getIpSendAtrac(), Start.getPortSendAtracWaC());
+
 	}
 	
 	public void sendToHBrain_TTS(String inText){
@@ -155,6 +159,7 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	public void sendToNav_searchOnOff(boolean inOnOff){
 		System.out.println(inOnOff?"Moving from WP to WP":"Standing");
 		this.sendMessage("#NAV##RUN#" + (inOnOff?"1":"0") + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+//		this.sendToHBrain_TTS("[idle2:" + (inOnOff?"true":"false") + "]");
 	}
 
 
@@ -214,6 +219,12 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 			personList.getCurrPerson().setEthnicity((int)inEthnicity, Start.instanceOf().getBrain());
 		}			
 	}
+	
+	public void setAttractiveness(double inAttr) {
+		if(personList.getCurrPerson() != null){
+			personList.getCurrPerson().setAttractiveness((int)inAttr, Start.instanceOf().getBrain());
+		}	
+	}
 
 
 	public void savePersonList() {
@@ -225,6 +236,15 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	}
 
 
+	@Override
+	public void setOldAttr() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	 public void sendToAttr_estimate() {
+		 this.sendMessage("/home/leonie/ACI/org.png", Start.getIpSendHBrain(), 50011);
+	 }
 
 	
 

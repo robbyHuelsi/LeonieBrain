@@ -42,6 +42,8 @@ public class Person implements Serializable{
 		this.faces = new HashMap<Integer, Float>();
 		this.dynData = new Vector<PersonDynData>();
 		this.personID = inPersonID;
+		this.firstName = "";
+		this.lastName = "";
 		
 		
 	}
@@ -60,7 +62,7 @@ public class Person implements Serializable{
 //		person.setBdDay(Integer.parseInt(attributeParts[6]));
 		this.setGender(attributeParts[2].contains("1")?true:false, inB);
 		this.setEthnicity(Integer.parseInt(attributeParts[3]), inB);
-		this.setGlasses(Boolean.valueOf(attributeParts[4]), inB);
+		this.setGlasses(attributeParts[4].contains("1")?true:false, inB);
 		this.setAttractiveness(Double.parseDouble(attributeParts[5]), inB);
 		
 		if(attributeParts.length >= 7 && attributeParts[6].contains("_")){
@@ -225,7 +227,7 @@ public class Person implements Serializable{
 
 	public void setGlasses(boolean glasses, BrainStatemachine inB) {
 		this.glasses = glasses;
-		
+		System.out.println("Has glasses: " + (glasses?"yes":"no"));
 		if(inB != null){
 			inB.getSCICurrPerson().setGlasses(glasses);
 			inB.getSCIVBrain().setNessesaryToSavePersonList(true);

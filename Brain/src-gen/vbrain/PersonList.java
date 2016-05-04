@@ -99,16 +99,28 @@ public class PersonList{
 				Start.instanceOf().getBrain().getSCICurrPerson().setKnown(inCurrPerson.isKnown());
 				Start.instanceOf().getBrain().getSCICurrPerson().setFirstname(inCurrPerson.getFirstName());
 				Start.instanceOf().getBrain().getSCICurrPerson().setLastname(inCurrPerson.getLastName());
-//				Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(inCurrPerson.getEstimatedAge());
+				Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(inCurrPerson.getEstimatedAge());
 				Start.instanceOf().getBrain().getSCICurrPerson().setBdYear(inCurrPerson.getBdYear());
 				Start.instanceOf().getBrain().getSCICurrPerson().setBdMounth(inCurrPerson.getBdMonth());
 				Start.instanceOf().getBrain().getSCICurrPerson().setBdDay(inCurrPerson.getBdDay());
-//				Start.instanceOf().getBrain().getSCICurrPerson().setGender(inCurrPerson.getGender());
-//				Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(inCurrPerson.getEthnicity());
-//				Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(inCurrPerson.hasGlasses());
+				Start.instanceOf().getBrain().getSCICurrPerson().setGender(inCurrPerson.getGender());
+				Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(inCurrPerson.getEthnicity());
+				Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(inCurrPerson.hasGlasses());
 //				Start.instanceOf().getBrain().getSCICurrPerson().setAttractiveness(inCurrPerson.getAttractiveness());
 				
 			}else{
+				Start.instanceOf().getBrain().getSCICurrPerson().setPersonID(-1);
+				Start.instanceOf().getBrain().getSCICurrPerson().setKnown(false);
+				Start.instanceOf().getBrain().getSCICurrPerson().setFirstname("");
+				Start.instanceOf().getBrain().getSCICurrPerson().setLastname("");
+				Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(-1);
+				Start.instanceOf().getBrain().getSCICurrPerson().setBdYear(0);
+				Start.instanceOf().getBrain().getSCICurrPerson().setBdMounth(0);
+				Start.instanceOf().getBrain().getSCICurrPerson().setBdDay(0);
+				Start.instanceOf().getBrain().getSCICurrPerson().setGender(false);
+				Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(0);
+				Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(false);
+				Start.instanceOf().getBrain().getSCICurrPerson().setAttractiveness(-1);
 				
 			}
 		}
