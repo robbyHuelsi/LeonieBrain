@@ -69,7 +69,7 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	
 	public void sendToVBrain_ACIonOff(boolean inOnOff){
 		System.out.println(inOnOff?"ACI on":"ACI off");
-		this.sendMessage(inOnOff?"#BRAIN#1#":"#BRAIN#0#" + "#", Start.getIpSendVBrain(), Start.getPortSendVBrain());
+		this.sendMessage(inOnOff?"#BRAIN#1#":"#BRAIN#0#", Start.getIpSendVBrain(), Start.getPortSendVBrain());
 		this.sendMessage("#TRACRESET#", Start.getIpSendAtrac(), Start.getPortSendAtracPTZ());
 		this.sendMessage("#TRACRESET#", Start.getIpSendAtrac(), Start.getPortSendAtracWaC());
 
