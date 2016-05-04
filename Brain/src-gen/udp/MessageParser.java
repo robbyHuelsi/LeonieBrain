@@ -79,7 +79,7 @@ public class MessageParser {
 
 				} else if (data.contains("#DYN#")) {
 					String dataDyn = data.substring(5);
-					System.out.println("Dynamische Daten: " + dataDyn);
+					//System.out.println("Dynamische Daten: " + dataDyn);
 					String[] attributePartsVBD = dataDyn.split(";");
 
 					if (attributePartsVBD[0].contains("1")) {
