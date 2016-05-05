@@ -9,6 +9,7 @@ import java.util.Random;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIAttOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIBGFOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCICurrPersonOperationCallback;
+import org.yakindu.scr.brain.IBrainStatemachine.SCIScitosRemoteControl;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIUdpInterfaceOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIVBrainOperationCallback;
 
@@ -123,9 +124,21 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 		
 	}
 	
-	public void sendToNav_goToGWP(String inWayPoint){
+	public void sendToNav_goToGWP(long inWayPoint){
 		System.out.println("Go to global way point " + inWayPoint);
 		this.sendMessage("#NAV##GWP#" + inWayPoint + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+	}
+	
+	public void sendToNav_goToNextGWPForConf() {
+		SCIScitosRemoteControl SRC = Start.instanceOf().getBrain().getSCIScitosRemoteControl();
+		if(SRC.getCurrWP() >= 3){
+			SRC.setCurrWP(1);
+		}else{
+			SRC.setCurrWP(SRC.getCurrWP() + 1);
+		}
+		
+		this.sendToNav_goToGWP(SRC.getCurrWP());
+		
 	}
 	
 	public void sendToNav_goToLC(String inX, String inY){

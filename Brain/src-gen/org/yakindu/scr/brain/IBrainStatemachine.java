@@ -35,7 +35,8 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void sendToKinect2_detectionOnOff(boolean inOnOff);
 		public void sendToLeapMotion_detectionOnOff(long inOnOff);
 		public void sendToSTT_detectionOnOff(long inOnOff);
-		public void sendToNav_goToGWP(String inWayPoint);
+		public void sendToNav_goToGWP(long inWayPoint);
+		public void sendToNav_goToNextGWPForConf();
 		public void sendToNav_turnBody(String inAngle);
 		public void sendToNav_bodyUTurn();
 		public void sendToNav_turnHead(String inAngle);
@@ -169,6 +170,8 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void setBlocked(boolean value);
 		public boolean getArrivedWP();
 		public void setArrivedWP(boolean value);
+		public long getCurrWP();
+		public void setCurrWP(long value);
 
 	}
 
