@@ -14,12 +14,12 @@
           <vertices xsi:type="sgraph:State" xmi:id="_Xu_oEA8rEeaY7-qPvgGsXQ" specification="entry / &#xD;&#xA;UdpInterface.sendToNav_bodyUTurn();&#xD;&#xA;UdpInterface.sendToHBrain_TTS(&quot;I think, on the next way point I find a more interesting partner.&quot;)" name="exitSad" incomingTransitions="_Adoq4A-uEeabk_5g1uV7Pw">
             <outgoingTransitions xmi:id="_Mj0TMA-mEeabk_5g1uV7Pw" specification="after 2s" target="_CFEcbQ-mEeabk_5g1uV7Pw"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_35snQApEEea_bINaNllnAA" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;UdpInterface.sendToHBrain_TTS(&quot;[:-|]Oh some noise behind me! I have to leave you. Bye!&quot;)" name="exitNoise" incomingTransitions="_jOlNoApFEea_bINaNllnAA">
+          <vertices xsi:type="sgraph:State" xmi:id="_35snQApEEea_bINaNllnAA" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;UdpInterface.sendToHBrain_TTS(&quot;[:-|]Oh, some noise behind me! I have to leave you. Bye!&quot;)" name="exitNoise" incomingTransitions="_jOlNoApFEea_bINaNllnAA">
             <outgoingTransitions xmi:id="_b2r2MA8rEeaY7-qPvgGsXQ" specification="[HBrain.TTSReady == true]" target="_QL4B8BK6Eea4rIlwskSZQQ"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_KGdeo_iqEeWcn8poFBqj7w" specification="exit / UdpInterface.sendToVBrain_ACIonOff(false);&#xD;&#xA;UdpInterface.sendToKinect2_detectionOnOff(false);&#xD;&#xA;UdpInterface.sendToLeapMotion_detectionOnOff(0);&#xD;&#xA;UdpInterface.sendToSTT_detectionOnOff(0);&#xD;&#xA;currPerson.resetCurrPerson();&#xD;&#xA;VBrain.countFoundFaces = 0;&#xD;&#xA;Kinect2.noiseDetected = false;&#xD;&#xA;Att.old_attr = 0;&#xD;&#xA;STT.STTReady = false;&#xD;&#xA;STT.speakerMsg = &quot;&quot;;&#xD;&#xA;STT.filteredMsg = &quot;&quot;;&#xD;&#xA;STT.filterBubble = &quot;&quot;" name="FaceDataInterpretation" incomingTransitions="_AeZ-N_l5EeWfQ5nCnvwPLA">
+          <vertices xsi:type="sgraph:State" xmi:id="_KGdeo_iqEeWcn8poFBqj7w" specification="entry / Kinect2.noiseDetected = false&#xD;&#xA;&#xD;&#xA;exit / UdpInterface.sendToVBrain_ACIonOff(false);&#xD;&#xA;UdpInterface.sendToKinect2_detectionOnOff(false);&#xD;&#xA;UdpInterface.sendToLeapMotion_detectionOnOff(0);&#xD;&#xA;UdpInterface.sendToSTT_detectionOnOff(0);&#xD;&#xA;currPerson.resetCurrPerson();&#xD;&#xA;VBrain.countFoundFaces = 0;&#xD;&#xA;Att.old_attr = 0;&#xD;&#xA;STT.STTReady = false;&#xD;&#xA;STT.speakerMsg = &quot;&quot;;&#xD;&#xA;STT.filteredMsg = &quot;&quot;;&#xD;&#xA;STT.filterBubble = &quot;&quot;" name="FaceDataInterpretation" incomingTransitions="_AeZ-N_l5EeWfQ5nCnvwPLA">
             <outgoingTransitions xmi:id="_wPFY0AYOEeaduODZSyGwBA" specification="# exit_FDI >" target="_CFEcbQ-mEeabk_5g1uV7Pw"/>
-            <outgoingTransitions xmi:id="_jOlNoApFEea_bINaNllnAA" specification="[Kinect2.noiseDetected == true]" target="_35snQApEEea_bINaNllnAA"/>
+            <outgoingTransitions xmi:id="_jOlNoApFEea_bINaNllnAA" specification="[Kinect2.noiseDetected == true&#xD;&#xA;&#x9;&amp;&amp; ScitosRemoteControl.currWP == 2&#xD;&#xA;]" target="_35snQApEEea_bINaNllnAA"/>
             <outgoingTransitions xmi:id="_Adoq4A-uEeabk_5g1uV7Pw" specification="# exit_FDI_sad >" target="_Xu_oEA8rEeaY7-qPvgGsXQ"/>
             <regions xmi:id="_KGeswviqEeWcn8poFBqj7w" name="FaceDataInterpretation">
               <vertices xsi:type="sgraph:State" xmi:id="_GRDTcRBQEeaqW4m3Sv85sA" specification="entry /&#xD;&#xA;UdpInterface.sendToHBrain_TTS2(&quot;Hey &quot;,currPerson.firstname)" name="PersonKnownWithName" incomingTransitions="_GRCsWRBQEeaqW4m3Sv85sA">
@@ -555,7 +555,7 @@
       <children xsi:type="notation:Shape" xmi:id="_udafAPipEeWcn8poFBqj7w" type="StatechartTextExpression" fontName="Verdana" lineColor="4210752">
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_udbGEPipEeWcn8poFBqj7w"/>
       </children>
-      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_udbtIPipEeWcn8poFBqj7w" x="-399" y="21" width="771" height="2084"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_udbtIPipEeWcn8poFBqj7w" x="-400" y="-20" width="771" height="2084"/>
     </children>
     <children xmi:id="_KGM_8PiqEeWcn8poFBqj7w" type="Region" element="_KGTGkPiqEeWcn8poFBqj7w">
       <children xsi:type="notation:DecorationNode" xmi:id="_KGM_8fiqEeWcn8poFBqj7w" type="RegionName">
@@ -816,7 +816,7 @@
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_KGNAtPiqEeWcn8poFBqj7w"/>
       </children>
       <styles xsi:type="notation:ShapeStyle" xmi:id="_KGNAtfiqEeWcn8poFBqj7w" fontName="Verdana" fillColor="15790320" lineColor="12632256"/>
-      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_KGNAtviqEeWcn8poFBqj7w" x="312" y="12" width="1964" height="1565"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_KGNAtviqEeWcn8poFBqj7w" x="402" y="1" width="1964" height="1565"/>
     </children>
     <children xmi:id="_eSd54A1vEea_qLdatlMCBQ" type="Region" element="_eSaPgA1vEea_qLdatlMCBQ">
       <children xsi:type="notation:DecorationNode" xmi:id="_eSd54w1vEea_qLdatlMCBQ" type="RegionName">

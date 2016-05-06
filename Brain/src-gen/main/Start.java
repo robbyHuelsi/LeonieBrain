@@ -34,7 +34,7 @@ public class Start
 	static private int portSendVBrain = 7777;
 	static private String ipSendAtrac = "192.168.188.10"; //FritzBox NUC
 	static private int portSendAtracPTZ = 5008;
-	static private int portSendAtracWaC = 5009;
+	static private int portSendAtracWaC = 5010;
 	// -------------------------------------------------------------------------
 	
 	// ---- HBrain -----------------------------------------

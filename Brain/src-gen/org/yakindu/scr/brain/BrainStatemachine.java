@@ -1024,7 +1024,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_tr1_tr1() {
-		return sCIKinect2.noiseDetected == true;
+		return sCIKinect2.noiseDetected == true && sCIScitosRemoteControl.currWP == 2;
 	}
 
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName_tr0_tr0() {
@@ -2878,7 +2878,12 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void entryAction_main_mainStorry_inner_region_exitNoise() {
 		sCIHBrain.setTTSReady(false);
 
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|]Oh some noise behind me! I have to leave you. Bye!");
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|]Oh, some noise behind me! I have to leave you. Bye!");
+	}
+
+	/* Entry action for state 'FaceDataInterpretation'. */
+	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation() {
+		sCIKinect2.setNoiseDetected(false);
 	}
 
 	/* Entry action for state 'PersonKnownWithName'. */
@@ -3561,8 +3566,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 		sCIVBrain.setCountFoundFaces(0);
 
-		sCIKinect2.setNoiseDetected(false);
-
 		sCIAtt.setOld_attr(0);
 
 		sCISTT.setSTTReady(false);
@@ -3697,6 +3700,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* 'default' enter sequence for state FaceDataInterpretation */
 	private void enterSequence_main_mainStorry_inner_region_FaceDataInterpretation_default() {
+		entryAction_main_mainStorry_inner_region_FaceDataInterpretation();
+
 		enterSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_default();
 	}
 
