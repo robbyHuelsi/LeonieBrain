@@ -76,6 +76,8 @@ public class MessageParser {
 						personList.getCurrPerson().setGlasses((attributePartsVBS[4].contains("1")?true:false), brain);
 					}
 					
+					brain.getSCIVBrain().setCountFoundFaces(1);
+					
 
 				} else if (data.contains("#DYN#")) {
 					String dataDyn = data.substring(5);
@@ -84,7 +86,6 @@ public class MessageParser {
 
 					if (attributePartsVBD[0].contains("1")) {
 						//System.out.println("Face found");
-						brain.getSCIVBrain().setCountFoundFaces(1); //Das muss wieder raus, wenn Leonie sofort stoppen soll bei erkannter Persom
 
 
 //						if(attributePartsVBD.length > 1){
