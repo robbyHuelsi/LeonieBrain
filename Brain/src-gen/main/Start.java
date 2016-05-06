@@ -54,7 +54,7 @@ public class Start
 	static private int portSendKinect2 = 8000;
 	
 	//LeapMotion_vorne
-	static private String ipSendLeapMotion = "192.168.188.12";
+	static private String ipSendLeapMotion = "192.168.188.11";
 	static private int portSendLeapMotion = 50035;
 	
 	//Scitos Remote Control

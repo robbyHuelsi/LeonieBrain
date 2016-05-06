@@ -5,6 +5,8 @@ import org.yakindu.scr.ITimerCallback;
 public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 
 	public interface SCIBGF {
+		public long getEventNum();
+		public void setEventNum(long value);
 		public long getRandNum();
 		public void setRandNum(long value);
 
@@ -170,8 +172,6 @@ public interface IBrainStatemachine extends ITimerCallback, IStatemachine {
 		public void setBlocked(boolean value);
 		public boolean getArrivedWP();
 		public void setArrivedWP(boolean value);
-		public long getCurrWP();
-		public void setCurrWP(long value);
 
 	}
 

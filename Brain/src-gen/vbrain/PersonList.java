@@ -61,29 +61,29 @@ public class PersonList{
 //		return false;
 //	}
 	
-//	public Person getPersonByFaceID(int id){
-//		if(id == -1) return null;
-//		for (Person p : personList){
-//			if (p.getPersonID() == id) return p;
-//		}
-//		return null;
-//	}
-	
 	public Person getPersonByFaceID(int id){
 		if(id == -1) return null;
-		Person p = null;
-		
-		
-		for (Person tmpP : this.personList){
-			if(tmpP.getFaces()!=null){
-				if(tmpP.getFaceWithHeighestConfi() == id) return tmpP;
-			}
+		for (Person p : personList){
+			if (p.getFaceId() == id) return p;
 		}
-		
-//		return p;
-		
 		return null;
 	}
+	
+//	public Person getPersonByFaceID(int id){
+//		if(id == -1) return null;
+//		Person p = null;
+//		
+//		
+//		for (Person tmpP : this.personList){
+//			if(tmpP.getFaces()!=null){
+//				if(tmpP.getFaceWithHeighestConfi() == id) return tmpP;
+//			}
+//		}
+//		
+////		return p;
+//		
+//		return null;
+//	}
 
 //	public int getCurrPersonID() {
 //		return currPersonID;
@@ -128,7 +128,7 @@ public class PersonList{
 	}
 	
 	public void setCurrPersonByFaceID(int inFaceID) {
-		if(this.currPerson==null || inFaceID != this.getCurrPerson().getFaceWithHeighestConfi()){
+		if(this.currPerson==null || inFaceID != this.getCurrPerson().getFaceId()){
 			this.setCurrPerson(getPersonByFaceID(inFaceID));
 		}
 	}

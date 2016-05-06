@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 import java.util.Random;
 
 import org.yakindu.scr.brain.IBrainStatemachine.SCIAttOperationCallback;
+import org.yakindu.scr.brain.IBrainStatemachine.SCIBGF;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIBGFOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCICurrPersonOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIScitosRemoteControl;
@@ -108,7 +109,7 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	}
 	
 	public void sendToLeapMotion_detectionOnOff(long inOnOff){
-		this.sendMessage("#HANDGESTURES#" + inOnOff + "#", Start.getIpSendLeapMotion(), Start.getPortSendLeapMotion());
+		this.sendMessage("#HANDGESTURES#" + (int)inOnOff + "#", Start.getIpSendLeapMotion(), Start.getPortSendLeapMotion());
 	}
 	
 	public void sendToSTT_detectionOnOff(long inOnOff){
@@ -130,14 +131,19 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	}
 	
 	public void sendToNav_goToNextGWPForConf() {
-		SCIScitosRemoteControl SRC = Start.instanceOf().getBrain().getSCIScitosRemoteControl();
-		if(SRC.getCurrWP() >= 3){
-			SRC.setCurrWP(1);
+		SCIBGF BGF = Start.instanceOf().getBrain().getSCIBGF();
+		
+		
+		if(BGF.getEventNum() == 0){
+			this.sendToNav_goToGWP(0);
+		}else if(BGF.getEventNum() <= 3){
+			this.sendToNav_goToGWP(BGF.getEventNum());
+		}else if(BGF.getEventNum() <= 6){
+			this.sendToNav_goToGWP(BGF.getEventNum() - 3);
 		}else{
-			SRC.setCurrWP(SRC.getCurrWP() + 1);
+			this.sendToNav_goToGWP(0);
 		}
 		
-		this.sendToNav_goToGWP(SRC.getCurrWP());
 		
 	}
 	

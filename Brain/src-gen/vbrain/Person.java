@@ -24,7 +24,8 @@ public class Person implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private int personID; // = -1;
-	private Map<Integer, Float> faces;
+	//private Map<Integer, Float> faces;
+	private int faceID;
 	private boolean known;
 	private String firstName;
 	private String lastName;
@@ -39,7 +40,7 @@ public class Person implements Serializable{
 	private Vector<PersonDynData> dynData;
 	
 	public Person (int inPersonID){
-		this.faces = new HashMap<Integer, Float>();
+		//this.faces = new HashMap<Integer, Float>();
 		this.dynData = new Vector<PersonDynData>();
 		this.personID = inPersonID;
 		this.firstName = "";
@@ -54,6 +55,7 @@ public class Person implements Serializable{
 		String[] attributeParts = attributeData.split(";");
 
 		this.setKnown(false, inB);
+		this.setFaceId(Integer.parseInt(attributeParts[0]));
 //		person.setFirstName(attributeParts[2]);
 //		person.setLastName(attributeParts[3]);
 		this.setEstimatedAge(Integer.parseInt(attributeParts[1]), inB);
@@ -65,17 +67,17 @@ public class Person implements Serializable{
 		this.setGlasses(attributeParts[4].contains("1")?true:false, inB);
 		this.setAttractiveness(Double.parseDouble(attributeParts[5]), inB);
 		
-		if(attributeParts.length >= 7 && attributeParts[6].contains("_")){
-			String[] confOfIds = attributeParts[6].split("_");
-			for(int i = 0; i < confOfIds.length; i++){
-				System.out.println(confOfIds[i]);
-
-				if(confOfIds[i] != ""){
-					String[] confOfId = confOfIds[i].split("=");
-					this.addResemblance(Integer.parseInt(confOfId[0]), Float.parseFloat(confOfId[1]));
-				}
-			}
-		}
+//		if(attributeParts.length >= 7 && attributeParts[6].contains("_")){
+//			String[] confOfIds = attributeParts[6].split("_");
+//			for(int i = 0; i < confOfIds.length; i++){
+//				System.out.println(confOfIds[i]);
+//
+//				if(confOfIds[i] != ""){
+//					String[] confOfId = confOfIds[i].split("=");
+//					this.addResemblance(Integer.parseInt(confOfId[0]), Float.parseFloat(confOfId[1]));
+//				}
+//			}
+//		}
 		
 	}
 	
@@ -91,6 +93,15 @@ public class Person implements Serializable{
 			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
+	
+	public int getFaceId(){
+		return this.faceID;
+	}
+	
+	public void setFaceId(int inFaceId){
+		this.faceID = inFaceId;
+	}
+	
 	
 	public boolean isKnown(){
 		return this.known;
@@ -247,31 +258,33 @@ public class Person implements Serializable{
 		}
 	}
 	
-	public Map<Integer, Float> getFaces() {
-		return faces;
-	}
+//	public Map<Integer, Float> getFaces() {
+//		return faces;
+//	}
 	
-	public int getFaceWithHeighestConfi(){
-		float higthesConfi = 0;
-		int tmpID = 0;
-		
-		for(Map.Entry<Integer, Float> f : this.getFaces().entrySet()){	
-			if(higthesConfi < f.getValue()){
-				higthesConfi = f.getValue();
-				tmpID = f.getKey();
-			}
-		}
-		
-		return tmpID;
-	}
+//	public int getFaceWithHeighestConfi(){
+//		float higthesConfi = 0;
+//		int tmpID = 0;
+//		
+//		for(Map.Entry<Integer, Float> f : this.getFaces().entrySet()){	
+//			if(higthesConfi < f.getValue()){
+//				higthesConfi = f.getValue();
+//				tmpID = f.getKey();
+//			}
+//		}
+//		
+//		return tmpID;
+//	}
 
-	public void setFaces(Map<Integer, Float> inC) {
-		faces = inC;
-	}
+//	public void setFaces(Map<Integer, Float> inC) {
+//		faces = inC;
+//	}
 	
-	public void addResemblance(Integer inId, Float inC){
-		this.faces.put(inId, inC);
-	}
+
+	
+//	public void addResemblance(Integer inId, Float inC){
+//		this.faces.put(inId, inC);
+//	}
 	
 	public void addDynData(PersonDynData inDD){
 		this.dynData.add(inDD);
@@ -288,7 +301,7 @@ public class Person implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Person [personID=" + personID + ",\n faces=" + faces + ",\n known=" + known
+		return "Person [personID=" + personID + ",\n faceID=" + faceID + ",\n known=" + known
 				+ ",\n firstName= " + firstName + " ,\n lastName=" + lastName + ",\n estimatedAge=" + estimatedAge + ",\n bdYear="
 				+ bdYear + ",\n bdMonth=" + bdMonth + ",\n bdDay=" + bdDay + ",\n gender=" + (gender == true?"female":"male") + ",\n ethnicity="
 				+ (ethnicity==0?"white":(ethnicity==1?"black":"asian")) + ",\n glasses=" + glasses + ",\n attractiveness=" + attractiveness + ",\n dynData=" + dynData.toString()

@@ -84,26 +84,27 @@ public class MessageParser {
 
 					if (attributePartsVBD[0].contains("1")) {
 						//System.out.println("Face found");
+						brain.getSCIVBrain().setCountFoundFaces(1); //Das muss wieder raus, wenn Leonie sofort stoppen soll bei erkannter Persom
 
 
-						if(attributePartsVBD.length > 1){
-							//Gesicht hat schon eine FaceID von VBRain bekommen --> nach 5 Frames
-							int faceId = Integer.parseInt(attributePartsVBD[1]);
-							System.out.println("Face ID: " + faceId);
-							Person p = personList.getPersonByFaceID(faceId);
-							if (p != null) {
-								//
-								p.addDynData(dataDyn, brain);
-								//System.out.println(p.getCurrDynData().toString());
-							}
-							//personList.setCurrPersonByFaceID(faceId);
-							brain.getSCIVBrain().setCountFoundFaces(1);
-						}else{
-							//noch keine FaceID, weil noch vor 5 Frames
-							//System.out.println("No face ID");
-							//personList.setCurrPerson(null);
-							brain.getSCIVBrain().setCountFoundFaces(0); //Das muss wieder raus, wenn Leonie sofort stoppen soll bei erkannter Persom
-						}
+//						if(attributePartsVBD.length > 1){
+//							//Gesicht hat schon eine FaceID von VBRain bekommen --> nach 5 Frames
+//							int faceId = Integer.parseInt(attributePartsVBD[1]);
+//							System.out.println("Face ID: " + faceId);
+//							Person p = personList.getPersonByFaceID(faceId);
+//							if (p != null) {
+//								//
+//								p.addDynData(dataDyn, brain);
+//								//System.out.println(p.getCurrDynData().toString());
+//							}
+//							//personList.setCurrPersonByFaceID(faceId);
+//							brain.getSCIVBrain().setCountFoundFaces(1);
+//						}else{
+//							//noch keine FaceID, weil noch vor 5 Frames
+//							//System.out.println("No face ID");
+//							//personList.setCurrPerson(null);
+//							brain.getSCIVBrain().setCountFoundFaces(0); //Das muss wieder raus, wenn Leonie sofort stoppen soll bei erkannter Persom
+//						}
 
 					} else {
 						brain.getSCIVBrain().setCountFoundFaces(0);
@@ -163,16 +164,19 @@ public class MessageParser {
 
 			case "HANDGESTURES":
 				String[] attributePartsHG = data.split(";");
-				System.out.println(data);
+				//System.out.println(data);
 				if (attributePartsHG[0].contains("0")){
 					//System.out.println("LeapMotion: nothing detected");
 					brain.getSCILeapMotion().setGestureDetected(false);
 					brain.getSCILeapMotion().setStringFinished(false);
 				}else if(attributePartsHG.length > 1){
 					if(attributePartsHG[0].contains("1")) {
-						System.out.println("LeapMotion: " + attributePartsHG[1] + " detected");
-						brain.getSCILeapMotion().setGestureDetected(true);
 						brain.getSCILeapMotion().setGesture(attributePartsHG[1]);
+						brain.getSCILeapMotion().setGestureDetected(true);
+//						if(attributePartsHG[1].contains("true") && attributePartsHG[1].contains("false")) {
+//						start.instanceOf().
+//						}
+						System.out.println("LeapMotion: " + attributePartsHG[1] + " detected");
 					} else if (attributePartsHG[0].contains("2")) {
 						System.out.println("Finished string is " + attributePartsHG[1]);
 						brain.getSCILeapMotion().setDetectedString(attributePartsHG[1]);
