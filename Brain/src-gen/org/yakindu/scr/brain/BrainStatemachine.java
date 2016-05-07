@@ -624,7 +624,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	public void enter() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The statemachine needs to be initialized first by calling the init() function.");
+					"The state machine needs to be initialized first by calling the init() function.");
 
 		if (timer == null) {
 			throw new IllegalStateException("timer not set.");
@@ -651,7 +651,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/** 
 	* Always returns 'false' since this state machine can never become final.
 	*
-	 * @see IStatemachine#isFinal() 
+	 * @see IStatemachine#isFinal()
 	 */
 	public boolean isFinal() {
 		return false;
@@ -3728,10 +3728,26 @@ public class BrainStatemachine implements IBrainStatemachine {
 		timer.setTimer(this, 21, 1 * 1000, false);
 	}
 
+	/* Entry action for state 'greeting3'. */
+	private void entryAction_main_GreetingsToVisitors_inner_region_greeting3() {
+		sCIHBrain.setTTSReady(false);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
+				"[:-|]Besides my animated head I also have several sensors. On the front and the back I have laser sensors to localize myself, plan my way when moving and avoid moving objects around me.");
+	}
+
 	/* Entry action for state 'wait4'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_wait4() {
 
 		timer.setTimer(this, 22, 1 * 1000, false);
+	}
+
+	/* Entry action for state 'greeting4'. */
+	private void entryAction_main_GreetingsToVisitors_inner_region_greeting4() {
+		sCIHBrain.setTTSReady(false);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
+				"The most important sensor for me are my cameras. {-60;60}I have several cameras in order to see all humans around me {60;60} as well as to look very close at human faces and analyse them more precicely. {0;0}[:-)]I can recognize people and analyse their faces. [:-]At least I try. [-40;-40] {-90;-90} And I try to estimate the attractiveness and the emotion! [:-)] {person}");
 	}
 
 	/* Entry action for state 'Copy_1_wait3'. */
@@ -3740,10 +3756,26 @@ public class BrainStatemachine implements IBrainStatemachine {
 		timer.setTimer(this, 23, 1 * 1000, false);
 	}
 
+	/* Entry action for state 'Copy_1_greeting3'. */
+	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_greeting3() {
+		sCIHBrain.setTTSReady(false);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
+				"In front of me is a Leap motion [look down]. This allows people to answer my questions also by giving me hand gestures. On the back I have a kinect that I use as my ears. I can react on loud sounds behind me.");
+	}
+
 	/* Entry action for state 'Copy_1_wait4'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_wait4() {
 
 		timer.setTimer(this, 24, 1 * 1000, false);
+	}
+
+	/* Entry action for state 'Copy_1_greeting4'. */
+	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_greeting4() {
+		sCIHBrain.setTTSReady(false);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
+				"Enough for the moment. I want to talk to a real person in my kitchen now! [idle3:true]");
 	}
 
 	/* Entry action for state 'endeGutallesGut'. */
@@ -4800,6 +4832,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* 'default' enter sequence for state greeting3 */
 	private void enterSequence_main_GreetingsToVisitors_inner_region_greeting3_default() {
+		entryAction_main_GreetingsToVisitors_inner_region_greeting3();
+
 		nextStateIndex = 0;
 		stateVector[0] = State.main_GreetingsToVisitors_inner_region_greeting3;
 	}
@@ -4814,6 +4848,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* 'default' enter sequence for state greeting4 */
 	private void enterSequence_main_GreetingsToVisitors_inner_region_greeting4_default() {
+		entryAction_main_GreetingsToVisitors_inner_region_greeting4();
+
 		nextStateIndex = 0;
 		stateVector[0] = State.main_GreetingsToVisitors_inner_region_greeting4;
 	}
@@ -4828,6 +4864,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* 'default' enter sequence for state Copy_1_greeting3 */
 	private void enterSequence_main_GreetingsToVisitors_inner_region_Copy_1_greeting3_default() {
+		entryAction_main_GreetingsToVisitors_inner_region_Copy_1_greeting3();
+
 		nextStateIndex = 0;
 		stateVector[0] = State.main_GreetingsToVisitors_inner_region_Copy_1_greeting3;
 	}
@@ -4842,6 +4880,8 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* 'default' enter sequence for state Copy_1_greeting4 */
 	private void enterSequence_main_GreetingsToVisitors_inner_region_Copy_1_greeting4_default() {
+		entryAction_main_GreetingsToVisitors_inner_region_Copy_1_greeting4();
+
 		nextStateIndex = 0;
 		stateVector[0] = State.main_GreetingsToVisitors_inner_region_Copy_1_greeting4;
 	}
@@ -9581,7 +9621,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	public void runCycle() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The statemachine needs to be initialized first by calling the init() function.");
+					"The state machine needs to be initialized first by calling the init() function.");
 
 		clearOutEvents();
 
