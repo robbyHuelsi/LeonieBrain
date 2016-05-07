@@ -482,7 +482,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private boolean initialized = false;
 
 	public enum State {
-		main_mainStorry, main_mainStorry_inner_region_exitSad, main_mainStorry_inner_region_exitNoise, main_mainStorry_inner_region_FaceDataInterpretation, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownGirl, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownFemaleTeen, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownWomen, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownBoy, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownMaleTeen, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownMen, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_wait_for_getting_datas, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Prompt_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Prompt_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_4, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_newRandNum, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_StartSTT, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_Copy_1_STT3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_asking_repeat_YesNo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_init, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Closing, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_neutral, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_happy, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_sad, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_laughing, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_surprised, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_angry, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_0, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_worked, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_initialise_jokes, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_didnt_work, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_5, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_6, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_waitForNewEmo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_sadFace, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_init_face, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_Copy_1_STT3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_asking_repeat_YesNo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_init, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_ready, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_pretty_with_glasses, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_got_new_attr, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_prettier, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_not_prettier, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_pretty, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_not_pretty, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_get_new_attractiveness, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_asking_unknown, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNoCancelFunNo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_exitCancelAnswer, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_waitingForSpeaking, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region_AfterGettingName, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region_newRandNum, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_randNumEnd, main_mainStorry_inner_region_AtWP01___ACI, main_mainStorry_inner_region_wait_for_cleaning_VBrain_buffer, main_mainStorry_inner_region_Copy_1_exitSad, main_mainStorry_inner_region_wait, main_Init, main_randTest, main_AtWP03_FingerAlphabet_, main_AtWP03_FingerAlphabet__inner_region_StartSTT, main_AtWP03_FingerAlphabet__inner_region_Copy_1_STT3, main_Interrupt_Normal_Process, main_GotToFirstStation, main_endOfStory, main__final_, main_yes, main_no, main_endeGutallesGut, main_GreetingsToVisitors, main_GreetingsToVisitors_inner_region_GreetingsToVisitors, main_GreetingsToVisitors_inner_region_GreetingsToVisitors2, main_GreetingsToVisitors_inner_region_wait1, main_GreetingsToVisitors_inner_region_Greeting1, main_GreetingsToVisitors_inner_region_Copy_1_wait1, leonie_Bupered_init, leonie_Bupered_sayAutsch, leonie_Bupered_resetFace, $NullState$
+		main_mainStorry, main_mainStorry_inner_region_exitSad, main_mainStorry_inner_region_exitNoise, main_mainStorry_inner_region_FaceDataInterpretation, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownGirl, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownFemaleTeen, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownWomen, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownBoy, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownMaleTeen, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownMen, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_wait_for_getting_datas, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Prompt_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Prompt_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_4, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_newRandNum, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_StartSTT, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_Copy_1_STT3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_asking_repeat_YesNo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_init, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Closing, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_neutral, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_happy, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_sad, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_laughing, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_surprised, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_angry, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_0, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_worked, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_initialise_jokes, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_didnt_work, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_1, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_2, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_5, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_6, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_waitForNewEmo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_sadFace, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_init_face, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_Copy_1_STT3, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_asking_repeat_YesNo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_init, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_ready, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_pretty_with_glasses, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_got_new_attr, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_prettier, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_not_prettier, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_pretty, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_not_pretty, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_get_new_attractiveness, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_asking_unknown, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNoCancelFunNo, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_exitCancelAnswer, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_waitingForSpeaking, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region_AfterGettingName, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region_newRandNum, main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_randNumEnd, main_mainStorry_inner_region_AtWP01___ACI, main_mainStorry_inner_region_wait_for_cleaning_VBrain_buffer, main_mainStorry_inner_region_Copy_1_exitSad, main_mainStorry_inner_region_wait, main_Init, main_randTest, main_AtWP03_FingerAlphabet_, main_AtWP03_FingerAlphabet__inner_region_StartSTT, main_AtWP03_FingerAlphabet__inner_region_Copy_1_STT3, main_Interrupt_Normal_Process, main_GotToFirstStation, main__final_, main_yes, main_no, main_GreetingsToVisitors, main_GreetingsToVisitors_inner_region_GreetingsToVisitors, main_GreetingsToVisitors_inner_region_GreetingsToVisitors2, main_GreetingsToVisitors_inner_region_wait1, main_GreetingsToVisitors_inner_region_Greeting1, main_GreetingsToVisitors_inner_region_Copy_1_wait1, main_endeGutallesGut, main_endeGutallesGut_inner_region_endeGutallesGut, main_endeGutallesGut_inner_region_endOfStory, leonie_Bupered_init, leonie_Bupered_sayAutsch, leonie_Bupered_resetFace, $NullState$
 	};
 
 	private final State[] stateVector = new State[2];
@@ -624,7 +624,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	public void enter() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The statemachine needs to be initialized first by calling the init() function.");
+					"The state machine needs to be initialized first by calling the init() function.");
 
 		if (timer == null) {
 			throw new IllegalStateException("timer not set.");
@@ -651,7 +651,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/** 
 	* Always returns 'false' since this state machine can never become final.
 	*
-	 * @see IStatemachine#isFinal() 
+	 * @see IStatemachine#isFinal()
 	 */
 	public boolean isFinal() {
 		return false;
@@ -920,16 +920,12 @@ public class BrainStatemachine implements IBrainStatemachine {
 				return stateVector[0] == State.main_Interrupt_Normal_Process;
 			case main_GotToFirstStation :
 				return stateVector[0] == State.main_GotToFirstStation;
-			case main_endOfStory :
-				return stateVector[0] == State.main_endOfStory;
 			case main__final_ :
 				return stateVector[0] == State.main__final_;
 			case main_yes :
 				return stateVector[0] == State.main_yes;
 			case main_no :
 				return stateVector[0] == State.main_no;
-			case main_endeGutallesGut :
-				return stateVector[0] == State.main_endeGutallesGut;
 			case main_GreetingsToVisitors :
 				return stateVector[0].ordinal() >= State.main_GreetingsToVisitors.ordinal() && stateVector[0]
 						.ordinal() <= State.main_GreetingsToVisitors_inner_region_Copy_1_wait1.ordinal();
@@ -943,6 +939,13 @@ public class BrainStatemachine implements IBrainStatemachine {
 				return stateVector[0] == State.main_GreetingsToVisitors_inner_region_Greeting1;
 			case main_GreetingsToVisitors_inner_region_Copy_1_wait1 :
 				return stateVector[0] == State.main_GreetingsToVisitors_inner_region_Copy_1_wait1;
+			case main_endeGutallesGut :
+				return stateVector[0].ordinal() >= State.main_endeGutallesGut.ordinal()
+						&& stateVector[0].ordinal() <= State.main_endeGutallesGut_inner_region_endOfStory.ordinal();
+			case main_endeGutallesGut_inner_region_endeGutallesGut :
+				return stateVector[0] == State.main_endeGutallesGut_inner_region_endeGutallesGut;
+			case main_endeGutallesGut_inner_region_endOfStory :
+				return stateVector[0] == State.main_endeGutallesGut_inner_region_endOfStory;
 			case leonie_Bupered_init :
 				return stateVector[1] == State.leonie_Bupered_init;
 			case leonie_Bupered_sayAutsch :
@@ -1500,20 +1503,12 @@ public class BrainStatemachine implements IBrainStatemachine {
 		return sCIScitosRemoteControl.arrivedWP == true;
 	}
 
-	private boolean check_main_endOfStory_tr0_tr0() {
-		return sCIHBrain.tTSReady == true;
-	}
-
 	private boolean check_main_yes_tr0_tr0() {
 		return timeEvents[17];
 	}
 
 	private boolean check_main_no_tr0_tr0() {
 		return timeEvents[18];
-	}
-
-	private boolean check_main_endeGutallesGut_tr0_tr0() {
-		return true;
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_GreetingsToVisitors_tr0_tr0() {
@@ -1534,6 +1529,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_wait1_tr0_tr0() {
 		return timeEvents[20];
+	}
+
+	private boolean check_main_endeGutallesGut_inner_region_endeGutallesGut_tr0_tr0() {
+		return true;
+	}
+
+	private boolean check_main_endeGutallesGut_inner_region_endOfStory_tr0_tr0() {
+		return sCIHBrain.tTSReady == true;
 	}
 
 	private boolean check_Leonie_Bupered_init_tr0_tr0() {
@@ -2627,12 +2630,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		enterSequence_main_mainStorry_inner_region_AtWP01___ACI_default();
 	}
 
-	private void effect_main_endOfStory_tr0() {
-		exitSequence_main_endOfStory();
-
-		enterSequence_main_endeGutallesGut_default();
-	}
-
 	private void effect_main_yes_tr0() {
 		exitSequence_main_yes();
 
@@ -2643,12 +2640,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		exitSequence_main_no();
 
 		enterSequence_main_AtWP03_FingerAlphabet__default();
-	}
-
-	private void effect_main_endeGutallesGut_tr0() {
-		exitSequence_main_endeGutallesGut();
-
-		enterSequence_main__final__default();
 	}
 
 	private void effect_main_GreetingsToVisitors_tr0() {
@@ -2685,6 +2676,24 @@ public class BrainStatemachine implements IBrainStatemachine {
 		exitSequence_main_GreetingsToVisitors_inner_region_Copy_1_wait1();
 
 		enterSequence_main_GreetingsToVisitors_inner_region_GreetingsToVisitors_default();
+	}
+
+	private void effect_main_endeGutallesGut_tr0() {
+		exitSequence_main_endeGutallesGut();
+
+		enterSequence_main__final__default();
+	}
+
+	private void effect_main_endeGutallesGut_inner_region_endeGutallesGut_tr0() {
+		exitSequence_main_endeGutallesGut_inner_region_endeGutallesGut();
+
+		react_main_endeGutallesGut_inner_region_exit_endeGutallesGut0();
+	}
+
+	private void effect_main_endeGutallesGut_inner_region_endOfStory_tr0() {
+		exitSequence_main_endeGutallesGut_inner_region_endOfStory();
+
+		enterSequence_main_endeGutallesGut_inner_region_endeGutallesGut_default();
 	}
 
 	private void effect_Leonie_Bupered_init_tr0() {
@@ -2912,7 +2921,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void effect_main_mainStorry_inner_region__choice_0_tr1() {
 		exitSequence_main_mainStorry();
 
-		enterSequence_main_endOfStory_default();
+		enterSequence_main_endeGutallesGut_entry_endOfStory1();
 	}
 
 	private void effect_main_mainStorry_inner_region__choice_0_tr0() {
@@ -3566,16 +3575,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCIUdpInterface.operationCallback.sendToNav_goToNextGWPForConf();
 	}
 
-	/* Entry action for state 'endOfStory'. */
-	private void entryAction_main_endOfStory() {
-		sCIHBrain.setTTSReady(false);
-
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
-
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
-				"[:-D]puuuh I met so many interesting people! I was waiting so long for this moment. You know my friends were in a big hurry to prepare me for this. Safe collaborative robots that can understand and learn the human actions and emotions, certainly paves the way for a better tomorrow! The team RT Lions is working hard to make me more and more intelligent. The future is already here!");
-	}
-
 	/* Entry action for state 'yes'. */
 	private void entryAction_main_yes() {
 
@@ -3590,17 +3589,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		timer.setTimer(this, 18, 1 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS("No");
-	}
-
-	/* Entry action for state 'endeGutallesGut'. */
-	private void entryAction_main_endeGutallesGut() {
-		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(false);
-
-		sCIUdpInterface.operationCallback.sendToKinect2_detectionOnOff(false);
-
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(0);
-
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
 	}
 
 	/* Entry action for state 'GreetingsToVisitors'. */
@@ -3636,6 +3624,27 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_wait1() {
 
 		timer.setTimer(this, 20, 1 * 1000, false);
+	}
+
+	/* Entry action for state 'endeGutallesGut'. */
+	private void entryAction_main_endeGutallesGut_inner_region_endeGutallesGut() {
+		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(false);
+
+		sCIUdpInterface.operationCallback.sendToKinect2_detectionOnOff(false);
+
+		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(0);
+
+		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+	}
+
+	/* Entry action for state 'endOfStory'. */
+	private void entryAction_main_endeGutallesGut_inner_region_endOfStory() {
+		sCIHBrain.setTTSReady(false);
+
+		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+
+		sCIUdpInterface.operationCallback.sendToHBrain_TTS(
+				"[:-D]puuuh I met so many interesting people! I was waiting so long for this moment. You know my friends were in a big hurry to prepare me for this. I had to learn so many things from them: finding humans, recognising them, understanding thiere language and facial expressions. Safe collaborative robots that can interact with human, certainly paves the way for a better tomorrow! The team RT Lions is working hard to make me more and more intelligent. The future is close!");
 	}
 
 	/* Entry action for state 'sayAutsch'. */
@@ -4574,14 +4583,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.main_GotToFirstStation;
 	}
 
-	/* 'default' enter sequence for state endOfStory */
-	private void enterSequence_main_endOfStory_default() {
-		entryAction_main_endOfStory();
-
-		nextStateIndex = 0;
-		stateVector[0] = State.main_endOfStory;
-	}
-
 	/* Default enter sequence for state null */
 	private void enterSequence_main__final__default() {
 		nextStateIndex = 0;
@@ -4602,14 +4603,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 		nextStateIndex = 0;
 		stateVector[0] = State.main_no;
-	}
-
-	/* 'default' enter sequence for state endeGutallesGut */
-	private void enterSequence_main_endeGutallesGut_default() {
-		entryAction_main_endeGutallesGut();
-
-		nextStateIndex = 0;
-		stateVector[0] = State.main_endeGutallesGut;
 	}
 
 	/* 'entry_GreetingsToVisitors2' enter sequence for state GreetingsToVisitors */
@@ -4655,6 +4648,27 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 		nextStateIndex = 0;
 		stateVector[0] = State.main_GreetingsToVisitors_inner_region_Copy_1_wait1;
+	}
+
+	/* 'entry_endOfStory1' enter sequence for state endeGutallesGut */
+	private void enterSequence_main_endeGutallesGut_entry_endOfStory1() {
+		enterSequence_main_endeGutallesGut_inner_region_entry_endOfStory1();
+	}
+
+	/* 'default' enter sequence for state endeGutallesGut */
+	private void enterSequence_main_endeGutallesGut_inner_region_endeGutallesGut_default() {
+		entryAction_main_endeGutallesGut_inner_region_endeGutallesGut();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.main_endeGutallesGut_inner_region_endeGutallesGut;
+	}
+
+	/* 'default' enter sequence for state endOfStory */
+	private void enterSequence_main_endeGutallesGut_inner_region_endOfStory_default() {
+		entryAction_main_endeGutallesGut_inner_region_endOfStory();
+
+		nextStateIndex = 0;
+		stateVector[0] = State.main_endeGutallesGut_inner_region_endOfStory;
 	}
 
 	/* 'default' enter sequence for state init */
@@ -4732,6 +4746,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* 'entry_GreetingsToVisitors2' enter sequence for region inner region */
 	private void enterSequence_main_GreetingsToVisitors_inner_region_entry_GreetingsToVisitors2() {
 		react_main_GreetingsToVisitors_inner_region_entry_GreetingsToVisitors2();
+	}
+
+	/* 'entry_endOfStory1' enter sequence for region inner region */
+	private void enterSequence_main_endeGutallesGut_inner_region_entry_endOfStory1() {
+		react_main_endeGutallesGut_inner_region_entry_endOfStory1();
 	}
 
 	/* 'default' enter sequence for region Leonie Bupered */
@@ -5377,12 +5396,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 
-	/* Default exit sequence for state endOfStory */
-	private void exitSequence_main_endOfStory() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-
 	/* Default exit sequence for final state. */
 	private void exitSequence_main__final_() {
 		nextStateIndex = 0;
@@ -5403,12 +5416,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.$NullState$;
 
 		exitAction_main_no();
-	}
-
-	/* Default exit sequence for state endeGutallesGut */
-	private void exitSequence_main_endeGutallesGut() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
 	}
 
 	/* Default exit sequence for state GreetingsToVisitors */
@@ -5448,6 +5455,23 @@ public class BrainStatemachine implements IBrainStatemachine {
 		stateVector[0] = State.$NullState$;
 
 		exitAction_main_GreetingsToVisitors_inner_region_Copy_1_wait1();
+	}
+
+	/* Default exit sequence for state endeGutallesGut */
+	private void exitSequence_main_endeGutallesGut() {
+		exitSequence_main_endeGutallesGut_inner_region();
+	}
+
+	/* Default exit sequence for state endeGutallesGut */
+	private void exitSequence_main_endeGutallesGut_inner_region_endeGutallesGut() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+
+	/* Default exit sequence for state endOfStory */
+	private void exitSequence_main_endeGutallesGut_inner_region_endOfStory() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 
 	/* Default exit sequence for state init */
@@ -6023,10 +6047,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 				exitSequence_main_GotToFirstStation();
 				break;
 
-			case main_endOfStory :
-				exitSequence_main_endOfStory();
-				break;
-
 			case main__final_ :
 				exitSequence_main__final_();
 				break;
@@ -6037,10 +6057,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 			case main_no :
 				exitSequence_main_no();
-				break;
-
-			case main_endeGutallesGut :
-				exitSequence_main_endeGutallesGut();
 				break;
 
 			case main_GreetingsToVisitors_inner_region_GreetingsToVisitors :
@@ -6061,6 +6077,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 			case main_GreetingsToVisitors_inner_region_Copy_1_wait1 :
 				exitSequence_main_GreetingsToVisitors_inner_region_Copy_1_wait1();
+				break;
+
+			case main_endeGutallesGut_inner_region_endeGutallesGut :
+				exitSequence_main_endeGutallesGut_inner_region_endeGutallesGut();
+				break;
+
+			case main_endeGutallesGut_inner_region_endOfStory :
+				exitSequence_main_endeGutallesGut_inner_region_endOfStory();
 				break;
 
 			default :
@@ -7235,6 +7259,22 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 			case main_GreetingsToVisitors_inner_region_Copy_1_wait1 :
 				exitSequence_main_GreetingsToVisitors_inner_region_Copy_1_wait1();
+				break;
+
+			default :
+				break;
+		}
+	}
+
+	/* Default exit sequence for region inner region */
+	private void exitSequence_main_endeGutallesGut_inner_region() {
+		switch (stateVector[0]) {
+			case main_endeGutallesGut_inner_region_endeGutallesGut :
+				exitSequence_main_endeGutallesGut_inner_region_endeGutallesGut();
+				break;
+
+			case main_endeGutallesGut_inner_region_endOfStory :
+				exitSequence_main_endeGutallesGut_inner_region_endOfStory();
 				break;
 
 			default :
@@ -8659,13 +8699,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		}
 	}
 
-	/* The reactions of state endOfStory. */
-	private void react_main_endOfStory() {
-		if (check_main_endOfStory_tr0_tr0()) {
-			effect_main_endOfStory_tr0();
-		}
-	}
-
 	/* The reactions of state null. */
 	private void react_main__final_() {
 	}
@@ -8682,11 +8715,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		if (check_main_no_tr0_tr0()) {
 			effect_main_no_tr0();
 		}
-	}
-
-	/* The reactions of state endeGutallesGut. */
-	private void react_main_endeGutallesGut() {
-		effect_main_endeGutallesGut_tr0();
 	}
 
 	/* The reactions of state GreetingsToVisitors. */
@@ -8721,6 +8749,18 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void react_main_GreetingsToVisitors_inner_region_Copy_1_wait1() {
 		if (check_main_GreetingsToVisitors_inner_region_Copy_1_wait1_tr0_tr0()) {
 			effect_main_GreetingsToVisitors_inner_region_Copy_1_wait1_tr0();
+		}
+	}
+
+	/* The reactions of state endeGutallesGut. */
+	private void react_main_endeGutallesGut_inner_region_endeGutallesGut() {
+		effect_main_endeGutallesGut_inner_region_endeGutallesGut_tr0();
+	}
+
+	/* The reactions of state endOfStory. */
+	private void react_main_endeGutallesGut_inner_region_endOfStory() {
+		if (check_main_endeGutallesGut_inner_region_endOfStory_tr0_tr0()) {
+			effect_main_endeGutallesGut_inner_region_endOfStory_tr0();
 		}
 	}
 
@@ -9041,6 +9081,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 		enterSequence_main_GreetingsToVisitors_inner_region_Greeting1_default();
 	}
 
+	/* Default react sequence for initial entry entry_endOfStory1 */
+	private void react_main_endeGutallesGut_inner_region_entry_endOfStory1() {
+		enterSequence_main_endeGutallesGut_inner_region_endOfStory_default();
+	}
+
 	/* Default react sequence for initial entry  */
 	private void react_Leonie_Bupered__entry_Default() {
 		enterSequence_Leonie_Bupered_init_default();
@@ -9156,10 +9201,15 @@ public class BrainStatemachine implements IBrainStatemachine {
 		effect_main_GreetingsToVisitors_tr0();
 	}
 
+	/* The reactions of exit exit_endeGutallesGut0. */
+	private void react_main_endeGutallesGut_inner_region_exit_endeGutallesGut0() {
+		effect_main_endeGutallesGut_tr0();
+	}
+
 	public void runCycle() {
 		if (!initialized)
 			throw new IllegalStateException(
-					"The statemachine needs to be initialized first by calling the init() function.");
+					"The state machine needs to be initialized first by calling the init() function.");
 
 		clearOutEvents();
 
@@ -9439,9 +9489,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 				case main_GotToFirstStation :
 					react_main_GotToFirstStation();
 					break;
-				case main_endOfStory :
-					react_main_endOfStory();
-					break;
 				case main__final_ :
 					react_main__final_();
 					break;
@@ -9450,9 +9497,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 					break;
 				case main_no :
 					react_main_no();
-					break;
-				case main_endeGutallesGut :
-					react_main_endeGutallesGut();
 					break;
 				case main_GreetingsToVisitors_inner_region_GreetingsToVisitors :
 					react_main_GreetingsToVisitors_inner_region_GreetingsToVisitors();
@@ -9468,6 +9512,12 @@ public class BrainStatemachine implements IBrainStatemachine {
 					break;
 				case main_GreetingsToVisitors_inner_region_Copy_1_wait1 :
 					react_main_GreetingsToVisitors_inner_region_Copy_1_wait1();
+					break;
+				case main_endeGutallesGut_inner_region_endeGutallesGut :
+					react_main_endeGutallesGut_inner_region_endeGutallesGut();
+					break;
+				case main_endeGutallesGut_inner_region_endOfStory :
+					react_main_endeGutallesGut_inner_region_endOfStory();
 					break;
 				case leonie_Bupered_init :
 					react_Leonie_Bupered_init();
