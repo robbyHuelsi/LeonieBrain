@@ -77,6 +77,7 @@ public class PersonDynData implements Serializable {
 		if(inB != null){
 			inB.getSCICurrPerson().setCurrEmotion(emotion);
 			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+			System.out.println("Emotion set");
 		}
 		
 	}

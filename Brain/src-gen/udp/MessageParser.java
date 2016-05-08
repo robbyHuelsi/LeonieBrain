@@ -88,24 +88,24 @@ public class MessageParser {
 						//System.out.println("Face found");
 
 
-//						if(attributePartsVBD.length > 1){
-//							//Gesicht hat schon eine FaceID von VBRain bekommen --> nach 5 Frames
-//							int faceId = Integer.parseInt(attributePartsVBD[1]);
-//							System.out.println("Face ID: " + faceId);
-//							Person p = personList.getPersonByFaceID(faceId);
-//							if (p != null) {
-//								//
-//								p.addDynData(dataDyn, brain);
-//								//System.out.println(p.getCurrDynData().toString());
-//							}
-//							//personList.setCurrPersonByFaceID(faceId);
-//							brain.getSCIVBrain().setCountFoundFaces(1);
-//						}else{
-//							//noch keine FaceID, weil noch vor 5 Frames
-//							//System.out.println("No face ID");
-//							//personList.setCurrPerson(null);
-//							brain.getSCIVBrain().setCountFoundFaces(0); //Das muss wieder raus, wenn Leonie sofort stoppen soll bei erkannter Persom
-//						}
+						if(attributePartsVBD.length > 1){
+							//Gesicht hat schon eine FaceID von VBRain bekommen --> nach 5 Frames
+							int faceId = Integer.parseInt(attributePartsVBD[1]);
+							System.out.println("Face ID: " + faceId);
+							Person p = personList.getPersonByFaceID(faceId);
+							if (p != null) {
+								//
+								p.addDynData(dataDyn, brain);
+								//System.out.println(p.getCurrDynData().toString());
+							}
+							//personList.setCurrPersonByFaceID(faceId);
+							//brain.getSCIVBrain().setCountFoundFaces(1);
+						}else{
+							//noch keine FaceID, weil noch vor 5 Frames
+							//System.out.println("No face ID");
+							//personList.setCurrPerson(null);
+							brain.getSCIVBrain().setCountFoundFaces(0); //Das muss wieder raus, wenn Leonie sofort stoppen soll bei erkannter Persom
+						}
 
 					} else {
 						brain.getSCIVBrain().setCountFoundFaces(0);
@@ -124,6 +124,7 @@ public class MessageParser {
 					Person p = personList.getCurrPerson();
 					if (p != null && p.getCurrDynData() != null) {
 						p.getCurrDynData().setEmotion(Integer.parseInt(dataEmo), brain);
+						System.out.println("Cuurent Person has emotion: " + p.getCurrDynData().getEmotion());
 						//System.out.println(p.toString());
 					}
 				}
