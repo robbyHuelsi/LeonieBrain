@@ -491,7 +491,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	private ITimer timer;
 
-	private final boolean[] timeEvents = new boolean[26];
+	private final boolean[] timeEvents = new boolean[25];
 
 	private long counter;
 
@@ -1492,11 +1492,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_main_Init_tr2_tr2() {
-		return sCIScitosRemoteControl.arrivedWP == true;
+		return 1 == 0;
 	}
 
 	private boolean check_main_Init_tr3_tr3() {
-		return 1 == 0;
+		return sCIScitosRemoteControl.arrivedWP == true;
 	}
 
 	private boolean check_main_randTest_tr0_tr0() {
@@ -1504,7 +1504,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region_StartSTT_tr0_tr0() {
-		return timeEvents[15];
+		return 1 == 0;
 	}
 
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region_StartSTT_tr1_tr1() {
@@ -1536,11 +1536,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_main_yes_tr0_tr0() {
-		return timeEvents[16];
+		return timeEvents[15];
 	}
 
 	private boolean check_main_no_tr0_tr0() {
-		return timeEvents[17];
+		return timeEvents[16];
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_GreetingsToVisitors_tr0_tr0() {
@@ -1552,7 +1552,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_wait1_tr0_tr0() {
-		return timeEvents[18];
+		return timeEvents[17];
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_Greeting1_tr0_tr0() {
@@ -1560,7 +1560,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_wait3_tr0_tr0() {
-		return timeEvents[19];
+		return timeEvents[18];
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_greeting3_tr0_tr0() {
@@ -1568,7 +1568,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_wait4_tr0_tr0() {
-		return timeEvents[20];
+		return timeEvents[19];
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_greeting4_tr0_tr0() {
@@ -1576,7 +1576,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_wait3_tr0_tr0() {
-		return timeEvents[21];
+		return timeEvents[20];
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_greeting3_tr0_tr0() {
@@ -1584,7 +1584,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_wait4_tr0_tr0() {
-		return timeEvents[22];
+		return timeEvents[21];
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_greeting4_tr0_tr0() {
@@ -1596,7 +1596,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_main_GreetingsToVisitors_inner_region_turnBack_tr0_tr0() {
-		return timeEvents[23];
+		return timeEvents[22];
 	}
 
 	private boolean check_main_endeGutallesGut_inner_region_endeGutallesGut_tr0_tr0() {
@@ -1612,7 +1612,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_main_wait_tr0_tr0() {
-		return timeEvents[24];
+		return timeEvents[23];
 	}
 
 	private boolean check_Leonie_Bupered_init_tr0_tr0() {
@@ -1620,7 +1620,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 
 	private boolean check_Leonie_Bupered_sayAutsch_tr0_tr0() {
-		return timeEvents[25];
+		return timeEvents[24];
 	}
 
 	private boolean check_Leonie_Bupered_resetFace_tr0_tr0() {
@@ -3688,9 +3688,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_AtWP03_FingerAlphabet__inner_region_StartSTT() {
-
-		timer.setTimer(this, 15, 5 * 1000, false);
-
 		sCISTT.setSTTReady(false);
 
 		sCISTT.setSpeakerMsg("");
@@ -3704,8 +3701,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCILeapMotion.setGestureDetected(false);
 
 		setCounter(counter + 1);
-
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(2);
 
 		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(3);
 	}
@@ -3741,7 +3736,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'yes'. */
 	private void entryAction_main_yes() {
 
-		timer.setTimer(this, 16, 1 * 1000, false);
+		timer.setTimer(this, 15, 1 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Yes");
 	}
@@ -3749,7 +3744,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'no'. */
 	private void entryAction_main_no() {
 
-		timer.setTimer(this, 17, 1 * 1000, false);
+		timer.setTimer(this, 16, 1 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS("No");
 	}
@@ -3775,7 +3770,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'wait1'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_wait1() {
 
-		timer.setTimer(this, 18, 2 * 1000, false);
+		timer.setTimer(this, 17, 2 * 1000, false);
 	}
 
 	/* Entry action for state 'Greeting1'. */
@@ -3786,7 +3781,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'wait3'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_wait3() {
 
-		timer.setTimer(this, 19, 1 * 1000, false);
+		timer.setTimer(this, 18, 1 * 1000, false);
 	}
 
 	/* Entry action for state 'greeting3'. */
@@ -3800,7 +3795,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'wait4'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_wait4() {
 
-		timer.setTimer(this, 20, 1 * 1000, false);
+		timer.setTimer(this, 19, 1 * 1000, false);
 	}
 
 	/* Entry action for state 'greeting4'. */
@@ -3814,7 +3809,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'Copy_1_wait3'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_wait3() {
 
-		timer.setTimer(this, 21, 1 * 1000, false);
+		timer.setTimer(this, 20, 1 * 1000, false);
 	}
 
 	/* Entry action for state 'Copy_1_greeting3'. */
@@ -3828,7 +3823,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'Copy_1_wait4'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_wait4() {
 
-		timer.setTimer(this, 22, 3 * 1000, false);
+		timer.setTimer(this, 21, 3 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS("On the back");
 
@@ -3854,7 +3849,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'turnBack'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_turnBack() {
 
-		timer.setTimer(this, 23, 2 * 1000, false);
+		timer.setTimer(this, 22, 2 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToNav_bodyUTurn();
 	}
@@ -3892,13 +3887,13 @@ public class BrainStatemachine implements IBrainStatemachine {
 	/* Entry action for state 'wait'. */
 	private void entryAction_main_wait() {
 
-		timer.setTimer(this, 24, 1 * 1000, false);
+		timer.setTimer(this, 23, 1 * 1000, false);
 	}
 
 	/* Entry action for state 'sayAutsch'. */
 	private void entryAction_Leonie_Bupered_sayAutsch() {
 
-		timer.setTimer(this, 25, 5 * 1000, false);
+		timer.setTimer(this, 24, 5 * 1000, false);
 
 		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-(]ouch!");
 
@@ -4034,8 +4029,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_AtWP03_FingerAlphabet__inner_region_StartSTT() {
-		timer.unsetTimer(this, 15);
-
 		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(0);
 
 		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
@@ -4048,52 +4041,52 @@ public class BrainStatemachine implements IBrainStatemachine {
 
 	/* Exit action for state 'yes'. */
 	private void exitAction_main_yes() {
-		timer.unsetTimer(this, 16);
+		timer.unsetTimer(this, 15);
 	}
 
 	/* Exit action for state 'no'. */
 	private void exitAction_main_no() {
-		timer.unsetTimer(this, 17);
+		timer.unsetTimer(this, 16);
 	}
 
 	/* Exit action for state 'wait1'. */
 	private void exitAction_main_GreetingsToVisitors_inner_region_wait1() {
-		timer.unsetTimer(this, 18);
+		timer.unsetTimer(this, 17);
 	}
 
 	/* Exit action for state 'wait3'. */
 	private void exitAction_main_GreetingsToVisitors_inner_region_wait3() {
-		timer.unsetTimer(this, 19);
+		timer.unsetTimer(this, 18);
 	}
 
 	/* Exit action for state 'wait4'. */
 	private void exitAction_main_GreetingsToVisitors_inner_region_wait4() {
-		timer.unsetTimer(this, 20);
+		timer.unsetTimer(this, 19);
 	}
 
 	/* Exit action for state 'Copy_1_wait3'. */
 	private void exitAction_main_GreetingsToVisitors_inner_region_Copy_1_wait3() {
-		timer.unsetTimer(this, 21);
+		timer.unsetTimer(this, 20);
 	}
 
 	/* Exit action for state 'Copy_1_wait4'. */
 	private void exitAction_main_GreetingsToVisitors_inner_region_Copy_1_wait4() {
-		timer.unsetTimer(this, 22);
+		timer.unsetTimer(this, 21);
 	}
 
 	/* Exit action for state 'turnBack'. */
 	private void exitAction_main_GreetingsToVisitors_inner_region_turnBack() {
-		timer.unsetTimer(this, 23);
+		timer.unsetTimer(this, 22);
 	}
 
 	/* Exit action for state 'wait'. */
 	private void exitAction_main_wait() {
-		timer.unsetTimer(this, 24);
+		timer.unsetTimer(this, 23);
 	}
 
 	/* Exit action for state 'sayAutsch'. */
 	private void exitAction_Leonie_Bupered_sayAutsch() {
-		timer.unsetTimer(this, 25);
+		timer.unsetTimer(this, 24);
 	}
 
 	/* 'default' enter sequence for state exitSad */
