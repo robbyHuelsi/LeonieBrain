@@ -14,6 +14,8 @@ import org.yakindu.scr.brain.IBrainStatemachine.SCIScitosRemoteControl;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIUdpInterfaceOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIVBrainOperationCallback;
 
+import Modules.Module;
+import Modules.Modules;
 import main.Start;
 import udp.UDPConnection;
 import vbrain.PersonList;
@@ -21,7 +23,7 @@ import vbrain.PersonList;
 public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceOperationCallback, SCIVBrainOperationCallback, SCICurrPersonOperationCallback, SCIAttOperationCallback
 {
 	private PersonList personList = Start.getPersonList();
-	
+	private Modules modules = Start.getModules();
 	
 	// ---- Brain General Functions Interface ---- //
 	public void printToConsole(String msg){
@@ -46,17 +48,17 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 		UDPConnection  udpConnection = new UDPConnection();
 				
 		try{
-			udpConnection.receiveSocket(InetAddress.getByName(Start.getIpListen()), Start.getPortListen(), true);
+			udpConnection.receiveSocket(InetAddress.getByName(modules.getIp("Brain")), modules.getPort("Brain"), true);
 			result = udpConnection.getMessage();
-			System.out.println(InetAddress.getByName(Start.getIpListen())+"X:" + result);
+			System.out.println(InetAddress.getByName(modules.getIp("Brain"))+"X:" + result);
 //			udpConnection.setRunThread(false);
 		} catch (UnknownHostException e){
 			e.printStackTrace();
 		}
 	}
 	
-	private void sendMessage(String text, String targetAdress, int targetPort)
-	{
+	
+	private void sendMessage(String text, String targetAdress, int targetPort){
 		UDPConnection  udpConnection = new UDPConnection();
 		try
 		{
@@ -69,22 +71,27 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 //		System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());		
 	}
 	
+	private void sendMessage(String text, Module module){
+		sendMessage(text, module.getIp(), module.getPort());
+	}
+	
+	
 	public void sendToVBrain_ACIonOff(boolean inOnOff){
 		System.out.println(inOnOff?"ACI on":"ACI off");
-		this.sendMessage(inOnOff?"#BRAIN#1#":"#BRAIN#0#", Start.getIpSendVBrain(), Start.getPortSendVBrain());
-		this.sendMessage("#TRACRESET#", Start.getIpSendAtrac(), Start.getPortSendAtracPTZ());
-		this.sendMessage("#TRACRESET#", Start.getIpSendAtrac(), Start.getPortSendAtracWaC());
+		this.sendMessage(inOnOff?"#BRAIN#1#":"#BRAIN#0#", modules.get("VBrain"));
+		this.sendMessage("#TRACRESET#", modules.get("TrackingZoomC"));
+		this.sendMessage("#TRACRESET#", modules.get("TrackingWaC"));
 
 	}
 	
 	public void sendToHBrain_TTS(String inText){
 		//System.out.println(inText);
-		this.sendMessage("#BRAIN##TEXT#" + inText , Start.getIpSendHBrain(), Start.getPortSendHBrain()); // # removed cause Leonie reads out the hash too
+		this.sendMessage("#BRAIN##TEXT#" + inText , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendToHBrain_TTS_num(long inNum){
 		//System.out.println(inText);
-		this.sendMessage("#BRAIN##TEXT#" + inNum , Start.getIpSendHBrain(), Start.getPortSendHBrain()); // # removed cause Leonie reads out the hash too
+		this.sendMessage("#BRAIN##TEXT#" + inNum , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendToHBrain_TTS2(String inT1, String inT2){
@@ -105,15 +112,15 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	}
 	
 	public void sendToKinect2_detectionOnOff(boolean inOnOff){
-		this.sendMessage("#NOISEDETECTION#" + (inOnOff?"1":"0") + "#", Start.getIpSendKinect2(), Start.getPortSendKinect2());
+		this.sendMessage("#NOISEDETECTION#" + (inOnOff?"1":"0") + "#", modules.get("NoiseDetection"));
 	}
 	
 	public void sendToLeapMotion_detectionOnOff(long inOnOff){
-		this.sendMessage("#HANDGESTURES#" + (int)inOnOff + "#", Start.getIpSendLeapMotion(), Start.getPortSendLeapMotion());
+		this.sendMessage("#HANDGESTURES#" + (int)inOnOff + "#", modules.get("HandGestures"));
 	}
 	
 	public void sendToSTT_detectionOnOff(long inOnOff){
-		this.sendMessage("#STT#" + (inOnOff==0?"0":(inOnOff==1?"1":(inOnOff==2?"yesno":"name"))) + "#", Start.getIpSendSTT(), Start.getPortSendSTT());
+		this.sendMessage("#STT#" + (inOnOff==0?"0":(inOnOff==1?"1":(inOnOff==2?"yesno":"name"))) + "#", modules.get("STT"));
 		if(inOnOff != 0){
 			Start.instanceOf().getBrain().getSCISTT().setSTTReady(false);
 			Start.instanceOf().getBrain().getSCISTT().setSpeakerMsg("");
@@ -127,7 +134,7 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	
 	public void sendToNav_goToGWP(long inWayPoint){
 		System.out.println("Go to global way point " + inWayPoint);
-		this.sendMessage("#NAV##GWP#" + inWayPoint + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		this.sendMessage("#NAV##GWP#" + inWayPoint + "#", modules.get("Mira"));
 	}
 	
 	public void sendToNav_goToNextGWPForConf() {
@@ -149,35 +156,35 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	
 	public void sendToNav_goToLC(String inX, String inY){
 		System.out.println("Go to local coordinates: x=" + inX + ", y=" + inY);
-		this.sendMessage("#NAV##LC#" + inX + ";" + inY + ";#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		this.sendMessage("#NAV##LC#" + inX + ";" + inY + ";#", modules.get("Mira"));
 	}
 	
 	public void sendToNav_turnBody(String inAngle){  //#NAV##ROTBODY#360#
 		System.out.println("Turn Body: angle=" + inAngle);
-		this.sendMessage("#NAV##ROTBODY#" + inAngle + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		this.sendMessage("#NAV##ROTBODY#" + inAngle + "#", modules.get("Mira"));
 	}
 	
 	public void sendToNav_bodyUTurn(){  //#NAV##ROTBODY#360#
 		
-		this.sendMessage("#NAV##ROTBODY#90#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		this.sendMessage("#NAV##ROTBODY#90#", modules.get("Mira"));
 		try {
 			Thread.sleep(820);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.sendMessage("#NAV##ROTBODY#90#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		this.sendMessage("#NAV##ROTBODY#90#", modules.get("Mira"));
 	}
 	
 	public void sendToNav_turnHead(String inAngle){  //#NAV##ROTBODY#360#
 		  System.out.println("Turn Body: angle=" + inAngle);
-		  this.sendMessage("#NAV##ROTHEAD#" + inAngle + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		  this.sendMessage("#NAV##ROTHEAD#" + inAngle + "#", modules.get("Mira"));
 		 }
 
 	
 	public void sendToNav_searchOnOff(boolean inOnOff){
 		System.out.println(inOnOff?"Moving from WP to WP":"Standing");
-		this.sendMessage("#NAV##RUN#" + (inOnOff?"1":"0") + "#", Start.getIpSendNavigation(), Start.getPortSendNavigation());
+		this.sendMessage("#NAV##RUN#" + (inOnOff?"1":"0") + "#", modules.get("Mira"));
 //		this.sendToHBrain_TTS("[idle2:" + (inOnOff?"true":"false") + "]");
 	}
 
@@ -262,7 +269,7 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	}
 
 	 public void sendToAttr_estimate() {
-		 this.sendMessage("/home/leonie/ACI/org.png", Start.getIpSendHBrain(), 50011);
+		 this.sendMessage("/home/leonie/ACI/org.png", modules.get("Attractiveness"));
 	 }
 
 	
