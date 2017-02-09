@@ -1,4 +1,4 @@
-package Modules;
+package modules;
 
 public class Module {
 	private String name;
@@ -51,5 +51,9 @@ public class Module {
 
 	public void setParser(Object parser) {
 		this.parser = parser;
+	}
+
+	public String toString() {
+		return name + "@" + ip + ":" + port;
 	}
 }

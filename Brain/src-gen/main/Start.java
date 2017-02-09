@@ -5,11 +5,11 @@ import java.net.Inet4Address;
 import org.yakindu.scr.TimerService;
 import org.yakindu.scr.brain.BrainStatemachine;
 
-import Modules.Modules;
 import callbacks.OpCallbackImpl;
-import vbrain.Person;
-import vbrain.PersonDynData;
-import vbrain.PersonList;
+import modules.Modules;
+import vBrain.Person;
+import vBrain.PersonDynData;
+import vBrain.PersonList;
 
 public class Start
 {
@@ -19,15 +19,9 @@ public class Start
 	static private PersonList personList;
 	static private Modules modules;
 	
-	// ---- BRAIN -------------------------------------------------------------
-	//static private String ipListen = "134.103.120.123";	//myCampus PC
-	//static private String ipListen = "192.168.1.21";		//Netgear PC
-	//static private String ipListen = "192.168.188.23";	//FritzBox Laptop
-	static private String ipListen = "192.168.178.40";
+	// ---- Communication -----------------------------------------------------
 	static private int portListen = 8888;
 	// ------------------------------------------------------------------------
-	
-	
 	
 	
 //	public enum Emotion {
@@ -38,8 +32,6 @@ public class Start
 //		 public int getValue() {return value;}
 //	}
 	
-	
-	
 	private Start()
 	{
 		brain = new BrainStatemachine();
@@ -47,6 +39,8 @@ public class Start
 		
 		modules = new Modules(portListen);
 		personList = new PersonList();
+		
+		modules.setIpAndPortOldSchool();
 		
 //		Person p = new Person();
 //		p.setGender(false, brain);
@@ -63,14 +57,7 @@ public class Start
 		return instance;
 	}
 	
-	public BrainStatemachine getBrain()
-	{
-		return brain;
-	}
 	
-	public static PersonList getPersonList(){
-		return personList;
-	}
 	
 	public static void main(String[] args) throws Exception
 	{
@@ -105,6 +92,14 @@ public class Start
 //	public OpCallbackImpl getOpCallbackImpl(){
 //		return this.opCallback;
 //	}
+	
+	public BrainStatemachine getBrain(){
+		return brain;
+	}
+	
+	public static PersonList getPersonList(){
+		return personList;
+	}
 
 	public static Modules getModules(){
 		return modules;

@@ -1,4 +1,4 @@
-package vbrain;
+package vBrain;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,12 +11,12 @@ import java.util.Map;
 import java.util.Vector;
 
 import main.Start;
-import vbrain.Person; 
+import vBrain.Person; 
 
 public class PersonList{
 	private Vector<Person> personList;
 	private Person currPerson = null;
-	private String filePath = "PersonList.brain";
+	private String filePath = System.getProperty ("user.home") + "PersonList.brain";
 	
 	public PersonList(){
 		if(this.load()){

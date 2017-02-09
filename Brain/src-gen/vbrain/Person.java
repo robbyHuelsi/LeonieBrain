@@ -1,4 +1,4 @@
-package vbrain;
+package vBrain;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ import java.util.Vector;
 
 import org.yakindu.scr.brain.BrainStatemachine;
 
-import vbrain.PersonDynData;
+import vBrain.PersonDynData;
 
 
 public class Person implements Serializable{	

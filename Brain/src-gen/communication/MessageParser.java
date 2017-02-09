@@ -1,4 +1,4 @@
-package udp;
+package communication;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,8 +7,8 @@ import org.yakindu.scr.brain.BrainStatemachine;
 
 import callbacks.OpCallbackImpl;
 import main.Start;
-import vbrain.Person;
-import vbrain.PersonList;
+import vBrain.Person;
+import vBrain.PersonList;
 
 public class MessageParser {
 

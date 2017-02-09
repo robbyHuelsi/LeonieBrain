@@ -1,4 +1,4 @@
-package SaveLoad;
+package saveLoad;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.util.Vector;
 
 import main.Start;
-import vbrain.Person;
+import vBrain.Person;
 
 
 /**InOutObj serialisiert die ihr uebergebenen Objekte um diese dann zu Speichern bzw. zu Laden

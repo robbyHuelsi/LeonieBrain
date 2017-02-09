@@ -14,11 +14,11 @@ import org.yakindu.scr.brain.IBrainStatemachine.SCIScitosRemoteControl;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIUdpInterfaceOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIVBrainOperationCallback;
 
-import Modules.Module;
-import Modules.Modules;
+import communication.UDPConnection;
 import main.Start;
-import udp.UDPConnection;
-import vbrain.PersonList;
+import modules.Module;
+import modules.Modules;
+import vBrain.PersonList;
 
 public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceOperationCallback, SCIVBrainOperationCallback, SCICurrPersonOperationCallback, SCIAttOperationCallback
 {
@@ -58,21 +58,21 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	}
 	
 	
-	private void sendMessage(String text, String targetAdress, int targetPort){
+	private boolean sendMessage(String text, Module module){
+		if (module == null) {
+			return false;
+		}
 		UDPConnection  udpConnection = new UDPConnection();
 		try
 		{
 //			udpConnection.sendSocket(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage(), InetAddress.getByName("134.103.120.108"), 8888);
-			udpConnection.sendSocket(text, InetAddress.getByName(targetAdress), targetPort);
-		} catch (UnknownHostException e)
-		{
+			udpConnection.sendSocket(text, InetAddress.getByName(module.getIp()), module.getPort());
+		} catch (UnknownHostException e) {
 			e.printStackTrace();
+			return false;
 		}
-//		System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());		
-	}
-	
-	private void sendMessage(String text, Module module){
-		sendMessage(text, module.getIp(), module.getPort());
+//		System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());
+		return true;
 	}
 	
 	
