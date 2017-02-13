@@ -50,26 +50,26 @@ public class MessageParser implements Iparser{
 							// System.out.println(data);
 							// if(vbrainbM.find()){
 				parse = new VBrain();
-				parse.parse(data, brain, personList);
+				parse.parse(data, brain, start);
 				return true;
 			// break;
 
 			case "HBRAIN":
 				parse = new HBrain();
-				parse.parse(data, brain, personList);
+				parse.parse(data, brain, start);
 				
 				return true;
 			// break;
 
 			case "NOISEDETECTION":
 				parse = new Noisedetection();
-				parse.parse(data, brain, personList); 
+				parse.parse(data, brain, start); 
 				return true;
 			// break;
 
 			case "HANDGESTURES":
 				parse = new Handgestures();
-				parse.parse(data, brain, personList); 
+				parse.parse(data, brain, start); 
 				return true;
 			// break;
 
@@ -81,22 +81,28 @@ public class MessageParser implements Iparser{
 
 			case "STT":
 				parse = new Stt();
-				parse.parse(data, brain, personList); 
+				parse.parse(data, brain, start); 
 				return true;
 			// break;
 
 			case "NAV":
 				parse = new Nav();
-				parse.parse(data, brain, personList); 
+				parse.parse(data, brain, start); 
 				return true;
 			// break;
 
 			case "ATTR2":
 				parse = new Attr2();
-				parse.parse(data, brain, personList); 
+				parse.parse(data, brain, start); 
 				return true;
 			   // break;
-				
+			
+			case "CNS":
+				parse = new cns();
+				parse.parse(data, brain, start);
+				return true;
+				// break;
+
 			case "":
 			default:
 				System.out.println(sender + ": " + data);
@@ -111,8 +117,7 @@ public class MessageParser implements Iparser{
 	}
 
 	@Override
-	public boolean parse(String data, BrainStatemachine brain, PersonList personList) {
-		// TODO Auto-generated method stub
+	public boolean parse(String data, BrainStatemachine brain, Start start) {
 		return false;
 	}
 

@@ -3,7 +3,7 @@ package modules.parser;
 import org.yakindu.scr.brain.BrainStatemachine;
 
 import main.Start;
-import vBrain.PersonList;
+import vBrain.*;
 
 public interface Iparser {
 

@@ -3,11 +3,13 @@ package modules.parser;
 import org.yakindu.scr.brain.BrainStatemachine;
 
 import vBrain.*;
+import main.*;
 
 public class VBrain implements Iparser{
 
 	@Override
-	public boolean parse(String data, BrainStatemachine brain, PersonList personList) {
+	public boolean parse(String data, BrainStatemachine brain, Start start) {
+		PersonList personList = start.getPersonList();
 		if (data.contains("#STAT#")) {
 			String dataStat = data.substring(6);
 			System.out.println("Statische Daten: " + dataStat);

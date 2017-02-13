@@ -7,9 +7,7 @@ import org.yakindu.scr.brain.BrainStatemachine;
 
 import callbacks.OpCallbackImpl;
 import modules.Modules;
-import vBrain.Person;
-import vBrain.PersonDynData;
-import vBrain.PersonList;
+import vBrain.*;
 
 public class Start
 {
