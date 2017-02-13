@@ -3,7 +3,7 @@ package modules.parser;
 import org.yakindu.scr.brain.BrainStatemachine;
 import main.*;
 
-public class Attr2 implements Iparser{
+public class Attractiveness implements IParser{
 
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {

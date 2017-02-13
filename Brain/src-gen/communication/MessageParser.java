@@ -11,9 +11,9 @@ import modules.parser.*;
 import vBrain.Person;
 import vBrain.PersonList;
 
-public class MessageParser implements Iparser{
+public class MessageParser implements IParser{
 
-	private static Iparser parse;
+	private static IParser parse;
 	// Expected form of message: #SENDER#DATA
 	public static boolean ParseMessage(String message) {
 		//System.out.println(message);
@@ -44,6 +44,12 @@ public class MessageParser implements Iparser{
 
 			// Decide what should be done, depending on sender
 			switch (sender) {
+			case "CNS":
+				parse = new CNS();
+				parse.parse(data, brain, start);
+				return true;
+				// break;
+				
 			case "VBRAIN": // Pattern vbrainPattern =
 							// Pattern.compile("\\A#([\\w]*)#([\\S]*)");
 							// Matcher vbrainbM = vbrainPattern.matcher(data);
@@ -62,13 +68,13 @@ public class MessageParser implements Iparser{
 			// break;
 
 			case "NOISEDETECTION":
-				parse = new Noisedetection();
+				parse = new NoiseDetection();
 				parse.parse(data, brain, start); 
 				return true;
 			// break;
 
 			case "HANDGESTURES":
-				parse = new Handgestures();
+				parse = new HandGestures();
 				parse.parse(data, brain, start); 
 				return true;
 			// break;
@@ -80,28 +86,22 @@ public class MessageParser implements Iparser{
 			// break;
 
 			case "STT":
-				parse = new Stt();
+				parse = new STT();
 				parse.parse(data, brain, start); 
 				return true;
 			// break;
 
 			case "NAV":
-				parse = new Nav();
+				parse = new Mira();
 				parse.parse(data, brain, start); 
 				return true;
 			// break;
 
 			case "ATTR2":
-				parse = new Attr2();
+				parse = new Attractiveness();
 				parse.parse(data, brain, start); 
 				return true;
 			   // break;
-			
-			case "CNS":
-				parse = new cns();
-				parse.parse(data, brain, start);
-				return true;
-				// break;
 
 			case "":
 			default:

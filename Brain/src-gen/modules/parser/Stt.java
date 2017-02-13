@@ -4,7 +4,7 @@ import org.yakindu.scr.brain.BrainStatemachine;
 
 import main.*;
 
-public class Stt implements Iparser{
+public class STT implements IParser{
 
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {

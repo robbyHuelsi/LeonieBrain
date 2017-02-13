@@ -5,7 +5,7 @@ import org.yakindu.scr.brain.BrainStatemachine;
 import main.*;
 import vBrain.PersonList;
 
-public class Nav implements Iparser{
+public class Mira implements IParser{
 
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {

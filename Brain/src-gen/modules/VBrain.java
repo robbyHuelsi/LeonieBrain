@@ -2,11 +2,11 @@ package modules;
 
 import org.yakindu.scr.brain.BrainStatemachine;
 
-import modules.parser.Iparser;
+import modules.parser.IParser;
 import vBrain.*;
 import main.*;
 
-public class VBrain implements Iparser{
+public class VBrain implements IParser{
 
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {
