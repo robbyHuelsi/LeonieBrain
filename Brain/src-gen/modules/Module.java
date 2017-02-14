@@ -1,5 +1,7 @@
 package modules;
 
+import java.lang.reflect.Constructor;
+
 public class Module {
 	private String name;
 	private String ip;
@@ -7,20 +9,23 @@ public class Module {
 	private Object parser;
 	
 	
-	public Module(String name, String ip, Integer port) {
+	public Module(String name, String ip, Integer port, boolean setParser) {
 		this.name = name;
 		this.ip = ip;
 		this.port = port;
+		if (setParser) this.setParser(name);
 	}
 	
-	public Module(String name, String ip) {
+	public Module(String name, String ip, boolean setParser) {
 		this.name = name;
 		this.ip = ip;
+		if (setParser) this.setParser(name);
 	}
 	
-	public Module(String name, Integer port) {
+	public Module(String name, Integer port, boolean setParser) {
 		this.name = name;
 		this.port = port;
+		if (setParser) this.setParser(name);
 	}
 	
 	public String getName() {
@@ -49,8 +54,16 @@ public class Module {
 		return parser;
 	}
 
-	public void setParser(Object parser) {
-		this.parser = parser;
+	public boolean setParser(String moduleName) {
+		try {
+			Class<?> parserClass = Class.forName("modules.parser." + moduleName);
+			Constructor<?> parserClassConstructor = parserClass.getConstructors()[0];
+			this.parser = parserClassConstructor.newInstance();
+			return true;
+		} catch (Exception e) {
+			System.out.println("Setting " + name + " parser by name failed");
+			return false;
+		}
 	}
 
 	public String toString() {

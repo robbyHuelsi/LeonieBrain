@@ -9,30 +9,34 @@ public class Modules {
 	private Vector<Module> modules = new Vector<Module>();
 	
 	public Modules(){
-		addModule("Brain", getOwnIpAddress(), true);
+		addModule("Brain", getOwnIpAddress(), null, false, true);
+		addModule("CNS", true);
 	}
 	
 	public Modules(Integer listenPort){
-		addModule("Brain", getOwnIpAddress(), listenPort, true);
+		addModule("Brain", getOwnIpAddress(), listenPort, false, true);
+		addModule("CNS", true);
 	}
 	
-//	public Modules(String listenIp, Integer listenPort){
-//		addModule("Brain", listenIp, listenPort);
-//	}
-	
-	public boolean addModule(String name, String ip, Integer port, boolean overwrite){
+	private boolean addModule(String name, String ip, Integer port, boolean setParser, boolean overwrite){
+		//add function w/o variable setParser should be private. setParser = false just for adding Brain
 		for (Module module : modules) {
 			if (module.getName().equals(name)) {
 				if (overwrite) {
-					module = new Module(name, ip, port);
+					module = new Module(name, ip, port, setParser);
 					return true;
 				}else{
 					return false;
 				}
 			}
 		}
-		modules.add(new Module(name, ip, port));
+		modules.add(new Module(name, ip, port, setParser));
 		return true;
+	}
+	
+	public boolean addModule(String name, String ip, Integer port, boolean overwrite){
+		//setParser = true for all public addModule functions
+		return addModule(name, ip, port, true, overwrite);
 	}
 	
 	public boolean addModule(String name, String ip, boolean overwrite){
@@ -65,6 +69,8 @@ public class Modules {
 		return false;
 	}
 	
+
+	
 	public Module get(String name){
 		for (Module module : modules) {
 			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
@@ -95,12 +101,21 @@ public class Modules {
 		return null;
 	}
 	
+	public Object getParser(String name){
+		for (Module module : modules) {
+			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
+				return module.getParser();
+			}
+		}
+		System.out.println(name + " not found in " + modules.toString());
+		return null;
+	}
+	
 	public void removeAll(){
 		modules.removeAllElements();
 	}
 	
 	public boolean setIpAndPortOldSchool(){
-		//removeAll();
 		
 		// ---- VBrain ------------------------------------------------------------
 		//String ipSendVBrain = "134.103.120.108"; //myCampus Scitos
