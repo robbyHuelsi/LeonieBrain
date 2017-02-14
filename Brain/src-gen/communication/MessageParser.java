@@ -11,9 +11,8 @@ import modules.parser.*;
 import vBrain.Person;
 import vBrain.PersonList;
 
-public class MessageParser implements IParser{
+public class MessageParser{
 
-	private static IParser parse;
 	// Expected form of message: #SENDER#DATA
 	public static boolean ParseMessage(String message) {
 		//System.out.println(message);
@@ -43,84 +42,43 @@ public class MessageParser implements IParser{
 			//System.out.println(sender + ": " + data);
 
 			// Decide what should be done, depending on sender
-			switch (sender) {
-			case "CNS":
-				parse = new CNS();
-				parse.parse(data, brain, start);
-				return true;
-				// break;
-				
-			case "VBRAIN": // Pattern vbrainPattern =
-							// Pattern.compile("\\A#([\\w]*)#([\\S]*)");
-							// Matcher vbrainbM = vbrainPattern.matcher(data);
-							// System.out.println(data);
-							// if(vbrainbM.find()){
-				parse = new VBrain();
-				parse.parse(data, brain, start);
-				return true;
-			// break;
-
-			case "HBRAIN":
-				parse = new HBrain();
-				parse.parse(data, brain, start);
-				
-				return true;
-			// break;
-
-			case "NOISEDETECTION":
-				parse = new NoiseDetection();
-				parse.parse(data, brain, start); 
-				return true;
-			// break;
-
-			case "HANDGESTURES":
-				parse = new HandGestures();
-				parse.parse(data, brain, start); 
-				return true;
-			// break;
-
-			case "SMARTCONTROL":
-				System.out.println("SMARTCONTROL");
-
-				return true;
-			// break;
-
-			case "STT":
-				parse = new STT();
-				parse.parse(data, brain, start); 
-				return true;
-			// break;
-
-			case "NAV":
-				parse = new Mira();
-				parse.parse(data, brain, start); 
-				return true;
-			// break;
-
-			case "ATTR2":
-				parse = new Attractiveness();
-				parse.parse(data, brain, start); 
-				return true;
-			   // break;
-
-			case "":
-			default:
-				System.out.println(sender + ": " + data);
-				return false;
-			// break;
+			boolean parsingDone = false;
+			try {
+				//General code to start parse
+				parsingDone = ((IParser) start.getModules().getParser(sender)).parse(data, brain, start);
+			} catch (Exception e) {
+				//parsing failed. 
+				parsingDone = false;
 			}
+			
+			if (parsingDone) {
+				return true;
+			}else{
+				//For Sender with old module names
+				switch (sender) {
+				case "NAV":
+					((IParser) start.getModules().getParser("Mira")).parse(data, brain, start);
+					System.out.println("Update sender name NAV to Mira");
+					return true;
+				// break;
+
+				case "ATTR2":
+					((IParser) start.getModules().getParser("Attractiveness")).parse(data, brain, start); 
+					System.out.println("Update sender name ATTR2 to Attractiveness");
+					return true;
+				// break;
+
+				case "":
+				default:
+					System.out.println("No parser for " + sender + ": " + data);
+					return false;
+				// break;
+				}
+			}
+			
 		}
 
 		System.out.println("Unfound: " + m.toString() + "\n" + message);
-
 		return false;
 	}
-
-	@Override
-	public boolean parse(String data, BrainStatemachine brain, Start start) {
-		return false;
-	}
-
-
-
 }
