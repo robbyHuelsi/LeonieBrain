@@ -8,7 +8,6 @@ public class STT implements IParser{
 
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {
-		System.out.println("Input text: " + data);
 		brain.getSCISTT().setSpeakerMsg(data);
 		String filterBubble = brain.getSCISTT().getFilterBubble();
 		

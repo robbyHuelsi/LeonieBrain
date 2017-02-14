@@ -8,7 +8,6 @@ public class HBrain implements IParser{
 
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {
-		//System.out.println("HBrain: " + data);
 		if (data.contains("1")) {
 			//brain.getSCIHBrain().setTTSReady(false);
 			System.out.println("TSS jabbering");
