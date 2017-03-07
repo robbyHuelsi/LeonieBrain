@@ -84,6 +84,8 @@ public class UDPConnection
 						{
 							socket.receive(request);
 							message = new String(request.getData(), request.getOffset(), request.getLength());
+							//trim() trims whitespace from the beginning and end of a string
+							//if String is just whitespace, then a new String object representing an empty string is created and returned
 							MessageParser.ParseMessage(message.trim());
 						}
 						socket.close();
