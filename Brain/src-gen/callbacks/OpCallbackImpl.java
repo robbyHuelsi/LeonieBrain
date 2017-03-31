@@ -217,7 +217,6 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	}
 	
 	public void sendToSmartphone_(){
-		
 	}
 	
 	public void sendToNav_goToGWP(long inWayPoint){
@@ -238,8 +237,6 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 		}else{
 			this.sendToNav_goToGWP(0);
 		}
-		
-		
 	}
 	
 	public void sendToNav_goToLC(String inX, String inY){
@@ -353,7 +350,6 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	@Override
 	public void setOldAttr() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	 public void sendToAttr_estimate() {
@@ -361,11 +357,9 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	 }
 
 	public void receive() {
-		
 			/* UDP establish connection & receive */
 			String result = null;
 			UDPConnection  udpConnection = new UDPConnection();
-					
 			try{
 				udpConnection.receiveSocket(InetAddress.getByName(modules.getIp("Brain")), modules.getPort("Brain"), true);
 				result = udpConnection.getMessage();
@@ -374,9 +368,7 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 			} catch (UnknownHostException e){
 				e.printStackTrace();
 			}
-			//connection==1: TCP
-	
-			
+			//TCP CONNECTION
 			Socket s1=null;
 			InetAddress address;
 			if(serverTCP==null){
@@ -397,10 +389,4 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 			}	
 	}
 
-
-
-
-	
-
-	
 }

@@ -1,0 +1,33 @@
+5.2. Speech and Person Recognition
+The robot has to identify unknown people and answer questions about them and the environment.
+5.2.1. Focus
+This test focuses on human detection, sound localization, speech recognition, and robot interaction
+with unknown people.
+5.2.2. Setup
+1. Location: One room of the arena is used for this test.1.
+2. Crowd: There is a crowd of 5 to 10 people in the designated room. People may be
+standing, sitting, lying, and in any pose.
+3. Doors: All doors of the apartment are open, except for the entry door.
+5.2.3. Task
+ Start: The robot starts at a designated starting position and announces it wants to play
+riddles.
+ Waiting and turn: After stating that it wants to play a riddle game, the robot waits for
+10 seconds while a crowd is merged on it's back. When the time elapses, the robot must
+turn around (about 180°) and nd the crowd.
+ Requesting an operator: After turning around, the robot must state the size of the
+crowd (male and female count) and request for an operator (e.g. who want to play riddles
+with me?). The crowd will move and surround the robot, letting the operator to stand in
+front of the robot.
+ The riddle game: Standing in front of the robot, the operator will ask 7 questions from
+the list.
+The robot must answer the question without asking conrmation. Questions will only be
+asked only once; no repetitions are allowed.
+ The blind man's blu game: A random person from the crowd surrounding the robot
+will ask a question. The robot may
+{ Turn towards the person who asked the question and answer the question
+{ Directly answer the question without turning
+{ Turn towards the person and ask them to repeat the question
+The game will end when the 7th question has been made, following the same distribution
+as in the riddle game. The robot must answer the question without asking conrmation.
+Questions may be repeated once.
+ Leave: The robot leaves the room through the designated door.

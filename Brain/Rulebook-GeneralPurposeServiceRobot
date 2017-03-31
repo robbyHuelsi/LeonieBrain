@@ -1,0 +1,56 @@
+5.4. General Purpose Service Robot
+This test evaluates the abilities of the robot that are required throughout the set of tests in
+stage I of this and previous years' RuleBooks. In this test the robot has to solve multiple tasks
+upon request. That is, the test is not incorporated into a (predened) story and there is neither
+a predened order of tasks nor a predened set of actions. The actions that are to be carried
+out by the robot are chosen randomly by the referees from a larger set of actions. These actions
+are organized in three categories with dierent complexity. Scoring thereby depends on the
+complexity class.
+5.4.1. Focus
+This test particularly focuses on the following aspects:
+ No predened order of actions to carry out (to get away from state machine-like behavior
+programming).
+ Increased complexity in speech recognition.
+ Environmental (high-level) reasoning.
+ Ecient and fast task execution (speed).
+5.4.2. Task
+1. Entering and command retrieval: The robot enters the arena and drives to a designated
+position where it has to wait for further commands.
+2. Command generation: A command is generated randomly, depending on the command
+category chosen by the team (see below).
+3. Command categories: The team may choose from the following three categories:
+3.1. Category I: Tasks with a low diculty degree.
+3.2. Category II: Tasks with a moderate diculty degree.
+3.3. Category III: Tasks with a high diculty degree or with incomplete/erroneous
+information.
+4. Task assignment: The robot is given the command by the operator and may directly
+start to work on the task assignment.
+5. Returning to the operator: After accomplishing the assigned task, the robot has to
+move back to the operator to retrieve the next command (i.e., go back to 1. without the
+need of re-entering the arena). The robot can work on at most three commands. After
+the third command, it has to leave the arena.
+6. Exiting the arena: After accomplishing the assigned task, the robot has to leave the
+arena.
+The robot must must prove it has understood the given command by repeating it (Please
+see the remarks about this in section 5.4.3).
+5.4.3. Additional rules and remarks
+1. Referees: Since the score system in this test involves a subjective evaluation of the robot's
+behavior, the referees are EC/TC members.
+RoboCup@Home Rulebook / Draft version for RoboCup 2017 (Revision Unknown Unknown)
+60 5.4 General Purpose Service Robot
+2. Category selection: For every of the three commands given to the robot, the team
+chooses the desired command category.
+3. Operator:
+ The person operating the robot is one of the referees (default operator).
+ If the robot appears to consistently not be able to understand the operator, the
+referees ask the team to continue with a custom operator or apply the CONTINUE
+rule (Section 3.8.15).
+ With the custom operator, the team can only score 50% of the points for the respective
+command.
+4. Retrieving the command: The robot must show it has understood the given command
+by repeating the command (i.e. stating all the required information to accomplish the
+task.).
+5.4.4. Referee and OC instructions
+2h before test:
+ Specify and announce the entrance and exit door
+RoboCup@Home Rulebook
