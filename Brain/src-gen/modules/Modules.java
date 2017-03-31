@@ -121,16 +121,16 @@ public class Modules {
 		//String ipSendVBrain = "134.103.120.108"; //myCampus Scitos
 		//String ipSendVBrain = "192.168.1.7"; //Netgear Scitos
 		//String ipSendVBrain = "192.168.1.25"; //Netgear NUC
-		//String ipSendVBrain = "192.168.188.11"; //FritzBox NUC
-		String ipSendVBrain = "192.168.178.40";
+		String ipSendVBrain = "192.168.188.11"; //FritzBox NUC
+		//String ipSendVBrain = "192.168.178.40";
 		int portSendVBrain = 7777;
 		if (!addModule("VBrain", ipSendVBrain, portSendVBrain, false)) {
 			System.out.println("Add VBrain failed");
 			return false;
 		}
 		
-		//String ipSendAtrac = "192.168.188.10"; //FritzBox NUC
-		String ipSendAtrac = "192.168.178.40";
+		String ipSendAtrac = "192.168.188.10"; //FritzBox NUC
+		//String ipSendAtrac = "192.168.178.40";
 		int portSendAtracPTZ = 5008;
 		int portSendAtracWaC = 5010;
 		if (!addModule("TrackingZoomC", ipSendAtrac, portSendAtracPTZ, false)) {
@@ -145,8 +145,8 @@ public class Modules {
 		
 		
 		// ---- HBrain -----------------------------------------
-		//String ipSendHBrain = "192.168.188.11";
-		String ipSendHBrain = "192.168.178.40";
+		String ipSendHBrain = "192.168.188.11";
+		//String ipSendHBrain = "192.168.178.40";
 		int portSendHBrain = 11005;
 		if (!addModule("HBrain", ipSendHBrain, portSendHBrain, false)) {
 			System.out.println("Add HBrain failed");
@@ -155,8 +155,8 @@ public class Modules {
 
 		// -----------------------------------------------------
 		//STT
-		//String ipSendSTT = "192.168.188.12";
-		String ipSendSTT = "192.168.178.40";
+		String ipSendSTT = "192.168.188.12";
+		//String ipSendSTT = "192.168.178.40";
 		int portSendSTT = 50022;
 		if (!addModule("STT", ipSendSTT, portSendSTT, false)) {
 			System.out.println("Add STT failed");
@@ -166,8 +166,8 @@ public class Modules {
 		//Kinect1
 		
 		//Kinect2
-		//String ipSendKinect2 = "192.168.188.12";
-		String ipSendKinect2 = "192.168.178.40";
+		String ipSendKinect2 = "192.168.188.12";
+//		String ipSendKinect2 = "192.168.178.40";
 		int portSendKinect2 = 8000;
 		if (!addModule("NoiseDetection", ipSendKinect2, portSendKinect2, false)) {
 			System.out.println("Add NoiseDetection failed");
@@ -175,8 +175,8 @@ public class Modules {
 		}
 		
 		//LeapMotion_vorne
-		//String ipSendLeapMotion = "192.168.188.11";
-		String ipSendLeapMotion = "192.168.178.40";
+		String ipSendLeapMotion = "192.168.188.11";
+//		String ipSendLeapMotion = "192.168.178.40";
 		int portSendLeapMotion = 50035;
 		if (!addModule("HandGestures", ipSendLeapMotion, portSendLeapMotion, false)) {
 			System.out.println("Add HandGestures failed");
@@ -184,7 +184,8 @@ public class Modules {
 		}
 		
 		//Attractiveness
-				String ipSendAttractiveness = "192.168.178.40";
+//				String ipSendAttractiveness = "192.168.178.40";
+				String ipSendAttractiveness = "192.168.188.11";
 				int portSendAttractiveness = 50011;
 				if (!addModule("Attractiveness", ipSendAttractiveness, portSendAttractiveness, false)) {
 					System.out.println("Add Attractiveness failed");
@@ -195,8 +196,8 @@ public class Modules {
 		
 		//Navigation
 		//String ipSendNavigation = "192.168.188.10"; //Netgear Scitos
-		//String ipSendNavigation = "192.168.188.21"; //FritzBox Scitos
-		String ipSendNavigation = "192.168.178.40";
+		String ipSendNavigation = "192.168.188.10"; //FritzBox Scitos
+//		String ipSendNavigation = "192.168.178.40";
 		int portSendNavigation = 5000;
 		if (!addModule("Mira", ipSendNavigation, portSendNavigation, false)) {
 			System.out.println("Add Mira failed");
@@ -216,4 +217,5 @@ public class Modules {
 		}
 	}
 
+	
 }

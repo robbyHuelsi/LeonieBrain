@@ -7,6 +7,7 @@ public class Module {
 	private String ip;
 	private Integer port;
 	private Object parser;
+	private long udpTcp;
 	
 	
 	public Module(String name, String ip, Integer port, boolean setParser) {
@@ -68,5 +69,13 @@ public class Module {
 
 	public String toString() {
 		return name + "@" + ip + ":" + port;
+	}
+
+	public long getUdpTcp() {
+		return udpTcp;
+	}
+
+	public void setUdpTcp(long connection) {
+		this.udpTcp = connection;
 	}
 }

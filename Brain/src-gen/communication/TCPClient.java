@@ -15,7 +15,8 @@ public class TCPClient {
 		InetAddress address;
 		try {
 			address=InetAddress.getLocalHost();
-			s1=new Socket(address, 8889);
+			int targetport = module.getPort();
+			s1=new Socket(address, targetport);
 			DataOutputStream outToClient = new DataOutputStream(s1.getOutputStream());
 			outToClient.writeBytes(text+"\n");	
 		} catch (UnknownHostException e) {

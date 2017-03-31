@@ -1,0 +1,15 @@
+GeneratorModel for yakindu::java {
+
+	statechart SpeechAndPersonRecognition {
+
+		feature Outlet {
+			targetProject = "Brain070317"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+}

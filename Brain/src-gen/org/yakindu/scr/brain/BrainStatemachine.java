@@ -3549,6 +3549,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Entry action for state 'Init'. */
 	private void entryAction_main_Init() {
+		
 		sCIUdpInterface.operationCallback.receive();
 		
 		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(false);
