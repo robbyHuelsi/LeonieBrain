@@ -3,7 +3,7 @@ GeneratorModel for yakindu::java {
 	statechart SpeechAndPersonRecognition {
 
 		feature Outlet {
-			targetProject = "Brain070317"
+			targetProject = "Brain"
 			targetFolder = "src-gen"
 			libraryTargetFolder = "src"
 		}
