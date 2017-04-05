@@ -39,7 +39,7 @@ public class MessageParser {
 		if (m.find() == true) {
 			sender = m.group(1);
 			data = m.group(2);
-			// System.out.println(sender + ": " + data);
+			System.out.println(sender + ": " + data);
 
 			// Decide what should be done, depending on sender
 			boolean parsingDone = false;

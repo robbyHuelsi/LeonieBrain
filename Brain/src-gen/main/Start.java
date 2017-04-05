@@ -18,7 +18,7 @@ public class Start
 	static private Modules modules;
 	
 	// ---- Communication -----------------------------------------------------
-	static private int portListen = 8888;
+	static private int portListen = 50000;
 	// ------------------------------------------------------------------------
 	
 	
