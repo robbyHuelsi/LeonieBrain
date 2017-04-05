@@ -363,7 +363,7 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 			try{
 				udpConnection.receiveSocket(InetAddress.getByName(modules.getIp("Brain")), modules.getPort("Brain"), true);
 				result = udpConnection.getMessage();
-				System.out.println("UDP: " + InetAddress.getByName(modules.getIp("Brain"))+":" + (modules.getPort("Brain")));
+				System.out.println("Listening UDP: " + InetAddress.getByName(modules.getIp("Brain"))+":" + (modules.getPort("Brain")));
 //				udpConnection.setRunThread(false);
 			} catch (UnknownHostException e){
 				e.printStackTrace();
@@ -373,7 +373,7 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 			InetAddress address;
 			if(serverTCP==null){
 				try {
-					System.out.println("TCP: " + InetAddress.getByName(modules.getIp("Brain"))+":" + (modules.getPort("Brain")));
+					System.out.println("Listening TCP: " + InetAddress.getByName(modules.getIp("Brain"))+":" + (modules.getPort("Brain")));
 					serverTCP = new TCPServer();
 				}catch (Exception e) {
 					System.out.println("catch Op receive:");

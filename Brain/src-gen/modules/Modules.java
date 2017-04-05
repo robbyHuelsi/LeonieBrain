@@ -97,7 +97,7 @@ public class Modules {
 				return module;
 			}
 		}
-		System.out.println(name + " not found in " + modules.toString());
+		System.err.println(name + " not found in " + modules.toString());
 		return null;
 	}
 	
@@ -107,7 +107,7 @@ public class Modules {
 				return module.getIp();
 			}
 		}
-		System.out.println(name + " not found in " + modules.toString());
+		System.err.println(name + " not found in " + modules.toString());
 		return null;
 	}
 	
@@ -117,7 +117,7 @@ public class Modules {
 				return module.getPort();
 			}
 		}
-		System.out.println(name + " not found in " + modules.toString());
+		System.err.println(name + " not found in " + modules.toString());
 		return null;
 	}
 	
@@ -127,7 +127,7 @@ public class Modules {
 				return module.getParser();
 			}
 		}
-		System.out.println(name + " not found in " + modules.toString());
+		System.err.println(name + " not found in " + modules.toString());
 		return null;
 	}
 	
@@ -276,6 +276,7 @@ public class Modules {
 	public boolean save(){
 		try{
 			File f = new File(this.filePath);
+			f.getParentFile().mkdirs();
 			FileOutputStream fout = new FileOutputStream(f);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 		
