@@ -9,6 +9,11 @@ import main.*;
 
 public class VBrain implements IParser, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {
 		PersonList personList = start.getPersonList();
