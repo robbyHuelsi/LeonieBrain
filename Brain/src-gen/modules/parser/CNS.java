@@ -7,6 +7,11 @@ import main.Start;
 
 public class CNS implements IParser, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {
 		String[] attributes = data.split(";");
