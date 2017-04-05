@@ -38,7 +38,7 @@ public class Start
 		modules = new Modules(portListen);
 		personList = new PersonList();
 		
-		modules.setIpAndPortOldSchool();
+//		modules.setIpAndPortOldSchool();
 		
 //		Person p = new Person();
 //		p.setGender(false, brain);

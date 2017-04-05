@@ -1,10 +1,12 @@
 package modules.parser;
 
+import java.io.Serializable;
+
 import org.yakindu.scr.brain.BrainStatemachine;
 
 import main.*;
 
-public class NoiseDetection implements IParser{
+public class NoiseDetection implements IParser, Serializable{
 
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {

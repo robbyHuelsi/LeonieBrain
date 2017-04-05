@@ -1,21 +1,35 @@
 package modules;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Vector;
 
+import vBrain.Person;
+
 public class Modules {
 
 	private Vector<Module> modules = new Vector<Module>();
+	private String filePath = System.getProperty ("user.home") + System.getProperty("file.separator") + "LeonieBrain" + System.getProperty("file.separator") + "modules.brain";
 	
 	public Modules(){
-		addModule("Brain", getOwnIpAddress(), null, false, true);
-		addModule("CNS", true);
+		this(null);
 	}
 	
 	public Modules(Integer listenPort){
-		addModule("Brain", getOwnIpAddress(), listenPort, false, true);
-		addModule("CNS", true);
+		if(this.load()){
+			//Modules wurden geladen aus Datei
+			System.out.println(modules.toString());
+		}else{
+			addModule("Brain", getOwnIpAddress(), listenPort, false, true);
+			addModule("CNS", true);
+			this.save();
+		}
 	}
 	
 	private boolean addModule(String name, String ip, Integer port, boolean setParser, boolean overwrite){
@@ -24,13 +38,19 @@ public class Modules {
 			if (module.getName().equals(name)) {
 				if (overwrite) {
 					module = new Module(name, ip, port, setParser);
+					System.out.println("Module overwrite: " + module.toString());
+					this.save();
 					return true;
 				}else{
+					System.out.println("Module exists and overwrite forbidden");
 					return false;
 				}
 			}
 		}
-		modules.add(new Module(name, ip, port, setParser));
+		Module module = new Module(name, ip, port, setParser);
+		modules.add(module);
+		System.out.println("New module added: " + module.toString());
+		this.save();
 		return true;
 	}
 	
@@ -217,5 +237,61 @@ public class Modules {
 		}
 	}
 
+	public boolean load(){
+		File f = new File(this.filePath);
+		if(f==null || !f.exists() || f.isDirectory()) { 
+		    System.out.println("No modules file found");
+		    return false;
+		}
+		
+		ObjectInputStream objectinputstream = null;
+		try {
+			FileInputStream streamIn = new FileInputStream(filePath);
+		    objectinputstream = new ObjectInputStream(streamIn);
+
+		    Object obj= null;
+		      // lese ein objekt nach dem anderen aus dem inputstream. das letzte 
+		      // object, welches gelesen wird, ist null. dieses muss allerdings explizit
+		      // geschrieben worden sein; andernfalls wird eine EOFException geworfen.
+		      while ( (obj= objectinputstream.readObject()) != null ){
+		      	this.modules = ((Vector<Module>) obj);
+		      }
+		    System.out.println("Opening done");
+		    return true;
+		} catch (Exception e) {
+			System.err.println("Opening failed");
+		    e.printStackTrace();
+		    return false;
+		} finally {
+		    if(objectinputstream != null){
+		        try {
+					objectinputstream .close();
+				} catch (IOException e) {
+					
+				}
+		    } 
+		}
+	}
+	
+	public boolean save(){
+		try{
+			File f = new File(this.filePath);
+			FileOutputStream fout = new FileOutputStream(f);
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+		
+//			System.out.println(this.modules);
+			oos.writeObject(this.modules);
+		
+			oos.writeObject( null );
+			oos.flush();
+			oos.close();
+			System.out.println("Saving done");
+			return true;
+		}catch(Exception ex){
+			System.err.println("Saving failed");
+			ex.printStackTrace();
+			return false;
+		}
+	}
 	
 }
