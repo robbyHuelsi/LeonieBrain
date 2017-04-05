@@ -1,21 +1,35 @@
 package modules;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Vector;
 
+import vBrain.Person;
+
 public class Modules {
 
 	private Vector<Module> modules = new Vector<Module>();
+	private String filePath = System.getProperty ("user.home") + System.getProperty("file.separator") + "LeonieBrain" + System.getProperty("file.separator") + "modules.brain";
 	
 	public Modules(){
-		addModule("Brain", getOwnIpAddress(), null, false, true);
-		addModule("CNS", true);
+		this(null);
 	}
 	
 	public Modules(Integer listenPort){
-		addModule("Brain", getOwnIpAddress(), listenPort, false, true);
-		addModule("CNS", true);
+		if(this.load()){
+			//Modules wurden geladen aus Datei
+			System.out.println(modules.toString());
+		}else{
+			addModule("Brain", getOwnIpAddress(), listenPort, false, true);
+			addModule("CNS", true);
+			this.save();
+		}
 	}
 	
 	private boolean addModule(String name, String ip, Integer port, boolean setParser, boolean overwrite){
@@ -24,13 +38,19 @@ public class Modules {
 			if (module.getName().equals(name)) {
 				if (overwrite) {
 					module = new Module(name, ip, port, setParser);
+					System.out.println("Module overwrite: " + module.toString());
+					this.save();
 					return true;
 				}else{
+					System.out.println("Module exists and overwrite forbidden");
 					return false;
 				}
 			}
 		}
-		modules.add(new Module(name, ip, port, setParser));
+		Module module = new Module(name, ip, port, setParser);
+		modules.add(module);
+		System.out.println("New module added: " + module.toString());
+		this.save();
 		return true;
 	}
 	
@@ -77,7 +97,7 @@ public class Modules {
 				return module;
 			}
 		}
-		System.out.println(name + " not found in " + modules.toString());
+		System.err.println(name + " not found in " + modules.toString());
 		return null;
 	}
 	
@@ -87,7 +107,7 @@ public class Modules {
 				return module.getIp();
 			}
 		}
-		System.out.println(name + " not found in " + modules.toString());
+		System.err.println(name + " not found in " + modules.toString());
 		return null;
 	}
 	
@@ -97,7 +117,7 @@ public class Modules {
 				return module.getPort();
 			}
 		}
-		System.out.println(name + " not found in " + modules.toString());
+		System.err.println(name + " not found in " + modules.toString());
 		return null;
 	}
 	
@@ -107,7 +127,7 @@ public class Modules {
 				return module.getParser();
 			}
 		}
-		System.out.println(name + " not found in " + modules.toString());
+		System.err.println(name + " not found in " + modules.toString());
 		return null;
 	}
 	
@@ -121,16 +141,16 @@ public class Modules {
 		//String ipSendVBrain = "134.103.120.108"; //myCampus Scitos
 		//String ipSendVBrain = "192.168.1.7"; //Netgear Scitos
 		//String ipSendVBrain = "192.168.1.25"; //Netgear NUC
-		//String ipSendVBrain = "192.168.188.11"; //FritzBox NUC
-		String ipSendVBrain = "192.168.178.40";
+		String ipSendVBrain = "192.168.188.11"; //FritzBox NUC
+		//String ipSendVBrain = "192.168.178.40";
 		int portSendVBrain = 7777;
 		if (!addModule("VBrain", ipSendVBrain, portSendVBrain, false)) {
 			System.out.println("Add VBrain failed");
 			return false;
 		}
 		
-		//String ipSendAtrac = "192.168.188.10"; //FritzBox NUC
-		String ipSendAtrac = "192.168.178.40";
+		String ipSendAtrac = "192.168.188.10"; //FritzBox NUC
+		//String ipSendAtrac = "192.168.178.40";
 		int portSendAtracPTZ = 5008;
 		int portSendAtracWaC = 5010;
 		if (!addModule("TrackingZoomC", ipSendAtrac, portSendAtracPTZ, false)) {
@@ -145,8 +165,8 @@ public class Modules {
 		
 		
 		// ---- HBrain -----------------------------------------
-		//String ipSendHBrain = "192.168.188.11";
-		String ipSendHBrain = "192.168.178.40";
+		String ipSendHBrain = "192.168.188.11";
+		//String ipSendHBrain = "192.168.178.40";
 		int portSendHBrain = 11005;
 		if (!addModule("HBrain", ipSendHBrain, portSendHBrain, false)) {
 			System.out.println("Add HBrain failed");
@@ -155,8 +175,8 @@ public class Modules {
 
 		// -----------------------------------------------------
 		//STT
-		//String ipSendSTT = "192.168.188.12";
-		String ipSendSTT = "192.168.178.40";
+		String ipSendSTT = "192.168.188.12";
+		//String ipSendSTT = "192.168.178.40";
 		int portSendSTT = 50022;
 		if (!addModule("STT", ipSendSTT, portSendSTT, false)) {
 			System.out.println("Add STT failed");
@@ -166,8 +186,8 @@ public class Modules {
 		//Kinect1
 		
 		//Kinect2
-		//String ipSendKinect2 = "192.168.188.12";
-		String ipSendKinect2 = "192.168.178.40";
+		String ipSendKinect2 = "192.168.188.12";
+//		String ipSendKinect2 = "192.168.178.40";
 		int portSendKinect2 = 8000;
 		if (!addModule("NoiseDetection", ipSendKinect2, portSendKinect2, false)) {
 			System.out.println("Add NoiseDetection failed");
@@ -175,8 +195,8 @@ public class Modules {
 		}
 		
 		//LeapMotion_vorne
-		//String ipSendLeapMotion = "192.168.188.11";
-		String ipSendLeapMotion = "192.168.178.40";
+		String ipSendLeapMotion = "192.168.188.11";
+//		String ipSendLeapMotion = "192.168.178.40";
 		int portSendLeapMotion = 50035;
 		if (!addModule("HandGestures", ipSendLeapMotion, portSendLeapMotion, false)) {
 			System.out.println("Add HandGestures failed");
@@ -184,7 +204,8 @@ public class Modules {
 		}
 		
 		//Attractiveness
-				String ipSendAttractiveness = "192.168.178.40";
+//				String ipSendAttractiveness = "192.168.178.40";
+				String ipSendAttractiveness = "192.168.188.11";
 				int portSendAttractiveness = 50011;
 				if (!addModule("Attractiveness", ipSendAttractiveness, portSendAttractiveness, false)) {
 					System.out.println("Add Attractiveness failed");
@@ -195,8 +216,8 @@ public class Modules {
 		
 		//Navigation
 		//String ipSendNavigation = "192.168.188.10"; //Netgear Scitos
-		//String ipSendNavigation = "192.168.188.21"; //FritzBox Scitos
-		String ipSendNavigation = "192.168.178.40";
+		String ipSendNavigation = "192.168.188.10"; //FritzBox Scitos
+//		String ipSendNavigation = "192.168.178.40";
 		int portSendNavigation = 5000;
 		if (!addModule("Mira", ipSendNavigation, portSendNavigation, false)) {
 			System.out.println("Add Mira failed");
@@ -216,4 +237,62 @@ public class Modules {
 		}
 	}
 
+	public boolean load(){
+		File f = new File(this.filePath);
+		if(f==null || !f.exists() || f.isDirectory()) { 
+		    System.out.println("No modules file found");
+		    return false;
+		}
+		
+		ObjectInputStream objectinputstream = null;
+		try {
+			FileInputStream streamIn = new FileInputStream(filePath);
+		    objectinputstream = new ObjectInputStream(streamIn);
+
+		    Object obj= null;
+		      // lese ein objekt nach dem anderen aus dem inputstream. das letzte 
+		      // object, welches gelesen wird, ist null. dieses muss allerdings explizit
+		      // geschrieben worden sein; andernfalls wird eine EOFException geworfen.
+		      while ( (obj= objectinputstream.readObject()) != null ){
+		      	this.modules = ((Vector<Module>) obj);
+		      }
+		    System.out.println("Opening done");
+		    return true;
+		} catch (Exception e) {
+			System.err.println("Opening failed");
+		    e.printStackTrace();
+		    return false;
+		} finally {
+		    if(objectinputstream != null){
+		        try {
+					objectinputstream .close();
+				} catch (IOException e) {
+					
+				}
+		    } 
+		}
+	}
+	
+	public boolean save(){
+		try{
+			File f = new File(this.filePath);
+			f.getParentFile().mkdirs();
+			FileOutputStream fout = new FileOutputStream(f);
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+		
+//			System.out.println(this.modules);
+			oos.writeObject(this.modules);
+		
+			oos.writeObject( null );
+			oos.flush();
+			oos.close();
+			System.out.println("Saving done");
+			return true;
+		}catch(Exception ex){
+			System.err.println("Saving failed");
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
 }

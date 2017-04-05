@@ -2,7 +2,13 @@ package callbacks;
 
 
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Random;
 
@@ -14,7 +20,7 @@ import org.yakindu.scr.brain.IBrainStatemachine.SCIScitosRemoteControl;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIUdpInterfaceOperationCallback;
 import org.yakindu.scr.brain.IBrainStatemachine.SCIVBrainOperationCallback;
 
-import communication.UDPConnection;
+import communication.*;
 import main.Start;
 import modules.Module;
 import modules.Modules;
@@ -24,6 +30,9 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 {
 	private PersonList personList = Start.getPersonList();
 	private Modules modules = Start.getModules();
+	private TCPServer serverTCP;
+	private Module module;
+	private boolean connection;
 	
 	// ---- Brain General Functions Interface ---- //
 	public void printToConsole(String msg){
@@ -39,46 +48,125 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	}
 	
 	
-	
+
 	// ---- UDP Interface ----------------------- //
+
+//	public void receive(){
+//		/* UDP establish connection & receive */
+//		String result = null;
+//		UDPConnection  udpConnection = new UDPConnection();
+//				
+//		try{
+//			udpConnection.receiveSocket(InetAddress.getByName(modules.getIp("Brain")), modules.getPort("Brain"), true);
+//			result = udpConnection.getMessage();
+//			System.out.println(InetAddress.getByName(modules.getIp("Brain"))+"X:" + result);
+////			udpConnection.setRunThread(false);
+//		} catch (UnknownHostException e){
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//	//@param module: module is targetmodule 
+//	private boolean sendMessage(String text, Module module){
+//		if (module == null) {
+//			return false;
+//		}
+//		UDPConnection  udpConnection = new UDPConnection();
+//		try
+//		{
+////			udpConnection.sendSocket(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage(), InetAddress.getByName("134.103.120.108"), 8888);
+//			udpConnection.sendSocket(text, InetAddress.getByName(module.getIp()), module.getPort());
+//		} catch (UnknownHostException e) {
+//			e.printStackTrace();
+//			return false;
+//		}
+////		System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());
+//		return true;
+//	}
 	
-	public void receive(){
-		/* UDP establish connection & receive */
-		String result = null;
-		UDPConnection  udpConnection = new UDPConnection();
-				
-		try{
-			udpConnection.receiveSocket(InetAddress.getByName(modules.getIp("Brain")), modules.getPort("Brain"), true);
-			result = udpConnection.getMessage();
-			System.out.println(InetAddress.getByName(modules.getIp("Brain"))+"X:" + result);
-//			udpConnection.setRunThread(false);
-		} catch (UnknownHostException e){
-			e.printStackTrace();
-		}
+	
+	
+	
+	
+	
+	// ---- UDP/TCP Interface ----------------------- //
+	
+	public void receive(String connection){
+		//connection==0: UDP
+//		System.out.println(connection);
+//		module.setUdpTcp(connection);
+//		if(connection==0){
+//			/* UDP establish connection & receive */
+//			String result = null;
+//			UDPConnection  udpConnection = new UDPConnection();
+//					
+//			try{
+//				udpConnection.receiveSocket(InetAddress.getByName(modules.getIp("Brain")), modules.getPort("Brain"), true);
+//				result = udpConnection.getMessage();
+//				System.out.println(InetAddress.getByName(modules.getIp("Brain"))+"X:" + result);
+////				udpConnection.setRunThread(false);
+//			} catch (UnknownHostException e){
+//				e.printStackTrace();
+//			}
+//			//connection==1: TCP
+//		}else if(connection==1){
+//			Socket s1=null;
+//			InetAddress address;
+//			if(serverTCP==null){
+//				try {
+//					System.out.println(InetAddress.getByName(modules.getIp("Brain"))+"X:");
+//					serverTCP = new TCPServer();
+//				}catch (Exception e) {
+//					System.out.println("catch Op receive:");
+//					e.printStackTrace();
+//				}
+//			}else{
+//				try {
+//					address=InetAddress.getLocalHost();
+//					s1=new Socket(address, 8889); 
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}	
+//		}
 	}
 	
 	
+	
+	//@param module: module is targetmodule 
 	private boolean sendMessage(String text, Module module){
 		if (module == null) {
 			return false;
 		}
-		UDPConnection  udpConnection = new UDPConnection();
-		try
-		{
-//			udpConnection.sendSocket(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage(), InetAddress.getByName("134.103.120.108"), 8888);
-			udpConnection.sendSocket(text, InetAddress.getByName(module.getIp()), module.getPort());
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			return false;
+		if(module.getUdpTcp()==0){
+			UDPConnection  udpConnection = new UDPConnection();
+		
+			try {
+//				udpConnection.sendSocket(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage(), InetAddress.getByName("134.103.120.108"), 8888);
+				udpConnection.sendSocket(text, InetAddress.getByName(module.getIp()), module.getPort());
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+				return false;
+//				System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());
+			}
+		}else if(module.getUdpTcp()==1){
+			if(serverTCP==null){
+				try {
+					serverTCP = new TCPServer();
+				}catch (Exception e) {
+					System.out.println("Exception in OpCallbackImpl: sendMessage if");
+					e.printStackTrace();
+				}
+				TCPClient client = new TCPClient(text, module);
+			}
 		}
-//		System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());
 		return true;
 	}
 	
 	
 	public void sendToVBrain_ACIonOff(boolean inOnOff){
 		System.out.println(inOnOff?"ACI on":"ACI off");
-		this.sendMessage(inOnOff?"#BRAIN#1#":"#BRAIN#0#", modules.get("VBrain"));
+		this.sendMessage(inOnOff?"#VBRAIN#1#":"#VBRAIN#0#", modules.get("VBrain"));
 		this.sendMessage("#TRACRESET#", modules.get("TrackingZoomC"));
 		this.sendMessage("#TRACRESET#", modules.get("TrackingWaC"));
 
@@ -86,12 +174,12 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	
 	public void sendToHBrain_TTS(String inText){
 		//System.out.println(inText);
-		this.sendMessage("#BRAIN##TEXT#" + inText , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
+		this.sendMessage("#HBRAIN##TEXT#" + inText , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendToHBrain_TTS_num(long inNum){
 		//System.out.println(inText);
-		this.sendMessage("#BRAIN##TEXT#" + inNum , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
+		this.sendMessage("#HBRAIN##TEXT#" + inNum , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendToHBrain_TTS2(String inT1, String inT2){
@@ -129,7 +217,6 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	}
 	
 	public void sendToSmartphone_(){
-		
 	}
 	
 	public void sendToNav_goToGWP(long inWayPoint){
@@ -150,8 +237,6 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 		}else{
 			this.sendToNav_goToGWP(0);
 		}
-		
-		
 	}
 	
 	public void sendToNav_goToLC(String inX, String inY){
@@ -265,14 +350,43 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 	@Override
 	public void setOldAttr() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	 public void sendToAttr_estimate() {
 		 this.sendMessage("/home/leonie/ACI/org.png", modules.get("Attractiveness"));
 	 }
 
-	
+	public void receive() {
+			/* UDP establish connection & receive */
+			String result = null;
+			UDPConnection  udpConnection = new UDPConnection();
+			try{
+				udpConnection.receiveSocket(InetAddress.getByName(modules.getIp("Brain")), modules.getPort("Brain"), true);
+				result = udpConnection.getMessage();
+				System.out.println("Listening UDP: " + InetAddress.getByName(modules.getIp("Brain"))+":" + (modules.getPort("Brain")));
+//				udpConnection.setRunThread(false);
+			} catch (UnknownHostException e){
+				e.printStackTrace();
+			}
+			//TCP CONNECTION
+			Socket s1=null;
+			InetAddress address;
+			if(serverTCP==null){
+				try {
+					System.out.println("Listening TCP: " + InetAddress.getByName(modules.getIp("Brain"))+":" + (modules.getPort("Brain")));
+					serverTCP = new TCPServer();
+				}catch (Exception e) {
+					System.out.println("catch Op receive:");
+					e.printStackTrace();
+				}
+			}else{
+				try {
+					address=InetAddress.getLocalHost();
+					s1=new Socket(address, 8889); 
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}	
+	}
 
-	
 }

@@ -16,7 +16,7 @@ import vBrain.Person;
 public class PersonList{
 	private Vector<Person> personList;
 	private Person currPerson = null;
-	private String filePath = System.getProperty ("user.home") + "PersonList.brain";
+	private String filePath = System.getProperty ("user.home") + System.getProperty("file.separator") + "LeonieBrain"+ System.getProperty("file.separator") + "PersonList.brain";
 	
 	public PersonList(){
 		if(this.load()){
@@ -163,7 +163,7 @@ public class PersonList{
 	public boolean load(){
 		File f = new File(this.filePath);
 		if(f==null || !f.exists() || f.isDirectory()) { 
-		    System.out.println("No personList-File found");
+		    System.out.println("No personList file found");
 		    return false;
 		}
 		
@@ -199,11 +199,11 @@ public class PersonList{
 	public boolean save(){
 		try{
 			File f = new File(this.filePath);
-			
+			f.getParentFile().mkdirs();
 			FileOutputStream fout = new FileOutputStream(f);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 		
-			System.out.println(this.personList);
+//			System.out.println(this.personList);
 			oos.writeObject(this.personList);
 		
 			oos.writeObject( null );

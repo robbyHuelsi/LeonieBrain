@@ -1298,7 +1298,7 @@
         <styles xsi:type="notation:ShapeStyle" xmi:id="_UQhndhOcEeaAxK-RlV7VgQ"/>
         <layoutConstraint xsi:type="notation:Location" xmi:id="_UQhndxOcEeaAxK-RlV7VgQ" y="10"/>
       </children>
-      <styles xsi:type="notation:ConnectorStyle" xmi:id="_UQhnchOcEeaAxK-RlV7VgQ" lineColor="4210752"/>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_UQhnchOcEeaAxK-RlV7VgQ" routing="Rectilinear" lineColor="4210752"/>
       <styles xsi:type="notation:FontStyle" xmi:id="_UQhndBOcEeaAxK-RlV7VgQ" fontName="Verdana"/>
       <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_UQhncxOcEeaAxK-RlV7VgQ" points="[4, -2, 319, -134]$[-312, 139, 3, 7]"/>
       <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_UQhneBOcEeaAxK-RlV7VgQ" id="(0.0,1.0)"/>

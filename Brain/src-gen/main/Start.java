@@ -18,7 +18,8 @@ public class Start
 	static private Modules modules;
 	
 	// ---- Communication -----------------------------------------------------
-	static private int portListen = 8888;
+	static private int UDPListeningPort = 50000;
+	static private int TCPListeningPort = 50001;
 	// ------------------------------------------------------------------------
 	
 	
@@ -35,10 +36,10 @@ public class Start
 		brain = new BrainStatemachine();
 		brain.setTimer(new TimerService());
 		
-		modules = new Modules(portListen);
+		modules = new Modules(UDPListeningPort);
 		personList = new PersonList();
 		
-		modules.setIpAndPortOldSchool();
+//		modules.setIpAndPortOldSchool();
 		
 //		Person p = new Person();
 //		p.setGender(false, brain);

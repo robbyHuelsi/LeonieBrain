@@ -1,11 +1,13 @@
 package modules.parser;
 
+import java.io.Serializable;
+
 import org.yakindu.scr.brain.BrainStatemachine;
 
 import vBrain.*;
 import main.*;
 
-public class VBrain implements IParser{
+public class VBrain implements IParser, Serializable{
 
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {
