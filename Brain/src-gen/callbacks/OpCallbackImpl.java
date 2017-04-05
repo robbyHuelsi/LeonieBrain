@@ -139,24 +139,24 @@ public class OpCallbackImpl implements SCIBGFOperationCallback, SCIUdpInterfaceO
 			return false;
 		}
 		if(module.getUdpTcp()==0){
-		UDPConnection  udpConnection = new UDPConnection();
-		try
-		{
-//			udpConnection.sendSocket(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage(), InetAddress.getByName("134.103.120.108"), 8888);
-			udpConnection.sendSocket(text, InetAddress.getByName(module.getIp()), module.getPort());
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			return false;
-		//		System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());
-		}
-			}else if(module.getUdpTcp()==1){
-				if(serverTCP==null){
-					try {
-						serverTCP = new TCPServer();
-					}catch (Exception e) {
-						System.out.println("Exception in OpCallbackImpl: sendMessage if");
-						e.printStackTrace();
-					}
+			UDPConnection  udpConnection = new UDPConnection();
+		
+			try {
+//				udpConnection.sendSocket(Start.instanceOf().getBrain().getSCIUdpInterface().getMessage(), InetAddress.getByName("134.103.120.108"), 8888);
+				udpConnection.sendSocket(text, InetAddress.getByName(module.getIp()), module.getPort());
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+				return false;
+//				System.out.println(Test.instanceOf().getTestBrain().getSCIUdpInterface().getData());
+			}
+		}else if(module.getUdpTcp()==1){
+			if(serverTCP==null){
+				try {
+					serverTCP = new TCPServer();
+				}catch (Exception e) {
+					System.out.println("Exception in OpCallbackImpl: sendMessage if");
+					e.printStackTrace();
+				}
 				TCPClient client = new TCPClient(text, module);
 			}
 		}
