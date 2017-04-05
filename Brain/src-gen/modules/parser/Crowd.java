@@ -8,6 +8,11 @@ import main.Start;
 
 public class Crowd implements IParser, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {
 		/*	#sender#total#gender1;age1+gender2;age2+ etc. #

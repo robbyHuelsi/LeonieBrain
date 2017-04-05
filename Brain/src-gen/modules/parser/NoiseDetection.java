@@ -8,6 +8,11 @@ import main.*;
 
 public class NoiseDetection implements IParser, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {
 		// #NOISEDETECTION#1;30;32# [0]: (bool)found [1]:

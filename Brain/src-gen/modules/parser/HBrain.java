@@ -8,6 +8,11 @@ import main.*;
 
 public class HBrain implements IParser, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public boolean parse(String data, BrainStatemachine brain, Start start) {
 		if (data.contains("1")) {
