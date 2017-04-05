@@ -14,8 +14,10 @@ public class CNS implements IParser{
 			String ip = attributeIpPort[1];
 			int port = Integer.parseInt(attributeIpPort[2]);
 					
-		start.getModules().addModule(name, ip, port, true);
+			start.getModules().addModule(name, ip, port, true);
 		
-		}return true;
+		}
+		
+		return true;
 	}
 }
