@@ -29,53 +29,33 @@ public interface IBrainStatemachine extends ITimerCallback,IStatemachine {
 	
 	public SCIBGF getSCIBGF();
 	
-	public interface SCIUdpInterface {
+	public interface SCIHBrain {
 	
-		public void setSCIUdpInterfaceOperationCallback(SCIUdpInterfaceOperationCallback operationCallback);
+		public boolean getTTSReady();
+		
+		public void setTTSReady(boolean value);
+		
+		public void setSCIHBrainOperationCallback(SCIHBrainOperationCallback operationCallback);
 	
 	}
 	
-	public interface SCIUdpInterfaceOperationCallback {
+	public interface SCIHBrainOperationCallback {
 	
-		public void receive();
+		public void sendTTS(String inText);
 		
-		public void sendToVBrain_ACIonOff(boolean inOnOff);
+		public void sendTTS2(String inT1, String inT2);
 		
-		public void sendToHBrain_TTS(String inText);
+		public void sendTTS3(String inT1, String inT2, String inT3);
 		
-		public void sendToHBrain_TTS2(String inT1, String inT2);
+		public void sendTTS_num(long inNum);
 		
-		public void sendToHBrain_TTS3(String inT1, String inT2, String inT3);
+		public void sendTTSWithPos(String inPos, String inText);
 		
-		public void sendToHBrain_TTS_num(long inNum);
-		
-		public void sendToHBrain_TTSWithPos(String inPos, String inText);
-		
-		public void sendToHBrain_PersonPosition();
-		
-		public void sendToKinect2_detectionOnOff(boolean inOnOff);
-		
-		public void sendToLeapMotion_detectionOnOff(long inOnOff);
-		
-		public void sendToSTT_detectionOnOff(long inOnOff);
-		
-		public void sendToNav_goToGWP(long inWayPoint);
-		
-		public void sendToNav_goToNextGWPForConf();
-		
-		public void sendToNav_turnBody(String inAngle);
-		
-		public void sendToNav_bodyUTurn();
-		
-		public void sendToNav_turnHead(String inAngle);
-		
-		public void sendToNav_goToLC(String inX, String inY);
-		
-		public void sendToNav_searchOnOff(boolean inOnOff);
+		public void sendPersonPosition();
 		
 	}
 	
-	public SCIUdpInterface getSCIUdpInterface();
+	public SCIHBrain getSCIHBrain();
 	
 	public interface SCIVBrain {
 	
@@ -93,11 +73,161 @@ public interface IBrainStatemachine extends ITimerCallback,IStatemachine {
 	
 	public interface SCIVBrainOperationCallback {
 	
+		public void sendACIOnOff(boolean inOnOff);
+		
 		public void savePersonList();
 		
 	}
 	
 	public SCIVBrain getSCIVBrain();
+	
+	public interface SCIAttractiveness {
+	
+		public double getOld_attr();
+		
+		public void setOld_attr(double value);
+		
+		public void setSCIAttractivenessOperationCallback(SCIAttractivenessOperationCallback operationCallback);
+	
+	}
+	
+	public interface SCIAttractivenessOperationCallback {
+	
+		public void sendToAttr_estimate();
+		
+		public void setOldAttr();
+		
+	}
+	
+	public SCIAttractiveness getSCIAttractiveness();
+	
+	public interface SCIKinect2 {
+	
+		public String getGesture();
+		
+		public void setGesture(String value);
+		
+		public boolean getNoiseDetected();
+		
+		public void setNoiseDetected(boolean value);
+		
+		public long getNoiseAngle();
+		
+		public void setNoiseAngle(long value);
+		
+		public void setSCIKinect2OperationCallback(SCIKinect2OperationCallback operationCallback);
+	
+	}
+	
+	public interface SCIKinect2OperationCallback {
+	
+		public void sendNoiseDetectionOnOff(boolean inOnOff);
+		
+	}
+	
+	public SCIKinect2 getSCIKinect2();
+	
+	public interface SCILeapMotion {
+	
+		public boolean getGestureDetected();
+		
+		public void setGestureDetected(boolean value);
+		
+		public String getGesture();
+		
+		public void setGesture(String value);
+		
+		public boolean getStringFinished();
+		
+		public void setStringFinished(boolean value);
+		
+		public String getDetectedString();
+		
+		public void setDetectedString(String value);
+		
+		public void setSCILeapMotionOperationCallback(SCILeapMotionOperationCallback operationCallback);
+	
+	}
+	
+	public interface SCILeapMotionOperationCallback {
+	
+		public void sendGestureDetectionOnOff(long inOnOff);
+		
+	}
+	
+	public SCILeapMotion getSCILeapMotion();
+	
+	public interface SCIMira {
+	
+		public boolean getEmergencyStop();
+		
+		public void setEmergencyStop(boolean value);
+		
+		public boolean getBumpered();
+		
+		public void setBumpered(boolean value);
+		
+		public boolean getBlocked();
+		
+		public void setBlocked(boolean value);
+		
+		public boolean getArrivedWP();
+		
+		public void setArrivedWP(boolean value);
+		
+		public void setSCIMiraOperationCallback(SCIMiraOperationCallback operationCallback);
+	
+	}
+	
+	public interface SCIMiraOperationCallback {
+	
+		public void sendGoToGWP(long inWayPoint);
+		
+		public void sendGoToNextGWPForConf();
+		
+		public void sendTurnBody(String inAngle);
+		
+		public void sendBodyUTurn();
+		
+		public void sendTurnHead(String inAngle);
+		
+		public void sendGoToLC(String inX, String inY);
+		
+		public void sendSearchOnOff(boolean inOnOff);
+		
+	}
+	
+	public SCIMira getSCIMira();
+	
+	public interface SCISTT {
+	
+		public boolean getSTTReady();
+		
+		public void setSTTReady(boolean value);
+		
+		public String getSpeakerMsg();
+		
+		public void setSpeakerMsg(String value);
+		
+		public String getFilteredMsg();
+		
+		public void setFilteredMsg(String value);
+		
+		public String getFilterBubble();
+		
+		public void setFilterBubble(String value);
+		
+		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
+	
+	}
+	
+	public interface SCISTTOperationCallback {
+	
+		public void sendSpeechDetectionOnOff(long inOnOff);
+		
+	}
+	
+	public SCISTT getSCISTT();
 	
 	public interface SCICurrPerson {
 	
@@ -194,129 +324,5 @@ public interface IBrainStatemachine extends ITimerCallback,IStatemachine {
 	}
 	
 	public SCICurrPerson getSCICurrPerson();
-	
-	public interface SCIAtt {
-	
-		public double getOld_attr();
-		
-		public void setOld_attr(double value);
-		
-		public void setSCIAttOperationCallback(SCIAttOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCIAttOperationCallback {
-	
-		public void sendToAttr_estimate();
-		
-		public void setOldAttr();
-		
-	}
-	
-	public SCIAtt getSCIAtt();
-	
-	public interface SCIHBrain {
-	
-		public boolean getTTSReady();
-		
-		public void setTTSReady(boolean value);
-		
-	}
-	
-	public SCIHBrain getSCIHBrain();
-	
-	public interface SCIKinect2 {
-	
-		public String getGesture();
-		
-		public void setGesture(String value);
-		
-		public boolean getNoiseDetected();
-		
-		public void setNoiseDetected(boolean value);
-		
-		public long getNoiseAngle();
-		
-		public void setNoiseAngle(long value);
-		
-	}
-	
-	public SCIKinect2 getSCIKinect2();
-	
-	public interface SCILeapMotion {
-	
-		public boolean getGestureDetected();
-		
-		public void setGestureDetected(boolean value);
-		
-		public String getGesture();
-		
-		public void setGesture(String value);
-		
-		public boolean getStringFinished();
-		
-		public void setStringFinished(boolean value);
-		
-		public String getDetectedString();
-		
-		public void setDetectedString(String value);
-		
-	}
-	
-	public SCILeapMotion getSCILeapMotion();
-	
-	public interface SCIScitosRemoteControl {
-	
-		public boolean getEmergencyStop();
-		
-		public void setEmergencyStop(boolean value);
-		
-		public boolean getBumpered();
-		
-		public void setBumpered(boolean value);
-		
-		public boolean getBlocked();
-		
-		public void setBlocked(boolean value);
-		
-		public boolean getArrivedWP();
-		
-		public void setArrivedWP(boolean value);
-		
-	}
-	
-	public SCIScitosRemoteControl getSCIScitosRemoteControl();
-	
-	public interface SCISTT {
-	
-		public boolean getSTTReady();
-		
-		public void setSTTReady(boolean value);
-		
-		public String getSpeakerMsg();
-		
-		public void setSpeakerMsg(String value);
-		
-		public String getFilteredMsg();
-		
-		public void setFilteredMsg(String value);
-		
-		public String getFilterBubble();
-		
-		public void setFilterBubble(String value);
-		
-	}
-	
-	public SCISTT getSCISTT();
-	
-	public interface SCIFaceAnimation {
-	
-		public String getEmotion();
-		
-		public void setEmotion(String value);
-		
-	}
-	
-	public SCIFaceAnimation getSCIFaceAnimation();
 	
 }

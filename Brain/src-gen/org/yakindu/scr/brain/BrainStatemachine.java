@@ -35,17 +35,27 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	protected SCIBGFImpl sCIBGF;
 	
-	protected class SCIUdpInterfaceImpl implements SCIUdpInterface {
+	protected class SCIHBrainImpl implements SCIHBrain {
 	
-		private SCIUdpInterfaceOperationCallback operationCallback;
+		private SCIHBrainOperationCallback operationCallback;
 		
-		public void setSCIUdpInterfaceOperationCallback(
-				SCIUdpInterfaceOperationCallback operationCallback) {
+		public void setSCIHBrainOperationCallback(
+				SCIHBrainOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
+		private boolean tTSReady;
+		
+		public boolean getTTSReady() {
+			return tTSReady;
+		}
+		
+		public void setTTSReady(boolean value) {
+			this.tTSReady = value;
+		}
+		
 	}
 	
-	protected SCIUdpInterfaceImpl sCIUdpInterface;
+	protected SCIHBrainImpl sCIHBrain;
 	
 	protected class SCIVBrainImpl implements SCIVBrain {
 	
@@ -78,6 +88,226 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	protected SCIVBrainImpl sCIVBrain;
+	
+	protected class SCIAttractivenessImpl implements SCIAttractiveness {
+	
+		private SCIAttractivenessOperationCallback operationCallback;
+		
+		public void setSCIAttractivenessOperationCallback(
+				SCIAttractivenessOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private double old_attr;
+		
+		public double getOld_attr() {
+			return old_attr;
+		}
+		
+		public void setOld_attr(double value) {
+			this.old_attr = value;
+		}
+		
+	}
+	
+	protected SCIAttractivenessImpl sCIAttractiveness;
+	
+	protected class SCIKinect2Impl implements SCIKinect2 {
+	
+		private SCIKinect2OperationCallback operationCallback;
+		
+		public void setSCIKinect2OperationCallback(
+				SCIKinect2OperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private String gesture;
+		
+		public String getGesture() {
+			return gesture;
+		}
+		
+		public void setGesture(String value) {
+			this.gesture = value;
+		}
+		
+		private boolean noiseDetected;
+		
+		public boolean getNoiseDetected() {
+			return noiseDetected;
+		}
+		
+		public void setNoiseDetected(boolean value) {
+			this.noiseDetected = value;
+		}
+		
+		private long noiseAngle;
+		
+		public long getNoiseAngle() {
+			return noiseAngle;
+		}
+		
+		public void setNoiseAngle(long value) {
+			this.noiseAngle = value;
+		}
+		
+	}
+	
+	protected SCIKinect2Impl sCIKinect2;
+	
+	protected class SCILeapMotionImpl implements SCILeapMotion {
+	
+		private SCILeapMotionOperationCallback operationCallback;
+		
+		public void setSCILeapMotionOperationCallback(
+				SCILeapMotionOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private boolean gestureDetected;
+		
+		public boolean getGestureDetected() {
+			return gestureDetected;
+		}
+		
+		public void setGestureDetected(boolean value) {
+			this.gestureDetected = value;
+		}
+		
+		private String gesture;
+		
+		public String getGesture() {
+			return gesture;
+		}
+		
+		public void setGesture(String value) {
+			this.gesture = value;
+		}
+		
+		private boolean stringFinished;
+		
+		public boolean getStringFinished() {
+			return stringFinished;
+		}
+		
+		public void setStringFinished(boolean value) {
+			this.stringFinished = value;
+		}
+		
+		private String detectedString;
+		
+		public String getDetectedString() {
+			return detectedString;
+		}
+		
+		public void setDetectedString(String value) {
+			this.detectedString = value;
+		}
+		
+	}
+	
+	protected SCILeapMotionImpl sCILeapMotion;
+	
+	protected class SCIMiraImpl implements SCIMira {
+	
+		private SCIMiraOperationCallback operationCallback;
+		
+		public void setSCIMiraOperationCallback(
+				SCIMiraOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private boolean emergencyStop;
+		
+		public boolean getEmergencyStop() {
+			return emergencyStop;
+		}
+		
+		public void setEmergencyStop(boolean value) {
+			this.emergencyStop = value;
+		}
+		
+		private boolean bumpered;
+		
+		public boolean getBumpered() {
+			return bumpered;
+		}
+		
+		public void setBumpered(boolean value) {
+			this.bumpered = value;
+		}
+		
+		private boolean blocked;
+		
+		public boolean getBlocked() {
+			return blocked;
+		}
+		
+		public void setBlocked(boolean value) {
+			this.blocked = value;
+		}
+		
+		private boolean arrivedWP;
+		
+		public boolean getArrivedWP() {
+			return arrivedWP;
+		}
+		
+		public void setArrivedWP(boolean value) {
+			this.arrivedWP = value;
+		}
+		
+	}
+	
+	protected SCIMiraImpl sCIMira;
+	
+	protected class SCISTTImpl implements SCISTT {
+	
+		private SCISTTOperationCallback operationCallback;
+		
+		public void setSCISTTOperationCallback(
+				SCISTTOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private boolean sTTReady;
+		
+		public boolean getSTTReady() {
+			return sTTReady;
+		}
+		
+		public void setSTTReady(boolean value) {
+			this.sTTReady = value;
+		}
+		
+		private String speakerMsg;
+		
+		public String getSpeakerMsg() {
+			return speakerMsg;
+		}
+		
+		public void setSpeakerMsg(String value) {
+			this.speakerMsg = value;
+		}
+		
+		private String filteredMsg;
+		
+		public String getFilteredMsg() {
+			return filteredMsg;
+		}
+		
+		public void setFilteredMsg(String value) {
+			this.filteredMsg = value;
+		}
+		
+		private String filterBubble;
+		
+		public String getFilterBubble() {
+			return filterBubble;
+		}
+		
+		public void setFilterBubble(String value) {
+			this.filterBubble = value;
+		}
+		
+	}
+	
+	protected SCISTTImpl sCISTT;
 	
 	protected class SCICurrPersonImpl implements SCICurrPerson {
 	
@@ -251,234 +481,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	protected SCICurrPersonImpl sCICurrPerson;
 	
-	protected class SCIAttImpl implements SCIAtt {
-	
-		private SCIAttOperationCallback operationCallback;
-		
-		public void setSCIAttOperationCallback(
-				SCIAttOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-		private double old_attr;
-		
-		public double getOld_attr() {
-			return old_attr;
-		}
-		
-		public void setOld_attr(double value) {
-			this.old_attr = value;
-		}
-		
-	}
-	
-	protected SCIAttImpl sCIAtt;
-	
-	protected class SCIHBrainImpl implements SCIHBrain {
-	
-		private boolean tTSReady;
-		
-		public boolean getTTSReady() {
-			return tTSReady;
-		}
-		
-		public void setTTSReady(boolean value) {
-			this.tTSReady = value;
-		}
-		
-	}
-	
-	protected SCIHBrainImpl sCIHBrain;
-	
-	protected class SCIKinect2Impl implements SCIKinect2 {
-	
-		private String gesture;
-		
-		public String getGesture() {
-			return gesture;
-		}
-		
-		public void setGesture(String value) {
-			this.gesture = value;
-		}
-		
-		private boolean noiseDetected;
-		
-		public boolean getNoiseDetected() {
-			return noiseDetected;
-		}
-		
-		public void setNoiseDetected(boolean value) {
-			this.noiseDetected = value;
-		}
-		
-		private long noiseAngle;
-		
-		public long getNoiseAngle() {
-			return noiseAngle;
-		}
-		
-		public void setNoiseAngle(long value) {
-			this.noiseAngle = value;
-		}
-		
-	}
-	
-	protected SCIKinect2Impl sCIKinect2;
-	
-	protected class SCILeapMotionImpl implements SCILeapMotion {
-	
-		private boolean gestureDetected;
-		
-		public boolean getGestureDetected() {
-			return gestureDetected;
-		}
-		
-		public void setGestureDetected(boolean value) {
-			this.gestureDetected = value;
-		}
-		
-		private String gesture;
-		
-		public String getGesture() {
-			return gesture;
-		}
-		
-		public void setGesture(String value) {
-			this.gesture = value;
-		}
-		
-		private boolean stringFinished;
-		
-		public boolean getStringFinished() {
-			return stringFinished;
-		}
-		
-		public void setStringFinished(boolean value) {
-			this.stringFinished = value;
-		}
-		
-		private String detectedString;
-		
-		public String getDetectedString() {
-			return detectedString;
-		}
-		
-		public void setDetectedString(String value) {
-			this.detectedString = value;
-		}
-		
-	}
-	
-	protected SCILeapMotionImpl sCILeapMotion;
-	
-	protected class SCIScitosRemoteControlImpl implements SCIScitosRemoteControl {
-	
-		private boolean emergencyStop;
-		
-		public boolean getEmergencyStop() {
-			return emergencyStop;
-		}
-		
-		public void setEmergencyStop(boolean value) {
-			this.emergencyStop = value;
-		}
-		
-		private boolean bumpered;
-		
-		public boolean getBumpered() {
-			return bumpered;
-		}
-		
-		public void setBumpered(boolean value) {
-			this.bumpered = value;
-		}
-		
-		private boolean blocked;
-		
-		public boolean getBlocked() {
-			return blocked;
-		}
-		
-		public void setBlocked(boolean value) {
-			this.blocked = value;
-		}
-		
-		private boolean arrivedWP;
-		
-		public boolean getArrivedWP() {
-			return arrivedWP;
-		}
-		
-		public void setArrivedWP(boolean value) {
-			this.arrivedWP = value;
-		}
-		
-	}
-	
-	protected SCIScitosRemoteControlImpl sCIScitosRemoteControl;
-	
-	protected class SCISTTImpl implements SCISTT {
-	
-		private boolean sTTReady;
-		
-		public boolean getSTTReady() {
-			return sTTReady;
-		}
-		
-		public void setSTTReady(boolean value) {
-			this.sTTReady = value;
-		}
-		
-		private String speakerMsg;
-		
-		public String getSpeakerMsg() {
-			return speakerMsg;
-		}
-		
-		public void setSpeakerMsg(String value) {
-			this.speakerMsg = value;
-		}
-		
-		private String filteredMsg;
-		
-		public String getFilteredMsg() {
-			return filteredMsg;
-		}
-		
-		public void setFilteredMsg(String value) {
-			this.filteredMsg = value;
-		}
-		
-		private String filterBubble;
-		
-		public String getFilterBubble() {
-			return filterBubble;
-		}
-		
-		public void setFilterBubble(String value) {
-			this.filterBubble = value;
-		}
-		
-	}
-	
-	protected SCISTTImpl sCISTT;
-	
-	protected class SCIFaceAnimationImpl implements SCIFaceAnimation {
-	
-		private String emotion;
-		
-		public String getEmotion() {
-			return emotion;
-		}
-		
-		public void setEmotion(String value) {
-			this.emotion = value;
-		}
-		
-	}
-	
-	protected SCIFaceAnimationImpl sCIFaceAnimation;
-	
 	private boolean initialized = false;
 	
 	public enum State {
@@ -642,16 +644,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	public BrainStatemachine() {
 		sCIBGF = new SCIBGFImpl();
-		sCIUdpInterface = new SCIUdpInterfaceImpl();
-		sCIVBrain = new SCIVBrainImpl();
-		sCICurrPerson = new SCICurrPersonImpl();
-		sCIAtt = new SCIAttImpl();
 		sCIHBrain = new SCIHBrainImpl();
+		sCIVBrain = new SCIVBrainImpl();
+		sCIAttractiveness = new SCIAttractivenessImpl();
 		sCIKinect2 = new SCIKinect2Impl();
 		sCILeapMotion = new SCILeapMotionImpl();
-		sCIScitosRemoteControl = new SCIScitosRemoteControlImpl();
+		sCIMira = new SCIMiraImpl();
 		sCISTT = new SCISTTImpl();
-		sCIFaceAnimation = new SCIFaceAnimationImpl();
+		sCICurrPerson = new SCICurrPersonImpl();
 	}
 	
 	public void init() {
@@ -668,9 +668,43 @@ public class BrainStatemachine implements IBrainStatemachine {
 		
 		sCIBGF.setRandNum(0);
 		
+		sCIHBrain.setTTSReady(false);
+		
 		sCIVBrain.setCountFoundFaces(0);
 		
 		sCIVBrain.setNessesaryToSavePersonList(false);
+		
+		sCIAttractiveness.setOld_attr(0.0);
+		
+		sCIKinect2.setGesture("");
+		
+		sCIKinect2.setNoiseDetected(false);
+		
+		sCIKinect2.setNoiseAngle(0);
+		
+		sCILeapMotion.setGestureDetected(false);
+		
+		sCILeapMotion.setGesture("");
+		
+		sCILeapMotion.setStringFinished(false);
+		
+		sCILeapMotion.setDetectedString("");
+		
+		sCIMira.setEmergencyStop(false);
+		
+		sCIMira.setBumpered(false);
+		
+		sCIMira.setBlocked(false);
+		
+		sCIMira.setArrivedWP(false);
+		
+		sCISTT.setSTTReady(false);
+		
+		sCISTT.setSpeakerMsg("");
+		
+		sCISTT.setFilteredMsg("");
+		
+		sCISTT.setFilterBubble("");
 		
 		sCICurrPerson.setPersonID(0);
 		
@@ -703,42 +737,6 @@ public class BrainStatemachine implements IBrainStatemachine {
 		sCICurrPerson.setCurrEmotion(0);
 		
 		sCICurrPerson.setCurrDistance(0.0);
-		
-		sCIAtt.setOld_attr(0.0);
-		
-		sCIHBrain.setTTSReady(false);
-		
-		sCIKinect2.setGesture("");
-		
-		sCIKinect2.setNoiseDetected(false);
-		
-		sCIKinect2.setNoiseAngle(0);
-		
-		sCILeapMotion.setGestureDetected(false);
-		
-		sCILeapMotion.setGesture("");
-		
-		sCILeapMotion.setStringFinished(false);
-		
-		sCILeapMotion.setDetectedString("");
-		
-		sCIScitosRemoteControl.setEmergencyStop(false);
-		
-		sCIScitosRemoteControl.setBumpered(false);
-		
-		sCIScitosRemoteControl.setBlocked(false);
-		
-		sCIScitosRemoteControl.setArrivedWP(false);
-		
-		sCISTT.setSTTReady(false);
-		
-		sCISTT.setSpeakerMsg("");
-		
-		sCISTT.setFilteredMsg("");
-		
-		sCISTT.setFilterBubble("");
-		
-		sCIFaceAnimation.setEmotion("");
 		
 		setCounter(0);
 		
@@ -1099,24 +1097,16 @@ public class BrainStatemachine implements IBrainStatemachine {
 		return sCIBGF;
 	}
 	
-	public SCIUdpInterface getSCIUdpInterface() {
-		return sCIUdpInterface;
+	public SCIHBrain getSCIHBrain() {
+		return sCIHBrain;
 	}
 	
 	public SCIVBrain getSCIVBrain() {
 		return sCIVBrain;
 	}
 	
-	public SCICurrPerson getSCICurrPerson() {
-		return sCICurrPerson;
-	}
-	
-	public SCIAtt getSCIAtt() {
-		return sCIAtt;
-	}
-	
-	public SCIHBrain getSCIHBrain() {
-		return sCIHBrain;
+	public SCIAttractiveness getSCIAttractiveness() {
+		return sCIAttractiveness;
 	}
 	
 	public SCIKinect2 getSCIKinect2() {
@@ -1127,20 +1117,20 @@ public class BrainStatemachine implements IBrainStatemachine {
 		return sCILeapMotion;
 	}
 	
-	public SCIScitosRemoteControl getSCIScitosRemoteControl() {
-		return sCIScitosRemoteControl;
+	public SCIMira getSCIMira() {
+		return sCIMira;
 	}
 	
 	public SCISTT getSCISTT() {
 		return sCISTT;
 	}
 	
-	public SCIFaceAnimation getSCIFaceAnimation() {
-		return sCIFaceAnimation;
+	public SCICurrPerson getSCICurrPerson() {
+		return sCICurrPerson;
 	}
 	
 	private boolean check_main_mainStorry_tr0_tr0() {
-		return sCIScitosRemoteControl.getBlocked()==true;
+		return sCIMira.blocked==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_exitSad_tr0_tr0() {
@@ -1148,43 +1138,43 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_exitNoise_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_tr1_tr1() {
-		return sCIKinect2.getNoiseDetected()==true && sCIBGF.getEventNum()==2;
+		return sCIKinect2.noiseDetected==true && sCIBGF.eventNum==2;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownGirl_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownFemaleTeen_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownWomen_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownBoy_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownMaleTeen_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownMen_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_wait_for_getting_datas_tr0_tr0() {
@@ -1196,11 +1186,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3_tr0_tr0() {
-		return sCISTT.getSTTReady()==true;
+		return sCISTT.sTTReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname_tr0_tr0() {
@@ -1208,11 +1198,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye_tr0_tr0() {
@@ -1232,43 +1222,43 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT_tr3_tr3() {
-		return (sCILeapMotion.getGesture()== null?"true" ==null :sCILeapMotion.getGesture().equals("true"));
+		return (sCILeapMotion.gesture== null?"true" ==null :sCILeapMotion.gesture.equals("true"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT_tr4_tr4() {
-		return (sCILeapMotion.getGesture()== null?"false" ==null :sCILeapMotion.getGesture().equals("false"));
+		return (sCILeapMotion.gesture== null?"false" ==null :sCILeapMotion.gesture.equals("false"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3_tr0_tr0() {
-		return sCISTT.getSTTReady()==true;
+		return sCISTT.sTTReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Prompt_2_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Prompt_1_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_1_tr0_tr0() {
@@ -1288,19 +1278,19 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_tr0_tr0() {
-		return sCIBGF.getRandNum()>=20 && sCIBGF.getRandNum()<=29;
+		return sCIBGF.randNum>=20 && sCIBGF.randNum<=29;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_tr1_tr1() {
-		return sCIBGF.getRandNum()>29;
+		return sCIBGF.randNum>29;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_tr2_tr2() {
-		return sCIBGF.getRandNum()<10;
+		return sCIBGF.randNum<10;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_tr3_tr3() {
-		return sCIBGF.getRandNum()>=10 && sCIBGF.getRandNum()<=19;
+		return sCIBGF.randNum>=10 && sCIBGF.randNum<=19;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_newRandNum_tr0_tr0() {
@@ -1308,35 +1298,35 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_2_tr0_tr0() {
-		return sCIBGF.getRandNum()<10;
+		return sCIBGF.randNum<10;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_2_tr1_tr1() {
-		return sCIBGF.getRandNum()>=10 && sCIBGF.getRandNum()<=19;
+		return sCIBGF.randNum>=10 && sCIBGF.randNum<=19;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_2_tr2_tr2() {
-		return sCIBGF.getRandNum()>19;
+		return sCIBGF.randNum>19;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_3_tr0_tr0() {
-		return sCIBGF.getRandNum()>=10 && sCIBGF.getRandNum()<=19;
+		return sCIBGF.randNum>=10 && sCIBGF.randNum<=19;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_3_tr1_tr1() {
-		return sCIBGF.getRandNum()>19;
+		return sCIBGF.randNum>19;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_3_tr2_tr2() {
-		return sCIBGF.getRandNum()<10;
+		return sCIBGF.randNum<10;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_StartSTT_tr0_tr0() {
@@ -1352,19 +1342,19 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_StartSTT_tr3_tr3() {
-		return (sCILeapMotion.getGesture()== null?"true" ==null :sCILeapMotion.getGesture().equals("true"));
+		return (sCILeapMotion.gesture== null?"true" ==null :sCILeapMotion.gesture.equals("true"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_StartSTT_tr4_tr4() {
-		return (sCILeapMotion.getGesture()== null?"false" ==null :sCILeapMotion.getGesture().equals("false"));
+		return (sCILeapMotion.gesture== null?"false" ==null :sCILeapMotion.gesture.equals("false"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_Copy_1_STT3_tr0_tr0() {
-		return sCISTT.getSTTReady()==true;
+		return sCISTT.sTTReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_asking_repeat_YesNo_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_init_tr0_tr0() {
@@ -1372,83 +1362,83 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Closing_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_neutral_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_happy_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_sad_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_laughing_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_surprised_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_angry_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_0_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_worked_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_initialise_jokes_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_didnt_work_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_1_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_2_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_3_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_5_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_6_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_waitForNewEmo_tr0_tr0() {
-		return sCICurrPerson.getCurrEmotion()!=-1;
+		return sCICurrPerson.currEmotion!=-1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_resetEmo_tr0_tr0() {
-		return sCICurrPerson.getCurrEmotion()!=-1;
+		return sCICurrPerson.currEmotion!=-1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_sadFace_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_init_face_tr0_tr0() {
@@ -1468,19 +1458,19 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT_tr3_tr3() {
-		return (sCILeapMotion.getGesture()== null?"true" ==null :sCILeapMotion.getGesture().equals("true"));
+		return (sCILeapMotion.gesture== null?"true" ==null :sCILeapMotion.gesture.equals("true"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT_tr4_tr4() {
-		return (sCILeapMotion.getGesture()== null?"false" ==null :sCILeapMotion.getGesture().equals("false"));
+		return (sCILeapMotion.gesture== null?"false" ==null :sCILeapMotion.gesture.equals("false"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_Copy_1_STT3_tr0_tr0() {
-		return sCISTT.getSTTReady()==true;
+		return sCISTT.sTTReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_asking_repeat_YesNo_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_init_tr0_tr0() {
@@ -1488,7 +1478,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation_tr0_tr0() {
-		return sCICurrPerson.getAttractiveness()!=-1;
+		return sCICurrPerson.attractiveness!=-1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation_tr1_tr1() {
@@ -1496,67 +1486,67 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_ready_tr0_tr0() {
-		return sCICurrPerson.getAttractiveness()>=0.1 && sCICurrPerson.getGlasses();
+		return sCICurrPerson.attractiveness>=0.1 && sCICurrPerson.glasses;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_ready_tr1_tr1() {
-		return sCICurrPerson.getAttractiveness()>=0.1 && sCICurrPerson.getGlasses()==false;
+		return sCICurrPerson.attractiveness>=0.1 && sCICurrPerson.glasses==false;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_ready_tr2_tr2() {
-		return sCICurrPerson.getAttractiveness()<0.1;
+		return sCICurrPerson.attractiveness<0.1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_pretty_with_glasses_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true && sCICurrPerson.getGlasses()==false;
+		return sCIHBrain.tTSReady==true && sCICurrPerson.glasses==false;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_got_new_attr_tr0_tr0() {
-		return sCIAtt.getOld_attr()<sCICurrPerson.getAttractiveness();
+		return sCIAttractiveness.old_attr<sCICurrPerson.attractiveness;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_got_new_attr_tr1_tr1() {
-		return sCIAtt.getOld_attr()>=sCICurrPerson.getAttractiveness();
+		return sCIAttractiveness.old_attr>=sCICurrPerson.attractiveness;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_prettier_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_not_prettier_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_pretty_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_not_pretty_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_get_new_attractiveness_tr0_tr0() {
-		return sCICurrPerson.getAttractiveness()!=-1;
+		return sCICurrPerson.attractiveness!=-1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_asking_unknown_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNoCancelFunNo_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_exitCancelAnswer_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_waitingForSpeaking_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region_AfterGettingName_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region_newRandNum_tr0_tr0() {
@@ -1568,11 +1558,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_AtWP01___ACI_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_wait_for_cleaning_VBrain_buffer_tr0_tr0() {
-		return sCIVBrain.getCountFoundFaces()>0;
+		return sCIVBrain.countFoundFaces>0;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_Copy_1_exitSad_tr0_tr0() {
@@ -1580,7 +1570,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_wait_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_Init_tr0_tr0() {
@@ -1596,7 +1586,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_Init_tr3_tr3() {
-		return sCIScitosRemoteControl.getArrivedWP()==true;
+		return sCIMira.arrivedWP==true;
 	}
 	
 	private boolean check_main_randTest_tr0_tr0() {
@@ -1616,23 +1606,23 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region_StartSTT_tr3_tr3() {
-		return (sCILeapMotion.getGesture()== null?"true" ==null :sCILeapMotion.getGesture().equals("true"));
+		return (sCILeapMotion.gesture== null?"true" ==null :sCILeapMotion.gesture.equals("true"));
 	}
 	
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region_StartSTT_tr4_tr4() {
-		return (sCILeapMotion.getGesture()== null?"false" ==null :sCILeapMotion.getGesture().equals("false"));
+		return (sCILeapMotion.gesture== null?"false" ==null :sCILeapMotion.gesture.equals("false"));
 	}
 	
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region_Copy_1_STT3_tr0_tr0() {
-		return sCISTT.getSTTReady()==true;
+		return sCISTT.sTTReady==true;
 	}
 	
 	private boolean check_main_Interrupt_Normal_Process_tr0_tr0() {
-		return sCIScitosRemoteControl.getArrivedWP()==true;
+		return sCIMira.arrivedWP==true;
 	}
 	
 	private boolean check_main_GotToFirstStation_tr0_tr0() {
-		return sCIScitosRemoteControl.getArrivedWP()==true;
+		return sCIMira.arrivedWP==true;
 	}
 	
 	private boolean check_main_yes_tr0_tr0() {
@@ -1644,11 +1634,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_GreetingsToVisitors_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_GreetingsToVisitors2_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_wait1_tr0_tr0() {
@@ -1656,7 +1646,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_Greeting1_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_wait3_tr0_tr0() {
@@ -1664,7 +1654,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_greeting3_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_wait4_tr0_tr0() {
@@ -1672,7 +1662,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_greeting4_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_wait3_tr0_tr0() {
@@ -1680,7 +1670,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_greeting3_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_wait4_tr0_tr0() {
@@ -1688,11 +1678,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_greeting4_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_greting5_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_turnBack_tr0_tr0() {
@@ -1704,11 +1694,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_endeGutallesGut_inner_region_endOfStory_tr0_tr0() {
-		return sCIHBrain.getTTSReady()==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_endeGutallesGut_inner_region_drive_tr0_tr0() {
-		return sCIScitosRemoteControl.getArrivedWP()==true;
+		return sCIMira.arrivedWP==true;
 	}
 	
 	private boolean check_main_wait_tr0_tr0() {
@@ -1716,7 +1706,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_init_tr0_tr0() {
-		return sCIScitosRemoteControl.getBumpered()==true;
+		return sCIMira.bumpered==true;
 	}
 	
 	private boolean check_Leonie_Bupered_sayAutsch_tr0_tr0() {
@@ -1728,7 +1718,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr1_tr1() {
-		return sCICurrPerson.getKnown()==true;
+		return sCICurrPerson.known==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr0_tr0() {
@@ -1736,7 +1726,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_1_tr0_tr0() {
-		return (sCICurrPerson.getFirstname()== null?"" !=null : !sCICurrPerson.getFirstname().equals("")) && (sCICurrPerson.getFirstname()== null?"null" !=null : !sCICurrPerson.getFirstname().equals("null"));
+		return (sCICurrPerson.firstname== null?"" !=null : !sCICurrPerson.firstname.equals("")) && (sCICurrPerson.firstname== null?"null" !=null : !sCICurrPerson.firstname.equals("null"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_1_tr1_tr1() {
@@ -1744,7 +1734,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_2_tr0_tr0() {
-		return sCICurrPerson.getGender()==true;
+		return sCICurrPerson.gender==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_2_tr1_tr1() {
@@ -1752,11 +1742,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_3_tr0_tr0() {
-		return sCICurrPerson.getEstimatedAge()<=18;
+		return sCICurrPerson.estimatedAge<=18;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_3_tr2_tr2() {
-		return sCICurrPerson.getEstimatedAge()>=30;
+		return sCICurrPerson.estimatedAge>=30;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_3_tr1_tr1() {
@@ -1764,11 +1754,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_4_tr0_tr0() {
-		return sCICurrPerson.getEstimatedAge()<=18;
+		return sCICurrPerson.estimatedAge<=18;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_4_tr1_tr1() {
-		return sCICurrPerson.getEstimatedAge()>=30;
+		return sCICurrPerson.estimatedAge>=30;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_4_tr2_tr2() {
@@ -1776,7 +1766,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName__choice_0_tr0_tr0() {
-		return (sCISTT.getSpeakerMsg()== null?"" ==null :sCISTT.getSpeakerMsg().equals(""));
+		return (sCISTT.speakerMsg== null?"" ==null :sCISTT.speakerMsg.equals(""));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName__choice_0_tr1_tr1() {
@@ -1792,11 +1782,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region__choice_1_tr0_tr0() {
-		return (sCISTT.getFilteredMsg()== null?"yes" ==null :sCISTT.getFilteredMsg().equals("yes"));
+		return (sCISTT.filteredMsg== null?"yes" ==null :sCISTT.filteredMsg.equals("yes"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region__choice_1_tr1_tr1() {
-		return (sCISTT.getFilteredMsg()== null?"no" ==null :sCISTT.getFilteredMsg().equals("no"));
+		return (sCISTT.filteredMsg== null?"no" ==null :sCISTT.filteredMsg.equals("no"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region__choice_1_tr2_tr2() {
@@ -1820,11 +1810,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region__choice_1_tr0_tr0() {
-		return (sCISTT.getFilteredMsg()== null?"yes" ==null :sCISTT.getFilteredMsg().equals("yes"));
+		return (sCISTT.filteredMsg== null?"yes" ==null :sCISTT.filteredMsg.equals("yes"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region__choice_1_tr1_tr1() {
-		return (sCISTT.getFilteredMsg()== null?"no" ==null :sCISTT.getFilteredMsg().equals("no"));
+		return (sCISTT.filteredMsg== null?"no" ==null :sCISTT.filteredMsg.equals("no"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region__choice_1_tr2_tr2() {
@@ -1832,23 +1822,23 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr1_tr1() {
-		return sCICurrPerson.getCurrEmotion()==1;
+		return sCICurrPerson.currEmotion==1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr2_tr2() {
-		return sCICurrPerson.getCurrEmotion()==2;
+		return sCICurrPerson.currEmotion==2;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr3_tr3() {
-		return sCICurrPerson.getCurrEmotion()==3;
+		return sCICurrPerson.currEmotion==3;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr4_tr4() {
-		return sCICurrPerson.getCurrEmotion()==4;
+		return sCICurrPerson.currEmotion==4;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr5_tr5() {
-		return sCICurrPerson.getCurrEmotion()==5;
+		return sCICurrPerson.currEmotion==5;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr0_tr0() {
@@ -1856,7 +1846,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_1_tr1_tr1() {
-		return sCICurrPerson.getCurrEmotion()==4 || sCICurrPerson.getCurrEmotion()==5;
+		return sCICurrPerson.currEmotion==4 || sCICurrPerson.currEmotion==5;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_1_tr0_tr0() {
@@ -1864,23 +1854,23 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_2_tr1_tr1() {
-		return sCIBGF.getRandNum()==1;
+		return sCIBGF.randNum==1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_2_tr2_tr2() {
-		return sCIBGF.getRandNum()==2;
+		return sCIBGF.randNum==2;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_2_tr3_tr3() {
-		return sCIBGF.getRandNum()==3;
+		return sCIBGF.randNum==3;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_2_tr4_tr4() {
-		return sCIBGF.getRandNum()==4;
+		return sCIBGF.randNum==4;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_2_tr5_tr5() {
-		return sCIBGF.getRandNum()==5;
+		return sCIBGF.randNum==5;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_2_tr0_tr0() {
@@ -1888,7 +1878,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_5_tr1_tr1() {
-		return sCIBGF.getRandNum()<10;
+		return sCIBGF.randNum<10;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_5_tr0_tr0() {
@@ -1904,11 +1894,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region__choice_1_tr0_tr0() {
-		return (sCISTT.getFilteredMsg()== null?"yes" ==null :sCISTT.getFilteredMsg().equals("yes"));
+		return (sCISTT.filteredMsg== null?"yes" ==null :sCISTT.filteredMsg.equals("yes"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region__choice_1_tr1_tr1() {
-		return (sCISTT.getFilteredMsg()== null?"no" ==null :sCISTT.getFilteredMsg().equals("no"));
+		return (sCISTT.filteredMsg== null?"no" ==null :sCISTT.filteredMsg.equals("no"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region__choice_1_tr2_tr2() {
@@ -1916,7 +1906,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_6_tr0_tr0() {
-		return sCICurrPerson.getGender()==true;
+		return sCICurrPerson.gender==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_6_tr1_tr1() {
@@ -1924,7 +1914,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region__choice_0_tr0_tr0() {
-		return sCIBGF.getRandNum()<10;
+		return sCIBGF.randNum<10;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region__choice_0_tr1_tr1() {
@@ -1932,7 +1922,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region__choice_0_tr1_tr1() {
-		return sCIBGF.getEventNum()>=6;
+		return sCIBGF.eventNum>=6;
 	}
 	
 	private boolean check_main_mainStorry_inner_region__choice_0_tr0_tr0() {
@@ -1940,11 +1930,11 @@ public class BrainStatemachine implements IBrainStatemachine {
 	}
 	
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region__choice_0_tr0_tr0() {
-		return (sCISTT.getFilteredMsg()== null?"yes" ==null :sCISTT.getFilteredMsg().equals("yes"));
+		return (sCISTT.filteredMsg== null?"yes" ==null :sCISTT.filteredMsg.equals("yes"));
 	}
 	
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region__choice_0_tr1_tr1() {
-		return (sCISTT.getFilteredMsg()== null?"no" ==null :sCISTT.getFilteredMsg().equals("no"));
+		return (sCISTT.filteredMsg== null?"no" ==null :sCISTT.filteredMsg.equals("no"));
 	}
 	
 	private void effect_main_mainStorry_tr0() {
@@ -3021,18 +3011,18 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Entry action for state 'exitSad'. */
 	private void entryAction_main_mainStorry_inner_region_exitSad() {
-		timer.setTimer(this, 0, 2 * 1000, false);
+		timer.setTimer(this, 0, 2*1000, false);
 		
-		sCIUdpInterface.operationCallback.sendToNav_bodyUTurn();
+		sCIMira.operationCallback.sendBodyUTurn();
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("I think, on the next way point I find a more interesting partner.");
+		sCIHBrain.operationCallback.sendTTS("I think, on the next way point I find a more interesting partner.");
 	}
 	
 	/* Entry action for state 'exitNoise'. */
 	private void entryAction_main_mainStorry_inner_region_exitNoise() {
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|]Oh, some noise behind me! I have to leave you. Bye!");
+		sCIHBrain.operationCallback.sendTTS("[:-|]Oh, some noise behind me! I have to leave you. Bye!");
 	}
 	
 	/* Entry action for state 'FaceDataInterpretation'. */
@@ -3042,52 +3032,52 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Entry action for state 'PersonKnownWithName'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS3("Hey ", sCICurrPerson.getFirstname(), ". [:-)] Nice to see you again!");
+		sCIHBrain.operationCallback.sendTTS3("Hey ", sCICurrPerson.firstname, ". [:-)] Nice to see you again!");
 	}
 	
 	/* Entry action for state 'UnknownGirl'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownGirl() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hi girl");
+		sCIHBrain.operationCallback.sendTTS("Hi girl");
 	}
 	
 	/* Entry action for state 'PersonKnownWithoutName'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hey there, You look familiar, but I did not get your name last time. [:-(] Please tell me your name [:-)]");
+		sCIHBrain.operationCallback.sendTTS("Hey there, You look familiar, but I did not get your name last time. [:-(] Please tell me your name [:-)]");
 	}
 	
 	/* Entry action for state 'UnknownFemaleTeen'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownFemaleTeen() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hi lady");
+		sCIHBrain.operationCallback.sendTTS("Hi lady");
 	}
 	
 	/* Entry action for state 'UnknownWomen'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownWomen() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hi lady");
+		sCIHBrain.operationCallback.sendTTS("Hi lady");
 	}
 	
 	/* Entry action for state 'UnknownBoy'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownBoy() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hi Boy");
+		sCIHBrain.operationCallback.sendTTS("Hi Boy");
 	}
 	
 	/* Entry action for state 'UnknownMaleTeen'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownMaleTeen() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hey Guy");
+		sCIHBrain.operationCallback.sendTTS("Hey Guy");
 	}
 	
 	/* Entry action for state 'UnknownMen'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownMen() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hello Sir");
+		sCIHBrain.operationCallback.sendTTS("Hello Sir");
 	}
 	
 	/* Entry action for state 'wait for getting datas'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_wait_for_getting_datas() {
-		timer.setTimer(this, 1, 3 * 1000, false);
+		timer.setTimer(this, 1, 3*1000, false);
 	}
 	
 	/* Entry action for state 'STT_1'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1() {
-		timer.setTimer(this, 2, 5 * 1000, false);
+		timer.setTimer(this, 2, 5*1000, false);
 		
 		setCounter(0);
 		
@@ -3097,7 +3087,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 		
 		sCISTT.setSTTReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(3);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(3);
 		
 		setNameBuffer("");
 		
@@ -3108,14 +3098,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask() {
 		setNameBuffer(sCISTT.speakerMsg);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS3("If think your name is ", sCISTT.getSpeakerMsg(), ". Is that right?");
+		sCIHBrain.operationCallback.sendTTS3("If think your name is ", sCISTT.speakerMsg, ". Is that right?");
 	}
 	
 	/* Entry action for state 'STT3'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3() {
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 		
-		setCounter(counter + 1);
+		setCounter(counter+1);
 	}
 	
 	/* Entry action for state 'Save_Firstname'. */
@@ -3124,27 +3114,27 @@ public class BrainStatemachine implements IBrainStatemachine {
 		
 		sCIVBrain.operationCallback.savePersonList();
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS3("[:-)]Ok, ", sCICurrPerson.getFirstname(), ", I will remember you!");
+		sCIHBrain.operationCallback.sendTTS3("[:-)]Ok, ", sCICurrPerson.firstname, ", I will remember you!");
 	}
 	
 	/* Entry action for state 'Ask_for_Repeat'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-(]Please repeat your name.");
+		sCIHBrain.operationCallback.sendTTS("[:-(]Please repeat your name.");
 	}
 	
 	/* Entry action for state 'Didnt_get_it'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-(]I didn't get it.");
+		sCIHBrain.operationCallback.sendTTS("[:-(]I didn't get it.");
 	}
 	
 	/* Entry action for state 'Bye_bye'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|]It's too hard to get your name. But I will remember your face.");
+		sCIHBrain.operationCallback.sendTTS("[:-|]It's too hard to get your name. But I will remember your face.");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT() {
-		timer.setTimer(this, 3, 5 * 1000, false);
+		timer.setTimer(this, 3, 5*1000, false);
 		
 		sCISTT.setSTTReady(false);
 		
@@ -3158,41 +3148,41 @@ public class BrainStatemachine implements IBrainStatemachine {
 		
 		sCILeapMotion.setGestureDetected(false);
 		
-		setCounter(counter + 1);
+		setCounter(counter+1);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(2);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(2);
 		
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(3);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 	}
 	
 	/* Entry action for state 'asking_repeat_YesNo'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("What did you say?");
+		sCIHBrain.operationCallback.sendTTS("What did you say?");
 	}
 	
 	/* Entry action for state 'AboutRobotica_1'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-)]I am so excited to be here. Because I get to make new friends");
+		sCIHBrain.operationCallback.sendTTS("[:-)]I am so excited to be here. Because I get to make new friends");
 	}
 	
 	/* Entry action for state 'AboutRobotica_2'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-)]Oh I saw a handsome robot just now. If only I can talk to him");
+		sCIHBrain.operationCallback.sendTTS("[:-)]Oh I saw a handsome robot just now. If only I can talk to him");
 	}
 	
 	/* Entry action for state 'RandomTopic_1'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-)]My university is located in the south of Germany. ");
+		sCIHBrain.operationCallback.sendTTS("[:-)]My university is located in the south of Germany. ");
 	}
 	
 	/* Entry action for state 'RandomTopic_2'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-)]I am 3 years old. I was born in the east of Germany.");
+		sCIHBrain.operationCallback.sendTTS("[:-)]I am 3 years old. I was born in the east of Germany.");
 	}
 	
 	/* Entry action for state 'Prompt_2'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Prompt_2() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|]Do you want to know more about me?");
+		sCIHBrain.operationCallback.sendTTS("[:-|]Do you want to know more about me?");
 		
 		sCIHBrain.setTTSReady(false);
 		
@@ -3201,43 +3191,43 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Entry action for state 'Prompt_1'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Prompt_1() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|]Are you having fun here?");
+		sCIHBrain.operationCallback.sendTTS("[:-|]Are you having fun here?");
 	}
 	
 	/* Entry action for state 'Farewell_1'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_1() {
-		timer.setTimer(this, 4, 1 * 1000, false);
+		timer.setTimer(this, 4, 1*1000, false);
 		
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("It is nice meeting you. Till next time take care.");
+		sCIHBrain.operationCallback.sendTTS("It is nice meeting you. Till next time take care.");
 	}
 	
 	/* Entry action for state 'Farewell_2'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_2() {
-		timer.setTimer(this, 5, 1 * 1000, false);
+		timer.setTimer(this, 5, 1*1000, false);
 		
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("We might not see each other again. which is sad. I like you human. I wish you all the best in your future undertakings. ");
+		sCIHBrain.operationCallback.sendTTS("We might not see each other again. which is sad. I like you human. I wish you all the best in your future undertakings. ");
 	}
 	
 	/* Entry action for state 'Farewell_3'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_3() {
-		timer.setTimer(this, 6, 1 * 1000, false);
+		timer.setTimer(this, 6, 1*1000, false);
 		
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Happy to meet you dear human. But now, let me look for other one.");
+		sCIHBrain.operationCallback.sendTTS("Happy to meet you dear human. But now, let me look for other one.");
 	}
 	
 	/* Entry action for state 'Farewell_4'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_4() {
-		timer.setTimer(this, 7, 1 * 1000, false);
+		timer.setTimer(this, 7, 1*1000, false);
 		
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Hope to see you again.");
+		sCIHBrain.operationCallback.sendTTS("Hope to see you again.");
 	}
 	
 	/* Entry action for state 'newRandNum'. */
@@ -3247,7 +3237,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Entry action for state 'RandomTopic_3'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-)]My family is called the RT Lions. They are wonderful humans. and I love them very much");
+		sCIHBrain.operationCallback.sendTTS("[:-)]My family is called the RT Lions. They are wonderful humans. and I love them very much");
 	}
 	
 	/* Entry action for state 'Selection_2'. */
@@ -3257,12 +3247,12 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Entry action for state 'AlternativeConv_1'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-(]What a Pity!");
+		sCIHBrain.operationCallback.sendTTS("[:-(]What a Pity!");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_StartSTT() {
-		timer.setTimer(this, 8, 5 * 1000, false);
+		timer.setTimer(this, 8, 5*1000, false);
 		
 		sCISTT.setSTTReady(false);
 		
@@ -3276,16 +3266,16 @@ public class BrainStatemachine implements IBrainStatemachine {
 		
 		sCILeapMotion.setGestureDetected(false);
 		
-		setCounter(counter + 1);
+		setCounter(counter+1);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(2);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(2);
 		
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(3);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 	}
 	
 	/* Entry action for state 'asking_repeat_YesNo'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_asking_repeat_YesNo() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("What did you say?");
+		sCIHBrain.operationCallback.sendTTS("What did you say?");
 	}
 	
 	/* Entry action for state 'init'. */
@@ -3295,91 +3285,91 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Entry action for state 'AboutRobotica_3'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("It is my first time here in Portugal.");
+		sCIHBrain.operationCallback.sendTTS("It is my first time here in Portugal.");
 	}
 	
 	/* Entry action for state 'Closing'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Closing() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Would love to chat with you more. but so many people to meet. so little time.");
+		sCIHBrain.operationCallback.sendTTS("Would love to chat with you more. but so many people to meet. so little time.");
 	}
 	
 	/* Entry action for state 'neutral'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_neutral() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("You look bored");
+		sCIHBrain.operationCallback.sendTTS("You look bored");
 	}
 	
 	/* Entry action for state 'happy'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_happy() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("You seem to be happy. I'm also glad to be here. It is so much fun to be among so many other robots");
+		sCIHBrain.operationCallback.sendTTS("You seem to be happy. I'm also glad to be here. It is so much fun to be among so many other robots");
 	}
 	
 	/* Entry action for state 'sad'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_sad() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-(] Oh, you seem to be sad");
+		sCIHBrain.operationCallback.sendTTS("[:-(] Oh, you seem to be sad");
 	}
 	
 	/* Entry action for state 'laughing'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_laughing() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Whats so funny?");
+		sCIHBrain.operationCallback.sendTTS("Whats so funny?");
 	}
 	
 	/* Entry action for state 'surprised'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_surprised() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("You look surprised!");
+		sCIHBrain.operationCallback.sendTTS("You look surprised!");
 	}
 	
 	/* Entry action for state 'angry'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_angry() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("You look angry!");
+		sCIHBrain.operationCallback.sendTTS("You look angry!");
 	}
 	
 	/* Entry action for state 'tell_joke_0'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_0() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Why is six afraid of seven? [attentive] Because seven ate nine! [:-)] ");
+		sCIHBrain.operationCallback.sendTTS("Why is six afraid of seven? [attentive] Because seven ate nine! [:-)] ");
 	}
 	
 	/* Entry action for state 'joke_worked'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_worked() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("I'm glad you have a better mood now.");
+		sCIHBrain.operationCallback.sendTTS("I'm glad you have a better mood now.");
 	}
 	
 	/* Entry action for state 'initialise_jokes'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_initialise_jokes() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Let me tell you a joke");
+		sCIHBrain.operationCallback.sendTTS("Let me tell you a joke");
 		
 		sCIBGF.operationCallback.newRandNum(5);
 	}
 	
 	/* Entry action for state 'joke_didnt_work'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_didnt_work() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Oh that joke didnt work. [-.-]I will try an other one.[:-)]");
+		sCIHBrain.operationCallback.sendTTS("Oh that joke didnt work. [-.-]I will try an other one.[:-)]");
 		
 		sCIBGF.operationCallback.newRandNum(5);
 	}
 	
 	/* Entry action for state 'tell_joke_1'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_1() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Make love, not war. Or if you want to do both  get married!  [:-)] ");
+		sCIHBrain.operationCallback.sendTTS("Make love, not war. Or if you want to do both  get married!  [:-)] ");
 	}
 	
 	/* Entry action for state 'tell_joke_2'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_2() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("A guy is sitting at home when he hears a knock at the door. He opens the door and sees a snail on the porch. He picks up the snail and throws it as far as he can. Three years later there is a knock on the door. He opens it and sees the same snail. The snail says: What the hell was that all about? [:-)]");
+		sCIHBrain.operationCallback.sendTTS("A guy is sitting at home when he hears a knock at the door. He opens the door and sees a snail on the porch. He picks up the snail and throws it as far as he can. Three years later there is a knock on the door. He opens it and sees the same snail. The snail says: What the hell was that all about? [:-)]");
 	}
 	
 	/* Entry action for state 'tell_joke_3'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_3() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("A guy shows up late for work. The boss yells, You should ve been here at eight thirty! He replies. Why? What happened at eight thirty?[:-)]");
+		sCIHBrain.operationCallback.sendTTS("A guy shows up late for work. The boss yells, You should ve been here at eight thirty! He replies. Why? What happened at eight thirty?[:-)]");
 	}
 	
 	/* Entry action for state 'tell_joke_5'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_5() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("I wanted to grow my own food but I couldnt get bacon seeds anywhere. [:-)]");
+		sCIHBrain.operationCallback.sendTTS("I wanted to grow my own food but I couldnt get bacon seeds anywhere. [:-)]");
 	}
 	
 	/* Entry action for state 'tell_joke_6'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_6() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("What is the difference between USA and USB? One connects to all your devices and access your data, and the other is a hardware standard.  [:-)] ");
+		sCIHBrain.operationCallback.sendTTS("What is the difference between USA and USB? One connects to all your devices and access your data, and the other is a hardware standard.  [:-)] ");
 	}
 	
 	/* Entry action for state 'waitForNewEmo'. */
@@ -3394,17 +3384,17 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Entry action for state 'sadFace'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_sadFace() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-(] It seems that I'm not interesting enough for you.");
+		sCIHBrain.operationCallback.sendTTS("[:-(] It seems that I'm not interesting enough for you.");
 	}
 	
 	/* Entry action for state 'init_face'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_init_face() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|]");
+		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT() {
-		timer.setTimer(this, 9, 5 * 1000, false);
+		timer.setTimer(this, 9, 5*1000, false);
 		
 		sCISTT.setSTTReady(false);
 		
@@ -3418,16 +3408,16 @@ public class BrainStatemachine implements IBrainStatemachine {
 		
 		sCILeapMotion.setGestureDetected(false);
 		
-		setCounter(counter + 1);
+		setCounter(counter+1);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(2);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(2);
 		
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(3);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 	}
 	
 	/* Entry action for state 'asking_repeat_YesNo'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_asking_repeat_YesNo() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("What did you say?");
+		sCIHBrain.operationCallback.sendTTS("What did you say?");
 	}
 	
 	/* Entry action for state 'init'. */
@@ -3437,20 +3427,20 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Entry action for state 'start_estimation'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation() {
-		timer.setTimer(this, 10, 10 * 1000, false);
+		timer.setTimer(this, 10, 10*1000, false);
 		
 		sCIHBrain.setTTSReady(false);
 		
 		sCICurrPerson.operationCallback.setAttractiveness(-1);
 		
-		sCIAtt.operationCallback.sendToAttr_estimate();
+		sCIAttractiveness.operationCallback.sendToAttr_estimate();
 	}
 	
 	/* Entry action for state 'pretty_with_glasses'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_pretty_with_glasses() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("You are pretty! I see you wear glasses. Let us see how pretty you are without glasses");
+		sCIHBrain.operationCallback.sendTTS("You are pretty! I see you wear glasses. Let us see how pretty you are without glasses");
 		
-		sCIAtt.setOld_attr(sCICurrPerson.attractiveness);
+		sCIAttractiveness.setOld_attr(sCICurrPerson.attractiveness);
 	}
 	
 	/* Entry action for state 'got_new_attr'. */
@@ -3460,70 +3450,70 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Entry action for state 'prettier'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_prettier() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Wow! you are so much more pretty without glasses!");
+		sCIHBrain.operationCallback.sendTTS("Wow! you are so much more pretty without glasses!");
 	}
 	
 	/* Entry action for state 'not_prettier'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_not_prettier() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Your glasses are very nice. Put them back on!");
+		sCIHBrain.operationCallback.sendTTS("Your glasses are very nice. Put them back on!");
 	}
 	
 	/* Entry action for state 'pretty'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_pretty() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("You look nice!");
+		sCIHBrain.operationCallback.sendTTS("You look nice!");
 	}
 	
 	/* Entry action for state 'not_pretty'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_not_pretty() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Also robots have different tasts. I saw prettier people than you");
+		sCIHBrain.operationCallback.sendTTS("Also robots have different tasts. I saw prettier people than you");
 	}
 	
 	/* Entry action for state 'get new attractiveness'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_get_new_attractiveness() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Thanks");
+		sCIHBrain.operationCallback.sendTTS("Thanks");
 		
 		sCICurrPerson.operationCallback.setAttractiveness(-1);
 		
-		sCIAtt.operationCallback.sendToAttr_estimate();
+		sCIAttractiveness.operationCallback.sendToAttr_estimate();
 	}
 	
 	/* Entry action for state 'asking_unknown'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_asking_unknown() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("I have never seen you before. What is your name?");
+		sCIHBrain.operationCallback.sendTTS("I have never seen you before. What is your name?");
 	}
 	
 	/* Entry action for state 'yesNoCancelFunNo'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNoCancelFunNo() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("I see, it's a difficult question.");
+		sCIHBrain.operationCallback.sendTTS("I see, it's a difficult question.");
 	}
 	
 	/* Entry action for state 'exitCancelAnswer'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_exitCancelAnswer() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-)]I didn't get your answer, but nevermind. I am going to tell you anyway.");
+		sCIHBrain.operationCallback.sendTTS("[:-)]I didn't get your answer, but nevermind. I am going to tell you anyway.");
 	}
 	
 	/* Entry action for state 'AfterGettingName'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region_AfterGettingName() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-)]You have a nice name.");
+		sCIHBrain.operationCallback.sendTTS("[:-)]You have a nice name.");
 	}
 	
 	/* Entry action for state 'newRandNum'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region_newRandNum() {
-		timer.setTimer(this, 11, 1 * 1000, false);
+		timer.setTimer(this, 11, 1*1000, false);
 		
 		sCIBGF.operationCallback.newRandNum(20);
 	}
 	
 	/* Entry action for state 'randNumEnd'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_randNumEnd() {
-		timer.setTimer(this, 12, 1 * 1000, false);
+		timer.setTimer(this, 12, 1*1000, false);
 		
 		sCIBGF.operationCallback.newRandNum(40);
 	}
 	
 	/* Entry action for state 'AtWP01 - ACI'. */
 	private void entryAction_main_mainStorry_inner_region_AtWP01___ACI() {
-		sCIScitosRemoteControl.setArrivedWP(false);
+		sCIMira.setArrivedWP(false);
 		
 		sCIHBrain.setTTSReady(false);
 		
@@ -3531,48 +3521,46 @@ public class BrainStatemachine implements IBrainStatemachine {
 		
 		sCIVBrain.setCountFoundFaces(0);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|]Now, I am looking for a face in front of me.");
+		sCIHBrain.operationCallback.sendTTS("[:-|]Now, I am looking for a face in front of me.");
 		
-		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(true);
+		sCIVBrain.operationCallback.sendACIOnOff(true);
 		
-		sCIUdpInterface.operationCallback.sendToKinect2_detectionOnOff(true);
+		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(true);
 	}
 	
 	/* Entry action for state 'Copy_1_exitSad'. */
 	private void entryAction_main_mainStorry_inner_region_Copy_1_exitSad() {
-		timer.setTimer(this, 13, 2 * 1000, false);
+		timer.setTimer(this, 13, 2*1000, false);
 		
-		sCIUdpInterface.operationCallback.sendToNav_bodyUTurn();
+		sCIMira.operationCallback.sendBodyUTurn();
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Who called me?");
+		sCIHBrain.operationCallback.sendTTS("Who called me?");
 	}
 	
 	/* Entry action for state 'Init'. */
 	private void entryAction_main_Init() {
-		sCIUdpInterface.operationCallback.receive();
+		sCIVBrain.operationCallback.sendACIOnOff(false);
 		
-		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(false);
+		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(false);
 		
-		sCIUdpInterface.operationCallback.sendToKinect2_detectionOnOff(false);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 		
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
-		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|][blush:false]{Person}");
+		sCIHBrain.operationCallback.sendTTS("[:-|][blush:false]{Person}");
 		
 		sCIBGF.setEventNum(0);
 		
-		sCIUdpInterface.operationCallback.sendToNav_goToGWP(0);
+		sCIMira.operationCallback.sendGoToGWP(0);
 	}
 	
 	/* Entry action for state 'randTest'. */
 	private void entryAction_main_randTest() {
-		timer.setTimer(this, 14, 3 * 1000, false);
+		timer.setTimer(this, 14, 3*1000, false);
 		
 		sCIBGF.operationCallback.newRandNum(3);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS_num(sCIBGF.getRandNum());
+		sCIHBrain.operationCallback.sendTTS_num(sCIBGF.randNum);
 	}
 	
 	/* Entry action for state 'StartSTT'. */
@@ -3589,191 +3577,191 @@ public class BrainStatemachine implements IBrainStatemachine {
 		
 		sCILeapMotion.setGestureDetected(false);
 		
-		setCounter(counter + 1);
+		setCounter(counter+1);
 		
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(3);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 	}
 	
 	/* Entry action for state 'Interrupt Normal Process'. */
 	private void entryAction_main_Interrupt_Normal_Process() {
-		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(false);
+		sCIVBrain.operationCallback.sendACIOnOff(false);
 		
-		sCIUdpInterface.operationCallback.sendToKinect2_detectionOnOff(false);
+		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(false);
 		
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(0);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 		
-		sCIUdpInterface.operationCallback.sendToNav_searchOnOff(false);
+		sCIMira.operationCallback.sendSearchOnOff(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-(] I am lost.! I will go back to where I started.");
+		sCIHBrain.operationCallback.sendTTS("[:-(] I am lost.! I will go back to where I started.");
 		
-		sCIScitosRemoteControl.setBlocked(false);
+		sCIMira.setBlocked(false);
 		
-		sCIUdpInterface.operationCallback.sendToNav_goToGWP(0);
+		sCIMira.operationCallback.sendGoToGWP(0);
 	}
 	
 	/* Entry action for state 'GotToFirstStation'. */
 	private void entryAction_main_GotToFirstStation() {
 		sCIHBrain.setTTSReady(false);
 		
-		sCIBGF.setEventNum(sCIBGF.eventNum + 1);
+		sCIBGF.setEventNum(sCIBGF.eventNum+1);
 		
-		sCIUdpInterface.operationCallback.sendToNav_goToNextGWPForConf();
+		sCIMira.operationCallback.sendGoToNextGWPForConf();
 	}
 	
 	/* Entry action for state 'yes'. */
 	private void entryAction_main_yes() {
-		timer.setTimer(this, 15, 1 * 1000, false);
+		timer.setTimer(this, 15, 1*1000, false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Yes");
+		sCIHBrain.operationCallback.sendTTS("Yes");
 	}
 	
 	/* Entry action for state 'no'. */
 	private void entryAction_main_no() {
-		timer.setTimer(this, 16, 1 * 1000, false);
+		timer.setTimer(this, 16, 1*1000, false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("No");
+		sCIHBrain.operationCallback.sendTTS("No");
 	}
 	
 	/* Entry action for state 'GreetingsToVisitors'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_GreetingsToVisitors() {
-		sCIScitosRemoteControl.setArrivedWP(false);
+		sCIMira.setArrivedWP(false);
 		
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Okay, I have to introduce myself.[blush:true] but I’m so nervous [:-)]I’m a helpful Robot in your smart home. [blush:false]But the special thing is, that I try to interact like a real Person. Look at my breathing.");
+		sCIHBrain.operationCallback.sendTTS("Okay, I have to introduce myself.[blush:true] but I’m so nervous [:-)]I’m a helpful Robot in your smart home. [blush:false]But the special thing is, that I try to interact like a real Person. Look at my breathing.");
 	}
 	
 	/* Entry action for state 'GreetingsToVisitors2'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_GreetingsToVisitors2() {
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[idle3:false] Or look at my eyes{60;0} when i move my head.{0;0} At first I look at the new position. After eye movement my head follows. {-60;0} While my head is moving, my eyes go back. {Person} [idle3:true]");
+		sCIHBrain.operationCallback.sendTTS("[idle3:false] Or look at my eyes{60;0} when i move my head.{0;0} At first I look at the new position. After eye movement my head follows. {-60;0} While my head is moving, my eyes go back. {Person} [idle3:true]");
 	}
 	
 	/* Entry action for state 'wait1'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_wait1() {
-		timer.setTimer(this, 17, 2 * 1000, false);
+		timer.setTimer(this, 17, 2*1000, false);
 	}
 	
 	/* Entry action for state 'Greeting1'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_Greeting1() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-O]wow! so many people![idle3:true]");
+		sCIHBrain.operationCallback.sendTTS("[:-O]wow! so many people![idle3:true]");
 	}
 	
 	/* Entry action for state 'wait3'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_wait3() {
-		timer.setTimer(this, 18, 1 * 1000, false);
+		timer.setTimer(this, 18, 1*1000, false);
 	}
 	
 	/* Entry action for state 'greeting3'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_greeting3() {
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|]Besides my animated head I also have several sensors. On the front and the back I have laser sensors to localize myself. plan my way when moving and dynamic objects around me.");
+		sCIHBrain.operationCallback.sendTTS("[:-|]Besides my animated head I also have several sensors. On the front and the back I have laser sensors to localize myself. plan my way when moving and dynamic objects around me.");
 	}
 	
 	/* Entry action for state 'wait4'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_wait4() {
-		timer.setTimer(this, 19, 1 * 1000, false);
+		timer.setTimer(this, 19, 1*1000, false);
 	}
 	
 	/* Entry action for state 'greeting4'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_greeting4() {
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("The most important sensor for me are my cameras. {-20;100}I have several cameras in order to see all humans around me {20;100} as well as to look very close at human faces and analyse them more precicely. {Person}[:-)]I can recognize people and analyse their faces. [:-/]{-30;-90}At least I try it. [:-]In addition I try to estimate the attractiveness and the emotion! [:-)] {Person}");
+		sCIHBrain.operationCallback.sendTTS("The most important sensor for me are my cameras. {-20;100}I have several cameras in order to see all humans around me {20;100} as well as to look very close at human faces and analyse them more precicely. {Person}[:-)]I can recognize people and analyse their faces. [:-/]{-30;-90}At least I try it. [:-]In addition I try to estimate the attractiveness and the emotion! [:-)] {Person}");
 	}
 	
 	/* Entry action for state 'Copy_1_wait3'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_wait3() {
-		timer.setTimer(this, 20, 1 * 1000, false);
+		timer.setTimer(this, 20, 1*1000, false);
 	}
 	
 	/* Entry action for state 'Copy_1_greeting3'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_greeting3() {
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("{0;-150} In front of me is a Leap motion. {Person}This allows people to answer my questions also by giving me hand gestures.");
+		sCIHBrain.operationCallback.sendTTS("{0;-150} In front of me is a Leap motion. {Person}This allows people to answer my questions also by giving me hand gestures.");
 	}
 	
 	/* Entry action for state 'Copy_1_wait4'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_wait4() {
-		timer.setTimer(this, 21, 3 * 1000, false);
+		timer.setTimer(this, 21, 3*1000, false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("On the back");
+		sCIHBrain.operationCallback.sendTTS("On the back");
 		
-		sCIUdpInterface.operationCallback.sendToNav_bodyUTurn();
+		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'Copy_1_greeting4'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_greeting4() {
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Enough for the moment. [:-)] I want to talk to a real person in my kitchen now! [idle3:true]");
+		sCIHBrain.operationCallback.sendTTS("Enough for the moment. [:-)] I want to talk to a real person in my kitchen now! [idle3:true]");
 	}
 	
 	/* Entry action for state 'greting5'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_greting5() {
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("{-180;100}I have a kinect that I use as my ears. I can react on loud sounds behind me.{Person}");
+		sCIHBrain.operationCallback.sendTTS("{-180;100}I have a kinect that I use as my ears. I can react on loud sounds behind me.{Person}");
 	}
 	
 	/* Entry action for state 'turnBack'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_turnBack() {
-		timer.setTimer(this, 22, 2 * 1000, false);
+		timer.setTimer(this, 22, 2*1000, false);
 		
-		sCIUdpInterface.operationCallback.sendToNav_bodyUTurn();
+		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'endeGutallesGut'. */
 	private void entryAction_main_endeGutallesGut_inner_region_endeGutallesGut() {
-		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(false);
+		sCIVBrain.operationCallback.sendACIOnOff(false);
 		
-		sCIUdpInterface.operationCallback.sendToKinect2_detectionOnOff(false);
+		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(false);
 		
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(0);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 	}
 	
 	/* Entry action for state 'endOfStory'. */
 	private void entryAction_main_endeGutallesGut_inner_region_endOfStory() {
 		sCIHBrain.setTTSReady(false);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("Puuuh I met so many interesting people! [:-)]I was waiting so long for this moment. You know my friends were in a big hurry to prepare me for this. I had to learn so many things from them: finding humans, recognising them, understanding their language and facial expressions. I saw attractive ladies, with and without glasses. I also found new robotics friends coming from many countries around the world. I am so happy that we came here together! The team RT Lions will go on to make me more and more intelligent and collaborative. The future is close!");
+		sCIHBrain.operationCallback.sendTTS("Puuuh I met so many interesting people! [:-)]I was waiting so long for this moment. You know my friends were in a big hurry to prepare me for this. I had to learn so many things from them: finding humans, recognising them, understanding their language and facial expressions. I saw attractive ladies, with and without glasses. I also found new robotics friends coming from many countries around the world. I am so happy that we came here together! The team RT Lions will go on to make me more and more intelligent and collaborative. The future is close!");
 	}
 	
 	/* Entry action for state 'drive'. */
 	private void entryAction_main_endeGutallesGut_inner_region_drive() {
-		sCIScitosRemoteControl.setArrivedWP(false);
+		sCIMira.setArrivedWP(false);
 		
-		sCIUdpInterface.operationCallback.sendToNav_goToGWP(0);
+		sCIMira.operationCallback.sendGoToGWP(0);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-D]");
+		sCIHBrain.operationCallback.sendTTS("[:-D]");
 	}
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_main_wait() {
-		timer.setTimer(this, 23, 1 * 1000, false);
+		timer.setTimer(this, 23, 1*1000, false);
 	}
 	
 	/* Entry action for state 'sayAutsch'. */
 	private void entryAction_Leonie_Bupered_sayAutsch() {
-		timer.setTimer(this, 24, 5 * 1000, false);
+		timer.setTimer(this, 24, 5*1000, false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-(]ouch!");
+		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 		
-		sCIScitosRemoteControl.setBumpered(false);
+		sCIMira.setBumpered(false);
 	}
 	
 	/* Entry action for state 'resetFace'. */
 	private void entryAction_Leonie_Bupered_resetFace() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|]");
+		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
 	
 	/* Exit action for state 'exitSad'. */
@@ -3783,19 +3771,19 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Exit action for state 'FaceDataInterpretation'. */
 	private void exitAction_main_mainStorry_inner_region_FaceDataInterpretation() {
-		sCIUdpInterface.operationCallback.sendToVBrain_ACIonOff(false);
+		sCIVBrain.operationCallback.sendACIOnOff(false);
 		
-		sCIUdpInterface.operationCallback.sendToKinect2_detectionOnOff(false);
+		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(false);
 		
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(0);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 		
 		sCICurrPerson.operationCallback.resetCurrPerson();
 		
 		sCIVBrain.setCountFoundFaces(0);
 		
-		sCIAtt.setOld_attr(0);
+		sCIAttractiveness.setOld_attr(0);
 		
 		sCISTT.setSTTReady(false);
 		
@@ -3813,7 +3801,7 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Exit action for state 'Getting Name'. */
 	private void exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name() {
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 	}
 	
 	/* Exit action for state 'STT_1'. */
@@ -3825,9 +3813,9 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT() {
 		timer.unsetTimer(this, 3);
 		
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(0);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 	}
 	
 	/* Exit action for state 'Farewell_1'. */
@@ -3854,9 +3842,9 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_StartSTT() {
 		timer.unsetTimer(this, 8);
 		
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(0);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 	}
 	
 	/* Exit action for state 'yesNo_fun'. */
@@ -3868,9 +3856,9 @@ public class BrainStatemachine implements IBrainStatemachine {
 	private void exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT() {
 		timer.unsetTimer(this, 9);
 		
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(0);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 	}
 	
 	/* Exit action for state 'start_estimation'. */
@@ -3900,14 +3888,14 @@ public class BrainStatemachine implements IBrainStatemachine {
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_AtWP03_FingerAlphabet__inner_region_StartSTT() {
-		sCIUdpInterface.operationCallback.sendToLeapMotion_detectionOnOff(0);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 	}
 	
 	/* Exit action for state 'Interrupt Normal Process'. */
 	private void exitAction_main_Interrupt_Normal_Process() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("[:-|]");
+		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
 	
 	/* Exit action for state 'yes'. */

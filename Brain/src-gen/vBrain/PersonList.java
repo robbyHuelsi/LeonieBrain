@@ -163,7 +163,7 @@ public class PersonList{
 	public boolean load(){
 		File f = new File(this.filePath);
 		if(f==null || !f.exists() || f.isDirectory()) { 
-		    System.out.println("No personList file found");
+		    System.out.println("No Person List File Found");
 		    return false;
 		}
 		
@@ -179,10 +179,10 @@ public class PersonList{
 		      while ( (obj= objectinputstream.readObject()) != null ){
 		      	this.personList = ((Vector<Person>) obj);
 		      }
-		    System.out.println("Opening done");
+		    System.out.println("Opening Person List File Done");
 		    return true;
 		} catch (Exception e) {
-			System.err.println("Opening failed");
+			System.err.println("Opening Person List File Failed");
 		    e.printStackTrace();
 		    return false;
 		} finally {
@@ -209,10 +209,10 @@ public class PersonList{
 			oos.writeObject( null );
 			oos.flush();
 			oos.close();
-			System.out.println("Saving done");
+			System.out.println("Saving Person List File Done");
 			return true;
 		}catch(Exception ex){
-			System.err.println("Saving failed");
+			System.err.println("Saving Person List File Failed");
 			ex.printStackTrace();
 			return false;
 		}

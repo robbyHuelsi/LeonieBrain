@@ -22,14 +22,14 @@ public class Mira implements IParser, Serializable{
 		//Bumpered: #NAV##BUMPERED#1#            		//#NAV##BUMPERED#1#  (=> leonie is bumpered
 		if (data.contains("#ARR_WP#")) {
 			System.out.println("Arrived at next waypoint: ");
-			brain.getSCIScitosRemoteControl().setArrivedWP(true);
+			brain.getSCIMira().setArrivedWP(true);
 			
 		} else if (data.contains("#PATH_BLOCKED#1")) {
 			System.out.println("No way found");
-			brain.getSCIScitosRemoteControl().setBlocked(true);
+			brain.getSCIMira().setBlocked(true);
 		} else if (data.contains("#BUMPERED#1")) {
 			System.out.println("Leonie was bumperd");
-			brain.getSCIScitosRemoteControl().setBumpered(true);
+			brain.getSCIMira().setBumpered(true);
 		}
 
 		return true;

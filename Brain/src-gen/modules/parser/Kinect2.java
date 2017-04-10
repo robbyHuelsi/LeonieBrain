@@ -6,7 +6,7 @@ import org.yakindu.scr.brain.BrainStatemachine;
 
 import main.*;
 
-public class NoiseDetection implements IParser, Serializable{
+public class Kinect2 implements IParser, Serializable{
 
 	/**
 	 * 

@@ -60,13 +60,25 @@ public class MessageParser {
 				switch (sender) {
 				case "NAV":
 					((IParser) start.getModules().getParser("Mira")).parse(data, brain, start);
-					System.out.println("Update sender name NAV to Mira");
+					System.out.println("ToDo: Update sender name NAV to Mira");
 					return true;
 				// break;
 
 				case "ATTR2":
 					((IParser) start.getModules().getParser("Attractiveness")).parse(data, brain, start);
-					System.out.println("Update sender name ATTR2 to Attractiveness");
+					System.out.println("ToDo: Update sender name ATTR2 to Attractiveness");
+					return true;
+				// break;
+					
+				case "HandGestures":
+					((IParser) start.getModules().getParser("LeapMotion")).parse(data, brain, start);
+					System.out.println("ToDo: Update sender name HandGestures to LeapMotion");
+					return true;
+				// break;
+					
+				case "NoiseDetection":
+					((IParser) start.getModules().getParser("Kinect2")).parse(data, brain, start);
+					System.out.println("ToDo: Update sender name NoiseDetection to Kinect2");
 					return true;
 				// break;
 

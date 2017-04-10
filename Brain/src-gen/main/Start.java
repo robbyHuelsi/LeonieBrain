@@ -6,6 +6,7 @@ import org.yakindu.scr.TimerService;
 import org.yakindu.scr.brain.BrainStatemachine;
 
 import callbacks.OpCallbackImpl;
+import communication.Communication;
 import modules.Modules;
 import vBrain.*;
 
@@ -22,14 +23,33 @@ public class Start
 	static private int TCPListeningPort = 50001;
 	// ------------------------------------------------------------------------
 	
-	
-//	public enum Emotion {
-//	    neutral, happy, sad, laugthing, angry;
-//		private final int value;
-//		private static Emotion[] allValues = values();
-//		public static Emotion fromInt(int n) {return allValues[n];}
-//		 public int getValue() {return value;}
-//	}
+	public static void main(String[] args) throws Exception{
+		Start t = Start.instanceOf();
+		
+		// Start listening for messages via UDP or TCP
+		Communication.receive(modules.get("brain"));
+		
+		OpCallbackImpl opCallback = new OpCallbackImpl();
+		t.brain.getSCIBGF().setSCIBGFOperationCallback(opCallback);
+		t.brain.getSCIVBrain().setSCIVBrainOperationCallback(opCallback);
+		t.brain.getSCIHBrain().setSCIHBrainOperationCallback(opCallback);
+		t.brain.getSCIAttractiveness().setSCIAttractivenessOperationCallback(opCallback);
+		t.brain.getSCIKinect2().setSCIKinect2OperationCallback(opCallback);
+		t.brain.getSCILeapMotion().setSCILeapMotionOperationCallback(opCallback);
+		t.brain.getSCIMira().setSCIMiraOperationCallback(opCallback);
+		t.brain.getSCISTT().setSCISTTOperationCallback(opCallback);
+		t.brain.getSCICurrPerson().setSCICurrPersonOperationCallback(opCallback);
+		
+		
+		t.brain.init();
+		t.brain.enter();
+
+		while (true)
+		{
+			t.brain.runCycle();
+			Thread.sleep(500);
+		}
+	}
 	
 	private Start()
 	{
@@ -39,8 +59,10 @@ public class Start
 		modules = new Modules(UDPListeningPort);
 		personList = new PersonList();
 		
+//----> For using Brain w/o CNS Monitor:
 //		modules.setIpAndPortOldSchool();
 		
+//---->	For testing personList:
 //		Person p = new Person();
 //		p.setGender(false, brain);
 //		p.setFirstName("Leonie", brain);
@@ -58,35 +80,7 @@ public class Start
 	
 	
 	
-	public static void main(String[] args) throws Exception
-	{
-		Start t = Start.instanceOf();
-		
-		OpCallbackImpl opCallback = new OpCallbackImpl();
-		t.brain.getSCIBGF().setSCIBGFOperationCallback(opCallback);
-		t.brain.getSCIUdpInterface().setSCIUdpInterfaceOperationCallback(opCallback);
-		t.brain.getSCIVBrain().setSCIVBrainOperationCallback(opCallback);
-		t.brain.getSCICurrPerson().setSCICurrPersonOperationCallback(opCallback);
-		t.brain.getSCIAtt().setSCIAttOperationCallback(opCallback);
-		
-		
-		t.brain.init();
-		t.brain.enter();
 
-		while (true)
-		{
-//			String incomingMessage = receive.receive(true, InetAddress.getLoopbackAddress(), 9999);
-//			incomingMessage = incomingMessage.trim();
-////			System.out.println("Msg: " + incomingMessage);
-//			if (incomingMessage != null && incomingMessage.equals("Klick"))
-//			{
-//				System.out.println("Switch klicked");
-//				lightSwitch.getSCIUser().raiseOperate();
-//			}
-			t.brain.runCycle();
-			Thread.sleep(500);
-		}
-	}
 	
 //	public OpCallbackImpl getOpCallbackImpl(){
 //		return this.opCallback;

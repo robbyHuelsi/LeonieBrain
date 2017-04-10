@@ -6,7 +6,7 @@ import org.yakindu.scr.brain.BrainStatemachine;
 
 import main.*;
 
-public class HandGestures implements IParser, Serializable{
+public class LeapMotion implements IParser, Serializable{
 
 	/**
 	 * 
