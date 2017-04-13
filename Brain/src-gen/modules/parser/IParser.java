@@ -1,11 +1,13 @@
 package modules.parser;
 
-import org.yakindu.scr.brain.BrainStatemachine;
 
 import main.Start;
+import modules.Module;
 import vBrain.*;
 
 public interface IParser {
 
-	public boolean parse(String data, BrainStatemachine brain, Start start);
+	public boolean parse(String data, Start start);
+	
+	//TODO: Funktion, um alles zu löschen
 }

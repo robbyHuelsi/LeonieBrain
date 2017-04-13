@@ -23,7 +23,14 @@ public class Modules {
 	
 	public Modules(Integer listenPort){
 		if(this.load()){
-			//Modules wurden geladen aus Datei
+			//Modules wurden aus Datei geladen
+			String ownIp = getOwnIpAddress();
+			
+			if (!get("Brain").getIp().equals(ownIp)) {
+				get("Brain").setIp(ownIp);
+				System.out.println("Brains IP was updated");
+			}
+			
 			System.out.println(modules.toString());
 		}else{
 			addModule("Brain", getOwnIpAddress(), listenPort, false, true);

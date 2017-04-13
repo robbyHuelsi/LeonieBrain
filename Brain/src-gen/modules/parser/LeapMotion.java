@@ -2,43 +2,81 @@ package modules.parser;
 
 import java.io.Serializable;
 
-import org.yakindu.scr.brain.BrainStatemachine;
-
 import main.*;
+import modules.Module;
 
 public class LeapMotion implements IParser, Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private Start start;
+	private boolean gestureDetected;
+	private boolean stringFinished;
+	private String gesture;
+	private String gesturedString;
 
-	@Override
-	public boolean parse(String data, BrainStatemachine brain, Start start) {
+	public boolean parse(String data, Start start) {
+		this.start = start;
+		
 		String[] attributePartsHG = data.split(";");
 		//System.out.println(data);
 		if (attributePartsHG[0].contains("0")){
 			//System.out.println("LeapMotion: nothing detected");
-			brain.getSCILeapMotion().setGestureDetected(false);
-			brain.getSCILeapMotion().setStringFinished(false);
+			this.setGestureDetected(false);
+			this.setStringFinished(false);
 		}else if(attributePartsHG.length > 1){
 			if(attributePartsHG[0].contains("1")) {
-				brain.getSCILeapMotion().setGesture(attributePartsHG[1]);
-				brain.getSCILeapMotion().setGestureDetected(true);
+				this.setGesture(attributePartsHG[1]);
+				this.setGestureDetected(true);
 //				if(attributePartsHG[1].contains("true") && attributePartsHG[1].contains("false")) {
 //				start.instanceOf().
 //				}
 				System.out.println("LeapMotion: " + attributePartsHG[1] + " detected");
 			} else if (attributePartsHG[0].contains("2")) {
 				System.out.println("Finished string is " + attributePartsHG[1]);
-				brain.getSCILeapMotion().setDetectedString(attributePartsHG[1]);
-				brain.getSCILeapMotion().setStringFinished(true);
+				this.setGesturedString(attributePartsHG[1]);
+				this.setStringFinished(true);
 			}
 		}
 		
 		return true;
 		
 	}
+
+	public boolean isGestureDetected() {
+		return gestureDetected;
+	}
+
+	public void setGestureDetected(boolean gestureDetected) {
+		this.gestureDetected = gestureDetected;
+		//TODO: brain.getSCILeapMotion().setGestureDetected(gestureDetected);
+	}
+
+	public boolean isStringFinished() {
+		return stringFinished;
+	}
+
+	public void setStringFinished(boolean stringFinished) {
+		this.stringFinished = stringFinished;
+		//TODO: brain.getSCILeapMotion().setStringFinished(stringFinished);
+	}
+
+	public String getGesture() {
+		return gesture;
+	}
+
+	public void setGesture(String gesture) {
+		this.gesture = gesture;
+		//TODO: brain.getSCILeapMotion().setGesture(gesture);
+	}
+
+	public String getGesturedString() {
+		return gesturedString;
+	}
+
+	public void setGesturedString(String gesturedString) {
+		this.gesturedString = gesturedString;
+		//TODO: brain.getSCILeapMotion().setDetectedString(gesturedString);
+	}
+
 
 
 }

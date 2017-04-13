@@ -9,8 +9,46 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	protected SCInterfaceImpl sCInterface;
 	
+	protected class SCIBGFImpl implements SCIBGF {
+	
+		private SCIBGFOperationCallback operationCallback;
+		
+		public void setSCIBGFOperationCallback(
+				SCIBGFOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private long eventNum;
+		
+		public long getEventNum() {
+			return eventNum;
+		}
+		
+		public void setEventNum(long value) {
+			this.eventNum = value;
+		}
+		
+		private long randNum;
+		
+		public long getRandNum() {
+			return randNum;
+		}
+		
+		public void setRandNum(long value) {
+			this.randNum = value;
+		}
+		
+	}
+	
+	protected SCIBGFImpl sCIBGF;
+	
 	protected class SCIHBrainImpl implements SCIHBrain {
 	
+		private SCIHBrainOperationCallback operationCallback;
+		
+		public void setSCIHBrainOperationCallback(
+				SCIHBrainOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
 		private boolean tTSReady;
 		
 		public boolean getTTSReady() {
@@ -21,47 +59,9 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			this.tTSReady = value;
 		}
 		
-		private boolean tTSFinished;
-		
-		public boolean getTTSFinished() {
-			return tTSFinished;
-		}
-		
-		public void setTTSFinished(boolean value) {
-			this.tTSFinished = value;
-		}
-		
 	}
 	
 	protected SCIHBrainImpl sCIHBrain;
-	
-	protected class SCIUdpInterfaceImpl implements SCIUdpInterface {
-	
-		private SCIUdpInterfaceOperationCallback operationCallback;
-		
-		public void setSCIUdpInterfaceOperationCallback(
-				SCIUdpInterfaceOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-		private boolean ready;
-		
-		public void raiseReady() {
-			ready = true;
-		}
-		
-		private boolean turnAroundFinished;
-		
-		public void raiseTurnAroundFinished() {
-			turnAroundFinished = true;
-		}
-		
-		protected void clearEvents() {
-			ready = false;
-			turnAroundFinished = false;
-		}
-	}
-	
-	protected SCIUdpInterfaceImpl sCIUdpInterface;
 	
 	protected class SCIVBrainImpl implements SCIVBrain {
 	
@@ -95,8 +95,182 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	protected SCIVBrainImpl sCIVBrain;
 	
+	protected class SCIAttractivenessImpl implements SCIAttractiveness {
+	
+		private SCIAttractivenessOperationCallback operationCallback;
+		
+		public void setSCIAttractivenessOperationCallback(
+				SCIAttractivenessOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private double old_attr;
+		
+		public double getOld_attr() {
+			return old_attr;
+		}
+		
+		public void setOld_attr(double value) {
+			this.old_attr = value;
+		}
+		
+	}
+	
+	protected SCIAttractivenessImpl sCIAttractiveness;
+	
+	protected class SCIKinect2Impl implements SCIKinect2 {
+	
+		private SCIKinect2OperationCallback operationCallback;
+		
+		public void setSCIKinect2OperationCallback(
+				SCIKinect2OperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private String gesture;
+		
+		public String getGesture() {
+			return gesture;
+		}
+		
+		public void setGesture(String value) {
+			this.gesture = value;
+		}
+		
+		private boolean noiseDetected;
+		
+		public boolean getNoiseDetected() {
+			return noiseDetected;
+		}
+		
+		public void setNoiseDetected(boolean value) {
+			this.noiseDetected = value;
+		}
+		
+		private long noiseAngle;
+		
+		public long getNoiseAngle() {
+			return noiseAngle;
+		}
+		
+		public void setNoiseAngle(long value) {
+			this.noiseAngle = value;
+		}
+		
+	}
+	
+	protected SCIKinect2Impl sCIKinect2;
+	
+	protected class SCILeapMotionImpl implements SCILeapMotion {
+	
+		private SCILeapMotionOperationCallback operationCallback;
+		
+		public void setSCILeapMotionOperationCallback(
+				SCILeapMotionOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private boolean gestureDetected;
+		
+		public boolean getGestureDetected() {
+			return gestureDetected;
+		}
+		
+		public void setGestureDetected(boolean value) {
+			this.gestureDetected = value;
+		}
+		
+		private String gesture;
+		
+		public String getGesture() {
+			return gesture;
+		}
+		
+		public void setGesture(String value) {
+			this.gesture = value;
+		}
+		
+		private boolean stringFinished;
+		
+		public boolean getStringFinished() {
+			return stringFinished;
+		}
+		
+		public void setStringFinished(boolean value) {
+			this.stringFinished = value;
+		}
+		
+		private String detectedString;
+		
+		public String getDetectedString() {
+			return detectedString;
+		}
+		
+		public void setDetectedString(String value) {
+			this.detectedString = value;
+		}
+		
+	}
+	
+	protected SCILeapMotionImpl sCILeapMotion;
+	
+	protected class SCIMiraImpl implements SCIMira {
+	
+		private SCIMiraOperationCallback operationCallback;
+		
+		public void setSCIMiraOperationCallback(
+				SCIMiraOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private boolean emergencyStop;
+		
+		public boolean getEmergencyStop() {
+			return emergencyStop;
+		}
+		
+		public void setEmergencyStop(boolean value) {
+			this.emergencyStop = value;
+		}
+		
+		private boolean bumpered;
+		
+		public boolean getBumpered() {
+			return bumpered;
+		}
+		
+		public void setBumpered(boolean value) {
+			this.bumpered = value;
+		}
+		
+		private boolean blocked;
+		
+		public boolean getBlocked() {
+			return blocked;
+		}
+		
+		public void setBlocked(boolean value) {
+			this.blocked = value;
+		}
+		
+		private boolean arrivedWP;
+		
+		public boolean getArrivedWP() {
+			return arrivedWP;
+		}
+		
+		public void setArrivedWP(boolean value) {
+			this.arrivedWP = value;
+		}
+		
+	}
+	
+	protected SCIMiraImpl sCIMira;
+	
 	protected class SCISTTImpl implements SCISTT {
 	
+		private SCISTTOperationCallback operationCallback;
+		
+		public void setSCISTTOperationCallback(
+				SCISTTOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
 		private boolean sTTReady;
 		
 		public boolean getSTTReady() {
@@ -141,6 +315,178 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	protected SCISTTImpl sCISTT;
 	
+	protected class SCICurrPersonImpl implements SCICurrPerson {
+	
+		private SCICurrPersonOperationCallback operationCallback;
+		
+		public void setSCICurrPersonOperationCallback(
+				SCICurrPersonOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private long personID;
+		
+		public long getPersonID() {
+			return personID;
+		}
+		
+		public void setPersonID(long value) {
+			this.personID = value;
+		}
+		
+		private boolean known;
+		
+		public boolean getKnown() {
+			return known;
+		}
+		
+		public void setKnown(boolean value) {
+			this.known = value;
+		}
+		
+		private String firstname;
+		
+		public String getFirstname() {
+			return firstname;
+		}
+		
+		public void setFirstname(String value) {
+			this.firstname = value;
+		}
+		
+		private String lastname;
+		
+		public String getLastname() {
+			return lastname;
+		}
+		
+		public void setLastname(String value) {
+			this.lastname = value;
+		}
+		
+		private long estimatedAge;
+		
+		public long getEstimatedAge() {
+			return estimatedAge;
+		}
+		
+		public void setEstimatedAge(long value) {
+			this.estimatedAge = value;
+		}
+		
+		private long bdYear;
+		
+		public long getBdYear() {
+			return bdYear;
+		}
+		
+		public void setBdYear(long value) {
+			this.bdYear = value;
+		}
+		
+		private long bdMounth;
+		
+		public long getBdMounth() {
+			return bdMounth;
+		}
+		
+		public void setBdMounth(long value) {
+			this.bdMounth = value;
+		}
+		
+		private long bdDay;
+		
+		public long getBdDay() {
+			return bdDay;
+		}
+		
+		public void setBdDay(long value) {
+			this.bdDay = value;
+		}
+		
+		private boolean gender;
+		
+		public boolean getGender() {
+			return gender;
+		}
+		
+		public void setGender(boolean value) {
+			this.gender = value;
+		}
+		
+		private long ethnicity;
+		
+		public long getEthnicity() {
+			return ethnicity;
+		}
+		
+		public void setEthnicity(long value) {
+			this.ethnicity = value;
+		}
+		
+		private boolean glasses;
+		
+		public boolean getGlasses() {
+			return glasses;
+		}
+		
+		public void setGlasses(boolean value) {
+			this.glasses = value;
+		}
+		
+		private double attractiveness;
+		
+		public double getAttractiveness() {
+			return attractiveness;
+		}
+		
+		public void setAttractiveness(double value) {
+			this.attractiveness = value;
+		}
+		
+		private long currHeadgestures;
+		
+		public long getCurrHeadgestures() {
+			return currHeadgestures;
+		}
+		
+		public void setCurrHeadgestures(long value) {
+			this.currHeadgestures = value;
+		}
+		
+		private boolean currSpeaking;
+		
+		public boolean getCurrSpeaking() {
+			return currSpeaking;
+		}
+		
+		public void setCurrSpeaking(boolean value) {
+			this.currSpeaking = value;
+		}
+		
+		private long currEmotion;
+		
+		public long getCurrEmotion() {
+			return currEmotion;
+		}
+		
+		public void setCurrEmotion(long value) {
+			this.currEmotion = value;
+		}
+		
+		private double currDistance;
+		
+		public double getCurrDistance() {
+			return currDistance;
+		}
+		
+		public void setCurrDistance(double value) {
+			this.currDistance = value;
+		}
+		
+	}
+	
+	protected SCICurrPersonImpl sCICurrPerson;
+	
 	private boolean initialized = false;
 	
 	public enum State {
@@ -170,7 +516,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[3];
+	private final boolean[] timeEvents = new boolean[4];
 	private long questionCounter;
 	
 	protected void setQuestionCounter(long value) {
@@ -183,10 +529,15 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	public SpeechAndPersonRecognitionStatemachine() {
 		sCInterface = new SCInterfaceImpl();
+		sCIBGF = new SCIBGFImpl();
 		sCIHBrain = new SCIHBrainImpl();
-		sCIUdpInterface = new SCIUdpInterfaceImpl();
 		sCIVBrain = new SCIVBrainImpl();
+		sCIAttractiveness = new SCIAttractivenessImpl();
+		sCIKinect2 = new SCIKinect2Impl();
+		sCILeapMotion = new SCILeapMotionImpl();
+		sCIMira = new SCIMiraImpl();
 		sCISTT = new SCISTTImpl();
+		sCICurrPerson = new SCICurrPersonImpl();
 	}
 	
 	public void init() {
@@ -199,13 +550,39 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		}
 		clearEvents();
 		clearOutEvents();
-		sCIHBrain.setTTSReady(false);
+		sCIBGF.setEventNum(0);
 		
-		sCIHBrain.setTTSFinished(false);
+		sCIBGF.setRandNum(0);
+		
+		sCIHBrain.setTTSReady(false);
 		
 		sCIVBrain.setCountFoundFaces(0);
 		
 		sCIVBrain.setNessesaryToSavePersonList(false);
+		
+		sCIAttractiveness.setOld_attr(0.0);
+		
+		sCIKinect2.setGesture("");
+		
+		sCIKinect2.setNoiseDetected(false);
+		
+		sCIKinect2.setNoiseAngle(0);
+		
+		sCILeapMotion.setGestureDetected(false);
+		
+		sCILeapMotion.setGesture("");
+		
+		sCILeapMotion.setStringFinished(false);
+		
+		sCILeapMotion.setDetectedString("");
+		
+		sCIMira.setEmergencyStop(false);
+		
+		sCIMira.setBumpered(false);
+		
+		sCIMira.setBlocked(false);
+		
+		sCIMira.setArrivedWP(false);
 		
 		sCISTT.setSTTReady(false);
 		
@@ -214,6 +591,38 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		sCISTT.setFilteredMsg("");
 		
 		sCISTT.setFilterBubble("");
+		
+		sCICurrPerson.setPersonID(0);
+		
+		sCICurrPerson.setKnown(false);
+		
+		sCICurrPerson.setFirstname("");
+		
+		sCICurrPerson.setLastname("");
+		
+		sCICurrPerson.setEstimatedAge(0);
+		
+		sCICurrPerson.setBdYear(0);
+		
+		sCICurrPerson.setBdMounth(0);
+		
+		sCICurrPerson.setBdDay(0);
+		
+		sCICurrPerson.setGender(false);
+		
+		sCICurrPerson.setEthnicity(0);
+		
+		sCICurrPerson.setGlasses(false);
+		
+		sCICurrPerson.setAttractiveness(0.0);
+		
+		sCICurrPerson.setCurrHeadgestures(0);
+		
+		sCICurrPerson.setCurrSpeaking(false);
+		
+		sCICurrPerson.setCurrEmotion(0);
+		
+		sCICurrPerson.setCurrDistance(0.0);
 		
 		setQuestionCounter(0);
 	}
@@ -250,7 +659,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	* This method resets the incoming events (time events included).
 	*/
 	protected void clearEvents() {
-		sCIUdpInterface.clearEvents();
 		for (int i=0; i<timeEvents.length; i++) {
 			timeEvents[i] = false;
 		}
@@ -337,28 +745,48 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return sCInterface;
 	}
 	
-	public SCIHBrain getSCIHBrain() {
-		return sCIHBrain;
+	public SCIBGF getSCIBGF() {
+		return sCIBGF;
 	}
 	
-	public SCIUdpInterface getSCIUdpInterface() {
-		return sCIUdpInterface;
+	public SCIHBrain getSCIHBrain() {
+		return sCIHBrain;
 	}
 	
 	public SCIVBrain getSCIVBrain() {
 		return sCIVBrain;
 	}
 	
+	public SCIAttractiveness getSCIAttractiveness() {
+		return sCIAttractiveness;
+	}
+	
+	public SCIKinect2 getSCIKinect2() {
+		return sCIKinect2;
+	}
+	
+	public SCILeapMotion getSCILeapMotion() {
+		return sCILeapMotion;
+	}
+	
+	public SCIMira getSCIMira() {
+		return sCIMira;
+	}
+	
 	public SCISTT getSCISTT() {
 		return sCISTT;
 	}
 	
+	public SCICurrPerson getSCICurrPerson() {
+		return sCICurrPerson;
+	}
+	
 	private boolean check_main_region_Init_tr0_tr0() {
-		return sCIUdpInterface.ready;
+		return true;
 	}
 	
 	private boolean check_main_region_Announcement_tr0_tr0() {
-		return sCIHBrain.tTSFinished==true;
+		return sCIHBrain.tTSReady==true;
 	}
 	
 	private boolean check_main_region_Wait_tr0_tr0() {
@@ -366,11 +794,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_main_region_TurnAround_tr0_tr0() {
-		return sCIUdpInterface.turnAroundFinished;
+		return timeEvents[1];
 	}
 	
 	private boolean check_main_region_RiddleGame1_r1_RequestForOpertator_tr0_tr0() {
-		return timeEvents[1];
+		return timeEvents[2];
 	}
 	
 	private boolean check_main_region_RiddleGame1_r1_Answer_tr0_tr0() {
@@ -382,7 +810,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_main_region_BlindMan_sBluGame_r1_ListenForQuestion_tr0_tr0() {
-		return timeEvents[2];
+		return timeEvents[3];
 	}
 	
 	private boolean check_main_region_BlindMan_sBluGame_r1_Answer_tr0_tr0() {
@@ -445,16 +873,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Init'. */
 	private void entryAction_main_region_Init() {
-		sCIUdpInterface.operationCallback.receive(0);
-		
-		sCISTT.setSTTReady(false);
-		
-		sCIUdpInterface.operationCallback.sendToKinect2_detectionOnOff(false);
+		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(false);
 	}
 	
 	/* Entry action for state 'Announcement'. */
 	private void entryAction_main_region_Announcement() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("I want to play the riddle game!");
+		sCIHBrain.operationCallback.sendTTS("I want to play the riddle game!");
 	}
 	
 	/* Entry action for state 'Wait'. */
@@ -464,12 +888,14 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'TurnAround'. */
 	private void entryAction_main_region_TurnAround() {
-		sCIUdpInterface.operationCallback.sendToNav_bodyUTurn();
+		timer.setTimer(this, 1, 2*1000, false);
+		
+		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'CrowdScanningAndCounting'. */
 	private void entryAction_main_region_CrowdScanningAndCounting() {
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("");
+		sCIHBrain.operationCallback.sendTTS("");
 	}
 	
 	/* Entry action for state 'StartGame'. */
@@ -479,16 +905,16 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'RequestForOpertator'. */
 	private void entryAction_main_region_RiddleGame1_r1_RequestForOpertator() {
-		timer.setTimer(this, 1, 5*1000, false);
+		timer.setTimer(this, 2, 5*1000, false);
 		
-		sCIUdpInterface.operationCallback.sendToHBrain_TTS("who want to play riddles with me?");
+		sCIHBrain.operationCallback.sendTTS("who want to play riddles with me?");
 	}
 	
 	/* Entry action for state 'WaitForQuestion'. */
 	private void entryAction_main_region_RiddleGame1_r1_WaitForQuestion() {
 		sCISTT.setSTTReady(true);
 		
-		sCIUdpInterface.operationCallback.sendToSTT_detectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 	}
 	
 	/* Entry action for state 'Answer'. */
@@ -503,7 +929,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'ListenForQuestion'. */
 	private void entryAction_main_region_BlindMan_sBluGame_r1_ListenForQuestion() {
-		timer.setTimer(this, 2, 5*1000, false);
+		timer.setTimer(this, 3, 5*1000, false);
 		
 		sCISTT.setSTTReady(true);
 	}
@@ -523,14 +949,19 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		timer.unsetTimer(this, 0);
 	}
 	
+	/* Exit action for state 'TurnAround'. */
+	private void exitAction_main_region_TurnAround() {
+		timer.unsetTimer(this, 1);
+	}
+	
 	/* Exit action for state 'RequestForOpertator'. */
 	private void exitAction_main_region_RiddleGame1_r1_RequestForOpertator() {
-		timer.unsetTimer(this, 1);
+		timer.unsetTimer(this, 2);
 	}
 	
 	/* Exit action for state 'ListenForQuestion'. */
 	private void exitAction_main_region_BlindMan_sBluGame_r1_ListenForQuestion() {
-		timer.unsetTimer(this, 2);
+		timer.unsetTimer(this, 3);
 	}
 	
 	/* 'default' enter sequence for state Init */
@@ -665,6 +1096,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_TurnAround() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_TurnAround();
 	}
 	
 	/* Default exit sequence for state CrowdScanningAndCounting */
@@ -842,9 +1275,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* The reactions of state Init. */
 	private void react_main_region_Init() {
-		if (check_main_region_Init_tr0_tr0()) {
-			effect_main_region_Init_tr0();
-		}
+		effect_main_region_Init_tr0();
 	}
 	
 	/* The reactions of state Announcement. */

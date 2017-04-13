@@ -12,15 +12,11 @@ import java.util.Map;
 import java.util.StringJoiner;
 import java.util.Vector;
 
-import org.yakindu.scr.brain.BrainStatemachine;
-
+import main.Start;
 import vBrain.PersonDynData;
 
 
 public class Person implements Serializable{	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private int personID; // = -1;
@@ -49,23 +45,23 @@ public class Person implements Serializable{
 		
 	}
 	
-	public Person (int inPersonID, BrainStatemachine inB, String attributeData){
+	public Person (int inPersonID, Start inStart, String attributeData){
 		this(inPersonID);
 		
 		String[] attributeParts = attributeData.split(";");
 
-		this.setKnown(false, inB);
+		this.setKnown(false, inStart);
 		this.setFaceId(Integer.parseInt(attributeParts[0]));
 //		person.setFirstName(attributeParts[2]);
 //		person.setLastName(attributeParts[3]);
-		this.setEstimatedAge(Integer.parseInt(attributeParts[1]), inB);
+		this.setEstimatedAge(Integer.parseInt(attributeParts[1]), inStart);
 //		person.setBdYear();
 //		person.setBdMonth(Integer.parseInt(attributeParts[5]));
 //		person.setBdDay(Integer.parseInt(attributeParts[6]));
-		this.setGender(attributeParts[2].contains("1")?true:false, inB);
-		this.setEthnicity(Integer.parseInt(attributeParts[3]), inB);
-		this.setGlasses(attributeParts[4].contains("1")?true:false, inB);
-		this.setAttractiveness(Double.parseDouble(attributeParts[5]), inB);
+		this.setGender(attributeParts[2].contains("1")?true:false, inStart);
+		this.setEthnicity(Integer.parseInt(attributeParts[3]), inStart);
+		this.setGlasses(attributeParts[4].contains("1")?true:false, inStart);
+		this.setAttractiveness(Double.parseDouble(attributeParts[5]), inStart);
 		
 //		if(attributeParts.length >= 7 && attributeParts[6].contains("_")){
 //			String[] confOfIds = attributeParts[6].split("_");
@@ -86,11 +82,11 @@ public class Person implements Serializable{
 		return personID;
 	}
 
-	public void setPersonID(int personID, BrainStatemachine inB) {
+	public void setPersonID(int personID, Start inStart) {
 		this.personID = personID;
-		if(inB != null){
-			inB.getSCICurrPerson().setPersonID(personID);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setPersonID(personID);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 	
@@ -107,12 +103,12 @@ public class Person implements Serializable{
 		return this.known;
 	}
 	
-	public void setKnown(boolean inKnown, BrainStatemachine inB){
+	public void setKnown(boolean inKnown, Start inStart){
 		this.known = inKnown;
 		System.out.println("Person known = " + inKnown);
-		if(inB != null){
-			inB.getSCICurrPerson().setKnown(inKnown);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setKnown(inKnown);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -120,12 +116,12 @@ public class Person implements Serializable{
 		return firstName;
 	}
 
-	public void setFirstName(String firstName, BrainStatemachine inB) {
+	public void setFirstName(String firstName, Start inStart) {
 		this.firstName = firstName;
 		System.out.println("Person Firstname = " + firstName);
-		if(inB != null){
-			inB.getSCICurrPerson().setFirstname(firstName);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setFirstname(firstName);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -133,11 +129,11 @@ public class Person implements Serializable{
 		return lastName;
 	}
 
-	public void setLastName(String lastName, BrainStatemachine inB) {
+	public void setLastName(String lastName, Start inStart) {
 		this.lastName = lastName;
-		if(inB != null){
-			inB.getSCICurrPerson().setLastname(lastName);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setLastname(lastName);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 	
@@ -145,11 +141,11 @@ public class Person implements Serializable{
 		return estimatedAge;
 	}
 	
-	public void setEstimatedAge(int estimatedAge, BrainStatemachine inB) {
+	public void setEstimatedAge(int estimatedAge, Start inStart) {
 		this.estimatedAge = estimatedAge;
-		if(inB != null){
-			inB.getSCICurrPerson().setEstimatedAge(estimatedAge);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setEstimatedAge(estimatedAge);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -157,11 +153,11 @@ public class Person implements Serializable{
 		return bdYear;
 	}
 	
-	public void setBdYear(int bdYear, BrainStatemachine inB) {
+	public void setBdYear(int bdYear, Start inStart) {
 		this.bdYear = bdYear;
-		if(inB != null){
-			inB.getSCICurrPerson().setBdYear(bdYear);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setBdYear(bdYear);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -169,13 +165,13 @@ public class Person implements Serializable{
 		return bdMonth;
 	}
 
-	public boolean setBdMonth(int bdMonth, BrainStatemachine inB) {
+	public boolean setBdMonth(int bdMonth, Start inStart) {
 		if(bdMonth >= 1 && bdMonth <= 12){
 			this.bdMonth = bdMonth;
 			
-			if(inB != null){
-				inB.getSCICurrPerson().setBdMounth(bdMonth);
-				inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+			if(inStart != null){
+				//TODO: inB.getSCICurrPerson().setBdMounth(bdMonth);
+				//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 			}
 			return true;
 		}
@@ -187,13 +183,13 @@ public class Person implements Serializable{
 		return bdDay;
 	}
 
-	public boolean setBdDay(int bdDay, BrainStatemachine inB) {
+	public boolean setBdDay(int bdDay, Start inStart) {
 		if(bdDay >= 1 && bdDay <= 31){
 			this.bdDay = bdDay;
 			
-			if(inB != null){
-				inB.getSCICurrPerson().setBdDay(bdDay);
-				inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+			if(inStart != null){
+				//TODO: inB.getSCICurrPerson().setBdDay(bdDay);
+				//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 			}
 			return true;
 		}
@@ -205,12 +201,12 @@ public class Person implements Serializable{
 		return gender;
 	}
 
-	public void setGender(boolean gender, BrainStatemachine inB) {
+	public void setGender(boolean gender, Start inStart) {
 		this.gender = gender;
 		
-		if(inB != null){
-			inB.getSCICurrPerson().setGender(gender);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setGender(gender);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -218,13 +214,13 @@ public class Person implements Serializable{
 		return ethnicity;
 	}
 
-	public boolean setEthnicity(int ethnicGroup, BrainStatemachine inB) {
+	public boolean setEthnicity(int ethnicGroup, Start inStart) {
 		if(ethnicGroup >= 0 && ethnicGroup <= 2){		
 			this.ethnicity = ethnicGroup;
 			
-			if(inB != null){
-				inB.getSCICurrPerson().setEthnicity(ethnicGroup);
-				inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+			if(inStart != null){
+				//TODO: inB.getSCICurrPerson().setEthnicity(ethnicGroup);
+				//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 			}
 			return true;
 		}
@@ -236,12 +232,12 @@ public class Person implements Serializable{
 		return glasses;
 	}
 
-	public void setGlasses(boolean glasses, BrainStatemachine inB) {
+	public void setGlasses(boolean glasses, Start inStart) {
 		this.glasses = glasses;
 		System.out.println("Has glasses: " + (glasses?"yes":"no"));
-		if(inB != null){
-			inB.getSCICurrPerson().setGlasses(glasses);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setGlasses(glasses);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -249,12 +245,12 @@ public class Person implements Serializable{
 		return attractiveness;
 	}
 
-	public void setAttractiveness(double attractiveness, BrainStatemachine inB) {
+	public void setAttractiveness(double attractiveness, Start inStart) {
 		this.attractiveness = attractiveness;
 		
-		if(inB != null){
-			inB.getSCICurrPerson().setAttractiveness(attractiveness);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setAttractiveness(attractiveness);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 	
@@ -290,8 +286,8 @@ public class Person implements Serializable{
 		this.dynData.add(inDD);
 	}
 	
-	public void addDynData(String dataString, BrainStatemachine inB){
-		this.dynData.add(new PersonDynData(inB, dataString));
+	public void addDynData(String dataString, Start inStart){
+		this.dynData.add(new PersonDynData(dataString, inStart));
 	}
 	
 	public PersonDynData getCurrDynData(){

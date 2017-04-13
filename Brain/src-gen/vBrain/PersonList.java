@@ -95,32 +95,32 @@ public class PersonList{
 			this.currPerson = inCurrPerson;
 			
 			if (inCurrPerson != null){
-				Start.instanceOf().getBrain().getSCICurrPerson().setPersonID(inCurrPerson.getPersonID());
-				Start.instanceOf().getBrain().getSCICurrPerson().setKnown(inCurrPerson.isKnown());
-				Start.instanceOf().getBrain().getSCICurrPerson().setFirstname(inCurrPerson.getFirstName());
-				Start.instanceOf().getBrain().getSCICurrPerson().setLastname(inCurrPerson.getLastName());
-				Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(inCurrPerson.getEstimatedAge());
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdYear(inCurrPerson.getBdYear());
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdMounth(inCurrPerson.getBdMonth());
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdDay(inCurrPerson.getBdDay());
-				Start.instanceOf().getBrain().getSCICurrPerson().setGender(inCurrPerson.getGender());
-				Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(inCurrPerson.getEthnicity());
-				Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(inCurrPerson.hasGlasses());
-//				Start.instanceOf().getBrain().getSCICurrPerson().setAttractiveness(inCurrPerson.getAttractiveness());
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setPersonID(inCurrPerson.getPersonID());
+//TODO: 			Start.instanceOf().getBrain().getSCICurrPerson().setKnown(inCurrPerson.isKnown());
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setFirstname(inCurrPerson.getFirstName());
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setLastname(inCurrPerson.getLastName());
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(inCurrPerson.getEstimatedAge());
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setBdYear(inCurrPerson.getBdYear());
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setBdMounth(inCurrPerson.getBdMonth());
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setBdDay(inCurrPerson.getBdDay());
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setGender(inCurrPerson.getGender());
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(inCurrPerson.getEthnicity());
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(inCurrPerson.hasGlasses());
+////				Start.instanceOf().getBrain().getSCICurrPerson().setAttractiveness(inCurrPerson.getAttractiveness()); //War schon vor dem Umbau auskommentiert
 				
 			}else{
-				Start.instanceOf().getBrain().getSCICurrPerson().setPersonID(-1);
-				Start.instanceOf().getBrain().getSCICurrPerson().setKnown(false);
-				Start.instanceOf().getBrain().getSCICurrPerson().setFirstname("");
-				Start.instanceOf().getBrain().getSCICurrPerson().setLastname("");
-				Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(-1);
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdYear(0);
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdMounth(0);
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdDay(0);
-				Start.instanceOf().getBrain().getSCICurrPerson().setGender(false);
-				Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(0);
-				Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(false);
-				Start.instanceOf().getBrain().getSCICurrPerson().setAttractiveness(-1);
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setPersonID(-1);
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setKnown(false);
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setFirstname("");
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setLastname("");
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(-1);
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setBdYear(0);
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setBdMounth(0);
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setBdDay(0);
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setGender(false);
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(0);
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(false);
+//TODO: 				Start.instanceOf().getBrain().getSCICurrPerson().setAttractiveness(-1);
 				
 			}
 		}
@@ -146,7 +146,7 @@ public class PersonList{
 	
 	public boolean setCurrPersonFirstname(String inFirstname) {
 		if(this.getCurrPerson() != null){
-			this.getCurrPerson().setFirstName(inFirstname, Start.instanceOf().getBrain());
+			this.getCurrPerson().setFirstName(inFirstname, Start.instanceOf());
 			return true;
 		}else{
 			return false;

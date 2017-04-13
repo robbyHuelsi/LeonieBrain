@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
+import main.Start;
 
-import org.yakindu.scr.brain.BrainStatemachine;
 
 public class PersonDynData implements Serializable {
 
@@ -20,23 +20,23 @@ public class PersonDynData implements Serializable {
 		this.dateAdded = Calendar.getInstance().getTime();
 	}
 	
-	public PersonDynData(BrainStatemachine inB, int inHeadgesture, boolean inSpeaking, int inEmotions, float inDistance){
+	public PersonDynData(int inHeadgesture, boolean inSpeaking, int inEmotions, float inDistance, Start inStart){
 		this();
 		
-		this.setHeadgesture(inHeadgesture, inB);
-		this.setSpeaking(inSpeaking, inB);
-		this.setEmotion(inEmotions, inB);
-		this.setDistance(inDistance, inB);
+		this.setHeadgesture(inHeadgesture, inStart);
+		this.setSpeaking(inSpeaking, inStart);
+		this.setEmotion(inEmotions, inStart);
+		this.setDistance(inDistance, inStart);
 	}
 	
-	public PersonDynData(BrainStatemachine inB, String attributeData){
+	public PersonDynData(String attributeData, Start inStart){
 		this();
 		
 		String[] attributeParts = attributeData.split(";");
-		this.setHeadgesture(Integer.parseInt(attributeParts[2]), inB);
-		this.setSpeaking(Boolean.valueOf(attributeParts[3]), inB);
-		this.setEmotion(Integer.parseInt(attributeParts[4]), inB);
-		this.setDistance(Float.parseFloat(attributeParts[5]), inB);
+		this.setHeadgesture(Integer.parseInt(attributeParts[2]), inStart);
+		this.setSpeaking(Boolean.valueOf(attributeParts[3]), inStart);
+		this.setEmotion(Integer.parseInt(attributeParts[4]), inStart);
+		this.setDistance(Float.parseFloat(attributeParts[5]), inStart);
 		
 	}
 	 
@@ -45,12 +45,12 @@ public class PersonDynData implements Serializable {
 		return headgesture;
 	}
 
-	public void setHeadgesture(int headgesture, BrainStatemachine inB) {
+	public void setHeadgesture(int headgesture, Start inStart) {
 		this.headgesture = headgesture;
 		
-		if(inB != null){
-			inB.getSCICurrPerson().setCurrHeadgestures(headgesture);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setCurrHeadgestures(headgesture);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -58,12 +58,12 @@ public class PersonDynData implements Serializable {
 		return speaking;
 	}
 
-	public void setSpeaking(boolean speaking, BrainStatemachine inB) {
+	public void setSpeaking(boolean speaking, Start inStart) {
 		this.speaking = speaking;
 		
-		if(inB != null){
-			inB.getSCICurrPerson().setCurrSpeaking(speaking);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setCurrSpeaking(speaking);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 
@@ -71,12 +71,12 @@ public class PersonDynData implements Serializable {
 		return emotion;
 	}
 
-	public void setEmotion(int emotion, BrainStatemachine inB) {
+	public void setEmotion(int emotion, Start inStart) {
 		this.emotion = emotion;
 		
-		if(inB != null){
-			inB.getSCICurrPerson().setCurrEmotion(emotion);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setCurrEmotion(emotion);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 			System.out.println("Emotion set");
 		}
 		
@@ -86,12 +86,12 @@ public class PersonDynData implements Serializable {
 		return distance;
 	}
 
-	public void setDistance(float distance, BrainStatemachine inB) {
+	public void setDistance(float distance, Start inStart) {
 		this.distance = distance;
 		
-		if(inB != null){
-			inB.getSCICurrPerson().setCurrDistance(distance);
-			inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null){
+			//TODO: inB.getSCICurrPerson().setCurrDistance(distance);
+			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
 		}
 	}
 

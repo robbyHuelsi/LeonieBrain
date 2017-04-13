@@ -2,20 +2,19 @@ package modules.parser;
 
 import java.io.Serializable;
 
-import org.yakindu.scr.brain.BrainStatemachine;
-
 import vBrain.*;
 import main.*;
+import modules.Module;
 
 public class VBrain implements IParser, Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private Start start;
+	
+	private int countFoundFaces;
 
-	@Override
-	public boolean parse(String data, BrainStatemachine brain, Start start) {
+	public boolean parse(String data, Start start) {
+		this.start = start;
+		
 		PersonList personList = start.getPersonList();
 		if (data.contains("#STAT#")) {
 			String dataStat = data.substring(6);
@@ -32,20 +31,20 @@ public class VBrain implements IParser, Serializable{
 					System.out.println("Person exists");
 					personList.setCurrPersonByFaceID(faceId);
 					
-					personList.getCurrPerson().setGlasses((attributePartsVBS[4].contains("1")?true:false), brain);
+					personList.getCurrPerson().setGlasses((attributePartsVBS[4].contains("1")?true:false), start);
 				} else {
 
-					Person p = new Person(personList.getUnusedPersonID(), brain, dataStat);
+					Person p = new Person(personList.getUnusedPersonID(), start, dataStat);
 					//System.out.println(p.toString());
 					personList.addPerson(p);
 					System.out.println("Person ID: " + p.getPersonID());
 					personList.setCurrPerson(p);
 				}
 			}else{
-				personList.getCurrPerson().setGlasses((attributePartsVBS[4].contains("1")?true:false), brain);
+				personList.getCurrPerson().setGlasses((attributePartsVBS[4].contains("1")?true:false), start);
 			}
 			
-			brain.getSCIVBrain().setCountFoundFaces(1);
+			this.setCountFoundFaces(1);
 			
 
 		} else if (data.contains("#DYN#")) {
@@ -64,7 +63,7 @@ public class VBrain implements IParser, Serializable{
 					Person p = personList.getPersonByFaceID(faceId);
 					if (p != null) {
 						//
-						p.addDynData(dataDyn, brain);
+						p.addDynData(dataDyn, start);
 						//System.out.println(p.getCurrDynData().toString());
 					}
 					//personList.setCurrPersonByFaceID(faceId);
@@ -73,11 +72,11 @@ public class VBrain implements IParser, Serializable{
 					//noch keine FaceID, weil noch vor 5 Frames
 					//System.out.println("No face ID");
 					//personList.setCurrPerson(null);
-					brain.getSCIVBrain().setCountFoundFaces(0); //Das muss wieder raus, wenn Leonie sofort stoppen soll bei erkannter Persom
+					this.setCountFoundFaces(0); //Das muss wieder raus, wenn Leonie sofort stoppen soll bei erkannter Persom
 				}
 
 			} else {
-				brain.getSCIVBrain().setCountFoundFaces(0);
+				this.setCountFoundFaces(0);
 				// System.out.println(" no face");
 			}
 		} else if (data.contains("#EMOTION#")) {
@@ -92,11 +91,21 @@ public class VBrain implements IParser, Serializable{
 
 			Person p = personList.getCurrPerson();
 			if (p != null && p.getCurrDynData() != null) {
-				p.getCurrDynData().setEmotion(Integer.parseInt(dataEmo), brain);
+				p.getCurrDynData().setEmotion(Integer.parseInt(dataEmo), start);
 				System.out.println("Current Person has emotion: " + p.getCurrDynData().getEmotion());
 				//System.out.println(p.toString());
 			}
 		}
 		return true;
+	}
+
+	public int getCountFoundFaces() {
+		return countFoundFaces;
+	}
+
+	public void setCountFoundFaces(int countFoundFaces) {
+		this.countFoundFaces = countFoundFaces;
+		
+		//TODO: brain.getSCIVBrain().setCountFoundFaces(1);
 	}	
 }
