@@ -75,4 +75,106 @@ public class OpCallbackImplCurrPerson implements
 		personList.setCurrPerson(null);
 	}
 
+
+	@Override
+	public long getPersonID() {
+		return personList.getCurrPerson().getPersonID();
+	}
+
+
+	@Override
+	public boolean isKnown() {
+		return personList.getCurrPerson().isKnown();
+	}
+
+
+	@Override
+	public String getFirstname() {
+		return personList.getCurrPerson().getFirstName();
+	}
+
+
+	@Override
+	public String getLastname() {
+		return personList.getCurrPerson().getLastName();
+	}
+
+
+	@Override
+	public long getEstimatedAge() {
+		return personList.getCurrPerson().getEstimatedAge();
+	}
+
+
+	@Override
+	public long getBdYear() {
+		return personList.getCurrPerson().getBdYear();
+	}
+
+
+	@Override
+	public long getBdMounth() {
+		return personList.getCurrPerson().getBdMonth();
+	}
+
+
+	@Override
+	public long getBdDay() {
+		return personList.getCurrPerson().getBdDay();
+	}
+
+
+	@Override
+	public boolean getGender() {
+		return personList.getCurrPerson().getGender();
+	}
+
+
+	@Override
+	public long getEthnicity() {
+		return personList.getCurrPerson().getEthnicity();
+	}
+
+
+	@Override
+	public boolean hasGlasses() {
+		return personList.getCurrPerson().hasGlasses();
+	}
+
+
+	@Override
+	public double getAttractiveness() {
+		return personList.getCurrPerson().getAttractiveness();
+	}
+
+
+	@Override
+	public long getCurrHeadgestures() {
+		return personList.getCurrPerson().getCurrDynData().getHeadgesture();
+	}
+
+
+	@Override
+	public boolean isCurrSpeaking() {
+		return personList.getCurrPerson().getCurrDynData().isSpeaking();
+	}
+
+
+	@Override
+	public long getCurrEmotion() {
+		return personList.getCurrPerson().getCurrDynData().getEmotion();
+	}
+
+
+	@Override
+	public double getCurrDistance() {
+		return personList.getCurrPerson().getCurrDynData().getDistance();
+	}
+
+
+	@Override
+	public void resetCurrEmotion() {
+		personList.getCurrPerson().getCurrDynData().setEmotion(-1, Start.instanceOf());
+	}
+
 }

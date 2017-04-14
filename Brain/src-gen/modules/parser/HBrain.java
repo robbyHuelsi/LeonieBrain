@@ -32,6 +32,7 @@ public class HBrain implements IParser, Serializable{
 		TTSReady = tTSReady;
 		if (tTSReady) {
 			//TODO: brain.getSCIHBrain().setTTSReady(true);
+			//((SCIHBrain) start.getSCI("HBrain")).setTTSReady(true);
 			//System.out.println("TTS ready");
 		}else{
 			//brain.getSCIHBrain().setTTSReady(false); //War auch vor dem Umbau auskommentiert

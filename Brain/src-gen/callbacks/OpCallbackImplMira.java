@@ -66,4 +66,22 @@ public class OpCallbackImplMira implements
 //		this.sendToHBrain_TTS("[idle2:" + (inOnOff?"true":"false") + "]");
 	}
 
+	@Override
+	public void sendTurnBody(long inAngle) {
+		// TODO Auto-generated method stub
+		System.err.println("sendTurnBody() not implemented");
+	}
+
+	@Override
+	public void sendTurnHead(long inAngle) {
+		// TODO Auto-generated method stub
+		System.err.println("sendTurnHead() not implemented");
+	}
+
+	@Override
+	public void sendGoToLC(long inX, long inY) {
+		// TODO Auto-generated method stub
+		System.err.println("sendGoToLC() not implemented");
+	}
+
 }

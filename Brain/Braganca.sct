@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
-  <sgraph:Statechart xmi:id="_uc0CEPipEeWcn8poFBqj7w" specification="interface BGF: //Brain General Functions&#xD;&#xA;&#x9;var eventNum : integer&#xD;&#xA;&#x9;var randNum : integer&#xD;&#xA;&#x9;operation printToConsole(msg : string):void&#xD;&#xA;&#x9;operation newRandNum(max : integer):void&#xA;interface HBrain:&#xD;&#xA;&#x9;var TTSReady : boolean&#xD;&#xA;&#x9;operation sendTTS(inText : string):void&#xD;&#xA;&#x9;operation sendTTS2(inT1 : string, inT2 : string):void&#xD;&#xA;&#x9;operation sendTTS3(inT1 : string, inT2 : string, inT3 : string):void&#xD;&#xA;&#x9;operation sendTTS_num(inNum : integer):void&#xD;&#xA;&#x9;operation sendTTSWithPos(inPos : string, inText : string):void&#xD;&#xA;&#x9;operation sendPersonPosition():void&#xA;interface VBrain:&#xD;&#xA;&#x9;var countFoundFaces : integer&#xD;&#xA;&#x9;var nessesaryToSavePersonList : boolean&#xD;&#xA;&#x9;operation sendACIOnOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation savePersonList():void&#xA;interface Attractiveness:&#xD;&#xA;    var old_attr : real&#xD;&#xA;    operation sendToAttr_estimate() : void&#xD;&#xA;    operation setOldAttr() : void&#xA;interface Kinect2:&#xD;&#xA;&#x9;var gesture : string&#xD;&#xA;&#x9;var noiseDetected : boolean&#xD;&#xA;&#x9;var noiseAngle : integer&#xA;&#x9;//var noiseAngle : string&#xD;&#xA;&#x9;operation sendNoiseDetectionOnOff(inOnOff : boolean):void&#xA;interface LeapMotion:&#xD;&#xA;&#x9;var gestureDetected : boolean&#xD;&#xA;&#x9;var gesture : string&#xD;&#xA;&#x9;var stringFinished : boolean&#xD;&#xA;&#x9;var detectedString : string&#xD;&#xA;&#x9;operation sendGestureDetectionOnOff(inOnOff : integer):void&#xA;interface Mira:&#xD;&#xA;&#x9;var emergencyStop : boolean&#xD;&#xA;&#x9;var bumpered : boolean&#xD;&#xA;&#x9;var blocked : boolean&#xD;&#xA;&#x9;var arrivedWP : boolean&#xD;&#xA;&#x9;operation sendGoToGWP(inWayPoint : integer):void&#xD;&#xA;&#x9;operation sendGoToNextGWPForConf():void&#xD;&#xA;&#x9;operation sendTurnBody(inAngle : string):void&#xD;&#xA;&#x9;operation sendBodyUTurn() : void&#xD;&#xA;&#x9;operation sendTurnHead(inAngle : string):void&#xD;&#xA;&#x9;operation sendGoToLC(inX : string, inY : string):void&#xD;&#xA;&#x9;operation sendSearchOnOff(inOnOff : boolean):void&#xA;interface STT:&#xD;&#xA;&#x9;var STTReady : boolean&#xD;&#xA;&#x9;var speakerMsg : string&#xD;&#xA;&#x9;var filteredMsg : string&#xD;&#xA;&#x9;var filterBubble : string&#xD;&#xA;&#x9;operation sendSpeechDetectionOnOff(inOnOff : integer):void&#xA;interface currPerson:&#xD;&#xA;&#x9;var personID : integer&#xD;&#xA;&#x9;var known : boolean&#xD;&#xA;&#x9;var firstname : string&#xD;&#xA;&#x9;var lastname : string&#xD;&#xA;&#x9;var estimatedAge : integer&#xD;&#xA;&#x9;var bdYear : integer&#xD;&#xA;&#x9;var bdMounth : integer&#xD;&#xA;&#x9;var bdDay : integer&#xD;&#xA;&#x9;var gender : boolean&#xD;&#xA;&#x9;var ethnicity : integer&#xD;&#xA;&#x9;var glasses : boolean&#xD;&#xA;&#x9;var attractiveness : real&#xD;&#xA;&#x9;var currHeadgestures : integer&#xD;&#xA;&#x9;var currSpeaking : boolean&#xD;&#xA;&#x9;var currEmotion : integer&#xD;&#xA;&#x9;var currDistance : real&#xD;&#xA;&#x9;operation resetCurrPerson() : void&#xD;&#xA;&#x9;operation setKnown(inKnown : boolean) : void&#xD;&#xA;&#x9;operation setFirstname(inFirstname : string) : void&#xD;&#xA;&#x9;operation setLastname(inLastname : string) : void&#xD;&#xA;&#x9;operation setBdYear(inBdYear : integer) : void&#xD;&#xA;&#x9;operation setBdMounth(inBdMointh : integer) : void&#xD;&#xA;&#x9;operation setBdDay(inBdDay : integer) : void&#xD;&#xA;&#x9;operation setGender(inGender : boolean) : void&#xD;&#xA;&#x9;operation setEthnicity(inEthnicity: integer) : void&#xD;&#xA;&#x9;operation setAttractiveness(attr: real) : void&#xA;internal:&#xD;&#xA;&#x9;//event start&#xD;&#xA;&#x9;//event textMsg&#xD;&#xA;&#x9;var counter : integer&#xD;&#xA;&#x9;var nameBuffer : string&#xA;" name="Braganca">
+  <sgraph:Statechart xmi:id="_uc0CEPipEeWcn8poFBqj7w" specification="interface BGF: //Brain General Functions&#xD;&#xA;&#x9;var eventNum : integer&#xD;&#xA;&#x9;var randNum : integer&#xD;&#xA;&#x9;operation printToConsole(msg : string):void&#xD;&#xA;&#x9;operation getRandNum(max : integer) : integer&#xD;&#xA;interface HBrain:&#xD;&#xA;&#x9;in event TTSReady&#xD;&#xA;&#x9;operation sendTTS(inText : string):void&#xD;&#xA;&#x9;operation sendTTS2(inT1 : string, inT2 : string):void&#xD;&#xA;&#x9;operation sendTTS3(inT1 : string, inT2 : string, inT3 : string):void&#xD;&#xA;&#x9;operation sendTTS_num(inNum : integer):void&#xD;&#xA;&#x9;operation sendTTSWithPos(inPos : string, inText : string):void&#xD;&#xA;&#x9;operation sendPersonPosition():void&#xD;&#xA;interface VBrain:&#xD;&#xA;&#x9;operation getCountFoundFaces() : integer&#xD;&#xA;&#x9;operation resetCountFoundFaces() : void&#xD;&#xA;&#x9;operation isNessesaryToSavePersonList() : boolean&#xD;&#xA;&#x9;operation sendACIOnOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation savePersonList():void&#xD;&#xA;interface Attractiveness:&#xD;&#xA;&#x9;var old_attr : real&#xD;&#xA;&#x9;operation sendToAttr_estimate() : void&#xD;&#xA;&#x9;operation setOldAttr() : void&#xD;&#xA;interface Kinect2:&#xD;&#xA;&#x9;in event  noiseDetected&#xD;&#xA;&#x9;operation getGesture() : string&#xD;&#xA;&#x9;operation getNoiseAngle() : integer&#xD;&#xA;&#x9;operation sendNoiseDetectionOnOff(inOnOff : boolean):void&#xD;&#xA;interface LeapMotion:&#xD;&#xA;&#x9;in event gestureDetected&#xD;&#xA;&#x9;operation getGesture() : string&#xD;&#xA;&#x9;operation resetGesture() : void&#xD;&#xA;&#x9;in event stringFinished&#xD;&#xA;&#x9;operation getDetectedString() : string&#xD;&#xA;&#x9;operation resetDetectedString() : void&#xD;&#xA;&#x9;operation sendGestureDetectionOnOff(inOnOff : integer):void&#xD;&#xA;interface Mira:&#xD;&#xA;&#x9;in event emergencyStop&#xD;&#xA;&#x9;in event bumpered&#xD;&#xA;&#x9;in event blocked&#xD;&#xA;&#x9;in event arrivedWP&#xD;&#xA;&#x9;operation sendGoToGWP(inWayPoint : integer):void&#xD;&#xA;&#x9;operation sendGoToNextGWPForConf():void&#xD;&#xA;&#x9;operation sendTurnBody(inAngle : integer):void&#xD;&#xA;&#x9;operation sendBodyUTurn() : void&#xD;&#xA;&#x9;operation sendTurnHead(inAngle : integer):void&#xD;&#xA;&#x9;operation sendGoToLC(inX : integer, inY : integer):void&#xD;&#xA;&#x9;operation sendSearchOnOff(inOnOff : boolean):void&#xD;&#xA;interface STT:&#xD;&#xA;&#x9;in event STTReady&#xD;&#xA;&#x9;in event answerFound&#xD;&#xA;&#x9;operation getAnswerToGive() : string&#xD;&#xA;&#x9;operation getSpeakerMsg() : string&#xD;&#xA;&#x9;operation getFilteredMsg() : string&#xD;&#xA;&#x9;operation getFilterBubble() : string&#xD;&#xA;&#x9;operation resetAnswerToGive() : void&#xD;&#xA;&#x9;operation resetSpeakerMsg() : void&#xD;&#xA;&#x9;operation resetFilteredMsg() : void&#xD;&#xA;&#x9;operation resetFilterBubble() : void&#xD;&#xA;&#x9;operation sendSpeechDetectionOnOff(inOnOff : integer):void&#xD;&#xA;interface currPerson:&#xD;&#xA;&#x9;operation getPersonID() : integer&#xD;&#xA;&#x9;operation isKnown() : boolean&#xD;&#xA;&#x9;operation getFirstname() : string&#xD;&#xA;&#x9;operation getLastname() : string&#xD;&#xA;&#x9;operation getEstimatedAge() : integer&#xD;&#xA;&#x9;operation getBdYear() : integer&#xD;&#xA;&#x9;operation getBdMounth() : integer&#xD;&#xA;&#x9;operation getBdDay() : integer&#xD;&#xA;&#x9;operation getGender() : boolean&#xD;&#xA;&#x9;operation getEthnicity() : integer&#xD;&#xA;&#x9;operation hasGlasses() : boolean&#xD;&#xA;&#x9;operation getAttractiveness() : real&#xD;&#xA;&#x9;operation getCurrHeadgestures() : integer&#xD;&#xA;&#x9;operation isCurrSpeaking() : boolean&#xD;&#xA;&#x9;operation getCurrEmotion() : integer&#xD;&#xA;&#x9;operation getCurrDistance() : real&#xD;&#xA;&#x9;operation resetCurrPerson() : void&#xD;&#xA;&#x9;operation resetCurrEmotion() : void&#xD;&#xA;&#x9;operation setKnown(inKnown : boolean) : void&#xD;&#xA;&#x9;operation setFirstname(inFirstname : string) : void&#xD;&#xA;&#x9;operation setLastname(inLastname : string) : void&#xD;&#xA; &#x9;operation setBdYear(inBdYear : integer) : void&#xD;&#xA;&#x9;operation setBdMounth(inBdMointh : integer) : void&#xD;&#xA;&#x9;operation setBdDay(inBdDay : integer) : void&#xD;&#xA;&#x9;operation setGender(inGender : boolean) : void&#xD;&#xA;&#x9;operation setEthnicity(inEthnicity: integer) : void&#xD;&#xA;&#x9;operation setAttractiveness(attr: real) : void&#xD;&#xA;interface CrowdDetection:&#xD;&#xA;&#x9;operation detectionOnOff(onOff : boolean) : void&#xD;&#xA;interface MicrophoneArray:&#xD;&#xA;&#x9;operation getNoiseAngle() : integer&#xD;&#xA;&#x9;operation detectionOnOff(onOff : boolean) : void&#xD;&#xA;internal:&#xD;&#xA;&#x9;var counter : integer&#xD;&#xA;&#x9;var nameBuffer : string&#xD;&#xA;&#x9;var questionCounter : integer" name="Braganca">
     <regions xmi:id="_KGTGkPiqEeWcn8poFBqj7w" name="main">
       <vertices xsi:type="sgraph:Entry" xmi:id="_KGTGkfiqEeWcn8poFBqj7w">
         <outgoingTransitions xmi:id="_GqRdQAyCEeaVIPg4Qi-3TQ" specification="" target="_KGTtoPiqEeWcn8poFBqj7w"/>
@@ -11,15 +11,15 @@
           <vertices xsi:type="sgraph:State" xmi:id="_Xu_oEA8rEeaY7-qPvgGsXQ" specification="entry / Mira.sendBodyUTurn();&#xD;&#xA;HBrain.sendTTS(&quot;I think, on the next way point I find a more interesting partner.&quot;)" name="exitSad" incomingTransitions="_Adoq4A-uEeabk_5g1uV7Pw">
             <outgoingTransitions xmi:id="_ZB7WYBObEeaAxK-RlV7VgQ" specification="after 2s" target="_TIBjwBObEeaAxK-RlV7VgQ"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_35snQApEEea_bINaNllnAA" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;[:-|]Oh, some noise behind me! I have to leave you. Bye!&quot;)" name="exitNoise" incomingTransitions="_jOlNoApFEea_bINaNllnAA">
+          <vertices xsi:type="sgraph:State" xmi:id="_35snQApEEea_bINaNllnAA" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;[:-|]Oh, some noise behind me! I have to leave you. Bye!&quot;)" name="exitNoise" incomingTransitions="_jOlNoApFEea_bINaNllnAA">
             <outgoingTransitions xmi:id="_b2r2MA8rEeaY7-qPvgGsXQ" specification="[HBrain.TTSReady == true]" target="_QL4B8BK6Eea4rIlwskSZQQ"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_KGdeo_iqEeWcn8poFBqj7w" specification="entry / Kinect2.noiseDetected = false&#xA;exit / VBrain.sendACIOnOff(false);&#xD;&#xA;Kinect2.sendNoiseDetectionOnOff(false);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA;STT.sendSpeechDetectionOnOff(0);&#xD;&#xA;currPerson.resetCurrPerson();&#xD;&#xA;VBrain.countFoundFaces = 0;&#xD;&#xA;Attractiveness.old_attr = 0;&#xD;&#xA;STT.STTReady = false;&#xD;&#xA;STT.speakerMsg = &quot;&quot;;&#xD;&#xA;STT.filteredMsg = &quot;&quot;;&#xD;&#xA;STT.filterBubble = &quot;&quot;" name="FaceDataInterpretation" incomingTransitions="_AeZ-N_l5EeWfQ5nCnvwPLA">
+          <vertices xsi:type="sgraph:State" xmi:id="_KGdeo_iqEeWcn8poFBqj7w" specification="//entry / //Kinect2.noiseDetected = false&#xA;exit / VBrain.sendACIOnOff(false);&#xD;&#xA;Kinect2.sendNoiseDetectionOnOff(false);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA;STT.sendSpeechDetectionOnOff(0);&#xD;&#xA;currPerson.resetCurrPerson();&#xD;&#xA;VBrain.resetCountFoundFaces();&#xD;&#xA;Attractiveness.old_attr = 0;&#xD;&#xA;STT.resetSpeakerMsg();&#xD;&#xA;STT.resetFilteredMsg();&#xD;&#xA;STT.resetFilterBubble()" name="FaceDataInterpretation" incomingTransitions="_AeZ-N_l5EeWfQ5nCnvwPLA">
             <outgoingTransitions xmi:id="_wPFY0AYOEeaduODZSyGwBA" specification="# exit_FDI >" target="_TIBjwBObEeaAxK-RlV7VgQ"/>
             <outgoingTransitions xmi:id="_jOlNoApFEea_bINaNllnAA" specification="[Kinect2.noiseDetected == true&#xD;&#xA;&#x9;&amp;&amp; BGF.eventNum == 2&#xD;&#xA;]" target="_35snQApEEea_bINaNllnAA"/>
             <outgoingTransitions xmi:id="_Adoq4A-uEeabk_5g1uV7Pw" specification="# exit_FDI_sad >" target="_Xu_oEA8rEeaY7-qPvgGsXQ"/>
             <regions xmi:id="_KGeswviqEeWcn8poFBqj7w" name="FaceDataInterpretation">
-              <vertices xsi:type="sgraph:State" xmi:id="_GRDTcRBQEeaqW4m3Sv85sA" specification="entry / HBrain.sendTTS3(&quot;Hey &quot;,currPerson.firstname, &quot;. [:-)] Nice to see you again!&quot;)" name="PersonKnownWithName" incomingTransitions="_GRCsWRBQEeaqW4m3Sv85sA">
+              <vertices xsi:type="sgraph:State" xmi:id="_GRDTcRBQEeaqW4m3Sv85sA" specification="entry / HBrain.sendTTS3(&quot;Hey &quot;,currPerson.getFirstname(), &quot;. [:-)] Nice to see you again!&quot;)" name="PersonKnownWithName" incomingTransitions="_GRCsWRBQEeaqW4m3Sv85sA">
                 <outgoingTransitions xmi:id="_GRD6jxBQEeaqW4m3Sv85sA" specification="[HBrain.TTSReady == true]" target="_GQrf_BBQEeaqW4m3Sv85sA"/>
               </vertices>
               <vertices xsi:type="sgraph:State" xmi:id="_GRAQKBBQEeaqW4m3Sv85sA" specification="entry / HBrain.sendTTS(&quot;Hi girl&quot;)" name="UnknownGirl" incomingTransitions="_GRAQGRBQEeaqW4m3Sv85sA">
@@ -27,30 +27,30 @@
               </vertices>
               <vertices xsi:type="sgraph:Choice" xmi:id="_GQ-a7xBQEeaqW4m3Sv85sA" incomingTransitions="_GQ-a6hBQEeaqW4m3Sv85sA">
                 <outgoingTransitions xmi:id="_GQ_pBxBQEeaqW4m3Sv85sA" specification="else" target="_GQ8lsBBQEeaqW4m3Sv85sA"/>
-                <outgoingTransitions xmi:id="_GQ_B9BBQEeaqW4m3Sv85sA" specification="[currPerson.known == true]" target="_GQ9M1xBQEeaqW4m3Sv85sA"/>
+                <outgoingTransitions xmi:id="_GQ_B9BBQEeaqW4m3Sv85sA" specification="[currPerson.isKnown == true]" target="_GQ9M1xBQEeaqW4m3Sv85sA"/>
               </vertices>
               <vertices xsi:type="sgraph:Entry" xmi:id="_GQ9z3RBQEeaqW4m3Sv85sA" name="">
                 <outgoingTransitions xmi:id="_GQ9z5hBQEeaqW4m3Sv85sA" specification="" target="_FBAvcA-uEeabk_5g1uV7Pw"/>
               </vertices>
               <vertices xsi:type="sgraph:Choice" xmi:id="_GQ9M1xBQEeaqW4m3Sv85sA" incomingTransitions="_GQ_B9BBQEeaqW4m3Sv85sA">
-                <outgoingTransitions xmi:id="_GRCsWRBQEeaqW4m3Sv85sA" specification="[currPerson.firstname != &quot;&quot; &amp;&amp;&#xD;&#xA;&#x9;currPerson.firstname != &quot;null&quot;&#xD;&#xA;]" target="_GRDTcRBQEeaqW4m3Sv85sA"/>
+                <outgoingTransitions xmi:id="_GRCsWRBQEeaqW4m3Sv85sA" specification="[currPerson.getFirstname != &quot;&quot; &amp;&amp;&#xD;&#xA;&#x9;currPerson.getFirstname != &quot;null&quot;&#xD;&#xA;]" target="_GRDTcRBQEeaqW4m3Sv85sA"/>
                 <outgoingTransitions xmi:id="_GQ9M4BBQEeaqW4m3Sv85sA" specification="else" target="_GQ6JhxBQEeaqW4m3Sv85sA"/>
               </vertices>
               <vertices xsi:type="sgraph:Choice" xmi:id="_GQ8lsBBQEeaqW4m3Sv85sA" incomingTransitions="_GQ_pBxBQEeaqW4m3Sv85sA">
-                <outgoingTransitions xmi:id="_GQ8lxRBQEeaqW4m3Sv85sA" specification="[currPerson.gender == true]" target="_GQ2fexBQEeaqW4m3Sv85sA"/>
+                <outgoingTransitions xmi:id="_GQ8lxRBQEeaqW4m3Sv85sA" specification="[currPerson.getGender == true]" target="_GQ2fexBQEeaqW4m3Sv85sA"/>
                 <outgoingTransitions xmi:id="_GQ8luRBQEeaqW4m3Sv85sA" specification="else" target="_GQ2fMBBQEeaqW4m3Sv85sA"/>
               </vertices>
               <vertices xsi:type="sgraph:State" xmi:id="_GQ6JhxBQEeaqW4m3Sv85sA" specification="entry / HBrain.sendTTS(&quot;Hey there, You look familiar, but I did not get your name last time. [:-(] Please tell me your name [:-)]&quot;)" name="PersonKnownWithoutName" incomingTransitions="_GQ9M4BBQEeaqW4m3Sv85sA">
                 <outgoingTransitions xmi:id="_GQ7XohBQEeaqW4m3Sv85sA" specification="[HBrain.TTSReady == true]" target="_yNn6kAPIEea3ZZLm21QuWw"/>
               </vertices>
               <vertices xsi:type="sgraph:Choice" xmi:id="_GQ2fexBQEeaqW4m3Sv85sA" incomingTransitions="_GQ8lxRBQEeaqW4m3Sv85sA">
-                <outgoingTransitions xmi:id="_GRAQGRBQEeaqW4m3Sv85sA" specification="[currPerson.estimatedAge &lt;= 18]" target="_GRAQKBBQEeaqW4m3Sv85sA"/>
+                <outgoingTransitions xmi:id="_GRAQGRBQEeaqW4m3Sv85sA" specification="[currPerson.getEstimatedAge &lt;= 18]" target="_GRAQKBBQEeaqW4m3Sv85sA"/>
                 <outgoingTransitions xmi:id="_GQ6JdxBQEeaqW4m3Sv85sA" specification="else" target="_GQ1Q_xBQEeaqW4m3Sv85sA"/>
-                <outgoingTransitions xmi:id="_GQ2fhBBQEeaqW4m3Sv85sA" specification="[currPerson.estimatedAge >= 30]" target="_GQwZChBQEeaqW4m3Sv85sA"/>
+                <outgoingTransitions xmi:id="_GQ2fhBBQEeaqW4m3Sv85sA" specification="[currPerson.getEstimatedAge >= 30]" target="_GQwZChBQEeaqW4m3Sv85sA"/>
               </vertices>
               <vertices xsi:type="sgraph:Choice" xmi:id="_GQ2fMBBQEeaqW4m3Sv85sA" incomingTransitions="_GQ8luRBQEeaqW4m3Sv85sA">
-                <outgoingTransitions xmi:id="_GQ2fYxBQEeaqW4m3Sv85sA" specification="[currPerson.estimatedAge &lt;= 18]" target="_GQwYwxBQEeaqW4m3Sv85sA"/>
-                <outgoingTransitions xmi:id="_GQ2fRRBQEeaqW4m3Sv85sA" specification="[currPerson.estimatedAge >= 30]" target="_GQujTBBQEeaqW4m3Sv85sA"/>
+                <outgoingTransitions xmi:id="_GQ2fYxBQEeaqW4m3Sv85sA" specification="[currPerson.getEstimatedAge &lt;= 18]" target="_GQwYwxBQEeaqW4m3Sv85sA"/>
+                <outgoingTransitions xmi:id="_GQ2fRRBQEeaqW4m3Sv85sA" specification="[currPerson.getEstimatedAge >= 30]" target="_GQujTBBQEeaqW4m3Sv85sA"/>
                 <outgoingTransitions xmi:id="_GQ2fORBQEeaqW4m3Sv85sA" specification="else" target="_GQwYfBBQEeaqW4m3Sv85sA"/>
               </vertices>
               <vertices xsi:type="sgraph:State" xmi:id="_GQ1Q_xBQEeaqW4m3Sv85sA" specification="entry / HBrain.sendTTS(&quot;Hi lady&quot;)" name="UnknownFemaleTeen" incomingTransitions="_GQ6JdxBQEeaqW4m3Sv85sA">
@@ -75,23 +75,23 @@
                 <outgoingTransitions xmi:id="_GQiWDRBQEeaqW4m3Sv85sA" specification=" # exit_NameSaved >" target="_-_lKgBK4Eea4rIlwskSZQQ"/>
                 <outgoingTransitions xmi:id="_ascE6RGBEeaNYexjrIPTWA" specification="# exit_NameNotSaved >" target="_KYTeYASkEea3ZZLm21QuWw"/>
                 <regions xmi:id="_GP1ydxBQEeaqW4m3Sv85sA" name="AskForName">
-                  <vertices xsi:type="sgraph:State" xmi:id="_GQc2hRBQEeaqW4m3Sv85sA" specification="entry / counter = 0;&#xD;&#xA;currPerson.setKnown(true);&#xD;&#xA;VBrain.savePersonList();&#xD;&#xA;STT.STTReady =false;&#xD;&#xA;STT.sendSpeechDetectionOnOff(3);&#xD;&#xA;nameBuffer = &quot;&quot;;&#xD;&#xA;STT.speakerMsg = &quot;&quot;" name="STT_1" incomingTransitions="_GQcPaRBQEeaqW4m3Sv85sA _Bbiy8BGCEeaNYexjrIPTWA">
+                  <vertices xsi:type="sgraph:State" xmi:id="_GQc2hRBQEeaqW4m3Sv85sA" specification="entry / counter = 0;&#xD;&#xA;currPerson.setKnown(true);&#xD;&#xA;VBrain.savePersonList();&#xD;&#xA;STT.sendSpeechDetectionOnOff(3);&#xD;&#xA;nameBuffer = &quot;&quot;;&#xD;&#xA;STT.resetSpeakerMsg()" name="STT_1" incomingTransitions="_GQcPaRBQEeaqW4m3Sv85sA _Bbiy8BGCEeaNYexjrIPTWA">
                     <outgoingTransitions xmi:id="_GQddpRBQEeaqW4m3Sv85sA" specification="after 5s" target="_GQX9_BBQEeaqW4m3Sv85sA"/>
                   </vertices>
-                  <vertices xsi:type="sgraph:State" xmi:id="_GQaaMhBQEeaqW4m3Sv85sA" specification="entry / nameBuffer = STT.speakerMsg;&#xD;&#xA;HBrain.sendTTS3(&quot;If think your name is &quot;, STT.speakerMsg, &quot;. Is that right?&quot;)" name="Answere_name _and_ask" incomingTransitions="_GQZzQBBQEeaqW4m3Sv85sA">
+                  <vertices xsi:type="sgraph:State" xmi:id="_GQaaMhBQEeaqW4m3Sv85sA" specification="entry / nameBuffer = STT.getSpeakerMsg;&#xD;&#xA;HBrain.sendTTS3(&quot;If think your name is &quot;, nameBuffer, &quot;. Is that right?&quot;)" name="Answere_name _and_ask" incomingTransitions="_GQZzQBBQEeaqW4m3Sv85sA">
                     <outgoingTransitions xmi:id="_GQbBWhBQEeaqW4m3Sv85sA" specification="[HBrain.TTSReady == true]" target="_GP7SChBQEeaqW4m3Sv85sA"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_GQX9_BBQEeaqW4m3Sv85sA" specification="entry / STT.sendSpeechDetectionOnOff(0);&#xA;counter = counter + 1" name="STT3" incomingTransitions="_GQddpRBQEeaqW4m3Sv85sA">
                     <outgoingTransitions xmi:id="_GQYlFxBQEeaqW4m3Sv85sA" specification="[STT.STTReady == true]" target="_GQSecRBQEeaqW4m3Sv85sA"/>
                   </vertices>
-                  <vertices xsi:type="sgraph:State" xmi:id="_GQWIwRBQEeaqW4m3Sv85sA" specification="entry / currPerson.setFirstname(nameBuffer);&#xD;&#xA;VBrain.savePersonList();&#xD;&#xA;HBrain.sendTTS3(&quot;[:-)]Ok, &quot;, currPerson.firstname, &quot;, I will remember you!&quot;)" name="Save_Firstname" incomingTransitions="_GQVhzRBQEeaqW4m3Sv85sA">
+                  <vertices xsi:type="sgraph:State" xmi:id="_GQWIwRBQEeaqW4m3Sv85sA" specification="entry / currPerson.setFirstname(nameBuffer);&#xD;&#xA;VBrain.savePersonList();&#xD;&#xA;HBrain.sendTTS3(&quot;[:-)]Ok, &quot;, currPerson.getFirstname(), &quot;, I will remember you!&quot;)" name="Save_Firstname" incomingTransitions="_GQVhzRBQEeaqW4m3Sv85sA">
                     <outgoingTransitions xmi:id="_GQWv6hBQEeaqW4m3Sv85sA" specification="always" target="_GQLw9xBQEeaqW4m3Sv85sA"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_GQU6oBBQEeaqW4m3Sv85sA" specification="entry / HBrain.sendTTS(&quot;[:-(]Please repeat your name.&quot;)" name="Ask_for_Repeat" incomingTransitions="_GQUTkBBQEeaqW4m3Sv85sA _GQTshhBQEeaqW4m3Sv85sA">
                     <outgoingTransitions xmi:id="_GQcPaRBQEeaqW4m3Sv85sA" specification="[HBrain.TTSReady == true]" target="_GQc2hRBQEeaqW4m3Sv85sA"/>
                   </vertices>
                   <vertices xsi:type="sgraph:Choice" xmi:id="_GQSecRBQEeaqW4m3Sv85sA" incomingTransitions="_GQYlFxBQEeaqW4m3Sv85sA">
-                    <outgoingTransitions xmi:id="_GQTFdRBQEeaqW4m3Sv85sA" specification="[STT.speakerMsg == &quot;&quot;]" target="_GQQCOxBQEeaqW4m3Sv85sA"/>
+                    <outgoingTransitions xmi:id="_GQTFdRBQEeaqW4m3Sv85sA" specification="[STT.getSpeakerMsg == &quot;&quot;]" target="_GQQCOxBQEeaqW4m3Sv85sA"/>
                     <outgoingTransitions xmi:id="_GQZzQBBQEeaqW4m3Sv85sA" specification="else" target="_GQaaMhBQEeaqW4m3Sv85sA"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_GQQCOxBQEeaqW4m3Sv85sA" specification="entry / HBrain.sendTTS(&quot;[:-(]I didn't get it.&quot;)" name="Didnt_get_it" incomingTransitions="_GQTFdRBQEeaqW4m3Sv85sA">
@@ -119,16 +119,16 @@
                         <outgoingTransitions xmi:id="_GQD06RBQEeaqW4m3Sv85sA" specification="" target="_GP-8dBBQEeaqW4m3Sv85sA"/>
                       </vertices>
                       <vertices xsi:type="sgraph:Exit" xmi:id="_GQDN6xBQEeaqW4m3Sv85sA" name="exit_repeat" incomingTransitions="_GQLwwxBQEeaqW4m3Sv85sA"/>
-                      <vertices xsi:type="sgraph:State" xmi:id="_GP-8dBBQEeaqW4m3Sv85sA" specification="entry / STT.STTReady = false;&#xD;&#xA;STT.speakerMsg = &quot;&quot;;&#xD;&#xA;STT.filteredMsg = &quot;&quot;;&#xD;&#xA;STT.STTReady = false;&#xD;&#xA;LeapMotion.gesture=&quot;&quot;;&#xD;&#xA;LeapMotion.gestureDetected=false;&#xD;&#xA;counter = counter +1;&#xD;&#xA;&#xD;&#xA;STT.sendSpeechDetectionOnOff(2);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(3)&#xA;exit / LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA; STT.sendSpeechDetectionOnOff(0)" name="StartSTT" incomingTransitions="_GQD06RBQEeaqW4m3Sv85sA">
+                      <vertices xsi:type="sgraph:State" xmi:id="_GP-8dBBQEeaqW4m3Sv85sA" specification="entry /&#xD;&#xA;STT.resetSpeakerMsg();&#xD;&#xA;STT.resetFilteredMsg();&#xD;&#xA;counter = counter +1;&#xD;&#xA;&#xD;&#xA;STT.sendSpeechDetectionOnOff(2);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(3)&#xA;exit / LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA; STT.sendSpeechDetectionOnOff(0)" name="StartSTT" incomingTransitions="_GQD06RBQEeaqW4m3Sv85sA">
                         <outgoingTransitions xmi:id="_GQBYqBBQEeaqW4m3Sv85sA" specification="after 5s" target="_GP9uTBBQEeaqW4m3Sv85sA"/>
                         <outgoingTransitions xmi:id="_GQFqaBBQEeaqW4m3Sv85sA" specification="[0==1]//[currPerson.currHeadgestures == 1 ]" target="_GQLJpBBQEeaqW4m3Sv85sA"/>
                         <outgoingTransitions xmi:id="_GQFDABBQEeaqW4m3Sv85sA" specification="[0==1]//[currPerson.currHeadgestures == 2]" target="_GQFqXRBQEeaqW4m3Sv85sA"/>
-                        <outgoingTransitions xmi:id="_GQItbhBQEeaqW4m3Sv85sA" specification="[LeapMotion.gesture == &quot;true&quot;]" target="_GQLJpBBQEeaqW4m3Sv85sA"/>
-                        <outgoingTransitions xmi:id="_GQFqHhBQEeaqW4m3Sv85sA" specification="[LeapMotion.gesture == &quot;false&quot;]" target="_GQFqXRBQEeaqW4m3Sv85sA"/>
+                        <outgoingTransitions xmi:id="_GQItbhBQEeaqW4m3Sv85sA" specification="[LeapMotion.getGesture == &quot;true&quot;]" target="_GQLJpBBQEeaqW4m3Sv85sA"/>
+                        <outgoingTransitions xmi:id="_GQFqHhBQEeaqW4m3Sv85sA" specification="[LeapMotion.getGesture == &quot;false&quot;]" target="_GQFqXRBQEeaqW4m3Sv85sA"/>
                       </vertices>
                       <vertices xsi:type="sgraph:Choice" xmi:id="_GP-8ZxBQEeaqW4m3Sv85sA" incomingTransitions="_GP-VWBBQEeaqW4m3Sv85sA">
-                        <outgoingTransitions xmi:id="_GQJ7hhBQEeaqW4m3Sv85sA" specification="[STT.filteredMsg == &quot;yes&quot;]" target="_GQLJpBBQEeaqW4m3Sv85sA"/>
-                        <outgoingTransitions xmi:id="_GQFqLRBQEeaqW4m3Sv85sA" specification="[STT.filteredMsg == &quot;no&quot;]" target="_GQFqXRBQEeaqW4m3Sv85sA"/>
+                        <outgoingTransitions xmi:id="_GQJ7hhBQEeaqW4m3Sv85sA" specification="[STT.getFilteredMsg == &quot;yes&quot;]" target="_GQLJpBBQEeaqW4m3Sv85sA"/>
+                        <outgoingTransitions xmi:id="_GQFqLRBQEeaqW4m3Sv85sA" specification="[STT.getFilteredMsg == &quot;no&quot;]" target="_GQFqXRBQEeaqW4m3Sv85sA"/>
                         <outgoingTransitions xmi:id="_GQLJrxBQEeaqW4m3Sv85sA" specification="else" target="_GQLwsBBQEeaqW4m3Sv85sA"/>
                       </vertices>
                       <vertices xsi:type="sgraph:State" xmi:id="_GP9uTBBQEeaqW4m3Sv85sA" specification="" name="Copy_1_STT3" incomingTransitions="_GQBYqBBQEeaqW4m3Sv85sA">
@@ -160,22 +160,22 @@
               <vertices xsi:type="sgraph:State" xmi:id="_Kn-Q4ASKEea3ZZLm21QuWw" specification="entry / HBrain.sendTTS(&quot;[:-)]I am 3 years old. I was born in the east of Germany.&quot;)" name="RandomTopic_2" incomingTransitions="_YF0j0ASPEea3ZZLm21QuWw">
                 <outgoingTransitions xmi:id="_nz-5QASkEea3ZZLm21QuWw" specification="[HBrain.TTSReady == true]&#xD;&#xA;" target="_CnVkgAX5EeagZKYVI26ajA"/>
               </vertices>
-              <vertices xsi:type="sgraph:State" xmi:id="_mDrtMASMEea3ZZLm21QuWw" specification="entry / HBrain.sendTTS(&quot;[:-|]Do you want to know more about me?&quot;);&#xD;&#xA;HBrain.TTSReady = false;&#xD;&#xA;BGF.newRandNum(30)" name="Prompt_2" incomingTransitions="_axfTUASkEea3ZZLm21QuWw">
+              <vertices xsi:type="sgraph:State" xmi:id="_mDrtMASMEea3ZZLm21QuWw" specification="entry / HBrain.sendTTS(&quot;[:-|]Do you want to know more about me?&quot;);&#xD;&#xA;//HBrain.TTSReady = false;&#xD;&#xA;BGF.randNum = BGF.getRandNum(30)" name="Prompt_2" incomingTransitions="_axfTUASkEea3ZZLm21QuWw">
                 <outgoingTransitions xmi:id="_FRtasA-qEeabk_5g1uV7Pw" specification="[HBrain.TTSReady == true]&#xD;&#xA;" target="_FRta1A-qEeabk_5g1uV7Pw"/>
               </vertices>
               <vertices xsi:type="sgraph:State" xmi:id="_unlEEASQEea3ZZLm21QuWw" specification="entry / HBrain.sendTTS(&quot;[:-|]Are you having fun here?&quot;)" name="Prompt_1" incomingTransitions="_bYZiUASkEea3ZZLm21QuWw">
                 <outgoingTransitions xmi:id="_ZI18MA-1Eeabk_5g1uV7Pw" specification="[HBrain.TTSReady == true]&#xD;&#xA;" target="_VdjWMA-1Eeabk_5g1uV7Pw"/>
               </vertices>
-              <vertices xsi:type="sgraph:State" xmi:id="_Nz6c4ASUEea3ZZLm21QuWw" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;It is nice meeting you. Till next time take care.&quot;)" name="Farewell_1" incomingTransitions="_SF38IASmEea3ZZLm21QuWw">
+              <vertices xsi:type="sgraph:State" xmi:id="_Nz6c4ASUEea3ZZLm21QuWw" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;It is nice meeting you. Till next time take care.&quot;)" name="Farewell_1" incomingTransitions="_SF38IASmEea3ZZLm21QuWw">
                 <outgoingTransitions xmi:id="_ypBBwASnEea3ZZLm21QuWw" specification="after 1s" target="_nDmCQBGWEeaNYexjrIPTWA"/>
               </vertices>
-              <vertices xsi:type="sgraph:State" xmi:id="_iVfqkASUEea3ZZLm21QuWw" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;We might not see each other again. which is sad. I like you human. I wish you all the best in your future undertakings. &quot;)" name="Farewell_2" incomingTransitions="_TQbDsASmEea3ZZLm21QuWw">
+              <vertices xsi:type="sgraph:State" xmi:id="_iVfqkASUEea3ZZLm21QuWw" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;We might not see each other again. which is sad. I like you human. I wish you all the best in your future undertakings. &quot;)" name="Farewell_2" incomingTransitions="_TQbDsASmEea3ZZLm21QuWw">
                 <outgoingTransitions xmi:id="_zgNIcASnEea3ZZLm21QuWw" specification="after 1s" target="_nDmCQBGWEeaNYexjrIPTWA"/>
               </vertices>
-              <vertices xsi:type="sgraph:State" xmi:id="_rDvNEASUEea3ZZLm21QuWw" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;Happy to meet you dear human. But now, let me look for other one.&quot;)" name="Farewell_3" incomingTransitions="_Ty--MASmEea3ZZLm21QuWw">
+              <vertices xsi:type="sgraph:State" xmi:id="_rDvNEASUEea3ZZLm21QuWw" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;Happy to meet you dear human. But now, let me look for other one.&quot;)" name="Farewell_3" incomingTransitions="_Ty--MASmEea3ZZLm21QuWw">
                 <outgoingTransitions xmi:id="_1I7ZwASnEea3ZZLm21QuWw" specification="after 1s" target="_nDmCQBGWEeaNYexjrIPTWA"/>
               </vertices>
-              <vertices xsi:type="sgraph:State" xmi:id="_yMDTkASUEea3ZZLm21QuWw" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;Hope to see you again.&quot;)" name="Farewell_4" incomingTransitions="_UcoYIASmEea3ZZLm21QuWw">
+              <vertices xsi:type="sgraph:State" xmi:id="_yMDTkASUEea3ZZLm21QuWw" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;Hope to see you again.&quot;)" name="Farewell_4" incomingTransitions="_UcoYIASmEea3ZZLm21QuWw">
                 <outgoingTransitions xmi:id="_0TNSsASnEea3ZZLm21QuWw" specification="after 1s" target="_nDmCQBGWEeaNYexjrIPTWA"/>
               </vertices>
               <vertices xsi:type="sgraph:State" xmi:id="_lipQIAShEea3ZZLm21QuWw" specification="" name="Selection" incomingTransitions="_bLRD4BMLEeaxUc-6JLuB1Q">
@@ -184,13 +184,13 @@
                 <outgoingTransitions xmi:id="_Ty--MASmEea3ZZLm21QuWw" specification="[BGF.randNum &lt; 10]" target="_rDvNEASUEea3ZZLm21QuWw"/>
                 <outgoingTransitions xmi:id="_UcoYIASmEea3ZZLm21QuWw" specification="[BGF.randNum >= 10 &amp;&amp;&#xD;&#xA;&#x9;BGF.randNum &lt;= 19&#xD;&#xA;]" target="_yMDTkASUEea3ZZLm21QuWw"/>
               </vertices>
-              <vertices xsi:type="sgraph:State" xmi:id="_KYTeYASkEea3ZZLm21QuWw" specification="entry / BGF.newRandNum(20)" name="newRandNum" incomingTransitions="_WxIBgA7yEeagIJWgcntHOA _ascE6RGBEeaNYexjrIPTWA _SudrQBGNEeaNYexjrIPTWA _BZ8UJxK5Eea4rIlwskSZQQ">
+              <vertices xsi:type="sgraph:State" xmi:id="_KYTeYASkEea3ZZLm21QuWw" specification="entry / BGF.randNum = BGF.getRandNum(20)" name="newRandNum" incomingTransitions="_WxIBgA7yEeagIJWgcntHOA _ascE6RGBEeaNYexjrIPTWA _SudrQBGNEeaNYexjrIPTWA _BZ8UJxK5Eea4rIlwskSZQQ">
                 <outgoingTransitions xmi:id="_yWg4EA8REeaY7-qPvgGsXQ" specification="always" target="_tyGRsA8REeaY7-qPvgGsXQ"/>
               </vertices>
               <vertices xsi:type="sgraph:State" xmi:id="_oichwASkEea3ZZLm21QuWw" specification="entry / HBrain.sendTTS(&quot;[:-)]My family is called the RT Lions. They are wonderful humans. and I love them very much&quot;)" name="RandomTopic_3" incomingTransitions="_ywNWQASkEea3ZZLm21QuWw">
                 <outgoingTransitions xmi:id="_8NcFsASkEea3ZZLm21QuWw" specification="[HBrain.TTSReady == true]&#xD;&#xA;" target="_CnVkgAX5EeagZKYVI26ajA"/>
               </vertices>
-              <vertices xsi:type="sgraph:State" xmi:id="_I1S-EASlEea3ZZLm21QuWw" specification="entry /&#xD;&#xA;BGF.newRandNum(30)" name="Selection_2" incomingTransitions="_oAj-YA-1Eeabk_5g1uV7Pw _eMBeQBGOEeaNYexjrIPTWA _GM59QBGPEeaNYexjrIPTWA">
+              <vertices xsi:type="sgraph:State" xmi:id="_I1S-EASlEea3ZZLm21QuWw" specification="entry /&#xD;&#xA;BGF.randNum = BGF.getRandNum(30)" name="Selection_2" incomingTransitions="_oAj-YA-1Eeabk_5g1uV7Pw _eMBeQBGOEeaNYexjrIPTWA _GM59QBGPEeaNYexjrIPTWA">
                 <outgoingTransitions xmi:id="_N0kUcASlEea3ZZLm21QuWw" specification="[BGF.randNum &lt; 10]" target="_mNhigASIEea3ZZLm21QuWw"/>
                 <outgoingTransitions xmi:id="_On7EAASlEea3ZZLm21QuWw" specification="[BGF.randNum >= 10 &amp;&amp;&#xD;&#xA;&#x9;BGF.randNum &lt;= 19&#xD;&#xA;]" target="_UdQJYASJEea3ZZLm21QuWw"/>
                 <outgoingTransitions xmi:id="_OCJF0AX3EeagZKYVI26ajA" specification="[BGF.randNum > 19]" target="_jD0lUAX2EeagZKYVI26ajA"/>
@@ -217,16 +217,16 @@
                   <vertices xsi:type="sgraph:Entry" xmi:id="_JiJ8nA-qEeabk_5g1uV7Pw">
                     <outgoingTransitions xmi:id="_JiJ8nQ-qEeabk_5g1uV7Pw" specification="" target="_6n2qoA-qEeabk_5g1uV7Pw"/>
                   </vertices>
-                  <vertices xsi:type="sgraph:State" xmi:id="_JiJ8nw-qEeabk_5g1uV7Pw" specification="entry / STT.STTReady = false;&#xD;&#xA;STT.speakerMsg = &quot;&quot;;&#xD;&#xA;STT.filteredMsg = &quot;&quot;;&#xD;&#xA;STT.STTReady = false;&#xD;&#xA;LeapMotion.gesture=&quot;&quot;;&#xD;&#xA;LeapMotion.gestureDetected=false;&#xD;&#xA;counter = counter +1;&#xD;&#xA;&#xD;&#xA;STT.sendSpeechDetectionOnOff(2);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(3)&#xA;exit / LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA; STT.sendSpeechDetectionOnOff(0)" name="StartSTT" incomingTransitions="_0_RRgA-qEeabk_5g1uV7Pw _-1dTgA-qEeabk_5g1uV7Pw">
+                  <vertices xsi:type="sgraph:State" xmi:id="_JiJ8nw-qEeabk_5g1uV7Pw" specification="entry /&#xD;&#xA;STT.resetSpeakerMsg();&#xD;&#xA;STT.resetFilteredMsg();&#xD;&#xA;counter = counter +1;&#xD;&#xA;&#xD;&#xA;STT.sendSpeechDetectionOnOff(2);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(3)&#xA;exit / LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA; STT.sendSpeechDetectionOnOff(0)" name="StartSTT" incomingTransitions="_0_RRgA-qEeabk_5g1uV7Pw _-1dTgA-qEeabk_5g1uV7Pw">
                     <outgoingTransitions xmi:id="_JiJ8tw-qEeabk_5g1uV7Pw" specification="after 5s" target="_JiJ85w-qEeabk_5g1uV7Pw"/>
                     <outgoingTransitions xmi:id="_JiJ8vA-qEeabk_5g1uV7Pw" specification="[0==1]//[currPerson.currHeadgestures == 1 ]" target="_JiJ8mQ-qEeabk_5g1uV7Pw"/>
                     <outgoingTransitions xmi:id="_JiJ8xA-qEeabk_5g1uV7Pw" specification="[0==1]//[currPerson.currHeadgestures == 2]" target="_JiJ8mw-qEeabk_5g1uV7Pw"/>
-                    <outgoingTransitions xmi:id="_JiJ9Cw-qEeabk_5g1uV7Pw" specification="[LeapMotion.gesture == &quot;true&quot;]" target="_JiJ8mQ-qEeabk_5g1uV7Pw"/>
-                    <outgoingTransitions xmi:id="_JiJ9Ew-qEeabk_5g1uV7Pw" specification="[LeapMotion.gesture == &quot;false&quot;]" target="_JiJ8mw-qEeabk_5g1uV7Pw"/>
+                    <outgoingTransitions xmi:id="_JiJ9Cw-qEeabk_5g1uV7Pw" specification="[LeapMotion.getGesture == &quot;true&quot;]" target="_JiJ8mQ-qEeabk_5g1uV7Pw"/>
+                    <outgoingTransitions xmi:id="_JiJ9Ew-qEeabk_5g1uV7Pw" specification="[LeapMotion.getGesture == &quot;false&quot;]" target="_JiJ8mw-qEeabk_5g1uV7Pw"/>
                   </vertices>
                   <vertices xsi:type="sgraph:Choice" xmi:id="_JiJ81A-qEeabk_5g1uV7Pw" incomingTransitions="_JiJ89Q-qEeabk_5g1uV7Pw">
-                    <outgoingTransitions xmi:id="_JiJ81Q-qEeabk_5g1uV7Pw" specification="[STT.filteredMsg == &quot;yes&quot;]" target="_JiJ8mQ-qEeabk_5g1uV7Pw"/>
-                    <outgoingTransitions xmi:id="_JiJ83Q-qEeabk_5g1uV7Pw" specification="[STT.filteredMsg == &quot;no&quot;]" target="_JiJ8mw-qEeabk_5g1uV7Pw"/>
+                    <outgoingTransitions xmi:id="_JiJ81Q-qEeabk_5g1uV7Pw" specification="[STT.getFilteredMsg == &quot;yes&quot;]" target="_JiJ8mQ-qEeabk_5g1uV7Pw"/>
+                    <outgoingTransitions xmi:id="_JiJ83Q-qEeabk_5g1uV7Pw" specification="[STT.getFilteredMsg == &quot;no&quot;]" target="_JiJ8mw-qEeabk_5g1uV7Pw"/>
                     <outgoingTransitions xmi:id="_JiJ85Q-qEeabk_5g1uV7Pw" specification="else" target="_JiJ8jw-qEeabk_5g1uV7Pw"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_JiJ85w-qEeabk_5g1uV7Pw" specification="" name="Copy_1_STT3" incomingTransitions="_JiJ8tw-qEeabk_5g1uV7Pw">
@@ -260,11 +260,11 @@
                   <vertices xsi:type="sgraph:Exit" xmi:id="_rWCVUxCNEeagy8wtBhlyLw" name="exit_Emotion_Interpretation0" incomingTransitions="_rWC8jxCNEeagy8wtBhlyLw _rWC8fRCNEeagy8wtBhlyLw _rWC8WRCNEeagy8wtBhlyLw"/>
                   <vertices xsi:type="sgraph:Choice" xmi:id="_rWCVVBCNEeagy8wtBhlyLw" incomingTransitions="_UUJxQBSvEeanStXYSw01hw">
                     <outgoingTransitions xmi:id="_rWCVVRCNEeagy8wtBhlyLw" specification="else" target="_rWBu2xCNEeagy8wtBhlyLw"/>
-                    <outgoingTransitions xmi:id="_rWCVVxCNEeagy8wtBhlyLw" specification="[currPerson.currEmotion==1]" target="_rWCVfxCNEeagy8wtBhlyLw"/>
-                    <outgoingTransitions xmi:id="_rWCVXxCNEeagy8wtBhlyLw" specification="[currPerson.currEmotion==2]" target="_rWC8hRCNEeagy8wtBhlyLw"/>
-                    <outgoingTransitions xmi:id="_rWCVZxCNEeagy8wtBhlyLw" specification="[currPerson.currEmotion==3]" target="_rWC8cxCNEeagy8wtBhlyLw"/>
-                    <outgoingTransitions xmi:id="_rWCVbxCNEeagy8wtBhlyLw" specification="[currPerson.currEmotion==4]" target="_rWC8lxCNEeagy8wtBhlyLw"/>
-                    <outgoingTransitions xmi:id="_rWCVdxCNEeagy8wtBhlyLw" specification="[currPerson.currEmotion==5]" target="_rWC8YRCNEeagy8wtBhlyLw"/>
+                    <outgoingTransitions xmi:id="_rWCVVxCNEeagy8wtBhlyLw" specification="[currPerson.getCurrEmotion==1]" target="_rWCVfxCNEeagy8wtBhlyLw"/>
+                    <outgoingTransitions xmi:id="_rWCVXxCNEeagy8wtBhlyLw" specification="[currPerson.getCurrEmotion==2]" target="_rWC8hRCNEeagy8wtBhlyLw"/>
+                    <outgoingTransitions xmi:id="_rWCVZxCNEeagy8wtBhlyLw" specification="[currPerson.getCurrEmotion==3]" target="_rWC8cxCNEeagy8wtBhlyLw"/>
+                    <outgoingTransitions xmi:id="_rWCVbxCNEeagy8wtBhlyLw" specification="[currPerson.getCurrEmotion==4]" target="_rWC8lxCNEeagy8wtBhlyLw"/>
+                    <outgoingTransitions xmi:id="_rWCVdxCNEeagy8wtBhlyLw" specification="[currPerson.getCurrEmotion==5]" target="_rWC8YRCNEeagy8wtBhlyLw"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_rWCVfxCNEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;You seem to be happy. I'm also glad to be here. It is so much fun to be among so many other robots&quot;)" name="happy" incomingTransitions="_rWCVVxCNEeagy8wtBhlyLw">
                     <outgoingTransitions xmi:id="_rWC8WRCNEeagy8wtBhlyLw" specification="[HBrain.TTSReady == true]" target="_rWCVUxCNEeagy8wtBhlyLw"/>
@@ -286,16 +286,16 @@
                   </vertices>
                   <vertices xsi:type="sgraph:Choice" xmi:id="_rWC8uxCNEeagy8wtBhlyLw" incomingTransitions="_9zRQ0BRXEeaRQcYso3gEKA">
                     <outgoingTransitions xmi:id="_rWC8vBCNEeagy8wtBhlyLw" specification="else" target="_rWC8zBCNEeagy8wtBhlyLw"/>
-                    <outgoingTransitions xmi:id="_rWC8vhCNEeagy8wtBhlyLw" specification="[currPerson.currEmotion==4 || currPerson.currEmotion==5]" target="_rWC89BCNEeagy8wtBhlyLw"/>
+                    <outgoingTransitions xmi:id="_rWC8vhCNEeagy8wtBhlyLw" specification="[currPerson.getCurrEmotion==4 || currPerson.getCurrEmotion==5]" target="_rWC89BCNEeagy8wtBhlyLw"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_rWC8zBCNEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;I'm glad you have a better mood now.&quot;)" name="joke_worked" incomingTransitions="_rWC8vBCNEeagy8wtBhlyLw">
                     <outgoingTransitions xmi:id="_rWC81hCNEeagy8wtBhlyLw" specification="[HBrain.TTSReady ==true]" target="_w3Jv6RK7Eea4rIlwskSZQQ"/>
                   </vertices>
-                  <vertices xsi:type="sgraph:State" xmi:id="_rWC83hCNEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;Let me tell you a joke&quot;);&#xD;&#xA;BGF.newRandNum(5)" name="initialise_jokes" incomingTransitions="_rWC8axCNEeagy8wtBhlyLw _rWC8oRCNEeagy8wtBhlyLw _rWCVSRCNEeagy8wtBhlyLw">
+                  <vertices xsi:type="sgraph:State" xmi:id="_rWC83hCNEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;Let me tell you a joke&quot;);&#xD;&#xA;BGF.randNum = BGF.getRandNum(5)" name="initialise_jokes" incomingTransitions="_rWC8axCNEeagy8wtBhlyLw _rWC8oRCNEeagy8wtBhlyLw _rWCVSRCNEeagy8wtBhlyLw">
                     <outgoingTransitions xmi:id="_rWC87BCNEeagy8wtBhlyLw" specification="[HBrain.TTSReady == true]&#xD;&#xA;" target="_rWC9ChCNEeagy8wtBhlyLw"/>
                   </vertices>
-                  <vertices xsi:type="sgraph:State" xmi:id="_rWC89BCNEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;Oh that joke didnt work. [-.-]I will try an other one.[:-)]&quot;);&#xD;&#xA;BGF.newRandNum(5)" name="joke_didnt_work" incomingTransitions="_rWC8vhCNEeagy8wtBhlyLw">
-                    <outgoingTransitions xmi:id="_rWC9AhCNEeagy8wtBhlyLw" specification="[HBrain.TTSReady==true]" target="_rWC9ChCNEeagy8wtBhlyLw"/>
+                  <vertices xsi:type="sgraph:State" xmi:id="_rWC89BCNEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;Oh that joke didnt work. [-.-]I will try an other one.[:-)]&quot;);&#xD;&#xA;BGF.randNum = BGF.getRandNum(5)" name="joke_didnt_work" incomingTransitions="_rWC8vhCNEeagy8wtBhlyLw">
+                    <outgoingTransitions xmi:id="_rWC9AhCNEeagy8wtBhlyLw" specification="HBrain.TTSReady" target="_rWC9ChCNEeagy8wtBhlyLw"/>
                   </vertices>
                   <vertices xsi:type="sgraph:Choice" xmi:id="_rWC9ChCNEeagy8wtBhlyLw" incomingTransitions="_rWC87BCNEeagy8wtBhlyLw _rWC9AhCNEeagy8wtBhlyLw">
                     <outgoingTransitions xmi:id="_rWC9CxCNEeagy8wtBhlyLw" specification="else" target="_rWC8qRCNEeagy8wtBhlyLw"/>
@@ -309,23 +309,23 @@
                     <outgoingTransitions xmi:id="_rWC9RRCNEeagy8wtBhlyLw" specification="[HBrain.TTSReady == true]" target="_1bo3gBRXEeaRQcYso3gEKA"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_rWC9TRCNEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;A guy is sitting at home when he hears a knock at the door. He opens the door and sees a snail on the porch. He picks up the snail and throws it as far as he can. Three years later there is a knock on the door. He opens it and sees the same snail. The snail says: What the hell was that all about? [:-)]&quot;)" name="tell_joke_2" incomingTransitions="_rWC9GxCNEeagy8wtBhlyLw">
-                    <outgoingTransitions xmi:id="_rWC9VxCNEeagy8wtBhlyLw" specification="[HBrain.TTSReady==true]" target="_1bo3gBRXEeaRQcYso3gEKA"/>
+                    <outgoingTransitions xmi:id="_rWC9VxCNEeagy8wtBhlyLw" specification="HBrain.TTSReady" target="_1bo3gBRXEeaRQcYso3gEKA"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_rWC9XxCNEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;A guy shows up late for work. The boss yells, You should ve been here at eight thirty! He replies. Why? What happened at eight thirty?[:-)]&quot;)" name="tell_joke_3" incomingTransitions="_rWC9IxCNEeagy8wtBhlyLw">
-                    <outgoingTransitions xmi:id="_rWC9aRCNEeagy8wtBhlyLw" specification="[HBrain.TTSReady==true]" target="_1bo3gBRXEeaRQcYso3gEKA"/>
+                    <outgoingTransitions xmi:id="_rWC9aRCNEeagy8wtBhlyLw" specification="HBrain.TTSReady" target="_1bo3gBRXEeaRQcYso3gEKA"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_rWC9cRCNEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;I wanted to grow my own food but I couldnt get bacon seeds anywhere. [:-)]&quot;)" name="tell_joke_5" incomingTransitions="_rWC9KxCNEeagy8wtBhlyLw">
-                    <outgoingTransitions xmi:id="_rWC9exCNEeagy8wtBhlyLw" specification="[HBrain.TTSReady==true]" target="_1bo3gBRXEeaRQcYso3gEKA"/>
+                    <outgoingTransitions xmi:id="_rWC9exCNEeagy8wtBhlyLw" specification="HBrain.TTSReady" target="_1bo3gBRXEeaRQcYso3gEKA"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_rWC9gxCNEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;What is the difference between USA and USB? One connects to all your devices and access your data, and the other is a hardware standard.  [:-)] &quot;)" name="tell_joke_6" incomingTransitions="_rWC9MxCNEeagy8wtBhlyLw">
-                    <outgoingTransitions xmi:id="_rWC9jRCNEeagy8wtBhlyLw" specification="[HBrain.TTSReady==true]" target="_1bo3gBRXEeaRQcYso3gEKA"/>
+                    <outgoingTransitions xmi:id="_rWC9jRCNEeagy8wtBhlyLw" specification="HBrain.TTSReady" target="_1bo3gBRXEeaRQcYso3gEKA"/>
                   </vertices>
                   <vertices xsi:type="sgraph:Exit" xmi:id="_w3Jv6RK7Eea4rIlwskSZQQ" name="exit_endCon" incomingTransitions="_rWC81hCNEeagy8wtBhlyLw"/>
-                  <vertices xsi:type="sgraph:State" xmi:id="_1bo3gBRXEeaRQcYso3gEKA" specification="entry / currPerson.currEmotion=-1" name="waitForNewEmo" incomingTransitions="_rWC8sxCNEeagy8wtBhlyLw _rWC9RRCNEeagy8wtBhlyLw _rWC9VxCNEeagy8wtBhlyLw _rWC9aRCNEeagy8wtBhlyLw _rWC9jRCNEeagy8wtBhlyLw _rWC9exCNEeagy8wtBhlyLw">
-                    <outgoingTransitions xmi:id="_9zRQ0BRXEeaRQcYso3gEKA" specification="[currPerson.currEmotion!=-1]" target="_rWC8uxCNEeagy8wtBhlyLw"/>
+                  <vertices xsi:type="sgraph:State" xmi:id="_1bo3gBRXEeaRQcYso3gEKA" specification="entry / currPerson.resetCurrEmotion" name="waitForNewEmo" incomingTransitions="_rWC8sxCNEeagy8wtBhlyLw _rWC9RRCNEeagy8wtBhlyLw _rWC9VxCNEeagy8wtBhlyLw _rWC9aRCNEeagy8wtBhlyLw _rWC9jRCNEeagy8wtBhlyLw _rWC9exCNEeagy8wtBhlyLw">
+                    <outgoingTransitions xmi:id="_9zRQ0BRXEeaRQcYso3gEKA" specification="[currPerson.getCurrEmotion!=-1]" target="_rWC8uxCNEeagy8wtBhlyLw"/>
                   </vertices>
-                  <vertices xsi:type="sgraph:State" xmi:id="_RASz0BSvEeanStXYSw01hw" specification="entry / currPerson.currEmotion=-1" name="resetEmo" incomingTransitions="_rWCVUhCNEeagy8wtBhlyLw">
-                    <outgoingTransitions xmi:id="_UUJxQBSvEeanStXYSw01hw" specification="[currPerson.currEmotion!=-1]" target="_rWCVVBCNEeagy8wtBhlyLw"/>
+                  <vertices xsi:type="sgraph:State" xmi:id="_RASz0BSvEeanStXYSw01hw" specification="entry / currPerson.resetCurrEmotion()" name="resetEmo" incomingTransitions="_rWCVUhCNEeagy8wtBhlyLw">
+                    <outgoingTransitions xmi:id="_UUJxQBSvEeanStXYSw01hw" specification="[currPerson.getCurrEmotion!=-1]" target="_rWCVVBCNEeagy8wtBhlyLw"/>
                   </vertices>
                 </regions>
               </vertices>
@@ -341,7 +341,7 @@
               <vertices xsi:type="sgraph:State" xmi:id="_FBAvcA-uEeabk_5g1uV7Pw" specification="entry / HBrain.sendTTS(&quot;[:-|]&quot;)" name="init_face" incomingTransitions="_GQ9z5hBQEeaqW4m3Sv85sA">
                 <outgoingTransitions xmi:id="_GQ-a6hBQEeaqW4m3Sv85sA" specification="always" target="_GQ-a7xBQEeaqW4m3Sv85sA"/>
               </vertices>
-              <vertices xsi:type="sgraph:State" xmi:id="_VdjWMA-1Eeabk_5g1uV7Pw" specification="exit / HBrain.TTSReady = false" name="yesNo_fun" incomingTransitions="_ZI18MA-1Eeabk_5g1uV7Pw">
+              <vertices xsi:type="sgraph:State" xmi:id="_VdjWMA-1Eeabk_5g1uV7Pw" specification="//exit / HBrain.TTSReady = false" name="yesNo_fun" incomingTransitions="_ZI18MA-1Eeabk_5g1uV7Pw">
                 <outgoingTransitions xmi:id="_myWe0A-1Eeabk_5g1uV7Pw" specification=" # exit_no >" target="_UpBq0ASlEea3ZZLm21QuWw"/>
                 <outgoingTransitions xmi:id="_oAj-YA-1Eeabk_5g1uV7Pw" specification=" # exit_yes >" target="_I1S-EASlEea3ZZLm21QuWw"/>
                 <outgoingTransitions xmi:id="_G5nuwBGOEeaNYexjrIPTWA" specification="# exit_cancel >" target="_D3EjwBGOEeaNYexjrIPTWA"/>
@@ -355,16 +355,16 @@
                   <vertices xsi:type="sgraph:Entry" xmi:id="_icB-3Q-1Eeabk_5g1uV7Pw">
                     <outgoingTransitions xmi:id="_icB-3g-1Eeabk_5g1uV7Pw" specification="" target="_icD0Dg-1Eeabk_5g1uV7Pw"/>
                   </vertices>
-                  <vertices xsi:type="sgraph:State" xmi:id="_icB-3w-1Eeabk_5g1uV7Pw" specification="entry / STT.STTReady = false;&#xD;&#xA;STT.speakerMsg = &quot;&quot;;&#xD;&#xA;STT.filteredMsg = &quot;&quot;;&#xD;&#xA;STT.STTReady = false;&#xD;&#xA;LeapMotion.gesture=&quot;&quot;;&#xD;&#xA;LeapMotion.gestureDetected=false;&#xD;&#xA;counter = counter +1;&#xD;&#xA;&#xD;&#xA;STT.sendSpeechDetectionOnOff(2);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(3)&#xA;exit / LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA; STT.sendSpeechDetectionOnOff(0)" name="StartSTT" incomingTransitions="_icD0Bg-1Eeabk_5g1uV7Pw _icD0GA-1Eeabk_5g1uV7Pw">
+                  <vertices xsi:type="sgraph:State" xmi:id="_icB-3w-1Eeabk_5g1uV7Pw" specification="entry /&#xD;&#xA;STT.resetSpeakerMsg();&#xD;&#xA;STT.resetFilteredMsg();&#xD;&#xA;counter = counter +1;&#xD;&#xA;&#xD;&#xA;STT.sendSpeechDetectionOnOff(2);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(3)&#xA;exit / LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA; STT.sendSpeechDetectionOnOff(0)" name="StartSTT" incomingTransitions="_icD0Bg-1Eeabk_5g1uV7Pw _icD0GA-1Eeabk_5g1uV7Pw">
                     <outgoingTransitions xmi:id="_icCl4A-1Eeabk_5g1uV7Pw" specification="after 5s" target="_icCmEA-1Eeabk_5g1uV7Pw"/>
                     <outgoingTransitions xmi:id="_icCl5Q-1Eeabk_5g1uV7Pw" specification="[0==1]//[currPerson.currHeadgestures == 1 ]" target="_icB-2w-1Eeabk_5g1uV7Pw"/>
                     <outgoingTransitions xmi:id="_icCl7Q-1Eeabk_5g1uV7Pw" specification="[0==1]//[currPerson.currHeadgestures == 2]" target="_icB-3A-1Eeabk_5g1uV7Pw"/>
-                    <outgoingTransitions xmi:id="_icDNEw-1Eeabk_5g1uV7Pw" specification="[LeapMotion.gesture == &quot;true&quot;]" target="_icB-2w-1Eeabk_5g1uV7Pw"/>
-                    <outgoingTransitions xmi:id="_icDNGw-1Eeabk_5g1uV7Pw" specification="[LeapMotion.gesture == &quot;false&quot;]" target="_icB-3A-1Eeabk_5g1uV7Pw"/>
+                    <outgoingTransitions xmi:id="_icDNEw-1Eeabk_5g1uV7Pw" specification="[LeapMotion.getGesture == &quot;true&quot;]" target="_icB-2w-1Eeabk_5g1uV7Pw"/>
+                    <outgoingTransitions xmi:id="_icDNGw-1Eeabk_5g1uV7Pw" specification="[LeapMotion.getGesture == &quot;false&quot;]" target="_icB-3A-1Eeabk_5g1uV7Pw"/>
                   </vertices>
                   <vertices xsi:type="sgraph:Choice" xmi:id="_icCl_Q-1Eeabk_5g1uV7Pw" incomingTransitions="_icDM_Q-1Eeabk_5g1uV7Pw">
-                    <outgoingTransitions xmi:id="_icCl_g-1Eeabk_5g1uV7Pw" specification="[STT.filteredMsg == &quot;yes&quot;]" target="_icB-2w-1Eeabk_5g1uV7Pw"/>
-                    <outgoingTransitions xmi:id="_icCmBg-1Eeabk_5g1uV7Pw" specification="[STT.filteredMsg == &quot;no&quot;]" target="_icB-3A-1Eeabk_5g1uV7Pw"/>
+                    <outgoingTransitions xmi:id="_icCl_g-1Eeabk_5g1uV7Pw" specification="[STT.getFilteredMsg == &quot;yes&quot;]" target="_icB-2w-1Eeabk_5g1uV7Pw"/>
+                    <outgoingTransitions xmi:id="_icCmBg-1Eeabk_5g1uV7Pw" specification="[STT.getFilteredMsg == &quot;no&quot;]" target="_icB-3A-1Eeabk_5g1uV7Pw"/>
                     <outgoingTransitions xmi:id="_icCmDg-1Eeabk_5g1uV7Pw" specification="else" target="_icB-0Q-1Eeabk_5g1uV7Pw"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_icCmEA-1Eeabk_5g1uV7Pw" specification="" name="Copy_1_STT3" incomingTransitions="_icCl4A-1Eeabk_5g1uV7Pw">
@@ -380,7 +380,7 @@
                 </regions>
               </vertices>
               <vertices xsi:type="sgraph:Choice" xmi:id="_aIz7oBCKEeagy8wtBhlyLw" incomingTransitions="_GQtVKRBQEeaqW4m3Sv85sA">
-                <outgoingTransitions xmi:id="_dzYI4BCKEeagy8wtBhlyLw" specification="[currPerson.gender==true]" target="_cPAMEBCKEeagy8wtBhlyLw"/>
+                <outgoingTransitions xmi:id="_dzYI4BCKEeagy8wtBhlyLw" specification="[currPerson.getGender==true]" target="_cPAMEBCKEeagy8wtBhlyLw"/>
                 <outgoingTransitions xmi:id="_lRR2IBCQEeagy8wtBhlyLw" specification="else" target="_h_leAA7yEeagIJWgcntHOA"/>
               </vertices>
               <vertices xsi:type="sgraph:State" xmi:id="_cPAMEBCKEeagy8wtBhlyLw" specification="" name="attractiveness" incomingTransitions="_dzYI4BCKEeagy8wtBhlyLw">
@@ -390,21 +390,21 @@
                   <vertices xsi:type="sgraph:Entry" xmi:id="_tBstMRCKEeagy8wtBhlyLw">
                     <outgoingTransitions xmi:id="_tBstMhCKEeagy8wtBhlyLw" specification="&#xD;&#xA;" target="_tBstMxCKEeagy8wtBhlyLw"/>
                   </vertices>
-                  <vertices xsi:type="sgraph:State" xmi:id="_tBstMxCKEeagy8wtBhlyLw" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;currPerson.setAttractiveness(-1);&#xD;&#xA;Attractiveness.sendToAttr_estimate()" name="start_estimation" incomingTransitions="_tBstMhCKEeagy8wtBhlyLw">
-                    <outgoingTransitions xmi:id="_tBstQBCKEeagy8wtBhlyLw" specification="[currPerson.attractiveness!=-1]" target="_tBstSRCKEeagy8wtBhlyLw"/>
+                  <vertices xsi:type="sgraph:State" xmi:id="_tBstMxCKEeagy8wtBhlyLw" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;currPerson.setAttractiveness(-1);&#xD;&#xA;Attractiveness.sendToAttr_estimate()" name="start_estimation" incomingTransitions="_tBstMhCKEeagy8wtBhlyLw">
+                    <outgoingTransitions xmi:id="_tBstQBCKEeagy8wtBhlyLw" specification="[currPerson.getAttractiveness!=-1]" target="_tBstSRCKEeagy8wtBhlyLw"/>
                     <outgoingTransitions xmi:id="_VnYq4BPXEeaZSsIq4T0bDQ" specification="after 10s" target="_-Z0tYBGMEeaNYexjrIPTWA"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_tBstSRCKEeagy8wtBhlyLw" specification="" name="ready" incomingTransitions="_tBstQBCKEeagy8wtBhlyLw">
-                    <outgoingTransitions xmi:id="_tBstSxCKEeagy8wtBhlyLw" specification="[currPerson.attractiveness>=0.1 &amp;&amp; currPerson.glasses]" target="_tBstZhCKEeagy8wtBhlyLw"/>
-                    <outgoingTransitions xmi:id="_tBstVhCKEeagy8wtBhlyLw" specification="[currPerson.attractiveness>=0.1 &amp;&amp; currPerson.glasses == false]" target="_tBstxRCKEeagy8wtBhlyLw"/>
-                    <outgoingTransitions xmi:id="_tBstXhCKEeagy8wtBhlyLw" specification="[currPerson.attractiveness &lt; 0.1]" target="_tBst0BCKEeagy8wtBhlyLw"/>
+                    <outgoingTransitions xmi:id="_tBstSxCKEeagy8wtBhlyLw" specification="[currPerson.getAttractiveness>=0.1 &amp;&amp; currPerson.getGender]" target="_tBstZhCKEeagy8wtBhlyLw"/>
+                    <outgoingTransitions xmi:id="_tBstVhCKEeagy8wtBhlyLw" specification="[currPerson.getAttractiveness>=0.1 &amp;&amp; currPerson.hasGlasses == false]" target="_tBstxRCKEeagy8wtBhlyLw"/>
+                    <outgoingTransitions xmi:id="_tBstXhCKEeagy8wtBhlyLw" specification="[currPerson.getAttractiveness &lt; 0.1]" target="_tBst0BCKEeagy8wtBhlyLw"/>
                   </vertices>
-                  <vertices xsi:type="sgraph:State" xmi:id="_tBstZhCKEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;You are pretty! I see you wear glasses. Let us see how pretty you are without glasses&quot;);&#xD;&#xA;Attractiveness.old_attr = currPerson.attractiveness" name="pretty_with_glasses" incomingTransitions="_tBstSxCKEeagy8wtBhlyLw">
-                    <outgoingTransitions xmi:id="_tBsteRCKEeagy8wtBhlyLw" specification="[HBrain.TTSReady == true &amp;&amp; currPerson.glasses == false]" target="_Gd_GABFqEeaNYexjrIPTWA"/>
+                  <vertices xsi:type="sgraph:State" xmi:id="_tBstZhCKEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;You are pretty! I see you wear glasses. Let us see how pretty you are without glasses&quot;);&#xD;&#xA;Attractiveness.old_attr = currPerson.getAttractiveness()" name="pretty_with_glasses" incomingTransitions="_tBstSxCKEeagy8wtBhlyLw">
+                    <outgoingTransitions xmi:id="_tBsteRCKEeagy8wtBhlyLw" specification="[HBrain.TTSReady == true &amp;&amp; currPerson.getGender == false]" target="_Gd_GABFqEeaNYexjrIPTWA"/>
                   </vertices>
-                  <vertices xsi:type="sgraph:State" xmi:id="_tBstjhCKEeagy8wtBhlyLw" specification="entry / HBrain.TTSReady = false" name="got_new_attr" incomingTransitions="_SO-n0BFqEeaNYexjrIPTWA">
-                    <outgoingTransitions xmi:id="_tBstkBCKEeagy8wtBhlyLw" specification="[Attractiveness.old_attr&lt;currPerson.attractiveness]" target="_tBstoBCKEeagy8wtBhlyLw"/>
-                    <outgoingTransitions xmi:id="_tBstmBCKEeagy8wtBhlyLw" specification="[Attractiveness.old_attr>=currPerson.attractiveness]" target="_tBstshCKEeagy8wtBhlyLw"/>
+                  <vertices xsi:type="sgraph:State" xmi:id="_tBstjhCKEeagy8wtBhlyLw" specification="//entry / HBrain.TTSReady = false" name="got_new_attr" incomingTransitions="_SO-n0BFqEeaNYexjrIPTWA">
+                    <outgoingTransitions xmi:id="_tBstkBCKEeagy8wtBhlyLw" specification="[Attractiveness.old_attr&lt;currPerson.getAttractiveness]" target="_tBstoBCKEeagy8wtBhlyLw"/>
+                    <outgoingTransitions xmi:id="_tBstmBCKEeagy8wtBhlyLw" specification="[Attractiveness.old_attr>=currPerson.getAttractiveness]" target="_tBstshCKEeagy8wtBhlyLw"/>
                   </vertices>
                   <vertices xsi:type="sgraph:State" xmi:id="_tBstoBCKEeagy8wtBhlyLw" specification="entry / HBrain.sendTTS(&quot;Wow! you are so much more pretty without glasses!&quot;)" name="prettier" incomingTransitions="_tBstkBCKEeagy8wtBhlyLw">
                     <outgoingTransitions xmi:id="_tBstqhCKEeagy8wtBhlyLw" specification="[HBrain.TTSReady == true]" target="_-Z0tYBGMEeaNYexjrIPTWA"/>
@@ -420,7 +420,7 @@
                   </vertices>
                   <vertices xsi:type="sgraph:Exit" xmi:id="_62VVIBFjEeaNYexjrIPTWA" name="exit_default" incomingTransitions="_tBstzxCKEeagy8wtBhlyLw"/>
                   <vertices xsi:type="sgraph:State" xmi:id="_Gd_GABFqEeaNYexjrIPTWA" specification="entry / HBrain.sendTTS(&quot;Thanks&quot;);&#xD;&#xA;currPerson.setAttractiveness(-1);&#xD;&#xA;Attractiveness.sendToAttr_estimate()" name="get new attractiveness" incomingTransitions="_tBsteRCKEeagy8wtBhlyLw">
-                    <outgoingTransitions xmi:id="_SO-n0BFqEeaNYexjrIPTWA" specification="[currPerson.attractiveness!=-1]" target="_tBstjhCKEeagy8wtBhlyLw"/>
+                    <outgoingTransitions xmi:id="_SO-n0BFqEeaNYexjrIPTWA" specification="[currPerson.getAttractiveness!=-1]" target="_tBstjhCKEeagy8wtBhlyLw"/>
                   </vertices>
                   <vertices xsi:type="sgraph:Exit" xmi:id="_-Z0tYBGMEeaNYexjrIPTWA" name="exit_endCon" incomingTransitions="_tBst2hCKEeagy8wtBhlyLw _tBstvBCKEeagy8wtBhlyLw _tBstqhCKEeagy8wtBhlyLw _VnYq4BPXEeaZSsIq4T0bDQ"/>
                 </regions>
@@ -444,7 +444,7 @@
                     <outgoingTransitions xmi:id="_OyDs4ASkEea3ZZLm21QuWw" specification="[HBrain.TTSReady == true]" target="_BY_R4RK5Eea4rIlwskSZQQ"/>
                   </vertices>
                   <vertices xsi:type="sgraph:Exit" xmi:id="_BY_R4RK5Eea4rIlwskSZQQ" name="exit_AfterGettingName0" incomingTransitions="_OyDs4ASkEea3ZZLm21QuWw _qCB9EBK5Eea4rIlwskSZQQ"/>
-                  <vertices xsi:type="sgraph:State" xmi:id="_J8Uk4BK5Eea4rIlwskSZQQ" specification="entry / BGF.newRandNum(20)" name="newRandNum" incomingTransitions="_x3grkBK5Eea4rIlwskSZQQ">
+                  <vertices xsi:type="sgraph:State" xmi:id="_J8Uk4BK5Eea4rIlwskSZQQ" specification="entry / BGF.randNum = BGF.getRandNum(20)" name="newRandNum" incomingTransitions="_x3grkBK5Eea4rIlwskSZQQ">
                     <outgoingTransitions xmi:id="_lg2Q4BK5Eea4rIlwskSZQQ" specification="after 1s" target="_kULCYBK5Eea4rIlwskSZQQ"/>
                   </vertices>
                   <vertices xsi:type="sgraph:Choice" xmi:id="_kULCYBK5Eea4rIlwskSZQQ" incomingTransitions="_lg2Q4BK5Eea4rIlwskSZQQ">
@@ -456,16 +456,16 @@
                   </vertices>
                 </regions>
               </vertices>
-              <vertices xsi:type="sgraph:State" xmi:id="_ToFmUBMLEeaxUc-6JLuB1Q" specification="entry / BGF.newRandNum(40)" name="randNumEnd" incomingTransitions="_5pPysAX5EeagZKYVI26ajA _psoO0BCKEeagy8wtBhlyLw _H7CiQBK8Eea4rIlwskSZQQ">
+              <vertices xsi:type="sgraph:State" xmi:id="_ToFmUBMLEeaxUc-6JLuB1Q" specification="entry / BGF.randNum = BGF.getRandNum(40)" name="randNumEnd" incomingTransitions="_5pPysAX5EeagZKYVI26ajA _psoO0BCKEeagy8wtBhlyLw _H7CiQBK8Eea4rIlwskSZQQ">
                 <outgoingTransitions xmi:id="_bLRD4BMLEeaxUc-6JLuB1Q" specification="after 1s" target="_lipQIAShEea3ZZLm21QuWw"/>
               </vertices>
             </regions>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_QAjb0ArwEeaHerMJh-i3rQ" specification="entry / Mira.arrivedWP=false;&#xD;&#xA;HBrain.TTSReady = false;&#xD;&#xA;currPerson.resetCurrPerson();&#xD;&#xA;VBrain.countFoundFaces = 0;&#xD;&#xA;HBrain.sendTTS(&quot;[:-|]Now, I am looking for a face in front of me.&quot;);&#xD;&#xA;VBrain.sendACIOnOff(true);&#xD;&#xA;Kinect2.sendNoiseDetectionOnOff(true)" name="AtWP01 - ACI" incomingTransitions="_YVTmgBFiEeaNYexjrIPTWA _oMUkcBSBEeaWq-cHx9ivmA">
+          <vertices xsi:type="sgraph:State" xmi:id="_QAjb0ArwEeaHerMJh-i3rQ" specification="entry /&#xD;&#xA;currPerson.resetCurrPerson();&#xD;&#xA;VBrain.resetCountFoundFaces();&#xD;&#xA;HBrain.sendTTS(&quot;[:-|]Now, I am looking for a face in front of me.&quot;);&#xD;&#xA;VBrain.sendACIOnOff(true);&#xD;&#xA;Kinect2.sendNoiseDetectionOnOff(true)" name="AtWP01 - ACI" incomingTransitions="_YVTmgBFiEeaNYexjrIPTWA _oMUkcBSBEeaWq-cHx9ivmA">
             <outgoingTransitions xmi:id="_qbKW0BGdEeajQZPrOIFh5w" specification="[HBrain.TTSReady == true]" target="_kFB7MBGdEeajQZPrOIFh5w"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_kFB7MBGdEeajQZPrOIFh5w" name="wait for cleaning VBrain buffer" incomingTransitions="_qbKW0BGdEeajQZPrOIFh5w">
-            <outgoingTransitions xmi:id="_AeZ-N_l5EeWfQ5nCnvwPLA" specification="[VBrain.countFoundFaces > 0]" target="_KGdeo_iqEeWcn8poFBqj7w"/>
+            <outgoingTransitions xmi:id="_AeZ-N_l5EeWfQ5nCnvwPLA" specification="[VBrain.getCountFoundFaces > 0]" target="_KGdeo_iqEeWcn8poFBqj7w"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_QL4B8BK6Eea4rIlwskSZQQ" specification="entry / Mira.sendBodyUTurn();&#xD;&#xA;HBrain.sendTTS(&quot;Who called me?&quot;)" name="Copy_1_exitSad" incomingTransitions="_b2r2MA8rEeaY7-qPvgGsXQ">
             <outgoingTransitions xmi:id="_X0lZgBObEeaAxK-RlV7VgQ" specification="after 2s" target="_TIBjwBObEeaAxK-RlV7VgQ"/>
@@ -485,7 +485,7 @@
         <outgoingTransitions xmi:id="_Zc96kBCQEeagy8wtBhlyLw" specification="[1==0]//[ScitosRemoteControl.arrivedWP == true]" target="_LWkN0BREEeaRQcYso3gEKA"/>
         <outgoingTransitions xmi:id="_fDKD4BSqEeanStXYSw01hw" specification="[Mira.arrivedWP == true]" target="_kmIHsBL-EeaWX5u3L5rRGA"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_lHqmAA-yEeabk_5g1uV7Pw" specification="entry / BGF.newRandNum(3);&#xD;&#xA;HBrain.sendTTS_num(BGF.randNum)" name="randTest" incomingTransitions="_0g6A4A-yEeabk_5g1uV7Pw _CzmqcA-zEeabk_5g1uV7Pw">
+      <vertices xsi:type="sgraph:State" xmi:id="_lHqmAA-yEeabk_5g1uV7Pw" specification="entry / BGF.randNum = BGF.getRandNum(3);&#xD;&#xA;HBrain.sendTTS_num(BGF.randNum)" name="randTest" incomingTransitions="_0g6A4A-yEeabk_5g1uV7Pw _CzmqcA-zEeabk_5g1uV7Pw">
         <outgoingTransitions xmi:id="_CzmqcA-zEeabk_5g1uV7Pw" specification="after 3s" target="_lHqmAA-yEeabk_5g1uV7Pw"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_mpYFkBBQEeaqW4m3Sv85sA" specification="" name="AtWP03-FingerAlphabet." incomingTransitions="_KGTGkviqEeWcn8poFBqj7w _NiYOQBO5EeaAxK-RlV7VgQ _RpyvkBO5EeaAxK-RlV7VgQ">
@@ -497,26 +497,26 @@
           <vertices xsi:type="sgraph:Entry" xmi:id="_Qv5vqxO4EeaAxK-RlV7VgQ">
             <outgoingTransitions xmi:id="_Qv5vrBO4EeaAxK-RlV7VgQ" specification="" target="_Qv5vrhO4EeaAxK-RlV7VgQ"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_Qv5vrhO4EeaAxK-RlV7VgQ" specification="entry / STT.STTReady = false;&#xD;&#xA;STT.speakerMsg = &quot;&quot;;&#xD;&#xA;STT.filteredMsg = &quot;&quot;;&#xD;&#xA;STT.STTReady = false;&#xD;&#xA;LeapMotion.gesture=&quot;&quot;;&#xD;&#xA;LeapMotion.gestureDetected=false;&#xD;&#xA;counter = counter +1;&#xD;&#xA;&#xD;&#xA;//UdpInterface.sendToSTT_detectionOnOff(2);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(3)&#xA;exit / LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA; STT.sendSpeechDetectionOnOff(0)" name="StartSTT" incomingTransitions="_Qv5vrBO4EeaAxK-RlV7VgQ">
+          <vertices xsi:type="sgraph:State" xmi:id="_Qv5vrhO4EeaAxK-RlV7VgQ" specification="entry /&#xD;&#xA;STT.resetSpeakerMsg();&#xD;&#xA;STT.resetFilteredMsg();&#xD;&#xA;counter = counter +1;&#xD;&#xA;&#xD;&#xA;//UdpInterface.sendToSTT_detectionOnOff(2);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(3)&#xA;exit / LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA; STT.sendSpeechDetectionOnOff(0)" name="StartSTT" incomingTransitions="_Qv5vrBO4EeaAxK-RlV7VgQ">
             <outgoingTransitions xmi:id="_Qv6WyRO4EeaAxK-RlV7VgQ" specification="[1==0]//after 5s" target="_Qv694xO4EeaAxK-RlV7VgQ"/>
             <outgoingTransitions xmi:id="_Qv6WzhO4EeaAxK-RlV7VgQ" specification="[0==1]//[currPerson.currHeadgestures == 1 ]" target="_Qv5vqBO4EeaAxK-RlV7VgQ"/>
             <outgoingTransitions xmi:id="_Qv69wBO4EeaAxK-RlV7VgQ" specification="[0==1]//[currPerson.currHeadgestures == 2]" target="_Qv5vqhO4EeaAxK-RlV7VgQ"/>
-            <outgoingTransitions xmi:id="_Qv7k2RO4EeaAxK-RlV7VgQ" specification="[LeapMotion.gesture == &quot;true&quot;]" target="_Qv5vqBO4EeaAxK-RlV7VgQ"/>
-            <outgoingTransitions xmi:id="_Qv7k4RO4EeaAxK-RlV7VgQ" specification="[LeapMotion.gesture == &quot;false&quot;]" target="_Qv5vqhO4EeaAxK-RlV7VgQ"/>
+            <outgoingTransitions xmi:id="_Qv7k2RO4EeaAxK-RlV7VgQ" specification="[LeapMotion.getGesture == &quot;true&quot;]" target="_Qv5vqBO4EeaAxK-RlV7VgQ"/>
+            <outgoingTransitions xmi:id="_Qv7k4RO4EeaAxK-RlV7VgQ" specification="[LeapMotion.getGesture == &quot;false&quot;]" target="_Qv5vqhO4EeaAxK-RlV7VgQ"/>
           </vertices>
           <vertices xsi:type="sgraph:Choice" xmi:id="_Qv690BO4EeaAxK-RlV7VgQ" incomingTransitions="_Qv695RO4EeaAxK-RlV7VgQ">
-            <outgoingTransitions xmi:id="_Qv690RO4EeaAxK-RlV7VgQ" specification="[STT.filteredMsg == &quot;yes&quot;]" target="_Qv5vqBO4EeaAxK-RlV7VgQ"/>
-            <outgoingTransitions xmi:id="_Qv692RO4EeaAxK-RlV7VgQ" specification="[STT.filteredMsg == &quot;no&quot;]" target="_Qv5vqhO4EeaAxK-RlV7VgQ"/>
+            <outgoingTransitions xmi:id="_Qv690RO4EeaAxK-RlV7VgQ" specification="[STT.getFilteredMsg == &quot;yes&quot;]" target="_Qv5vqBO4EeaAxK-RlV7VgQ"/>
+            <outgoingTransitions xmi:id="_Qv692RO4EeaAxK-RlV7VgQ" specification="else" target="_Qv5vqhO4EeaAxK-RlV7VgQ"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_Qv694xO4EeaAxK-RlV7VgQ" specification="" name="Copy_1_STT3" incomingTransitions="_Qv6WyRO4EeaAxK-RlV7VgQ">
             <outgoingTransitions xmi:id="_Qv695RO4EeaAxK-RlV7VgQ" specification="[STT.STTReady == true]" target="_Qv690BO4EeaAxK-RlV7VgQ"/>
           </vertices>
         </regions>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_JOgLABFYEeaNYexjrIPTWA" specification="entry / VBrain.sendACIOnOff(false);&#xD;&#xA;Kinect2.sendNoiseDetectionOnOff(false);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA;STT.sendSpeechDetectionOnOff(0);&#xD;&#xA;Mira.sendSearchOnOff(false);&#xD;&#xA;&#xD;&#xA;HBrain.sendTTS(&quot;[:-(] I am lost.! I will go back to where I started.&quot;);&#xD;&#xA;Mira.blocked = false;&#xD;&#xA;&#xD;&#xA;Mira.sendGoToGWP(0)&#xA;exit / HBrain.sendTTS(&quot;[:-|]&quot;)" name="Interrupt Normal Process" incomingTransitions="_KaIQoBFYEeaNYexjrIPTWA">
+      <vertices xsi:type="sgraph:State" xmi:id="_JOgLABFYEeaNYexjrIPTWA" specification="entry / VBrain.sendACIOnOff(false);&#xD;&#xA;Kinect2.sendNoiseDetectionOnOff(false);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA;STT.sendSpeechDetectionOnOff(0);&#xD;&#xA;Mira.sendSearchOnOff(false);&#xD;&#xA;&#xD;&#xA;HBrain.sendTTS(&quot;[:-(] I am lost.! I will go back to where I started.&quot;);&#xD;&#xA;&#xD;&#xA;Mira.sendGoToGWP(0)&#xA;exit / HBrain.sendTTS(&quot;[:-|]&quot;)" name="Interrupt Normal Process" incomingTransitions="_KaIQoBFYEeaNYexjrIPTWA">
         <outgoingTransitions xmi:id="_YVTmgBFiEeaNYexjrIPTWA" specification="[Mira.arrivedWP == true]" target="_QAjb0ArwEeaHerMJh-i3rQ"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_kmIHsBL-EeaWX5u3L5rRGA" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;BGF.eventNum = BGF.eventNum  + 1;&#xD;&#xA;Mira.sendGoToNextGWPForConf()" name="GotToFirstStation" incomingTransitions="_2OsykBObEeaAxK-RlV7VgQ _MZY8wxREEeaRQcYso3gEKA _fDKD4BSqEeanStXYSw01hw">
+      <vertices xsi:type="sgraph:State" xmi:id="_kmIHsBL-EeaWX5u3L5rRGA" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;BGF.eventNum = BGF.eventNum  + 1;&#xD;&#xA;Mira.sendGoToNextGWPForConf()" name="GotToFirstStation" incomingTransitions="_2OsykBObEeaAxK-RlV7VgQ _MZY8wxREEeaRQcYso3gEKA _fDKD4BSqEeanStXYSw01hw">
         <outgoingTransitions xmi:id="_uLwlMBL-EeaWX5u3L5rRGA" specification="[Mira.arrivedWP == true]" target="_kDbccBSBEeaWq-cHx9ivmA"/>
       </vertices>
       <vertices xsi:type="sgraph:FinalState" xmi:id="_dxsbsBOcEeaAxK-RlV7VgQ" incomingTransitions="_YymdsxRbEeaeHbto-ZcJ-Q"/>
@@ -529,10 +529,10 @@
       <vertices xsi:type="sgraph:State" xmi:id="_LWkN0BREEeaRQcYso3gEKA" specification="" name="GreetingsToVisitors" incomingTransitions="_Zc96kBCQEeagy8wtBhlyLw">
         <outgoingTransitions xmi:id="_MZY8wxREEeaRQcYso3gEKA" specification=" # exit_GreetingsToVisitors20 >" target="_kmIHsBL-EeaWX5u3L5rRGA"/>
         <regions xmi:id="_LYVIYBREEeaRQcYso3gEKA" name="inner region">
-          <vertices xsi:type="sgraph:State" xmi:id="_QAACMArwEeaHerMJh-i3rQ" specification="entry / Mira.arrivedWP=false;&#xD;&#xA;HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;Okay, I have to introduce myself.[blush:true] but I’m so nervous [:-)]I’m a helpful Robot in your smart home. [blush:false]But the special thing is, that I try to interact like a real Person. Look at my breathing.&quot;)" name="GreetingsToVisitors" incomingTransitions="_fGpXABRNEeaRQcYso3gEKA">
+          <vertices xsi:type="sgraph:State" xmi:id="_QAACMArwEeaHerMJh-i3rQ" specification="entry /&#xD;&#xA;HBrain.sendTTS(&quot;Okay, I have to introduce myself.[blush:true] but I’m so nervous [:-)]I’m a helpful Robot in your smart home. [blush:false]But the special thing is, that I try to interact like a real Person. Look at my breathing.&quot;)" name="GreetingsToVisitors" incomingTransitions="_fGpXABRNEeaRQcYso3gEKA">
             <outgoingTransitions xmi:id="_QAJzRgrwEeaHerMJh-i3rQ" specification="[HBrain.TTSReady == true] " target="_PdO2UBRGEeaRQcYso3gEKA"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_z727EBQ8EeaRQcYso3gEKA" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;[idle3:false] Or look at my eyes{60;0} when i move my head.{0;0} At first I look at the new position. After eye movement my head follows. {-60;0} While my head is moving, my eyes go back. {Person} [idle3:true]&quot;)" name="GreetingsToVisitors2" incomingTransitions="_SGq9wBRGEeaRQcYso3gEKA">
+          <vertices xsi:type="sgraph:State" xmi:id="_z727EBQ8EeaRQcYso3gEKA" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;[idle3:false] Or look at my eyes{60;0} when i move my head.{0;0} At first I look at the new position. After eye movement my head follows. {-60;0} While my head is moving, my eyes go back. {Person} [idle3:true]&quot;)" name="GreetingsToVisitors2" incomingTransitions="_SGq9wBRGEeaRQcYso3gEKA">
             <outgoingTransitions xmi:id="_JtVqYBQ9EeaRQcYso3gEKA" specification="[HBrain.TTSReady == true]" target="_z_K-4BRqEeayKtX2CN51KA"/>
           </vertices>
           <vertices xsi:type="sgraph:Exit" xmi:id="_MYwqoBREEeaRQcYso3gEKA" name="exit_GreetingsToVisitors20" incomingTransitions="_Qx6KcBRrEeayKtX2CN51KA"/>
@@ -545,28 +545,28 @@
           <vertices xsi:type="sgraph:State" xmi:id="_z_K-4BRqEeayKtX2CN51KA" name="wait3" incomingTransitions="_JtVqYBQ9EeaRQcYso3gEKA">
             <outgoingTransitions xmi:id="_64LeEBRqEeayKtX2CN51KA" specification="after 1s" target="_57aT0BRqEeayKtX2CN51KA"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_57aT0BRqEeayKtX2CN51KA" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;[:-|]Besides my animated head I also have several sensors. On the front and the back I have laser sensors to localize myself. plan my way when moving and dynamic objects around me.&quot;)" name="greeting3" incomingTransitions="_64LeEBRqEeayKtX2CN51KA">
+          <vertices xsi:type="sgraph:State" xmi:id="_57aT0BRqEeayKtX2CN51KA" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;[:-|]Besides my animated head I also have several sensors. On the front and the back I have laser sensors to localize myself. plan my way when moving and dynamic objects around me.&quot;)" name="greeting3" incomingTransitions="_64LeEBRqEeayKtX2CN51KA">
             <outgoingTransitions xmi:id="__a40QBRqEeayKtX2CN51KA" specification="[HBrain.TTSReady == true]" target="_9bP3wBRqEeayKtX2CN51KA"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_9bP3wBRqEeayKtX2CN51KA" name="wait4" incomingTransitions="__a40QBRqEeayKtX2CN51KA">
             <outgoingTransitions xmi:id="_9bQe0hRqEeayKtX2CN51KA" specification="after 1s" target="_9bS7EBRqEeayKtX2CN51KA"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_9bS7EBRqEeayKtX2CN51KA" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;The most important sensor for me are my cameras. {-20;100}I have several cameras in order to see all humans around me {20;100} as well as to look very close at human faces and analyse them more precicely. {Person}[:-)]I can recognize people and analyse their faces. [:-/]{-30;-90}At least I try it. [:-]In addition I try to estimate the attractiveness and the emotion! [:-)] {Person}&quot;)" name="greeting4" incomingTransitions="_9bQe0hRqEeayKtX2CN51KA">
+          <vertices xsi:type="sgraph:State" xmi:id="_9bS7EBRqEeayKtX2CN51KA" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;The most important sensor for me are my cameras. {-20;100}I have several cameras in order to see all humans around me {20;100} as well as to look very close at human faces and analyse them more precicely. {Person}[:-)]I can recognize people and analyse their faces. [:-/]{-30;-90}At least I try it. [:-]In addition I try to estimate the attractiveness and the emotion! [:-)] {Person}&quot;)" name="greeting4" incomingTransitions="_9bQe0hRqEeayKtX2CN51KA">
             <outgoingTransitions xmi:id="_L0ywMBRrEeayKtX2CN51KA" specification="[HBrain.TTSReady == true]" target="_Jiy4YBRrEeayKtX2CN51KA"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_Jiy4YBRrEeayKtX2CN51KA" name="Copy_1_wait3" incomingTransitions="_L0ywMBRrEeayKtX2CN51KA">
             <outgoingTransitions xmi:id="_JizfcRRrEeayKtX2CN51KA" specification="after 1s" target="_Ji0tkBRrEeayKtX2CN51KA"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_Ji0tkBRrEeayKtX2CN51KA" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;{0;-150} In front of me is a Leap motion. {Person}This allows people to answer my questions also by giving me hand gestures.&quot;)" name="Copy_1_greeting3" incomingTransitions="_JizfcRRrEeayKtX2CN51KA">
+          <vertices xsi:type="sgraph:State" xmi:id="_Ji0tkBRrEeayKtX2CN51KA" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;{0;-150} In front of me is a Leap motion. {Person}This allows people to answer my questions also by giving me hand gestures.&quot;)" name="Copy_1_greeting3" incomingTransitions="_JizfcRRrEeayKtX2CN51KA">
             <outgoingTransitions xmi:id="_Ji1UohRrEeayKtX2CN51KA" specification="[HBrain.TTSReady == true]" target="_JjHBcBRrEeayKtX2CN51KA"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_JjHBcBRrEeayKtX2CN51KA" specification="entry / HBrain.sendTTS(&quot;On the back&quot;);&#xD;&#xA;Mira.sendBodyUTurn()" name="Copy_1_wait4" incomingTransitions="_Ji1UohRrEeayKtX2CN51KA">
             <outgoingTransitions xmi:id="_JjHogRRrEeayKtX2CN51KA" specification="after 3s" target="_4lH4gBR5EeaWq-cHx9ivmA"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_JjJdsBRrEeayKtX2CN51KA" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;Enough for the moment. [:-)] I want to talk to a real person in my kitchen now! [idle3:true]&quot;)" name="Copy_1_greeting4" incomingTransitions="_T5UpgBR6EeaWq-cHx9ivmA">
+          <vertices xsi:type="sgraph:State" xmi:id="_JjJdsBRrEeayKtX2CN51KA" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;Enough for the moment. [:-)] I want to talk to a real person in my kitchen now! [idle3:true]&quot;)" name="Copy_1_greeting4" incomingTransitions="_T5UpgBR6EeaWq-cHx9ivmA">
             <outgoingTransitions xmi:id="_Qx6KcBRrEeayKtX2CN51KA" specification="[HBrain.TTSReady == true]" target="_MYwqoBREEeaRQcYso3gEKA"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_4lH4gBR5EeaWq-cHx9ivmA" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;{-180;100}I have a kinect that I use as my ears. I can react on loud sounds behind me.{Person}&quot;)" name="greting5" incomingTransitions="_JjHogRRrEeayKtX2CN51KA">
+          <vertices xsi:type="sgraph:State" xmi:id="_4lH4gBR5EeaWq-cHx9ivmA" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;HBrain.sendTTS(&quot;{-180;100}I have a kinect that I use as my ears. I can react on loud sounds behind me.{Person}&quot;)" name="greting5" incomingTransitions="_JjHogRRrEeayKtX2CN51KA">
             <outgoingTransitions xmi:id="_OJNFABR6EeaWq-cHx9ivmA" specification="[HBrain.TTSReady == true]" target="_I0UrABR6EeaWq-cHx9ivmA"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_I0UrABR6EeaWq-cHx9ivmA" specification="entry / Mira.sendBodyUTurn()" name="turnBack" incomingTransitions="_OJNFABR6EeaWq-cHx9ivmA">
@@ -583,14 +583,14 @@
           <vertices xsi:type="sgraph:State" xmi:id="_fuzT4BPkEeaZSsIq4T0bDQ" specification="entry / VBrain.sendACIOnOff(false);&#xD;&#xA;Kinect2.sendNoiseDetectionOnOff(false);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA;STT.sendSpeechDetectionOnOff(0)" name="endeGutallesGut" incomingTransitions="_kheYsBPkEeaZSsIq4T0bDQ">
             <outgoingTransitions xmi:id="_P1Zf8BOcEeaAxK-RlV7VgQ" specification="always" target="_Yx56IBRbEeaeHbto-ZcJ-Q"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_-w-8sBObEeaAxK-RlV7VgQ" specification="entry / HBrain.TTSReady = false;&#xD;&#xA;STT.sendSpeechDetectionOnOff(0);&#xD;&#xA;HBrain.sendTTS(&quot;Puuuh I met so many interesting people! [:-)]I was waiting so long for this moment. You know my friends were in a big hurry to prepare me for this. I had to learn so many things from them: finding humans, recognising them, understanding their language and facial expressions. I saw attractive ladies, with and without glasses. I also found new robotics friends coming from many countries around the world. I am so happy that we came here together! The team RT Lions will go on to make me more and more intelligent and collaborative. The future is close!&quot;)" name="endOfStory" incomingTransitions="_YvgtcRRbEeaeHbto-ZcJ-Q">
+          <vertices xsi:type="sgraph:State" xmi:id="_-w-8sBObEeaAxK-RlV7VgQ" specification="entry / //HBrain.TTSReady = false;&#xD;&#xA;STT.sendSpeechDetectionOnOff(0);&#xD;&#xA;HBrain.sendTTS(&quot;Puuuh I met so many interesting people! [:-)]I was waiting so long for this moment. You know my friends were in a big hurry to prepare me for this. I had to learn so many things from them: finding humans, recognising them, understanding their language and facial expressions. I saw attractive ladies, with and without glasses. I also found new robotics friends coming from many countries around the world. I am so happy that we came here together! The team RT Lions will go on to make me more and more intelligent and collaborative. The future is close!&quot;)" name="endOfStory" incomingTransitions="_YvgtcRRbEeaeHbto-ZcJ-Q">
             <outgoingTransitions xmi:id="_kheYsBPkEeaZSsIq4T0bDQ" specification="[HBrain.TTSReady == true]" target="_fuzT4BPkEeaZSsIq4T0bDQ"/>
           </vertices>
           <vertices xsi:type="sgraph:Entry" xmi:id="_YvgtcBRbEeaeHbto-ZcJ-Q" name="entry_endOfStory1">
             <outgoingTransitions xmi:id="_jMU_EBSyEeanStXYSw01hw" specification="" target="_cIJKoBSyEeanStXYSw01hw"/>
           </vertices>
           <vertices xsi:type="sgraph:Exit" xmi:id="_Yx56IBRbEeaeHbto-ZcJ-Q" name="exit_endeGutallesGut0" incomingTransitions="_P1Zf8BOcEeaAxK-RlV7VgQ"/>
-          <vertices xsi:type="sgraph:State" xmi:id="_cIJKoBSyEeanStXYSw01hw" specification="entry / Mira.arrivedWP = false;&#xD;&#xA;Mira.sendGoToGWP(0);&#xD;&#xA;HBrain.sendTTS(&quot;[:-D]&quot;)" name="drive" incomingTransitions="_jMU_EBSyEeanStXYSw01hw">
+          <vertices xsi:type="sgraph:State" xmi:id="_cIJKoBSyEeanStXYSw01hw" specification="entry /&#xD;&#xA;Mira.sendGoToGWP(0);&#xD;&#xA;HBrain.sendTTS(&quot;[:-D]&quot;)" name="drive" incomingTransitions="_jMU_EBSyEeanStXYSw01hw">
             <outgoingTransitions xmi:id="_YvgtcRRbEeaeHbto-ZcJ-Q" specification="[Mira.arrivedWP == true]" target="_-w-8sBObEeaAxK-RlV7VgQ"/>
           </vertices>
         </regions>
@@ -606,7 +606,7 @@
       <vertices xsi:type="sgraph:State" xmi:id="_oAuH4A1vEea_qLdatlMCBQ" name="init" incomingTransitions="_rCM74A1vEea_qLdatlMCBQ _wpBcoA1-EeaoQZlPXRPICw">
         <outgoingTransitions xmi:id="_2pOpYA1vEea_qLdatlMCBQ" specification="[Mira.bumpered == true]" target="_r_Py8A1vEea_qLdatlMCBQ"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_r_Py8A1vEea_qLdatlMCBQ" specification="entry / HBrain.sendTTS(&quot;[:-(]ouch!&quot;);&#xD;&#xA;Mira.bumpered = false" name="sayAutsch" incomingTransitions="_2pOpYA1vEea_qLdatlMCBQ">
+      <vertices xsi:type="sgraph:State" xmi:id="_r_Py8A1vEea_qLdatlMCBQ" specification="entry /&#xA;HBrain.sendTTS(&quot;[:-(]ouch!&quot;)" name="sayAutsch" incomingTransitions="_2pOpYA1vEea_qLdatlMCBQ">
         <outgoingTransitions xmi:id="_EhcWYA1wEea_qLdatlMCBQ" specification="after 5s" target="_smD9gA1-EeaoQZlPXRPICw"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_smD9gA1-EeaoQZlPXRPICw" specification="entry / HBrain.sendTTS(&quot;[:-|]&quot;)" name="resetFace" incomingTransitions="_EhcWYA1wEea_qLdatlMCBQ">
@@ -5063,7 +5063,7 @@
     <edges xmi:id="_tB13MBCKEeagy8wtBhlyLw" type="Transition" element="_tBstSxCKEeagy8wtBhlyLw" source="_tBsGOxCKEeagy8wtBhlyLw" target="_tBsGRxCKEeagy8wtBhlyLw">
       <children xsi:type="notation:DecorationNode" xmi:id="_tB13MRCKEeagy8wtBhlyLw" type="TransitionExpression">
         <styles xsi:type="notation:ShapeStyle" xmi:id="_tB13MhCKEeagy8wtBhlyLw"/>
-        <layoutConstraint xsi:type="notation:Location" xmi:id="_tB13MxCKEeagy8wtBhlyLw" x="174" y="-88"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_tB13MxCKEeagy8wtBhlyLw" x="106" y="-57"/>
       </children>
       <styles xsi:type="notation:ConnectorStyle" xmi:id="_tB13NBCKEeagy8wtBhlyLw" lineColor="4210752"/>
       <styles xsi:type="notation:FontStyle" xmi:id="_tB13NRCKEeagy8wtBhlyLw" fontName="Verdana"/>

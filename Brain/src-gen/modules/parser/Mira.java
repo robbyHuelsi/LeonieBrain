@@ -2,6 +2,8 @@ package modules.parser;
 
 import java.io.Serializable;
 
+import org.yakindu.scr.braganca.IBragancaStatemachine.SCIMira;
+
 import main.*;
 import modules.Module;
 import vBrain.PersonList;
@@ -16,6 +18,7 @@ public class Mira implements IParser, Serializable{
 	private int eventNumber;
 
 	public boolean parse(String data, Start start) {
+		this.start = start;
 		System.out.println("NAV: " + data);
 		//Arrived waypoint by pilot:  #NAV##ARR_WP#1#   //#NAV##ARR_WP#1# (=> arrived at global waypoint 
 		//Path blocked:  #NAV##PATH_BLOCKED#1#      	//#NAV##PATH_BLOCKED#1#  (=> path is blocked
@@ -40,6 +43,13 @@ public class Mira implements IParser, Serializable{
 		//TODO brain.getSCIMira().setArrivedWP(arrivedWP);
 		if (arrivedWP) {
 			System.out.println("Arrived at next waypoint: ");
+			try {
+				start.getStatemachine().raiseEventOfSCI("Mira","arrivedWP");
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
 		}
 	}
 

@@ -23,4 +23,45 @@ public class OpCallbackImplSTT implements
 		}
 	}
 
+	@Override
+	public String getAnswerToGive() {
+		return ((STT)modules.getParser("STT")).getAnswerToGive();
+	}
+
+	@Override
+	public String getSpeakerMsg() {
+		return ((STT)modules.getParser("STT")).getSpeakerMsg();
+	}
+
+	@Override
+	public String getFilteredMsg() {
+		return ((STT)modules.getParser("STT")).getFilteredMsg();
+	}
+
+	@Override
+	public String getFilterBubble() {
+		return ((STT)modules.getParser("STT")).getFilterBubble();
+	}
+
+	@Override
+	public void resetAnswerToGive() {
+		((STT)modules.getParser("STT")).setAnswerToGive("");
+	}
+
+	@Override
+	public void resetSpeakerMsg() {
+		((STT)modules.getParser("STT")).setSpeakerMsg("");;
+		
+	}
+
+	@Override
+	public void resetFilteredMsg() {
+		((STT)modules.getParser("STT")).setFilteredMsg("");
+	}
+
+	@Override
+	public void resetFilterBubble() {
+		((STT)modules.getParser("STT")).setFilterBubble("");
+	}
+
 }

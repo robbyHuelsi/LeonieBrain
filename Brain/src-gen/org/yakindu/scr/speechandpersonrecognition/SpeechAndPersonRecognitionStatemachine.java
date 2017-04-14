@@ -3,12 +3,6 @@ import org.yakindu.scr.ITimer;
 
 public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonRecognitionStatemachine {
 
-	protected class SCInterfaceImpl implements SCInterface {
-	
-	}
-	
-	protected SCInterfaceImpl sCInterface;
-	
 	protected class SCIBGFImpl implements SCIBGF {
 	
 		private SCIBGFOperationCallback operationCallback;
@@ -51,14 +45,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		}
 		private boolean tTSReady;
 		
-		public boolean getTTSReady() {
-			return tTSReady;
+		public void raiseTTSReady() {
+			tTSReady = true;
 		}
 		
-		public void setTTSReady(boolean value) {
-			this.tTSReady = value;
+		protected void clearEvents() {
+			tTSReady = false;
 		}
-		
 	}
 	
 	protected SCIHBrainImpl sCIHBrain;
@@ -71,26 +64,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 				SCIVBrainOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private long countFoundFaces;
-		
-		public long getCountFoundFaces() {
-			return countFoundFaces;
-		}
-		
-		public void setCountFoundFaces(long value) {
-			this.countFoundFaces = value;
-		}
-		
-		private boolean nessesaryToSavePersonList;
-		
-		public boolean getNessesaryToSavePersonList() {
-			return nessesaryToSavePersonList;
-		}
-		
-		public void setNessesaryToSavePersonList(boolean value) {
-			this.nessesaryToSavePersonList = value;
-		}
-		
 	}
 	
 	protected SCIVBrainImpl sCIVBrain;
@@ -125,36 +98,15 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 				SCIKinect2OperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private String gesture;
-		
-		public String getGesture() {
-			return gesture;
-		}
-		
-		public void setGesture(String value) {
-			this.gesture = value;
-		}
-		
 		private boolean noiseDetected;
 		
-		public boolean getNoiseDetected() {
-			return noiseDetected;
+		public void raiseNoiseDetected() {
+			noiseDetected = true;
 		}
 		
-		public void setNoiseDetected(boolean value) {
-			this.noiseDetected = value;
+		protected void clearEvents() {
+			noiseDetected = false;
 		}
-		
-		private long noiseAngle;
-		
-		public long getNoiseAngle() {
-			return noiseAngle;
-		}
-		
-		public void setNoiseAngle(long value) {
-			this.noiseAngle = value;
-		}
-		
 	}
 	
 	protected SCIKinect2Impl sCIKinect2;
@@ -169,44 +121,20 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		}
 		private boolean gestureDetected;
 		
-		public boolean getGestureDetected() {
-			return gestureDetected;
-		}
-		
-		public void setGestureDetected(boolean value) {
-			this.gestureDetected = value;
-		}
-		
-		private String gesture;
-		
-		public String getGesture() {
-			return gesture;
-		}
-		
-		public void setGesture(String value) {
-			this.gesture = value;
+		public void raiseGestureDetected() {
+			gestureDetected = true;
 		}
 		
 		private boolean stringFinished;
 		
-		public boolean getStringFinished() {
-			return stringFinished;
+		public void raiseStringFinished() {
+			stringFinished = true;
 		}
 		
-		public void setStringFinished(boolean value) {
-			this.stringFinished = value;
+		protected void clearEvents() {
+			gestureDetected = false;
+			stringFinished = false;
 		}
-		
-		private String detectedString;
-		
-		public String getDetectedString() {
-			return detectedString;
-		}
-		
-		public void setDetectedString(String value) {
-			this.detectedString = value;
-		}
-		
 	}
 	
 	protected SCILeapMotionImpl sCILeapMotion;
@@ -221,44 +149,34 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		}
 		private boolean emergencyStop;
 		
-		public boolean getEmergencyStop() {
-			return emergencyStop;
-		}
-		
-		public void setEmergencyStop(boolean value) {
-			this.emergencyStop = value;
+		public void raiseEmergencyStop() {
+			emergencyStop = true;
 		}
 		
 		private boolean bumpered;
 		
-		public boolean getBumpered() {
-			return bumpered;
-		}
-		
-		public void setBumpered(boolean value) {
-			this.bumpered = value;
+		public void raiseBumpered() {
+			bumpered = true;
 		}
 		
 		private boolean blocked;
 		
-		public boolean getBlocked() {
-			return blocked;
-		}
-		
-		public void setBlocked(boolean value) {
-			this.blocked = value;
+		public void raiseBlocked() {
+			blocked = true;
 		}
 		
 		private boolean arrivedWP;
 		
-		public boolean getArrivedWP() {
-			return arrivedWP;
+		public void raiseArrivedWP() {
+			arrivedWP = true;
 		}
 		
-		public void setArrivedWP(boolean value) {
-			this.arrivedWP = value;
+		protected void clearEvents() {
+			emergencyStop = false;
+			bumpered = false;
+			blocked = false;
+			arrivedWP = false;
 		}
-		
 	}
 	
 	protected SCIMiraImpl sCIMira;
@@ -273,44 +191,20 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		}
 		private boolean sTTReady;
 		
-		public boolean getSTTReady() {
-			return sTTReady;
+		public void raiseSTTReady() {
+			sTTReady = true;
 		}
 		
-		public void setSTTReady(boolean value) {
-			this.sTTReady = value;
+		private boolean answerFound;
+		
+		public void raiseAnswerFound() {
+			answerFound = true;
 		}
 		
-		private String speakerMsg;
-		
-		public String getSpeakerMsg() {
-			return speakerMsg;
+		protected void clearEvents() {
+			sTTReady = false;
+			answerFound = false;
 		}
-		
-		public void setSpeakerMsg(String value) {
-			this.speakerMsg = value;
-		}
-		
-		private String filteredMsg;
-		
-		public String getFilteredMsg() {
-			return filteredMsg;
-		}
-		
-		public void setFilteredMsg(String value) {
-			this.filteredMsg = value;
-		}
-		
-		private String filterBubble;
-		
-		public String getFilterBubble() {
-			return filterBubble;
-		}
-		
-		public void setFilterBubble(String value) {
-			this.filterBubble = value;
-		}
-		
 	}
 	
 	protected SCISTTImpl sCISTT;
@@ -323,169 +217,33 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 				SCICurrPersonOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private long personID;
-		
-		public long getPersonID() {
-			return personID;
-		}
-		
-		public void setPersonID(long value) {
-			this.personID = value;
-		}
-		
-		private boolean known;
-		
-		public boolean getKnown() {
-			return known;
-		}
-		
-		public void setKnown(boolean value) {
-			this.known = value;
-		}
-		
-		private String firstname;
-		
-		public String getFirstname() {
-			return firstname;
-		}
-		
-		public void setFirstname(String value) {
-			this.firstname = value;
-		}
-		
-		private String lastname;
-		
-		public String getLastname() {
-			return lastname;
-		}
-		
-		public void setLastname(String value) {
-			this.lastname = value;
-		}
-		
-		private long estimatedAge;
-		
-		public long getEstimatedAge() {
-			return estimatedAge;
-		}
-		
-		public void setEstimatedAge(long value) {
-			this.estimatedAge = value;
-		}
-		
-		private long bdYear;
-		
-		public long getBdYear() {
-			return bdYear;
-		}
-		
-		public void setBdYear(long value) {
-			this.bdYear = value;
-		}
-		
-		private long bdMounth;
-		
-		public long getBdMounth() {
-			return bdMounth;
-		}
-		
-		public void setBdMounth(long value) {
-			this.bdMounth = value;
-		}
-		
-		private long bdDay;
-		
-		public long getBdDay() {
-			return bdDay;
-		}
-		
-		public void setBdDay(long value) {
-			this.bdDay = value;
-		}
-		
-		private boolean gender;
-		
-		public boolean getGender() {
-			return gender;
-		}
-		
-		public void setGender(boolean value) {
-			this.gender = value;
-		}
-		
-		private long ethnicity;
-		
-		public long getEthnicity() {
-			return ethnicity;
-		}
-		
-		public void setEthnicity(long value) {
-			this.ethnicity = value;
-		}
-		
-		private boolean glasses;
-		
-		public boolean getGlasses() {
-			return glasses;
-		}
-		
-		public void setGlasses(boolean value) {
-			this.glasses = value;
-		}
-		
-		private double attractiveness;
-		
-		public double getAttractiveness() {
-			return attractiveness;
-		}
-		
-		public void setAttractiveness(double value) {
-			this.attractiveness = value;
-		}
-		
-		private long currHeadgestures;
-		
-		public long getCurrHeadgestures() {
-			return currHeadgestures;
-		}
-		
-		public void setCurrHeadgestures(long value) {
-			this.currHeadgestures = value;
-		}
-		
-		private boolean currSpeaking;
-		
-		public boolean getCurrSpeaking() {
-			return currSpeaking;
-		}
-		
-		public void setCurrSpeaking(boolean value) {
-			this.currSpeaking = value;
-		}
-		
-		private long currEmotion;
-		
-		public long getCurrEmotion() {
-			return currEmotion;
-		}
-		
-		public void setCurrEmotion(long value) {
-			this.currEmotion = value;
-		}
-		
-		private double currDistance;
-		
-		public double getCurrDistance() {
-			return currDistance;
-		}
-		
-		public void setCurrDistance(double value) {
-			this.currDistance = value;
-		}
-		
 	}
 	
 	protected SCICurrPersonImpl sCICurrPerson;
+	
+	protected class SCICrowdDetectionImpl implements SCICrowdDetection {
+	
+		private SCICrowdDetectionOperationCallback operationCallback;
+		
+		public void setSCICrowdDetectionOperationCallback(
+				SCICrowdDetectionOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+	}
+	
+	protected SCICrowdDetectionImpl sCICrowdDetection;
+	
+	protected class SCIMicrophoneArrayImpl implements SCIMicrophoneArray {
+	
+		private SCIMicrophoneArrayOperationCallback operationCallback;
+		
+		public void setSCIMicrophoneArrayOperationCallback(
+				SCIMicrophoneArrayOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+	}
+	
+	protected SCIMicrophoneArrayImpl sCIMicrophoneArray;
 	
 	private boolean initialized = false;
 	
@@ -517,6 +275,26 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private ITimer timer;
 	
 	private final boolean[] timeEvents = new boolean[4];
+	private long counter;
+	
+	protected void setCounter(long value) {
+		counter = value;
+	}
+	
+	protected long getCounter() {
+		return counter;
+	}
+	
+	private String nameBuffer;
+	
+	protected void setNameBuffer(String value) {
+		nameBuffer = value;
+	}
+	
+	protected String getNameBuffer() {
+		return nameBuffer;
+	}
+	
 	private long questionCounter;
 	
 	protected void setQuestionCounter(long value) {
@@ -528,7 +306,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	public SpeechAndPersonRecognitionStatemachine() {
-		sCInterface = new SCInterfaceImpl();
 		sCIBGF = new SCIBGFImpl();
 		sCIHBrain = new SCIHBrainImpl();
 		sCIVBrain = new SCIVBrainImpl();
@@ -538,6 +315,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		sCIMira = new SCIMiraImpl();
 		sCISTT = new SCISTTImpl();
 		sCICurrPerson = new SCICurrPersonImpl();
+		sCICrowdDetection = new SCICrowdDetectionImpl();
+		sCIMicrophoneArray = new SCIMicrophoneArrayImpl();
 	}
 	
 	public void init() {
@@ -554,75 +333,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		
 		sCIBGF.setRandNum(0);
 		
-		sCIHBrain.setTTSReady(false);
-		
-		sCIVBrain.setCountFoundFaces(0);
-		
-		sCIVBrain.setNessesaryToSavePersonList(false);
-		
 		sCIAttractiveness.setOld_attr(0.0);
 		
-		sCIKinect2.setGesture("");
+		setCounter(0);
 		
-		sCIKinect2.setNoiseDetected(false);
-		
-		sCIKinect2.setNoiseAngle(0);
-		
-		sCILeapMotion.setGestureDetected(false);
-		
-		sCILeapMotion.setGesture("");
-		
-		sCILeapMotion.setStringFinished(false);
-		
-		sCILeapMotion.setDetectedString("");
-		
-		sCIMira.setEmergencyStop(false);
-		
-		sCIMira.setBumpered(false);
-		
-		sCIMira.setBlocked(false);
-		
-		sCIMira.setArrivedWP(false);
-		
-		sCISTT.setSTTReady(false);
-		
-		sCISTT.setSpeakerMsg("");
-		
-		sCISTT.setFilteredMsg("");
-		
-		sCISTT.setFilterBubble("");
-		
-		sCICurrPerson.setPersonID(0);
-		
-		sCICurrPerson.setKnown(false);
-		
-		sCICurrPerson.setFirstname("");
-		
-		sCICurrPerson.setLastname("");
-		
-		sCICurrPerson.setEstimatedAge(0);
-		
-		sCICurrPerson.setBdYear(0);
-		
-		sCICurrPerson.setBdMounth(0);
-		
-		sCICurrPerson.setBdDay(0);
-		
-		sCICurrPerson.setGender(false);
-		
-		sCICurrPerson.setEthnicity(0);
-		
-		sCICurrPerson.setGlasses(false);
-		
-		sCICurrPerson.setAttractiveness(0.0);
-		
-		sCICurrPerson.setCurrHeadgestures(0);
-		
-		sCICurrPerson.setCurrSpeaking(false);
-		
-		sCICurrPerson.setCurrEmotion(0);
-		
-		sCICurrPerson.setCurrDistance(0.0);
+		setNameBuffer("");
 		
 		setQuestionCounter(0);
 	}
@@ -659,6 +374,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	* This method resets the incoming events (time events included).
 	*/
 	protected void clearEvents() {
+		sCIHBrain.clearEvents();
+		sCIKinect2.clearEvents();
+		sCILeapMotion.clearEvents();
+		sCIMira.clearEvents();
+		sCISTT.clearEvents();
 		for (int i=0; i<timeEvents.length; i++) {
 			timeEvents[i] = false;
 		}
@@ -741,10 +461,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		timeEvents[eventID] = true;
 	}
 	
-	public SCInterface getSCInterface() {
-		return sCInterface;
-	}
-	
 	public SCIBGF getSCIBGF() {
 		return sCIBGF;
 	}
@@ -781,12 +497,20 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return sCICurrPerson;
 	}
 	
+	public SCICrowdDetection getSCICrowdDetection() {
+		return sCICrowdDetection;
+	}
+	
+	public SCIMicrophoneArray getSCIMicrophoneArray() {
+		return sCIMicrophoneArray;
+	}
+	
 	private boolean check_main_region_Init_tr0_tr0() {
 		return true;
 	}
 	
 	private boolean check_main_region_Announcement_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_region_Wait_tr0_tr0() {
@@ -912,8 +636,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'WaitForQuestion'. */
 	private void entryAction_main_region_RiddleGame1_r1_WaitForQuestion() {
-		sCISTT.setSTTReady(true);
-		
 		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 	}
 	
@@ -930,13 +652,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	/* Entry action for state 'ListenForQuestion'. */
 	private void entryAction_main_region_BlindMan_sBluGame_r1_ListenForQuestion() {
 		timer.setTimer(this, 3, 5*1000, false);
-		
-		sCISTT.setSTTReady(true);
-	}
-	
-	/* Entry action for state 'WaitForQuestion'. */
-	private void entryAction_main_region_BlindMan_sBluGame_r1_WaitForQuestion() {
-		sCISTT.setSTTReady(true);
 	}
 	
 	/* Entry action for state 'Answer'. */
@@ -1043,7 +758,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* 'default' enter sequence for state WaitForQuestion */
 	private void enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default() {
-		entryAction_main_region_BlindMan_sBluGame_r1_WaitForQuestion();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_BlindMan_sBluGame_r1_WaitForQuestion;
 	}

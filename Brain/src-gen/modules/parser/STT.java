@@ -10,13 +10,17 @@ public class STT implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
 	
-	private String message;
+	private String speakerMsg;
+	private String filterBubble;
+	private String filteredMsg;
+	private String answerToGive;
+	
 	private boolean STTReady;
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		
-		this.setMessage(data);
+		this.setSpeakerMsg(data);
 		
 		//TODO:  Muss überarbeitet werden:
 		
@@ -44,13 +48,36 @@ public class STT implements IParser, Serializable{
 		return true;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getSpeakerMsg() {
+		return speakerMsg;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
-		//TODO: brain.getSCISTT().setSpeakerMsg(message);
+	public void setSpeakerMsg(String speakerMsg) {
+		this.speakerMsg = speakerMsg;
+	}
+
+	public String getFilterBubble() {
+		return filterBubble;
+	}
+
+	public void setFilterBubble(String filterBubble) {
+		this.filterBubble = filterBubble;
+	}
+
+	public String getFilteredMsg() {
+		return filteredMsg;
+	}
+
+	public void setFilteredMsg(String filteredMsg) {
+		this.filteredMsg = filteredMsg;
+	}
+
+	public String getAnswerToGive() {
+		return answerToGive;
+	}
+
+	public void setAnswerToGive(String answerToGive) {
+		this.answerToGive = answerToGive;
 	}
 
 	public boolean isSTTReady() {

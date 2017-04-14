@@ -35,7 +35,7 @@ public class Statemachine {
 			
 			// setTime()
 			Method setTime = statemachineClass.getDeclaredMethod("setTimer", new Class[] { ITimer.class });
-			setTime.invoke (statemachine, new TimerService());
+			setTime.invoke(statemachine, new TimerService());
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -83,7 +83,7 @@ public class Statemachine {
 					opCallbackImplNames.add(method.getName().substring(6));
 				}
 			}
-			System.out.println("opCallbackImplNames: " + opCallbackImplNames.toString());
+			System.out.println("opCallbackImplNames for " + this.statemachineName + ": " + opCallbackImplNames.toString());
 						
 			for (String opCallbackImplName : opCallbackImplNames) {
 				try {
@@ -137,8 +137,8 @@ public class Statemachine {
 			try {
 				Method init = statemachineClass.getDeclaredMethod("init", new Class[]{});
 				Method enter = statemachineClass.getDeclaredMethod("enter", new Class[]{});
-				init.invoke (statemachine);
-				enter.invoke (statemachine);
+				init.invoke(statemachine);
+				enter.invoke(statemachine);
 				return true;
 				
 			} catch (NoSuchMethodException e) {
@@ -172,7 +172,7 @@ public class Statemachine {
 		if (this.statemachine != null) {
 			try {
 				Method runCycle = statemachineClass.getDeclaredMethod("runCycle", new Class[]{});
-				runCycle.invoke (statemachine);
+				runCycle.invoke(statemachine);
 				return true;
 				
 			} catch (NoSuchMethodException e) {
@@ -198,6 +198,55 @@ public class Statemachine {
 			}
 		}else{
 			System.err.println("runCycle failed because statemashine not set");
+			return false;
+		}
+	}
+	
+	public boolean raiseEventOfSCI(String sciName, String eventName){
+		if (sciName == null || sciName.isEmpty()) {
+			System.err.println("getSCI failed bacause sciName is empty");
+			return false;
+		}
+		
+		if (eventName == null || eventName.isEmpty()) {
+			System.err.println("getSCI failed bacause eventName is empty");
+			return false;
+		}
+		
+		if (this.statemachine != null) {
+			try {
+				Method getSCI = statemachineClass.getDeclaredMethod("getSCI" + sciName, new Class[]{});
+				Object sci = getSCI.invoke(this.statemachine);
+				Class<?> sciClass = sci.getClass();
+				String raiseMethodName = "raise" + eventName.substring(0, 1).toUpperCase() + eventName.substring(1);
+				Method raise = sciClass.getDeclaredMethod(raiseMethodName, new Class[]{});
+				raise.invoke(sci);	
+				
+				return true;
+				
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		}else{
+			System.err.println("getSCI failed because statemashine not set");
 			return false;
 		}
 	}

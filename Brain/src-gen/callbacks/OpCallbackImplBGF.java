@@ -21,9 +21,10 @@ public class OpCallbackImplBGF implements
 		System.out.println(Start.instanceOf().getPersonList().getCurrPerson().isKnown());
 	}
 	
-	public void newRandNum(long max){
+	public long getRandNum(long max) {
 		Random randGen = new Random();
-		//TODO: Start.instanceOf().getBrain().getSCIBGF().setRandNum(randGen.nextInt((int)max));
-		//TODO: System.out.println("New Random Numer: " + Start.instanceOf().getBrain().getSCIBGF().getRandNum());
+		long randNum = randGen.nextInt((int)max);
+		System.out.println("New random number: " + randNum);
+		return randNum;
 	}
 }

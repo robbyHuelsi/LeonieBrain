@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Vector;
+
 import communication.Communication;
 import modules.Modules;
 import vBrain.PersonList;
@@ -12,6 +14,10 @@ public class Start{
 	private static PersonList personList;
 	private static Modules modules;
 	
+	private String[] statemachineNames = {
+			"Braganca", 
+			"SpeechAndPersonRecognition"
+	};
 	
 	// ---- Communication -----------------------------------------------------
 	static private int UDPListeningPort = 50000;
@@ -21,25 +27,20 @@ public class Start{
 	public static void main(String[] args) throws Exception{
 		Start t = Start.instanceOf();
 		
-		// Start listening for messages via UDP or TCP
-		Communication.receive(modules.get("brain"));
-		
-		t.statemachine.setOperationCallbacks();
-		
-		t.statemachine.initAndEnter();
-
-		while (true)
-		{
-			t.statemachine.runCycle();
-			Thread.sleep(500);
-		}
-	}
-	
-	private Start(){
-		statemachine = new Statemachine("Braganca"); //SpeechAndPersonRecognition
+		//Load modules and personList
 		modules = new Modules(UDPListeningPort);
 		personList = new PersonList();
 		
+		// Start listening for messages via UDP or TCP
+		Communication.receive(modules.get("brain"));
+		
+		//Show GUI
+		GUI gui = new GUI(t);
+		
+	}
+	
+	
+	private Start(){
 //----> For using Brain w/o CNS Monitor:
 //		modules.setIpAndPortOldSchool();
 		
@@ -58,6 +59,40 @@ public class Start{
 		return instance;
 	}
 	
+	public void runStatemachine(){
+		Statemachine sm = this.statemachine;
+		sm.initAndEnter();
+
+		new Thread(new Runnable() {
+		    public void run() {
+		    	while (statemachine != null)
+				{
+		    		sm.runCycle();
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+		    	System.out.println("Statemachine end");
+		    }
+		}).start();
+		
+	}
+	
+	public void setStatemachine(String statemachineName){
+		if (statemachineName != null) {
+			this.statemachine = new Statemachine(statemachineName); //Braganca, SpeechAndPersonRecognition, ...
+		}else{
+			this.statemachine = null;
+		}
+		
+	}
+	
+	public Statemachine getStatemachine(){
+		return statemachine;
+	}
 
 	public static PersonList getPersonList(){
 		return personList;
@@ -65,5 +100,9 @@ public class Start{
 
 	public static Modules getModules(){
 		return modules;
+	}
+	
+	public String[] getStatemachineNames(){
+		return statemachineNames;
 	}
 }

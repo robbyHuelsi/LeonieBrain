@@ -8,8 +8,10 @@ import modules.Module;
 public class Kinect2 implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
+	
 	private boolean noiseDetected;
 	private int noiseAngle;
+	private String gesture;
 
 	@Override
 	public boolean parse(String data, Start start) {
@@ -45,6 +47,14 @@ public class Kinect2 implements IParser, Serializable{
 	public void setNoiseAngle(int noiseAngle) {
 		this.noiseAngle = noiseAngle;
 		//TODO: brain.getSCIKinect2().setNoiseAngle(noiseAngle);
+	}
+
+	public String getGesture() {
+		return gesture;
+	}
+
+	public void setGesture(String gesture) {
+		this.gesture = gesture;
 	}
 
 }

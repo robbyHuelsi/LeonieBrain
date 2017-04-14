@@ -45,14 +45,13 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		}
 		private boolean tTSReady;
 		
-		public boolean getTTSReady() {
-			return tTSReady;
+		public void raiseTTSReady() {
+			tTSReady = true;
 		}
 		
-		public void setTTSReady(boolean value) {
-			this.tTSReady = value;
+		protected void clearEvents() {
+			tTSReady = false;
 		}
-		
 	}
 	
 	protected SCIHBrainImpl sCIHBrain;
@@ -65,26 +64,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 				SCIVBrainOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private long countFoundFaces;
-		
-		public long getCountFoundFaces() {
-			return countFoundFaces;
-		}
-		
-		public void setCountFoundFaces(long value) {
-			this.countFoundFaces = value;
-		}
-		
-		private boolean nessesaryToSavePersonList;
-		
-		public boolean getNessesaryToSavePersonList() {
-			return nessesaryToSavePersonList;
-		}
-		
-		public void setNessesaryToSavePersonList(boolean value) {
-			this.nessesaryToSavePersonList = value;
-		}
-		
 	}
 	
 	protected SCIVBrainImpl sCIVBrain;
@@ -119,36 +98,15 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 				SCIKinect2OperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private String gesture;
-		
-		public String getGesture() {
-			return gesture;
-		}
-		
-		public void setGesture(String value) {
-			this.gesture = value;
-		}
-		
 		private boolean noiseDetected;
 		
-		public boolean getNoiseDetected() {
-			return noiseDetected;
+		public void raiseNoiseDetected() {
+			noiseDetected = true;
 		}
 		
-		public void setNoiseDetected(boolean value) {
-			this.noiseDetected = value;
+		protected void clearEvents() {
+			noiseDetected = false;
 		}
-		
-		private long noiseAngle;
-		
-		public long getNoiseAngle() {
-			return noiseAngle;
-		}
-		
-		public void setNoiseAngle(long value) {
-			this.noiseAngle = value;
-		}
-		
 	}
 	
 	protected SCIKinect2Impl sCIKinect2;
@@ -163,44 +121,20 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		}
 		private boolean gestureDetected;
 		
-		public boolean getGestureDetected() {
-			return gestureDetected;
-		}
-		
-		public void setGestureDetected(boolean value) {
-			this.gestureDetected = value;
-		}
-		
-		private String gesture;
-		
-		public String getGesture() {
-			return gesture;
-		}
-		
-		public void setGesture(String value) {
-			this.gesture = value;
+		public void raiseGestureDetected() {
+			gestureDetected = true;
 		}
 		
 		private boolean stringFinished;
 		
-		public boolean getStringFinished() {
-			return stringFinished;
+		public void raiseStringFinished() {
+			stringFinished = true;
 		}
 		
-		public void setStringFinished(boolean value) {
-			this.stringFinished = value;
+		protected void clearEvents() {
+			gestureDetected = false;
+			stringFinished = false;
 		}
-		
-		private String detectedString;
-		
-		public String getDetectedString() {
-			return detectedString;
-		}
-		
-		public void setDetectedString(String value) {
-			this.detectedString = value;
-		}
-		
 	}
 	
 	protected SCILeapMotionImpl sCILeapMotion;
@@ -215,44 +149,34 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		}
 		private boolean emergencyStop;
 		
-		public boolean getEmergencyStop() {
-			return emergencyStop;
-		}
-		
-		public void setEmergencyStop(boolean value) {
-			this.emergencyStop = value;
+		public void raiseEmergencyStop() {
+			emergencyStop = true;
 		}
 		
 		private boolean bumpered;
 		
-		public boolean getBumpered() {
-			return bumpered;
-		}
-		
-		public void setBumpered(boolean value) {
-			this.bumpered = value;
+		public void raiseBumpered() {
+			bumpered = true;
 		}
 		
 		private boolean blocked;
 		
-		public boolean getBlocked() {
-			return blocked;
-		}
-		
-		public void setBlocked(boolean value) {
-			this.blocked = value;
+		public void raiseBlocked() {
+			blocked = true;
 		}
 		
 		private boolean arrivedWP;
 		
-		public boolean getArrivedWP() {
-			return arrivedWP;
+		public void raiseArrivedWP() {
+			arrivedWP = true;
 		}
 		
-		public void setArrivedWP(boolean value) {
-			this.arrivedWP = value;
+		protected void clearEvents() {
+			emergencyStop = false;
+			bumpered = false;
+			blocked = false;
+			arrivedWP = false;
 		}
-		
 	}
 	
 	protected SCIMiraImpl sCIMira;
@@ -267,44 +191,20 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		}
 		private boolean sTTReady;
 		
-		public boolean getSTTReady() {
-			return sTTReady;
+		public void raiseSTTReady() {
+			sTTReady = true;
 		}
 		
-		public void setSTTReady(boolean value) {
-			this.sTTReady = value;
+		private boolean answerFound;
+		
+		public void raiseAnswerFound() {
+			answerFound = true;
 		}
 		
-		private String speakerMsg;
-		
-		public String getSpeakerMsg() {
-			return speakerMsg;
+		protected void clearEvents() {
+			sTTReady = false;
+			answerFound = false;
 		}
-		
-		public void setSpeakerMsg(String value) {
-			this.speakerMsg = value;
-		}
-		
-		private String filteredMsg;
-		
-		public String getFilteredMsg() {
-			return filteredMsg;
-		}
-		
-		public void setFilteredMsg(String value) {
-			this.filteredMsg = value;
-		}
-		
-		private String filterBubble;
-		
-		public String getFilterBubble() {
-			return filterBubble;
-		}
-		
-		public void setFilterBubble(String value) {
-			this.filterBubble = value;
-		}
-		
 	}
 	
 	protected SCISTTImpl sCISTT;
@@ -317,169 +217,33 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 				SCICurrPersonOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private long personID;
-		
-		public long getPersonID() {
-			return personID;
-		}
-		
-		public void setPersonID(long value) {
-			this.personID = value;
-		}
-		
-		private boolean known;
-		
-		public boolean getKnown() {
-			return known;
-		}
-		
-		public void setKnown(boolean value) {
-			this.known = value;
-		}
-		
-		private String firstname;
-		
-		public String getFirstname() {
-			return firstname;
-		}
-		
-		public void setFirstname(String value) {
-			this.firstname = value;
-		}
-		
-		private String lastname;
-		
-		public String getLastname() {
-			return lastname;
-		}
-		
-		public void setLastname(String value) {
-			this.lastname = value;
-		}
-		
-		private long estimatedAge;
-		
-		public long getEstimatedAge() {
-			return estimatedAge;
-		}
-		
-		public void setEstimatedAge(long value) {
-			this.estimatedAge = value;
-		}
-		
-		private long bdYear;
-		
-		public long getBdYear() {
-			return bdYear;
-		}
-		
-		public void setBdYear(long value) {
-			this.bdYear = value;
-		}
-		
-		private long bdMounth;
-		
-		public long getBdMounth() {
-			return bdMounth;
-		}
-		
-		public void setBdMounth(long value) {
-			this.bdMounth = value;
-		}
-		
-		private long bdDay;
-		
-		public long getBdDay() {
-			return bdDay;
-		}
-		
-		public void setBdDay(long value) {
-			this.bdDay = value;
-		}
-		
-		private boolean gender;
-		
-		public boolean getGender() {
-			return gender;
-		}
-		
-		public void setGender(boolean value) {
-			this.gender = value;
-		}
-		
-		private long ethnicity;
-		
-		public long getEthnicity() {
-			return ethnicity;
-		}
-		
-		public void setEthnicity(long value) {
-			this.ethnicity = value;
-		}
-		
-		private boolean glasses;
-		
-		public boolean getGlasses() {
-			return glasses;
-		}
-		
-		public void setGlasses(boolean value) {
-			this.glasses = value;
-		}
-		
-		private double attractiveness;
-		
-		public double getAttractiveness() {
-			return attractiveness;
-		}
-		
-		public void setAttractiveness(double value) {
-			this.attractiveness = value;
-		}
-		
-		private long currHeadgestures;
-		
-		public long getCurrHeadgestures() {
-			return currHeadgestures;
-		}
-		
-		public void setCurrHeadgestures(long value) {
-			this.currHeadgestures = value;
-		}
-		
-		private boolean currSpeaking;
-		
-		public boolean getCurrSpeaking() {
-			return currSpeaking;
-		}
-		
-		public void setCurrSpeaking(boolean value) {
-			this.currSpeaking = value;
-		}
-		
-		private long currEmotion;
-		
-		public long getCurrEmotion() {
-			return currEmotion;
-		}
-		
-		public void setCurrEmotion(long value) {
-			this.currEmotion = value;
-		}
-		
-		private double currDistance;
-		
-		public double getCurrDistance() {
-			return currDistance;
-		}
-		
-		public void setCurrDistance(double value) {
-			this.currDistance = value;
-		}
-		
 	}
 	
 	protected SCICurrPersonImpl sCICurrPerson;
+	
+	protected class SCICrowdDetectionImpl implements SCICrowdDetection {
+	
+		private SCICrowdDetectionOperationCallback operationCallback;
+		
+		public void setSCICrowdDetectionOperationCallback(
+				SCICrowdDetectionOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+	}
+	
+	protected SCICrowdDetectionImpl sCICrowdDetection;
+	
+	protected class SCIMicrophoneArrayImpl implements SCIMicrophoneArray {
+	
+		private SCIMicrophoneArrayOperationCallback operationCallback;
+		
+		public void setSCIMicrophoneArrayOperationCallback(
+				SCIMicrophoneArrayOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+	}
+	
+	protected SCIMicrophoneArrayImpl sCIMicrophoneArray;
 	
 	private boolean initialized = false;
 	
@@ -642,6 +406,16 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		return nameBuffer;
 	}
 	
+	private long questionCounter;
+	
+	protected void setQuestionCounter(long value) {
+		questionCounter = value;
+	}
+	
+	protected long getQuestionCounter() {
+		return questionCounter;
+	}
+	
 	public BragancaStatemachine() {
 		sCIBGF = new SCIBGFImpl();
 		sCIHBrain = new SCIHBrainImpl();
@@ -652,6 +426,8 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		sCIMira = new SCIMiraImpl();
 		sCISTT = new SCISTTImpl();
 		sCICurrPerson = new SCICurrPersonImpl();
+		sCICrowdDetection = new SCICrowdDetectionImpl();
+		sCIMicrophoneArray = new SCIMicrophoneArrayImpl();
 	}
 	
 	public void init() {
@@ -668,79 +444,13 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		sCIBGF.setRandNum(0);
 		
-		sCIHBrain.setTTSReady(false);
-		
-		sCIVBrain.setCountFoundFaces(0);
-		
-		sCIVBrain.setNessesaryToSavePersonList(false);
-		
 		sCIAttractiveness.setOld_attr(0.0);
-		
-		sCIKinect2.setGesture("");
-		
-		sCIKinect2.setNoiseDetected(false);
-		
-		sCIKinect2.setNoiseAngle(0);
-		
-		sCILeapMotion.setGestureDetected(false);
-		
-		sCILeapMotion.setGesture("");
-		
-		sCILeapMotion.setStringFinished(false);
-		
-		sCILeapMotion.setDetectedString("");
-		
-		sCIMira.setEmergencyStop(false);
-		
-		sCIMira.setBumpered(false);
-		
-		sCIMira.setBlocked(false);
-		
-		sCIMira.setArrivedWP(false);
-		
-		sCISTT.setSTTReady(false);
-		
-		sCISTT.setSpeakerMsg("");
-		
-		sCISTT.setFilteredMsg("");
-		
-		sCISTT.setFilterBubble("");
-		
-		sCICurrPerson.setPersonID(0);
-		
-		sCICurrPerson.setKnown(false);
-		
-		sCICurrPerson.setFirstname("");
-		
-		sCICurrPerson.setLastname("");
-		
-		sCICurrPerson.setEstimatedAge(0);
-		
-		sCICurrPerson.setBdYear(0);
-		
-		sCICurrPerson.setBdMounth(0);
-		
-		sCICurrPerson.setBdDay(0);
-		
-		sCICurrPerson.setGender(false);
-		
-		sCICurrPerson.setEthnicity(0);
-		
-		sCICurrPerson.setGlasses(false);
-		
-		sCICurrPerson.setAttractiveness(0.0);
-		
-		sCICurrPerson.setCurrHeadgestures(0);
-		
-		sCICurrPerson.setCurrSpeaking(false);
-		
-		sCICurrPerson.setCurrEmotion(0);
-		
-		sCICurrPerson.setCurrDistance(0.0);
 		
 		setCounter(0);
 		
 		setNameBuffer("");
+		
+		setQuestionCounter(0);
 	}
 	
 	public void enter() {
@@ -779,6 +489,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	* This method resets the incoming events (time events included).
 	*/
 	protected void clearEvents() {
+		sCIHBrain.clearEvents();
+		sCIKinect2.clearEvents();
+		sCILeapMotion.clearEvents();
+		sCIMira.clearEvents();
+		sCISTT.clearEvents();
 		for (int i=0; i<timeEvents.length; i++) {
 			timeEvents[i] = false;
 		}
@@ -1129,6 +844,14 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		return sCICurrPerson;
 	}
 	
+	public SCICrowdDetection getSCICrowdDetection() {
+		return sCICrowdDetection;
+	}
+	
+	public SCIMicrophoneArray getSCIMicrophoneArray() {
+		return sCIMicrophoneArray;
+	}
+	
 	private boolean check_main_mainStorry_tr0_tr0() {
 		return sCIMira.blocked==true;
 	}
@@ -1222,11 +945,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT_tr3_tr3() {
-		return (sCILeapMotion.gesture== null?"true" ==null :sCILeapMotion.gesture.equals("true"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"true" ==null :sCILeapMotion.operationCallback.getGesture().equals("true"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT_tr4_tr4() {
-		return (sCILeapMotion.gesture== null?"false" ==null :sCILeapMotion.gesture.equals("false"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"false" ==null :sCILeapMotion.operationCallback.getGesture().equals("false"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3_tr0_tr0() {
@@ -1342,11 +1065,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_StartSTT_tr3_tr3() {
-		return (sCILeapMotion.gesture== null?"true" ==null :sCILeapMotion.gesture.equals("true"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"true" ==null :sCILeapMotion.operationCallback.getGesture().equals("true"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_StartSTT_tr4_tr4() {
-		return (sCILeapMotion.gesture== null?"false" ==null :sCILeapMotion.gesture.equals("false"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"false" ==null :sCILeapMotion.operationCallback.getGesture().equals("false"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_Copy_1_STT3_tr0_tr0() {
@@ -1406,7 +1129,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_didnt_work_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_1_tr0_tr0() {
@@ -1414,27 +1137,27 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_2_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_3_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_5_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_6_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_waitForNewEmo_tr0_tr0() {
-		return sCICurrPerson.currEmotion!=-1;
+		return sCICurrPerson.operationCallback.getCurrEmotion()!=-1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_resetEmo_tr0_tr0() {
-		return sCICurrPerson.currEmotion!=-1;
+		return sCICurrPerson.operationCallback.getCurrEmotion()!=-1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_sadFace_tr0_tr0() {
@@ -1458,11 +1181,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT_tr3_tr3() {
-		return (sCILeapMotion.gesture== null?"true" ==null :sCILeapMotion.gesture.equals("true"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"true" ==null :sCILeapMotion.operationCallback.getGesture().equals("true"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT_tr4_tr4() {
-		return (sCILeapMotion.gesture== null?"false" ==null :sCILeapMotion.gesture.equals("false"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"false" ==null :sCILeapMotion.operationCallback.getGesture().equals("false"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_Copy_1_STT3_tr0_tr0() {
@@ -1478,7 +1201,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation_tr0_tr0() {
-		return sCICurrPerson.attractiveness!=-1;
+		return sCICurrPerson.operationCallback.getAttractiveness()!=-1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation_tr1_tr1() {
@@ -1486,27 +1209,27 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_ready_tr0_tr0() {
-		return sCICurrPerson.attractiveness>=0.1 && sCICurrPerson.glasses;
+		return sCICurrPerson.operationCallback.getAttractiveness()>=0.1 && sCICurrPerson.operationCallback.getGender();
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_ready_tr1_tr1() {
-		return sCICurrPerson.attractiveness>=0.1 && sCICurrPerson.glasses==false;
+		return sCICurrPerson.operationCallback.getAttractiveness()>=0.1 && sCICurrPerson.operationCallback.hasGlasses()==false;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_ready_tr2_tr2() {
-		return sCICurrPerson.attractiveness<0.1;
+		return sCICurrPerson.operationCallback.getAttractiveness()<0.1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_pretty_with_glasses_tr0_tr0() {
-		return sCIHBrain.tTSReady==true && sCICurrPerson.glasses==false;
+		return sCIHBrain.tTSReady==true && sCICurrPerson.operationCallback.getGender()==false;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_got_new_attr_tr0_tr0() {
-		return sCIAttractiveness.old_attr<sCICurrPerson.attractiveness;
+		return sCIAttractiveness.old_attr<sCICurrPerson.operationCallback.getAttractiveness();
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_got_new_attr_tr1_tr1() {
-		return sCIAttractiveness.old_attr>=sCICurrPerson.attractiveness;
+		return sCIAttractiveness.old_attr>=sCICurrPerson.operationCallback.getAttractiveness();
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_prettier_tr0_tr0() {
@@ -1526,7 +1249,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_get_new_attractiveness_tr0_tr0() {
-		return sCICurrPerson.attractiveness!=-1;
+		return sCICurrPerson.operationCallback.getAttractiveness()!=-1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_asking_unknown_tr0_tr0() {
@@ -1562,7 +1285,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_wait_for_cleaning_VBrain_buffer_tr0_tr0() {
-		return sCIVBrain.countFoundFaces>0;
+		return sCIVBrain.operationCallback.getCountFoundFaces()>0;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_Copy_1_exitSad_tr0_tr0() {
@@ -1606,11 +1329,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region_StartSTT_tr3_tr3() {
-		return (sCILeapMotion.gesture== null?"true" ==null :sCILeapMotion.gesture.equals("true"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"true" ==null :sCILeapMotion.operationCallback.getGesture().equals("true"));
 	}
 	
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region_StartSTT_tr4_tr4() {
-		return (sCILeapMotion.gesture== null?"false" ==null :sCILeapMotion.gesture.equals("false"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"false" ==null :sCILeapMotion.operationCallback.getGesture().equals("false"));
 	}
 	
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region_Copy_1_STT3_tr0_tr0() {
@@ -1718,7 +1441,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr1_tr1() {
-		return sCICurrPerson.known==true;
+		return sCICurrPerson.operationCallback.isKnown()==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr0_tr0() {
@@ -1726,7 +1449,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_1_tr0_tr0() {
-		return (sCICurrPerson.firstname== null?"" !=null : !sCICurrPerson.firstname.equals("")) && (sCICurrPerson.firstname== null?"null" !=null : !sCICurrPerson.firstname.equals("null"));
+		return (sCICurrPerson.operationCallback.getFirstname()== null?"" !=null : !sCICurrPerson.operationCallback.getFirstname().equals("")) && (sCICurrPerson.operationCallback.getFirstname()== null?"null" !=null : !sCICurrPerson.operationCallback.getFirstname().equals("null"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_1_tr1_tr1() {
@@ -1734,7 +1457,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_2_tr0_tr0() {
-		return sCICurrPerson.gender==true;
+		return sCICurrPerson.operationCallback.getGender()==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_2_tr1_tr1() {
@@ -1742,11 +1465,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_3_tr0_tr0() {
-		return sCICurrPerson.estimatedAge<=18;
+		return sCICurrPerson.operationCallback.getEstimatedAge()<=18;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_3_tr2_tr2() {
-		return sCICurrPerson.estimatedAge>=30;
+		return sCICurrPerson.operationCallback.getEstimatedAge()>=30;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_3_tr1_tr1() {
@@ -1754,11 +1477,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_4_tr0_tr0() {
-		return sCICurrPerson.estimatedAge<=18;
+		return sCICurrPerson.operationCallback.getEstimatedAge()<=18;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_4_tr1_tr1() {
-		return sCICurrPerson.estimatedAge>=30;
+		return sCICurrPerson.operationCallback.getEstimatedAge()>=30;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_4_tr2_tr2() {
@@ -1766,7 +1489,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName__choice_0_tr0_tr0() {
-		return (sCISTT.speakerMsg== null?"" ==null :sCISTT.speakerMsg.equals(""));
+		return (sCISTT.operationCallback.getSpeakerMsg()== null?"" ==null :sCISTT.operationCallback.getSpeakerMsg().equals(""));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName__choice_0_tr1_tr1() {
@@ -1782,11 +1505,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region__choice_1_tr0_tr0() {
-		return (sCISTT.filteredMsg== null?"yes" ==null :sCISTT.filteredMsg.equals("yes"));
+		return (sCISTT.operationCallback.getFilteredMsg()== null?"yes" ==null :sCISTT.operationCallback.getFilteredMsg().equals("yes"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region__choice_1_tr1_tr1() {
-		return (sCISTT.filteredMsg== null?"no" ==null :sCISTT.filteredMsg.equals("no"));
+		return (sCISTT.operationCallback.getFilteredMsg()== null?"no" ==null :sCISTT.operationCallback.getFilteredMsg().equals("no"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region__choice_1_tr2_tr2() {
@@ -1810,11 +1533,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region__choice_1_tr0_tr0() {
-		return (sCISTT.filteredMsg== null?"yes" ==null :sCISTT.filteredMsg.equals("yes"));
+		return (sCISTT.operationCallback.getFilteredMsg()== null?"yes" ==null :sCISTT.operationCallback.getFilteredMsg().equals("yes"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region__choice_1_tr1_tr1() {
-		return (sCISTT.filteredMsg== null?"no" ==null :sCISTT.filteredMsg.equals("no"));
+		return (sCISTT.operationCallback.getFilteredMsg()== null?"no" ==null :sCISTT.operationCallback.getFilteredMsg().equals("no"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region__choice_1_tr2_tr2() {
@@ -1822,23 +1545,23 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr1_tr1() {
-		return sCICurrPerson.currEmotion==1;
+		return sCICurrPerson.operationCallback.getCurrEmotion()==1;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr2_tr2() {
-		return sCICurrPerson.currEmotion==2;
+		return sCICurrPerson.operationCallback.getCurrEmotion()==2;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr3_tr3() {
-		return sCICurrPerson.currEmotion==3;
+		return sCICurrPerson.operationCallback.getCurrEmotion()==3;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr4_tr4() {
-		return sCICurrPerson.currEmotion==4;
+		return sCICurrPerson.operationCallback.getCurrEmotion()==4;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr5_tr5() {
-		return sCICurrPerson.currEmotion==5;
+		return sCICurrPerson.operationCallback.getCurrEmotion()==5;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_0_tr0_tr0() {
@@ -1846,7 +1569,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_1_tr1_tr1() {
-		return sCICurrPerson.currEmotion==4 || sCICurrPerson.currEmotion==5;
+		return sCICurrPerson.operationCallback.getCurrEmotion()==4 || sCICurrPerson.operationCallback.getCurrEmotion()==5;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region__choice_1_tr0_tr0() {
@@ -1894,11 +1617,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region__choice_1_tr0_tr0() {
-		return (sCISTT.filteredMsg== null?"yes" ==null :sCISTT.filteredMsg.equals("yes"));
+		return (sCISTT.operationCallback.getFilteredMsg()== null?"yes" ==null :sCISTT.operationCallback.getFilteredMsg().equals("yes"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region__choice_1_tr1_tr1() {
-		return (sCISTT.filteredMsg== null?"no" ==null :sCISTT.filteredMsg.equals("no"));
+		return (sCISTT.operationCallback.getFilteredMsg()== null?"no" ==null :sCISTT.operationCallback.getFilteredMsg().equals("no"));
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region__choice_1_tr2_tr2() {
@@ -1906,7 +1629,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_6_tr0_tr0() {
-		return sCICurrPerson.gender==true;
+		return sCICurrPerson.operationCallback.getGender()==true;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_6_tr1_tr1() {
@@ -1930,11 +1653,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region__choice_0_tr0_tr0() {
-		return (sCISTT.filteredMsg== null?"yes" ==null :sCISTT.filteredMsg.equals("yes"));
+		return (sCISTT.operationCallback.getFilteredMsg()== null?"yes" ==null :sCISTT.operationCallback.getFilteredMsg().equals("yes"));
 	}
 	
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region__choice_0_tr1_tr1() {
-		return (sCISTT.filteredMsg== null?"no" ==null :sCISTT.filteredMsg.equals("no"));
+		return true;
 	}
 	
 	private void effect_main_mainStorry_tr0() {
@@ -3020,19 +2743,12 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'exitNoise'. */
 	private void entryAction_main_mainStorry_inner_region_exitNoise() {
-		sCIHBrain.setTTSReady(false);
-		
 		sCIHBrain.operationCallback.sendTTS("[:-|]Oh, some noise behind me! I have to leave you. Bye!");
-	}
-	
-	/* Entry action for state 'FaceDataInterpretation'. */
-	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation() {
-		sCIKinect2.setNoiseDetected(false);
 	}
 	
 	/* Entry action for state 'PersonKnownWithName'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName() {
-		sCIHBrain.operationCallback.sendTTS3("Hey ", sCICurrPerson.firstname, ". [:-)] Nice to see you again!");
+		sCIHBrain.operationCallback.sendTTS3("Hey ", sCICurrPerson.operationCallback.getFirstname(), ". [:-)] Nice to see you again!");
 	}
 	
 	/* Entry action for state 'UnknownGirl'. */
@@ -3085,20 +2801,18 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		sCIVBrain.operationCallback.savePersonList();
 		
-		sCISTT.setSTTReady(false);
-		
 		sCISTT.operationCallback.sendSpeechDetectionOnOff(3);
 		
 		setNameBuffer("");
 		
-		sCISTT.setSpeakerMsg("");
+		sCISTT.operationCallback.resetSpeakerMsg();
 	}
 	
 	/* Entry action for state 'Answere_name _and_ask'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask() {
-		setNameBuffer(sCISTT.speakerMsg);
+		setNameBuffer(sCISTT.operationCallback.getSpeakerMsg());
 		
-		sCIHBrain.operationCallback.sendTTS3("If think your name is ", sCISTT.speakerMsg, ". Is that right?");
+		sCIHBrain.operationCallback.sendTTS3("If think your name is ", getNameBuffer(), ". Is that right?");
 	}
 	
 	/* Entry action for state 'STT3'. */
@@ -3114,7 +2828,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		sCIVBrain.operationCallback.savePersonList();
 		
-		sCIHBrain.operationCallback.sendTTS3("[:-)]Ok, ", sCICurrPerson.firstname, ", I will remember you!");
+		sCIHBrain.operationCallback.sendTTS3("[:-)]Ok, ", sCICurrPerson.operationCallback.getFirstname(), ", I will remember you!");
 	}
 	
 	/* Entry action for state 'Ask_for_Repeat'. */
@@ -3136,17 +2850,9 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT() {
 		timer.setTimer(this, 3, 5*1000, false);
 		
-		sCISTT.setSTTReady(false);
+		sCISTT.operationCallback.resetSpeakerMsg();
 		
-		sCISTT.setSpeakerMsg("");
-		
-		sCISTT.setFilteredMsg("");
-		
-		sCISTT.setSTTReady(false);
-		
-		sCILeapMotion.setGesture("");
-		
-		sCILeapMotion.setGestureDetected(false);
+		sCISTT.operationCallback.resetFilteredMsg();
 		
 		setCounter(counter+1);
 		
@@ -3184,9 +2890,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Prompt_2() {
 		sCIHBrain.operationCallback.sendTTS("[:-|]Do you want to know more about me?");
 		
-		sCIHBrain.setTTSReady(false);
-		
-		sCIBGF.operationCallback.newRandNum(30);
+		sCIBGF.setRandNum(sCIBGF.operationCallback.getRandNum(30));
 	}
 	
 	/* Entry action for state 'Prompt_1'. */
@@ -3198,16 +2902,12 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_1() {
 		timer.setTimer(this, 4, 1*1000, false);
 		
-		sCIHBrain.setTTSReady(false);
-		
 		sCIHBrain.operationCallback.sendTTS("It is nice meeting you. Till next time take care.");
 	}
 	
 	/* Entry action for state 'Farewell_2'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_2() {
 		timer.setTimer(this, 5, 1*1000, false);
-		
-		sCIHBrain.setTTSReady(false);
 		
 		sCIHBrain.operationCallback.sendTTS("We might not see each other again. which is sad. I like you human. I wish you all the best in your future undertakings. ");
 	}
@@ -3216,8 +2916,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_3() {
 		timer.setTimer(this, 6, 1*1000, false);
 		
-		sCIHBrain.setTTSReady(false);
-		
 		sCIHBrain.operationCallback.sendTTS("Happy to meet you dear human. But now, let me look for other one.");
 	}
 	
@@ -3225,14 +2923,12 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_4() {
 		timer.setTimer(this, 7, 1*1000, false);
 		
-		sCIHBrain.setTTSReady(false);
-		
 		sCIHBrain.operationCallback.sendTTS("Hope to see you again.");
 	}
 	
 	/* Entry action for state 'newRandNum'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_newRandNum() {
-		sCIBGF.operationCallback.newRandNum(20);
+		sCIBGF.setRandNum(sCIBGF.operationCallback.getRandNum(20));
 	}
 	
 	/* Entry action for state 'RandomTopic_3'. */
@@ -3242,7 +2938,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'Selection_2'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_2() {
-		sCIBGF.operationCallback.newRandNum(30);
+		sCIBGF.setRandNum(sCIBGF.operationCallback.getRandNum(30));
 	}
 	
 	/* Entry action for state 'AlternativeConv_1'. */
@@ -3254,17 +2950,9 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_StartSTT() {
 		timer.setTimer(this, 8, 5*1000, false);
 		
-		sCISTT.setSTTReady(false);
+		sCISTT.operationCallback.resetSpeakerMsg();
 		
-		sCISTT.setSpeakerMsg("");
-		
-		sCISTT.setFilteredMsg("");
-		
-		sCISTT.setSTTReady(false);
-		
-		sCILeapMotion.setGesture("");
-		
-		sCILeapMotion.setGestureDetected(false);
+		sCISTT.operationCallback.resetFilteredMsg();
 		
 		setCounter(counter+1);
 		
@@ -3337,14 +3025,14 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_initialise_jokes() {
 		sCIHBrain.operationCallback.sendTTS("Let me tell you a joke");
 		
-		sCIBGF.operationCallback.newRandNum(5);
+		sCIBGF.setRandNum(sCIBGF.operationCallback.getRandNum(5));
 	}
 	
 	/* Entry action for state 'joke_didnt_work'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_didnt_work() {
 		sCIHBrain.operationCallback.sendTTS("Oh that joke didnt work. [-.-]I will try an other one.[:-)]");
 		
-		sCIBGF.operationCallback.newRandNum(5);
+		sCIBGF.setRandNum(sCIBGF.operationCallback.getRandNum(5));
 	}
 	
 	/* Entry action for state 'tell_joke_1'. */
@@ -3374,12 +3062,12 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'waitForNewEmo'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_waitForNewEmo() {
-		sCICurrPerson.setCurrEmotion(-1);
+		sCICurrPerson.operationCallback.resetCurrEmotion();
 	}
 	
 	/* Entry action for state 'resetEmo'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_resetEmo() {
-		sCICurrPerson.setCurrEmotion(-1);
+		sCICurrPerson.operationCallback.resetCurrEmotion();
 	}
 	
 	/* Entry action for state 'sadFace'. */
@@ -3396,17 +3084,9 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT() {
 		timer.setTimer(this, 9, 5*1000, false);
 		
-		sCISTT.setSTTReady(false);
+		sCISTT.operationCallback.resetSpeakerMsg();
 		
-		sCISTT.setSpeakerMsg("");
-		
-		sCISTT.setFilteredMsg("");
-		
-		sCISTT.setSTTReady(false);
-		
-		sCILeapMotion.setGesture("");
-		
-		sCILeapMotion.setGestureDetected(false);
+		sCISTT.operationCallback.resetFilteredMsg();
 		
 		setCounter(counter+1);
 		
@@ -3429,8 +3109,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation() {
 		timer.setTimer(this, 10, 10*1000, false);
 		
-		sCIHBrain.setTTSReady(false);
-		
 		sCICurrPerson.operationCallback.setAttractiveness(-1);
 		
 		sCIAttractiveness.operationCallback.sendToAttr_estimate();
@@ -3440,12 +3118,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_pretty_with_glasses() {
 		sCIHBrain.operationCallback.sendTTS("You are pretty! I see you wear glasses. Let us see how pretty you are without glasses");
 		
-		sCIAttractiveness.setOld_attr(sCICurrPerson.attractiveness);
-	}
-	
-	/* Entry action for state 'got_new_attr'. */
-	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_got_new_attr() {
-		sCIHBrain.setTTSReady(false);
+		sCIAttractiveness.setOld_attr(sCICurrPerson.operationCallback.getAttractiveness());
 	}
 	
 	/* Entry action for state 'prettier'. */
@@ -3501,25 +3174,21 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region_newRandNum() {
 		timer.setTimer(this, 11, 1*1000, false);
 		
-		sCIBGF.operationCallback.newRandNum(20);
+		sCIBGF.setRandNum(sCIBGF.operationCallback.getRandNum(20));
 	}
 	
 	/* Entry action for state 'randNumEnd'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_randNumEnd() {
 		timer.setTimer(this, 12, 1*1000, false);
 		
-		sCIBGF.operationCallback.newRandNum(40);
+		sCIBGF.setRandNum(sCIBGF.operationCallback.getRandNum(40));
 	}
 	
 	/* Entry action for state 'AtWP01 - ACI'. */
 	private void entryAction_main_mainStorry_inner_region_AtWP01___ACI() {
-		sCIMira.setArrivedWP(false);
-		
-		sCIHBrain.setTTSReady(false);
-		
 		sCICurrPerson.operationCallback.resetCurrPerson();
 		
-		sCIVBrain.setCountFoundFaces(0);
+		sCIVBrain.operationCallback.resetCountFoundFaces();
 		
 		sCIHBrain.operationCallback.sendTTS("[:-|]Now, I am looking for a face in front of me.");
 		
@@ -3558,24 +3227,16 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_randTest() {
 		timer.setTimer(this, 14, 3*1000, false);
 		
-		sCIBGF.operationCallback.newRandNum(3);
+		sCIBGF.setRandNum(sCIBGF.operationCallback.getRandNum(3));
 		
 		sCIHBrain.operationCallback.sendTTS_num(sCIBGF.randNum);
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_AtWP03_FingerAlphabet__inner_region_StartSTT() {
-		sCISTT.setSTTReady(false);
+		sCISTT.operationCallback.resetSpeakerMsg();
 		
-		sCISTT.setSpeakerMsg("");
-		
-		sCISTT.setFilteredMsg("");
-		
-		sCISTT.setSTTReady(false);
-		
-		sCILeapMotion.setGesture("");
-		
-		sCILeapMotion.setGestureDetected(false);
+		sCISTT.operationCallback.resetFilteredMsg();
 		
 		setCounter(counter+1);
 		
@@ -3596,15 +3257,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] I am lost.! I will go back to where I started.");
 		
-		sCIMira.setBlocked(false);
-		
 		sCIMira.operationCallback.sendGoToGWP(0);
 	}
 	
 	/* Entry action for state 'GotToFirstStation'. */
 	private void entryAction_main_GotToFirstStation() {
-		sCIHBrain.setTTSReady(false);
-		
 		sCIBGF.setEventNum(sCIBGF.eventNum+1);
 		
 		sCIMira.operationCallback.sendGoToNextGWPForConf();
@@ -3626,17 +3283,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'GreetingsToVisitors'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_GreetingsToVisitors() {
-		sCIMira.setArrivedWP(false);
-		
-		sCIHBrain.setTTSReady(false);
-		
 		sCIHBrain.operationCallback.sendTTS("Okay, I have to introduce myself.[blush:true] but I’m so nervous [:-)]I’m a helpful Robot in your smart home. [blush:false]But the special thing is, that I try to interact like a real Person. Look at my breathing.");
 	}
 	
 	/* Entry action for state 'GreetingsToVisitors2'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_GreetingsToVisitors2() {
-		sCIHBrain.setTTSReady(false);
-		
 		sCIHBrain.operationCallback.sendTTS("[idle3:false] Or look at my eyes{60;0} when i move my head.{0;0} At first I look at the new position. After eye movement my head follows. {-60;0} While my head is moving, my eyes go back. {Person} [idle3:true]");
 	}
 	
@@ -3657,8 +3308,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'greeting3'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_greeting3() {
-		sCIHBrain.setTTSReady(false);
-		
 		sCIHBrain.operationCallback.sendTTS("[:-|]Besides my animated head I also have several sensors. On the front and the back I have laser sensors to localize myself. plan my way when moving and dynamic objects around me.");
 	}
 	
@@ -3669,8 +3318,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'greeting4'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_greeting4() {
-		sCIHBrain.setTTSReady(false);
-		
 		sCIHBrain.operationCallback.sendTTS("The most important sensor for me are my cameras. {-20;100}I have several cameras in order to see all humans around me {20;100} as well as to look very close at human faces and analyse them more precicely. {Person}[:-)]I can recognize people and analyse their faces. [:-/]{-30;-90}At least I try it. [:-]In addition I try to estimate the attractiveness and the emotion! [:-)] {Person}");
 	}
 	
@@ -3681,8 +3328,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'Copy_1_greeting3'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_greeting3() {
-		sCIHBrain.setTTSReady(false);
-		
 		sCIHBrain.operationCallback.sendTTS("{0;-150} In front of me is a Leap motion. {Person}This allows people to answer my questions also by giving me hand gestures.");
 	}
 	
@@ -3697,15 +3342,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'Copy_1_greeting4'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_Copy_1_greeting4() {
-		sCIHBrain.setTTSReady(false);
-		
 		sCIHBrain.operationCallback.sendTTS("Enough for the moment. [:-)] I want to talk to a real person in my kitchen now! [idle3:true]");
 	}
 	
 	/* Entry action for state 'greting5'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_greting5() {
-		sCIHBrain.setTTSReady(false);
-		
 		sCIHBrain.operationCallback.sendTTS("{-180;100}I have a kinect that I use as my ears. I can react on loud sounds behind me.{Person}");
 	}
 	
@@ -3729,8 +3370,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'endOfStory'. */
 	private void entryAction_main_endeGutallesGut_inner_region_endOfStory() {
-		sCIHBrain.setTTSReady(false);
-		
 		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
 		
 		sCIHBrain.operationCallback.sendTTS("Puuuh I met so many interesting people! [:-)]I was waiting so long for this moment. You know my friends were in a big hurry to prepare me for this. I had to learn so many things from them: finding humans, recognising them, understanding their language and facial expressions. I saw attractive ladies, with and without glasses. I also found new robotics friends coming from many countries around the world. I am so happy that we came here together! The team RT Lions will go on to make me more and more intelligent and collaborative. The future is close!");
@@ -3738,8 +3377,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'drive'. */
 	private void entryAction_main_endeGutallesGut_inner_region_drive() {
-		sCIMira.setArrivedWP(false);
-		
 		sCIMira.operationCallback.sendGoToGWP(0);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-D]");
@@ -3755,8 +3392,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		timer.setTimer(this, 24, 5*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
-		
-		sCIMira.setBumpered(false);
 	}
 	
 	/* Entry action for state 'resetFace'. */
@@ -3781,17 +3416,15 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		sCICurrPerson.operationCallback.resetCurrPerson();
 		
-		sCIVBrain.setCountFoundFaces(0);
+		sCIVBrain.operationCallback.resetCountFoundFaces();
 		
 		sCIAttractiveness.setOld_attr(0);
 		
-		sCISTT.setSTTReady(false);
+		sCISTT.operationCallback.resetSpeakerMsg();
 		
-		sCISTT.setSpeakerMsg("");
+		sCISTT.operationCallback.resetFilteredMsg();
 		
-		sCISTT.setFilteredMsg("");
-		
-		sCISTT.setFilterBubble("");
+		sCISTT.operationCallback.resetFilterBubble();
 	}
 	
 	/* Exit action for state 'wait for getting datas'. */
@@ -3845,11 +3478,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 		
 		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
-	}
-	
-	/* Exit action for state 'yesNo_fun'. */
-	private void exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun() {
-		sCIHBrain.setTTSReady(false);
 	}
 	
 	/* Exit action for state 'StartSTT'. */
@@ -3964,7 +3592,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* 'default' enter sequence for state FaceDataInterpretation */
 	private void enterSequence_main_mainStorry_inner_region_FaceDataInterpretation_default() {
-		entryAction_main_mainStorry_inner_region_FaceDataInterpretation();
 		enterSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_default();
 	}
 	
@@ -4463,7 +4090,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* 'default' enter sequence for state got_new_attr */
 	private void enterSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_got_new_attr_default() {
-		entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_got_new_attr();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_got_new_attr;
 	}
@@ -5294,7 +4920,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	/* Default exit sequence for state yesNo_fun */
 	private void exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun() {
 		exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region();
-		exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 	}
 	
 	/* Default exit sequence for state StartSTT */
@@ -5943,22 +5568,18 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_Copy_1_STT3:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_Copy_1_STT3();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_asking_repeat_YesNo:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_asking_repeat_YesNo();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_init:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_init();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation:
@@ -6384,22 +6005,18 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_Copy_1_STT3:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_Copy_1_STT3();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_asking_repeat_YesNo:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_asking_repeat_YesNo();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_init:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_init();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation:
@@ -6678,19 +6295,15 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_StartSTT();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_Copy_1_STT3:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_Copy_1_STT3();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_asking_repeat_YesNo:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_asking_repeat_YesNo();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_init:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_init();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_start_estimation();
@@ -8857,9 +8470,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		if (check_main_AtWP03_FingerAlphabet__inner_region__choice_0_tr0_tr0()) {
 			effect_main_AtWP03_FingerAlphabet__inner_region__choice_0_tr0();
 		} else {
-			if (check_main_AtWP03_FingerAlphabet__inner_region__choice_0_tr1_tr1()) {
-				effect_main_AtWP03_FingerAlphabet__inner_region__choice_0_tr1();
-			}
+			effect_main_AtWP03_FingerAlphabet__inner_region__choice_0_tr1();
 		}
 	}
 	

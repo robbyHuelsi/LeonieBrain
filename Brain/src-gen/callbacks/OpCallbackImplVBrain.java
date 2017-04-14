@@ -3,6 +3,8 @@ package callbacks;
 import communication.Communication;
 import main.Start;
 import modules.Modules;
+import modules.parser.STT;
+import modules.parser.VBrain;
 import vBrain.PersonList;
 
 public class OpCallbackImplVBrain implements
@@ -23,5 +25,17 @@ public class OpCallbackImplVBrain implements
 
 	public void savePersonList() {
 		personList.save();
+	}
+
+	public long getCountFoundFaces() {
+		return ((VBrain)modules.getParser("VBrain")).getCountFoundFaces();
+	}
+
+	public void resetCountFoundFaces() {
+		((VBrain)modules.getParser("VBrain")).setCountFoundFaces(0);
+	}
+
+	public boolean isNessesaryToSavePersonList() {
+		return ((VBrain)modules.getParser("VBrain")).isNessesaryToSavePersonList();
 	}
 }

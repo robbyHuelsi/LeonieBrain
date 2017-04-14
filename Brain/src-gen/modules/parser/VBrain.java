@@ -11,6 +11,7 @@ public class VBrain implements IParser, Serializable{
 	private Start start;
 	
 	private int countFoundFaces;
+	private boolean nessesaryToSavePersonList;
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
@@ -107,5 +108,13 @@ public class VBrain implements IParser, Serializable{
 		this.countFoundFaces = countFoundFaces;
 		
 		//TODO: brain.getSCIVBrain().setCountFoundFaces(1);
+	}
+
+	public boolean isNessesaryToSavePersonList() {
+		return nessesaryToSavePersonList;
+	}
+
+	public void setNessesaryToSavePersonList(boolean nessesaryToSavePersonList) {
+		this.nessesaryToSavePersonList = nessesaryToSavePersonList;
 	}	
 }
