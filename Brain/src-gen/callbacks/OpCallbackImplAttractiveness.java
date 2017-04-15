@@ -10,10 +10,6 @@ public class OpCallbackImplAttractiveness implements
 {
 
 	private Modules modules = Start.getModules();
-	
-	public void setOldAttr() {
-		// TODO Auto-generated method stub
-	}
 
 	 public void sendToAttr_estimate() {
 		 Communication.sendMessage("/home/leonie/ACI/org.png", modules.get("Attractiveness"));

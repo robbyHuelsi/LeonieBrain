@@ -38,40 +38,23 @@ public class Statemachine {
 			setTime.invoke(statemachine, new TimerService());
 			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public boolean setOperationCallbacks(){
-//		t.brain.getSCIBGF().setSCIBGFOperationCallback(new OpCallbackImplBGF());
-//		t.brain.getSCIVBrain().setSCIVBrainOperationCallback(new OpCallbackImplVBrain());
-//		t.brain.getSCIHBrain().setSCIHBrainOperationCallback(new OpCallbackImplHBrain());
-//		t.brain.getSCIAttractiveness().setSCIAttractivenessOperationCallback(new OpCallbackImplAttractiveness());
-//		t.brain.getSCIKinect2().setSCIKinect2OperationCallback(new OpCallbackImplKinect2());
-//		t.brain.getSCILeapMotion().setSCILeapMotionOperationCallback(new OpCallbackImplLeapMotion());
-//		t.brain.getSCIMira().setSCIMiraOperationCallback(new OpCallbackImplMira());
-//		t.brain.getSCISTT().setSCISTTOperationCallback(new OpCallbackImplSTT());
-//		t.brain.getSCICurrPerson().setSCICurrPersonOperationCallback(new OpCallbackImplCurrPerson());
-		
+	public boolean setOperationCallbacks(){		
 		if (this.statemachine != null) {
 
 			Vector<String> opCallbackImplNames = new Vector<String>();
@@ -95,31 +78,24 @@ public class Statemachine {
 					Method setSCIOperationCallback = sciClass.getDeclaredMethod("setSCI" + opCallbackImplName + "OperationCallback", new Class[]{sciOperationCallback});
 					setSCIOperationCallback.invoke(sci, opCallbackImplClass.newInstance());	
 				} catch (NoSuchMethodException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				} catch (SecurityException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				}
@@ -142,23 +118,18 @@ public class Statemachine {
 				return true;
 				
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			}
@@ -176,23 +147,18 @@ public class Statemachine {
 				return true;
 				
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			}
@@ -225,23 +191,18 @@ public class Statemachine {
 				return true;
 				
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			}
@@ -250,4 +211,5 @@ public class Statemachine {
 			return false;
 		}
 	}
+
 }

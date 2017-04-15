@@ -91,8 +91,6 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 	
 		public void sendToAttr_estimate();
 		
-		public void setOldAttr();
-		
 	}
 	
 	public SCIAttractiveness getSCIAttractiveness();

@@ -3,10 +3,8 @@ package communication;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import callbacks.OpCallbackImplBGF;
 import main.Start;
 import modules.parser.*;
-import vBrain.Person;
 import vBrain.PersonList;
 
 public class MessageParser {

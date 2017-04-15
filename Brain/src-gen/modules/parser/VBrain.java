@@ -10,6 +10,7 @@ public class VBrain implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
 	
+	// Parsed information
 	private int countFoundFaces;
 	private boolean nessesaryToSavePersonList;
 
@@ -30,16 +31,16 @@ public class VBrain implements IParser, Serializable{
 				if (personList.getPersonByFaceID(faceId) != null) {
 					// Person already exists
 					System.out.println("Person exists");
-					personList.setCurrPersonByFaceID(faceId);
+					personList.setCurrPersonByFaceID(faceId, start);
 					
 					personList.getCurrPerson().setGlasses((attributePartsVBS[4].contains("1")?true:false), start);
 				} else {
 
 					Person p = new Person(personList.getUnusedPersonID(), start, dataStat);
 					//System.out.println(p.toString());
-					personList.addPerson(p);
+					personList.addPerson(p, start);
 					System.out.println("Person ID: " + p.getPersonID());
-					personList.setCurrPerson(p);
+					personList.setCurrPerson(p, start);
 				}
 			}else{
 				personList.getCurrPerson().setGlasses((attributePartsVBS[4].contains("1")?true:false), start);
@@ -106,8 +107,6 @@ public class VBrain implements IParser, Serializable{
 
 	public void setCountFoundFaces(int countFoundFaces) {
 		this.countFoundFaces = countFoundFaces;
-		
-		//TODO: brain.getSCIVBrain().setCountFoundFaces(1);
 	}
 
 	public boolean isNessesaryToSavePersonList() {
@@ -116,5 +115,12 @@ public class VBrain implements IParser, Serializable{
 
 	public void setNessesaryToSavePersonList(boolean nessesaryToSavePersonList) {
 		this.nessesaryToSavePersonList = nessesaryToSavePersonList;
+	}
+
+	public boolean removeParsedInformation() {
+		this.countFoundFaces = -1;
+		this.nessesaryToSavePersonList = false;
+		
+		return true;
 	}	
 }

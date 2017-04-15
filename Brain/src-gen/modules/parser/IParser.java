@@ -9,5 +9,5 @@ public interface IParser {
 
 	public boolean parse(String data, Start start);
 	
-	//TODO: Funktion, um alles zu löschen
+	public boolean removeParsedInformation();
 }

@@ -60,6 +60,10 @@ public class Start{
 	}
 	
 	public void runStatemachine(){
+		
+		//Remove all parsed informations in the modules
+		modules.removeParsedInformation();
+		
 		Statemachine sm = this.statemachine;
 		sm.initAndEnter();
 
@@ -71,7 +75,6 @@ public class Start{
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -84,6 +87,7 @@ public class Start{
 	public void setStatemachine(String statemachineName){
 		if (statemachineName != null) {
 			this.statemachine = new Statemachine(statemachineName); //Braganca, SpeechAndPersonRecognition, ...
+			//this.statemachine.re
 		}else{
 			this.statemachine = null;
 		}

@@ -8,9 +8,10 @@ import modules.Module;
 public class HBrain implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
+	
+	// Parsed information
 	private boolean TTSReady;
 
-	@Override
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		
@@ -37,6 +38,11 @@ public class HBrain implements IParser, Serializable{
 			//brain.getSCIHBrain().setTTSReady(false); //War auch vor dem Umbau auskommentiert
 			System.out.println("TSS jabbering");
 		}
+	}
+
+	public boolean removeParsedInformation() {
+		this.TTSReady = false;
+		return true;
 	}
 
 }

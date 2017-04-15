@@ -8,12 +8,13 @@ import modules.Module;
 public class Crowd implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
-	private int countTotal;
-	private int countFemale;
-	private int countMale;
-	private int countUnder21;
+	
+	// Parsed information
+	private int countTotal = -1;
+	private int countFemale = -1;
+	private int countMale = -1;
+	private int countUnder21 = -1;
 
-	@Override
 	public boolean parse(String data, Start start) {
 		/*	#sender#total#gender1;age1+gender2;age2+ etc. #
 			sendername: “crowd”
@@ -91,6 +92,15 @@ public class Crowd implements IParser, Serializable{
 
 	public void setCountUnder21(int countUnder21) {
 		this.countUnder21 = countUnder21;
+	}
+
+	public boolean removeParsedInformation() {
+		this.countTotal = -1;
+		this.countFemale = -1;
+		this.countMale = -1;
+		this.countUnder21 = -1;
+		
+		return true;
 	}
 
 }

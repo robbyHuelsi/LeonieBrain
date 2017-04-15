@@ -72,109 +72,174 @@ public class OpCallbackImplCurrPerson implements
 	}
 
 	public void resetCurrPerson() {
-		personList.setCurrPerson(null);
+		personList.setCurrPerson(null, Start.instanceOf());
 	}
 
 
-	@Override
 	public long getPersonID() {
-		return personList.getCurrPerson().getPersonID();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getPersonID();
+		}else{
+			System.err.println("No current person");
+			return -1;
+		}
 	}
 
 
-	@Override
 	public boolean isKnown() {
-		return personList.getCurrPerson().isKnown();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().isKnown();
+		}else{
+			System.err.println("No current person");
+			return false;
+		}
 	}
 
 
-	@Override
 	public String getFirstname() {
-		return personList.getCurrPerson().getFirstName();
-	}
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getFirstName();
+		}else{
+			System.err.println("No current person");
+			return "";
+		}
+	}	
 
 
-	@Override
 	public String getLastname() {
-		return personList.getCurrPerson().getLastName();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getLastName();
+		}else{
+			System.err.println("No current person");
+			return "";
+		}
 	}
 
 
-	@Override
 	public long getEstimatedAge() {
-		return personList.getCurrPerson().getEstimatedAge();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getEstimatedAge();
+		}else{
+			System.err.println("No current person");
+			return -1;
+		}
 	}
 
 
-	@Override
 	public long getBdYear() {
-		return personList.getCurrPerson().getBdYear();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getBdYear();
+		}else{
+			System.err.println("No current person");
+			return -1;
+		}
 	}
 
 
-	@Override
 	public long getBdMounth() {
-		return personList.getCurrPerson().getBdMonth();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getBdMonth();
+		}else{
+			System.err.println("No current person");
+			return -1;
+		}
 	}
 
 
-	@Override
 	public long getBdDay() {
-		return personList.getCurrPerson().getBdDay();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getBdDay();
+		}else{
+			System.err.println("No current person");
+			return -1;
+		}
 	}
 
 
-	@Override
 	public boolean getGender() {
-		return personList.getCurrPerson().getGender();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getGender();
+		}else{
+			System.err.println("No current person");
+			return false;
+		}
 	}
 
 
-	@Override
 	public long getEthnicity() {
-		return personList.getCurrPerson().getEthnicity();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getEthnicity();
+		}else{
+			System.err.println("No current person");
+			return -1;
+		}
 	}
 
 
-	@Override
 	public boolean hasGlasses() {
-		return personList.getCurrPerson().hasGlasses();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().hasGlasses();
+		}else{
+			System.err.println("No current person");
+			return false;
+		}
 	}
 
 
-	@Override
 	public double getAttractiveness() {
-		return personList.getCurrPerson().getAttractiveness();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getAttractiveness();
+		}else{
+			System.err.println("No current person");
+			return -1;
+		}
 	}
 
 
-	@Override
 	public long getCurrHeadgestures() {
-		return personList.getCurrPerson().getCurrDynData().getHeadgesture();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getCurrDynData().getHeadgesture();
+		}else{
+			System.err.println("No current person");
+			return -1;
+		}
 	}
 
 
-	@Override
 	public boolean isCurrSpeaking() {
-		return personList.getCurrPerson().getCurrDynData().isSpeaking();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getCurrDynData().isSpeaking();
+		}else{
+			System.err.println("No current person");
+			return false;
+		}
 	}
 
 
-	@Override
 	public long getCurrEmotion() {
-		return personList.getCurrPerson().getCurrDynData().getEmotion();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getCurrDynData().getEmotion();
+		}else{
+			System.err.println("No current person");
+			return -1;
+		}
 	}
 
 
-	@Override
 	public double getCurrDistance() {
-		return personList.getCurrPerson().getCurrDynData().getDistance();
+		if(personList.getCurrPerson() != null){
+			return personList.getCurrPerson().getCurrDynData().getDistance();
+		}else{
+			System.err.println("No current person");
+			return -1;
+		}
 	}
 
 
-	@Override
 	public void resetCurrEmotion() {
-		personList.getCurrPerson().getCurrDynData().setEmotion(-1, Start.instanceOf());
+		if(personList.getCurrPerson() != null){
+			personList.getCurrPerson().getCurrDynData().setEmotion(-1, Start.instanceOf());
+		}
 	}
 
 }

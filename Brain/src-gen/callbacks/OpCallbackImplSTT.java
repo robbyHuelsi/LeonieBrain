@@ -18,8 +18,10 @@ public class OpCallbackImplSTT implements
 		if(inOnOff != 0){
 			STT stt = (STT)Start.getModules().getParser("STT");
 			stt.setSTTReady(false);
-			//TODO: stt.setSpeakerMsg(""); //Brauchen wir das noch?
-			//TODO: stt.setFilteredMsg(""); //Brauchen wir das noch?
+			stt.setAnswerFound(false);
+			stt.setAnswerToGive("");
+			stt.setFilteredMsg("");
+			stt.setSpeakerMsg("");
 		}
 	}
 

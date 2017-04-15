@@ -48,7 +48,6 @@ public class OpCallbackImplMira implements
 		try {
 			Thread.sleep(820);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Communication.sendMessage("#NAV##ROTBODY#90#", modules.get("Mira"));
@@ -66,21 +65,18 @@ public class OpCallbackImplMira implements
 //		this.sendToHBrain_TTS("[idle2:" + (inOnOff?"true":"false") + "]");
 	}
 
-	@Override
 	public void sendTurnBody(long inAngle) {
-		// TODO Auto-generated method stub
+		// TODO implement sendTurnBody(long inAngle)
 		System.err.println("sendTurnBody() not implemented");
 	}
 
-	@Override
 	public void sendTurnHead(long inAngle) {
-		// TODO Auto-generated method stub
+		// TODO implement sendTurnHead(long inAngle)
 		System.err.println("sendTurnHead() not implemented");
 	}
 
-	@Override
 	public void sendGoToLC(long inX, long inY) {
-		// TODO Auto-generated method stub
+		// TODO implement sendGoToLC(long inX, long inY)
 		System.err.println("sendGoToLC() not implemented");
 	}
 

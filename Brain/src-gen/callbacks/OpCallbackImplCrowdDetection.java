@@ -7,7 +7,8 @@ public class OpCallbackImplCrowdDetection implements
 
 	@Override
 	public void detectionOnOff(boolean onOff) {
-		// TODO Auto-generated method stub
+		// TODO implement detectionOnOff(boolean onOff)
+		System.err.println("detectionOnOff(boolean onOff) not implemented");
 		
 	}
 

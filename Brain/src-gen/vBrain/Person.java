@@ -1,15 +1,7 @@
 package vBrain;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringJoiner;
 import java.util.Vector;
 
 import main.Start;
@@ -42,7 +34,6 @@ public class Person implements Serializable{
 		this.firstName = "";
 		this.lastName = "";
 		
-		
 	}
 	
 	public Person (int inPersonID, Start inStart, String attributeData){
@@ -50,18 +41,13 @@ public class Person implements Serializable{
 		
 		String[] attributeParts = attributeData.split(";");
 
-		this.setKnown(false, inStart);
-		this.setFaceId(Integer.parseInt(attributeParts[0]));
-//		person.setFirstName(attributeParts[2]);
-//		person.setLastName(attributeParts[3]);
-		this.setEstimatedAge(Integer.parseInt(attributeParts[1]), inStart);
-//		person.setBdYear();
-//		person.setBdMonth(Integer.parseInt(attributeParts[5]));
-//		person.setBdDay(Integer.parseInt(attributeParts[6]));
-		this.setGender(attributeParts[2].contains("1")?true:false, inStart);
-		this.setEthnicity(Integer.parseInt(attributeParts[3]), inStart);
-		this.setGlasses(attributeParts[4].contains("1")?true:false, inStart);
-		this.setAttractiveness(Double.parseDouble(attributeParts[5]), inStart);
+		this.known = false;
+		this.faceID = Integer.parseInt(attributeParts[0]);
+		this.estimatedAge = Integer.parseInt(attributeParts[1]);
+		this.gender = attributeParts[2].contains("1")?true:false;
+		this.ethnicity = Integer.parseInt(attributeParts[3]);
+		this.glasses = attributeParts[4].contains("1")?true:false;
+		this.attractiveness = Double.parseDouble(attributeParts[5]);
 		
 //		if(attributeParts.length >= 7 && attributeParts[6].contains("_")){
 //			String[] confOfIds = attributeParts[6].split("_");
@@ -83,10 +69,9 @@ public class Person implements Serializable{
 	}
 
 	public void setPersonID(int personID, Start inStart) {
-		this.personID = personID;
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setPersonID(personID);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.personID != personID){
+			this.personID = personID;
+			inStart.getPersonList().save();
 		}
 	}
 	
@@ -94,8 +79,11 @@ public class Person implements Serializable{
 		return this.faceID;
 	}
 	
-	public void setFaceId(int inFaceId){
-		this.faceID = inFaceId;
+	public void setFaceId(int inFaceId, Start inStart){
+		if(inStart != null && this.faceID != inFaceId){
+			this.faceID = inFaceId;
+			inStart.getPersonList().save();
+		}
 	}
 	
 	
@@ -104,11 +92,10 @@ public class Person implements Serializable{
 	}
 	
 	public void setKnown(boolean inKnown, Start inStart){
-		this.known = inKnown;
 		System.out.println("Person known = " + inKnown);
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setKnown(inKnown);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.known != inKnown){
+			this.known = inKnown;
+			inStart.getPersonList().save();
 		}
 	}
 
@@ -117,11 +104,10 @@ public class Person implements Serializable{
 	}
 
 	public void setFirstName(String firstName, Start inStart) {
-		this.firstName = firstName;
 		System.out.println("Person Firstname = " + firstName);
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setFirstname(firstName);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.firstName != firstName){
+			this.firstName = firstName;
+			inStart.getPersonList().save();
 		}
 	}
 
@@ -130,10 +116,9 @@ public class Person implements Serializable{
 	}
 
 	public void setLastName(String lastName, Start inStart) {
-		this.lastName = lastName;
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setLastname(lastName);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.lastName != lastName){
+			this.lastName = lastName;
+			inStart.getPersonList().save();
 		}
 	}
 	
@@ -142,10 +127,9 @@ public class Person implements Serializable{
 	}
 	
 	public void setEstimatedAge(int estimatedAge, Start inStart) {
-		this.estimatedAge = estimatedAge;
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setEstimatedAge(estimatedAge);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.estimatedAge != estimatedAge){
+			this.estimatedAge = estimatedAge;
+			inStart.getPersonList().save();
 		}
 	}
 
@@ -154,10 +138,9 @@ public class Person implements Serializable{
 	}
 	
 	public void setBdYear(int bdYear, Start inStart) {
-		this.bdYear = bdYear;
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setBdYear(bdYear);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.bdYear != bdYear){
+			this.bdYear = bdYear;
+			inStart.getPersonList().save();
 		}
 	}
 
@@ -166,16 +149,13 @@ public class Person implements Serializable{
 	}
 
 	public boolean setBdMonth(int bdMonth, Start inStart) {
-		if(bdMonth >= 1 && bdMonth <= 12){
-			this.bdMonth = bdMonth;
-			
-			if(inStart != null){
-				//TODO: inB.getSCICurrPerson().setBdMounth(bdMonth);
-				//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(bdMonth >= 1 && bdMonth <= 12){		
+			if(inStart != null && this.bdMonth != bdMonth){
+				this.bdMonth = bdMonth;
+				inStart.getPersonList().save();
 			}
 			return true;
 		}
-		
 		return false;
 	}
 
@@ -185,15 +165,12 @@ public class Person implements Serializable{
 
 	public boolean setBdDay(int bdDay, Start inStart) {
 		if(bdDay >= 1 && bdDay <= 31){
-			this.bdDay = bdDay;
-			
-			if(inStart != null){
-				//TODO: inB.getSCICurrPerson().setBdDay(bdDay);
-				//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+			if(inStart != null && this.bdDay != bdDay){
+				this.bdDay = bdDay;
+				inStart.getPersonList().save();
 			}
 			return true;
 		}
-		
 		return false;
 	}
 
@@ -202,11 +179,9 @@ public class Person implements Serializable{
 	}
 
 	public void setGender(boolean gender, Start inStart) {
-		this.gender = gender;
-		
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setGender(gender);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.gender != gender){
+			this.gender = gender;
+			inStart.getPersonList().save();
 		}
 	}
 
@@ -216,11 +191,9 @@ public class Person implements Serializable{
 
 	public boolean setEthnicity(int ethnicGroup, Start inStart) {
 		if(ethnicGroup >= 0 && ethnicGroup <= 2){		
-			this.ethnicity = ethnicGroup;
-			
-			if(inStart != null){
-				//TODO: inB.getSCICurrPerson().setEthnicity(ethnicGroup);
-				//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+			if(inStart != null && this.ethnicity != ethnicGroup){
+				this.ethnicity = ethnicGroup;
+				inStart.getPersonList().save();
 			}
 			return true;
 		}
@@ -233,11 +206,10 @@ public class Person implements Serializable{
 	}
 
 	public void setGlasses(boolean glasses, Start inStart) {
-		this.glasses = glasses;
 		System.out.println("Has glasses: " + (glasses?"yes":"no"));
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setGlasses(glasses);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.glasses != glasses){
+			this.glasses = glasses;
+			inStart.getPersonList().save();
 		}
 	}
 
@@ -246,11 +218,9 @@ public class Person implements Serializable{
 	}
 
 	public void setAttractiveness(double attractiveness, Start inStart) {
-		this.attractiveness = attractiveness;
-		
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setAttractiveness(attractiveness);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.attractiveness != attractiveness){
+			this.attractiveness = attractiveness;
+			inStart.getPersonList().save();
 		}
 	}
 	
@@ -282,12 +252,14 @@ public class Person implements Serializable{
 //		this.faces.put(inId, inC);
 //	}
 	
-	public void addDynData(PersonDynData inDD){
+	public void addDynData(PersonDynData inDD, Start inStart){
 		this.dynData.add(inDD);
+		inStart.getPersonList().save();
 	}
 	
 	public void addDynData(String dataString, Start inStart){
-		this.dynData.add(new PersonDynData(dataString, inStart));
+		this.dynData.add(new PersonDynData(dataString));
+		inStart.getPersonList().save();
 	}
 	
 	public PersonDynData getCurrDynData(){
@@ -295,7 +267,6 @@ public class Person implements Serializable{
 		return this.dynData.lastElement();
 	}
 
-	@Override
 	public String toString() {
 		return "Person [personID=" + personID + ",\n faceID=" + faceID + ",\n known=" + known
 				+ ",\n firstName= " + firstName + " ,\n lastName=" + lastName + ",\n estimatedAge=" + estimatedAge + ",\n bdYear="

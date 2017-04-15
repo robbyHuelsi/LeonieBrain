@@ -7,14 +7,14 @@ public class OpCallbackImplMicrophoneArray implements
 
 	@Override
 	public long getNoiseAngle() {
-		// TODO Auto-generated method stub
+		// TODO implement getNoiseAngle()
 		System.err.println("getNoiseAngle() not implemented");
 		return 0;
 	}
 
 	@Override
 	public void detectionOnOff(boolean onOff) {
-		// TODO Auto-generated method stub
+		// TODO implement detectionOnOff(boolean onOff)
 		System.err.println("detectionOnOff(boolean onOff) not implemented");
 	}
 

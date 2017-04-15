@@ -95,9 +95,7 @@ public class Modules {
 		}
 		return false;
 	}
-	
-
-	
+		
 	public Module get(String name){
 		for (Module module : modules) {
 			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
@@ -140,6 +138,13 @@ public class Modules {
 	
 	public void removeAll(){
 		modules.removeAllElements();
+	}
+	
+	public void removeParsedInformation(){
+		for (Module module : modules) {
+			//TODO: implement ((IParser) module.getParser()).removeParsedInformation();
+			System.err.println("removeParsedInformation() not implemented");
+		}
 	}
 	
 	public boolean setIpAndPortOldSchool(){

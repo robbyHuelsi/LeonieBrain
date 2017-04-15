@@ -10,11 +10,11 @@ public class STT implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
 	
+	// Parsed information
 	private String speakerMsg;
 	private String filterBubble;
 	private String filteredMsg;
 	private String answerToGive;
-	
 	private boolean STTReady;
 	private boolean answerFound;
 
@@ -103,6 +103,17 @@ public class STT implements IParser, Serializable{
 		if (answerFound) {
 			start.getStatemachine().raiseEventOfSCI("STT","answerFound");
 		}
+	}
+
+	public boolean removeParsedInformation() {
+		this.speakerMsg = "";
+		this.filterBubble = "";
+		this.filteredMsg = "";
+		this.answerToGive = "";
+		this.STTReady = false;
+		this.answerFound = false;
+		
+		return true;
 	}
 
 }

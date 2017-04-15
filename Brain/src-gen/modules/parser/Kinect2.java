@@ -9,11 +9,11 @@ public class Kinect2 implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
 	
+	// Parsed information
 	private boolean noiseDetected;
 	private int noiseAngle;
 	private String gesture;
 
-	@Override
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		// #NOISEDETECTION#1;30;32# [0]: (bool)found [1]:
@@ -49,7 +49,6 @@ public class Kinect2 implements IParser, Serializable{
 
 	public void setNoiseAngle(int noiseAngle) {
 		this.noiseAngle = noiseAngle;
-		//TODO: brain.getSCIKinect2().setNoiseAngle(noiseAngle);
 	}
 
 	public String getGesture() {
@@ -58,6 +57,13 @@ public class Kinect2 implements IParser, Serializable{
 
 	public void setGesture(String gesture) {
 		this.gesture = gesture;
+	}
+
+	public boolean removeParsedInformation() {
+		this.noiseDetected = false;
+		this.noiseAngle = -1;
+		this.gesture = "";
+		return true;
 	}
 
 }

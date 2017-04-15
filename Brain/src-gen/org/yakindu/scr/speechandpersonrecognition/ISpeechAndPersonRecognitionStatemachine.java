@@ -91,8 +91,6 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 		public void sendToAttr_estimate();
 		
-		public void setOldAttr();
-		
 	}
 	
 	public SCIAttractiveness getSCIAttractiveness();

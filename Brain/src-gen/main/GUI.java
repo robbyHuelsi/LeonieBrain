@@ -50,8 +50,9 @@ public class GUI extends JFrame{
 					
 					comboStatemachines.setEnabled(false);
 					//buttonStart.setEnabled(false);
-					buttonStart.setName("Stop");
+					buttonStart.setText("Stop");
 					buttonStart.setForeground(new Color(255, 0, 0));
+					//buttonStart.updateUI();
 					
 					start.runStatemachine();
 				}else{
@@ -59,8 +60,9 @@ public class GUI extends JFrame{
 					
 					comboStatemachines.setEnabled(true);
 					//buttonStart.setEnabled(true);
-					buttonStart.setName("Start");
+					buttonStart.setText("Start");
 					buttonStart.setForeground(new Color(0, 255, 0));
+					//buttonStart.updateUI();
 				}
 				
 			}

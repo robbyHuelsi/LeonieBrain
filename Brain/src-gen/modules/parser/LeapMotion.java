@@ -8,6 +8,8 @@ import modules.Module;
 public class LeapMotion implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
+	
+	// Parsed information
 	private boolean gestureDetected;
 	private boolean stringFinished;
 	private String gesture;
@@ -71,7 +73,6 @@ public class LeapMotion implements IParser, Serializable{
 
 	public void setGesture(String gesture) {
 		this.gesture = gesture;
-		//TODO: brain.getSCILeapMotion().setGesture(gesture);
 	}
 
 	public String getGesturedString() {
@@ -80,7 +81,15 @@ public class LeapMotion implements IParser, Serializable{
 
 	public void setGesturedString(String gesturedString) {
 		this.gesturedString = gesturedString;
-		//TODO: brain.getSCILeapMotion().setDetectedString(gesturedString);
+	}
+
+	public boolean removeParsedInformation() {
+		this.gestureDetected = false;
+		this.stringFinished = false;
+		this.gesture = "";
+		this.gesturedString = "";
+		
+		return true;
 	}
 
 

@@ -12,6 +12,7 @@ public class Mira implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
 	
+	// Parsed information
 	private boolean emergencyStop;
 	private boolean arrivedWP;
 	private boolean blocked;
@@ -100,7 +101,18 @@ public class Mira implements IParser, Serializable{
 
 	public void setEventNumber(int eventNumber) {
 		this.eventNumber = eventNumber;
-		//TODO brain.getSCIMira().setEventNum(eventNumber);
+	}
+
+
+
+	public boolean removeParsedInformation() {
+		this.emergencyStop = false;
+		this.arrivedWP = false;
+		this.blocked = false;
+		this.bumpered = false;
+		this.eventNumber = -1;
+		
+		return true;
 	}
 
 

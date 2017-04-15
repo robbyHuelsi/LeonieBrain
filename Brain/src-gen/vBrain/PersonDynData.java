@@ -20,24 +20,23 @@ public class PersonDynData implements Serializable {
 		this.dateAdded = Calendar.getInstance().getTime();
 	}
 	
-	public PersonDynData(int inHeadgesture, boolean inSpeaking, int inEmotions, float inDistance, Start inStart){
+	public PersonDynData(int inHeadgesture, boolean inSpeaking, int inEmotion, float inDistance){
 		this();
 		
-		this.setHeadgesture(inHeadgesture, inStart);
-		this.setSpeaking(inSpeaking, inStart);
-		this.setEmotion(inEmotions, inStart);
-		this.setDistance(inDistance, inStart);
+		this.headgesture = inHeadgesture;
+		this.speaking = inSpeaking;
+		this.emotion = inEmotion;
+		this.distance = inDistance;
 	}
 	
-	public PersonDynData(String attributeData, Start inStart){
+	public PersonDynData(String attributeData){
 		this();
 		
 		String[] attributeParts = attributeData.split(";");
-		this.setHeadgesture(Integer.parseInt(attributeParts[2]), inStart);
-		this.setSpeaking(Boolean.valueOf(attributeParts[3]), inStart);
-		this.setEmotion(Integer.parseInt(attributeParts[4]), inStart);
-		this.setDistance(Float.parseFloat(attributeParts[5]), inStart);
-		
+		this.headgesture = Integer.parseInt(attributeParts[2]);
+		this.speaking = Boolean.valueOf(attributeParts[3]);
+		this.emotion = Integer.parseInt(attributeParts[4]);
+		this.distance = Float.parseFloat(attributeParts[5]);
 	}
 	 
 
@@ -46,11 +45,9 @@ public class PersonDynData implements Serializable {
 	}
 
 	public void setHeadgesture(int headgesture, Start inStart) {
-		this.headgesture = headgesture;
-		
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setCurrHeadgestures(headgesture);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.headgesture != headgesture){
+			this.headgesture = headgesture;
+			inStart.getPersonList().save();
 		}
 	}
 
@@ -59,11 +56,9 @@ public class PersonDynData implements Serializable {
 	}
 
 	public void setSpeaking(boolean speaking, Start inStart) {
-		this.speaking = speaking;
-		
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setCurrSpeaking(speaking);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.speaking != speaking){
+			this.speaking = speaking;
+			inStart.getPersonList().save();
 		}
 	}
 
@@ -72,12 +67,10 @@ public class PersonDynData implements Serializable {
 	}
 
 	public void setEmotion(int emotion, Start inStart) {
-		this.emotion = emotion;
-		
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setCurrEmotion(emotion);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
-			System.out.println("Emotion set");
+		System.out.println("Emotion set");
+		if(inStart != null && this.emotion != emotion){
+			this.emotion = emotion;
+			inStart.getPersonList().save();
 		}
 		
 	}
@@ -87,11 +80,9 @@ public class PersonDynData implements Serializable {
 	}
 
 	public void setDistance(float distance, Start inStart) {
-		this.distance = distance;
-		
-		if(inStart != null){
-			//TODO: inB.getSCICurrPerson().setCurrDistance(distance);
-			//TODO: inB.getSCIVBrain().setNessesaryToSavePersonList(true);
+		if(inStart != null && this.distance != distance){
+			this.distance = distance;
+			inStart.getPersonList().save();
 		}
 	}
 
