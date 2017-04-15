@@ -37,7 +37,10 @@ public class Kinect2 implements IParser, Serializable{
 
 	public void setNoiseDetected(boolean noiseDetected) {
 		this.noiseDetected = noiseDetected;
-		//TODO: brain.getSCIKinect2().setNoiseDetected(noiseDetected);
+		
+		if (noiseDetected) {
+			start.getStatemachine().raiseEventOfSCI("Kinect2","noiseDetected");
+		}
 	}
 
 	public int getNoiseAngle() {

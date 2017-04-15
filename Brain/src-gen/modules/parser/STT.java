@@ -16,6 +16,7 @@ public class STT implements IParser, Serializable{
 	private String answerToGive;
 	
 	private boolean STTReady;
+	private boolean answerFound;
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
@@ -86,7 +87,22 @@ public class STT implements IParser, Serializable{
 
 	public void setSTTReady(boolean sTTReady) {
 		STTReady = sTTReady;
-		//TODO: brain.getSCISTT().setSTTReady(sTTReady);
+		
+		if (sTTReady) {
+			start.getStatemachine().raiseEventOfSCI("STT","STTReady");
+		}
+	}
+
+	public boolean isAnswerFound() {
+		return answerFound;
+	}
+
+	public void setAnswerFound(boolean answerFound) {
+		this.answerFound = answerFound;
+		
+		if (answerFound) {
+			start.getStatemachine().raiseEventOfSCI("STT","answerFound");
+		}
 	}
 
 }

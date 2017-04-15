@@ -853,7 +853,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_tr0_tr0() {
-		return sCIMira.blocked==true;
+		return sCIMira.blocked;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_exitSad_tr0_tr0() {
@@ -861,43 +861,43 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_exitNoise_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_tr1_tr1() {
-		return sCIKinect2.noiseDetected==true && sCIBGF.eventNum==2;
+		return sCIKinect2.noiseDetected && sCIBGF.eventNum==2;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownGirl_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithoutName_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownFemaleTeen_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownWomen_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownBoy_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownMaleTeen_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_UnknownMen_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_wait_for_getting_datas_tr0_tr0() {
@@ -909,11 +909,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3_tr0_tr0() {
-		return sCISTT.sTTReady==true;
+		return sCISTT.sTTReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname_tr0_tr0() {
@@ -921,11 +921,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye_tr0_tr0() {
@@ -953,35 +953,35 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3_tr0_tr0() {
-		return sCISTT.sTTReady==true;
+		return sCISTT.sTTReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_2_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_1_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_2_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Prompt_2_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Prompt_1_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Farewell_1_tr0_tr0() {
@@ -1021,7 +1021,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_RandomTopic_3_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_2_tr0_tr0() {
@@ -1037,7 +1037,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AlternativeConv_1_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Selection_3_tr0_tr0() {
@@ -1073,11 +1073,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_Copy_1_STT3_tr0_tr0() {
-		return sCISTT.sTTReady==true;
+		return sCISTT.sTTReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_asking_repeat_YesNo_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_YesNo_MoreInfo_inner_region_init_tr0_tr0() {
@@ -1085,39 +1085,39 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_3_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Closing_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_neutral_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_happy_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_sad_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_laughing_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_surprised_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_angry_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_0_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_worked_tr0_tr0() {
@@ -1125,7 +1125,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_initialise_jokes_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_joke_didnt_work_tr0_tr0() {
@@ -1133,7 +1133,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_1_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Composite_Emotion_Interpretation_inner_region_tell_joke_2_tr0_tr0() {
@@ -1161,7 +1161,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_sadFace_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_init_face_tr0_tr0() {
@@ -1189,11 +1189,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_Copy_1_STT3_tr0_tr0() {
-		return sCISTT.sTTReady==true;
+		return sCISTT.sTTReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_asking_repeat_YesNo_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNo_fun_inner_region_init_tr0_tr0() {
@@ -1233,19 +1233,19 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_prettier_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_not_prettier_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_pretty_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_not_pretty_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_attractiveness_Attractivity_Dialog_get_new_attractiveness_tr0_tr0() {
@@ -1253,23 +1253,23 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_asking_unknown_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_yesNoCancelFunNo_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_exitCancelAnswer_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_waitingForSpeaking_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region_AfterGettingName_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AfterGettingName_inner_region_newRandNum_tr0_tr0() {
@@ -1281,7 +1281,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_AtWP01___ACI_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_wait_for_cleaning_VBrain_buffer_tr0_tr0() {
@@ -1293,7 +1293,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_wait_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_Init_tr0_tr0() {
@@ -1309,7 +1309,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_Init_tr3_tr3() {
-		return sCIMira.arrivedWP==true;
+		return sCIMira.arrivedWP;
 	}
 	
 	private boolean check_main_randTest_tr0_tr0() {
@@ -1337,15 +1337,15 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_AtWP03_FingerAlphabet__inner_region_Copy_1_STT3_tr0_tr0() {
-		return sCISTT.sTTReady==true;
+		return sCISTT.sTTReady;
 	}
 	
 	private boolean check_main_Interrupt_Normal_Process_tr0_tr0() {
-		return sCIMira.arrivedWP==true;
+		return sCIMira.arrivedWP;
 	}
 	
 	private boolean check_main_GotToFirstStation_tr0_tr0() {
-		return sCIMira.arrivedWP==true;
+		return sCIMira.arrivedWP;
 	}
 	
 	private boolean check_main_yes_tr0_tr0() {
@@ -1357,11 +1357,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_GreetingsToVisitors_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_GreetingsToVisitors2_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_wait1_tr0_tr0() {
@@ -1369,7 +1369,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_Greeting1_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_wait3_tr0_tr0() {
@@ -1377,7 +1377,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_greeting3_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_wait4_tr0_tr0() {
@@ -1385,7 +1385,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_greeting4_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_wait3_tr0_tr0() {
@@ -1393,7 +1393,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_greeting3_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_wait4_tr0_tr0() {
@@ -1401,11 +1401,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_Copy_1_greeting4_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_greting5_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_turnBack_tr0_tr0() {
@@ -1417,11 +1417,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_endeGutallesGut_inner_region_endOfStory_tr0_tr0() {
-		return sCIHBrain.tTSReady==true;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_endeGutallesGut_inner_region_drive_tr0_tr0() {
-		return sCIMira.arrivedWP==true;
+		return sCIMira.arrivedWP;
 	}
 	
 	private boolean check_main_wait_tr0_tr0() {
@@ -1429,7 +1429,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_init_tr0_tr0() {
-		return sCIMira.bumpered==true;
+		return sCIMira.bumpered;
 	}
 	
 	private boolean check_Leonie_Bupered_sayAutsch_tr0_tr0() {

@@ -47,7 +47,10 @@ public class LeapMotion implements IParser, Serializable{
 
 	public void setGestureDetected(boolean gestureDetected) {
 		this.gestureDetected = gestureDetected;
-		//TODO: brain.getSCILeapMotion().setGestureDetected(gestureDetected);
+		
+		if (gestureDetected) {
+			start.getStatemachine().raiseEventOfSCI("LeapMotion","gestureDetected");
+		}
 	}
 
 	public boolean isStringFinished() {
@@ -56,7 +59,10 @@ public class LeapMotion implements IParser, Serializable{
 
 	public void setStringFinished(boolean stringFinished) {
 		this.stringFinished = stringFinished;
-		//TODO: brain.getSCILeapMotion().setStringFinished(stringFinished);
+		
+		if (stringFinished) {
+			start.getStatemachine().raiseEventOfSCI("LeapMotion","stringFinished");
+		}
 	}
 
 	public String getGesture() {

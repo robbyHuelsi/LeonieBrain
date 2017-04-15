@@ -12,6 +12,7 @@ public class Mira implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
 	
+	private boolean emergencyStop;
 	private boolean arrivedWP;
 	private boolean blocked;
 	private boolean bumpered;
@@ -29,10 +30,31 @@ public class Mira implements IParser, Serializable{
 			this.setBlocked(true);
 		} else if (data.contains("#BUMPERED#1")) {
 			this.setBumpered(true);
+		}else{
+			System.err.println("emergencyStop not implemented");
 		}
 
 		return true;
 	}
+	
+	
+
+	public boolean isEmergencyStop() {
+		return emergencyStop;
+	}
+
+
+
+	public void setEmergencyStop(boolean emergencyStop) {
+		this.emergencyStop = emergencyStop;
+		
+		if (emergencyStop) {
+			System.out.println("Emergency Stop");
+			start.getStatemachine().raiseEventOfSCI("Mira","emergencyStop");
+		}
+	}
+
+
 
 	public boolean isArrivedWP() {
 		return arrivedWP;
@@ -40,16 +62,9 @@ public class Mira implements IParser, Serializable{
 
 	public void setArrivedWP(boolean arrivedWP) {
 		this.arrivedWP = arrivedWP;
-		//TODO brain.getSCIMira().setArrivedWP(arrivedWP);
 		if (arrivedWP) {
 			System.out.println("Arrived at next waypoint: ");
-			try {
-				start.getStatemachine().raiseEventOfSCI("Mira","arrivedWP");
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-			
+			start.getStatemachine().raiseEventOfSCI("Mira","arrivedWP");
 		}
 	}
 
@@ -59,9 +74,10 @@ public class Mira implements IParser, Serializable{
 
 	public void setBlocked(boolean blocked) {
 		this.blocked = blocked;
-		//TODO brain.getSCIMira().setBlocked(blocked);
+
 		if (blocked) {
 			System.out.println("No way found");
+			start.getStatemachine().raiseEventOfSCI("Mira","blocked");
 		}
 	}
 
@@ -71,9 +87,10 @@ public class Mira implements IParser, Serializable{
 
 	public void setBumpered(boolean bumpered) {
 		this.bumpered = bumpered;
-		//TODO brain.getSCIMira().setBumpered(bumpered);
+
 		if (bumpered) {
 			System.out.println("Leonie was bumperd");
+			start.getStatemachine().raiseEventOfSCI("Mira","bumpered");
 		}	
 	}
 
