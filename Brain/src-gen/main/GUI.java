@@ -54,7 +54,7 @@ public class GUI extends JFrame{
 					buttonStart.setForeground(new Color(255, 0, 0));
 					//buttonStart.updateUI();
 					
-					start.runStatemachine();
+					start.runStatemachine(start);
 				}else{
 					start.setStatemachine(null);
 					

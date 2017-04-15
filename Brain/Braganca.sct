@@ -482,8 +482,8 @@
       <vertices xsi:type="sgraph:State" xmi:id="_KGTtoPiqEeWcn8poFBqj7w" specification="entry / VBrain.sendACIOnOff(false);&#xD;&#xA;Kinect2.sendNoiseDetectionOnOff(false);&#xD;&#xA;LeapMotion.sendGestureDetectionOnOff(0);&#xD;&#xA;STT.sendSpeechDetectionOnOff(0);&#xD;&#xA;HBrain.sendTTS(&quot;[:-|][blush:false]{Person}&quot;);&#xD;&#xA;&#xD;&#xA;BGF.eventNum = 0;&#xD;&#xA;Mira.sendGoToGWP(0)&#xD;&#xA;//UdpInterface.sendToNav_searchOnOff(false)&#xD;&#xA;//UdpInterface.sendToNav_turnHead(&quot;10&quot;);&#xD;&#xA;//UdpInterface.sendToNav_turnHead(&quot;170&quot;)&#xD;&#xA;" name="Init" incomingTransitions="_GqRdQAyCEeaVIPg4Qi-3TQ">
         <outgoingTransitions xmi:id="_0g6A4A-yEeabk_5g1uV7Pw" specification="[1==0]//after 3s" target="_lHqmAA-yEeabk_5g1uV7Pw"/>
         <outgoingTransitions xmi:id="_KGTGkviqEeWcn8poFBqj7w" specification="[1==0]//always" target="_mpYFkBBQEeaqW4m3Sv85sA"/>
-        <outgoingTransitions xmi:id="_Zc96kBCQEeagy8wtBhlyLw" specification="[1==0]//Mira.arrivedWP" target="_LWkN0BREEeaRQcYso3gEKA"/>
-        <outgoingTransitions xmi:id="_fDKD4BSqEeanStXYSw01hw" specification="Mira.arrivedWP" target="_kmIHsBL-EeaWX5u3L5rRGA"/>
+        <outgoingTransitions xmi:id="_Zc96kBCQEeagy8wtBhlyLw" specification="Mira.arrivedWP" target="_LWkN0BREEeaRQcYso3gEKA"/>
+        <outgoingTransitions xmi:id="_fDKD4BSqEeanStXYSw01hw" specification="[1==0]//Mira.arrivedWP" target="_kmIHsBL-EeaWX5u3L5rRGA"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_lHqmAA-yEeabk_5g1uV7Pw" specification="entry / BGF.randNum = BGF.getRandNum(3);&#xD;&#xA;HBrain.sendTTS_num(BGF.randNum)" name="randTest" incomingTransitions="_0g6A4A-yEeabk_5g1uV7Pw _CzmqcA-zEeabk_5g1uV7Pw">
         <outgoingTransitions xmi:id="_CzmqcA-zEeabk_5g1uV7Pw" specification="after 3s" target="_lHqmAA-yEeabk_5g1uV7Pw"/>

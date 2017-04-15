@@ -59,10 +59,10 @@ public class Start{
 		return instance;
 	}
 	
-	public void runStatemachine(){
+	public void runStatemachine(Start inStart){
 		
 		//Remove all parsed informations in the modules
-		modules.removeParsedInformation();
+		inStart.modules.removeParsedInformation();
 		
 		Statemachine sm = this.statemachine;
 		sm.initAndEnter();

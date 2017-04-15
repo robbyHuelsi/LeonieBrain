@@ -1305,11 +1305,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_Init_tr2_tr2() {
-		return 1==0;
+		return sCIMira.arrivedWP;
 	}
 	
 	private boolean check_main_Init_tr3_tr3() {
-		return sCIMira.arrivedWP;
+		return 1==0;
 	}
 	
 	private boolean check_main_randTest_tr0_tr0() {

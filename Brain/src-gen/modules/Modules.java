@@ -142,8 +142,14 @@ public class Modules {
 	
 	public void removeParsedInformation(){
 		for (Module module : modules) {
-			//TODO: implement ((IParser) module.getParser()).removeParsedInformation();
-			System.err.println("removeParsedInformation() not implemented");
+			try {
+				if (module.getParser() != null) {
+					module.getParser().removeParsedInformation();
+					System.out.println("Parsed informations in module " + module.getName() + " removed");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
