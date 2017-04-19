@@ -11,107 +11,108 @@ public class STT implements IParser, Serializable{
 	private Start start;
 	
 	// Parsed information
-	private String speakerMsg;
-	private String filterBubble;
-	private String filteredMsg;
-	private String answerToGive;
-	private boolean STTReady;
-	private boolean answerFound;
+	private String text;
+	private String instruction;
+	private String object;
+
+	private boolean incomprehensible;
+	private boolean textReceived;
+	private boolean actionReceived;
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		
-		this.setSpeakerMsg(data);
 		
 		//TODO:  Muss überarbeitet werden:
 		
-//		String filterBubble = brain.getSCISTT().getFilterBubble();
-//		
-//		if(filterBubble == ""){
-//			if (data.contains("yes") || data.contains("yep") ||data.contains("ja") ||data.contains("si") ||data.contains("yeah") ||data.contains("correct") ||data.contains("ok") ||data.contains("alright")||data.contains("okay")){
-//				brain.getSCISTT().setFilteredMsg("yes");
-//			}
-//			
-//			if (data.contains("no") || data.contains("nope") ||data.contains("nein") ||data.contains("nada") ||data.contains("cancel") ||data.contains("nö")){
-//				brain.getSCISTT().setFilteredMsg("no");
-//			}
-//			
-//		}else{
-//			if (data.contains(filterBubble)){
-//				brain.getSCISTT().setFilteredMsg(data);
-//			}else{
-//				brain.getSCISTT().setFilteredMsg("");
-//			}
-//		}
-//		System.out.println("Filtered text: " + brain.getSCISTT().getFilteredMsg());
+		if (data.contains("TEXT#")) {
+			this.setText(data.substring(5));
+			this.setTextReceived(true);
+			
+		}else if(data.contains("RETRY#")){
+			this.setText(data.substring(6));
+			this.setIncomprehensible(true);
+			
+		}else if(data.contains("ACTION#")){
+			String[] t = data.substring(7).split(";");
+			this.setInstruction(t[0]);
+			this.setObject(t[1]);
+			this.setActionReceived(true);
+		}
 		
-		this.setSTTReady(true);
 		return true;
 	}
 
-	public String getSpeakerMsg() {
-		return speakerMsg;
+	public String getText() {
+		return text;
 	}
 
-	public void setSpeakerMsg(String speakerMsg) {
-		this.speakerMsg = speakerMsg;
+	public void setText(String speakerMsg) {
+		this.text = speakerMsg;
 	}
 
-	public String getFilterBubble() {
-		return filterBubble;
+	public String getInstruction() {
+		return instruction;
 	}
 
-	public void setFilterBubble(String filterBubble) {
-		this.filterBubble = filterBubble;
+	public void setInstruction(String instruction) {
+		this.instruction = instruction;
 	}
 
-	public String getFilteredMsg() {
-		return filteredMsg;
+	public String getObject() {
+		return object;
 	}
 
-	public void setFilteredMsg(String filteredMsg) {
-		this.filteredMsg = filteredMsg;
+	public void setObject(String object) {
+		this.object = object;
+	}
+	
+	
+	
+	
+	public boolean isTextReceived() {
+		return textReceived;
 	}
 
-	public String getAnswerToGive() {
-		return answerToGive;
-	}
-
-	public void setAnswerToGive(String answerToGive) {
-		this.answerToGive = answerToGive;
-	}
-
-	public boolean isSTTReady() {
-		return STTReady;
-	}
-
-	public void setSTTReady(boolean sTTReady) {
-		STTReady = sTTReady;
+	public void setTextReceived(boolean textReceived) {
+		this.textReceived = textReceived;
 		
-		if (sTTReady) {
-			start.getStatemachine().raiseEventOfSCI("STT","STTReady");
+		if (textReceived) {
+			start.getStatemachine().raiseEventOfSCI("STT","textReceived");
 		}
 	}
 
-	public boolean isAnswerFound() {
-		return answerFound;
+	public boolean isIncomprehensible() {
+		return incomprehensible;
 	}
 
-	public void setAnswerFound(boolean answerFound) {
-		this.answerFound = answerFound;
+	public void setIncomprehensible(boolean incomprehensible) {
+		this.incomprehensible = incomprehensible;
 		
-		if (answerFound) {
-			start.getStatemachine().raiseEventOfSCI("STT","answerFound");
+		if (incomprehensible) {
+			start.getStatemachine().raiseEventOfSCI("STT","incomprehensible");
+		}
+	}
+
+	public boolean isActionReceived() {
+		return actionReceived;
+	}
+
+	public void setActionReceived(boolean actionReceived) {
+		this.actionReceived = actionReceived;
+		
+		if (actionReceived) {
+			start.getStatemachine().raiseEventOfSCI("STT","actionReceived");
 		}
 	}
 
 	public boolean removeParsedInformation() {
-		this.speakerMsg = "";
-		this.filterBubble = "";
-		this.filteredMsg = "";
-		this.answerToGive = "";
-		this.STTReady = false;
-		this.answerFound = false;
+		this.text = "";
+		this.instruction = "";
+		this.object = "";
+		this.incomprehensible = false;
+		this.textReceived = false;
+		this.actionReceived = false;
 		
 		return true;
 	}

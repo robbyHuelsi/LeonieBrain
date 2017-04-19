@@ -242,8 +242,9 @@ public class Statemachine {
 				Method getSCI = statemachineClass.getDeclaredMethod("getSCI" + sciName, new Class[]{});
 				Object sci = getSCI.invoke(this.statemachine);
 				Class<?> sciClass = sci.getClass();
-				Field field = sciClass.getClass().getField(varName);
-				return field.get(sci);
+				String getName = "get" + varName.substring(0, 1).toUpperCase() + varName.substring(1);
+				Method get = sciClass.getDeclaredMethod(getName, new Class[]{});
+				return get.invoke(sci);
 				
 			} catch (NoSuchMethodException e) {
 				e.printStackTrace();
@@ -258,9 +259,6 @@ public class Statemachine {
 				e.printStackTrace();
 				return null;
 			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-				return null;
-			} catch (NoSuchFieldException e) {
 				e.printStackTrace();
 				return null;
 			}

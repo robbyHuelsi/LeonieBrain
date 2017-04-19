@@ -189,21 +189,28 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 				SCISTTOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private boolean sTTReady;
+		private boolean textReceived;
 		
-		public void raiseSTTReady() {
-			sTTReady = true;
+		public void raiseTextReceived() {
+			textReceived = true;
 		}
 		
-		private boolean answerFound;
+		private boolean incomprehensible;
 		
-		public void raiseAnswerFound() {
-			answerFound = true;
+		public void raiseIncomprehensible() {
+			incomprehensible = true;
+		}
+		
+		private boolean actionReceived;
+		
+		public void raiseActionReceived() {
+			actionReceived = true;
 		}
 		
 		protected void clearEvents() {
-			sTTReady = false;
-			answerFound = false;
+			textReceived = false;
+			incomprehensible = false;
+			actionReceived = false;
 		}
 	}
 	
@@ -636,7 +643,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'WaitForQuestion'. */
 	private void entryAction_main_region_RiddleGame1_r1_WaitForQuestion() {
-		sCISTT.operationCallback.sendSpeechDetectionOnOff(0);
+		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Entry action for state 'Answer'. */

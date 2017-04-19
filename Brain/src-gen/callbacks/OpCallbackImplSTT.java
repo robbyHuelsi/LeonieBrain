@@ -13,57 +13,58 @@ public class OpCallbackImplSTT implements
 	
 	private Modules modules = Start.instanceOf().getModules();
 	
-	public void sendSpeechDetectionOnOff(long inOnOff){
-		Communication.sendMessage("#STT#" + (inOnOff==0?"0":(inOnOff==1?"1":(inOnOff==2?"yesno":"name"))) + "#", modules.get("STT"));
-		if(inOnOff != 0){
-			STT stt = (STT)Start.getModules().getParser("STT");
-			stt.setSTTReady(false);
-			stt.setAnswerFound(false);
-			stt.setAnswerToGive("");
-			stt.setFilteredMsg("");
-			stt.setSpeakerMsg("");
-		}
+	public String getText() {
+		return ((STT)modules.getParser("STT")).getText();
 	}
 
-	@Override
-	public String getAnswerToGive() {
-		return ((STT)modules.getParser("STT")).getAnswerToGive();
+	public String getInstruction() {
+		return ((STT)modules.getParser("STT")).getInstruction();
 	}
 
-	@Override
-	public String getSpeakerMsg() {
-		return ((STT)modules.getParser("STT")).getSpeakerMsg();
+	public String getObject() {
+		return ((STT)modules.getParser("STT")).getObject();
 	}
 
-	@Override
-	public String getFilteredMsg() {
-		return ((STT)modules.getParser("STT")).getFilteredMsg();
+	public void sendSpeechDetectionOff() {
+		Communication.sendMessage("#STT#0#", modules.get("STT"));
 	}
 
-	@Override
-	public String getFilterBubble() {
-		return ((STT)modules.getParser("STT")).getFilterBubble();
-	}
-
-	@Override
-	public void resetAnswerToGive() {
-		((STT)modules.getParser("STT")).setAnswerToGive("");
-	}
-
-	@Override
-	public void resetSpeakerMsg() {
-		((STT)modules.getParser("STT")).setSpeakerMsg("");;
+	public void sendSpeechDetectionSmalltalk() {
+		Communication.sendMessage("#STT#1#", modules.get("STT"));
 		
+		STT stt = (STT)Start.getModules().getParser("STT");
+		stt.setText("");
+		stt.setInstruction("");
+		stt.setObject("");
+		stt.setTextReceived(false);
+		stt.setIncomprehensible(false);
+		stt.setActionReceived(false);
 	}
 
 	@Override
-	public void resetFilteredMsg() {
-		((STT)modules.getParser("STT")).setFilteredMsg("");
+	public void sendSpeechDetectionYesNo() {
+		Communication.sendMessage("#STT#2#", modules.get("STT"));
+		
+		STT stt = (STT)Start.getModules().getParser("STT");
+		stt.setText("");
+		stt.setInstruction("");
+		stt.setObject("");
+		stt.setTextReceived(false);
+		stt.setIncomprehensible(false);
+		stt.setActionReceived(false);
 	}
 
 	@Override
-	public void resetFilterBubble() {
-		((STT)modules.getParser("STT")).setFilterBubble("");
+	public void sendSpeechDetectionName() {
+		Communication.sendMessage("#STT#3#", modules.get("STT"));
+		
+		STT stt = (STT)Start.getModules().getParser("STT");
+		stt.setText("");
+		stt.setInstruction("");
+		stt.setObject("");
+		stt.setTextReceived(false);
+		stt.setIncomprehensible(false);
+		stt.setActionReceived(false);
 	}
 
 }

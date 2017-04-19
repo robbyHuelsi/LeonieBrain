@@ -177,9 +177,11 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 	
 	public interface SCISTT {
 	
-		public void raiseSTTReady();
+		public void raiseTextReceived();
 		
-		public void raiseAnswerFound();
+		public void raiseIncomprehensible();
+		
+		public void raiseActionReceived();
 		
 		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
 	
@@ -187,23 +189,19 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 	
 	public interface SCISTTOperationCallback {
 	
-		public String getAnswerToGive();
+		public String getText();
 		
-		public String getSpeakerMsg();
+		public String getInstruction();
 		
-		public String getFilteredMsg();
+		public String getObject();
 		
-		public String getFilterBubble();
+		public void sendSpeechDetectionOff();
 		
-		public void resetAnswerToGive();
+		public void sendSpeechDetectionSmalltalk();
 		
-		public void resetSpeakerMsg();
+		public void sendSpeechDetectionYesNo();
 		
-		public void resetFilteredMsg();
-		
-		public void resetFilterBubble();
-		
-		public void sendSpeechDetectionOnOff(long inOnOff);
+		public void sendSpeechDetectionName();
 		
 	}
 	
