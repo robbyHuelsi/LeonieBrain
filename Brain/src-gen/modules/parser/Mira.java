@@ -17,19 +17,18 @@ public class Mira implements IParser, Serializable{
 	private boolean arrivedWP;
 	private boolean blocked;
 	private boolean bumpered;
-	private int eventNumber;
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		System.out.println("NAV: " + data);
-		//Arrived waypoint by pilot:  #NAV##ARR_WP#1#   //#NAV##ARR_WP#1# (=> arrived at global waypoint 
-		//Path blocked:  #NAV##PATH_BLOCKED#1#      	//#NAV##PATH_BLOCKED#1#  (=> path is blocked
-		//Bumpered: #NAV##BUMPERED#1#            		//#NAV##BUMPERED#1#  (=> leonie is bumpered
-		if (data.contains("#ARR_WP#")) {
+		//Arrived waypoint by pilot:  #MIRA#ARR_WP#1#   //#MIRA#ARR_WP#1# (=> arrived at global waypoint 
+		//Path blocked:  #MIRA#PATH_BLOCKED#1#      	//#MIRA#PATH_BLOCKED#1#  (=> path is blocked
+		//Bumpered: #MIRA#BUMPERED#1#            		//#MIRA#BUMPERED#1#  (=> leonie is bumpered
+		if (data.contains("ARR_WP")) {
 			this.setArrivedWP(true);
-		} else if (data.contains("#PATH_BLOCKED#1")) {
+		} else if (data.contains("PATH_BLOCKED#1")) {
 			this.setBlocked(true);
-		} else if (data.contains("#BUMPERED#1")) {
+		} else if (data.contains("BUMPERED#1")) {
 			this.setBumpered(true);
 		}else{
 			System.err.println("emergencyStop not implemented");
@@ -95,14 +94,6 @@ public class Mira implements IParser, Serializable{
 		}	
 	}
 
-	public int getEventNumber() {
-		return eventNumber;
-	}
-
-	public void setEventNumber(int eventNumber) {
-		this.eventNumber = eventNumber;
-	}
-
 
 
 	public boolean removeParsedInformation() {
@@ -110,7 +101,6 @@ public class Mira implements IParser, Serializable{
 		this.arrivedWP = false;
 		this.blocked = false;
 		this.bumpered = false;
-		this.eventNumber = -1;
 		
 		return true;
 	}

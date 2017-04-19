@@ -8,7 +8,7 @@ public class OpCallbackImplCurrPerson implements
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCICurrPersonOperationCallback
 {
 	
-	private PersonList personList = Start.getPersonList();
+	private PersonList personList = Start.instanceOf().getPersonList();
 	
 	public void setKnown(boolean inKnown) {
 		if(personList.getCurrPerson() != null){

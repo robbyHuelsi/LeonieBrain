@@ -9,16 +9,16 @@ public class OpCallbackImplHBrain implements
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIHBrainOperationCallback
 {
 	
-	private Modules modules = Start.getModules();
+	private Modules modules = Start.instanceOf().getModules();
 	
 	public void sendTTS(String inText){
 		//System.out.println(inText);
-		Communication.sendMessage("#HBRAIN##TEXT#" + inText , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
+		Communication.sendMessage("#BRAIN##TEXT#" + inText , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendTTS_num(long inNum){
 		//System.out.println(inText);
-		Communication.sendMessage("#HBRAIN##TEXT#" + inNum , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
+		Communication.sendMessage("#BRAIN##TEXT#" + inNum , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendTTS2(String inT1, String inT2){

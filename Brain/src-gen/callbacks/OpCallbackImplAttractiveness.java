@@ -9,7 +9,7 @@ public class OpCallbackImplAttractiveness implements
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIAttractivenessOperationCallback
 {
 
-	private Modules modules = Start.getModules();
+	private Modules modules = Start.instanceOf().getModules();
 
 	 public void sendToAttr_estimate() {
 		 Communication.sendMessage("/home/leonie/ACI/org.png", modules.get("Attractiveness"));

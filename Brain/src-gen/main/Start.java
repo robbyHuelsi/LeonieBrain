@@ -13,6 +13,7 @@ public class Start{
 	private Statemachine statemachine;
 	private static PersonList personList;
 	private static Modules modules;
+	private static GUI gui;
 	
 	private String[] statemachineNames = {
 			"Braganca", 
@@ -35,7 +36,7 @@ public class Start{
 		Communication.receive(modules.get("brain"));
 		
 		//Show GUI
-		GUI gui = new GUI(t);
+		gui = new GUI(t);
 		
 	}
 	
@@ -84,9 +85,9 @@ public class Start{
 		
 	}
 	
-	public void setStatemachine(String statemachineName){
+	public void setStatemachine(String statemachineName, Start inStart){
 		if (statemachineName != null) {
-			this.statemachine = new Statemachine(statemachineName); //Braganca, SpeechAndPersonRecognition, ...
+			this.statemachine = new Statemachine(statemachineName, inStart); //Braganca, SpeechAndPersonRecognition, ...
 			//this.statemachine.re
 		}else{
 			this.statemachine = null;
@@ -104,6 +105,10 @@ public class Start{
 
 	public static Modules getModules(){
 		return modules;
+	}
+	
+	public GUI getGui(){
+		return gui;
 	}
 	
 	public String[] getStatemachineNames(){

@@ -53,11 +53,6 @@ public class MessageParser {
 			} else {
 				// For Sender with old module names
 				switch (sender) {
-				case "NAV":
-					((IParser) start.getModules().getParser("Mira")).parse(data, start);
-					System.out.println("ToDo: Update sender name NAV to Mira");
-					return true;
-				// break;
 
 				case "ATTR2":
 					((IParser) start.getModules().getParser("Attractiveness")).parse(data, start);

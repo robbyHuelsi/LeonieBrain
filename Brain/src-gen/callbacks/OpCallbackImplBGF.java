@@ -10,8 +10,8 @@ public class OpCallbackImplBGF implements
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIBGFOperationCallback
 {
 	
-	private PersonList personList = Start.getPersonList();
-	private Modules modules = Start.getModules();
+	private PersonList personList = Start.instanceOf().getPersonList();
+	private Modules modules = Start.instanceOf().getModules();
 	
 	
 	// ---- Brain General Functions Interface ---- //

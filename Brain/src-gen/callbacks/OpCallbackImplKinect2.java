@@ -10,7 +10,7 @@ public class OpCallbackImplKinect2 implements
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIKinect2OperationCallback
 {
 	
-	private Modules modules = Start.getModules();
+	private Modules modules = Start.instanceOf().getModules();
 	
 	public void sendNoiseDetectionOnOff(boolean inOnOff){
 		Communication.sendMessage("#NOISEDETECTION#" + (inOnOff?"1":"0") + "#", modules.get("NoiseDetection"));

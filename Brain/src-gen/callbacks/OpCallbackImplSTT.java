@@ -11,7 +11,7 @@ public class OpCallbackImplSTT implements
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCISTTOperationCallback
 {
 	
-	private Modules modules = Start.getModules();
+	private Modules modules = Start.instanceOf().getModules();
 	
 	public void sendSpeechDetectionOnOff(long inOnOff){
 		Communication.sendMessage("#STT#" + (inOnOff==0?"0":(inOnOff==1?"1":(inOnOff==2?"yesno":"name"))) + "#", modules.get("STT"));

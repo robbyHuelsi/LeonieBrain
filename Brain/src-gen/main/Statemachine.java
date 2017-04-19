@@ -1,23 +1,33 @@
 package main;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.time.Duration;
+import java.util.Date;
 import java.util.Vector;
 
 import org.yakindu.scr.ITimer;
 import org.yakindu.scr.TimerService;
+import org.yakindu.scr.braganca.BragancaStatemachine;
 
 public class Statemachine {
+	private Start start;
+	
 	private String statemachineName;
 	private Object statemachine = null;
 	private Class<?> statemachineClass = null;
+	private Date dateStarted;
+	private String currState;
 	
-	public Statemachine() {
-		this("");
+	public Statemachine(Start start) {
+		this("", start);
 	}
 	
-	public Statemachine(String statemachineName) {
+	public Statemachine(String statemachineName, Start start) {
+		this.start = start;
+		
 		try {
 			if (statemachineName == null || statemachineName.isEmpty()) {
 				System.err.println("Getting statemashine failed bacause statemachineName is empty");
@@ -115,6 +125,8 @@ public class Statemachine {
 				Method enter = statemachineClass.getDeclaredMethod("enter", new Class[]{});
 				init.invoke(statemachine);
 				enter.invoke(statemachine);
+				dateStarted = new Date();
+				start.getGui().updateUI();
 				return true;
 				
 			} catch (NoSuchMethodException e) {
@@ -144,6 +156,8 @@ public class Statemachine {
 			try {
 				Method runCycle = statemachineClass.getDeclaredMethod("runCycle", new Class[]{});
 				runCycle.invoke(statemachine);
+				
+				//start.getGui().updateUI();
 				return true;
 				
 			} catch (NoSuchMethodException e) {
@@ -170,12 +184,12 @@ public class Statemachine {
 	
 	public boolean raiseEventOfSCI(String sciName, String eventName){
 		if (sciName == null || sciName.isEmpty()) {
-			System.err.println("getSCI failed bacause sciName is empty");
+			System.err.println("raiseEventOfSCI failed bacause sciName is empty");
 			return false;
 		}
 		
 		if (eventName == null || eventName.isEmpty()) {
-			System.err.println("getSCI failed bacause eventName is empty");
+			System.err.println("raiseEventOfSCI failed bacause eventName is empty");
 			return false;
 		}
 		
@@ -211,5 +225,83 @@ public class Statemachine {
 			return false;
 		}
 	}
+	
+	public Object getVaribaleOfSCI(String sciName, String varName){
+		if (sciName == null || sciName.isEmpty()) {
+			System.err.println("getVaribaleOfSCI failed bacause sciName is empty");
+			return null;
+		}
+		
+		if (varName == null || varName.isEmpty()) {
+			System.err.println("getVaribaleOfSCI failed bacause varName is empty");
+			return null;
+		}
+		
+		if (this.statemachine != null) {
+			try {
+				Method getSCI = statemachineClass.getDeclaredMethod("getSCI" + sciName, new Class[]{});
+				Object sci = getSCI.invoke(this.statemachine);
+				Class<?> sciClass = sci.getClass();
+				Field field = sciClass.getClass().getField(varName);
+				return field.get(sci);
+				
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+				return null;
+			} catch (SecurityException e) {
+				e.printStackTrace();
+				return null;
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+				return null;
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				return null;
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+				return null;
+			} catch (NoSuchFieldException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}else{
+			System.err.println("getVaribaleOfSCI failed because statemashine not set");
+			return null;
+		}
+	}
 
+	public String getName(){
+		return statemachineName;
+	}
+	
+	public String getDurationString(){
+		if (dateStarted == null) {
+			return "";
+		}else{
+			int dur = dateStarted.compareTo(new Date());
+			return Integer.toString(dur);
+		}
+	}
+	
+	public String getCurrState(){
+		//return currState;
+
+		//Field fieldState = null;
+		try {
+			Field fieldState[] = statemachineClass.getFields();
+			for (Field field : fieldState) {
+				System.out.println(field.toString());
+			}
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		//Method currState = statemachineClass.getDeclaredMethod("runCycle", new Class[]{});
+		//statemachineClass.get
+		//currState.invoke(statemachine);
+		return "";
+	}
+	
 }

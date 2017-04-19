@@ -11,8 +11,8 @@ public class OpCallbackImplVBrain implements
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIVBrainOperationCallback
 {
 	
-	private Modules modules = Start.getModules();
-	private PersonList personList = Start.getPersonList();
+	private Modules modules = Start.instanceOf().getModules();
+	private PersonList personList = Start.instanceOf().getPersonList();
 	
 	public void sendACIOnOff(boolean inOnOff){
 		System.out.println(inOnOff?"ACI on":"ACI off");

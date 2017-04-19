@@ -11,7 +11,7 @@ public class OpCallbackImplLeapMotion implements
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCILeapMotionOperationCallback
 {
 	
-	private Modules modules = Start.getModules();
+	private Modules modules = Start.instanceOf().getModules();
 	
 	public void sendGestureDetectionOnOff(long inOnOff){
 		Communication.sendMessage("#HANDGESTURES#" + (int)inOnOff + "#", modules.get("HandGestures"));
