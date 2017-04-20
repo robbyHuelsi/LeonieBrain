@@ -1,7 +1,10 @@
-package modules.parser;
+package Persons;
 
-public class PersonCrowd {
+import java.io.Serializable;
 
+public class PersonCrowd implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private int gender;
 	private int age;
 	private int position;

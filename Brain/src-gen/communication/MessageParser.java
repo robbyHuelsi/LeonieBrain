@@ -3,9 +3,9 @@ package communication;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Persons.PersonList;
 import main.Start;
 import modules.parser.*;
-import vBrain.PersonList;
 
 public class MessageParser {
 

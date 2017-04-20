@@ -1,4 +1,4 @@
-package vBrain;
+package Persons;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,8 +10,8 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Vector;
 
-import main.Start;
-import vBrain.Person; 
+import Persons.Person;
+import main.Start; 
 
 public class PersonList{
 	private Vector<Person> personList;

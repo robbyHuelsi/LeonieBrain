@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import org.yakindu.scr.braganca.IBragancaStatemachine.SCIMira;
 
+import Persons.PersonList;
 import main.*;
 import modules.Module;
-import vBrain.PersonList;
 
 public class Mira implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;

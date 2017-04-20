@@ -1,10 +1,10 @@
 package callbacks;
 
+import Persons.PersonList;
 import communication.Communication;
 import main.Start;
 import modules.Modules;
 import modules.parser.VBrain;
-import vBrain.PersonList;
 
 public class OpCallbackImplVBrain implements
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIVBrainOperationCallback,

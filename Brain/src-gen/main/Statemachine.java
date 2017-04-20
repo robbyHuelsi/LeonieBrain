@@ -170,7 +170,7 @@ public class Statemachine {
 				try {
 					start.getGui().updateUI();
 				} catch (Exception e) {
-					// TODO: handle exception
+					//TODO handle exception
 				}
 				
 				return true;
@@ -317,19 +317,14 @@ public class Statemachine {
 					}
 				}
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			//} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
 				//e.printStackTrace();
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}*/
@@ -350,11 +345,9 @@ public class Statemachine {
 					//System.out.println(states.length);
 					return true;
 				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				}

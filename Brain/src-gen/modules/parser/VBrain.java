@@ -2,7 +2,7 @@ package modules.parser;
 
 import java.io.Serializable;
 
-import vBrain.*;
+import Persons.*;
 import main.*;
 import modules.Module;
 

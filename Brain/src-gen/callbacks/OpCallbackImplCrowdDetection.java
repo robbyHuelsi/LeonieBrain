@@ -5,11 +5,14 @@ public class OpCallbackImplCrowdDetection implements
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCICrowdDetectionOperationCallback
 {
 
-	@Override
+	//TODO implement in event crowdDetected
+	
 	public void detectionOnOff(boolean onOff) {
-		// TODO implement detectionOnOff(boolean onOff)
+		// TODO implement sendDetectionOnOff(boolean onOff)
 		System.err.println("detectionOnOff(boolean onOff) not implemented");
 		
 	}
+	
+	//TODO implement getter functions for all information
 
 }

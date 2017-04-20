@@ -3,9 +3,9 @@ package main;
 import java.util.List;
 import java.util.Vector;
 
+import Persons.PersonList;
 import communication.Communication;
 import modules.Modules;
-import vBrain.PersonList;
 
 public class Start{
 	

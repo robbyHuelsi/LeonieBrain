@@ -25,28 +25,32 @@ public class STT implements IParser, Serializable{
 		this.start = start;
 		
 		
-		//TODO:  Muss überarbeitet werden:
+		//TODO Muss getestet werden
 		
 		if (data.contains("TEXT#")) {
 			this.setSpokenText(data.substring(5));
 			this.setSpokenTextReceived(true);
-		
+			return true;
+			
 		}else if(data.contains("ANSWER#")){
 			this.setAnswer(data.substring(6));
 			this.setAnswerReceived(true);
+			return true;
 			
 		}else if(data.contains("RETRY#")){
 			this.setAnswer(data.substring(6));
 			this.setIncomprehensible(true);
+			return true;
 			
 		}else if(data.contains("ACTION#")){
 			String[] t = data.substring(7).split(";");
 			this.setInstruction(t[0]);
 			this.setObject(t[1]);
 			this.setActionReceived(true);
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 
 	public String getSpokenText() {

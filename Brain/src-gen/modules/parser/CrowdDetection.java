@@ -3,10 +3,11 @@ package modules.parser;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import Persons.PersonCrowd;
 import main.Start;
 import modules.Module;
 
-public class Crowd implements IParser, Serializable{
+public class CrowdDetection implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
 	
@@ -22,6 +23,8 @@ public class Crowd implements IParser, Serializable{
 	private int lying = 0;
 	
 	private ArrayList<PersonCrowd> crowdList = new ArrayList<>();
+	
+	private boolean crowdDetected;
 
 	public boolean parse(String data, Start start) {
 		/*	#sender#total#gender1;age1;position1+gender2;age2;position2+ etc. #
@@ -31,6 +34,8 @@ public class Crowd implements IParser, Serializable{
 		 */
 		
 		this.start = start;
+		
+		//TODO Muss getestet werden
 		
 		String[] crowd = data.split("#");
 		//if people detected
@@ -169,11 +174,32 @@ public class Crowd implements IParser, Serializable{
 		this.countUnder21 = countUnder21;
 	}
 
+	public boolean isCrowdDetected() {
+		return crowdDetected;
+	}
+
+
+	public void setCrowdDetected(boolean crowdDetected) {
+		this.crowdDetected = crowdDetected;
+		
+		if (crowdDetected) {
+			//TODO implement raiseCrowdDetected
+		}
+	}
+
+
 	public boolean removeParsedInformation() {
 		this.countTotal = -1;
 		this.countFemale = -1;
 		this.countMale = -1;
 		this.countUnder21 = -1;
+		this.ageSum = -1;
+		this.ageAverage = -1;
+		this.standing = -1;
+		this.sitting = -1;
+		this.lying = -1;
+		this.crowdList = new ArrayList<>();
+		this.crowdDetected = false;
 		
 		return true;
 	}
