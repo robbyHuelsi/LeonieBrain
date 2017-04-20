@@ -10,7 +10,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Vector;
 
-import vBrain.Person;
+import Persons.Person;
 
 public class Modules {
 

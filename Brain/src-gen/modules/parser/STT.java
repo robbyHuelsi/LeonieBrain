@@ -11,44 +11,62 @@ public class STT implements IParser, Serializable{
 	private Start start;
 	
 	// Parsed information
-	private String text;
+	private String spokenText;
+	private String answer;
 	private String instruction;
 	private String object;
 
+	private boolean spokenTextReceived;
+	private boolean answerReceived;
 	private boolean incomprehensible;
-	private boolean textReceived;
 	private boolean actionReceived;
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		
 		
-		//TODO:  Muss überarbeitet werden:
+		//TODO Muss getestet werden
 		
 		if (data.contains("TEXT#")) {
-			this.setText(data.substring(5));
-			this.setTextReceived(true);
+			this.setSpokenText(data.substring(5));
+			this.setSpokenTextReceived(true);
+			return true;
+			
+		}else if(data.contains("ANSWER#")){
+			this.setAnswer(data.substring(6));
+			this.setAnswerReceived(true);
+			return true;
 			
 		}else if(data.contains("RETRY#")){
-			this.setText(data.substring(6));
+			this.setAnswer(data.substring(6));
 			this.setIncomprehensible(true);
+			return true;
 			
 		}else if(data.contains("ACTION#")){
 			String[] t = data.substring(7).split(";");
 			this.setInstruction(t[0]);
 			this.setObject(t[1]);
 			this.setActionReceived(true);
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 
-	public String getText() {
-		return text;
+	public String getSpokenText() {
+		return spokenText;
 	}
 
-	public void setText(String speakerMsg) {
-		this.text = speakerMsg;
+	public void setSpokenText(String speakerMsg) {
+		this.spokenText = speakerMsg;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	public String getInstruction() {
@@ -70,15 +88,28 @@ public class STT implements IParser, Serializable{
 	
 	
 	
-	public boolean isTextReceived() {
-		return textReceived;
+
+	public boolean isSpokenTextReceived() {
+		return spokenTextReceived;
 	}
 
-	public void setTextReceived(boolean textReceived) {
-		this.textReceived = textReceived;
+	public void setSpokenTextReceived(boolean textReceived) {
+		this.spokenTextReceived = textReceived;
 		
 		if (textReceived) {
-			start.getStatemachine().raiseEventOfSCI("STT","textReceived");
+			start.getStatemachine().raiseEventOfSCI("STT","spokenTextReceived");
+		}
+	}
+	
+	public boolean isAnswerReceived() {
+		return answerReceived;
+	}
+
+	public void setAnswerReceived(boolean answerReceived) {
+		this.answerReceived = answerReceived;
+		
+		if (answerReceived) {
+			start.getStatemachine().raiseEventOfSCI("STT","answer");
 		}
 	}
 
@@ -107,11 +138,13 @@ public class STT implements IParser, Serializable{
 	}
 
 	public boolean removeParsedInformation() {
-		this.text = "";
+		this.spokenText = "";
+		this.answer = "";
 		this.instruction = "";
 		this.object = "";
+		this.spokenTextReceived = false;
+		this.answerReceived = false;
 		this.incomprehensible = false;
-		this.textReceived = false;
 		this.actionReceived = false;
 		
 		return true;

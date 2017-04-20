@@ -7,8 +7,8 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.Vector;
 
+import Persons.Person;
 import main.Start;
-import vBrain.Person;
 
 
 /**InOutObj serialisiert die ihr uebergebenen Objekte um diese dann zu Speichern bzw. zu Laden

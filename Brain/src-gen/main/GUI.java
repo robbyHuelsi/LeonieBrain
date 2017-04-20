@@ -90,6 +90,7 @@ public class GUI extends JFrame{
 						return "Current State";
 					}else{
 						return start.getStatemachine().getCurrState();
+						//return "";
 					}
 			}
 		}

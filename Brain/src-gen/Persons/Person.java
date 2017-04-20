@@ -1,11 +1,11 @@
-package vBrain;
+package Persons;
 
 
 import java.io.Serializable;
 import java.util.Vector;
 
+import Persons.PersonDynData;
 import main.Start;
-import vBrain.PersonDynData;
 
 
 public class Person implements Serializable{	

@@ -1,7 +1,7 @@
 package callbacks;
 
+import Persons.PersonList;
 import main.Start;
-import vBrain.PersonList;
 
 public class OpCallbackImplCurrPerson implements
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCICurrPersonOperationCallback,

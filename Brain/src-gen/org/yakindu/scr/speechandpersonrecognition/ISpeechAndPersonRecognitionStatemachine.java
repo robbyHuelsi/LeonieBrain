@@ -177,11 +177,13 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 	public interface SCISTT {
 	
-		public void raiseTextReceived();
+		public void raiseSpokenTextReceived();
 		
 		public void raiseIncomprehensible();
 		
 		public void raiseActionReceived();
+		
+		public void raiseAnswerReceived();
 		
 		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
 	
@@ -189,7 +191,9 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 	public interface SCISTTOperationCallback {
 	
-		public String getText();
+		public String getSpokenText();
+		
+		public String getAnswer();
 		
 		public String getInstruction();
 		

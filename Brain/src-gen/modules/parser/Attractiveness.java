@@ -2,9 +2,9 @@ package modules.parser;
 
 import java.io.Serializable;
 
+import Persons.PersonList;
 import main.*;
 import modules.Module;
-import vBrain.PersonList;
 
 public class Attractiveness implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
