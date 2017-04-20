@@ -7,9 +7,9 @@ import java.util.List;
 
 public class ClassFinder {
 
-    private static final char PKG_SEPARATOR = '.';
+    private static final String PKG_SEPARATOR = ".";
 
-    private static final char DIR_SEPARATOR = File.separator.charAt(0);
+    private static final String DIR_SEPARATOR = "/";
 
     private static final String CLASS_FILE_SUFFIX = ".class";
 
