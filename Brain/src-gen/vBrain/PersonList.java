@@ -39,8 +39,12 @@ public class PersonList{
 		return !personList.isEmpty();
 	}
 	
-	public void addPerson (Person inP){
+	public void addPerson (Person inP, Start inStart){
 		personList.add(inP);
+		
+		if(inStart != null){
+			inStart.getPersonList().save();
+		}
 	}
 
 //	public boolean hasPersonWithID(int id){
@@ -90,46 +94,16 @@ public class PersonList{
 //	}
 	
 	
-	public void setCurrPerson(Person inCurrPerson) {
-		if(this.currPerson != inCurrPerson){
+	public void setCurrPerson(Person inCurrPerson, Start inStart) {
+		if(inStart != null && this.currPerson != inCurrPerson){
 			this.currPerson = inCurrPerson;
-			
-			if (inCurrPerson != null){
-				Start.instanceOf().getBrain().getSCICurrPerson().setPersonID(inCurrPerson.getPersonID());
-				Start.instanceOf().getBrain().getSCICurrPerson().setKnown(inCurrPerson.isKnown());
-				Start.instanceOf().getBrain().getSCICurrPerson().setFirstname(inCurrPerson.getFirstName());
-				Start.instanceOf().getBrain().getSCICurrPerson().setLastname(inCurrPerson.getLastName());
-				Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(inCurrPerson.getEstimatedAge());
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdYear(inCurrPerson.getBdYear());
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdMounth(inCurrPerson.getBdMonth());
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdDay(inCurrPerson.getBdDay());
-				Start.instanceOf().getBrain().getSCICurrPerson().setGender(inCurrPerson.getGender());
-				Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(inCurrPerson.getEthnicity());
-				Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(inCurrPerson.hasGlasses());
-//				Start.instanceOf().getBrain().getSCICurrPerson().setAttractiveness(inCurrPerson.getAttractiveness());
-				
-			}else{
-				Start.instanceOf().getBrain().getSCICurrPerson().setPersonID(-1);
-				Start.instanceOf().getBrain().getSCICurrPerson().setKnown(false);
-				Start.instanceOf().getBrain().getSCICurrPerson().setFirstname("");
-				Start.instanceOf().getBrain().getSCICurrPerson().setLastname("");
-				Start.instanceOf().getBrain().getSCICurrPerson().setEstimatedAge(-1);
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdYear(0);
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdMounth(0);
-				Start.instanceOf().getBrain().getSCICurrPerson().setBdDay(0);
-				Start.instanceOf().getBrain().getSCICurrPerson().setGender(false);
-				Start.instanceOf().getBrain().getSCICurrPerson().setEthnicity(0);
-				Start.instanceOf().getBrain().getSCICurrPerson().setGlasses(false);
-				Start.instanceOf().getBrain().getSCICurrPerson().setAttractiveness(-1);
-				
-			}
+			inStart.getPersonList().save();
 		}
-
 	}
 	
-	public void setCurrPersonByFaceID(int inFaceID) {
+	public void setCurrPersonByFaceID(int inFaceID, Start inStart) {
 		if(this.currPerson==null || inFaceID != this.getCurrPerson().getFaceId()){
-			this.setCurrPerson(getPersonByFaceID(inFaceID));
+			this.setCurrPerson(getPersonByFaceID(inFaceID), inStart);
 		}
 	}
 	
@@ -146,7 +120,7 @@ public class PersonList{
 	
 	public boolean setCurrPersonFirstname(String inFirstname) {
 		if(this.getCurrPerson() != null){
-			this.getCurrPerson().setFirstName(inFirstname, Start.instanceOf().getBrain());
+			this.getCurrPerson().setFirstName(inFirstname, Start.instanceOf());
 			return true;
 		}else{
 			return false;
@@ -163,7 +137,7 @@ public class PersonList{
 	public boolean load(){
 		File f = new File(this.filePath);
 		if(f==null || !f.exists() || f.isDirectory()) { 
-		    System.out.println("No personList file found");
+		    System.out.println("No Person List File Found");
 		    return false;
 		}
 		
@@ -179,10 +153,10 @@ public class PersonList{
 		      while ( (obj= objectinputstream.readObject()) != null ){
 		      	this.personList = ((Vector<Person>) obj);
 		      }
-		    System.out.println("Opening done");
+		    System.out.println("Opening Person List File Done");
 		    return true;
 		} catch (Exception e) {
-			System.err.println("Opening failed");
+			System.err.println("Opening Person List File Failed");
 		    e.printStackTrace();
 		    return false;
 		} finally {
@@ -209,10 +183,10 @@ public class PersonList{
 			oos.writeObject( null );
 			oos.flush();
 			oos.close();
-			System.out.println("Saving done");
+			System.out.println("Saving Person List File Done");
 			return true;
 		}catch(Exception ex){
-			System.err.println("Saving failed");
+			System.err.println("Saving Person List File Failed");
 			ex.printStackTrace();
 			return false;
 		}

@@ -1,0 +1,93 @@
+GeneratorModel for yakindu::java {
+
+	statechart Braganca {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+
+		feature GeneralFeatures {
+			TimerService = true
+		}
+	}
+	
+	statechart SpeechAndPersonRecognition {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart Test_STT_HBrain {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart StoringGroceries {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart CocktailParty {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart HelpMeCarry {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}	
+	
+	statechart GeneralPurposeServiceRobot {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+}

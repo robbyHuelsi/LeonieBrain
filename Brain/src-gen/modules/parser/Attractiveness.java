@@ -2,22 +2,23 @@ package modules.parser;
 
 import java.io.Serializable;
 
-import org.yakindu.scr.brain.BrainStatemachine;
 import main.*;
+import modules.Module;
+import vBrain.PersonList;
 
 public class Attractiveness implements IParser, Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private Start start;
 
-	@Override
-	public boolean parse(String data, BrainStatemachine brain, Start start) {
-		   System.out.println("Attractiveness: " + data);
-		    float att = Float.parseFloat(data);
-		    brain.getSCICurrPerson().setAttractiveness(att);
-		    start.getPersonList().save();
-		    return true;
-		}
+	public boolean parse(String data, Start start) {
+		this.start = start;
+		
+		System.out.println("Attractiveness: " + data);
+		start.getPersonList().getCurrPerson().setAttractiveness(Float.parseFloat(data), start);
+		return true;
+	}
+
+	public boolean removeParsedInformation() {
+		return true;
+	}
 }

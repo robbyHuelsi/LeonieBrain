@@ -3,12 +3,8 @@ package communication;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.yakindu.scr.brain.BrainStatemachine;
-
-import callbacks.OpCallbackImpl;
 import main.Start;
 import modules.parser.*;
-import vBrain.Person;
 import vBrain.PersonList;
 
 public class MessageParser {
@@ -17,7 +13,6 @@ public class MessageParser {
 	@SuppressWarnings("static-access")
 	public static boolean ParseMessage(String message) {
 		Start start = Start.instanceOf();
-		BrainStatemachine brain = start.getBrain();
 		PersonList personList = Start.getPersonList();
 		// OpCallbackImpl opCallback = start.getOp;
 
@@ -39,7 +34,7 @@ public class MessageParser {
 		if (m.find() == true) {
 			sender = m.group(1);
 			data = m.group(2);
-//			System.out.println(sender + ": " + data);
+			System.out.println(sender + ": " + data);
 
 			// Decide what should be done, depending on sender
 			boolean parsingDone = false;
@@ -47,7 +42,7 @@ public class MessageParser {
 				// ----------------------------------------------------------------------
 				// ----------------------------------------------------------------------
 				// General code to start parse
-				parsingDone = ((IParser) start.getModules().getParser(sender)).parse(data, brain, start);
+				parsingDone = ((IParser) start.getModules().getParser(sender)).parse(data, start);
 			} catch (Exception e) {
 				// parsing failed.
 				parsingDone = false;
@@ -58,15 +53,22 @@ public class MessageParser {
 			} else {
 				// For Sender with old module names
 				switch (sender) {
-				case "NAV":
-					((IParser) start.getModules().getParser("Mira")).parse(data, brain, start);
-					System.out.println("Update sender name NAV to Mira");
-					return true;
-				// break;
 
 				case "ATTR2":
-					((IParser) start.getModules().getParser("Attractiveness")).parse(data, brain, start);
-					System.out.println("Update sender name ATTR2 to Attractiveness");
+					((IParser) start.getModules().getParser("Attractiveness")).parse(data, start);
+					System.out.println("ToDo: Update sender name ATTR2 to Attractiveness");
+					return true;
+				// break;
+					
+				case "HandGestures":
+					((IParser) start.getModules().getParser("LeapMotion")).parse(data, start);
+					System.out.println("ToDo: Update sender name HandGestures to LeapMotion");
+					return true;
+				// break;
+					
+				case "NoiseDetection":
+					((IParser) start.getModules().getParser("Kinect2")).parse(data, start);
+					System.out.println("ToDo: Update sender name NoiseDetection to Kinect2");
 					return true;
 				// break;
 

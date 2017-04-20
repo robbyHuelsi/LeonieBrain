@@ -3,12 +3,14 @@ package modules;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
+import modules.parser.IParser;
+
 public class Module implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String ip;
 	private Integer port;
-	private Object parser;
+	private IParser parser;
 	private long udpTcp;
 	
 	
@@ -53,7 +55,7 @@ public class Module implements Serializable{
 		return true;
 	}
 
-	public Object getParser() {
+	public IParser getParser() {
 		return parser;
 	}
 
@@ -61,7 +63,7 @@ public class Module implements Serializable{
 		try {
 			Class<?> parserClass = Class.forName("modules.parser." + moduleName);
 			Constructor<?> parserClassConstructor = parserClass.getConstructors()[0];
-			this.parser = parserClassConstructor.newInstance();
+			this.parser = (IParser) parserClassConstructor.newInstance();
 			return true;
 		} catch (Exception e) {
 			System.out.println("Setting " + name + " parser by name failed");

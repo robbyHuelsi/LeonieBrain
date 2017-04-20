@@ -1,4 +1,8 @@
 eclipse.preferences.version=1
-encoding/5.2_SpeechAndPersonRecognition.sct=UTF-8
-encoding/Brain.sct=UTF-8
-encoding/GeneralPurposeServiceRobot.sct=UTF-8
+encoding/1_StoringGroceries.sct=UTF-8
+encoding/2_CocktailParty.sct=UTF-8
+encoding/3_SpeechAndPersonRecognition.sct=UTF-8
+encoding/4_HelpMeCarry.sct=UTF-8
+encoding/5_GeneralPurposeServiceRobot.sct=UTF-8
+encoding/Braganca.sct=UTF-8
+encoding/Test_STT_HBrain.sct=UTF-8

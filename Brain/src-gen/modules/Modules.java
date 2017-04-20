@@ -23,7 +23,14 @@ public class Modules {
 	
 	public Modules(Integer listenPort){
 		if(this.load()){
-			//Modules wurden geladen aus Datei
+			//Modules wurden aus Datei geladen
+			String ownIp = getOwnIpAddress();
+			
+			if (!get("Brain").getIp().equals(ownIp)) {
+				get("Brain").setIp(ownIp);
+				System.out.println("Brains IP was updated");
+			}
+			
 			System.out.println(modules.toString());
 		}else{
 			addModule("Brain", getOwnIpAddress(), listenPort, false, true);
@@ -88,9 +95,7 @@ public class Modules {
 		}
 		return false;
 	}
-	
-
-	
+		
 	public Module get(String name){
 		for (Module module : modules) {
 			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
@@ -133,6 +138,19 @@ public class Modules {
 	
 	public void removeAll(){
 		modules.removeAllElements();
+	}
+	
+	public void removeParsedInformation(){
+		for (Module module : modules) {
+			try {
+				if (module.getParser() != null) {
+					module.getParser().removeParsedInformation();
+					System.out.println("Parsed informations in module " + module.getName() + " removed");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public boolean setIpAndPortOldSchool(){
@@ -240,7 +258,7 @@ public class Modules {
 	public boolean load(){
 		File f = new File(this.filePath);
 		if(f==null || !f.exists() || f.isDirectory()) { 
-		    System.out.println("No modules file found");
+		    System.out.println("No Modules File Found");
 		    return false;
 		}
 		
@@ -256,10 +274,10 @@ public class Modules {
 		      while ( (obj= objectinputstream.readObject()) != null ){
 		      	this.modules = ((Vector<Module>) obj);
 		      }
-		    System.out.println("Opening done");
+		    System.out.println("Opening Modules File Done");
 		    return true;
 		} catch (Exception e) {
-			System.err.println("Opening failed");
+			System.err.println("Opening Modules File Failed");
 		    e.printStackTrace();
 		    return false;
 		} finally {
@@ -286,10 +304,10 @@ public class Modules {
 			oos.writeObject( null );
 			oos.flush();
 			oos.close();
-			System.out.println("Saving done");
+			System.out.println("Saving Modules File Done");
 			return true;
 		}catch(Exception ex){
-			System.err.println("Saving failed");
+			System.err.println("Saving Modules File Failed");
 			ex.printStackTrace();
 			return false;
 		}
