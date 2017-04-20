@@ -20,6 +20,7 @@ public class Statemachine {
 	private Class<?> statemachineClass = null;
 	private Date dateStarted;
 	private String currState;
+	private int statesCount;
 	
 	public Statemachine(Start start) {
 		this("", start);
@@ -44,8 +45,15 @@ public class Statemachine {
 			this.statemachine = this.statemachineClass.newInstance();
 			
 			// setTime()
-			Method setTime = statemachineClass.getDeclaredMethod("setTimer", new Class[] { ITimer.class });
-			setTime.invoke(statemachine, new TimerService());
+			for (Method m : statemachineClass.getDeclaredMethods()) {
+				//System.out.println(m.getName());
+				if (m.getName().equals("setTimer")) {
+					Method setTime = statemachineClass.getDeclaredMethod("setTimer", new Class[] { ITimer.class });
+					setTime.invoke(statemachine, new TimerService());
+					break;
+				}
+			}
+			
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -126,7 +134,9 @@ public class Statemachine {
 				init.invoke(statemachine);
 				enter.invoke(statemachine);
 				dateStarted = new Date();
+				
 				start.getGui().updateUI();
+				
 				return true;
 				
 			} catch (NoSuchMethodException e) {
@@ -157,7 +167,12 @@ public class Statemachine {
 				Method runCycle = statemachineClass.getDeclaredMethod("runCycle", new Class[]{});
 				runCycle.invoke(statemachine);
 				
-				//start.getGui().updateUI();
+				try {
+					start.getGui().updateUI();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
 				return true;
 				
 			} catch (NoSuchMethodException e) {
@@ -275,31 +290,77 @@ public class Statemachine {
 	public String getDurationString(){
 		if (dateStarted == null) {
 			return "";
-		}else{
-			int dur = dateStarted.compareTo(new Date());
-			return Integer.toString(dur);
+		}else{			
+			long diff = (new Date()).getTime() - this.dateStarted.getTime();
+			
+			int hours = (int) (diff / (60 * 60 * 1000));
+			int minutes = (int) (diff - hours * 60 * 60 * 1000) / (60 * 1000);
+			int seconds = (int) (diff - minutes * 60 * 1000) / 1000;      
+			
+			return (hours < 9?"0":"") + hours + ":" + (minutes < 9?"0":"") + minutes + ":" + (seconds < 9?"0":"") + seconds;
 		}
 	}
 	
 	public String getCurrState(){
-		//return currState;
-
-		//Field fieldState = null;
-		try {
-			Field fieldState[] = statemachineClass.getFields();
-			for (Field field : fieldState) {
-				System.out.println(field.toString());
-			}
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (this.statesCount == 0) {
+			setStatesCount();
 		}
 		
+		/*if (this.statesCount != 0) {
+			try {
+				//Method isStateActive = statemachineClass.getDeclaredMethod("isStateActive", new Class[]{int.class});
+				for (Method m : statemachineClass.getDeclaredMethods()) {
+					if (m.getName().equals("isStateActive")) {
+						System.out.println(m.getName());
+						int i = 1;
+						Object sci = m.invoke(this.statemachine, i);
+					}
+				}
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			//} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}*/
 		
-		//Method currState = statemachineClass.getDeclaredMethod("runCycle", new Class[]{});
-		//statemachineClass.get
-		//currState.invoke(statemachine);
-		return "";
+		return "x of " + this.statesCount;
+	}
+	
+	private boolean setStatesCount(){
+		//get stateCounts()
+		Field fieldState[] = statemachine.getClass().getDeclaredFields();
+		for (Field field : fieldState) {
+			if (field.getName().contains("$State")) {
+				field.setAccessible(true);
+
+				try {
+					int[] states = (int[]) field.get(statemachine);
+					this.statesCount = states.length;
+					//System.out.println(states.length);
+					return true;
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return false;
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return false;
+				}
+			}
+		}
+		return false;
 	}
 	
 }

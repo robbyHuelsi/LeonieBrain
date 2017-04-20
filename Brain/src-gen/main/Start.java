@@ -63,7 +63,9 @@ public class Start{
 		
 		Statemachine sm = this.statemachine;
 		sm.initAndEnter();
-
+		
+		System.out.println("---------- Statemachine " + this.statemachine.getName() + " started ----------");
+		
 		new Thread(new Runnable() {
 		    public void run() {
 		    	while (statemachine != null)
@@ -75,7 +77,8 @@ public class Start{
 						e.printStackTrace();
 					}
 				}
-		    	System.out.println("Statemachine end");
+		    	
+		    	System.out.println("----------   Statemachine " + sm.getName() + " end   ----------");
 		    }
 		}).start();
 		
@@ -116,7 +119,7 @@ public class Start{
 				//classNames.add(clazz.getSimpleName());
 			}
 		}
-		System.out.println(classNames.toString());
+		//System.out.println(classNames.toString());
 		return classNames;
 	}
 }
