@@ -8,7 +8,8 @@ import modules.parser.STT;
 
 public class OpCallbackImplSTT implements
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCISTTOperationCallback,
-	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCISTTOperationCallback
+	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCISTTOperationCallback,
+	org.yakindu.scr.test_stt_hbrain.ITest_STT_HBrainStatemachine.SCISTTOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();

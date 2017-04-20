@@ -1,5 +1,6 @@
 package main;
 
+import java.util.List;
 import java.util.Vector;
 
 import communication.Communication;
@@ -14,11 +15,6 @@ public class Start{
 	private static PersonList personList;
 	private static Modules modules;
 	private static GUI gui;
-	
-	private String[] statemachineNames = {
-			"Braganca", 
-			"SpeechAndPersonRecognition"
-	};
 	
 	// ---- Communication -----------------------------------------------------
 	static private int UDPListeningPort = 50000;
@@ -111,7 +107,16 @@ public class Start{
 		return gui;
 	}
 	
-	public String[] getStatemachineNames(){
-		return statemachineNames;
+	public Vector<String> getStatemachineNames(){
+		List<Class<?>> classes = ClassFinder.find("org.yakindu.scr");
+		Vector<String> classNames = new Vector<String>();
+		for (Class<?> clazz : classes) {
+			if (clazz.getSimpleName().contains("Statemachine") && !clazz.getSimpleName().substring(0, 1).equals("I")) {
+				classNames.add(clazz.getSimpleName().substring(0, clazz.getSimpleName().lastIndexOf("Statemachine")));
+				//classNames.add(clazz.getSimpleName());
+			}
+		}
+		System.out.println(classNames.toString());
+		return classNames;
 	}
 }
