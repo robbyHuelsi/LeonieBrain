@@ -68,4 +68,17 @@ public class OpCallbackImplSTT implements
 		stt.setActionReceived(false);
 	}
 
+	@Override
+	public String getSpokenText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getAnswer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }

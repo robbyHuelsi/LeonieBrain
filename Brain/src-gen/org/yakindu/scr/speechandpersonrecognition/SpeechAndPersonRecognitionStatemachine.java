@@ -207,10 +207,17 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			actionReceived = true;
 		}
 		
+		private boolean answerReceived;
+		
+		public void raiseAnswerReceived() {
+			answerReceived = true;
+		}
+		
 		protected void clearEvents() {
 			textReceived = false;
 			incomprehensible = false;
 			actionReceived = false;
+			answerReceived = false;
 		}
 	}
 	
@@ -777,7 +784,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	/* Entry action for state 'ListenForQuestion'. */
 	private void entryAction_main_region_BlindMan_sBluGame_r1_ListenForQuestion() {
 		timer.setTimer(this, 3, 5 * 1000, false);
-<<<<<<< HEAD
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 	}
@@ -789,7 +795,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'AnswerWithoutTurn'. */
 	private void entryAction_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn() {
-		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getText());
+		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getSpokenText());
 		
 		setQuestionCounter(getQuestionCounter() + 1);
 	}
@@ -808,13 +814,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		setQuestionCounter(getQuestionCounter() + 1);
 		
 		setQuestionRepeat(0);
-=======
->>>>>>> origin/robert
 	}
 	
 	/* Entry action for state 'Answer'. */
 	private void entryAction_main_region_BlindMan_sBluGame_r1_Answer() {
-		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getText());
+		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getSpokenText());
 		
 		setQuestionCounter(getQuestionCounter() + 1);
 	}

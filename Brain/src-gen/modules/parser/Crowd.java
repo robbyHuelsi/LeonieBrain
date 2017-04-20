@@ -21,7 +21,7 @@ public class Crowd implements IParser, Serializable{
 	private int sitting = 0;
 	private int lying = 0;
 	
-	private ArrayList<Person> crowdList = new ArrayList<>();
+	private ArrayList<PersonCrowd> crowdList = new ArrayList<>();
 
 	public boolean parse(String data, Start start) {
 		/*	#sender#total#gender1;age1;position1+gender2;age2;position2+ etc. #
@@ -45,7 +45,7 @@ public class Crowd implements IParser, Serializable{
 				int gender=Integer.parseInt(p[0]);
 				int age=Integer.parseInt(p[1]);
 				int position=Integer.parseInt(p[2]);
-				Person person = new Person(gender, age, position);
+				PersonCrowd person = new PersonCrowd(gender, age, position);
 				crowdList.add(person);
 			}
 		}	
@@ -55,7 +55,7 @@ public class Crowd implements IParser, Serializable{
 
 	
 	public void setAttributes(){
-		for( Person k: crowdList )
+		for( PersonCrowd k: crowdList )
 		{
 			//gender: 0=male ; 1=female ; -1=not detectable
 			if(k.getGender()==0){

@@ -1,12 +1,12 @@
 package modules.parser;
 
-public class Person {
+public class PersonCrowd {
 
 	private int gender;
 	private int age;
 	private int position;
 	
-	public Person(int gender, int age, int position) {
+	public PersonCrowd(int gender, int age, int position) {
 		setGender(gender);
 		setAge(age);
 		setPosition(position);
