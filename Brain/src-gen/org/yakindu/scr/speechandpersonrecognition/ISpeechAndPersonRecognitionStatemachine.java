@@ -177,7 +177,7 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 	public interface SCISTT {
 	
-		public void raiseTextReceived();
+		public void raiseSpokenTextReceived();
 		
 		public void raiseIncomprehensible();
 		

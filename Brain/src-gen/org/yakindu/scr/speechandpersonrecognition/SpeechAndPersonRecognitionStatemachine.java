@@ -189,10 +189,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 				SCISTTOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private boolean textReceived;
+		private boolean spokenTextReceived;
 		
-		public void raiseTextReceived() {
-			textReceived = true;
+		public void raiseSpokenTextReceived() {
+			spokenTextReceived = true;
 		}
 		
 		private boolean incomprehensible;
@@ -214,7 +214,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		}
 		
 		protected void clearEvents() {
-			textReceived = false;
+			spokenTextReceived = false;
 			incomprehensible = false;
 			actionReceived = false;
 			answerReceived = false;

@@ -31,10 +31,10 @@ public class Test_STT_HBrainStatemachine implements ITest_STT_HBrainStatemachine
 				SCISTTOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private boolean textReceived;
+		private boolean spokenTextReceived;
 		
-		public void raiseTextReceived() {
-			textReceived = true;
+		public void raiseSpokenTextReceived() {
+			spokenTextReceived = true;
 		}
 		
 		private boolean incomprehensible;
@@ -49,10 +49,17 @@ public class Test_STT_HBrainStatemachine implements ITest_STT_HBrainStatemachine
 			actionReceived = true;
 		}
 		
+		private boolean answerReceived;
+		
+		public void raiseAnswerReceived() {
+			answerReceived = true;
+		}
+		
 		protected void clearEvents() {
-			textReceived = false;
+			spokenTextReceived = false;
 			incomprehensible = false;
 			actionReceived = false;
+			answerReceived = false;
 		}
 	}
 	
