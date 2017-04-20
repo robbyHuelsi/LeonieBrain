@@ -5,7 +5,7 @@
       <vertices xsi:type="sgraph:Entry" xmi:id="_mDrPcAWQEeexDc0gj0Gmyw">
         <outgoingTransitions xmi:id="_mDr2gQWQEeexDc0gj0Gmyw" target="_mDozPAWQEeexDc0gj0Gmyw"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_mDozPAWQEeexDc0gj0Gmyw" specification="entry/ Kinect2.sendNoiseDetectionOnOff(false)&#xD;&#xA;" name="Init" incomingTransitions="_mDr2gQWQEeexDc0gj0Gmyw">
+      <vertices xsi:type="sgraph:State" xmi:id="_mDozPAWQEeexDc0gj0Gmyw" specification="entry/ Kinect2.sendNoiseDetectionOnOff(false);&#xD;&#xA;//designated starting position&#xD;&#xA;Mira.sendGoToGWP(0)&#xD;&#xA;" name="Init" incomingTransitions="_mDr2gQWQEeexDc0gj0Gmyw">
         <outgoingTransitions xmi:id="_8_BJ0AWQEeexDc0gj0Gmyw" specification="always" target="_mDg3ZAWQEeexDc0gj0Gmyw"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_mDg3ZAWQEeexDc0gj0Gmyw" specification="entry / HBrain.sendTTS(&quot;I want to play the riddle game!&quot;)" name="Announcement" incomingTransitions="_8_BJ0AWQEeexDc0gj0Gmyw" documentation="Leonie says: &quot;Want to play the riddle game&quot;">
@@ -29,9 +29,9 @@
             <outgoingTransitions xmi:id="_mDUqKQWQEeexDc0gj0Gmyw" specification="after 5s" target="_mDQYsAWQEeexDc0gj0Gmyw"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_mDQYsAWQEeexDc0gj0Gmyw" specification="entry / //STT.STTReady = true;&#xD;&#xA;STT.sendSpeechDetectionOff()" name="WaitForQuestion" incomingTransitions="_mDUqKQWQEeexDc0gj0Gmyw _mDN8cgWQEeexDc0gj0Gmyw" documentation="question is asked by the operator in front">
-            <outgoingTransitions xmi:id="_mDSN5wWQEeexDc0gj0Gmyw" specification="" documentation="question is finished" target="_mDIc7AWQEeexDc0gj0Gmyw"/>
+            <outgoingTransitions xmi:id="_mDSN5wWQEeexDc0gj0Gmyw" specification="STT.answerReceived" documentation="question is finished" target="_mDIc7AWQEeexDc0gj0Gmyw"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_mDIc7AWQEeexDc0gj0Gmyw" specification="entry / questionCounter+=1&#xD;&#xA;//TTS output" name="Answer" incomingTransitions="_mDSN5wWQEeexDc0gj0Gmyw">
+          <vertices xsi:type="sgraph:State" xmi:id="_mDIc7AWQEeexDc0gj0Gmyw" specification="entry / questionCounter+=1; &#xD;&#xA;HBrain.sendTTS(STT.getAnswer)" name="Answer" incomingTransitions="_mDSN5wWQEeexDc0gj0Gmyw">
             <outgoingTransitions xmi:id="_mDN8cgWQEeexDc0gj0Gmyw" specification="[questionCounter&lt;5]" target="_mDQYsAWQEeexDc0gj0Gmyw"/>
             <outgoingTransitions xmi:id="_mDK5IQWQEeexDc0gj0Gmyw" specification="[questionCounter==5]" target="_mC_6DAWQEeexDc0gj0Gmyw"/>
           </vertices>
@@ -71,7 +71,7 @@
           </vertices>
         </regions>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_eOEIoAWREeexDc0gj0Gmyw" specification="//objectdetection: find the door" name="LeaveTheRoom" incomingTransitions="_iKwAoAWREeexDc0gj0Gmyw _CmskkCW9Eee9yu4Z-SFBcQ _hht7MCXREee7sZ4EX6CHAg">
+      <vertices xsi:type="sgraph:State" xmi:id="_eOEIoAWREeexDc0gj0Gmyw" specification="entry/&#xD;&#xA;//find the door out - waypoint&#xD;&#xA;Mira.sendGoToGWP(0)" name="LeaveTheRoom" incomingTransitions="_iKwAoAWREeexDc0gj0Gmyw _CmskkCW9Eee9yu4Z-SFBcQ _hht7MCXREee7sZ4EX6CHAg">
         <outgoingTransitions xmi:id="_E4O24AWTEeexDc0gj0Gmyw" specification="//Leonie is out of the room" target="_DmN1YAWTEeexDc0gj0Gmyw"/>
       </vertices>
       <vertices xsi:type="sgraph:FinalState" xmi:id="_DmN1YAWTEeexDc0gj0Gmyw" incomingTransitions="_E4O24AWTEeexDc0gj0Gmyw"/>

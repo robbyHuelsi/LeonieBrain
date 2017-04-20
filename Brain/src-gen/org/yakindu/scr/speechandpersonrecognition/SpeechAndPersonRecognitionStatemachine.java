@@ -563,6 +563,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return timeEvents[2];
 	}
 	
+	private boolean check_main_region_RiddleGame1_r1_WaitForQuestion_tr0_tr0() {
+		return sCISTT.answerReceived;
+	}
+	
 	private boolean check_main_region_RiddleGame1_r1_Answer_tr0_tr0() {
 		return getQuestionCounter()<5;
 	}
@@ -648,6 +652,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_RiddleGame1_r1_WaitForQuestion_default();
 	}
 	
+	private void effect_main_region_RiddleGame1_r1_WaitForQuestion_tr0() {
+		exitSequence_main_region_RiddleGame1_r1_WaitForQuestion();
+		enterSequence_main_region_RiddleGame1_r1_Answer_default();
+	}
+	
 	private void effect_main_region_RiddleGame1_r1_Answer_tr0() {
 		exitSequence_main_region_RiddleGame1_r1_Answer();
 		enterSequence_main_region_RiddleGame1_r1_WaitForQuestion_default();
@@ -726,6 +735,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	/* Entry action for state 'Init'. */
 	private void entryAction_main_region_Init() {
 		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(false);
+		
+		sCIMira.operationCallback.sendGoToGWP(0);
 	}
 	
 	/* Entry action for state 'Announcement'. */
@@ -770,6 +781,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	/* Entry action for state 'Answer'. */
 	private void entryAction_main_region_RiddleGame1_r1_Answer() {
 		setQuestionCounter(getQuestionCounter() + 1);
+		
+		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
 	}
 	
 	/* Entry action for state 'StartGame'. */
@@ -828,6 +841,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		sCIHBrain.operationCallback.sendTTS("Please repeat the question.");
 		
 		setQuestionRepeat(getQuestionRepeat() + 1);
+	}
+	
+	/* Entry action for state 'LeaveTheRoom'. */
+	private void entryAction_main_region_LeaveTheRoom() {
+		sCIMira.operationCallback.sendGoToGWP(0);
 	}
 	
 	/* Exit action for state 'Wait'. */
@@ -976,6 +994,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* 'default' enter sequence for state LeaveTheRoom */
 	private void enterSequence_main_region_LeaveTheRoom_default() {
+		entryAction_main_region_LeaveTheRoom();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_LeaveTheRoom;
 	}
@@ -1285,6 +1304,9 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* The reactions of state WaitForQuestion. */
 	private void react_main_region_RiddleGame1_r1_WaitForQuestion() {
+		if (check_main_region_RiddleGame1_r1_WaitForQuestion_tr0_tr0()) {
+			effect_main_region_RiddleGame1_r1_WaitForQuestion_tr0();
+		}
 	}
 	
 	/* The reactions of state Answer. */
