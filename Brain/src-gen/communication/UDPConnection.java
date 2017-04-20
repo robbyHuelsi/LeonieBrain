@@ -36,8 +36,7 @@ public class UDPConnection
 	 *            the Port I want to listen to
 	 * @return the received message
 	 */
-	public void receiveSocket(InetAddress myAdress, int myPort, boolean useThread)
-	{
+	public void receiveSocket(InetAddress myAdress, int myPort, boolean useThread){
 		if (!useThread)
 		{
 			DatagramPacket request = null;
@@ -71,7 +70,6 @@ public class UDPConnection
 		{
 			Thread t = new Thread(new Runnable()
 			{
-				@Override
 				public void run()
 				{
 					try
@@ -91,7 +89,6 @@ public class UDPConnection
 						socket.close();
 					} catch (IOException e)
 					{
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -124,11 +121,9 @@ public class UDPConnection
 			socket.send(request);
 		} catch (SocketException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

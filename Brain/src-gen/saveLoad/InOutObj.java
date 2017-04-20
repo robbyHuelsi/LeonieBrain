@@ -39,7 +39,7 @@ public class InOutObj{
 		      while ( (obj= oIS.readObject()) != null ){
 		        // da das geschriebene objekt ein Vektor-objekt war, wird dieses auf die 
 		        // klasse Vektor gecastet und in den Command Vektor geschrieben.
-		        S.getPersonList().addPerson((Person)obj);
+		        S.getPersonList().addPerson((Person)obj, S);
 		      }
 		      oIS.close();
 		    } catch (Exception e) {

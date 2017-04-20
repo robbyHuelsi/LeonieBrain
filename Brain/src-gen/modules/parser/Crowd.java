@@ -2,43 +2,47 @@ package modules.parser;
 
 import java.io.Serializable;
 
-import org.yakindu.scr.brain.BrainStatemachine;
-
 import main.Start;
+import modules.Module;
 
 public class Crowd implements IParser, Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private Start start;
+	
+	// Parsed information
+	private int countTotal = -1;
+	private int countFemale = -1;
+	private int countMale = -1;
+	private int countUnder21 = -1;
 
-	@Override
-	public boolean parse(String data, BrainStatemachine brain, Start start) {
+	public boolean parse(String data, Start start) {
 		/*	#sender#total#gender1;age1+gender2;age2+ etc. #
 			sendername: “crowd”
 			total: Gesamtanzahl
 			gender: 0=male ; 1=female
 		 */
-		String[] genderAndAge = null;
-		int female=0;
-		int male=0;
-		int under21;
+		
+		this.start = start;
+		
 		String[] crowd = data.split("#");
+		
 		if (crowd[0]!=null) {
-			int total = Integer.parseInt(crowd[0]);
+			this.setCountTotal(Integer.parseInt(crowd[0]));
+			
 			String[] people = crowd[1].split("+");
-			for(int counter=1; counter<=total; counter++){
+			String[] genderAndAge = null;
+			for(int counter=1; counter<=this.getCountTotal(); counter++){
 				genderAndAge = people[counter].split(";");
 			}
+			
 			if(genderAndAge!=null){
 				for(int count=0; count<=genderAndAge.length; count++){
 					//gender
 					if(count%2 == 0){
 						if(genderAndAge[count]=="0"){
-							male+=1;
+							this.setCountMale(this.getCountMale() + 1);
 						}else if(genderAndAge[count]=="1"){
-							female+=1;
+							this.setCountFemale(this.getCountFemale() + 1);
 						}
 					//age	
 					}else if(count%2 != 0){
@@ -49,10 +53,53 @@ public class Crowd implements IParser, Serializable{
 			}
 			
 		} else if(data.contains("0")){
-			brain.getSCIHBrain().setTTSReady(true);
+			/*brain.getSCIHBrain().setTTSReady(true);*/ //TODO: Sarah: Warum????
 			//System.out.println("TTS ready");
 		}
 
+		return true;
+	}
+
+	
+	
+	public int getCountTotal() {
+		return countTotal;
+	}
+
+	public void setCountTotal(int countTotal) {
+		this.countTotal = countTotal;
+	}
+
+	public int getCountFemale() {
+		return countFemale;
+	}
+
+	public void setCountFemale(int countFemale) {
+		this.countFemale = countFemale;
+	}
+
+	public int getCountMale() {
+		return countMale;
+	}
+
+	public void setCountMale(int countMale) {
+		this.countMale = countMale;
+	}
+
+	public int getCountUnder21() {
+		return countUnder21;
+	}
+
+	public void setCountUnder21(int countUnder21) {
+		this.countUnder21 = countUnder21;
+	}
+
+	public boolean removeParsedInformation() {
+		this.countTotal = -1;
+		this.countFemale = -1;
+		this.countMale = -1;
+		this.countUnder21 = -1;
+		
 		return true;
 	}
 

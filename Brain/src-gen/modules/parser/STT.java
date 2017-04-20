@@ -2,41 +2,118 @@ package modules.parser;
 
 import java.io.Serializable;
 
-import org.yakindu.scr.brain.BrainStatemachine;
 
 import main.*;
+import modules.Module;
 
 public class STT implements IParser, Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private Start start;
+	
+	// Parsed information
+	private String text;
+	private String instruction;
+	private String object;
 
-	@Override
-	public boolean parse(String data, BrainStatemachine brain, Start start) {
-		brain.getSCISTT().setSpeakerMsg(data);
-		String filterBubble = brain.getSCISTT().getFilterBubble();
+	private boolean incomprehensible;
+	private boolean textReceived;
+	private boolean actionReceived;
+
+	public boolean parse(String data, Start start) {
+		this.start = start;
 		
-		if(filterBubble == ""){
-			if (data.contains("yes") || data.contains("yep") ||data.contains("ja") ||data.contains("si") ||data.contains("yeah") ||data.contains("correct") ||data.contains("ok") ||data.contains("alright")||data.contains("okay")){
-				brain.getSCISTT().setFilteredMsg("yes");
-			}
+		
+		//TODO:  Muss überarbeitet werden:
+		
+		if (data.contains("TEXT#")) {
+			this.setText(data.substring(5));
+			this.setTextReceived(true);
 			
-			if (data.contains("no") || data.contains("nope") ||data.contains("nein") ||data.contains("nada") ||data.contains("cancel") ||data.contains("nö")){
-				brain.getSCISTT().setFilteredMsg("no");
-			}
+		}else if(data.contains("RETRY#")){
+			this.setText(data.substring(6));
+			this.setIncomprehensible(true);
 			
-		}else{
-			if (data.contains(filterBubble)){
-				brain.getSCISTT().setFilteredMsg(data);
-			}else{
-				brain.getSCISTT().setFilteredMsg("");
-			}
+		}else if(data.contains("ACTION#")){
+			String[] t = data.substring(7).split(";");
+			this.setInstruction(t[0]);
+			this.setObject(t[1]);
+			this.setActionReceived(true);
 		}
-		System.out.println("Filtered text: " + brain.getSCISTT().getFilteredMsg());
 		
-		brain.getSCISTT().setSTTReady(true);
+		return true;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String speakerMsg) {
+		this.text = speakerMsg;
+	}
+
+	public String getInstruction() {
+		return instruction;
+	}
+
+	public void setInstruction(String instruction) {
+		this.instruction = instruction;
+	}
+
+	public String getObject() {
+		return object;
+	}
+
+	public void setObject(String object) {
+		this.object = object;
+	}
+	
+	
+	
+	
+	public boolean isTextReceived() {
+		return textReceived;
+	}
+
+	public void setTextReceived(boolean textReceived) {
+		this.textReceived = textReceived;
+		
+		if (textReceived) {
+			start.getStatemachine().raiseEventOfSCI("STT","textReceived");
+		}
+	}
+
+	public boolean isIncomprehensible() {
+		return incomprehensible;
+	}
+
+	public void setIncomprehensible(boolean incomprehensible) {
+		this.incomprehensible = incomprehensible;
+		
+		if (incomprehensible) {
+			start.getStatemachine().raiseEventOfSCI("STT","incomprehensible");
+		}
+	}
+
+	public boolean isActionReceived() {
+		return actionReceived;
+	}
+
+	public void setActionReceived(boolean actionReceived) {
+		this.actionReceived = actionReceived;
+		
+		if (actionReceived) {
+			start.getStatemachine().raiseEventOfSCI("STT","actionReceived");
+		}
+	}
+
+	public boolean removeParsedInformation() {
+		this.text = "";
+		this.instruction = "";
+		this.object = "";
+		this.incomprehensible = false;
+		this.textReceived = false;
+		this.actionReceived = false;
+		
 		return true;
 	}
 
