@@ -1,6 +1,7 @@
 package modules.parser;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import main.Start;
 import modules.Module;
@@ -10,13 +11,20 @@ public class Crowd implements IParser, Serializable{
 	private Start start;
 	
 	// Parsed information
-	private int countTotal = -1;
-	private int countFemale = -1;
-	private int countMale = -1;
-	private int countUnder21 = -1;
+	private int countTotal = 0;
+	private int countFemale = 0;
+	private int countMale = 0;
+	private int countUnder21 = 0;
+	private int ageSum = 0;
+	private int ageAverage = 0;
+	private int standing = 0;
+	private int sitting = 0;
+	private int lying = 0;
+	
+	private ArrayList<Person> crowdList = new ArrayList<>();
 
 	public boolean parse(String data, Start start) {
-		/*	#sender#total#gender1;age1+gender2;age2+ etc. #
+		/*	#sender#total#gender1;age1;position1+gender2;age2;position2+ etc. #
 			sendername: “crowd”
 			total: Gesamtanzahl
 			gender: 0=male ; 1=female
@@ -25,43 +33,110 @@ public class Crowd implements IParser, Serializable{
 		this.start = start;
 		
 		String[] crowd = data.split("#");
-		
+		//if people detected
 		if (crowd[0]!=null) {
 			this.setCountTotal(Integer.parseInt(crowd[0]));
 			
 			String[] people = crowd[1].split("+");
-			String[] genderAndAge = null;
+			
 			for(int counter=1; counter<=this.getCountTotal(); counter++){
-				genderAndAge = people[counter].split(";");
-			}
-			
-			if(genderAndAge!=null){
-				for(int count=0; count<=genderAndAge.length; count++){
-					//gender
-					if(count%2 == 0){
-						if(genderAndAge[count]=="0"){
-							this.setCountMale(this.getCountMale() + 1);
-						}else if(genderAndAge[count]=="1"){
-							this.setCountFemale(this.getCountFemale() + 1);
-						}
-					//age	
-					}else if(count%2 != 0){
-						int age = Integer.parseInt(genderAndAge[count]);
-						
-					}
-				}
-			}
-			
-		} else if(data.contains("0")){
-			/*brain.getSCIHBrain().setTTSReady(true);*/ //TODO: Sarah: Warum????
-			//System.out.println("TTS ready");
-		}
+				String[] p = people[counter].split(";");
 
+				int gender=Integer.parseInt(p[0]);
+				int age=Integer.parseInt(p[1]);
+				int position=Integer.parseInt(p[2]);
+				Person person = new Person(gender, age, position);
+				crowdList.add(person);
+			}
+		}	
+	
 		return true;
 	}
 
 	
+	public void setAttributes(){
+		for( Person k: crowdList )
+		{
+			//gender: 0=male ; 1=female ; -1=not detectable
+			if(k.getGender()==0){
+				setCountMale(getCountMale()+1);
+			}
+			else if(k.getGender()==1){
+				setCountFemale(getCountFemale()+1);
+			}
+			//age
+			if(k.getAge()>=0){
+				setAgeSum(getAgeSum()+k.getAge());
+			}
+			if(k.getAge()<21){
+				setCountUnder21(getCountUnder21()+1);
+			}
+			//position  0:stehen, 1=sitzen, 2=liegen
+			if(k.getPosition()==0){
+				setStanding(getStanding()+1);
+			}
+			else if(k.getPosition()==1){
+				setSitting(getSitting()+1);
+			}
+			else if(k.getPosition()==2){
+				setLying(getLying()+1);
+			}
+		}
+		//age average
+		setAgeAverage(getAgeSum() / getCountTotal());
+	}
 	
+	
+	public int getAgeAverage() {
+		return ageAverage;
+	}
+
+
+	public void setAgeAverage(int ageAverage) {
+		this.ageAverage = ageAverage;
+	}
+
+
+	public int getStanding() {
+		return standing;
+	}
+
+
+	public void setStanding(int standing) {
+		this.standing = standing;
+	}
+
+
+	public int getSitting() {
+		return sitting;
+	}
+
+
+	public void setSitting(int sitting) {
+		this.sitting = sitting;
+	}
+
+
+	public int getLying() {
+		return lying;
+	}
+
+
+	public void setLying(int lying) {
+		this.lying = lying;
+	}
+
+
+	public int getAgeSum() {
+		return ageSum;
+	}
+
+
+	public void setAgeSum(int sumAge) {
+		this.ageSum = sumAge;
+	}
+
+
 	public int getCountTotal() {
 		return countTotal;
 	}

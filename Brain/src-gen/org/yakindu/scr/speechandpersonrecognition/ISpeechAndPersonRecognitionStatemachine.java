@@ -191,6 +191,8 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 		public String getText();
 		
+		public String getQuestion();
+		
 		public String getInstruction();
 		
 		public String getObject();

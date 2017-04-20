@@ -269,7 +269,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		main_region_BlindMan_sBluGame_r1_StartGame,
 		main_region_BlindMan_sBluGame_r1_ListenForQuestion,
 		main_region_BlindMan_sBluGame_r1_WaitForQuestion,
+		main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn,
+		main_region_BlindMan_sBluGame_r1_Turn,
+		main_region_BlindMan_sBluGame_r1_NoAnswer,
 		main_region_BlindMan_sBluGame_r1_Answer,
+		main_region_BlindMan_sBluGame_r1_Repeat,
 		main_region_LeaveTheRoom,
 		main_region__final_,
 		$NullState$
@@ -281,7 +285,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[4];
+	private final boolean[] timeEvents = new boolean[5];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -310,6 +314,16 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	protected long getQuestionCounter() {
 		return questionCounter;
+	}
+	
+	private long questionRepeat;
+	
+	protected void setQuestionRepeat(long value) {
+		questionRepeat = value;
+	}
+	
+	protected long getQuestionRepeat() {
+		return questionRepeat;
 	}
 	
 	public SpeechAndPersonRecognitionStatemachine() {
@@ -347,6 +361,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		setNameBuffer("");
 		
 		setQuestionCounter(0);
+		
+		setQuestionRepeat(0);
 	}
 	
 	public void enter() {
@@ -426,15 +442,23 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			return stateVector[0] == State.main_region_RiddleGame1_r1_Answer;
 		case main_region_BlindMan_sBluGame:
 			return stateVector[0].ordinal() >= State.
-					main_region_BlindMan_sBluGame.ordinal()&& stateVector[0].ordinal() <= State.main_region_BlindMan_sBluGame_r1_Answer.ordinal();
+					main_region_BlindMan_sBluGame.ordinal()&& stateVector[0].ordinal() <= State.main_region_BlindMan_sBluGame_r1_Repeat.ordinal();
 		case main_region_BlindMan_sBluGame_r1_StartGame:
 			return stateVector[0] == State.main_region_BlindMan_sBluGame_r1_StartGame;
 		case main_region_BlindMan_sBluGame_r1_ListenForQuestion:
 			return stateVector[0] == State.main_region_BlindMan_sBluGame_r1_ListenForQuestion;
 		case main_region_BlindMan_sBluGame_r1_WaitForQuestion:
 			return stateVector[0] == State.main_region_BlindMan_sBluGame_r1_WaitForQuestion;
+		case main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn:
+			return stateVector[0] == State.main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn;
+		case main_region_BlindMan_sBluGame_r1_Turn:
+			return stateVector[0] == State.main_region_BlindMan_sBluGame_r1_Turn;
+		case main_region_BlindMan_sBluGame_r1_NoAnswer:
+			return stateVector[0] == State.main_region_BlindMan_sBluGame_r1_NoAnswer;
 		case main_region_BlindMan_sBluGame_r1_Answer:
 			return stateVector[0] == State.main_region_BlindMan_sBluGame_r1_Answer;
+		case main_region_BlindMan_sBluGame_r1_Repeat:
+			return stateVector[0] == State.main_region_BlindMan_sBluGame_r1_Repeat;
 		case main_region_LeaveTheRoom:
 			return stateVector[0] == State.main_region_LeaveTheRoom;
 		case main_region__final_:
@@ -533,23 +557,63 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_main_region_RiddleGame1_r1_Answer_tr0_tr0() {
-		return getQuestionCounter()<7;
+		return getQuestionCounter()<5;
 	}
 	
 	private boolean check_main_region_RiddleGame1_r1_Answer_tr1_tr1() {
-		return getQuestionCounter()==7;
+		return getQuestionCounter()==5;
 	}
 	
 	private boolean check_main_region_BlindMan_sBluGame_r1_ListenForQuestion_tr0_tr0() {
 		return timeEvents[3];
 	}
 	
+	private boolean check_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr0_tr0() {
+		return sCIKinect2.noiseDetected==false;
+	}
+	
+	private boolean check_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr1_tr1() {
+		return sCIKinect2.noiseDetected==true;
+	}
+	
+	private boolean check_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr2_tr2() {
+		return sCISTT.incomprehensible==true && getQuestionRepeat()==0;
+	}
+	
+	private boolean check_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr3_tr3() {
+		return sCISTT.incomprehensible==true && getQuestionRepeat()==1;
+	}
+	
+	private boolean check_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_tr0_tr0() {
+		return getQuestionCounter()==6;
+	}
+	
+	private boolean check_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_tr1_tr1() {
+		return getQuestionCounter()<6;
+	}
+	
+	private boolean check_main_region_BlindMan_sBluGame_r1_Turn_tr0_tr0() {
+		return timeEvents[4];
+	}
+	
+	private boolean check_main_region_BlindMan_sBluGame_r1_NoAnswer_tr0_tr0() {
+		return getQuestionCounter()<6;
+	}
+	
+	private boolean check_main_region_BlindMan_sBluGame_r1_NoAnswer_tr1_tr1() {
+		return getQuestionCounter()==6;
+	}
+	
 	private boolean check_main_region_BlindMan_sBluGame_r1_Answer_tr0_tr0() {
-		return getQuestionCounter()<7;
+		return getQuestionCounter()==6;
 	}
 	
 	private boolean check_main_region_BlindMan_sBluGame_r1_Answer_tr1_tr1() {
-		return getQuestionCounter()==7;
+		return getQuestionCounter()<6;
+	}
+	
+	private boolean check_main_region_BlindMan_sBluGame_r1_Repeat_tr0_tr0() {
+		return getQuestionCounter()<6;
 	}
 	
 	private void effect_main_region_Init_tr0() {
@@ -592,14 +656,64 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
 	}
 	
+	private void effect_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr0() {
+		exitSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion();
+		enterSequence_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_default();
+	}
+	
+	private void effect_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr1() {
+		exitSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion();
+		enterSequence_main_region_BlindMan_sBluGame_r1_Turn_default();
+	}
+	
+	private void effect_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr2() {
+		exitSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion();
+		enterSequence_main_region_BlindMan_sBluGame_r1_Repeat_default();
+	}
+	
+	private void effect_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr3() {
+		exitSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion();
+		enterSequence_main_region_BlindMan_sBluGame_r1_NoAnswer_default();
+	}
+	
+	private void effect_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_tr0() {
+		exitSequence_main_region_BlindMan_sBluGame();
+		enterSequence_main_region_LeaveTheRoom_default();
+	}
+	
+	private void effect_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_tr1() {
+		exitSequence_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn();
+		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
+	}
+	
+	private void effect_main_region_BlindMan_sBluGame_r1_Turn_tr0() {
+		exitSequence_main_region_BlindMan_sBluGame_r1_Turn();
+		enterSequence_main_region_BlindMan_sBluGame_r1_Answer_default();
+	}
+	
+	private void effect_main_region_BlindMan_sBluGame_r1_NoAnswer_tr0() {
+		exitSequence_main_region_BlindMan_sBluGame_r1_NoAnswer();
+		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
+	}
+	
+	private void effect_main_region_BlindMan_sBluGame_r1_NoAnswer_tr1() {
+		exitSequence_main_region_BlindMan_sBluGame();
+		enterSequence_main_region_LeaveTheRoom_default();
+	}
+	
 	private void effect_main_region_BlindMan_sBluGame_r1_Answer_tr0() {
+		exitSequence_main_region_BlindMan_sBluGame();
+		enterSequence_main_region_LeaveTheRoom_default();
+	}
+	
+	private void effect_main_region_BlindMan_sBluGame_r1_Answer_tr1() {
 		exitSequence_main_region_BlindMan_sBluGame_r1_Answer();
 		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
 	}
 	
-	private void effect_main_region_BlindMan_sBluGame_r1_Answer_tr1() {
-		exitSequence_main_region_BlindMan_sBluGame();
-		enterSequence_main_region_LeaveTheRoom_default();
+	private void effect_main_region_BlindMan_sBluGame_r1_Repeat_tr0() {
+		exitSequence_main_region_BlindMan_sBluGame_r1_Repeat();
+		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
 	}
 	
 	/* Entry action for state 'Init'. */
@@ -654,16 +768,62 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	/* Entry action for state 'StartGame'. */
 	private void entryAction_main_region_BlindMan_sBluGame_r1_StartGame() {
 		setQuestionCounter(0);
+		
+		setQuestionRepeat(0);
+		
+		sCIHBrain.operationCallback.sendTTS("I'm ready for the next game [:-)] ");
 	}
 	
 	/* Entry action for state 'ListenForQuestion'. */
 	private void entryAction_main_region_BlindMan_sBluGame_r1_ListenForQuestion() {
 		timer.setTimer(this, 3, 5 * 1000, false);
+<<<<<<< HEAD
+		
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+	}
+	
+	/* Entry action for state 'WaitForQuestion'. */
+	private void entryAction_main_region_BlindMan_sBluGame_r1_WaitForQuestion() {
+		sCISTT.operationCallback.sendSpeechDetectionOff();
+	}
+	
+	/* Entry action for state 'AnswerWithoutTurn'. */
+	private void entryAction_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn() {
+		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getText());
+		
+		setQuestionCounter(getQuestionCounter() + 1);
+	}
+	
+	/* Entry action for state 'Turn'. */
+	private void entryAction_main_region_BlindMan_sBluGame_r1_Turn() {
+		timer.setTimer(this, 4, 3 * 1000, false);
+		
+		sCIMira.operationCallback.sendTurnBody(sCIKinect2.operationCallback.getNoiseAngle());
+	}
+	
+	/* Entry action for state 'NoAnswer'. */
+	private void entryAction_main_region_BlindMan_sBluGame_r1_NoAnswer() {
+		sCIHBrain.operationCallback.sendTTS("I'm so sorry! I have no answer for you [:-(]");
+		
+		setQuestionCounter(getQuestionCounter() + 1);
+		
+		setQuestionRepeat(0);
+=======
+>>>>>>> origin/robert
 	}
 	
 	/* Entry action for state 'Answer'. */
 	private void entryAction_main_region_BlindMan_sBluGame_r1_Answer() {
+		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getText());
+		
 		setQuestionCounter(getQuestionCounter() + 1);
+	}
+	
+	/* Entry action for state 'Repeat'. */
+	private void entryAction_main_region_BlindMan_sBluGame_r1_Repeat() {
+		sCIHBrain.operationCallback.sendTTS("Please repeat the question.");
+		
+		setQuestionRepeat(getQuestionRepeat() + 1);
 	}
 	
 	/* Exit action for state 'Wait'. */
@@ -684,6 +844,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	/* Exit action for state 'ListenForQuestion'. */
 	private void exitAction_main_region_BlindMan_sBluGame_r1_ListenForQuestion() {
 		timer.unsetTimer(this, 3);
+	}
+	
+	/* Exit action for state 'Turn'. */
+	private void exitAction_main_region_BlindMan_sBluGame_r1_Turn() {
+		timer.unsetTimer(this, 4);
 	}
 	
 	/* 'default' enter sequence for state Init */
@@ -765,8 +930,30 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* 'default' enter sequence for state WaitForQuestion */
 	private void enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default() {
+		entryAction_main_region_BlindMan_sBluGame_r1_WaitForQuestion();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_BlindMan_sBluGame_r1_WaitForQuestion;
+	}
+	
+	/* 'default' enter sequence for state AnswerWithoutTurn */
+	private void enterSequence_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_default() {
+		entryAction_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn;
+	}
+	
+	/* 'default' enter sequence for state Turn */
+	private void enterSequence_main_region_BlindMan_sBluGame_r1_Turn_default() {
+		entryAction_main_region_BlindMan_sBluGame_r1_Turn();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_BlindMan_sBluGame_r1_Turn;
+	}
+	
+	/* 'default' enter sequence for state NoAnswer */
+	private void enterSequence_main_region_BlindMan_sBluGame_r1_NoAnswer_default() {
+		entryAction_main_region_BlindMan_sBluGame_r1_NoAnswer();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_BlindMan_sBluGame_r1_NoAnswer;
 	}
 	
 	/* 'default' enter sequence for state Answer */
@@ -774,6 +961,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		entryAction_main_region_BlindMan_sBluGame_r1_Answer();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_BlindMan_sBluGame_r1_Answer;
+	}
+	
+	/* 'default' enter sequence for state Repeat */
+	private void enterSequence_main_region_BlindMan_sBluGame_r1_Repeat_default() {
+		entryAction_main_region_BlindMan_sBluGame_r1_Repeat();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_BlindMan_sBluGame_r1_Repeat;
 	}
 	
 	/* 'default' enter sequence for state LeaveTheRoom */
@@ -883,8 +1077,34 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state AnswerWithoutTurn */
+	private void exitSequence_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state Turn */
+	private void exitSequence_main_region_BlindMan_sBluGame_r1_Turn() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_BlindMan_sBluGame_r1_Turn();
+	}
+	
+	/* Default exit sequence for state NoAnswer */
+	private void exitSequence_main_region_BlindMan_sBluGame_r1_NoAnswer() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for state Answer */
 	private void exitSequence_main_region_BlindMan_sBluGame_r1_Answer() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state Repeat */
+	private void exitSequence_main_region_BlindMan_sBluGame_r1_Repeat() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -940,8 +1160,20 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		case main_region_BlindMan_sBluGame_r1_WaitForQuestion:
 			exitSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion();
 			break;
+		case main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn:
+			exitSequence_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn();
+			break;
+		case main_region_BlindMan_sBluGame_r1_Turn:
+			exitSequence_main_region_BlindMan_sBluGame_r1_Turn();
+			break;
+		case main_region_BlindMan_sBluGame_r1_NoAnswer:
+			exitSequence_main_region_BlindMan_sBluGame_r1_NoAnswer();
+			break;
 		case main_region_BlindMan_sBluGame_r1_Answer:
 			exitSequence_main_region_BlindMan_sBluGame_r1_Answer();
+			break;
+		case main_region_BlindMan_sBluGame_r1_Repeat:
+			exitSequence_main_region_BlindMan_sBluGame_r1_Repeat();
 			break;
 		case main_region_LeaveTheRoom:
 			exitSequence_main_region_LeaveTheRoom();
@@ -986,8 +1218,20 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		case main_region_BlindMan_sBluGame_r1_WaitForQuestion:
 			exitSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion();
 			break;
+		case main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn:
+			exitSequence_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn();
+			break;
+		case main_region_BlindMan_sBluGame_r1_Turn:
+			exitSequence_main_region_BlindMan_sBluGame_r1_Turn();
+			break;
+		case main_region_BlindMan_sBluGame_r1_NoAnswer:
+			exitSequence_main_region_BlindMan_sBluGame_r1_NoAnswer();
+			break;
 		case main_region_BlindMan_sBluGame_r1_Answer:
 			exitSequence_main_region_BlindMan_sBluGame_r1_Answer();
+			break;
+		case main_region_BlindMan_sBluGame_r1_Repeat:
+			exitSequence_main_region_BlindMan_sBluGame_r1_Repeat();
 			break;
 		default:
 			break;
@@ -1063,6 +1307,50 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* The reactions of state WaitForQuestion. */
 	private void react_main_region_BlindMan_sBluGame_r1_WaitForQuestion() {
+		if (check_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr0_tr0()) {
+			effect_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr0();
+		} else {
+			if (check_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr1_tr1()) {
+				effect_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr1();
+			} else {
+				if (check_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr2_tr2()) {
+					effect_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr2();
+				} else {
+					if (check_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr3_tr3()) {
+						effect_main_region_BlindMan_sBluGame_r1_WaitForQuestion_tr3();
+					}
+				}
+			}
+		}
+	}
+	
+	/* The reactions of state AnswerWithoutTurn. */
+	private void react_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn() {
+		if (check_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_tr0_tr0()) {
+			effect_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_tr0();
+		} else {
+			if (check_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_tr1_tr1()) {
+				effect_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_tr1();
+			}
+		}
+	}
+	
+	/* The reactions of state Turn. */
+	private void react_main_region_BlindMan_sBluGame_r1_Turn() {
+		if (check_main_region_BlindMan_sBluGame_r1_Turn_tr0_tr0()) {
+			effect_main_region_BlindMan_sBluGame_r1_Turn_tr0();
+		}
+	}
+	
+	/* The reactions of state NoAnswer. */
+	private void react_main_region_BlindMan_sBluGame_r1_NoAnswer() {
+		if (check_main_region_BlindMan_sBluGame_r1_NoAnswer_tr0_tr0()) {
+			effect_main_region_BlindMan_sBluGame_r1_NoAnswer_tr0();
+		} else {
+			if (check_main_region_BlindMan_sBluGame_r1_NoAnswer_tr1_tr1()) {
+				effect_main_region_BlindMan_sBluGame_r1_NoAnswer_tr1();
+			}
+		}
 	}
 	
 	/* The reactions of state Answer. */
@@ -1073,6 +1361,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			if (check_main_region_BlindMan_sBluGame_r1_Answer_tr1_tr1()) {
 				effect_main_region_BlindMan_sBluGame_r1_Answer_tr1();
 			}
+		}
+	}
+	
+	/* The reactions of state Repeat. */
+	private void react_main_region_BlindMan_sBluGame_r1_Repeat() {
+		if (check_main_region_BlindMan_sBluGame_r1_Repeat_tr0_tr0()) {
+			effect_main_region_BlindMan_sBluGame_r1_Repeat_tr0();
 		}
 	}
 	
@@ -1132,8 +1427,20 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			case main_region_BlindMan_sBluGame_r1_WaitForQuestion:
 				react_main_region_BlindMan_sBluGame_r1_WaitForQuestion();
 				break;
+			case main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn:
+				react_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn();
+				break;
+			case main_region_BlindMan_sBluGame_r1_Turn:
+				react_main_region_BlindMan_sBluGame_r1_Turn();
+				break;
+			case main_region_BlindMan_sBluGame_r1_NoAnswer:
+				react_main_region_BlindMan_sBluGame_r1_NoAnswer();
+				break;
 			case main_region_BlindMan_sBluGame_r1_Answer:
 				react_main_region_BlindMan_sBluGame_r1_Answer();
+				break;
+			case main_region_BlindMan_sBluGame_r1_Repeat:
+				react_main_region_BlindMan_sBluGame_r1_Repeat();
 				break;
 			case main_region_LeaveTheRoom:
 				react_main_region_LeaveTheRoom();
