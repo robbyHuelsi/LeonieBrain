@@ -608,11 +608,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_main_region_BlindMan_sBluGame_r1_NoAnswer_tr0_tr0() {
-		return getQuestionCounter()<6;
+		return getQuestionCounter()==6;
 	}
 	
 	private boolean check_main_region_BlindMan_sBluGame_r1_NoAnswer_tr1_tr1() {
-		return getQuestionCounter()==6;
+		return getQuestionCounter()<6;
 	}
 	
 	private boolean check_main_region_BlindMan_sBluGame_r1_Answer_tr0_tr0() {
@@ -699,7 +699,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_tr1() {
 		exitSequence_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn();
-		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
+		enterSequence_main_region_BlindMan_sBluGame_r1_ListenForQuestion_default();
 	}
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_Turn_tr0() {
@@ -708,13 +708,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_NoAnswer_tr0() {
-		exitSequence_main_region_BlindMan_sBluGame_r1_NoAnswer();
-		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
+		exitSequence_main_region_BlindMan_sBluGame();
+		enterSequence_main_region_LeaveTheRoom_default();
 	}
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_NoAnswer_tr1() {
-		exitSequence_main_region_BlindMan_sBluGame();
-		enterSequence_main_region_LeaveTheRoom_default();
+		exitSequence_main_region_BlindMan_sBluGame_r1_NoAnswer();
+		enterSequence_main_region_BlindMan_sBluGame_r1_ListenForQuestion_default();
 	}
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_Answer_tr0() {
@@ -724,12 +724,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_Answer_tr1() {
 		exitSequence_main_region_BlindMan_sBluGame_r1_Answer();
-		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
+		enterSequence_main_region_BlindMan_sBluGame_r1_ListenForQuestion_default();
 	}
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_Repeat_tr0() {
 		exitSequence_main_region_BlindMan_sBluGame_r1_Repeat();
-		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
+		enterSequence_main_region_BlindMan_sBluGame_r1_ListenForQuestion_default();
 	}
 	
 	/* Entry action for state 'Init'. */

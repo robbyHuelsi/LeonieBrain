@@ -2,12 +2,6 @@ package org.yakindu.scr.cocktailparty;
 
 public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 
-	protected class SCInterfaceImpl implements SCInterface {
-	
-	}
-	
-	protected SCInterfaceImpl sCInterface;
-	
 	private boolean initialized = false;
 	
 	public enum State {
@@ -20,7 +14,6 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 	private int nextStateIndex;
 	
 	public CocktailPartyStatemachine() {
-		sCInterface = new SCInterfaceImpl();
 	}
 	
 	public void init() {
@@ -82,10 +75,6 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 		default:
 			return false;
 		}
-	}
-	
-	public SCInterface getSCInterface() {
-		return sCInterface;
 	}
 	
 	/* 'default' enter sequence for state StateA */
