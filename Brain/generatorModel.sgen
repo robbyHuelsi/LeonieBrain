@@ -103,4 +103,17 @@ GeneratorModel for yakindu::java {
 	    	TimerService = true
 		}
 	}
+	
+	statechart Test_ObjectDetection {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
 }

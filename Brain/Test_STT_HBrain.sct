@@ -234,8 +234,8 @@
       </children>
       <styles xsi:type="notation:ConnectorStyle" xmi:id="_Kt0FgSaVEeeInd9KxN6PKQ" lineColor="4210752"/>
       <styles xsi:type="notation:FontStyle" xmi:id="_Kt0FgyaVEeeInd9KxN6PKQ" fontName="Verdana"/>
-      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_Kt0FgiaVEeeInd9KxN6PKQ" points="[45, -4, 58, 360]$[350, -25, 363, 339]$[368, -372, 381, -8]$[9, -372, 22, -8]"/>
-      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_Kt1ToCaVEeeInd9KxN6PKQ" id="(0.7261904761904762,1.0)"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_Kt0FgiaVEeeInd9KxN6PKQ" points="[9, 0, 58, 343]$[314, 0, 363, 343]$[305, -343, 354, 0]$[-27, -343, 22, 0]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_Kt1ToCaVEeeInd9KxN6PKQ" id="(0.9464285714285714,0.5660377358490566)"/>
       <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_Kt1ToSaVEeeInd9KxN6PKQ" id="(0.9308176100628931,0.5849056603773585)"/>
     </edges>
   </notation:Diagram>

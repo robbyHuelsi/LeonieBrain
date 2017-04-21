@@ -18,24 +18,26 @@ public class ObjectDet implements IParser, Serializable {
 		//TODO Muss getestet werden
 		
 		if (data.contains("OUTPUT#")) {
-			try {
-				String[] d = data.substring(7).split(";");
-				
-				String name = d[0];
-				int xPos = Integer.parseInt(d[1]);
-				int yPos = Integer.parseInt(d[2]);
-				int width = Integer.parseInt(d[3]);
-				int height = Integer.parseInt(d[4]);
-				String path = d[5];
-				int depth = Integer.parseInt(d[6]);
-				this.objList.add(new Objects.object(name, xPos, yPos, width, height, path, depth));
-				return true;
-			} catch (NumberFormatException e) {
-				System.err.println("ObjectDetection: Parsing int failed");
-				e.printStackTrace();
-				return false;
+			this.objList.removeAllElements();
+			String[] objs = data.substring(7).split("+");	
+			for (String obj : objs) {
+				try {
+					String[] d = obj.split(";");
+					String name = d[0];
+					int xPos = Integer.parseInt(d[1]);
+					int yPos = Integer.parseInt(d[2]);
+					int width = Integer.parseInt(d[3]);
+					int height = Integer.parseInt(d[4]);
+					String path = d[5];
+					int depth = Integer.parseInt(d[6]);
+					this.objList.add(new Objects.object(name, xPos, yPos, width, height, path, depth));
+				} catch (NumberFormatException e) {
+					System.err.println("ObjectDetection: Parsing int failed");
+					e.printStackTrace();
+				}
 			}
-		}else if(data.equals("FINISH")){
+			return true;
+		}else if(data.equals("DONE")){
 			this.setObjDetected(true);
 			return true;
 			
