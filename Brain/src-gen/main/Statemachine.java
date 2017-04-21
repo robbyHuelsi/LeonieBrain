@@ -329,7 +329,7 @@ public class Statemachine {
 			}
 		}*/
 		
-		return "x of " + this.statesCount;
+		return "x of " + (this.statesCount==0?"?":this.statesCount);
 	}
 	
 	private boolean setStatesCount(){
@@ -345,10 +345,10 @@ public class Statemachine {
 					//System.out.println(states.length);
 					return true;
 				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 					return false;
 				} catch (IllegalAccessException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 					return false;
 				}
 			}

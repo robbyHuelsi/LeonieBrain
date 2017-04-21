@@ -62,9 +62,8 @@ public class Start{
 		inStart.modules.removeParsedInformation();
 		
 		Statemachine sm = this.statemachine;
+		System.out.println("----------  Statemachine " + this.statemachine.getName() + " start  ----------");
 		sm.initAndEnter();
-		
-		System.out.println("---------- Statemachine " + this.statemachine.getName() + " started ----------");
 		
 		new Thread(new Runnable() {
 		    public void run() {

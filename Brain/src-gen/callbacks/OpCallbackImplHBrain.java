@@ -7,7 +7,8 @@ import modules.Modules;
 public class OpCallbackImplHBrain implements
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIHBrainOperationCallback,
-	org.yakindu.scr.test_stt_hbrain.ITest_STT_HBrainStatemachine.SCIHBrainOperationCallback
+	org.yakindu.scr.test_stt_hbrain.ITest_STT_HBrainStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.test_followme.ITest_FollowMeStatemachine.SCIHBrainOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();
