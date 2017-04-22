@@ -1,8 +1,9 @@
-package org.yakindu.scr.test_stt_hbrain;
+package org.yakindu.scr.test_stt_names;
 
 import org.yakindu.scr.IStatemachine;
+import org.yakindu.scr.ITimerCallback;
 
-public interface ITest_STT_HBrainStatemachine extends IStatemachine {
+public interface ITest_STT_NamesStatemachine extends ITimerCallback,IStatemachine {
 
 	public interface SCIHBrain {
 	
@@ -19,8 +20,6 @@ public interface ITest_STT_HBrainStatemachine extends IStatemachine {
 		public void sendTTS2(String inT1, String inT2);
 		
 		public void sendTTS3(String inT1, String inT2, String inT3);
-		
-		public void sendTTS_num(long inNum);
 		
 		public void sendTTSWithPos(String inPos, String inText);
 		

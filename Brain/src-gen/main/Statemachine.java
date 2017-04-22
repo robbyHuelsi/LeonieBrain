@@ -170,7 +170,7 @@ public class Statemachine {
 				try {
 					start.getGui().updateUI();
 				} catch (Exception e) {
-					//TODO handle exception
+					System.err.println("Problem with runCycle()");
 				}
 				
 				return true;

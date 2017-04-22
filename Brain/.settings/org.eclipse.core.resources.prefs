@@ -7,3 +7,6 @@ encoding/5_GeneralPurposeServiceRobot.sct=UTF-8
 encoding/Braganca.sct=UTF-8
 encoding/Test_FollowMe.sct=UTF-8
 encoding/Test_ObjectDetection.sct=UTF-8
+encoding/Test_STT_Names.sct=UTF-8
+encoding/Test_STT_Smalltalk.sct=UTF-8
+encoding/Test_STT_YesNo.sct=UTF-8

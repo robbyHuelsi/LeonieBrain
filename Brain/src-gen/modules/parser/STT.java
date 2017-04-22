@@ -25,7 +25,7 @@ public class STT implements IParser, Serializable{
 		this.start = start;
 		
 		
-		//TODO Muss getestet werden
+		//System.out.println(data);
 		
 		if (data.contains("TEXT#")) {
 			this.setSpokenText(data.substring(5));
@@ -33,7 +33,7 @@ public class STT implements IParser, Serializable{
 			return true;
 			
 		}else if(data.contains("ANSWER#")){
-			this.setAnswer(data.substring(6));
+			this.setAnswer(data.substring(7));
 			this.setAnswerReceived(true);
 			return true;
 			
@@ -109,7 +109,7 @@ public class STT implements IParser, Serializable{
 		this.answerReceived = answerReceived;
 		
 		if (answerReceived) {
-			start.getStatemachine().raiseEventOfSCI("STT","answer");
+			start.getStatemachine().raiseEventOfSCI("STT","answerReceived");
 		}
 	}
 
