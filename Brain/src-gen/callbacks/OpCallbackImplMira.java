@@ -82,5 +82,7 @@ public class OpCallbackImplMira implements
 		// TODO implement sendGoToLC(long inX, long inY)
 		System.err.println("sendGoToLC() not implemented");
 	}
+	
+	//TODO implement sendTurnPTU()
 
 }

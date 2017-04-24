@@ -115,6 +115,15 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 				SCICrowdDetectionOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
+		private boolean detected;
+		
+		public void raiseDetected() {
+			detected = true;
+		}
+		
+		protected void clearEvents() {
+			detected = false;
+		}
 	}
 	
 	protected SCICrowdDetectionImpl sCICrowdDetection;
@@ -279,6 +288,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		sCIHBrain.clearEvents();
 		sCIMira.clearEvents();
 		sCISTT.clearEvents();
+		sCICrowdDetection.clearEvents();
 		sCIObjectDetection.clearEvents();
 	}
 	

@@ -137,6 +137,15 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 				SCICrowdDetectionOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
+		private boolean detected;
+		
+		public void raiseDetected() {
+			detected = true;
+		}
+		
+		protected void clearEvents() {
+			detected = false;
+		}
 	}
 	
 	protected SCICrowdDetectionImpl sCICrowdDetection;
@@ -291,6 +300,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		sCIKinect2.clearEvents();
 		sCIMira.clearEvents();
 		sCISTT.clearEvents();
+		sCICrowdDetection.clearEvents();
 		for (int i=0; i<timeEvents.length; i++) {
 			timeEvents[i] = false;
 		}

@@ -123,13 +123,25 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 	public interface SCICrowdDetection {
 	
+		public void raiseDetected();
+		
 		public void setSCICrowdDetectionOperationCallback(SCICrowdDetectionOperationCallback operationCallback);
 	
 	}
 	
 	public interface SCICrowdDetectionOperationCallback {
 	
-		public void detectionOnOff(boolean onOff);
+		public void sendDetectionOn();
+		
+		public void sendDetectionOff();
+		
+		public long getTotalCount();
+		
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position);
+		
+		public boolean areAllGendersDetected();
+		
+		public boolean areAllAgesDetected();
 		
 	}
 	
