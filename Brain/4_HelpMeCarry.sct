@@ -5,7 +5,7 @@
       <vertices xsi:type="sgraph:Entry" xmi:id="_fnQCQSj1EeerIsa7nI0F3w">
         <outgoingTransitions xmi:id="_u04isCj4EeerIsa7nI0F3w" specification="" target="_fnRQYCj1EeerIsa7nI0F3w"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_fnRQYCj1EeerIsa7nI0F3w" specification="entry/&#xA;FollowMe.sendDetectionOn;&#xA;HBrain.sendTTS(&quot;[sleepy]&quot;)" name="Detection" incomingTransitions="_u04isCj4EeerIsa7nI0F3w _3ICH0Cj8EeerIsa7nI0F3w">
+      <vertices xsi:type="sgraph:State" xmi:id="_fnRQYCj1EeerIsa7nI0F3w" specification="entry/&#xA;FollowMe.sendDetectionOn;&#xA;HBrain.sendTTS(&quot;[:-|]&quot;)" name="Detection" incomingTransitions="_u04isCj4EeerIsa7nI0F3w _3ICH0Cj8EeerIsa7nI0F3w">
         <outgoingTransitions xmi:id="_fnRQaij1EeerIsa7nI0F3w" specification="FollowMe.detectionPersonFound" target="_fnR3eij1EeerIsa7nI0F3w"/>
         <outgoingTransitions xmi:id="_fnRQbyj1EeerIsa7nI0F3w" specification="after 10s " target="_fnR3cCj1EeerIsa7nI0F3w"/>
       </vertices>
@@ -68,7 +68,7 @@
           <vertices xsi:type="sgraph:Exit" xmi:id="_D5GQcCkGEeerIsa7nI0F3w" name="exit_goto" incomingTransitions="_FEyAcCkGEeerIsa7nI0F3w"/>
         </regions>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_fnTsvij1EeerIsa7nI0F3w" specification="entry/ HBrain.sendTTS(&quot;I'm there.&quot;)" name="ArrivedWaypoint" incomingTransitions="_fnTsuSj1EeerIsa7nI0F3w">
+      <vertices xsi:type="sgraph:State" xmi:id="_fnTsvij1EeerIsa7nI0F3w" specification="entry/ HBrain.sendTTS(&quot;I'm there. Good night. [sleepy]&quot;)" name="ArrivedWaypoint" incomingTransitions="_fnTsuSj1EeerIsa7nI0F3w">
         <outgoingTransitions xmi:id="_fnUTuSj1EeerIsa7nI0F3w" specification="HBrain.TTSReady" target="_fnUTuij1EeerIsa7nI0F3w"/>
       </vertices>
       <vertices xsi:type="sgraph:FinalState" xmi:id="_fnUTuij1EeerIsa7nI0F3w" incomingTransitions="_fnUTuSj1EeerIsa7nI0F3w"/>

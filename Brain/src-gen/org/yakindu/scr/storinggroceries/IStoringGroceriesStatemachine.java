@@ -67,15 +67,9 @@ public interface IStoringGroceriesStatemachine extends ITimerCallback,IStatemach
 	
 	public interface SCIObjectDetection {
 	
-		public void raiseDetectionDone();
+		public void raiseReady();
 		
-		public long getTableAngle();
-		
-		public void setTableAngle(long value);
-		
-		public String getAnswerMatches();
-		
-		public void setAnswerMatches(String value);
+		public void raiseAnalyseDone();
 		
 		public void setSCIObjectDetectionOperationCallback(SCIObjectDetectionOperationCallback operationCallback);
 	
@@ -83,11 +77,15 @@ public interface IStoringGroceriesStatemachine extends ITimerCallback,IStatemach
 	
 	public interface SCIObjectDetectionOperationCallback {
 	
-		public void startStopDetection(boolean onOff);
+		public void sendReadyRequest();
 		
-		public void snapshot();
+		public void sendAnalyseCupboard();
 		
-		public void printPDF();
+		public void sendAnalyseTable();
+		
+		public void sendPrintPDF();
+		
+		public String getSummaryText();
 		
 	}
 	

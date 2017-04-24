@@ -702,7 +702,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		
 		sCIFollowMe.operationCallback.sendDetectionOn();
 		
-		sCIHBrain.operationCallback.sendTTS("[sleepy]");
+		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
 	
 	/* Entry action for state 'NotFound'. */
@@ -775,7 +775,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'ArrivedWaypoint'. */
 	private void entryAction_main_region_ArrivedWaypoint() {
-		sCIHBrain.operationCallback.sendTTS("I'm there.");
+		sCIHBrain.operationCallback.sendTTS("I'm there. Good night. [sleepy]");
 	}
 	
 	/* Entry action for state 'StartSTT'. */

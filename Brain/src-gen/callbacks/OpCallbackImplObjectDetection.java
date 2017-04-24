@@ -1,30 +1,36 @@
 package callbacks;
 
+import communication.Communication;
+import main.Start;
+import modules.Modules;
+import modules.parser.ObjectDet;
+
 public class OpCallbackImplObjectDetection implements
 	org.yakindu.scr.storinggroceries.IStoringGroceriesStatemachine.SCIObjectDetectionOperationCallback
 {
+	private Modules modules = Start.instanceOf().getModules();
 
-	@Override
-	public void startStopDetection(boolean onOff) {
-		// TODO Auto-generated method stub
+	public void sendReadyRequest() {
+		Communication.sendMessage("#OBJECTDET#REQUEST#READY#" , modules.get("ObjectDet"));
+	}
+
+	public void sendAnalyseCupboard() {
+		Communication.sendMessage("#OBJECTDET#REQUEST#CUPBOARD#" , modules.get("ObjectDet"));
 		
 	}
 
-	@Override
-	public void snapshot() {
-		// TODO Auto-generated method stub
+	public void sendAnalyseTable() {
+		Communication.sendMessage("#OBJECTDET#REQUEST#TABLE#" , modules.get("ObjectDet"));
 		
 	}
 
-	@Override
-	public void printPDF() {
-		// TODO Auto-generated method stub
+	public void sendPrintPDF() {
+		Communication.sendMessage("#OBJECTDET#REQUEST#PDF#" , modules.get("ObjectDet"));
 		
 	}
 
-	//TODO implement in events for objectsDetected
-	
-	//TODO implement sendDetectionOnOff
-	
-	//TODO implement getter functions for objList output 
+	public String getSummaryText() {
+		return ((ObjectDet)modules.getParser("ObjectDet")).getSummaryText();
+	}
+		
 }

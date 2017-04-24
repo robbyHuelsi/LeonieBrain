@@ -18,15 +18,13 @@ public class object implements Serializable{
 	
 	
 
-	public object(String name, int xPos, int yPos, int width, int height, String path, int depth) {
+	public object(String name, int xPos, int yPos, int width, int height) {
 		super();
 		this.name = name;
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.width = width;
 		this.height = height;
-		this.path = path;
-		this.depth = depth;
 	}
 
 	public String getName() {

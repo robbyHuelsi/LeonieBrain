@@ -74,34 +74,21 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 				SCIObjectDetectionOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private boolean detectionDone;
+		private boolean ready;
 		
-		public void raiseDetectionDone() {
-			detectionDone = true;
+		public void raiseReady() {
+			ready = true;
 		}
 		
-		private long tableAngle;
+		private boolean analyseDone;
 		
-		public long getTableAngle() {
-			return tableAngle;
-		}
-		
-		public void setTableAngle(long value) {
-			this.tableAngle = value;
-		}
-		
-		private String answerMatches;
-		
-		public String getAnswerMatches() {
-			return answerMatches;
-		}
-		
-		public void setAnswerMatches(String value) {
-			this.answerMatches = value;
+		public void raiseAnalyseDone() {
+			analyseDone = true;
 		}
 		
 		protected void clearEvents() {
-			detectionDone = false;
+			ready = false;
+			analyseDone = false;
 		}
 	}
 	
@@ -110,14 +97,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	private boolean initialized = false;
 	
 	public enum State {
-		main_region_Init,
 		main_region_doors,
 		main_region_ObjectDetection,
 		main_region_TurnToTable,
 		main_region_inspectTable,
-		main_region_getDetails,
-		main_region_PDF,
+		main_region_PDFAndSummary,
 		main_region__final_,
+		main_region_requestReady,
+		main_region_AdditionalInfo,
 		$NullState$
 	};
 	
@@ -174,10 +161,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		}
 		clearEvents();
 		clearOutEvents();
-		sCIObjectDetection.setTableAngle(0);
-		
-		sCIObjectDetection.setAnswerMatches("");
-		
 		setCounter(0);
 		
 		setNameBuffer("");
@@ -237,8 +220,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	public boolean isStateActive(State state) {
 	
 		switch (state) {
-		case main_region_Init:
-			return stateVector[0] == State.main_region_Init;
 		case main_region_doors:
 			return stateVector[0] == State.main_region_doors;
 		case main_region_ObjectDetection:
@@ -247,12 +228,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			return stateVector[0] == State.main_region_TurnToTable;
 		case main_region_inspectTable:
 			return stateVector[0] == State.main_region_inspectTable;
-		case main_region_getDetails:
-			return stateVector[0] == State.main_region_getDetails;
-		case main_region_PDF:
-			return stateVector[0] == State.main_region_PDF;
+		case main_region_PDFAndSummary:
+			return stateVector[0] == State.main_region_PDFAndSummary;
 		case main_region__final_:
 			return stateVector[0] == State.main_region__final_;
+		case main_region_requestReady:
+			return stateVector[0] == State.main_region_requestReady;
+		case main_region_AdditionalInfo:
+			return stateVector[0] == State.main_region_AdditionalInfo;
 		default:
 			return false;
 		}
@@ -299,7 +282,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	}
 	
 	private boolean check_main_region_ObjectDetection_tr0_tr0() {
-		return sCIObjectDetection.detectionDone;
+		return sCIObjectDetection.analyseDone;
 	}
 	
 	private boolean check_main_region_TurnToTable_tr0_tr0() {
@@ -307,7 +290,19 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	}
 	
 	private boolean check_main_region_inspectTable_tr0_tr0() {
-		return sCIObjectDetection.detectionDone;
+		return sCIObjectDetection.analyseDone;
+	}
+	
+	private boolean check_main_region_PDFAndSummary_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_requestReady_tr0_tr0() {
+		return sCIObjectDetection.ready;
+	}
+	
+	private boolean check_main_region_AdditionalInfo_tr0_tr0() {
+		return sCIHBrain.tTSReady;
 	}
 	
 	private void effect_main_region_doors_tr0() {
@@ -327,43 +322,63 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_main_region_inspectTable_tr0() {
 		exitSequence_main_region_inspectTable();
-		enterSequence_main_region_PDF_default();
+		enterSequence_main_region_PDFAndSummary_default();
+	}
+	
+	private void effect_main_region_PDFAndSummary_tr0() {
+		exitSequence_main_region_PDFAndSummary();
+		enterSequence_main_region_AdditionalInfo_default();
+	}
+	
+	private void effect_main_region_requestReady_tr0() {
+		exitSequence_main_region_requestReady();
+		enterSequence_main_region_doors_default();
+	}
+	
+	private void effect_main_region_AdditionalInfo_tr0() {
+		exitSequence_main_region_AdditionalInfo();
+		enterSequence_main_region__final__default();
 	}
 	
 	/* Entry action for state 'doors'. */
 	private void entryAction_main_region_doors() {
 		timer.setTimer(this, 0, 10*1000, false);
 		
-		sCIHBrain.operationCallback.sendTTS("Please open the doors.");
+		sCIHBrain.operationCallback.sendTTS("[:-|] I want to see the objects in the cupboard. [-.-] But I don't have a manipulator to open the doors. [:-)] Can somebody help me please.");
 	}
 	
 	/* Entry action for state 'ObjectDetection'. */
 	private void entryAction_main_region_ObjectDetection() {
-		sCIObjectDetection.operationCallback.startStopDetection(true);
+		sCIObjectDetection.operationCallback.sendAnalyseCupboard();
 	}
 	
 	/* Entry action for state 'TurnToTable'. */
 	private void entryAction_main_region_TurnToTable() {
 		timer.setTimer(this, 1, 5*1000, false);
 		
-		sCIObjectDetection.operationCallback.startStopDetection(false);
-		
-		sCIMira.operationCallback.sendTurnBody(sCIObjectDetection.tableAngle);
+		sCIMira.operationCallback.sendTurnBody(180);
 	}
 	
 	/* Entry action for state 'inspectTable'. */
 	private void entryAction_main_region_inspectTable() {
-		sCIObjectDetection.operationCallback.snapshot();
+		sCIObjectDetection.operationCallback.sendAnalyseTable();
 	}
 	
-	/* Entry action for state 'getDetails'. */
-	private void entryAction_main_region_getDetails() {
-		sCIHBrain.operationCallback.sendTTS(sCIObjectDetection.answerMatches);
+	/* Entry action for state 'PDFAndSummary'. */
+	private void entryAction_main_region_PDFAndSummary() {
+		sCIObjectDetection.operationCallback.sendPrintPDF();
+		
+		sCIHBrain.operationCallback.sendTTS(sCIObjectDetection.operationCallback.getSummaryText());
 	}
 	
-	/* Entry action for state 'PDF'. */
-	private void entryAction_main_region_PDF() {
-		sCIObjectDetection.operationCallback.printPDF();
+	/* Entry action for state 'requestReady'. */
+	private void entryAction_main_region_requestReady() {
+		sCIObjectDetection.operationCallback.sendReadyRequest();
+	}
+	
+	/* Entry action for state 'AdditionalInfo'. */
+	private void entryAction_main_region_AdditionalInfo() {
+		sCIHBrain.operationCallback.sendTTS("[:-|] You can find more detailed information about the found objects in the PDF document. Therefore ask another RT-Lion. [sleepy]");
 	}
 	
 	/* Exit action for state 'doors'. */
@@ -374,12 +389,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	/* Exit action for state 'TurnToTable'. */
 	private void exitAction_main_region_TurnToTable() {
 		timer.unsetTimer(this, 1);
-	}
-	
-	/* 'default' enter sequence for state Init */
-	private void enterSequence_main_region_Init_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Init;
 	}
 	
 	/* 'default' enter sequence for state doors */
@@ -410,18 +419,11 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[0] = State.main_region_inspectTable;
 	}
 	
-	/* 'default' enter sequence for state getDetails */
-	private void enterSequence_main_region_getDetails_default() {
-		entryAction_main_region_getDetails();
+	/* 'default' enter sequence for state PDFAndSummary */
+	private void enterSequence_main_region_PDFAndSummary_default() {
+		entryAction_main_region_PDFAndSummary();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_getDetails;
-	}
-	
-	/* 'default' enter sequence for state PDF */
-	private void enterSequence_main_region_PDF_default() {
-		entryAction_main_region_PDF();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_PDF;
+		stateVector[0] = State.main_region_PDFAndSummary;
 	}
 	
 	/* Default enter sequence for state null */
@@ -430,15 +432,23 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[0] = State.main_region__final_;
 	}
 	
+	/* 'default' enter sequence for state requestReady */
+	private void enterSequence_main_region_requestReady_default() {
+		entryAction_main_region_requestReady();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_requestReady;
+	}
+	
+	/* 'default' enter sequence for state AdditionalInfo */
+	private void enterSequence_main_region_AdditionalInfo_default() {
+		entryAction_main_region_AdditionalInfo();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_AdditionalInfo;
+	}
+	
 	/* 'default' enter sequence for region main region */
 	private void enterSequence_main_region_default() {
 		react_main_region__entry_Default();
-	}
-	
-	/* Default exit sequence for state Init */
-	private void exitSequence_main_region_Init() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state doors */
@@ -469,14 +479,8 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state getDetails */
-	private void exitSequence_main_region_getDetails() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state PDF */
-	private void exitSequence_main_region_PDF() {
+	/* Default exit sequence for state PDFAndSummary */
+	private void exitSequence_main_region_PDFAndSummary() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -487,12 +491,21 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state requestReady */
+	private void exitSequence_main_region_requestReady() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state AdditionalInfo */
+	private void exitSequence_main_region_AdditionalInfo() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for region main region */
 	private void exitSequence_main_region() {
 		switch (stateVector[0]) {
-		case main_region_Init:
-			exitSequence_main_region_Init();
-			break;
 		case main_region_doors:
 			exitSequence_main_region_doors();
 			break;
@@ -505,22 +518,21 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		case main_region_inspectTable:
 			exitSequence_main_region_inspectTable();
 			break;
-		case main_region_getDetails:
-			exitSequence_main_region_getDetails();
-			break;
-		case main_region_PDF:
-			exitSequence_main_region_PDF();
+		case main_region_PDFAndSummary:
+			exitSequence_main_region_PDFAndSummary();
 			break;
 		case main_region__final_:
 			exitSequence_main_region__final_();
 			break;
+		case main_region_requestReady:
+			exitSequence_main_region_requestReady();
+			break;
+		case main_region_AdditionalInfo:
+			exitSequence_main_region_AdditionalInfo();
+			break;
 		default:
 			break;
 		}
-	}
-	
-	/* The reactions of state Init. */
-	private void react_main_region_Init() {
 	}
 	
 	/* The reactions of state doors. */
@@ -551,21 +563,34 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		}
 	}
 	
-	/* The reactions of state getDetails. */
-	private void react_main_region_getDetails() {
-	}
-	
-	/* The reactions of state PDF. */
-	private void react_main_region_PDF() {
+	/* The reactions of state PDFAndSummary. */
+	private void react_main_region_PDFAndSummary() {
+		if (check_main_region_PDFAndSummary_tr0_tr0()) {
+			effect_main_region_PDFAndSummary_tr0();
+		}
 	}
 	
 	/* The reactions of state null. */
 	private void react_main_region__final_() {
 	}
 	
+	/* The reactions of state requestReady. */
+	private void react_main_region_requestReady() {
+		if (check_main_region_requestReady_tr0_tr0()) {
+			effect_main_region_requestReady_tr0();
+		}
+	}
+	
+	/* The reactions of state AdditionalInfo. */
+	private void react_main_region_AdditionalInfo() {
+		if (check_main_region_AdditionalInfo_tr0_tr0()) {
+			effect_main_region_AdditionalInfo_tr0();
+		}
+	}
+	
 	/* Default react sequence for initial entry  */
 	private void react_main_region__entry_Default() {
-		enterSequence_main_region_Init_default();
+		enterSequence_main_region_requestReady_default();
 	}
 	
 	public void runCycle() {
@@ -575,9 +600,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		clearOutEvents();
 		for (nextStateIndex = 0; nextStateIndex < stateVector.length; nextStateIndex++) {
 			switch (stateVector[nextStateIndex]) {
-			case main_region_Init:
-				react_main_region_Init();
-				break;
 			case main_region_doors:
 				react_main_region_doors();
 				break;
@@ -590,14 +612,17 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			case main_region_inspectTable:
 				react_main_region_inspectTable();
 				break;
-			case main_region_getDetails:
-				react_main_region_getDetails();
-				break;
-			case main_region_PDF:
-				react_main_region_PDF();
+			case main_region_PDFAndSummary:
+				react_main_region_PDFAndSummary();
 				break;
 			case main_region__final_:
 				react_main_region__final_();
+				break;
+			case main_region_requestReady:
+				react_main_region_requestReady();
+				break;
+			case main_region_AdditionalInfo:
+				react_main_region_AdditionalInfo();
 				break;
 			default:
 				// $NullState$
