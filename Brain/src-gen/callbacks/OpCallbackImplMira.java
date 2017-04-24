@@ -7,7 +7,10 @@ import modules.parser.Mira;
 
 public class OpCallbackImplMira implements
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIMiraOperationCallback,
-	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIMiraOperationCallback
+	org.yakindu.scr.storinggroceries.IStoringGroceriesStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIMiraOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();

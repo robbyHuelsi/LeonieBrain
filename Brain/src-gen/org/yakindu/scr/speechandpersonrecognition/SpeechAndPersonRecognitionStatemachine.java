@@ -3,38 +3,6 @@ import org.yakindu.scr.ITimer;
 
 public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonRecognitionStatemachine {
 
-	protected class SCIBGFImpl implements SCIBGF {
-	
-		private SCIBGFOperationCallback operationCallback;
-		
-		public void setSCIBGFOperationCallback(
-				SCIBGFOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-		private long eventNum;
-		
-		public long getEventNum() {
-			return eventNum;
-		}
-		
-		public void setEventNum(long value) {
-			this.eventNum = value;
-		}
-		
-		private long randNum;
-		
-		public long getRandNum() {
-			return randNum;
-		}
-		
-		public void setRandNum(long value) {
-			this.randNum = value;
-		}
-		
-	}
-	
-	protected SCIBGFImpl sCIBGF;
-	
 	protected class SCIHBrainImpl implements SCIHBrain {
 	
 		private SCIHBrainOperationCallback operationCallback;
@@ -56,40 +24,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	protected SCIHBrainImpl sCIHBrain;
 	
-	protected class SCIVBrainImpl implements SCIVBrain {
-	
-		private SCIVBrainOperationCallback operationCallback;
-		
-		public void setSCIVBrainOperationCallback(
-				SCIVBrainOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-	}
-	
-	protected SCIVBrainImpl sCIVBrain;
-	
-	protected class SCIAttractivenessImpl implements SCIAttractiveness {
-	
-		private SCIAttractivenessOperationCallback operationCallback;
-		
-		public void setSCIAttractivenessOperationCallback(
-				SCIAttractivenessOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-		private double old_attr;
-		
-		public double getOld_attr() {
-			return old_attr;
-		}
-		
-		public void setOld_attr(double value) {
-			this.old_attr = value;
-		}
-		
-	}
-	
-	protected SCIAttractivenessImpl sCIAttractiveness;
-	
 	protected class SCIKinect2Impl implements SCIKinect2 {
 	
 		private SCIKinect2OperationCallback operationCallback;
@@ -110,34 +44,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	protected SCIKinect2Impl sCIKinect2;
-	
-	protected class SCILeapMotionImpl implements SCILeapMotion {
-	
-		private SCILeapMotionOperationCallback operationCallback;
-		
-		public void setSCILeapMotionOperationCallback(
-				SCILeapMotionOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-		private boolean gestureDetected;
-		
-		public void raiseGestureDetected() {
-			gestureDetected = true;
-		}
-		
-		private boolean stringFinished;
-		
-		public void raiseStringFinished() {
-			stringFinished = true;
-		}
-		
-		protected void clearEvents() {
-			gestureDetected = false;
-			stringFinished = false;
-		}
-	}
-	
-	protected SCILeapMotionImpl sCILeapMotion;
 	
 	protected class SCIMiraImpl implements SCIMira {
 	
@@ -189,10 +95,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 				SCISTTOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private boolean spokenTextReceived;
+		private boolean textReceived;
 		
-		public void raiseSpokenTextReceived() {
-			spokenTextReceived = true;
+		public void raiseTextReceived() {
+			textReceived = true;
 		}
 		
 		private boolean incomprehensible;
@@ -214,7 +120,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		}
 		
 		protected void clearEvents() {
-			spokenTextReceived = false;
+			textReceived = false;
 			incomprehensible = false;
 			actionReceived = false;
 			answerReceived = false;
@@ -222,18 +128,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	protected SCISTTImpl sCISTT;
-	
-	protected class SCICurrPersonImpl implements SCICurrPerson {
-	
-		private SCICurrPersonOperationCallback operationCallback;
-		
-		public void setSCICurrPersonOperationCallback(
-				SCICurrPersonOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-	}
-	
-	protected SCICurrPersonImpl sCICurrPerson;
 	
 	protected class SCICrowdDetectionImpl implements SCICrowdDetection {
 	
@@ -334,15 +228,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	public SpeechAndPersonRecognitionStatemachine() {
-		sCIBGF = new SCIBGFImpl();
 		sCIHBrain = new SCIHBrainImpl();
-		sCIVBrain = new SCIVBrainImpl();
-		sCIAttractiveness = new SCIAttractivenessImpl();
 		sCIKinect2 = new SCIKinect2Impl();
-		sCILeapMotion = new SCILeapMotionImpl();
 		sCIMira = new SCIMiraImpl();
 		sCISTT = new SCISTTImpl();
-		sCICurrPerson = new SCICurrPersonImpl();
 		sCICrowdDetection = new SCICrowdDetectionImpl();
 		sCIMicrophoneArray = new SCIMicrophoneArrayImpl();
 	}
@@ -357,12 +246,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		}
 		clearEvents();
 		clearOutEvents();
-		sCIBGF.setEventNum(0);
-		
-		sCIBGF.setRandNum(0);
-		
-		sCIAttractiveness.setOld_attr(0.0);
-		
 		setCounter(0);
 		
 		setNameBuffer("");
@@ -406,7 +289,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	protected void clearEvents() {
 		sCIHBrain.clearEvents();
 		sCIKinect2.clearEvents();
-		sCILeapMotion.clearEvents();
 		sCIMira.clearEvents();
 		sCISTT.clearEvents();
 		for (int i=0; i<timeEvents.length; i++) {
@@ -499,28 +381,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		timeEvents[eventID] = true;
 	}
 	
-	public SCIBGF getSCIBGF() {
-		return sCIBGF;
-	}
-	
 	public SCIHBrain getSCIHBrain() {
 		return sCIHBrain;
 	}
 	
-	public SCIVBrain getSCIVBrain() {
-		return sCIVBrain;
-	}
-	
-	public SCIAttractiveness getSCIAttractiveness() {
-		return sCIAttractiveness;
-	}
-	
 	public SCIKinect2 getSCIKinect2() {
 		return sCIKinect2;
-	}
-	
-	public SCILeapMotion getSCILeapMotion() {
-		return sCILeapMotion;
 	}
 	
 	public SCIMira getSCIMira() {
@@ -529,10 +395,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	public SCISTT getSCISTT() {
 		return sCISTT;
-	}
-	
-	public SCICurrPerson getSCICurrPerson() {
-		return sCICurrPerson;
 	}
 	
 	public SCICrowdDetection getSCICrowdDetection() {
@@ -608,11 +470,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_main_region_BlindMan_sBluGame_r1_NoAnswer_tr0_tr0() {
-		return getQuestionCounter()<6;
+		return getQuestionCounter()==6;
 	}
 	
 	private boolean check_main_region_BlindMan_sBluGame_r1_NoAnswer_tr1_tr1() {
-		return getQuestionCounter()==6;
+		return getQuestionCounter()<6;
 	}
 	
 	private boolean check_main_region_BlindMan_sBluGame_r1_Answer_tr0_tr0() {
@@ -699,7 +561,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn_tr1() {
 		exitSequence_main_region_BlindMan_sBluGame_r1_AnswerWithoutTurn();
-		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
+		enterSequence_main_region_BlindMan_sBluGame_r1_ListenForQuestion_default();
 	}
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_Turn_tr0() {
@@ -708,13 +570,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_NoAnswer_tr0() {
-		exitSequence_main_region_BlindMan_sBluGame_r1_NoAnswer();
-		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
+		exitSequence_main_region_BlindMan_sBluGame();
+		enterSequence_main_region_LeaveTheRoom_default();
 	}
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_NoAnswer_tr1() {
-		exitSequence_main_region_BlindMan_sBluGame();
-		enterSequence_main_region_LeaveTheRoom_default();
+		exitSequence_main_region_BlindMan_sBluGame_r1_NoAnswer();
+		enterSequence_main_region_BlindMan_sBluGame_r1_ListenForQuestion_default();
 	}
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_Answer_tr0() {
@@ -724,12 +586,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_Answer_tr1() {
 		exitSequence_main_region_BlindMan_sBluGame_r1_Answer();
-		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
+		enterSequence_main_region_BlindMan_sBluGame_r1_ListenForQuestion_default();
 	}
 	
 	private void effect_main_region_BlindMan_sBluGame_r1_Repeat_tr0() {
 		exitSequence_main_region_BlindMan_sBluGame_r1_Repeat();
-		enterSequence_main_region_BlindMan_sBluGame_r1_WaitForQuestion_default();
+		enterSequence_main_region_BlindMan_sBluGame_r1_ListenForQuestion_default();
 	}
 	
 	/* Entry action for state 'Init'. */

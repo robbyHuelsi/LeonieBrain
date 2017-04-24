@@ -4,8 +4,7 @@ import Persons.PersonList;
 import main.Start;
 
 public class OpCallbackImplCurrPerson implements
-	org.yakindu.scr.braganca.IBragancaStatemachine.SCICurrPersonOperationCallback,
-	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCICurrPersonOperationCallback
+	org.yakindu.scr.braganca.IBragancaStatemachine.SCICurrPersonOperationCallback
 {
 	
 	private PersonList personList = Start.instanceOf().getPersonList();

@@ -7,6 +7,7 @@ import modules.parser.FollowMe;
 import modules.parser.STT;
 
 public class OpCallbackImplFollowMe implements
+	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIFollowMeOperationCallback,
 	org.yakindu.scr.test_followme.ITest_FollowMeStatemachine.SCIFollowMeOperationCallback
 {
 	private Modules modules = Start.instanceOf().getModules();

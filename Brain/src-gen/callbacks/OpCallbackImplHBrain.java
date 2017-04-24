@@ -7,6 +7,9 @@ import modules.Modules;
 public class OpCallbackImplHBrain implements
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.storinggroceries.IStoringGroceriesStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.test_stt_smalltalk.ITest_STT_SmalltalkStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.test_stt_yesno.ITest_STT_YesNoStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.test_stt_names.ITest_STT_NamesStatemachine.SCIHBrainOperationCallback,

@@ -7,8 +7,7 @@ import main.Start;
 import modules.Modules;
 
 public class OpCallbackImplBGF implements
-	org.yakindu.scr.braganca.IBragancaStatemachine.SCIBGFOperationCallback,
-	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIBGFOperationCallback
+	org.yakindu.scr.braganca.IBragancaStatemachine.SCIBGFOperationCallback
 {
 	
 	private PersonList personList = Start.instanceOf().getPersonList();

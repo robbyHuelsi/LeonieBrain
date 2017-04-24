@@ -2,7 +2,8 @@ package callbacks;
 
 public class OpCallbackImplCrowdDetection implements
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCICrowdDetectionOperationCallback,
-	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCICrowdDetectionOperationCallback
+	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCICrowdDetectionOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCICrowdDetectionOperationCallback
 {
 
 	//TODO implement in event crowdDetected
