@@ -1,10 +1,62 @@
 package callbacks;
 
-public class OpCallbackImplFollowMe {
+import communication.Communication;
+import main.Start;
+import modules.Modules;
+import modules.parser.FollowMe;
+import modules.parser.STT;
 
-	//TODO implement in events for personFound and personLost
+public class OpCallbackImplFollowMe implements
+	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIFollowMeOperationCallback,
+	org.yakindu.scr.test_followme.ITest_FollowMeStatemachine.SCIFollowMeOperationCallback
+{
+	private Modules modules = Start.instanceOf().getModules();
+
+	public void sendDetectionOff() {
+		System.out.println("FollowMe: sendDetectionOff()");
+		Communication.sendMessage("#FOLLOWME#DETECTION#false#", modules.get("FollowMe"));
+	}
+
+	public void sendDetectionOn() {
+		System.out.println("FollowMe: sendDetectionOn()");
+		Communication.sendMessage("#FOLLOWME#DETECTION#true#", modules.get("FollowMe"));
+	}
+
+	public void sendRequestDetectionDetails() {
+		System.out.println("FollowMe: sendRequestDetectionDetails()");
+		Communication.sendMessage("#FOLLOWME#DETAILS#REQUEST#", modules.get("FollowMe"));
+	}
+
+	public void sendTrackingOff() {
+		System.out.println("FollowMe: sendTrackingOff()");
+		Communication.sendMessage("#FOLLOWME#TRACKING#false#", modules.get("FollowMe"));
+	}
+
+	public void sendTrackingOnAtPos(long x, long y) {
+		System.out.println("FollowMe: sendTrackingOnAtPos(long x, long y)");
+		Communication.sendMessage("#FOLLOWME#TRACKING#POSITION#" + x + ";" + y + "#", modules.get("FollowMe"));
+	}
+
+	public void sendTrackingOnAtNext() {
+		System.out.println("FollowMe: sendTrackingOnAtNext()");
+		//Communication.sendMessage("#FOLLOWME#TRACKING#true#", modules.get("FollowMe"));
+		
+		FollowMe fm = (FollowMe)Start.getModules().getParser("FollowMe");
+		int x = fm.getNextPersonXPos();
+		int y = fm.getNextPersonYPos();
+		sendTrackingOnAtPos(x,y);
+	}
+
+	public long getNextPersonXPos() {
+		FollowMe fm = (FollowMe)Start.getModules().getParser("FollowMe");
+		return fm.getNextPersonXPos();
+	}
+
+	public long getNextpersonYPos() {
+		FollowMe fm = (FollowMe)Start.getModules().getParser("FollowMe");
+		return fm.getNextPersonYPos();
+	}
 	
-	//TODO implement sendDetectionOnOff, sendDetectionDetails, sendTrackingOn, sendTrackingAt, sendTrackingOff
 	
 	//TODO implement getterfunction for details
 }

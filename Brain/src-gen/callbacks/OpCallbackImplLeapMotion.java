@@ -7,8 +7,7 @@ import modules.Modules;
 import modules.parser.LeapMotion;
 
 public class OpCallbackImplLeapMotion implements
-	org.yakindu.scr.braganca.IBragancaStatemachine.SCILeapMotionOperationCallback,
-	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCILeapMotionOperationCallback
+	org.yakindu.scr.braganca.IBragancaStatemachine.SCILeapMotionOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();

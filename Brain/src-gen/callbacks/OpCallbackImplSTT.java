@@ -9,7 +9,11 @@ import modules.parser.STT;
 public class OpCallbackImplSTT implements
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCISTTOperationCallback,
-	org.yakindu.scr.test_stt_hbrain.ITest_STT_HBrainStatemachine.SCISTTOperationCallback
+	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCISTTOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCISTTOperationCallback,
+	org.yakindu.scr.test_stt_smalltalk.ITest_STT_SmalltalkStatemachine.SCISTTOperationCallback,
+	org.yakindu.scr.test_stt_yesno.ITest_STT_YesNoStatemachine.SCISTTOperationCallback,
+	org.yakindu.scr.test_stt_names.ITest_STT_NamesStatemachine.SCISTTOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();

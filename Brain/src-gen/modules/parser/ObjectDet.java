@@ -10,7 +10,8 @@ public class ObjectDet implements IParser, Serializable {
 	private Start start;
 	
 	private Vector<Objects.object> objList = new Vector<Objects.object>();
-	private boolean objDetected;
+	private boolean ready;
+	private boolean analyseDone;
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
@@ -18,25 +19,21 @@ public class ObjectDet implements IParser, Serializable {
 		//TODO Muss getestet werden
 		
 		if (data.contains("OUTPUT#")) {
+			String[] d = data.substring(7).split(";");	
 			try {
-				String[] d = data.substring(7).split(";");
-				
 				String name = d[0];
 				int xPos = Integer.parseInt(d[1]);
 				int yPos = Integer.parseInt(d[2]);
 				int width = Integer.parseInt(d[3]);
 				int height = Integer.parseInt(d[4]);
-				String path = d[5];
-				int depth = Integer.parseInt(d[6]);
-				this.objList.add(new Objects.object(name, xPos, yPos, width, height, path, depth));
-				return true;
+				this.objList.add(new Objects.object(name, xPos, yPos, width, height));
 			} catch (NumberFormatException e) {
 				System.err.println("ObjectDetection: Parsing int failed");
 				e.printStackTrace();
-				return false;
 			}
-		}else if(data.equals("FINISH")){
-			this.setObjDetected(true);
+			return true;
+		}else if(data.equals("DONE")){
+			this.setReady(true);
 			return true;
 			
 		}
@@ -45,25 +42,61 @@ public class ObjectDet implements IParser, Serializable {
 	}
 
 	public boolean removeParsedInformation() {
-		this.objList = new Vector<Objects.object>();
-		this.objDetected = false;
+		this.objList.removeAllElements();
+		this.ready = false;
+		this.analyseDone = false;
 		return true;
 	}
 
-	public boolean isObjDetected() {
-		return objDetected;
+	public boolean isReady() {
+		return ready;
 	}
 
-	public void setObjDetected(boolean objDetected) {
-		this.objDetected = objDetected;
+	public void setReady(boolean objDetected) {
+		this.ready = objDetected;
 		
 		if (objDetected) {
-			//TODO implement raiseObjectDetected
+			start.getStatemachine().raiseEventOfSCI("ObjectDet","ready");
 		}
 	}
 
-	public Vector<Objects.object> getObjList() {
-		return objList;
+	public boolean isAnalyseDone() {
+		return analyseDone;
+	}
+
+	public void setAnalyseDone(boolean analyseDone) {
+		this.analyseDone = analyseDone;
+		
+		if (analyseDone) {
+			start.getStatemachine().raiseEventOfSCI("ObjectDet","analyseDone");
+		}
+	}
+
+	public String getSummaryText() {
+		if (this.objList.isEmpty()) {
+			return "[:-(] I didn't found objects.";
+		}else{
+			String sum = "[:-)] I found " + this.objList.size() + " objects!";
+			Vector<Objects.object> ol = this.objList;
+			while (!ol.isEmpty()) {
+				String oName = ol.get(0).getName();
+				int oCount = 0;
+				for (int i = 0; i < ol.size(); i++) {
+					if (ol.get(i).equals(oName)) {
+						oCount++;
+						ol.remove(i);
+						i--;
+					}
+				}
+				if (oCount == 1) {
+					sum += " There is one " + oName + ".";
+				}else{
+					sum += " There are " + oCount + " times " + oName + ".";
+				}
+				
+			}
+			return sum;
+		}
 	}
 
 	

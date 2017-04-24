@@ -35,6 +35,7 @@ public class GUI extends JFrame{
 		total.setLayout(bl);
 		
 		JComboBox comboStatemachines = new JComboBox(start.getStatemachineNames());
+		comboStatemachines.setMaximumRowCount(20);
 		JButton buttonStart = new JButton("Start");
 		buttonStart.setForeground(new Color(0, 255, 0));
 		
@@ -125,7 +126,7 @@ public class GUI extends JFrame{
 		
 		total.add(tabPane, BorderLayout.CENTER);
 		
-		total.setSize(500,200);
+		total.setSize(500,500);
 		total.setVisible(true);
 		
 		

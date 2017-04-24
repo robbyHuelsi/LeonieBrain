@@ -26,19 +26,6 @@ GeneratorModel for yakindu::java {
 		}
 	}
 	
-	statechart Test_STT_HBrain {
-
-		feature Outlet {
-			targetProject = "Brain"
-			targetFolder = "src-gen"
-			libraryTargetFolder = "src"
-		}
-		
-		feature GeneralFeatures {
-	    	TimerService = true
-		}
-	}
-	
 	statechart StoringGroceries {
 
 		feature Outlet {
@@ -79,6 +66,72 @@ GeneratorModel for yakindu::java {
 	}	
 	
 	statechart GeneralPurposeServiceRobot {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+
+	
+	statechart Test_STT_Smalltalk {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart Test_STT_YesNo {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart Test_STT_Names {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart Test_FollowMe {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart Test_ObjectDetection {
 
 		feature Outlet {
 			targetProject = "Brain"

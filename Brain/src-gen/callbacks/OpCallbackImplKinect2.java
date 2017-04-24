@@ -7,7 +7,8 @@ import modules.parser.Kinect2;
 
 public class OpCallbackImplKinect2 implements
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIKinect2OperationCallback,
-	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIKinect2OperationCallback
+	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIKinect2OperationCallback,
+	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIKinect2OperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();

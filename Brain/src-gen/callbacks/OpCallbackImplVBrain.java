@@ -7,8 +7,7 @@ import modules.Modules;
 import modules.parser.VBrain;
 
 public class OpCallbackImplVBrain implements
-	org.yakindu.scr.braganca.IBragancaStatemachine.SCIVBrainOperationCallback,
-	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIVBrainOperationCallback
+	org.yakindu.scr.braganca.IBragancaStatemachine.SCIVBrainOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();
