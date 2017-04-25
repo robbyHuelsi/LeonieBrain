@@ -1,33 +1,85 @@
-5.2. Speech and Person Recognition
+5.3. Speech and Person Recognition
 The robot has to identify unknown people and answer questions about them and the environment.
-5.2.1. Focus
-This test focuses on human detection, sound localization, speech recognition, and robot interaction
-with unknown people.
-5.2.2. Setup
+
+5.3.1. Focus
+This test focuses on human detection, sound localization, speech recognition, and robot interaction with unknown people.
+
+5.3.2. Setup
 1. Location: One room of the arena is used for this test.1.
-2. Crowd: There is a crowd of 5 to 10 people in the designated room. People may be
-standing, sitting, lying, and in any pose.
+2. Crowd: There is a crowd of 5 to 10 people in the designated room. People may be standing, sitting, lying, and in any pose.
 3. Doors: All doors of the apartment are open, except for the entry door.
-5.2.3. Task
- Start: The robot starts at a designated starting position and announces it wants to play
-riddles.
- Waiting and turn: After stating that it wants to play a riddle game, the robot waits for
-10 seconds while a crowd is merged on it's back. When the time elapses, the robot must
-turn around (about 180°) and nd the crowd.
- Requesting an operator: After turning around, the robot must state the size of the
-crowd (male and female count) and request for an operator (e.g. who want to play riddles
-with me?). The crowd will move and surround the robot, letting the operator to stand in
-front of the robot.
- The riddle game: Standing in front of the robot, the operator will ask 7 questions from
-the list.
-The robot must answer the question without asking conrmation. Questions will only be
-asked only once; no repetitions are allowed.
- The blind man's blu game: A random person from the crowd surrounding the robot
-will ask a question. The robot may
-{ Turn towards the person who asked the question and answer the question
-{ Directly answer the question without turning
-{ Turn towards the person and ask them to repeat the question
-The game will end when the 7th question has been made, following the same distribution
-as in the riddle game. The robot must answer the question without asking conrmation.
-Questions may be repeated once.
- Leave: The robot leaves the room through the designated door.
+
+5.3.3. Task
+• Start: The robot starts at a designated starting position and announces it wants to play riddles.
+• Waiting and turn: After stating that it wants to play a riddle game, the robot waits for 10 seconds while a crowd is merged on it's back. 
+  When the time elapses, the robot must turn around (about 180°) and nd the crowd.
+• Requesting an operator: After turning around, the robot must state the size of the crowd (male and female count) and request for an operator (e.g. who want to play riddles
+  with me?). The crowd will move and surround the robot, letting the operator to stand in front of the robot.
+• The riddle game: Standing in front of the robot, the operator will ask 5 questions from the list.
+  The robot must answer the question without asking conrmation. Questions will only be asked only once; no repetitions are allowed.
+• The blind man's blu game: A random person from the crowd surrounding the robot will ask a question. The robot may
+	{ Turn towards the person who asked the question and answer the question
+	{ Directly answer the question without turning
+	{ Turn towards the person and ask them to repeat the question
+  The game will end when the 6th question has been made, following the same distribution as in the riddle game. The robot must answer the question without asking conrmation.
+  Questions may be repeated once.
+• Leave: The robot leaves the room through the designated door.
+
+5.3.4. Additional rules and remarks
+• Bypassing ASR: Bypassing Automated Speech Recognition via the CONTINUE rule (Section Section 3.9.1) is not allowed during this test.
+• Asked questions: The distribution of questions to be randomly asked is a follows:
+	{ One is a predened question
+	{ Between one and two are about the arena and its status
+	{ Between one and two are about the crowd
+	{ Between one and two are about the list of ocial objects
+  Question examples see Appendix Section A.
+• Distance to the robot: The distance between each person and the robot must be between 0.75 and 1.0 meters away from the robot position (See Figure 5.2). In the riddle
+  game the operator shall be between -60 and 60 from the robot's center (front range).
+• Precise turning: When the robot nishes turning toward an operator, it must be clear that the robot is facing the person who made the question.
+• Question repetition: In the blind man's blu game, if the robot asks for repetition, it should be done clear and loud, and after the robot has ended turning.
+• Question timeout: If the robot does not answer within 10 seconds, the question is considered as missed, and referee will proceed with the next one.
+• Standing still operators Operators are not allowed to move to or turn towards the robot or shout to the robot.
+• Water-clear answers: If the referee is unable to hear or understand the robot's answer, the question is considered as incorrect. Single-word and short answers should be avoided
+
+5.3.5. Data recording
+Please record the following data (See Section 3.4):
+	• Audio
+	• Commands
+	• Images
+
+5.3.6. Referee instructions
+The referee needs to
+	• avoid shouting to the robot
+	• avoid getting closer to the robot (or even move)
+	• speak to the robot loud and clear with plain standard English
+	• avoid repeating questions for the same robot
+	• distribute the questions among the volunteers
+
+5.3.7. OC instructions
+1 day before the test
+	• Provide the set of predened questions
+2 hours before the test
+	• Announce the placement of the robots
+	• choose the volunteers for the second part of the test, and clearly explain the procedure to them.
+	
+5.3.8. Score sheet
+The maximum time for this test is 8 minutes.
+
+
+Action Score
+Crowd
+State crowd's male/female count											10
+Riddle game
+Correctly answered a question 											5 x 10
+Answering all 5 riddle game question 									10
+Blind man's blu game
+Answering question on the rst attempt 									6 x 10
+Answering question on the second attempt 								6 x 5
+Turned towards person asking the question 								6 x 10
+Answering all 6 blind man's blu questions 								10
+Special penalties & standard bonuses
+Contributing with recorded data (P gathered points/max points * X) 
+(see sec. 3.4) 															10
+Not attending (see sec. 3.10.1) 										-50
+Outstanding performance (see sec. 3.10.3) 								20
+Total score (excluding penalties and bonuses) 							200

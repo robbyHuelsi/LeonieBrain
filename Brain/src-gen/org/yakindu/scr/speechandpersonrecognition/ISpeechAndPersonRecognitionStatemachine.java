@@ -279,6 +279,10 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 	public interface SCICrowdDetection {
 	
+		public String getCrowdDetails();
+		
+		public void setCrowdDetails(String value);
+		
 		public void setSCICrowdDetectionOperationCallback(SCICrowdDetectionOperationCallback operationCallback);
 	
 	}

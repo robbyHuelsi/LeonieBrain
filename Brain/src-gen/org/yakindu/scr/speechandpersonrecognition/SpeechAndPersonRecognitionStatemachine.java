@@ -243,6 +243,16 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 				SCICrowdDetectionOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
+		private String crowdDetails;
+		
+		public String getCrowdDetails() {
+			return crowdDetails;
+		}
+		
+		public void setCrowdDetails(String value) {
+			this.crowdDetails = value;
+		}
+		
 	}
 	
 	protected SCICrowdDetectionImpl sCICrowdDetection;
@@ -362,6 +372,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		sCIBGF.setRandNum(0);
 		
 		sCIAttractiveness.setOld_attr(0.0);
+		
+		sCICrowdDetection.setCrowdDetails("");
 		
 		setCounter(0);
 		
@@ -758,7 +770,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'CrowdScanningAndCounting'. */
 	private void entryAction_main_region_CrowdScanningAndCounting() {
-		sCIHBrain.operationCallback.sendTTS("");
+		sCIHBrain.operationCallback.sendTTS(sCICrowdDetection.getCrowdDetails());
 	}
 	
 	/* Entry action for state 'StartGame'. */

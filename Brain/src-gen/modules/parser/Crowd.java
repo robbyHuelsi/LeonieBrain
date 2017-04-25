@@ -3,6 +3,8 @@ package modules.parser;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCICrowdDetection;
+
 import main.Start;
 import modules.Module;
 
@@ -48,6 +50,8 @@ public class Crowd implements IParser, Serializable{
 				PersonCrowd person = new PersonCrowd(gender, age, position);
 				crowdList.add(person);
 			}
+			setAttributes();
+			
 		}	
 	
 		return true;

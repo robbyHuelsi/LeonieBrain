@@ -1,0 +1,99 @@
+5.2. Cocktail Party [SSPL only]
+The robot has to learn and recognize previously unknown people, and fetch orders.
+
+5.2.1. Focus
+This test focuses on human detection and recognition, safe navigation and human-robot interaction with unknown people.
+
+5.2.2. Setup
+• Party room: any (large) room inside the apartment when normally a party would be held.
+• Guests: At least ve people are distributed in a predened \party room" either sitting or standing, some of them forming groups of 2 or 3 people, from which at least one is sitting.
+Three of the guests have drink orders assigned by the referees. The sitting person always has an assigned drink.
+• Bar: The bar is any at surface where objects can be placed, in a room other than the \party room". All available beverages are on top of the bar for the robot can see them.
+• Barman: The Barman bay be standing either behind the bar or next to it, depending on the arena setup.
+
+5.2.3. Task
+1. Entering: The robot enters the arena and navigates to the party room and waits for being called.
+2. Getting called: The guests call the robot simultaneously, either rising an arm, waving, or shouting. The robot has to approach one of them. 
+The calling person introduces themself by name before giving the order of a drink. The robot leads the dialogue to learn the person and retrieve their drink order.
+The robot can decide to skip the detection of the calling and ask one person to walk in front of it. In this case, the referees determine the person to approach the robot.
+3. Taking the order: After the robot has fetched the order of the rst guest, it can either fetch more orders (i.e. nd next calling guest or looking for the sitting one) or proceed
+to place the order. In the rst case, the robot searches for the remaining calling people. During the search process, the robot is allowed to either ask people to call for it again, or
+to ask people to come to it and to give a new order. In both cases the robot may call into the room.
+4. Sitting person: At least one person is sitting and minding their own business (i.e. not looking directly to the robot). The robot must locate that person and ask if the person
+wants something to drink. The robot must also ask for the person's name and memorize them (i.e. execute a learning procedure of the name and the person's features).
+Remark: At least one sitting person has an order to place. No sitting person will not attend robot's call.
+5. Placing the orders: The robot has to navigate to the Bar, a designated location in another room where drinks are served. The robot must repeat each order to the Barman,
+clearly stating:
+	5.1. The person's name,
+	5.2. The person's chosen drink,
+	5.3. A description of unique characteristics of that person that allow the Barman to nd them (e.g. gender, hair colour, how is dressed, etc).
+	While the robot places the orders, the people in the \party room" may change their places within the party room (on request of the referees).
+6. Missing beverage: One of the ordered drinks is not available, therefore, missing from the bar. The robot should realize this inconvenience and tell the Barman, providing a
+list of 3 alternatives considering the other drinks it needs to deliver. If the robot can't detect which drink is missing, the Barman will clearly state which of the beverages is not
+available and provide a list of 3 alternatives.
+7. Correcting an order: The robot should navigate back to the \party room", nd the person whose drink is missing and provide the alternatives for they to choose.
+If the robot comes to the place the person ordered and the person is not there, it can call that person loud, the person should respond (either sound or waving hand) and the robot
+must go to that place (check the person identity).
+8. Placing the corrected order: The robot has to navigate to the Bar and inform the change on the guest's order. This time only the guest's name and drink can be provided.
+
+5.2.4. Additional rules and remarks
+1. Repeating names: The robot may ask to repeat the name if it has not understood it.
+2. Misunderstood names: If the robot misunderstands the name, the understood (wrong) name is used in the remainder of this test.
+3. Misunderstood order: If the robot does not understand the order, it can continue with an own assignment of drinks to people or with a wrong, misunderstood assignment.
+4. Approaching non-calling people: If the robot approaches a person that is not calling and asks for an order, the person indicates that they does not want to order anything. No
+points can be scored for understanding names or orders, or for grasping or delivery for a non-calling person.
+5. Guest description: The guest's description must be unique inside the scenario. For instance, it make no sense to state that a person is wearing a red T-shirt if two people
+are wearing them. In the same sense, stating that the ordering guest is tall can lead to confusion, but stating that is the tallest does not.
+6. Changing places: After giving the order (when the robot is not in the party room), the referees may re-arrange the people including their body posture. That is, a sitting person
+may change to a standing posture and vice versa. 
+7. Positions and orientations: All people roughly stay where they are (if not asked to move by the referees), but they are allowed to move in certain limits (e.g. turn around,
+make a step aside). They do not need to look at the robot, but are requested to do so, when instructed by the robot.
+8. Empty arena: During the test, only the robot, the guest, and the Barman are in the arena. The door opener, the referees and other personnel that is not assigned as test
+people will be outside the scenario.
+9. Calling instruction: The team needs to specify before the test which ways of getting the attention of the robot are allowed. This can be waving, calling or both of them. The
+robot can also decide to skip this part, by asking for people to get close to it.
+
+5.2.5. Referee instructions
+The referees need to
+	• select 5 people and their names from the list of person names (see Section 3.2.8),
+	• arrange (and re-arrange) people in the party room,
+	• select the person (barman) who will serve the drinks,
+	• select the ordering 3 people and the orders to give,
+	• in case the robot skips the calling detection, select the ordering person to approach the robot,
+	• write down the understood names and drinks during an order and update the order accordingly.
+
+5.2.6. OC instructions
+2h before test:
+	• Specify and announce the rooms where the test takes place.
+	• Specify and announce the location where the drinks are served.
+
+5.2.7. Score sheet
+The maximum time for this test is 5 minutes.
+
+Action Score
+Taking the orders
+Detecting calling person 												2 x 15
+Finding sitting & distracted person 									30
+Understanding and repeating the correct person's name 					3 x 5
+Understanding and repeating the correct drink's name 					3 x 5
+Placing orders
+Repeat the correct name & drink to the Barman 							3 x 5
+Provide an accurate description of the guest to the Barman 				3 x 30
+Missing beverage
+Realize the missing drink 												20
+Provide 3 available alternatives to the Barman 							20
+Understanding and repeating the alternatives to the Barman 				5
+Correcting the order
+Find the guest without calling them 									20
+Find the guest by calling them 											10
+Repeat the correct list of alternate drinks to the guest 				5
+Understanding and repeating the corrected order 						5
+Place the corrected order												5
+Penalties
+Talk to something that is not a human 									-1 x 20
+Special penalties & standard bonuses
+Contributing with recorded data (P gathered points/max points * X) 
+(see sec. 3.4) 															10
+Not attending (see sec. 3.10.1) 										-50
+Outstanding performance (see sec. 3.10.3) 								27
+Total score (excluding penalties and bonuses) 							270
