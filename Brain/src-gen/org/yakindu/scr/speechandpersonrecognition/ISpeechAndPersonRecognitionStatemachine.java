@@ -139,6 +139,8 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		
 		public long getSpecificCount(long gender, long minAge, long maxAge, long position);
 		
+		public String getSummaryText();
+		
 		public boolean areAllGendersDetected();
 		
 		public boolean areAllAgesDetected();

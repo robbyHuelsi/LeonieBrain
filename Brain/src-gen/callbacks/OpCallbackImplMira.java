@@ -34,32 +34,20 @@ public class OpCallbackImplMira implements
 			this.sendGoToGWP(0);
 		}
 	}
-	
-	public void sendGoToLC(String inX, String inY){
-		System.out.println("Go to local coordinates: x=" + inX + ", y=" + inY);
-		Communication.sendMessage("#MIRA#LC#" + inX + ";" + inY + ";#", modules.get("Mira"));
-	}
-	
-	public void sendTurnBody(String inAngle){  //#MIRA#ROTBODY#360#
-		System.out.println("Turn Body: angle=" + inAngle);
-		Communication.sendMessage("#MIRA#ROTBODY#" + inAngle + "#", modules.get("Mira"));
-	}
+
 	
 	public void sendBodyUTurn(){  //#MIRA#ROTBODY#360#
 		
-		Communication.sendMessage("#MIRA#ROTBODY#90#", modules.get("Mira"));
+		/*Communication.sendMessage("#MIRA#ROTBODY#90#", modules.get("Mira"));
 		try {
 			Thread.sleep(820);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		Communication.sendMessage("#MIRA#ROTBODY#90#", modules.get("Mira"));
+		Communication.sendMessage("#MIRA#ROTBODY#90#", modules.get("Mira"));*/
+		
+		sendTurnBody(180);
 	}
-	
-	public void sendTurnHead(String inAngle){  //#MIRA#ROTBODY#360#
-		  System.out.println("Turn Body: angle=" + inAngle);
-		  Communication.sendMessage("#MIRA#ROTHEAD#" + inAngle + "#", modules.get("Mira"));
-		 }
 
 	
 	public void sendSearchOnOff(boolean inOnOff){
@@ -69,18 +57,18 @@ public class OpCallbackImplMira implements
 	}
 
 	public void sendTurnBody(long inAngle) {
-		// TODO implement sendTurnBody(long inAngle)
-		System.err.println("sendTurnBody() not implemented");
+		System.out.println("Turn Body: angle=" + inAngle);
+		Communication.sendMessage("#MIRA#ROTBODY#" + inAngle + "#", modules.get("Mira"));
 	}
 
 	public void sendTurnHead(long inAngle) {
-		// TODO implement sendTurnHead(long inAngle)
-		System.err.println("sendTurnHead() not implemented");
+		System.out.println("Turn Body: angle=" + inAngle);
+		  Communication.sendMessage("#MIRA#ROTHEAD#" + inAngle + "#", modules.get("Mira"));
 	}
 
 	public void sendGoToLC(long inX, long inY) {
-		// TODO implement sendGoToLC(long inX, long inY)
-		System.err.println("sendGoToLC() not implemented");
+		System.out.println("Go to local coordinates: x=" + inX + ", y=" + inY);
+		Communication.sendMessage("#MIRA#LC#" + inX + ";" + inY + ";#", modules.get("Mira"));
 	}
 	
 	//TODO implement sendTurnPTU()

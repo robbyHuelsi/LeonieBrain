@@ -7,7 +7,6 @@ import modules.parser.CrowdDet;
 import modules.parser.STT;
 
 public class OpCallbackImplCrowdDetection implements
-	org.yakindu.scr.braganca.IBragancaStatemachine.SCICrowdDetectionOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCICrowdDetectionOperationCallback,
 	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCICrowdDetectionOperationCallback
 {
@@ -38,6 +37,10 @@ public class OpCallbackImplCrowdDetection implements
 
 	public boolean areAllAgesDetected() {
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).areAllAgesDetected();
+	}
+
+	public String getSummaryText() {
+		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getSummaryString();
 	}	
 	
 }

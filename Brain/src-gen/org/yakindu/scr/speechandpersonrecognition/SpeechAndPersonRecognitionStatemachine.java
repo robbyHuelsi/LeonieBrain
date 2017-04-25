@@ -186,6 +186,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		main_region_BlindMan_sBluGame_r1_Repeat,
 		main_region_LeaveTheRoom,
 		main_region__final_,
+		main_region_DetectionOn,
 		$NullState$
 	};
 	
@@ -362,6 +363,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			return stateVector[0] == State.main_region_LeaveTheRoom;
 		case main_region__final_:
 			return stateVector[0] == State.main_region__final_;
+		case main_region_DetectionOn:
+			return stateVector[0] == State.main_region_DetectionOn;
 		default:
 			return false;
 		}
@@ -499,6 +502,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return getQuestionCounter()<6;
 	}
 	
+	private boolean check_main_region_DetectionOn_tr0_tr0() {
+		return sCICrowdDetection.detected;
+	}
+	
 	private void effect_main_region_Init_tr0() {
 		exitSequence_main_region_Init();
 		enterSequence_main_region_Announcement_default();
@@ -516,7 +523,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private void effect_main_region_TurnAround_tr0() {
 		exitSequence_main_region_TurnAround();
-		enterSequence_main_region_CrowdScanningAndCounting_default();
+		enterSequence_main_region_DetectionOn_default();
 	}
 	
 	private void effect_main_region_RiddleGame1_r1_RequestForOpertator_tr0() {
@@ -604,11 +611,16 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_BlindMan_sBluGame_r1_ListenForQuestion_default();
 	}
 	
+	private void effect_main_region_DetectionOn_tr0() {
+		exitSequence_main_region_DetectionOn();
+		enterSequence_main_region_CrowdScanningAndCounting_default();
+	}
+	
 	/* Entry action for state 'Init'. */
 	private void entryAction_main_region_Init() {
 		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(false);
 		
-		sCIMira.operationCallback.sendGoToGWP(0);
+		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
 	
 	/* Entry action for state 'Announcement'. */
@@ -618,19 +630,19 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Wait'. */
 	private void entryAction_main_region_Wait() {
-		timer.setTimer(this, 0, 10*1000, false);
+		timer.setTimer(this, 0, 3*1000, false);
 	}
 	
 	/* Entry action for state 'TurnAround'. */
 	private void entryAction_main_region_TurnAround() {
-		timer.setTimer(this, 1, 2*1000, false);
+		timer.setTimer(this, 1, 3*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'CrowdScanningAndCounting'. */
 	private void entryAction_main_region_CrowdScanningAndCounting() {
-		sCIHBrain.operationCallback.sendTTS("");
+		sCIHBrain.operationCallback.sendTTS(sCICrowdDetection.operationCallback.getSummaryText());
 	}
 	
 	/* Entry action for state 'StartGame'. */
@@ -718,6 +730,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	/* Entry action for state 'LeaveTheRoom'. */
 	private void entryAction_main_region_LeaveTheRoom() {
 		sCIMira.operationCallback.sendGoToGWP(0);
+	}
+	
+	/* Entry action for state 'DetectionOn'. */
+	private void entryAction_main_region_DetectionOn() {
+		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
 	
 	/* Exit action for state 'Wait'. */
@@ -877,6 +894,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		stateVector[0] = State.main_region__final_;
 	}
 	
+	/* 'default' enter sequence for state DetectionOn */
+	private void enterSequence_main_region_DetectionOn_default() {
+		entryAction_main_region_DetectionOn();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_DetectionOn;
+	}
+	
 	/* 'default' enter sequence for region main region */
 	private void enterSequence_main_region_default() {
 		react_main_region__entry_Default();
@@ -1016,6 +1040,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state DetectionOn */
+	private void exitSequence_main_region_DetectionOn() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for region main region */
 	private void exitSequence_main_region() {
 		switch (stateVector[0]) {
@@ -1075,6 +1105,9 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			break;
 		case main_region__final_:
 			exitSequence_main_region__final_();
+			break;
+		case main_region_DetectionOn:
+			exitSequence_main_region_DetectionOn();
 			break;
 		default:
 			break;
@@ -1277,6 +1310,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region__final_() {
 	}
 	
+	/* The reactions of state DetectionOn. */
+	private void react_main_region_DetectionOn() {
+		if (check_main_region_DetectionOn_tr0_tr0()) {
+			effect_main_region_DetectionOn_tr0();
+		}
+	}
+	
 	/* Default react sequence for initial entry  */
 	private void react_main_region__entry_Default() {
 		enterSequence_main_region_Init_default();
@@ -1345,6 +1385,9 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 				break;
 			case main_region__final_:
 				react_main_region__final_();
+				break;
+			case main_region_DetectionOn:
+				react_main_region_DetectionOn();
 				break;
 			default:
 				// $NullState$

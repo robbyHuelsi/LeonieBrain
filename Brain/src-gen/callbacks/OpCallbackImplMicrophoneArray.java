@@ -1,7 +1,6 @@
 package callbacks;
 
 public class OpCallbackImplMicrophoneArray implements
-	org.yakindu.scr.braganca.IBragancaStatemachine.SCIMicrophoneArrayOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIMicrophoneArrayOperationCallback,
 	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIMicrophoneArrayOperationCallback
 {

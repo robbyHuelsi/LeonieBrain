@@ -27,11 +27,13 @@ public class CrowdDet implements IParser, Serializable{
 		this.start = start;
 		
 		this.personList.removeAllElements();
-		String[] crowd = data.split("#")[1].split("+");
+		String[] datas = data.split("#");
+		String[] crowd = datas[1].split("//+");
 			
 		for(int i = 0; i < crowd.length; i++){
 			String[] person = crowd[i].split(";");
 			try {
+				System.out.println(crowd[i]);
 				int gender = Integer.parseInt(person[0]);
 				int age = Integer.parseInt(person[1]);
 				int position = Integer.parseInt(person[2]);
@@ -41,11 +43,12 @@ public class CrowdDet implements IParser, Serializable{
 			}
 		}
 		
-		int total = Integer.parseInt(data.split("#")[0]);
+		int total = Integer.parseInt(datas[0]);
 		if (total == personList.size()) {
+			this.setCrowdDetected(true);
 			return true;
 		}else{
-			System.out.println("There is not the same number of Persons in personList like total count");
+			System.out.println("There is not the same number of Persons in personList (" + personList.size() + ") like total count (" + total + ")");
 			return false;
 		}
 	}
@@ -60,7 +63,7 @@ public class CrowdDet implements IParser, Serializable{
 		this.crowdDetected = crowdDetected;
 		
 		if (crowdDetected) {
-			start.getStatemachine().raiseEventOfSCI("CrowdDet","detected");
+			start.getStatemachine().raiseEventOfSCI("CrowdDetection","detected");
 		}
 	}
 
@@ -130,5 +133,33 @@ public class CrowdDet implements IParser, Serializable{
 		
 		return true;
 	}
-
+	
+	public String getSummaryString(){
+		/*if (this.objList.isEmpty()) {
+			return "[:-(] I didn't found objects.";
+		}else{
+			String sum = "[:-)] I found " + this.objList.size() + " objects!";
+			Vector<Objects.object> ol = this.objList;
+			while (!ol.isEmpty()) {
+				String oName = ol.get(0).getName();
+				int oCount = 0;
+				for (int i = 0; i < ol.size(); i++) {
+					if (ol.get(i).equals(oName)) {
+						oCount++;
+						ol.remove(i);
+						i--;
+					}
+				}
+				if (oCount == 1) {
+					sum += " There is one " + oName + ".";
+				}else{
+					sum += " There are " + oCount + " times " + oName + ".";
+				}
+				
+			}
+			return sum;
+		
+		}*/
+		return null;
+	}
 }

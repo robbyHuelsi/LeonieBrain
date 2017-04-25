@@ -194,7 +194,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[3];
+	private final boolean[] timeEvents = new boolean[4];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -434,8 +434,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCISTT.actionReceived;
 	}
 	
-	private boolean check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr0_tr0() {
+	private boolean check_main_region_StartTracking_WaitingForStopCommand_STToff_tr1_tr1() {
 		return timeEvents[1];
+	}
+	
+	private boolean check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr0_tr0() {
+		return timeEvents[2];
+	}
+	
+	private boolean check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr1_tr1() {
+		return sCISTT.actionReceived;
 	}
 	
 	private boolean check_main_region_Wave_tr0_tr0() {
@@ -475,7 +483,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_StartSTT_tr0_tr0() {
-		return timeEvents[2];
+		return timeEvents[3];
 	}
 	
 	private boolean check_main_region_StopSTT_tr0_tr0() {
@@ -582,9 +590,19 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		react_main_region_StartTracking_WaitingForStopCommand__choice_0();
 	}
 	
+	private void effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr1() {
+		exitSequence_main_region_StartTracking_WaitingForStopCommand_STToff();
+		enterSequence_main_region_StartTracking_WaitingForStopCommand_STTstart_default();
+	}
+	
 	private void effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr0() {
 		exitSequence_main_region_StartTracking_WaitingForStopCommand_STTstart();
 		enterSequence_main_region_StartTracking_WaitingForStopCommand_STToff_default();
+	}
+	
+	private void effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr1() {
+		exitSequence_main_region_StartTracking_WaitingForStopCommand_STTstart();
+		react_main_region_StartTracking_WaitingForStopCommand__choice_0();
 	}
 	
 	private void effect_main_region_Wave_tr0() {
@@ -745,12 +763,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'STToff'. */
 	private void entryAction_main_region_StartTracking_WaitingForStopCommand_STToff() {
+		timer.setTimer(this, 1, 5*1000, false);
+		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Entry action for state 'STTstart'. */
 	private void entryAction_main_region_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.setTimer(this, 1, 5*1000, false);
+		timer.setTimer(this, 2, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 	}
@@ -803,7 +823,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_StartSTT() {
-		timer.setTimer(this, 2, 3*1000, false);
+		timer.setTimer(this, 3, 3*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionYesNo();
 	}
@@ -825,7 +845,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'kitchen'. */
 	private void entryAction_main_region_GoTo_goto_kitchen() {
-		sCIMira.operationCallback.sendGoToGWP(0);
+		sCIMira.operationCallback.sendGoToGWP(2);
 	}
 	
 	/* Entry action for state 'livingroom'. */
@@ -857,9 +877,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		timer.unsetTimer(this, 0);
 	}
 	
+	/* Exit action for state 'STToff'. */
+	private void exitAction_main_region_StartTracking_WaitingForStopCommand_STToff() {
+		timer.unsetTimer(this, 1);
+	}
+	
 	/* Exit action for state 'STTstart'. */
 	private void exitAction_main_region_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.unsetTimer(this, 1);
+		timer.unsetTimer(this, 2);
 	}
 	
 	/* Exit action for state 'Wave'. */
@@ -869,7 +894,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_region_StartSTT() {
-		timer.unsetTimer(this, 2);
+		timer.unsetTimer(this, 3);
 	}
 	
 	/* 'default' enter sequence for state Detection */
@@ -1091,6 +1116,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void exitSequence_main_region_StartTracking_WaitingForStopCommand_STToff() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_StartTracking_WaitingForStopCommand_STToff();
 	}
 	
 	/* Default exit sequence for state STTstart */
@@ -1379,6 +1406,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		} else {
 			if (check_main_region_StartTracking_WaitingForStopCommand_STToff_tr0_tr0()) {
 				effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr0();
+			} else {
+				if (check_main_region_StartTracking_WaitingForStopCommand_STToff_tr1_tr1()) {
+					effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr1();
+				}
 			}
 		}
 	}
@@ -1390,6 +1421,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		} else {
 			if (check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr0_tr0()) {
 				effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr0();
+			} else {
+				if (check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr1_tr1()) {
+					effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr1();
+				}
 			}
 		}
 	}

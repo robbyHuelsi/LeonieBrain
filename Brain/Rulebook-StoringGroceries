@@ -1,0 +1,92 @@
+5.1. Storing Groceries [DSPL & OPL]
+The robot helps by storing newly bought groceries in the cupboard next to the objects of the same kind that are already there; for instance by placing fresh apples where the other apples are.
+
+5.1.1. Goal
+The robot has to correctly identify and manipulate objects at dierent heights, grouping them by category and likelihood.
+
+5.1.2. Focus
+This test focuses on the detection and recognition of objects and their features, as well as object manipulation.
+
+5.1.3. Setup
+1. Location: One of the bookcases or cupboards in the apartment is used for this test, one where a table is near or can be put.
+2. Start position: The robot will start between the cupboard and the table in a random orientation, but facing towards the Cupboard. .
+3. Cupboard: The cupboard has 5 shelves between 0.30m and 1.80m from the ground and contains several objects (See 3.2.5).
+	• Door: The cupboard has a single door, which is closed initially.
+4. Table: A table near to the Cupboard has 10 objects (See 3.2.5). If not all t the on the table, they will be added during the test. The maximum distance between the Table and the Cupboard is 2m.
+5. Objects: Objects on the Cupboard and on the Table can be known, alike, or unknown. Also, there will be more than one object in each shelf.
+
+5.1.4. Task
+1. Opening door: The robot starts opening the Cupboard's door. If the robot is unable to open the door, it may ask the Referee to do it instead.
+2. Cupboard inspection: The robot inspects the cupboard locating and categorizing existing groceries.
+3. Finding the table: The turns around and locates the table.
+4. Table inspection: The robot approaches the table starts analyzing the newly bought groceries (i.e. objects).
+5. Moving objects: The robot chooses which object to move rst from the Table to the Cupboard, allocating similar objects all together.
+	• Objects of the same type (i.e. identical known objects or akin alike objects) must be placed one next to the other.
+	• If the Cupboard has no object of the same type, then objects must be grouped by category (e.g. drinks with drinks, snacks with snacks, etc)
+	• If the Cupboard has no similar object, the robot must clearly state its decision on how to solve the problem. For instance, the robot can dene a place for the newly
+	  found Category (e.g. Food was found but there is no other food in the cupboard), or group all new objects together (e.g. placing all Unknown objects together).
+	Note: Either before or after grasping an object the robot may announce the name of the object found.
+6. Repeat: This repeats until the time is up or all groceries are stored.
+
+5.1.5. Additional rules and remarks
+1. Bypassing Manipulation: Bypassing object manipulation via the CONTINUE rule (Section Section 3.9.1) is not allowed during this test.
+2. No setup: There is no setup time.
+3. Startup: The robot can be started with a simple voice command or via a start button (Section Section 3.8.7).
+4. Single try: The robot must be able to start from the rst attempt. There is no restart for this test. If the robot is unable to start it must be removed immediately.
+5. Collisions: Slightly touching the the cupboard is tolerated (but not advised). Crushing objects or any other form of a major collision terminates the test immediately (Section Section 3.8.1).
+6. Recognition report: Robots must create a PDF report le including
+	6.1. The name of the team.
+	6.2. The try number (to identify between runs).
+	6.3. The date and time.
+	6.4. Picture of the cupboard in its initial state with bounding boxes enclosing each group and a human-readable labels to identify them.
+	6.5. The list of moved objects; each one with a picture showing the object inside a bounding box with a label stating the object's name, category, and any other relevant
+		 information used to categorize the object.
+	6.6. Picture of the cupboard in its nal state with bounding boxes enclosing each group and a human-readable labels to identify them.
+		 The report le must be stored on a USB-stick on the robot, which will be collected by the TC immediately after the test. The PDF le must be named with the following format:
+		 TeamName RunNumber.pdf 
+	Remark: It must be unmistakable which label belongs to which object. Objects must also be easily recognizable in the report by a human (TC) so that it can be scored.
+	Remark: False positives in the report (labeling an object which is not an object but e.g. the edge of the shelf) are penalized.
+	Unknown objects: A signicant amount of objects are unknown objects. A correct label for these may be constituted by:
+		• Simply labeling those as \Unknown" as opposed to wrongly applying a label from the known or alike objects
+		• Labeling pairs of unknown objects of the same class with the same label (which may be e.g. \type X" for one pair and \relevant-feature Y" for another).
+		• Labeling unknown objects with a new, sensible label for objects.
+7. Clear area: The robot may assume that the direct vicinity of the cupboard and table are clear, and that the robot can move slightly backwards for its task.
+
+5.1.6. Data recording
+Please record the following data (See Section 3.4):
+	• Images
+	• Plans
+	
+5.1.7. OC instructions
+2 hours before the test
+	• Announce the startup location for robots.
+
+5.1.8. Referee instructions
+The referee needs to
+	• Place the objects in the cupboard and a few of the same class on the table. New items can be placed when there is room or the robot asks for more objects.
+	• Close the door of the cupboard.
+	• Put objects on the table and the corresponding objects in the cupboard: 3 known objects,
+2 alike and 5 unknown objects.
+
+5.1.9. Score sheet
+The maximum time for this test is 1+3 minutes. The rst minute is for the robot to open the Cupboard's door on its own. If the robot is not able to open the door within that minute, it
+will be opened by the referee. In case the robot opens the door within the minute, the robot has a small time advantage.
+
+
+Action Score
+Opening the door
+Opening the door without human help 									20
+Moving objects	
+Successfully grasping an object (5 cm for more than 10 seconds) 		5 x 10
+Successfully placing an object near to another of the same class 		5 x 10
+Successfully placing an object anywhere else 							5 x 5
+Recognizing objects
+Every correctly recognized known or alike object in the report le 		10 x 5
+Correctly label unknown objects 										5 x 15
+False positive label 													10 x -5
+Special penalties & standard bonuses
+Contributing with recorded data (P gathered points/max points * X) 
+(see sec. 3.4) 															10
+Not attending (see sec. 3.10.1) 										-50
+Outstanding performance (see sec. 3.10.3) 								25
+Total score (excluding penalties and bonuses) 							250

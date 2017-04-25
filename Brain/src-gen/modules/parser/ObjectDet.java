@@ -33,11 +33,13 @@ public class ObjectDet implements IParser, Serializable {
 			}
 			return true;
 		}else if(data.equals("DONE")){
-			this.setReady(true);
+			this.setAnalyseDone(true);
 			return true;
 			
+		}else if(data.equals("RESPONSE#READY")){
+			this.setReady(true);
+			return true;
 		}
-		
 		return false;
 	}
 
@@ -56,7 +58,7 @@ public class ObjectDet implements IParser, Serializable {
 		this.ready = objDetected;
 		
 		if (objDetected) {
-			start.getStatemachine().raiseEventOfSCI("ObjectDet","ready");
+			start.getStatemachine().raiseEventOfSCI("ObjectDetection","ready");
 		}
 	}
 
@@ -68,7 +70,7 @@ public class ObjectDet implements IParser, Serializable {
 		this.analyseDone = analyseDone;
 		
 		if (analyseDone) {
-			start.getStatemachine().raiseEventOfSCI("ObjectDet","analyseDone");
+			start.getStatemachine().raiseEventOfSCI("ObjectDetection","analyseDone");
 		}
 	}
 
@@ -82,7 +84,7 @@ public class ObjectDet implements IParser, Serializable {
 				String oName = ol.get(0).getName();
 				int oCount = 0;
 				for (int i = 0; i < ol.size(); i++) {
-					if (ol.get(i).equals(oName)) {
+					if (ol.get(i).getName().equals(oName)) {
 						oCount++;
 						ol.remove(i);
 						i--;
@@ -91,7 +93,7 @@ public class ObjectDet implements IParser, Serializable {
 				if (oCount == 1) {
 					sum += " There is one " + oName + ".";
 				}else{
-					sum += " There are " + oCount + " times " + oName + ".";
+					sum += " There are " + oCount + " times of " + oName + ".";
 				}
 				
 			}

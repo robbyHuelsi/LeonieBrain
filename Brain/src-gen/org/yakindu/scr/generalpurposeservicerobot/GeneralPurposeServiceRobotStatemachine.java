@@ -186,6 +186,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		main_region_TellAction_Instructions_bring,
 		main_region_TellAction_Instructions_open,
 		main_region_TellAction_Instructions_followme,
+		main_region_TellAction_Instructions_unknown,
 		main_region_StopSTT,
 		main_region_TellIncomprehensible,
 		main_region_NextQuestion,
@@ -315,7 +316,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			return stateVector[0] == State.main_region_TellAnswer;
 		case main_region_TellAction:
 			return stateVector[0].ordinal() >= State.
-					main_region_TellAction.ordinal()&& stateVector[0].ordinal() <= State.main_region_TellAction_Instructions_followme.ordinal();
+					main_region_TellAction.ordinal()&& stateVector[0].ordinal() <= State.main_region_TellAction_Instructions_unknown.ordinal();
 		case main_region_TellAction_Instructions_GoTo:
 			return stateVector[0] == State.main_region_TellAction_Instructions_GoTo;
 		case main_region_TellAction_Instructions_crowd:
@@ -328,6 +329,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			return stateVector[0] == State.main_region_TellAction_Instructions_open;
 		case main_region_TellAction_Instructions_followme:
 			return stateVector[0] == State.main_region_TellAction_Instructions_followme;
+		case main_region_TellAction_Instructions_unknown:
+			return stateVector[0] == State.main_region_TellAction_Instructions_unknown;
 		case main_region_StopSTT:
 			return stateVector[0] == State.main_region_StopSTT;
 		case main_region_TellIncomprehensible:
@@ -399,6 +402,34 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_TellAction_Instructions_GoTo_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions_crowd_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions_surrounding_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions_bring_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions_open_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions_followme_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions_unknown_tr0_tr0() {
+		return true;
+	}
+	
 	private boolean check_main_region_StopSTT_tr0_tr0() {
 		return true;
 	}
@@ -411,27 +442,31 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr1() {
-		return true;
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr0_tr0() {
+		return (sCISTT.operationCallback.getInstruction()== null?"goto" ==null :sCISTT.operationCallback.getInstruction().equals("goto"));
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr2() {
-		return true;
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr1_tr1() {
+		return (sCISTT.operationCallback.getInstruction()== null?"crowd" ==null :sCISTT.operationCallback.getInstruction().equals("crowd"));
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr3() {
-		return true;
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr2_tr2() {
+		return (sCISTT.operationCallback.getInstruction()== null?"surrounding" ==null :sCISTT.operationCallback.getInstruction().equals("surrounding"));
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr4() {
-		return true;
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr3_tr3() {
+		return (sCISTT.operationCallback.getInstruction()== null?"bring" ==null :sCISTT.operationCallback.getInstruction().equals("bring"));
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr5() {
-		return true;
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr4_tr4() {
+		return (sCISTT.operationCallback.getInstruction()== null?"open" ==null :sCISTT.operationCallback.getInstruction().equals("open"));
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr0() {
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr5_tr5() {
+		return (sCISTT.operationCallback.getInstruction()== null?"followme" ==null :sCISTT.operationCallback.getInstruction().equals("followme"));
+	}
+	
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr6_tr6() {
 		return true;
 	}
 	
@@ -493,6 +528,41 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		enterSequence_main_region_StopSTT_default();
 	}
 	
+	private void effect_main_region_TellAction_Instructions_GoTo_tr0() {
+		exitSequence_main_region_TellAction_Instructions_GoTo();
+		react_main_region_TellAction_Instructions_exit_done();
+	}
+	
+	private void effect_main_region_TellAction_Instructions_crowd_tr0() {
+		exitSequence_main_region_TellAction_Instructions_crowd();
+		react_main_region_TellAction_Instructions_exit_done();
+	}
+	
+	private void effect_main_region_TellAction_Instructions_surrounding_tr0() {
+		exitSequence_main_region_TellAction_Instructions_surrounding();
+		react_main_region_TellAction_Instructions_exit_done();
+	}
+	
+	private void effect_main_region_TellAction_Instructions_bring_tr0() {
+		exitSequence_main_region_TellAction_Instructions_bring();
+		react_main_region_TellAction_Instructions_exit_done();
+	}
+	
+	private void effect_main_region_TellAction_Instructions_open_tr0() {
+		exitSequence_main_region_TellAction_Instructions_open();
+		react_main_region_TellAction_Instructions_exit_done();
+	}
+	
+	private void effect_main_region_TellAction_Instructions_followme_tr0() {
+		exitSequence_main_region_TellAction_Instructions_followme();
+		react_main_region_TellAction_Instructions_exit_done();
+	}
+	
+	private void effect_main_region_TellAction_Instructions_unknown_tr0() {
+		exitSequence_main_region_TellAction_Instructions_unknown();
+		react_main_region_TellAction_Instructions_exit_done();
+	}
+	
 	private void effect_main_region_StopSTT_tr0() {
 		exitSequence_main_region_StopSTT();
 		react_main_region__choice_0();
@@ -506,6 +576,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void effect_main_region_NextQuestion_tr0() {
 		exitSequence_main_region_NextQuestion();
 		enterSequence_main_region_StartSTT_default();
+	}
+	
+	private void effect_main_region_TellAction_Instructions__choice_0_tr0() {
+		enterSequence_main_region_TellAction_Instructions_GoTo_default();
 	}
 	
 	private void effect_main_region_TellAction_Instructions__choice_0_tr1() {
@@ -528,8 +602,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		enterSequence_main_region_TellAction_Instructions_followme_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions__choice_0_tr0() {
-		enterSequence_main_region_TellAction_Instructions_GoTo_default();
+	private void effect_main_region_TellAction_Instructions__choice_0_tr6() {
+		enterSequence_main_region_TellAction_Instructions_unknown_default();
 	}
 	
 	private void effect_main_region__choice_0_tr1() {
@@ -706,6 +780,12 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.main_region_TellAction_Instructions_followme;
 	}
 	
+	/* 'default' enter sequence for state unknown */
+	private void enterSequence_main_region_TellAction_Instructions_unknown_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TellAction_Instructions_unknown;
+	}
+	
 	/* 'default' enter sequence for state StopSTT */
 	private void enterSequence_main_region_StopSTT_default() {
 		entryAction_main_region_StopSTT();
@@ -826,6 +906,12 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state unknown */
+	private void exitSequence_main_region_TellAction_Instructions_unknown() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for state StopSTT */
 	private void exitSequence_main_region_StopSTT() {
 		nextStateIndex = 0;
@@ -889,6 +975,9 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		case main_region_TellAction_Instructions_followme:
 			exitSequence_main_region_TellAction_Instructions_followme();
 			break;
+		case main_region_TellAction_Instructions_unknown:
+			exitSequence_main_region_TellAction_Instructions_unknown();
+			break;
 		case main_region_StopSTT:
 			exitSequence_main_region_StopSTT();
 			break;
@@ -923,6 +1012,9 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			break;
 		case main_region_TellAction_Instructions_followme:
 			exitSequence_main_region_TellAction_Instructions_followme();
+			break;
+		case main_region_TellAction_Instructions_unknown:
+			exitSequence_main_region_TellAction_Instructions_unknown();
 			break;
 		default:
 			break;
@@ -992,26 +1084,37 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* The reactions of state GoTo. */
 	private void react_main_region_TellAction_Instructions_GoTo() {
+		effect_main_region_TellAction_Instructions_GoTo_tr0();
 	}
 	
 	/* The reactions of state crowd. */
 	private void react_main_region_TellAction_Instructions_crowd() {
+		effect_main_region_TellAction_Instructions_crowd_tr0();
 	}
 	
 	/* The reactions of state surrounding. */
 	private void react_main_region_TellAction_Instructions_surrounding() {
+		effect_main_region_TellAction_Instructions_surrounding_tr0();
 	}
 	
 	/* The reactions of state bring. */
 	private void react_main_region_TellAction_Instructions_bring() {
+		effect_main_region_TellAction_Instructions_bring_tr0();
 	}
 	
 	/* The reactions of state open. */
 	private void react_main_region_TellAction_Instructions_open() {
+		effect_main_region_TellAction_Instructions_open_tr0();
 	}
 	
 	/* The reactions of state followme. */
 	private void react_main_region_TellAction_Instructions_followme() {
+		effect_main_region_TellAction_Instructions_followme_tr0();
+	}
+	
+	/* The reactions of state unknown. */
+	private void react_main_region_TellAction_Instructions_unknown() {
+		effect_main_region_TellAction_Instructions_unknown_tr0();
 	}
 	
 	/* The reactions of state StopSTT. */
@@ -1035,7 +1138,31 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* The reactions of state null. */
 	private void react_main_region_TellAction_Instructions__choice_0() {
-		effect_main_region_TellAction_Instructions__choice_0_tr1();
+		if (check_main_region_TellAction_Instructions__choice_0_tr0_tr0()) {
+			effect_main_region_TellAction_Instructions__choice_0_tr0();
+		} else {
+			if (check_main_region_TellAction_Instructions__choice_0_tr1_tr1()) {
+				effect_main_region_TellAction_Instructions__choice_0_tr1();
+			} else {
+				if (check_main_region_TellAction_Instructions__choice_0_tr2_tr2()) {
+					effect_main_region_TellAction_Instructions__choice_0_tr2();
+				} else {
+					if (check_main_region_TellAction_Instructions__choice_0_tr3_tr3()) {
+						effect_main_region_TellAction_Instructions__choice_0_tr3();
+					} else {
+						if (check_main_region_TellAction_Instructions__choice_0_tr4_tr4()) {
+							effect_main_region_TellAction_Instructions__choice_0_tr4();
+						} else {
+							if (check_main_region_TellAction_Instructions__choice_0_tr5_tr5()) {
+								effect_main_region_TellAction_Instructions__choice_0_tr5();
+							} else {
+								effect_main_region_TellAction_Instructions__choice_0_tr6();
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	/* The reactions of state null. */
@@ -1110,6 +1237,9 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 				break;
 			case main_region_TellAction_Instructions_followme:
 				react_main_region_TellAction_Instructions_followme();
+				break;
+			case main_region_TellAction_Instructions_unknown:
+				react_main_region_TellAction_Instructions_unknown();
 				break;
 			case main_region_StopSTT:
 				react_main_region_StopSTT();

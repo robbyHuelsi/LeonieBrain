@@ -235,39 +235,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	protected SCICurrPersonImpl sCICurrPerson;
 	
-	protected class SCICrowdDetectionImpl implements SCICrowdDetection {
-	
-		private SCICrowdDetectionOperationCallback operationCallback;
-		
-		public void setSCICrowdDetectionOperationCallback(
-				SCICrowdDetectionOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-		private boolean detected;
-		
-		public void raiseDetected() {
-			detected = true;
-		}
-		
-		protected void clearEvents() {
-			detected = false;
-		}
-	}
-	
-	protected SCICrowdDetectionImpl sCICrowdDetection;
-	
-	protected class SCIMicrophoneArrayImpl implements SCIMicrophoneArray {
-	
-		private SCIMicrophoneArrayOperationCallback operationCallback;
-		
-		public void setSCIMicrophoneArrayOperationCallback(
-				SCIMicrophoneArrayOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-	}
-	
-	protected SCIMicrophoneArrayImpl sCIMicrophoneArray;
-	
 	private boolean initialized = false;
 	
 	public enum State {
@@ -460,8 +427,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		sCIMira = new SCIMiraImpl();
 		sCISTT = new SCISTTImpl();
 		sCICurrPerson = new SCICurrPersonImpl();
-		sCICrowdDetection = new SCICrowdDetectionImpl();
-		sCIMicrophoneArray = new SCIMicrophoneArrayImpl();
 	}
 	
 	public void init() {
@@ -530,7 +495,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		sCILeapMotion.clearEvents();
 		sCIMira.clearEvents();
 		sCISTT.clearEvents();
-		sCICrowdDetection.clearEvents();
 		for (int i=0; i<timeEvents.length; i++) {
 			timeEvents[i] = false;
 		}
@@ -881,14 +845,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	public SCICurrPerson getSCICurrPerson() {
 		return sCICurrPerson;
-	}
-	
-	public SCICrowdDetection getSCICrowdDetection() {
-		return sCICrowdDetection;
-	}
-	
-	public SCIMicrophoneArray getSCIMicrophoneArray() {
-		return sCIMicrophoneArray;
 	}
 	
 	private boolean check_main_mainStorry_tr0_tr0() {
