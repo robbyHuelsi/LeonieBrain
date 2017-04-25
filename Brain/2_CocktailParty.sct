@@ -1,11 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
-  <sgraph:Statechart xmi:id="_03acMCXfEee7sZ4EX6CHAg" specification="interface BGF: //Brain General Functions&#xD;&#xA;&#x9;var eventNum : integer&#xD;&#xA;&#x9;var randNum : integer&#xD;&#xA;&#x9;operation printToConsole(msg : string):void&#xD;&#xA;&#x9;operation getRandNum(max : integer) : integer&#xD;&#xA;interface HBrain:&#xD;&#xA;&#x9;in event TTSReady&#xD;&#xA;&#x9;operation sendTTS(inText : string) : void&#xD;&#xA;&#x9;operation sendTTS2(inT1 : string, inT2 : string):void&#xD;&#xA;&#x9;operation sendTTS3(inT1 : string, inT2 : string, inT3 : string):void&#xD;&#xA;&#x9;operation sendTTS_num(inNum : integer) : void&#xD;&#xA;&#x9;operation sendTTSWithPos(inPos : string, inText : string):void&#xD;&#xA;&#x9;operation sendPersonPosition():void&#xD;&#xA;interface VBrain:&#xD;&#xA;&#x9;operation getCountFoundFaces() : integer&#xD;&#xA;&#x9;operation resetCountFoundFaces() : void&#xD;&#xA;&#x9;operation isNessesaryToSavePersonList() : boolean&#xD;&#xA;&#x9;operation sendACIOnOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation savePersonList():void&#xD;&#xA;interface Attractiveness:&#xD;&#xA;&#x9;var old_attr : real&#xD;&#xA;&#x9;operation sendToAttr_estimate() : void&#xD;&#xA;interface Kinect2:&#xD;&#xA;&#x9;in event  noiseDetected&#xD;&#xA;&#x9;operation getGesture() : string&#xD;&#xA;&#x9;operation getNoiseAngle() : integer&#xD;&#xA;&#x9;operation sendNoiseDetectionOnOff(inOnOff : boolean):void&#xD;&#xA;interface LeapMotion:&#xD;&#xA;&#x9;in event gestureDetected&#xD;&#xA;&#x9;operation getGesture() : string&#xD;&#xA;&#x9;operation resetGesture() : void&#xD;&#xA;&#x9;in event stringFinished&#xD;&#xA;&#x9;operation getDetectedString() : string&#xD;&#xA;&#x9;operation resetDetectedString() : void&#xD;&#xA;&#x9;operation sendGestureDetectionOnOff(inOnOff : integer):void&#xD;&#xA;interface Mira:&#xD;&#xA;&#x9;in event emergencyStop&#xD;&#xA;&#x9;in event bumpered&#xD;&#xA;&#x9;in event blocked&#xD;&#xA;&#x9;in event arrivedWP&#xD;&#xA;&#x9;operation sendGoToGWP(inWayPoint : integer):void&#xD;&#xA;&#x9;operation sendGoToNextGWPForConf():void&#xD;&#xA;&#x9;operation sendTurnBody(inAngle : integer):void&#xD;&#xA;&#x9;operation sendBodyUTurn() : void&#xD;&#xA;&#x9;operation sendTurnHead(inAngle : integer):void&#xD;&#xA;&#x9;operation sendGoToLC(inX : integer, inY : integer):void&#xD;&#xA;&#x9;operation sendSearchOnOff(inOnOff : boolean):void&#xD;&#xA;interface STT:&#xD;&#xA;&#x9;in event textReceived&#xD;&#xA;&#x9;in event incomprehensible&#xD;&#xA;&#x9;in event actionReceived&#xD;&#xA;&#x9;operation getText() : string&#xD;&#xA;&#x9;operation getInstruction() : string&#xD;&#xA;&#x9;operation getObject() : string&#xD;&#xA;&#x9;operation sendSpeechDetectionOff():void&#xD;&#xA;&#x9;operation sendSpeechDetectionSmalltalk():void&#xD;&#xA;&#x9;operation sendSpeechDetectionYesNo():void&#xD;&#xA;&#x9;operation sendSpeechDetectionName():void&#xD;&#xA;interface currPerson:&#xD;&#xA;&#x9;operation getPersonID() : integer&#xD;&#xA;&#x9;operation isKnown() : boolean&#xD;&#xA;&#x9;operation getFirstname() : string&#xD;&#xA;&#x9;operation getLastname() : string&#xD;&#xA;&#x9;operation getEstimatedAge() : integer&#xD;&#xA;&#x9;operation getBdYear() : integer&#xD;&#xA;&#x9;operation getBdMounth() : integer&#xD;&#xA;&#x9;operation getBdDay() : integer&#xD;&#xA;&#x9;operation getGender() : boolean&#xD;&#xA;&#x9;operation getEthnicity() : integer&#xD;&#xA;&#x9;operation hasGlasses() : boolean&#xD;&#xA;&#x9;operation getAttractiveness() : real&#xD;&#xA;&#x9;operation getCurrHeadgestures() : integer&#xD;&#xA;&#x9;operation isCurrSpeaking() : boolean&#xD;&#xA;&#x9;operation getCurrEmotion() : integer&#xD;&#xA;&#x9;operation getCurrDistance() : real&#xD;&#xA;&#x9;operation resetCurrPerson() : void&#xD;&#xA;&#x9;operation resetCurrEmotion() : void&#xD;&#xA;&#x9;operation setKnown(inKnown : boolean) : void&#xD;&#xA;&#x9;operation setFirstname(inFirstname : string) : void&#xD;&#xA;&#x9;operation setLastname(inLastname : string) : void&#xD;&#xA; &#x9;operation setBdYear(inBdYear : integer) : void&#xD;&#xA;&#x9;operation setBdMounth(inBdMointh : integer) : void&#xD;&#xA;&#x9;operation setBdDay(inBdDay : integer) : void&#xD;&#xA;&#x9;operation setGender(inGender : boolean) : void&#xD;&#xA;&#x9;operation setEthnicity(inEthnicity: integer) : void&#xD;&#xA;&#x9;operation setAttractiveness(attr: real) : void&#xD;&#xA;interface CrowdDetection:&#xD;&#xA;&#x9;operation detectionOnOff(onOff : boolean) : void&#xD;&#xA;interface MicrophoneArray:&#xD;&#xA;&#x9;operation getNoiseAngle() : integer&#xD;&#xA;&#x9;operation detectionOnOff(onOff : boolean) : void&#xD;&#xA;interface objectDetection:&#xD;&#xA;&#x9;operation startStopDetection(onOff : boolean) : void&#xD;&#xA;&#x9;operation snapshot() : void&#xD;&#xA;&#x9;operation printPDF() : void&#xD;&#xA;&#x9;in event detectionDone&#xD;&#xA;&#x9;var tableAngle : integer&#xD;&#xA;&#x9;var answerMatches : string&#xD;&#xA;internal:&#xD;&#xA;&#x9;var counter : integer&#xD;&#xA;&#x9;var nameBuffer : string&#xD;&#xA;&#x9;var questionCounter : integer" name="CocktailParty" domainID="com.yakindu.domain.c">
+  <sgraph:Statechart xmi:id="_03acMCXfEee7sZ4EX6CHAg" specification="interface BGF: //Brain General Functions&#xD;&#xA;&#x9;var eventNum : integer&#xD;&#xA;&#x9;var randNum : integer&#xD;&#xA;&#x9;operation printToConsole(msg : string):void&#xD;&#xA;&#x9;operation getRandNum(max : integer) : integer&#xD;&#xA;interface HBrain:&#xD;&#xA;&#x9;in event TTSReady&#xD;&#xA;&#x9;operation sendTTS(inText : string):void&#xD;&#xA;&#x9;operation sendTTS2(inT1 : string, inT2 : string):void&#xD;&#xA;&#x9;operation sendTTS3(inT1 : string, inT2 : string, inT3 : string):void&#xD;&#xA;&#x9;operation sendTTS_num(inNum : integer):void&#xD;&#xA;&#x9;operation sendTTSWithPos(inPos : string, inText : string):void&#xD;&#xA;&#x9;operation sendPersonPosition():void&#xD;&#xA;interface VBrain:&#xD;&#xA;&#x9;operation getCountFoundFaces() : integer&#xD;&#xA;&#x9;operation resetCountFoundFaces() : void&#xD;&#xA;&#x9;operation isNessesaryToSavePersonList() : boolean&#xD;&#xA;&#x9;operation sendACIOnOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation savePersonList():void&#xD;&#xA;interface Attractiveness:&#xD;&#xA;&#x9;var old_attr : real&#xD;&#xA;&#x9;operation sendToAttr_estimate() : void&#xD;&#xA;interface Kinect2:&#xD;&#xA;&#x9;in event  noiseDetected&#xD;&#xA;&#x9;operation getGesture() : string&#xD;&#xA;&#x9;operation getNoiseAngle() : integer&#xD;&#xA;&#x9;operation sendNoiseDetectionOnOff(inOnOff : boolean):void&#xD;&#xA;interface LeapMotion:&#xD;&#xA;&#x9;in event gestureDetected&#xD;&#xA;&#x9;operation getGesture() : string&#xD;&#xA;&#x9;operation resetGesture() : void&#xD;&#xA;&#x9;in event stringFinished&#xD;&#xA;&#x9;operation getDetectedString() : string&#xD;&#xA;&#x9;operation resetDetectedString() : void&#xD;&#xA;&#x9;operation sendGestureDetectionOnOff(inOnOff : integer):void&#xD;&#xA;interface Mira:&#xD;&#xA;&#x9;in event emergencyStop&#xD;&#xA;&#x9;in event bumpered&#xD;&#xA;&#x9;in event blocked&#xD;&#xA;&#x9;in event arrivedWP&#xD;&#xA;&#x9;operation sendGoToGWP(inWayPoint : integer):void&#xD;&#xA;&#x9;operation sendGoToNextGWPForConf():void&#xD;&#xA;&#x9;operation sendTurnBody(inAngle : integer):void&#xD;&#xA;&#x9;operation sendBodyUTurn() : void&#xD;&#xA;&#x9;operation sendTurnHead(inAngle : integer):void&#xD;&#xA;&#x9;operation sendGoToLC(inX : integer, inY : integer):void&#xD;&#xA;&#x9;operation sendSearchOnOff(inOnOff : boolean):void&#xD;&#xA;interface STT:&#xD;&#xA;&#x9;in event textReceived&#xD;&#xA;&#x9;in event incomprehensible&#xD;&#xA;&#x9;in event actionReceived&#xD;&#xA;&#x9;operation getText() : string&#xD;&#xA;&#x9;operation getInstruction() : string&#xD;&#xA;&#x9;operation getObject() : string&#xD;&#xA;&#x9;operation sendSpeechDetectionOff():void&#xD;&#xA;&#x9;operation sendSpeechDetectionSmalltalk():void&#xD;&#xA;&#x9;operation sendSpeechDetectionYesNo():void&#xD;&#xA;&#x9;operation sendSpeechDetectionName():void&#xD;&#xA;interface currPerson:&#xD;&#xA;&#x9;operation getPersonID() : integer&#xD;&#xA;&#x9;operation isKnown() : boolean&#xD;&#xA;&#x9;operation getFirstname() : string&#xD;&#xA;&#x9;operation getLastname() : string&#xD;&#xA;&#x9;operation getEstimatedAge() : integer&#xD;&#xA;&#x9;operation getBdYear() : integer&#xD;&#xA;&#x9;operation getBdMounth() : integer&#xD;&#xA;&#x9;operation getBdDay() : integer&#xD;&#xA;&#x9;operation getGender() : boolean&#xD;&#xA;&#x9;operation getEthnicity() : integer&#xD;&#xA;&#x9;operation hasGlasses() : boolean&#xD;&#xA;&#x9;operation getAttractiveness() : real&#xD;&#xA;&#x9;operation getCurrHeadgestures() : integer&#xD;&#xA;&#x9;operation isCurrSpeaking() : boolean&#xD;&#xA;&#x9;operation getCurrEmotion() : integer&#xD;&#xA;&#x9;operation getCurrDistance() : real&#xD;&#xA;&#x9;operation resetCurrPerson() : void&#xD;&#xA;&#x9;operation resetCurrEmotion() : void&#xD;&#xA;&#x9;operation setKnown(inKnown : boolean) : void&#xD;&#xA;&#x9;operation setFirstname(inFirstname : string) : void&#xD;&#xA;&#x9;operation setLastname(inLastname : string) : void&#xD;&#xA; &#x9;operation setBdYear(inBdYear : integer) : void&#xD;&#xA;&#x9;operation setBdMounth(inBdMointh : integer) : void&#xD;&#xA;&#x9;operation setBdDay(inBdDay : integer) : void&#xD;&#xA;&#x9;operation setGender(inGender : boolean) : void&#xD;&#xA;&#x9;operation setEthnicity(inEthnicity: integer) : void&#xD;&#xA;&#x9;operation setAttractiveness(attr: real) : void&#xD;&#xA;interface CrowdDetection:&#xD;&#xA;&#x9;operation detectionOnOff(onOff : boolean) : void&#xD;&#xA;interface MicrophoneArray:&#xD;&#xA;&#x9;operation getNoiseAngle() : integer&#xD;&#xA;&#x9;operation detectionOnOff(onOff : boolean) : void&#xD;&#xA;interface objectDetection:&#xD;&#xA;&#x9;operation startStopDetection(onOff : boolean) : void&#xD;&#xA;&#x9;operation snapshot() : void&#xD;&#xA;&#x9;operation printPDF() : void&#xD;&#xA;&#x9;in event detectionDone&#xD;&#xA;&#x9;var tableAngle : integer&#xD;&#xA;&#x9;var answerMatches : string&#xD;&#xA;internal:&#xD;&#xA;&#x9;var counter : integer&#xD;&#xA;&#x9;var nameBuffer : string&#xD;&#xA;&#x9;var questionCounter : integer" name="CocktailParty" documentation="interface BGF: //Brain General Functions&#xD;&#xA;&#x9;var eventNum : integer&#xD;&#xA;&#x9;var randNum : integer&#xD;&#xA;&#x9;operation printToConsole(msg : string):void&#xD;&#xA;&#x9;operation getRandNum(max : integer) : integer&#xD;&#xA;&#xD;&#xA;interface HBrain:&#xD;&#xA;&#x9;in event TTSReady&#xD;&#xA;&#x9;operation sendTTS(inText : string) : void&#xD;&#xA;&#x9;operation sendTTS2(inT1 : string, inT2 : string):void&#xD;&#xA;&#x9;operation sendTTS3(inT1 : string, inT2 : string, inT3 : string):void&#xD;&#xA;&#x9;operation sendTTS_num(inNum : integer) : void&#xD;&#xA;&#x9;operation sendTTSWithPos(inPos : string, inText : string):void&#xD;&#xA;&#x9;operation sendPersonPosition():void&#xD;&#xA;&#xD;&#xA;interface VBrain:&#xD;&#xA;&#x9;operation getCountFoundFaces() : integer&#xD;&#xA;&#x9;operation resetCountFoundFaces() : void&#xD;&#xA;&#x9;operation isNessesaryToSavePersonList() : boolean&#xD;&#xA;&#x9;operation sendACIOnOff(inOnOff : boolean):void&#xD;&#xA;&#x9;operation savePersonList():void&#xD;&#xA;&#xD;&#xA;interface Attractiveness:&#xD;&#xA;&#x9;var old_attr : real&#xD;&#xA;&#x9;operation sendToAttr_estimate() : void&#xD;&#xA;&#xD;&#xA;interface Kinect2:&#xD;&#xA;&#x9;in event  noiseDetected&#xD;&#xA;&#x9;operation getGesture() : string&#xD;&#xA;&#x9;operation getNoiseAngle() : integer&#xD;&#xA;&#x9;operation sendNoiseDetectionOnOff(inOnOff : boolean):void&#xD;&#xA;&#xD;&#xA;interface LeapMotion:&#xD;&#xA;&#x9;in event gestureDetected&#xD;&#xA;&#x9;operation getGesture() : string&#xD;&#xA;&#x9;operation resetGesture() : void&#xD;&#xA;&#x9;in event stringFinished&#xD;&#xA;&#x9;operation getDetectedString() : string&#xD;&#xA;&#x9;operation resetDetectedString() : void&#xD;&#xA;&#x9;operation sendGestureDetectionOnOff(inOnOff : integer):void&#xD;&#xA;&#xD;&#xA;interface Mira:&#xD;&#xA;&#x9;in event emergencyStop&#xD;&#xA;&#x9;in event bumpered&#xD;&#xA;&#x9;in event blocked&#xD;&#xA;&#x9;in event arrivedWP&#xD;&#xA;&#x9;operation sendGoToGWP(inWayPoint : integer):void&#xD;&#xA;&#x9;operation sendGoToNextGWPForConf():void&#xD;&#xA;&#x9;operation sendTurnBody(inAngle : integer):void&#xD;&#xA;&#x9;operation sendBodyUTurn() : void&#xD;&#xA;&#x9;operation sendTurnHead(inAngle : integer):void&#xD;&#xA;&#x9;operation sendGoToLC(inX : integer, inY : integer):void&#xD;&#xA;&#x9;operation sendSearchOnOff(inOnOff : boolean):void&#xD;&#xA;&#xD;&#xA;interface STT:&#xD;&#xA;&#x9;in event textReceived&#xD;&#xA;&#x9;in event incomprehensible&#xD;&#xA;&#x9;in event actionReceived&#xD;&#xA;&#x9;var order : string&#xD;&#xA;&#x9;operation getText() : string&#xD;&#xA;&#x9;operation getInstruction() : string&#xD;&#xA;&#x9;operation getObject() : string&#xD;&#xA;&#x9;operation sendSpeechDetectionOff():void&#xD;&#xA;&#x9;operation sendSpeechDetectionSmalltalk():void&#xD;&#xA;&#x9;operation sendSpeechDetectionYesNo():void&#xD;&#xA;&#x9;operation sendSpeechDetectionName():void&#xD;&#xA;&#xD;&#xA;interface currPerson:&#xD;&#xA;&#x9;operation getPersonID() : integer&#xD;&#xA;&#x9;operation isKnown() : boolean&#xD;&#xA;&#x9;operation getFirstname() : string&#xD;&#xA;&#x9;operation getLastname() : string&#xD;&#xA;&#x9;operation getEstimatedAge() : integer&#xD;&#xA;&#x9;operation getBdYear() : integer&#xD;&#xA;&#x9;operation getBdMounth() : integer&#xD;&#xA;&#x9;operation getBdDay() : integer&#xD;&#xA;&#x9;operation getGender() : boolean&#xD;&#xA;&#x9;operation getEthnicity() : integer&#xD;&#xA;&#x9;operation hasGlasses() : boolean&#xD;&#xA;&#x9;operation getAttractiveness() : real&#xD;&#xA;&#x9;operation getCurrHeadgestures() : integer&#xD;&#xA;&#x9;operation isCurrSpeaking() : boolean&#xD;&#xA;&#x9;operation getCurrEmotion() : integer&#xD;&#xA;&#x9;operation getCurrDistance() : real&#xD;&#xA;&#x9;operation resetCurrPerson() : void&#xD;&#xA;&#x9;operation resetCurrEmotion() : void&#xD;&#xA;&#x9;operation setKnown(inKnown : boolean) : void&#xD;&#xA;&#x9;operation setFirstname(inFirstname : string) : void&#xD;&#xA;&#x9;operation setLastname(inLastname : string) : void&#xD;&#xA; &#x9;operation setBdYear(inBdYear : integer) : void&#xD;&#xA;&#x9;operation setBdMounth(inBdMointh : integer) : void&#xD;&#xA;&#x9;operation setBdDay(inBdDay : integer) : void&#xD;&#xA;&#x9;operation setGender(inGender : boolean) : void&#xD;&#xA;&#x9;operation setEthnicity(inEthnicity: integer) : void&#xD;&#xA;&#x9;operation setAttractiveness(attr: real) : void&#xD;&#xA;&#xD;&#xA;interface CrowdDetection:&#xD;&#xA;&#x9;operation detectionOnOff(onOff : boolean) : void&#xD;&#xA;&#xD;&#xA;interface MicrophoneArray:&#xD;&#xA;&#x9;operation getNoiseAngle() : integer&#xD;&#xA;&#x9;operation detectionOnOff(onOff : boolean) : void&#xD;&#xA;&#xD;&#xA;interface objectDetection:&#xD;&#xA;&#x9;operation startStopDetection(onOff : boolean) : void&#xD;&#xA;&#x9;operation snapshot() : void&#xD;&#xA;&#x9;operation printPDF() : void&#xD;&#xA;&#x9;in event detectionDone&#xD;&#xA;&#x9;var tableAngle : integer&#xD;&#xA;&#x9;var answerMatches : string&#xD;&#xA;&#xD;&#xA;internal:&#xD;&#xA;&#x9;var counter : integer&#xD;&#xA;&#x9;var nameBuffer : string&#xD;&#xA;&#x9;var questionCounter : integer" domainID="com.yakindu.domain.c">
     <regions xmi:id="_03bDQiXfEee7sZ4EX6CHAg" name="main region">
       <vertices xsi:type="sgraph:Entry" xmi:id="_03bDTCXfEee7sZ4EX6CHAg">
         <outgoingTransitions xmi:id="_03c4diXfEee7sZ4EX6CHAg" target="_03bqVyXfEee7sZ4EX6CHAg"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_03bqVyXfEee7sZ4EX6CHAg" name="StateA" incomingTransitions="_03c4diXfEee7sZ4EX6CHAg"/>
+      <vertices xsi:type="sgraph:State" xmi:id="_03bqVyXfEee7sZ4EX6CHAg" name="Init" incomingTransitions="_03c4diXfEee7sZ4EX6CHAg">
+        <outgoingTransitions xmi:id="_Fab-ACkfEeeJO6v9cNLmiA" specification="" target="_BB_XECkfEeeJO6v9cNLmiA"/>
+      </vertices>
+      <vertices xsi:type="sgraph:State" xmi:id="_BB_XECkfEeeJO6v9cNLmiA" specification="entry/ Mira.sendGoToGWP(0)" name="Entering" incomingTransitions="_Fab-ACkfEeeJO6v9cNLmiA">
+        <outgoingTransitions xmi:id="_NEZZACkfEeeJO6v9cNLmiA" specification="" target="_MUCTECkfEeeJO6v9cNLmiA"/>
+      </vertices>
+      <vertices xsi:type="sgraph:State" xmi:id="_MUCTECkfEeeJO6v9cNLmiA" specification="entry/ Kinect2.sendNoiseDetectionOnOff(1);&#xD;&#xA;STT.sendSpeechDetectionSmalltalk" name="WaitingForOrder" incomingTransitions="_NEZZACkfEeeJO6v9cNLmiA _muvWoCknEeeJO6v9cNLmiA">
+        <outgoingTransitions xmi:id="_2PcdsCkiEeeJO6v9cNLmiA" specification="" target="_x4zU8CkfEeeJO6v9cNLmiA"/>
+        <outgoingTransitions xmi:id="_n_mo8CkkEeeJO6v9cNLmiA" specification="//if no person detected" target="_iuiX8CkkEeeJO6v9cNLmiA"/>
+      </vertices>
+      <vertices xsi:type="sgraph:State" xmi:id="_x4zU8CkfEeeJO6v9cNLmiA" specification="entry/ Mira.sendGoToLC(0,0)" name="GoToPerson" incomingTransitions="_2PcdsCkiEeeJO6v9cNLmiA">
+        <outgoingTransitions xmi:id="_em0xICkjEeeJO6v9cNLmiA" specification="Mira.arrivedWP" target="_Cz9uMCkjEeeJO6v9cNLmiA"/>
+      </vertices>
+      <vertices xsi:type="sgraph:State" xmi:id="_Cz9uMCkjEeeJO6v9cNLmiA" specification="entry/ STT.sendSpeechDetectionSmalltalk;&#xD;&#xA;VBrain.isNessesaryToSavePersonList" name="Order" incomingTransitions="_em0xICkjEeeJO6v9cNLmiA _Kf9CICkmEeeJO6v9cNLmiA">
+        <outgoingTransitions xmi:id="_yO4OcCkmEeeJO6v9cNLmiA" specification="" target="_xY8E8CkmEeeJO6v9cNLmiA"/>
+        <outgoingTransitions xmi:id="_uVoPgCknEeeJO6v9cNLmiA" specification="//NextOrder" target="_PavrsCknEeeJO6v9cNLmiA"/>
+      </vertices>
+      <vertices xsi:type="sgraph:State" xmi:id="_iuiX8CkkEeeJO6v9cNLmiA" specification="entry/ STT.sendSpeechDetectionOff;&#xD;&#xA;HBrain.sendTTS(&quot;Please step in front of me to place your order.&quot;)" name="AskForOrder" incomingTransitions="_n_mo8CkkEeeJO6v9cNLmiA">
+        <outgoingTransitions xmi:id="_Kf9CICkmEeeJO6v9cNLmiA" specification="//person detected in front" target="_Cz9uMCkjEeeJO6v9cNLmiA"/>
+      </vertices>
+      <vertices xsi:type="sgraph:State" xmi:id="_xY8E8CkmEeeJO6v9cNLmiA" specification="entry/ Mira.sendGoToGWP(1)" name="Bar" incomingTransitions="_yO4OcCkmEeeJO6v9cNLmiA">
+        <outgoingTransitions xmi:id="_HlR5YCkpEeeJO6v9cNLmiA" specification="Mira.arrivedWP" target="_p0OrcCkoEeeJO6v9cNLmiA"/>
+      </vertices>
+      <vertices xsi:type="sgraph:State" xmi:id="_PavrsCknEeeJO6v9cNLmiA" specification="entry/ HBrain.sendTTS(&quot;Please lift your arm and wave if you want to order.&quot;)" name="AskForWave" incomingTransitions="_uVoPgCknEeeJO6v9cNLmiA">
+        <outgoingTransitions xmi:id="_muvWoCknEeeJO6v9cNLmiA" specification="" target="_MUCTECkfEeeJO6v9cNLmiA"/>
+      </vertices>
+      <vertices xsi:type="sgraph:State" xmi:id="_eUJTcCkoEeeJO6v9cNLmiA" name="DetectPerson"/>
+      <vertices xsi:type="sgraph:State" xmi:id="_mN424CkoEeeJO6v9cNLmiA" name="BringTheOrder" incomingTransitions="_L6EvYCkpEeeJO6v9cNLmiA"/>
+      <vertices xsi:type="sgraph:State" xmi:id="_p0OrcCkoEeeJO6v9cNLmiA" specification="entry/ HBrain.sendTTS(STT.order)" name="TellWaiterTheOrder" incomingTransitions="_HlR5YCkpEeeJO6v9cNLmiA">
+        <outgoingTransitions xmi:id="_L6EvYCkpEeeJO6v9cNLmiA" specification="" target="_mN424CkoEeeJO6v9cNLmiA"/>
+      </vertices>
     </regions>
   </sgraph:Statechart>
   <notation:Diagram xmi:id="_03bDQCXfEee7sZ4EX6CHAg" type="org.yakindu.sct.ui.editor.editor.StatechartDiagramEditor" element="_03acMCXfEee7sZ4EX6CHAg" measurementUnit="Pixel">
@@ -42,12 +72,172 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_03cRYyXfEee7sZ4EX6CHAg" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_03cRZCXfEee7sZ4EX6CHAg"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_03c4dCXfEee7sZ4EX6CHAg" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_03c4dSXfEee7sZ4EX6CHAg" x="40" y="80"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_03c4dSXfEee7sZ4EX6CHAg" x="164" y="73"/>
+        </children>
+        <children xmi:id="_BCFdsCkfEeeJO6v9cNLmiA" type="State" element="_BB_XECkfEeeJO6v9cNLmiA">
+          <children xsi:type="notation:DecorationNode" xmi:id="_BCIhACkfEeeJO6v9cNLmiA" type="StateName">
+            <styles xsi:type="notation:ShapeStyle" xmi:id="_BCIhASkfEeeJO6v9cNLmiA"/>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_BCIhAikfEeeJO6v9cNLmiA"/>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_BCJIECkfEeeJO6v9cNLmiA" type="StateTextCompartment">
+            <children xsi:type="notation:Shape" xmi:id="_BCJIESkfEeeJO6v9cNLmiA" type="StateTextCompartmentExpression" fontName="Verdana" lineColor="4210752">
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_BCJIEikfEeeJO6v9cNLmiA"/>
+            </children>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_BCJvICkfEeeJO6v9cNLmiA" type="StateFigureCompartment"/>
+          <styles xsi:type="notation:ShapeStyle" xmi:id="_BCFdsSkfEeeJO6v9cNLmiA" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
+          <styles xsi:type="notation:FontStyle" xmi:id="_BCFdsikfEeeJO6v9cNLmiA"/>
+          <styles xsi:type="notation:BooleanValueStyle" xmi:id="_BCJvISkfEeeJO6v9cNLmiA" name="isHorizontal" booleanValue="true"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_BCFdsykfEeeJO6v9cNLmiA" x="139" y="213" width="307" height="90"/>
+        </children>
+        <children xmi:id="_MUDhMCkfEeeJO6v9cNLmiA" type="State" element="_MUCTECkfEeeJO6v9cNLmiA">
+          <children xsi:type="notation:DecorationNode" xmi:id="_MUEIQCkfEeeJO6v9cNLmiA" type="StateName">
+            <styles xsi:type="notation:ShapeStyle" xmi:id="_MUEIQSkfEeeJO6v9cNLmiA"/>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_MUEIQikfEeeJO6v9cNLmiA"/>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_MUEIQykfEeeJO6v9cNLmiA" type="StateTextCompartment">
+            <children xsi:type="notation:Shape" xmi:id="_MUEIRCkfEeeJO6v9cNLmiA" type="StateTextCompartmentExpression" fontName="Verdana" lineColor="4210752">
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_MUEIRSkfEeeJO6v9cNLmiA"/>
+            </children>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_MUEIRikfEeeJO6v9cNLmiA" type="StateFigureCompartment"/>
+          <styles xsi:type="notation:ShapeStyle" xmi:id="_MUDhMSkfEeeJO6v9cNLmiA" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
+          <styles xsi:type="notation:FontStyle" xmi:id="_MUDhMikfEeeJO6v9cNLmiA"/>
+          <styles xsi:type="notation:BooleanValueStyle" xmi:id="_MUEIRykfEeeJO6v9cNLmiA" name="isHorizontal" booleanValue="true"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_MUDhMykfEeeJO6v9cNLmiA" x="543" y="482" width="424" height="110"/>
+        </children>
+        <children xmi:id="_x41KICkfEeeJO6v9cNLmiA" type="State" element="_x4zU8CkfEeeJO6v9cNLmiA">
+          <children xsi:type="notation:DecorationNode" xmi:id="_x41KJCkfEeeJO6v9cNLmiA" type="StateName">
+            <styles xsi:type="notation:ShapeStyle" xmi:id="_x41KJSkfEeeJO6v9cNLmiA"/>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_x41KJikfEeeJO6v9cNLmiA"/>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_x41KJykfEeeJO6v9cNLmiA" type="StateTextCompartment">
+            <children xsi:type="notation:Shape" xmi:id="_x41KKCkfEeeJO6v9cNLmiA" type="StateTextCompartmentExpression" fontName="Verdana" lineColor="4210752">
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_x41KKSkfEeeJO6v9cNLmiA"/>
+            </children>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_x41xMCkfEeeJO6v9cNLmiA" type="StateFigureCompartment"/>
+          <styles xsi:type="notation:ShapeStyle" xmi:id="_x41KISkfEeeJO6v9cNLmiA" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
+          <styles xsi:type="notation:FontStyle" xmi:id="_x41KIikfEeeJO6v9cNLmiA"/>
+          <styles xsi:type="notation:BooleanValueStyle" xmi:id="_x41xMSkfEeeJO6v9cNLmiA" name="isHorizontal" booleanValue="true"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_x41KIykfEeeJO6v9cNLmiA" x="599" y="727" width="377" height="125"/>
+        </children>
+        <children xmi:id="_Cz-8UCkjEeeJO6v9cNLmiA" type="State" element="_Cz9uMCkjEeeJO6v9cNLmiA">
+          <children xsi:type="notation:DecorationNode" xmi:id="_Cz-8VCkjEeeJO6v9cNLmiA" type="StateName">
+            <styles xsi:type="notation:ShapeStyle" xmi:id="_Cz-8VSkjEeeJO6v9cNLmiA"/>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_Cz-8VikjEeeJO6v9cNLmiA"/>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_Cz-8VykjEeeJO6v9cNLmiA" type="StateTextCompartment">
+            <children xsi:type="notation:Shape" xmi:id="_Cz-8WCkjEeeJO6v9cNLmiA" type="StateTextCompartmentExpression" fontName="Verdana" lineColor="4210752">
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Cz-8WSkjEeeJO6v9cNLmiA"/>
+            </children>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_C0AKcCkjEeeJO6v9cNLmiA" type="StateFigureCompartment"/>
+          <styles xsi:type="notation:ShapeStyle" xmi:id="_Cz-8USkjEeeJO6v9cNLmiA" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
+          <styles xsi:type="notation:FontStyle" xmi:id="_Cz-8UikjEeeJO6v9cNLmiA"/>
+          <styles xsi:type="notation:BooleanValueStyle" xmi:id="_C0AKcSkjEeeJO6v9cNLmiA" name="isHorizontal" booleanValue="true"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Cz-8UykjEeeJO6v9cNLmiA" x="690" y="1021" width="402" height="111"/>
+        </children>
+        <children xmi:id="_iui_AikkEeeJO6v9cNLmiA" type="State" element="_iuiX8CkkEeeJO6v9cNLmiA">
+          <children xsi:type="notation:DecorationNode" xmi:id="_iujmECkkEeeJO6v9cNLmiA" type="StateName">
+            <styles xsi:type="notation:ShapeStyle" xmi:id="_iujmESkkEeeJO6v9cNLmiA"/>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_iujmEikkEeeJO6v9cNLmiA"/>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_iujmEykkEeeJO6v9cNLmiA" type="StateTextCompartment">
+            <children xsi:type="notation:Shape" xmi:id="_iujmFCkkEeeJO6v9cNLmiA" type="StateTextCompartmentExpression" fontName="Verdana" lineColor="4210752">
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_iujmFSkkEeeJO6v9cNLmiA"/>
+            </children>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_iujmFikkEeeJO6v9cNLmiA" type="StateFigureCompartment"/>
+          <styles xsi:type="notation:ShapeStyle" xmi:id="_iui_AykkEeeJO6v9cNLmiA" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
+          <styles xsi:type="notation:FontStyle" xmi:id="_iui_BCkkEeeJO6v9cNLmiA"/>
+          <styles xsi:type="notation:BooleanValueStyle" xmi:id="_iujmFykkEeeJO6v9cNLmiA" name="isHorizontal" booleanValue="true"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_iui_BSkkEeeJO6v9cNLmiA" x="1103" y="762" width="677" height="111"/>
+        </children>
+        <children xmi:id="_xY8sACkmEeeJO6v9cNLmiA" type="State" element="_xY8E8CkmEeeJO6v9cNLmiA">
+          <children xsi:type="notation:DecorationNode" xmi:id="_xY9TECkmEeeJO6v9cNLmiA" type="StateName">
+            <styles xsi:type="notation:ShapeStyle" xmi:id="_xY9TESkmEeeJO6v9cNLmiA"/>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_xY9TEikmEeeJO6v9cNLmiA"/>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_xY9TEykmEeeJO6v9cNLmiA" type="StateTextCompartment">
+            <children xsi:type="notation:Shape" xmi:id="_xY9TFCkmEeeJO6v9cNLmiA" type="StateTextCompartmentExpression" fontName="Verdana" lineColor="4210752">
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_xY9TFSkmEeeJO6v9cNLmiA"/>
+            </children>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_xY9TFikmEeeJO6v9cNLmiA" type="StateFigureCompartment"/>
+          <styles xsi:type="notation:ShapeStyle" xmi:id="_xY8sASkmEeeJO6v9cNLmiA" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
+          <styles xsi:type="notation:FontStyle" xmi:id="_xY8sAikmEeeJO6v9cNLmiA"/>
+          <styles xsi:type="notation:BooleanValueStyle" xmi:id="_xY9TFykmEeeJO6v9cNLmiA" name="isHorizontal" booleanValue="true"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_xY8sAykmEeeJO6v9cNLmiA" x="816" y="1345" width="384" height="104"/>
+        </children>
+        <children xmi:id="_PawSwCknEeeJO6v9cNLmiA" type="State" element="_PavrsCknEeeJO6v9cNLmiA">
+          <children xsi:type="notation:DecorationNode" xmi:id="_PawSxCknEeeJO6v9cNLmiA" type="StateName">
+            <styles xsi:type="notation:ShapeStyle" xmi:id="_PawSxSknEeeJO6v9cNLmiA"/>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_PawSxiknEeeJO6v9cNLmiA"/>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_PawSxyknEeeJO6v9cNLmiA" type="StateTextCompartment">
+            <children xsi:type="notation:Shape" xmi:id="_PawSyCknEeeJO6v9cNLmiA" type="StateTextCompartmentExpression" fontName="Verdana" lineColor="4210752">
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_PawSySknEeeJO6v9cNLmiA"/>
+            </children>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_Paw50CknEeeJO6v9cNLmiA" type="StateFigureCompartment"/>
+          <styles xsi:type="notation:ShapeStyle" xmi:id="_PawSwSknEeeJO6v9cNLmiA" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
+          <styles xsi:type="notation:FontStyle" xmi:id="_PawSwiknEeeJO6v9cNLmiA"/>
+          <styles xsi:type="notation:BooleanValueStyle" xmi:id="_Paw50SknEeeJO6v9cNLmiA" name="isHorizontal" booleanValue="true"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_PawSwyknEeeJO6v9cNLmiA" x="46" y="533" width="249" height="138"/>
+        </children>
+        <children xmi:id="_eUJ6gikoEeeJO6v9cNLmiA" type="State" element="_eUJTcCkoEeeJO6v9cNLmiA">
+          <children xsi:type="notation:DecorationNode" xmi:id="_eUKhkCkoEeeJO6v9cNLmiA" type="StateName">
+            <styles xsi:type="notation:ShapeStyle" xmi:id="_eUKhkSkoEeeJO6v9cNLmiA"/>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_eUKhkikoEeeJO6v9cNLmiA"/>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_eUKhkykoEeeJO6v9cNLmiA" type="StateTextCompartment">
+            <children xsi:type="notation:Shape" xmi:id="_eUKhlCkoEeeJO6v9cNLmiA" type="StateTextCompartmentExpression" fontName="Verdana" lineColor="4210752">
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_eUKhlSkoEeeJO6v9cNLmiA"/>
+            </children>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_eUKhlikoEeeJO6v9cNLmiA" type="StateFigureCompartment"/>
+          <styles xsi:type="notation:ShapeStyle" xmi:id="_eUJ6gykoEeeJO6v9cNLmiA" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
+          <styles xsi:type="notation:FontStyle" xmi:id="_eUJ6hCkoEeeJO6v9cNLmiA"/>
+          <styles xsi:type="notation:BooleanValueStyle" xmi:id="_eUKhlykoEeeJO6v9cNLmiA" name="isHorizontal" booleanValue="true"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_eUJ6hSkoEeeJO6v9cNLmiA" x="907" y="1933"/>
+        </children>
+        <children xmi:id="_mN5d8ikoEeeJO6v9cNLmiA" type="State" element="_mN424CkoEeeJO6v9cNLmiA">
+          <children xsi:type="notation:DecorationNode" xmi:id="_mN6FACkoEeeJO6v9cNLmiA" type="StateName">
+            <styles xsi:type="notation:ShapeStyle" xmi:id="_mN6FASkoEeeJO6v9cNLmiA"/>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_mN6FAikoEeeJO6v9cNLmiA"/>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_mN6FAykoEeeJO6v9cNLmiA" type="StateTextCompartment">
+            <children xsi:type="notation:Shape" xmi:id="_mN6FBCkoEeeJO6v9cNLmiA" type="StateTextCompartmentExpression" fontName="Verdana" lineColor="4210752">
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_mN6FBSkoEeeJO6v9cNLmiA"/>
+            </children>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_mN6FBikoEeeJO6v9cNLmiA" type="StateFigureCompartment"/>
+          <styles xsi:type="notation:ShapeStyle" xmi:id="_mN5d8ykoEeeJO6v9cNLmiA" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
+          <styles xsi:type="notation:FontStyle" xmi:id="_mN5d9CkoEeeJO6v9cNLmiA"/>
+          <styles xsi:type="notation:BooleanValueStyle" xmi:id="_mN6FBykoEeeJO6v9cNLmiA" name="isHorizontal" booleanValue="true"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_mN5d9SkoEeeJO6v9cNLmiA" x="866" y="1737" width="285" height="111"/>
+        </children>
+        <children xmi:id="_p0PSgCkoEeeJO6v9cNLmiA" type="State" element="_p0OrcCkoEeeJO6v9cNLmiA">
+          <children xsi:type="notation:DecorationNode" xmi:id="_p0PShCkoEeeJO6v9cNLmiA" type="StateName">
+            <styles xsi:type="notation:ShapeStyle" xmi:id="_p0PShSkoEeeJO6v9cNLmiA"/>
+            <layoutConstraint xsi:type="notation:Location" xmi:id="_p0PShikoEeeJO6v9cNLmiA"/>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_p0PShykoEeeJO6v9cNLmiA" type="StateTextCompartment">
+            <children xsi:type="notation:Shape" xmi:id="_p0PSiCkoEeeJO6v9cNLmiA" type="StateTextCompartmentExpression" fontName="Verdana" lineColor="4210752">
+              <layoutConstraint xsi:type="notation:Bounds" xmi:id="_p0PSiSkoEeeJO6v9cNLmiA"/>
+            </children>
+          </children>
+          <children xsi:type="notation:Compartment" xmi:id="_p0PSiikoEeeJO6v9cNLmiA" type="StateFigureCompartment"/>
+          <styles xsi:type="notation:ShapeStyle" xmi:id="_p0PSgSkoEeeJO6v9cNLmiA" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
+          <styles xsi:type="notation:FontStyle" xmi:id="_p0PSgikoEeeJO6v9cNLmiA"/>
+          <styles xsi:type="notation:BooleanValueStyle" xmi:id="_p0PSiykoEeeJO6v9cNLmiA" name="isHorizontal" booleanValue="true"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_p0PSgykoEeeJO6v9cNLmiA" x="865" y="1569"/>
         </children>
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_03bDSiXfEee7sZ4EX6CHAg"/>
       </children>
       <styles xsi:type="notation:ShapeStyle" xmi:id="_03bDRCXfEee7sZ4EX6CHAg" fontName="Verdana" fillColor="15790320" lineColor="12632256"/>
-      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_03bDSyXfEee7sZ4EX6CHAg" x="728" y="10" width="1380" height="2286"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_03bDSyXfEee7sZ4EX6CHAg" x="748" y="12" width="1888" height="2288"/>
     </children>
     <children xsi:type="notation:Shape" xmi:id="_03eGkyXfEee7sZ4EX6CHAg" type="StatechartText" fontName="Verdana" lineColor="4210752">
       <children xsi:type="notation:DecorationNode" xmi:id="_03eGlSXfEee7sZ4EX6CHAg" type="StatechartName">
@@ -57,6 +247,7 @@
       <children xsi:type="notation:Shape" xmi:id="_03fUsCXfEee7sZ4EX6CHAg" type="StatechartTextExpression" fontName="Verdana" lineColor="4210752">
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_03fUsSXfEee7sZ4EX6CHAg"/>
       </children>
+      <styles xsi:type="notation:StringValueStyle" xmi:id="_SB5S8CkNEeeJO6v9cNLmiA" name="featureToShow" stringValue="documentation"/>
       <layoutConstraint xsi:type="notation:Bounds" xmi:id="_03f7wCXfEee7sZ4EX6CHAg" x="21" width="679" height="2282"/>
     </children>
     <styles xsi:type="notation:DiagramStyle" xmi:id="_03bDQSXfEee7sZ4EX6CHAg"/>
@@ -68,6 +259,124 @@
       <styles xsi:type="notation:ConnectorStyle" xmi:id="_03dfgSXfEee7sZ4EX6CHAg" lineColor="4210752"/>
       <styles xsi:type="notation:FontStyle" xmi:id="_03dfgyXfEee7sZ4EX6CHAg" fontName="Verdana"/>
       <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_03dfgiXfEee7sZ4EX6CHAg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    </edges>
+    <edges xmi:id="_Fag2gCkfEeeJO6v9cNLmiA" type="Transition" element="_Fab-ACkfEeeJO6v9cNLmiA" source="_03cRYiXfEee7sZ4EX6CHAg" target="_BCFdsCkfEeeJO6v9cNLmiA">
+      <children xsi:type="notation:DecorationNode" xmi:id="_FahdkCkfEeeJO6v9cNLmiA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_FahdkSkfEeeJO6v9cNLmiA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_FahdkikfEeeJO6v9cNLmiA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_Fag2gSkfEeeJO6v9cNLmiA" routing="Rectilinear" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_Fag2gykfEeeJO6v9cNLmiA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_Fag2gikfEeeJO6v9cNLmiA" points="[16, -22, -79, -170]$[67, -22, -28, -170]$[67, 106, -28, -42]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_Fakg4CkfEeeJO6v9cNLmiA" id="(0.6730769230769231,1.0)"/>
+    </edges>
+    <edges xmi:id="_NEaAECkfEeeJO6v9cNLmiA" type="Transition" element="_NEZZACkfEeeJO6v9cNLmiA" source="_BCFdsCkfEeeJO6v9cNLmiA" target="_MUDhMCkfEeeJO6v9cNLmiA">
+      <children xsi:type="notation:DecorationNode" xmi:id="_NEanISkfEeeJO6v9cNLmiA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_NEanIikfEeeJO6v9cNLmiA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_NEanIykfEeeJO6v9cNLmiA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_NEaAESkfEeeJO6v9cNLmiA" routing="Rectilinear" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_NEanICkfEeeJO6v9cNLmiA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_NEaAEikfEeeJO6v9cNLmiA" points="[34, 0, -16, -163]$[34, 111, -16, -52]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_NEb1QCkfEeeJO6v9cNLmiA" id="(0.2996742671009772,1.0)"/>
+    </edges>
+    <edges xmi:id="_2Pe58CkiEeeJO6v9cNLmiA" type="Transition" element="_2PcdsCkiEeeJO6v9cNLmiA" source="_MUDhMCkfEeeJO6v9cNLmiA" target="_x41KICkfEeeJO6v9cNLmiA">
+      <children xsi:type="notation:DecorationNode" xmi:id="_2PfhACkiEeeJO6v9cNLmiA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_2PfhASkiEeeJO6v9cNLmiA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_2PfhAikiEeeJO6v9cNLmiA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_2Pe58SkiEeeJO6v9cNLmiA" routing="Rectilinear" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_2Pe58ykiEeeJO6v9cNLmiA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_2Pe58ikiEeeJO6v9cNLmiA" points="[-62, 0, -48, -178]$[-62, 154, -48, -24]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_2PgvICkiEeeJO6v9cNLmiA" id="(0.5825471698113207,1.0)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_2PgvISkiEeeJO6v9cNLmiA" id="(0.46949602122015915,0.208)"/>
+    </edges>
+    <edges xmi:id="_em3NYCkjEeeJO6v9cNLmiA" type="Transition" element="_em0xICkjEeeJO6v9cNLmiA" source="_x41KICkfEeeJO6v9cNLmiA" target="_Cz-8UCkjEeeJO6v9cNLmiA">
+      <children xsi:type="notation:DecorationNode" xmi:id="_em30cCkjEeeJO6v9cNLmiA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_em30cSkjEeeJO6v9cNLmiA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_em30cikjEeeJO6v9cNLmiA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_em3NYSkjEeeJO6v9cNLmiA" routing="Rectilinear" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_em3NYykjEeeJO6v9cNLmiA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_em3NYikjEeeJO6v9cNLmiA" points="[0, 0, -114, -188]$[0, 174, -114, -14]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_em4bgCkjEeeJO6v9cNLmiA" id="(0.48010610079575594,1.0)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_em4bgSkjEeeJO6v9cNLmiA" id="(0.5077881619937694,0.13513513513513514)"/>
+    </edges>
+    <edges xmi:id="_n_nQACkkEeeJO6v9cNLmiA" type="Transition" element="_n_mo8CkkEeeJO6v9cNLmiA" source="_MUDhMCkfEeeJO6v9cNLmiA" target="_iui_AikkEeeJO6v9cNLmiA">
+      <children xsi:type="notation:DecorationNode" xmi:id="_n_n3ECkkEeeJO6v9cNLmiA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_n_n3ESkkEeeJO6v9cNLmiA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_n_n3EikkEeeJO6v9cNLmiA" x="93" y="-1"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_n_nQASkkEeeJO6v9cNLmiA" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_n_nQAykkEeeJO6v9cNLmiA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_n_nQAikkEeeJO6v9cNLmiA" points="[0, 0, -446, -65]$[447, 42, 1, -23]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_n_pFMCkkEeeJO6v9cNLmiA" id="(0.6297169811320755,1.0)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_n_pFMSkkEeeJO6v9cNLmiA" id="(0.17562724014336917,0.22522522522522523)"/>
+    </edges>
+    <edges xmi:id="_Kf-QQCkmEeeJO6v9cNLmiA" type="Transition" element="_Kf9CICkmEeeJO6v9cNLmiA" source="_iui_AikkEeeJO6v9cNLmiA" target="_Cz-8UCkjEeeJO6v9cNLmiA">
+      <children xsi:type="notation:DecorationNode" xmi:id="_Kf-QRCkmEeeJO6v9cNLmiA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_Kf-QRSkmEeeJO6v9cNLmiA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_Kf-QRikmEeeJO6v9cNLmiA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_Kf-QQSkmEeeJO6v9cNLmiA" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_Kf-QQykmEeeJO6v9cNLmiA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_Kf-QQikmEeeJO6v9cNLmiA" points="[0, 0, 480, -184]$[-475, 224, 5, 40]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_KgAFcCkmEeeJO6v9cNLmiA" id="(0.4446085672082718,1.0)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_KgAFcSkmEeeJO6v9cNLmiA" id="(0.9104477611940298,0.6306306306306306)"/>
+    </edges>
+    <edges xmi:id="_yO41gCkmEeeJO6v9cNLmiA" type="Transition" element="_yO4OcCkmEeeJO6v9cNLmiA" source="_Cz-8UCkjEeeJO6v9cNLmiA" target="_xY8sACkmEeeJO6v9cNLmiA">
+      <children xsi:type="notation:DecorationNode" xmi:id="_yO41hCkmEeeJO6v9cNLmiA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_yO41hSkmEeeJO6v9cNLmiA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_yO41hikmEeeJO6v9cNLmiA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_yO41gSkmEeeJO6v9cNLmiA" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_yO41gykmEeeJO6v9cNLmiA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_yO41gikmEeeJO6v9cNLmiA" points="[0, 0, -131, -145]$[134, 121, 3, -24]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_yO5ckCkmEeeJO6v9cNLmiA" id="(0.7835820895522388,1.0)"/>
+    </edges>
+    <edges xmi:id="_muv9sCknEeeJO6v9cNLmiA" type="Transition" element="_muvWoCknEeeJO6v9cNLmiA" source="_PawSwCknEeeJO6v9cNLmiA" target="_MUDhMCkfEeeJO6v9cNLmiA">
+      <children xsi:type="notation:DecorationNode" xmi:id="_muv9tCknEeeJO6v9cNLmiA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_muv9tSknEeeJO6v9cNLmiA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_muv9tiknEeeJO6v9cNLmiA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_muv9sSknEeeJO6v9cNLmiA" routing="Rectilinear" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_muv9syknEeeJO6v9cNLmiA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_muv9siknEeeJO6v9cNLmiA" points="[0, -78, -298, 15]$[253, -78, -45, 15]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_muxL0CknEeeJO6v9cNLmiA" id="(1.0,0.8043478260869565)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_muxL0SknEeeJO6v9cNLmiA" id="(0.10849056603773585,0.6181818181818182)"/>
+    </edges>
+    <edges xmi:id="_uVo2kCknEeeJO6v9cNLmiA" type="Transition" element="_uVoPgCknEeeJO6v9cNLmiA" source="_Cz-8UCkjEeeJO6v9cNLmiA" target="_PawSwCknEeeJO6v9cNLmiA">
+      <children xsi:type="notation:DecorationNode" xmi:id="_uVo2lCknEeeJO6v9cNLmiA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_uVo2lSknEeeJO6v9cNLmiA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_uVo2liknEeeJO6v9cNLmiA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_uVo2kSknEeeJO6v9cNLmiA" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_uVo2kyknEeeJO6v9cNLmiA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_uVo2kiknEeeJO6v9cNLmiA" points="[0, 0, 469, 362]$[-468, -324, 1, 38]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_uVqEsCknEeeJO6v9cNLmiA" id="(0.0,0.7297297297297297)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_uVqEsSknEeeJO6v9cNLmiA" id="(0.07630522088353414,0.6159420289855072)"/>
+    </edges>
+    <edges xmi:id="_HlUVoCkpEeeJO6v9cNLmiA" type="Transition" element="_HlR5YCkpEeeJO6v9cNLmiA" source="_xY8sACkmEeeJO6v9cNLmiA" target="_p0PSgCkoEeeJO6v9cNLmiA">
+      <children xsi:type="notation:DecorationNode" xmi:id="_HlU8sSkpEeeJO6v9cNLmiA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_HlU8sikpEeeJO6v9cNLmiA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_HlU8sykpEeeJO6v9cNLmiA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_HlUVoSkpEeeJO6v9cNLmiA" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_HlU8sCkpEeeJO6v9cNLmiA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_HlUVoikpEeeJO6v9cNLmiA" points="[-6, 0, 2, -104]$[-6, 93, 2, -11]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_HlVjwCkpEeeJO6v9cNLmiA" id="(0.4713541666666667,1.0)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_HlVjwSkpEeeJO6v9cNLmiA" id="(0.3633633633633634,0.2459016393442623)"/>
+    </edges>
+    <edges xmi:id="_L6F9gCkpEeeJO6v9cNLmiA" type="Transition" element="_L6EvYCkpEeeJO6v9cNLmiA" source="_p0PSgCkoEeeJO6v9cNLmiA" target="_mN5d8ikoEeeJO6v9cNLmiA">
+      <children xsi:type="notation:DecorationNode" xmi:id="_L6F9hCkpEeeJO6v9cNLmiA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_L6F9hSkpEeeJO6v9cNLmiA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_L6F9hikpEeeJO6v9cNLmiA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_L6F9gSkpEeeJO6v9cNLmiA" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_L6F9gykpEeeJO6v9cNLmiA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_L6F9gikpEeeJO6v9cNLmiA" points="[-6, 0, 2, -85]$[-6, 84, 2, -1]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_L6HLoCkpEeeJO6v9cNLmiA" id="(0.37537537537537535,1.0)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_L6HLoSkpEeeJO6v9cNLmiA" id="(0.2682926829268293,0.018867924528301886)"/>
     </edges>
   </notation:Diagram>
 </xmi:XMI>
