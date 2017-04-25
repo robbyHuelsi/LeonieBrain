@@ -126,6 +126,38 @@ public interface IGeneralPurposeServiceRobotStatemachine extends IStatemachine {
 	
 	public SCICrowdDetection getSCICrowdDetection();
 	
+	public interface SCIFollowMe {
+	
+		public void raiseDetectionPersonFound();
+		
+		public void raiseTrackingPersonLost();
+		
+		public void setSCIFollowMeOperationCallback(SCIFollowMeOperationCallback operationCallback);
+	
+	}
+	
+	public interface SCIFollowMeOperationCallback {
+	
+		public void sendDetectionOff();
+		
+		public void sendDetectionOn();
+		
+		public void sendRequestDetectionDetails();
+		
+		public void sendTrackingOff();
+		
+		public void sendTrackingOnAtPos(long x, long y);
+		
+		public void sendTrackingOnAtNext();
+		
+		public long getNextPersonXPos();
+		
+		public long getNextpersonYPos();
+		
+	}
+	
+	public SCIFollowMe getSCIFollowMe();
+	
 	public interface SCIMicrophoneArray {
 	
 		public void setSCIMicrophoneArrayOperationCallback(SCIMicrophoneArrayOperationCallback operationCallback);
@@ -141,33 +173,5 @@ public interface IGeneralPurposeServiceRobotStatemachine extends IStatemachine {
 	}
 	
 	public SCIMicrophoneArray getSCIMicrophoneArray();
-	
-	public interface SCIObjectDetection {
-	
-		public void raiseDetectionDone();
-		
-		public long getTableAngle();
-		
-		public void setTableAngle(long value);
-		
-		public String getAnswerMatches();
-		
-		public void setAnswerMatches(String value);
-		
-		public void setSCIObjectDetectionOperationCallback(SCIObjectDetectionOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCIObjectDetectionOperationCallback {
-	
-		public void startStopDetection(boolean onOff);
-		
-		public void snapshot();
-		
-		public void printPDF();
-		
-	}
-	
-	public SCIObjectDetection getSCIObjectDetection();
 	
 }

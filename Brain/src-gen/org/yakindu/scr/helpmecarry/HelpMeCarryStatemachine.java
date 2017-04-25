@@ -184,6 +184,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_GoTo_goto_livingroom,
 		main_region_GoTo_goto_room3,
 		main_region_LocationNotFound,
+		main_region_DetectionOn,
 		$NullState$
 	};
 	
@@ -354,6 +355,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_GoTo_goto_room3;
 		case main_region_LocationNotFound:
 			return stateVector[0] == State.main_region_LocationNotFound;
+		case main_region_DetectionOn:
+			return stateVector[0] == State.main_region_DetectionOn;
 		default:
 			return false;
 		}
@@ -408,11 +411,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_Detection_tr1_tr1() {
+		return getCounter()>10;
+	}
+	
+	private boolean check_main_region_Detection_tr2_tr2() {
 		return timeEvents[0];
 	}
 	
 	private boolean check_main_region_NotFound_tr0_tr0() {
-		return sCIFollowMe.detectionPersonFound;
+		return true;
 	}
 	
 	private boolean check_main_region_Found_tr0_tr0() {
@@ -491,6 +498,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_DetectionOn_tr0_tr0() {
+		return true;
+	}
+	
 	private boolean check_main_region_StartTracking_WaitingForStopCommand__choice_0_tr0_tr0() {
 		return (sCISTT.operationCallback.getInstruction()== null?"followme" ==null :sCISTT.operationCallback.getInstruction().equals("followme")) && (sCISTT.operationCallback.getObject()== null?"stop" ==null :sCISTT.operationCallback.getObject().equals("stop"));
 	}
@@ -541,9 +552,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_NotFound_default();
 	}
 	
+	private void effect_main_region_Detection_tr2() {
+		exitSequence_main_region_Detection();
+		enterSequence_main_region_Detection_default();
+	}
+	
 	private void effect_main_region_NotFound_tr0() {
 		exitSequence_main_region_NotFound();
-		enterSequence_main_region_Found_default();
+		enterSequence_main_region_Detection_default();
 	}
 	
 	private void effect_main_region_Found_tr0() {
@@ -656,6 +672,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_HowCanIHelpYou_default();
 	}
 	
+	private void effect_main_region_DetectionOn_tr0() {
+		exitSequence_main_region_DetectionOn();
+		enterSequence_main_region_Detection_default();
+	}
+	
 	private void effect_main_region_StartTracking_WaitingForStopCommand__choice_0_tr0() {
 		react_main_region_StartTracking_WaitingForStopCommand_exit_arrived();
 	}
@@ -698,16 +719,18 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'Detection'. */
 	private void entryAction_main_region_Detection() {
-		timer.setTimer(this, 0, 10*1000, false);
+		timer.setTimer(this, 0, 1*1000, false);
 		
-		sCIFollowMe.operationCallback.sendDetectionOn();
+		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
-		sCIHBrain.operationCallback.sendTTS("[:-|]");
+		setCounter(counter+1);
 	}
 	
 	/* Entry action for state 'NotFound'. */
 	private void entryAction_main_region_NotFound() {
 		sCIHBrain.operationCallback.sendTTS("[:-(] I want so follow somebody, but nobody is here!");
+		
+		setCounter(0);
 	}
 	
 	/* Entry action for state 'Found'. */
@@ -818,6 +841,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* Entry action for state 'LocationNotFound'. */
 	private void entryAction_main_region_LocationNotFound() {
 		sCIHBrain.operationCallback.sendTTS3("[:-(] Sorry, I don't konw a location like ", sCISTT.operationCallback.getObject(), ".");
+	}
+	
+	/* Entry action for state 'DetectionOn'. */
+	private void entryAction_main_region_DetectionOn() {
+		sCIFollowMe.operationCallback.sendDetectionOn();
+		
+		sCIHBrain.operationCallback.sendTTS("[:-|]");
+		
+		setCounter(0);
 	}
 	
 	/* Exit action for state 'Detection'. */
@@ -1003,6 +1035,13 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.main_region_LocationNotFound;
 	}
 	
+	/* 'default' enter sequence for state DetectionOn */
+	private void enterSequence_main_region_DetectionOn_default() {
+		entryAction_main_region_DetectionOn();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_DetectionOn;
+	}
+	
 	/* 'default' enter sequence for region main region */
 	private void enterSequence_main_region_default() {
 		react_main_region__entry_Default();
@@ -1172,6 +1211,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state DetectionOn */
+	private void exitSequence_main_region_DetectionOn() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for region main region */
 	private void exitSequence_main_region() {
 		switch (stateVector[0]) {
@@ -1237,6 +1282,9 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			break;
 		case main_region_LocationNotFound:
 			exitSequence_main_region_LocationNotFound();
+			break;
+		case main_region_DetectionOn:
+			exitSequence_main_region_DetectionOn();
 			break;
 		default:
 			break;
@@ -1304,15 +1352,17 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		} else {
 			if (check_main_region_Detection_tr1_tr1()) {
 				effect_main_region_Detection_tr1();
+			} else {
+				if (check_main_region_Detection_tr2_tr2()) {
+					effect_main_region_Detection_tr2();
+				}
 			}
 		}
 	}
 	
 	/* The reactions of state NotFound. */
 	private void react_main_region_NotFound() {
-		if (check_main_region_NotFound_tr0_tr0()) {
-			effect_main_region_NotFound_tr0();
-		}
+		effect_main_region_NotFound_tr0();
 	}
 	
 	/* The reactions of state Found. */
@@ -1460,6 +1510,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		}
 	}
 	
+	/* The reactions of state DetectionOn. */
+	private void react_main_region_DetectionOn() {
+		effect_main_region_DetectionOn_tr0();
+	}
+	
 	/* The reactions of state null. */
 	private void react_main_region_StartTracking_WaitingForStopCommand__choice_0() {
 		if (check_main_region_StartTracking_WaitingForStopCommand__choice_0_tr0_tr0()) {
@@ -1506,7 +1561,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Default react sequence for initial entry  */
 	private void react_main_region__entry_Default() {
-		enterSequence_main_region_Detection_default();
+		enterSequence_main_region_DetectionOn_default();
 	}
 	
 	/* Default react sequence for initial entry  */
@@ -1608,6 +1663,9 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 				break;
 			case main_region_LocationNotFound:
 				react_main_region_LocationNotFound();
+				break;
+			case main_region_DetectionOn:
+				react_main_region_DetectionOn();
 				break;
 			default:
 				// $NullState$

@@ -128,6 +128,34 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	protected SCICrowdDetectionImpl sCICrowdDetection;
 	
+	protected class SCIFollowMeImpl implements SCIFollowMe {
+	
+		private SCIFollowMeOperationCallback operationCallback;
+		
+		public void setSCIFollowMeOperationCallback(
+				SCIFollowMeOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private boolean detectionPersonFound;
+		
+		public void raiseDetectionPersonFound() {
+			detectionPersonFound = true;
+		}
+		
+		private boolean trackingPersonLost;
+		
+		public void raiseTrackingPersonLost() {
+			trackingPersonLost = true;
+		}
+		
+		protected void clearEvents() {
+			detectionPersonFound = false;
+			trackingPersonLost = false;
+		}
+	}
+	
+	protected SCIFollowMeImpl sCIFollowMe;
+	
 	protected class SCIMicrophoneArrayImpl implements SCIMicrophoneArray {
 	
 		private SCIMicrophoneArrayOperationCallback operationCallback;
@@ -140,58 +168,27 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	protected SCIMicrophoneArrayImpl sCIMicrophoneArray;
 	
-	protected class SCIObjectDetectionImpl implements SCIObjectDetection {
-	
-		private SCIObjectDetectionOperationCallback operationCallback;
-		
-		public void setSCIObjectDetectionOperationCallback(
-				SCIObjectDetectionOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-		private boolean detectionDone;
-		
-		public void raiseDetectionDone() {
-			detectionDone = true;
-		}
-		
-		private long tableAngle;
-		
-		public long getTableAngle() {
-			return tableAngle;
-		}
-		
-		public void setTableAngle(long value) {
-			this.tableAngle = value;
-		}
-		
-		private String answerMatches;
-		
-		public String getAnswerMatches() {
-			return answerMatches;
-		}
-		
-		public void setAnswerMatches(String value) {
-			this.answerMatches = value;
-		}
-		
-		protected void clearEvents() {
-			detectionDone = false;
-		}
-	}
-	
-	protected SCIObjectDetectionImpl sCIObjectDetection;
-	
 	private boolean initialized = false;
 	
 	public enum State {
-		main_region_Init,
 		main_region_Hello,
-		main_region_Listening,
-		main_region_Back_to_operator,
-		main_region_do_the_task,
 		main_region_Leave_the_arena,
 		main_region__final_,
-		main_region_SearchOperator,
+		main_region_DetectionsOn,
+		main_region_Init,
+		main_region_StartSTT,
+		main_region_TellSpokenText,
+		main_region_TellAnswer,
+		main_region_TellAction,
+		main_region_TellAction_Instructions_GoTo,
+		main_region_TellAction_Instructions_crowd,
+		main_region_TellAction_Instructions_surrounding,
+		main_region_TellAction_Instructions_bring,
+		main_region_TellAction_Instructions_open,
+		main_region_TellAction_Instructions_followme,
+		main_region_StopSTT,
+		main_region_TellIncomprehensible,
+		main_region_NextQuestion,
 		$NullState$
 	};
 	
@@ -209,24 +206,24 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return counter;
 	}
 	
-	private String nameBuffer;
+	private long gWPout;
 	
-	protected void setNameBuffer(String value) {
-		nameBuffer = value;
+	protected void setGWPout(long value) {
+		gWPout = value;
 	}
 	
-	protected String getNameBuffer() {
-		return nameBuffer;
+	protected long getGWPout() {
+		return gWPout;
 	}
 	
-	private long questionCounter;
+	private long gWPstart;
 	
-	protected void setQuestionCounter(long value) {
-		questionCounter = value;
+	protected void setGWPstart(long value) {
+		gWPstart = value;
 	}
 	
-	protected long getQuestionCounter() {
-		return questionCounter;
+	protected long getGWPstart() {
+		return gWPstart;
 	}
 	
 	public GeneralPurposeServiceRobotStatemachine() {
@@ -234,8 +231,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		sCIMira = new SCIMiraImpl();
 		sCISTT = new SCISTTImpl();
 		sCICrowdDetection = new SCICrowdDetectionImpl();
+		sCIFollowMe = new SCIFollowMeImpl();
 		sCIMicrophoneArray = new SCIMicrophoneArrayImpl();
-		sCIObjectDetection = new SCIObjectDetectionImpl();
 	}
 	
 	public void init() {
@@ -245,15 +242,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		}
 		clearEvents();
 		clearOutEvents();
-		sCIObjectDetection.setTableAngle(0);
-		
-		sCIObjectDetection.setAnswerMatches("");
-		
 		setCounter(0);
 		
-		setNameBuffer("");
+		setGWPout(0);
 		
-		setQuestionCounter(0);
+		setGWPstart(0);
 	}
 	
 	public void enter() {
@@ -289,7 +282,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		sCIMira.clearEvents();
 		sCISTT.clearEvents();
 		sCICrowdDetection.clearEvents();
-		sCIObjectDetection.clearEvents();
+		sCIFollowMe.clearEvents();
 	}
 	
 	/**
@@ -304,22 +297,43 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	public boolean isStateActive(State state) {
 	
 		switch (state) {
-		case main_region_Init:
-			return stateVector[0] == State.main_region_Init;
 		case main_region_Hello:
 			return stateVector[0] == State.main_region_Hello;
-		case main_region_Listening:
-			return stateVector[0] == State.main_region_Listening;
-		case main_region_Back_to_operator:
-			return stateVector[0] == State.main_region_Back_to_operator;
-		case main_region_do_the_task:
-			return stateVector[0] == State.main_region_do_the_task;
 		case main_region_Leave_the_arena:
 			return stateVector[0] == State.main_region_Leave_the_arena;
 		case main_region__final_:
 			return stateVector[0] == State.main_region__final_;
-		case main_region_SearchOperator:
-			return stateVector[0] == State.main_region_SearchOperator;
+		case main_region_DetectionsOn:
+			return stateVector[0] == State.main_region_DetectionsOn;
+		case main_region_Init:
+			return stateVector[0] == State.main_region_Init;
+		case main_region_StartSTT:
+			return stateVector[0] == State.main_region_StartSTT;
+		case main_region_TellSpokenText:
+			return stateVector[0] == State.main_region_TellSpokenText;
+		case main_region_TellAnswer:
+			return stateVector[0] == State.main_region_TellAnswer;
+		case main_region_TellAction:
+			return stateVector[0].ordinal() >= State.
+					main_region_TellAction.ordinal()&& stateVector[0].ordinal() <= State.main_region_TellAction_Instructions_followme.ordinal();
+		case main_region_TellAction_Instructions_GoTo:
+			return stateVector[0] == State.main_region_TellAction_Instructions_GoTo;
+		case main_region_TellAction_Instructions_crowd:
+			return stateVector[0] == State.main_region_TellAction_Instructions_crowd;
+		case main_region_TellAction_Instructions_surrounding:
+			return stateVector[0] == State.main_region_TellAction_Instructions_surrounding;
+		case main_region_TellAction_Instructions_bring:
+			return stateVector[0] == State.main_region_TellAction_Instructions_bring;
+		case main_region_TellAction_Instructions_open:
+			return stateVector[0] == State.main_region_TellAction_Instructions_open;
+		case main_region_TellAction_Instructions_followme:
+			return stateVector[0] == State.main_region_TellAction_Instructions_followme;
+		case main_region_StopSTT:
+			return stateVector[0] == State.main_region_StopSTT;
+		case main_region_TellIncomprehensible:
+			return stateVector[0] == State.main_region_TellIncomprehensible;
+		case main_region_NextQuestion:
+			return stateVector[0] == State.main_region_NextQuestion;
 		default:
 			return false;
 		}
@@ -341,42 +355,258 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return sCICrowdDetection;
 	}
 	
+	public SCIFollowMe getSCIFollowMe() {
+		return sCIFollowMe;
+	}
+	
 	public SCIMicrophoneArray getSCIMicrophoneArray() {
 		return sCIMicrophoneArray;
 	}
 	
-	public SCIObjectDetection getSCIObjectDetection() {
-		return sCIObjectDetection;
+	private boolean check_main_region_Hello_tr0_tr0() {
+		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_Listening_tr0_tr0() {
+	private boolean check_main_region_Leave_the_arena_tr0_tr0() {
+		return sCIMira.arrivedWP;
+	}
+	
+	private boolean check_main_region_DetectionsOn_tr0_tr0() {
+		return sCICrowdDetection.detected;
+	}
+	
+	private boolean check_main_region_Init_tr0_tr0() {
+		return sCIMira.arrivedWP;
+	}
+	
+	private boolean check_main_region_StartSTT_tr0_tr0() {
+		return sCISTT.spokenTextReceived;
+	}
+	
+	private boolean check_main_region_TellSpokenText_tr0_tr0() {
+		return sCISTT.answerReceived;
+	}
+	
+	private boolean check_main_region_TellSpokenText_tr1_tr1() {
 		return sCISTT.actionReceived;
 	}
 	
-	private void effect_main_region_Listening_tr0() {
-		exitSequence_main_region_Listening();
-		enterSequence_main_region_do_the_task_default();
+	private boolean check_main_region_TellSpokenText_tr2_tr2() {
+		return sCISTT.incomprehensible;
+	}
+	
+	private boolean check_main_region_TellAnswer_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_StopSTT_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellIncomprehensible_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_NextQuestion_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr1() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr2() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr3() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr4() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr5() {
+		return true;
+	}
+	
+	private boolean check_main_region_TellAction_Instructions__choice_0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region__choice_0_tr1_tr1() {
+		return getCounter()>=3;
+	}
+	
+	private boolean check_main_region__choice_0_tr0_tr0() {
+		return true;
+	}
+	
+	private void effect_main_region_Hello_tr0() {
+		exitSequence_main_region_Hello();
+		enterSequence_main_region_StartSTT_default();
+	}
+	
+	private void effect_main_region_Leave_the_arena_tr0() {
+		exitSequence_main_region_Leave_the_arena();
+		enterSequence_main_region__final__default();
+	}
+	
+	private void effect_main_region_DetectionsOn_tr0() {
+		exitSequence_main_region_DetectionsOn();
+		enterSequence_main_region_Hello_default();
+	}
+	
+	private void effect_main_region_Init_tr0() {
+		exitSequence_main_region_Init();
+		enterSequence_main_region_DetectionsOn_default();
+	}
+	
+	private void effect_main_region_StartSTT_tr0() {
+		exitSequence_main_region_StartSTT();
+		enterSequence_main_region_TellSpokenText_default();
+	}
+	
+	private void effect_main_region_TellSpokenText_tr0() {
+		exitSequence_main_region_TellSpokenText();
+		enterSequence_main_region_TellAnswer_default();
+	}
+	
+	private void effect_main_region_TellSpokenText_tr1() {
+		exitSequence_main_region_TellSpokenText();
+		enterSequence_main_region_TellAction_default();
+	}
+	
+	private void effect_main_region_TellSpokenText_tr2() {
+		exitSequence_main_region_TellSpokenText();
+		enterSequence_main_region_TellIncomprehensible_default();
+	}
+	
+	private void effect_main_region_TellAnswer_tr0() {
+		exitSequence_main_region_TellAnswer();
+		enterSequence_main_region_StopSTT_default();
+	}
+	
+	private void effect_main_region_TellAction_tr0() {
+		exitSequence_main_region_TellAction();
+		enterSequence_main_region_StopSTT_default();
+	}
+	
+	private void effect_main_region_StopSTT_tr0() {
+		exitSequence_main_region_StopSTT();
+		react_main_region__choice_0();
+	}
+	
+	private void effect_main_region_TellIncomprehensible_tr0() {
+		exitSequence_main_region_TellIncomprehensible();
+		enterSequence_main_region_StopSTT_default();
+	}
+	
+	private void effect_main_region_NextQuestion_tr0() {
+		exitSequence_main_region_NextQuestion();
+		enterSequence_main_region_StartSTT_default();
+	}
+	
+	private void effect_main_region_TellAction_Instructions__choice_0_tr1() {
+		enterSequence_main_region_TellAction_Instructions_crowd_default();
+	}
+	
+	private void effect_main_region_TellAction_Instructions__choice_0_tr2() {
+		enterSequence_main_region_TellAction_Instructions_surrounding_default();
+	}
+	
+	private void effect_main_region_TellAction_Instructions__choice_0_tr3() {
+		enterSequence_main_region_TellAction_Instructions_bring_default();
+	}
+	
+	private void effect_main_region_TellAction_Instructions__choice_0_tr4() {
+		enterSequence_main_region_TellAction_Instructions_open_default();
+	}
+	
+	private void effect_main_region_TellAction_Instructions__choice_0_tr5() {
+		enterSequence_main_region_TellAction_Instructions_followme_default();
+	}
+	
+	private void effect_main_region_TellAction_Instructions__choice_0_tr0() {
+		enterSequence_main_region_TellAction_Instructions_GoTo_default();
+	}
+	
+	private void effect_main_region__choice_0_tr1() {
+		enterSequence_main_region_Leave_the_arena_default();
+	}
+	
+	private void effect_main_region__choice_0_tr0() {
+		enterSequence_main_region_NextQuestion_default();
 	}
 	
 	/* Entry action for state 'Hello'. */
 	private void entryAction_main_region_Hello() {
-		sCIHBrain.operationCallback.sendTTS("Hello! What can I do for you?");
+		sCICrowdDetection.operationCallback.sendDetectionOff();
+		
+		sCIHBrain.operationCallback.sendTTS("[:-)] Hello! What can I do for you? [attentive]");
+		
+		setCounter(0);
 	}
 	
-	/* Entry action for state 'Listening'. */
-	private void entryAction_main_region_Listening() {
+	/* Entry action for state 'Leave the arena'. */
+	private void entryAction_main_region_Leave_the_arena() {
+		sCIHBrain.operationCallback.sendTTS("I hope, I was of any help! [:-)] Bye bye.");
+		
+		sCIMira.operationCallback.sendGoToGWP(getGWPout());
+	}
+	
+	/* Entry action for state 'DetectionsOn'. */
+	private void entryAction_main_region_DetectionsOn() {
+		sCICrowdDetection.operationCallback.sendDetectionOn();
+	}
+	
+	/* Entry action for state 'Init'. */
+	private void entryAction_main_region_Init() {
+		setGWPout(0);
+		
+		setGWPstart(1);
+		
+		sCIHBrain.operationCallback.sendTTS("[:-|]");
+		
+		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
+	}
+	
+	/* Entry action for state 'StartSTT'. */
+	private void entryAction_main_region_StartSTT() {
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 	}
 	
-	/* Entry action for state 'do the task'. */
-	private void entryAction_main_region_do_the_task() {
-		sCISTT.operationCallback.getInstruction();
+	/* Entry action for state 'TellSpokenText'. */
+	private void entryAction_main_region_TellSpokenText() {
+		sCIHBrain.operationCallback.sendTTS3("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText(), ".");
 	}
 	
-	/* 'default' enter sequence for state Init */
-	private void enterSequence_main_region_Init_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Init;
+	/* Entry action for state 'TellAnswer'. */
+	private void entryAction_main_region_TellAnswer() {
+		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getAnswer(), " [:-)]");
+		
+		setCounter(counter+1);
+	}
+	
+	/* Entry action for state 'TellAction'. */
+	private void entryAction_main_region_TellAction() {
+		setCounter(counter+1);
+	}
+	
+	/* Entry action for state 'StopSTT'. */
+	private void entryAction_main_region_StopSTT() {
+		sCISTT.operationCallback.sendSpeechDetectionOff();
+	}
+	
+	/* Entry action for state 'TellIncomprehensible'. */
+	private void entryAction_main_region_TellIncomprehensible() {
+		sCIHBrain.operationCallback.sendTTS3("[:-(]", sCISTT.operationCallback.getAnswer(), "[:-|]");
+	}
+	
+	/* Entry action for state 'NextQuestion'. */
+	private void entryAction_main_region_NextQuestion() {
+		sCIHBrain.operationCallback.sendTTS("Please give me the next command or ask me a question. [attentive]");
 	}
 	
 	/* 'default' enter sequence for state Hello */
@@ -386,28 +616,9 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.main_region_Hello;
 	}
 	
-	/* 'default' enter sequence for state Listening */
-	private void enterSequence_main_region_Listening_default() {
-		entryAction_main_region_Listening();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Listening;
-	}
-	
-	/* 'default' enter sequence for state Back to operator */
-	private void enterSequence_main_region_Back_to_operator_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Back_to_operator;
-	}
-	
-	/* 'default' enter sequence for state do the task */
-	private void enterSequence_main_region_do_the_task_default() {
-		entryAction_main_region_do_the_task();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_do_the_task;
-	}
-	
 	/* 'default' enter sequence for state Leave the arena */
 	private void enterSequence_main_region_Leave_the_arena_default() {
+		entryAction_main_region_Leave_the_arena();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_Leave_the_arena;
 	}
@@ -418,10 +629,102 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.main_region__final_;
 	}
 	
-	/* 'default' enter sequence for state SearchOperator */
-	private void enterSequence_main_region_SearchOperator_default() {
+	/* 'default' enter sequence for state DetectionsOn */
+	private void enterSequence_main_region_DetectionsOn_default() {
+		entryAction_main_region_DetectionsOn();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_SearchOperator;
+		stateVector[0] = State.main_region_DetectionsOn;
+	}
+	
+	/* 'default' enter sequence for state Init */
+	private void enterSequence_main_region_Init_default() {
+		entryAction_main_region_Init();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Init;
+	}
+	
+	/* 'default' enter sequence for state StartSTT */
+	private void enterSequence_main_region_StartSTT_default() {
+		entryAction_main_region_StartSTT();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_StartSTT;
+	}
+	
+	/* 'default' enter sequence for state TellSpokenText */
+	private void enterSequence_main_region_TellSpokenText_default() {
+		entryAction_main_region_TellSpokenText();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TellSpokenText;
+	}
+	
+	/* 'default' enter sequence for state TellAnswer */
+	private void enterSequence_main_region_TellAnswer_default() {
+		entryAction_main_region_TellAnswer();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TellAnswer;
+	}
+	
+	/* 'default' enter sequence for state TellAction */
+	private void enterSequence_main_region_TellAction_default() {
+		entryAction_main_region_TellAction();
+		enterSequence_main_region_TellAction_Instructions_default();
+	}
+	
+	/* 'default' enter sequence for state GoTo */
+	private void enterSequence_main_region_TellAction_Instructions_GoTo_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TellAction_Instructions_GoTo;
+	}
+	
+	/* 'default' enter sequence for state crowd */
+	private void enterSequence_main_region_TellAction_Instructions_crowd_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TellAction_Instructions_crowd;
+	}
+	
+	/* 'default' enter sequence for state surrounding */
+	private void enterSequence_main_region_TellAction_Instructions_surrounding_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TellAction_Instructions_surrounding;
+	}
+	
+	/* 'default' enter sequence for state bring */
+	private void enterSequence_main_region_TellAction_Instructions_bring_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TellAction_Instructions_bring;
+	}
+	
+	/* 'default' enter sequence for state open */
+	private void enterSequence_main_region_TellAction_Instructions_open_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TellAction_Instructions_open;
+	}
+	
+	/* 'default' enter sequence for state followme */
+	private void enterSequence_main_region_TellAction_Instructions_followme_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TellAction_Instructions_followme;
+	}
+	
+	/* 'default' enter sequence for state StopSTT */
+	private void enterSequence_main_region_StopSTT_default() {
+		entryAction_main_region_StopSTT();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_StopSTT;
+	}
+	
+	/* 'default' enter sequence for state TellIncomprehensible */
+	private void enterSequence_main_region_TellIncomprehensible_default() {
+		entryAction_main_region_TellIncomprehensible();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TellIncomprehensible;
+	}
+	
+	/* 'default' enter sequence for state NextQuestion */
+	private void enterSequence_main_region_NextQuestion_default() {
+		entryAction_main_region_NextQuestion();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_NextQuestion;
 	}
 	
 	/* 'default' enter sequence for region main region */
@@ -429,32 +732,13 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		react_main_region__entry_Default();
 	}
 	
-	/* Default exit sequence for state Init */
-	private void exitSequence_main_region_Init() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
+	/* 'default' enter sequence for region Instructions */
+	private void enterSequence_main_region_TellAction_Instructions_default() {
+		react_main_region_TellAction_Instructions__entry_Default();
 	}
 	
 	/* Default exit sequence for state Hello */
 	private void exitSequence_main_region_Hello() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state Listening */
-	private void exitSequence_main_region_Listening() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state Back to operator */
-	private void exitSequence_main_region_Back_to_operator() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state do the task */
-	private void exitSequence_main_region_do_the_task() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -471,8 +755,91 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state SearchOperator */
-	private void exitSequence_main_region_SearchOperator() {
+	/* Default exit sequence for state DetectionsOn */
+	private void exitSequence_main_region_DetectionsOn() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state Init */
+	private void exitSequence_main_region_Init() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state StartSTT */
+	private void exitSequence_main_region_StartSTT() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state TellSpokenText */
+	private void exitSequence_main_region_TellSpokenText() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state TellAnswer */
+	private void exitSequence_main_region_TellAnswer() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state TellAction */
+	private void exitSequence_main_region_TellAction() {
+		exitSequence_main_region_TellAction_Instructions();
+	}
+	
+	/* Default exit sequence for state GoTo */
+	private void exitSequence_main_region_TellAction_Instructions_GoTo() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state crowd */
+	private void exitSequence_main_region_TellAction_Instructions_crowd() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state surrounding */
+	private void exitSequence_main_region_TellAction_Instructions_surrounding() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state bring */
+	private void exitSequence_main_region_TellAction_Instructions_bring() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state open */
+	private void exitSequence_main_region_TellAction_Instructions_open() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state followme */
+	private void exitSequence_main_region_TellAction_Instructions_followme() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state StopSTT */
+	private void exitSequence_main_region_StopSTT() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state TellIncomprehensible */
+	private void exitSequence_main_region_TellIncomprehensible() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state NextQuestion */
+	private void exitSequence_main_region_NextQuestion() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -480,20 +847,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	/* Default exit sequence for region main region */
 	private void exitSequence_main_region() {
 		switch (stateVector[0]) {
-		case main_region_Init:
-			exitSequence_main_region_Init();
-			break;
 		case main_region_Hello:
 			exitSequence_main_region_Hello();
-			break;
-		case main_region_Listening:
-			exitSequence_main_region_Listening();
-			break;
-		case main_region_Back_to_operator:
-			exitSequence_main_region_Back_to_operator();
-			break;
-		case main_region_do_the_task:
-			exitSequence_main_region_do_the_task();
 			break;
 		case main_region_Leave_the_arena:
 			exitSequence_main_region_Leave_the_arena();
@@ -501,52 +856,210 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		case main_region__final_:
 			exitSequence_main_region__final_();
 			break;
-		case main_region_SearchOperator:
-			exitSequence_main_region_SearchOperator();
+		case main_region_DetectionsOn:
+			exitSequence_main_region_DetectionsOn();
+			break;
+		case main_region_Init:
+			exitSequence_main_region_Init();
+			break;
+		case main_region_StartSTT:
+			exitSequence_main_region_StartSTT();
+			break;
+		case main_region_TellSpokenText:
+			exitSequence_main_region_TellSpokenText();
+			break;
+		case main_region_TellAnswer:
+			exitSequence_main_region_TellAnswer();
+			break;
+		case main_region_TellAction_Instructions_GoTo:
+			exitSequence_main_region_TellAction_Instructions_GoTo();
+			break;
+		case main_region_TellAction_Instructions_crowd:
+			exitSequence_main_region_TellAction_Instructions_crowd();
+			break;
+		case main_region_TellAction_Instructions_surrounding:
+			exitSequence_main_region_TellAction_Instructions_surrounding();
+			break;
+		case main_region_TellAction_Instructions_bring:
+			exitSequence_main_region_TellAction_Instructions_bring();
+			break;
+		case main_region_TellAction_Instructions_open:
+			exitSequence_main_region_TellAction_Instructions_open();
+			break;
+		case main_region_TellAction_Instructions_followme:
+			exitSequence_main_region_TellAction_Instructions_followme();
+			break;
+		case main_region_StopSTT:
+			exitSequence_main_region_StopSTT();
+			break;
+		case main_region_TellIncomprehensible:
+			exitSequence_main_region_TellIncomprehensible();
+			break;
+		case main_region_NextQuestion:
+			exitSequence_main_region_NextQuestion();
 			break;
 		default:
 			break;
 		}
 	}
 	
-	/* The reactions of state Init. */
-	private void react_main_region_Init() {
+	/* Default exit sequence for region Instructions */
+	private void exitSequence_main_region_TellAction_Instructions() {
+		switch (stateVector[0]) {
+		case main_region_TellAction_Instructions_GoTo:
+			exitSequence_main_region_TellAction_Instructions_GoTo();
+			break;
+		case main_region_TellAction_Instructions_crowd:
+			exitSequence_main_region_TellAction_Instructions_crowd();
+			break;
+		case main_region_TellAction_Instructions_surrounding:
+			exitSequence_main_region_TellAction_Instructions_surrounding();
+			break;
+		case main_region_TellAction_Instructions_bring:
+			exitSequence_main_region_TellAction_Instructions_bring();
+			break;
+		case main_region_TellAction_Instructions_open:
+			exitSequence_main_region_TellAction_Instructions_open();
+			break;
+		case main_region_TellAction_Instructions_followme:
+			exitSequence_main_region_TellAction_Instructions_followme();
+			break;
+		default:
+			break;
+		}
 	}
 	
 	/* The reactions of state Hello. */
 	private void react_main_region_Hello() {
-	}
-	
-	/* The reactions of state Listening. */
-	private void react_main_region_Listening() {
-		if (check_main_region_Listening_tr0_tr0()) {
-			effect_main_region_Listening_tr0();
+		if (check_main_region_Hello_tr0_tr0()) {
+			effect_main_region_Hello_tr0();
 		}
-	}
-	
-	/* The reactions of state Back to operator. */
-	private void react_main_region_Back_to_operator() {
-	}
-	
-	/* The reactions of state do the task. */
-	private void react_main_region_do_the_task() {
 	}
 	
 	/* The reactions of state Leave the arena. */
 	private void react_main_region_Leave_the_arena() {
+		if (check_main_region_Leave_the_arena_tr0_tr0()) {
+			effect_main_region_Leave_the_arena_tr0();
+		}
 	}
 	
 	/* The reactions of state null. */
 	private void react_main_region__final_() {
 	}
 	
-	/* The reactions of state SearchOperator. */
-	private void react_main_region_SearchOperator() {
+	/* The reactions of state DetectionsOn. */
+	private void react_main_region_DetectionsOn() {
+		if (check_main_region_DetectionsOn_tr0_tr0()) {
+			effect_main_region_DetectionsOn_tr0();
+		}
+	}
+	
+	/* The reactions of state Init. */
+	private void react_main_region_Init() {
+		if (check_main_region_Init_tr0_tr0()) {
+			effect_main_region_Init_tr0();
+		}
+	}
+	
+	/* The reactions of state StartSTT. */
+	private void react_main_region_StartSTT() {
+		if (check_main_region_StartSTT_tr0_tr0()) {
+			effect_main_region_StartSTT_tr0();
+		}
+	}
+	
+	/* The reactions of state TellSpokenText. */
+	private void react_main_region_TellSpokenText() {
+		if (check_main_region_TellSpokenText_tr0_tr0()) {
+			effect_main_region_TellSpokenText_tr0();
+		} else {
+			if (check_main_region_TellSpokenText_tr1_tr1()) {
+				effect_main_region_TellSpokenText_tr1();
+			} else {
+				if (check_main_region_TellSpokenText_tr2_tr2()) {
+					effect_main_region_TellSpokenText_tr2();
+				}
+			}
+		}
+	}
+	
+	/* The reactions of state TellAnswer. */
+	private void react_main_region_TellAnswer() {
+		if (check_main_region_TellAnswer_tr0_tr0()) {
+			effect_main_region_TellAnswer_tr0();
+		}
+	}
+	
+	/* The reactions of state GoTo. */
+	private void react_main_region_TellAction_Instructions_GoTo() {
+	}
+	
+	/* The reactions of state crowd. */
+	private void react_main_region_TellAction_Instructions_crowd() {
+	}
+	
+	/* The reactions of state surrounding. */
+	private void react_main_region_TellAction_Instructions_surrounding() {
+	}
+	
+	/* The reactions of state bring. */
+	private void react_main_region_TellAction_Instructions_bring() {
+	}
+	
+	/* The reactions of state open. */
+	private void react_main_region_TellAction_Instructions_open() {
+	}
+	
+	/* The reactions of state followme. */
+	private void react_main_region_TellAction_Instructions_followme() {
+	}
+	
+	/* The reactions of state StopSTT. */
+	private void react_main_region_StopSTT() {
+		effect_main_region_StopSTT_tr0();
+	}
+	
+	/* The reactions of state TellIncomprehensible. */
+	private void react_main_region_TellIncomprehensible() {
+		if (check_main_region_TellIncomprehensible_tr0_tr0()) {
+			effect_main_region_TellIncomprehensible_tr0();
+		}
+	}
+	
+	/* The reactions of state NextQuestion. */
+	private void react_main_region_NextQuestion() {
+		if (check_main_region_NextQuestion_tr0_tr0()) {
+			effect_main_region_NextQuestion_tr0();
+		}
+	}
+	
+	/* The reactions of state null. */
+	private void react_main_region_TellAction_Instructions__choice_0() {
+		effect_main_region_TellAction_Instructions__choice_0_tr1();
+	}
+	
+	/* The reactions of state null. */
+	private void react_main_region__choice_0() {
+		if (check_main_region__choice_0_tr1_tr1()) {
+			effect_main_region__choice_0_tr1();
+		} else {
+			effect_main_region__choice_0_tr0();
+		}
 	}
 	
 	/* Default react sequence for initial entry  */
 	private void react_main_region__entry_Default() {
 		enterSequence_main_region_Init_default();
+	}
+	
+	/* Default react sequence for initial entry  */
+	private void react_main_region_TellAction_Instructions__entry_Default() {
+		react_main_region_TellAction_Instructions__choice_0();
+	}
+	
+	/* The reactions of exit exit_done. */
+	private void react_main_region_TellAction_Instructions_exit_done() {
+		effect_main_region_TellAction_tr0();
 	}
 	
 	public void runCycle() {
@@ -556,20 +1069,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		clearOutEvents();
 		for (nextStateIndex = 0; nextStateIndex < stateVector.length; nextStateIndex++) {
 			switch (stateVector[nextStateIndex]) {
-			case main_region_Init:
-				react_main_region_Init();
-				break;
 			case main_region_Hello:
 				react_main_region_Hello();
-				break;
-			case main_region_Listening:
-				react_main_region_Listening();
-				break;
-			case main_region_Back_to_operator:
-				react_main_region_Back_to_operator();
-				break;
-			case main_region_do_the_task:
-				react_main_region_do_the_task();
 				break;
 			case main_region_Leave_the_arena:
 				react_main_region_Leave_the_arena();
@@ -577,8 +1078,47 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			case main_region__final_:
 				react_main_region__final_();
 				break;
-			case main_region_SearchOperator:
-				react_main_region_SearchOperator();
+			case main_region_DetectionsOn:
+				react_main_region_DetectionsOn();
+				break;
+			case main_region_Init:
+				react_main_region_Init();
+				break;
+			case main_region_StartSTT:
+				react_main_region_StartSTT();
+				break;
+			case main_region_TellSpokenText:
+				react_main_region_TellSpokenText();
+				break;
+			case main_region_TellAnswer:
+				react_main_region_TellAnswer();
+				break;
+			case main_region_TellAction_Instructions_GoTo:
+				react_main_region_TellAction_Instructions_GoTo();
+				break;
+			case main_region_TellAction_Instructions_crowd:
+				react_main_region_TellAction_Instructions_crowd();
+				break;
+			case main_region_TellAction_Instructions_surrounding:
+				react_main_region_TellAction_Instructions_surrounding();
+				break;
+			case main_region_TellAction_Instructions_bring:
+				react_main_region_TellAction_Instructions_bring();
+				break;
+			case main_region_TellAction_Instructions_open:
+				react_main_region_TellAction_Instructions_open();
+				break;
+			case main_region_TellAction_Instructions_followme:
+				react_main_region_TellAction_Instructions_followme();
+				break;
+			case main_region_StopSTT:
+				react_main_region_StopSTT();
+				break;
+			case main_region_TellIncomprehensible:
+				react_main_region_TellIncomprehensible();
+				break;
+			case main_region_NextQuestion:
+				react_main_region_NextQuestion();
 				break;
 			default:
 				// $NullState$

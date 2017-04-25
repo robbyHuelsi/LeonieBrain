@@ -17,6 +17,11 @@ public class CrowdDet implements IParser, Serializable{
 
 	public boolean parse(String data, Start start) {
 		// #CROWDDET#[totalCount:int]#[gender1:int];[age1:int];[position1:int]+[gender2:int];[age2:int];[position2:int]+ etc. #
+		//gender: -1 = not detectable; 0 = male ; 1 = female
+		//age: -1 = not detectable
+		//position: 0 = stehen; 1 = sitzen; 2 = liegen
+
+		
 		//TODO Muss getestet werden
 		
 		this.start = start;
@@ -92,23 +97,29 @@ public class CrowdDet implements IParser, Serializable{
 		for (int i = 0; i < pl.size(); i++) {
 			removeCounter = 0;
 			
+			//gender: -1 = not detectable; 0 = male ; 1 = female
 			if (gender != -1 && pl.get(i).getGender() != gender) {
 				pl.remove(i);
 				removeCounter++;
+				
+			//age: -1 = not detectable
 			}else if(minAge != -1 && pl.get(i).getAge() < minAge ){
 				pl.remove(i);
 				removeCounter++;
 			}else if(maxAge != -1 && pl.get(i).getAge() > maxAge){
 				pl.remove(i);
 				removeCounter++;
+				
+			//position: 0 = stehen; 1 = sitzen; 2 = liegen
 			}else if(position != 1 && pl.get(i).getPosition() != position){
 				pl.remove(i);
 				removeCounter++;
 			}
+			
 			i -= removeCounter;
 		}
 		
-		return this.personList.size();
+		return pl.size();
 		
 	}
 
