@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Vector;
 
 import Persons.PersonCrowd;
+import Persons.PersonList;
 import main.Start;
 import modules.Module;
 
@@ -27,30 +28,37 @@ public class CrowdDet implements IParser, Serializable{
 		this.start = start;
 		
 		this.personList.removeAllElements();
-		String[] datas = data.split("#");
-		String[] crowd = datas[1].split("//+");
-			
-		for(int i = 0; i < crowd.length; i++){
-			String[] person = crowd[i].split(";");
-			try {
-				System.out.println(crowd[i]);
-				int gender = Integer.parseInt(person[0]);
-				int age = Integer.parseInt(person[1]);
-				int position = Integer.parseInt(person[2]);
-				personList.add(new PersonCrowd(gender, age, position));
-			} catch (Exception e) {
-				System.err.println("CrowdDet: Parsing string to int failed");
+		if (!data.equals("0#")) {
+			String[] datas = data.split("#");
+			String[] crowd = datas[1].split(";");
+				
+			for(int i = 0; i < crowd.length; i++){
+				String[] person = crowd[i].split(",");
+				try {
+					System.out.println(crowd[i]);
+					int gender = Integer.parseInt(person[0]);
+					int age = Integer.parseInt(person[1]);
+					int position = Integer.parseInt(person[2]);
+					personList.add(new PersonCrowd(gender, age, position));
+				} catch (Exception e) {
+					System.err.println("CrowdDet: Parsing string to int failed");
+				}
 			}
+			int total = Integer.parseInt(datas[0]);
+			if (total == personList.size()) {
+				if (total > 0) {
+					// Hier sollte das Programm eingentlich nie reingehen...
+					this.setCrowdDetected(true);
+				}
+				return true;
+			}else{
+				System.out.println("There is not the same number of Persons in personList (" + personList.size() + ") like total count (" + total + ")");
+				return false;
+			}
+		}else{
+			return true; //Keine Person
 		}
 		
-		int total = Integer.parseInt(datas[0]);
-		if (total == personList.size()) {
-			this.setCrowdDetected(true);
-			return true;
-		}else{
-			System.out.println("There is not the same number of Persons in personList (" + personList.size() + ") like total count (" + total + ")");
-			return false;
-		}
 	}
 	
 
@@ -135,31 +143,131 @@ public class CrowdDet implements IParser, Serializable{
 	}
 	
 	public String getSummaryString(){
-		/*if (this.objList.isEmpty()) {
-			return "[:-(] I didn't found objects.";
+		if (this.personList.isEmpty()) {
+			return "[:-(] I didn't find some people.";
 		}else{
-			String sum = "[:-)] I found " + this.objList.size() + " objects!";
-			Vector<Objects.object> ol = this.objList;
-			while (!ol.isEmpty()) {
-				String oName = ol.get(0).getName();
-				int oCount = 0;
-				for (int i = 0; i < ol.size(); i++) {
-					if (ol.get(i).equals(oName)) {
-						oCount++;
-						ol.remove(i);
-						i--;
-					}
-				}
-				if (oCount == 1) {
-					sum += " There is one " + oName + ".";
+			String sum;
+			if (this.personList.size() == 1) {
+				sum = "[:-)] I found one person!";
+				if (this.personList.get(0).getGender() == 0) {
+					sum += " He is male.";
+				}else if (this.personList.get(0).getGender() == 1){
+					sum += " She is female.";
 				}else{
-					sum += " There are " + oCount + " times " + oName + ".";
+					sum += " I'm not sure what the gender of this person is.";
 				}
 				
+				if (this.personList.get(0).getAge() == -1) {
+					sum += " I was not able to get the age.";
+				}else{
+					sum += " I think the person is approximately" + this.personList.get(0).getAge() + " years old.";
+				}
+				
+				if (this.personList.get(0).getPosition() == 0) {
+					sum += " The person is standing.";
+				}else if (this.personList.get(0).getPosition() == 1){
+					sum += " The person is sitting.";
+				}else if(this.personList.get(0).getPosition() == 2){
+					sum += " The person is lying.";
+				}
+			}else{
+				sum = "[:-)] I found " + this.personList.size() + " persons!";
+				
+				int male = 0;
+				int female = 0;
+				int unknownGender = 0;
+				int standing = 0;
+				int sitting = 0;
+				int lying = 0;
+				//int unknownPos = 0;
+				int young = 0;
+				int middleAged = 0;
+				int old = 0;
+				int unknownAge = 0;
+				
+				for (PersonCrowd person : personList) {
+					if(person.getGender() == -1){unknownGender++;}
+					if(person.getGender() == 0){male++;}
+					if(person.getGender() == 1){female++;}
+					
+					if(person.getAge() == -1){unknownAge++;}
+					if(person.getAge() > 0 && person.getAge() < 25){young++;}
+					if(person.getAge() > 24 && person.getAge() < 55){middleAged++;}
+					if(person.getAge() > 54){old++;}
+					
+					if(person.getPosition() == 0){standing++;}
+					if(person.getPosition() == 1){sitting++;}
+					if(person.getPosition() == 2){lying++;}
+				}
+				
+				if (female == 1) {
+						sum += " One person is female.";
+				}else if (female > 1){
+					sum += " " + female + " of them are female.";
+				}
+				
+				if (male == 1) {
+					sum += " One person is male.";
+				}else if (male > 1){
+					sum += " " + male + " of them are male.";
+				}
+				
+				if (unknownGender == 1) {
+					sum += " For one person I was not able to get the gender.";
+				}else if (unknownGender > 1){
+					sum += " For " + unknownGender + " persons I was not able to get the gender.";
+				}
+				
+				
+				if (young == 1) {
+						sum += " One person is young.";
+				}else if (young > 1){
+					sum += " " + young + " of the people are young.";
+				}
+				
+				if (middleAged == 1) {
+					sum += " One person is middle aged.";
+				}else if (middleAged > 1){
+					sum += " " + middleAged + " of the people are middle aged.";
+				}
+				
+				if (old == 1) {
+					sum += " One person seems old.";
+				}else if (old > 1){
+					sum += " " + old + " of the people seem old.";
+				}
+				
+				if (unknownAge == 1) {
+					sum += " For one person I was not able to detect the age.";
+				}else if (unknownAge > 1){
+					sum += " For " + unknownAge + " persons I was not able to detect the age.";
+				}
+				
+				
+				if (standing == 1) {
+						sum += " One person is standing.";
+				}else if (standing > 1){
+					sum += " " + standing + " of the persons are standing.";
+				}
+				
+				if (sitting == 1) {
+					sum += " One person is stitting.";
+				}else if (sitting > 1){
+					sum += " " + sitting + " of the persons are sitting.";
+				}
+				
+				if (lying == 1) {
+					sum += " One person is lying.";
+				}else if (lying > 1){
+					sum += " " + lying + " of the persons are lying.";
+				}
 			}
+			
+			
+				
+			
 			return sum;
 		
-		}*/
-		return null;
+		}
 	}
 }

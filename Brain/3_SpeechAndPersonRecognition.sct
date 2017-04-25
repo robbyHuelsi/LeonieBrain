@@ -17,7 +17,7 @@
       <vertices xsi:type="sgraph:State" xmi:id="_4eyY8Cm4EeeNltMwhJMMvg" specification="entry /&#xA;Mira.sendBodyUTurn()" name="TurnAround" incomingTransitions="_4exx8Cm4EeeNltMwhJMMvg" documentation="turn 180°">
         <outgoingTransitions xmi:id="_4eyY-Cm4EeeNltMwhJMMvg" specification="after 3s" documentation="" target="_On7GYCnREee3XuzjSOHxBg"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_4eyY_Sm4EeeNltMwhJMMvg" specification="entry /&#xA;HBrain.sendTTS(CrowdDetection.getSummaryText())" name="CrowdScanningAndCounting" incomingTransitions="_bQctICnREee3XuzjSOHxBg" documentation="count the size of the crowd (female and male)">
+      <vertices xsi:type="sgraph:State" xmi:id="_4eyY_Sm4EeeNltMwhJMMvg" specification="entry /&#xA;CrowdDetection.sendDetectionOff();&#xA;HBrain.sendTTS(CrowdDetection.getSummaryText())" name="CrowdScanningAndCounting" incomingTransitions="_bQctICnREee3XuzjSOHxBg" documentation="count the size of the crowd (female and male)">
         <outgoingTransitions xmi:id="_4eyZBym4EeeNltMwhJMMvg" specification="" documentation="answer is given" target="_4ezAAym4EeeNltMwhJMMvg"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_4ezAACm4EeeNltMwhJMMvg" name="RiddleGame1">
@@ -188,7 +188,7 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_4evV5ym4EeeNltMwhJMMvg" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_4evV6Cm4EeeNltMwhJMMvg"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_4evV6Sm4EeeNltMwhJMMvg" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_4evV6im4EeeNltMwhJMMvg" x="54" y="560" width="285" height="53"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_4evV6im4EeeNltMwhJMMvg" x="54" y="560" width="286" height="61"/>
         </children>
         <children xmi:id="_4evV6ym4EeeNltMwhJMMvg" type="State" element="_4ezAACm4EeeNltMwhJMMvg">
           <children xsi:type="notation:DecorationNode" xmi:id="_4evV7Cm4EeeNltMwhJMMvg" type="StateName">

@@ -642,6 +642,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'CrowdScanningAndCounting'. */
 	private void entryAction_main_region_CrowdScanningAndCounting() {
+		sCICrowdDetection.operationCallback.sendDetectionOff();
+		
 		sCIHBrain.operationCallback.sendTTS(sCICrowdDetection.operationCallback.getSummaryText());
 	}
 	
