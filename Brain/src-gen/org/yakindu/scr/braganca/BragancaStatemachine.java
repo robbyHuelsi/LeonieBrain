@@ -104,8 +104,15 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			noiseDetected = true;
 		}
 		
+		private boolean waveDetected;
+		
+		public void raiseWaveDetected() {
+			waveDetected = true;
+		}
+		
 		protected void clearEvents() {
 			noiseDetected = false;
+			waveDetected = false;
 		}
 	}
 	

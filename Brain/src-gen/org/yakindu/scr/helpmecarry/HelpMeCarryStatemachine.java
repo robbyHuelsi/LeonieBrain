@@ -38,8 +38,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			noiseDetected = true;
 		}
 		
+		private boolean wavingDetected;
+		
+		public void raiseWavingDetected() {
+			wavingDetected = true;
+		}
+		
 		protected void clearEvents() {
 			noiseDetected = false;
+			wavingDetected = false;
 		}
 	}
 	
@@ -167,6 +174,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_StartTracking_WaitingForStopCommand_STToff,
 		main_region_StartTracking_WaitingForStopCommand_STTstart,
 		main_region_Wave,
+		main_region_Wave__region0_TrackingOffAndTurn,
+		main_region_Wave__region0_WaveFound,
+		main_region_Wave__region0_Turn,
+		main_region_Wave__region0_DetectionOn,
+		main_region_Wave__region0_PersonFound,
 		main_region_HowCanIHelpYou,
 		main_region_HowCanIHelpYou_main_region_StateA,
 		main_region_HowCanIHelpYou_main_region_StartSTT,
@@ -194,7 +206,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[4];
+	private final boolean[] timeEvents = new boolean[6];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -318,7 +330,18 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_StartTracking_WaitingForStopCommand_STTstart:
 			return stateVector[0] == State.main_region_StartTracking_WaitingForStopCommand_STTstart;
 		case main_region_Wave:
-			return stateVector[0] == State.main_region_Wave;
+			return stateVector[0].ordinal() >= State.
+					main_region_Wave.ordinal()&& stateVector[0].ordinal() <= State.main_region_Wave__region0_PersonFound.ordinal();
+		case main_region_Wave__region0_TrackingOffAndTurn:
+			return stateVector[0] == State.main_region_Wave__region0_TrackingOffAndTurn;
+		case main_region_Wave__region0_WaveFound:
+			return stateVector[0] == State.main_region_Wave__region0_WaveFound;
+		case main_region_Wave__region0_Turn:
+			return stateVector[0] == State.main_region_Wave__region0_Turn;
+		case main_region_Wave__region0_DetectionOn:
+			return stateVector[0] == State.main_region_Wave__region0_DetectionOn;
+		case main_region_Wave__region0_PersonFound:
+			return stateVector[0] == State.main_region_Wave__region0_PersonFound;
 		case main_region_HowCanIHelpYou:
 			return stateVector[0].ordinal() >= State.
 					main_region_HowCanIHelpYou.ordinal()&& stateVector[0].ordinal() <= State.main_region_HowCanIHelpYou_main_region_TellIncomprehensible.ordinal();
@@ -422,6 +445,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return true;
 	}
 	
+	private boolean check_main_region_NotFound_tr1_tr1() {
+		return sCIFollowMe.detectionPersonFound;
+	}
+	
 	private boolean check_main_region_Found_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
@@ -446,8 +473,24 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCISTT.actionReceived;
 	}
 	
-	private boolean check_main_region_Wave_tr0_tr0() {
+	private boolean check_main_region_Wave__region0_TrackingOffAndTurn_tr0_tr0() {
+		return timeEvents[3];
+	}
+	
+	private boolean check_main_region_Wave__region0_WaveFound_tr0_tr0() {
+		return timeEvents[4];
+	}
+	
+	private boolean check_main_region_Wave__region0_Turn_tr0_tr0() {
+		return sCIKinect2.wavingDetected;
+	}
+	
+	private boolean check_main_region_Wave__region0_DetectionOn_tr0_tr0() {
 		return sCIFollowMe.detectionPersonFound;
+	}
+	
+	private boolean check_main_region_Wave__region0_PersonFound_tr0_tr0() {
+		return true;
 	}
 	
 	private boolean check_main_region_HowCanIHelpYou_main_region_StateA_tr0_tr0() {
@@ -483,7 +526,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_StartSTT_tr0_tr0() {
-		return timeEvents[3];
+		return timeEvents[5];
 	}
 	
 	private boolean check_main_region_StopSTT_tr0_tr0() {
@@ -570,6 +613,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_Detection_default();
 	}
 	
+	private void effect_main_region_NotFound_tr1() {
+		exitSequence_main_region_NotFound();
+		enterSequence_main_region_Found_default();
+	}
+	
 	private void effect_main_region_Found_tr0() {
 		exitSequence_main_region_Found();
 		enterSequence_main_region_StartSTT_default();
@@ -608,6 +656,31 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void effect_main_region_Wave_tr0() {
 		exitSequence_main_region_Wave();
 		enterSequence_main_region_StartTracking_default();
+	}
+	
+	private void effect_main_region_Wave__region0_TrackingOffAndTurn_tr0() {
+		exitSequence_main_region_Wave__region0_TrackingOffAndTurn();
+		enterSequence_main_region_Wave__region0_Turn_default();
+	}
+	
+	private void effect_main_region_Wave__region0_WaveFound_tr0() {
+		exitSequence_main_region_Wave__region0_WaveFound();
+		enterSequence_main_region_Wave__region0_DetectionOn_default();
+	}
+	
+	private void effect_main_region_Wave__region0_Turn_tr0() {
+		exitSequence_main_region_Wave__region0_Turn();
+		enterSequence_main_region_Wave__region0_WaveFound_default();
+	}
+	
+	private void effect_main_region_Wave__region0_DetectionOn_tr0() {
+		exitSequence_main_region_Wave__region0_DetectionOn();
+		enterSequence_main_region_Wave__region0_PersonFound_default();
+	}
+	
+	private void effect_main_region_Wave__region0_PersonFound_tr0() {
+		exitSequence_main_region_Wave__region0_PersonFound();
+		react_main_region_Wave__region0_exit_done();
 	}
 	
 	private void effect_main_region_HowCanIHelpYou_tr0() {
@@ -775,13 +848,41 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 	}
 	
-	/* Entry action for state 'Wave'. */
-	private void entryAction_main_region_Wave() {
+	/* Entry action for state 'TrackingOffAndTurn'. */
+	private void entryAction_main_region_Wave__region0_TrackingOffAndTurn() {
+		timer.setTimer(this, 3, 1*1000, false);
+		
 		sCIFollowMe.operationCallback.sendTrackingOff();
 		
-		sCIFollowMe.operationCallback.sendDetectionOn();
+		sCIHBrain.operationCallback.sendTTS("[-.-] I lost you!{-180;0}");
 		
-		sCIHBrain.operationCallback.sendTTS("[-.-] I lost you! Please wave for me.");
+		sCIMira.operationCallback.sendBodyUTurn();
+	}
+	
+	/* Entry action for state 'WaveFound'. */
+	private void entryAction_main_region_Wave__region0_WaveFound() {
+		timer.setTimer(this, 4, 1*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("{Person}Thank you! Please hold on.");
+		
+		sCIMira.operationCallback.sendBodyUTurn();
+	}
+	
+	/* Entry action for state 'Turn'. */
+	private void entryAction_main_region_Wave__region0_Turn() {
+		sCIKinect2.operationCallback.sendWavingDetectionOnOff(true);
+		
+		sCIHBrain.operationCallback.sendTTS("[:-|] Please wave for me.");
+	}
+	
+	/* Entry action for state 'DetectionOn'. */
+	private void entryAction_main_region_Wave__region0_DetectionOn() {
+		sCIFollowMe.operationCallback.sendDetectionOn();
+	}
+	
+	/* Entry action for state 'PersonFound'. */
+	private void entryAction_main_region_Wave__region0_PersonFound() {
+		sCIHBrain.operationCallback.sendTTS("[:-)] Okay, let's go on!");
 	}
 	
 	/* Entry action for state 'HowCanIHelpYou'. */
@@ -823,7 +924,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_StartSTT() {
-		timer.setTimer(this, 3, 3*1000, false);
+		timer.setTimer(this, 5, 3*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionYesNo();
 	}
@@ -887,14 +988,19 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		timer.unsetTimer(this, 2);
 	}
 	
-	/* Exit action for state 'Wave'. */
-	private void exitAction_main_region_Wave() {
-		sCIHBrain.operationCallback.sendTTS("Thank you!");
+	/* Exit action for state 'TrackingOffAndTurn'. */
+	private void exitAction_main_region_Wave__region0_TrackingOffAndTurn() {
+		timer.unsetTimer(this, 3);
+	}
+	
+	/* Exit action for state 'WaveFound'. */
+	private void exitAction_main_region_Wave__region0_WaveFound() {
+		timer.unsetTimer(this, 4);
 	}
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_region_StartSTT() {
-		timer.unsetTimer(this, 3);
+		timer.unsetTimer(this, 5);
 	}
 	
 	/* 'default' enter sequence for state Detection */
@@ -940,9 +1046,42 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* 'default' enter sequence for state Wave */
 	private void enterSequence_main_region_Wave_default() {
-		entryAction_main_region_Wave();
+		enterSequence_main_region_Wave__region0_default();
+	}
+	
+	/* 'default' enter sequence for state TrackingOffAndTurn */
+	private void enterSequence_main_region_Wave__region0_TrackingOffAndTurn_default() {
+		entryAction_main_region_Wave__region0_TrackingOffAndTurn();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Wave;
+		stateVector[0] = State.main_region_Wave__region0_TrackingOffAndTurn;
+	}
+	
+	/* 'default' enter sequence for state WaveFound */
+	private void enterSequence_main_region_Wave__region0_WaveFound_default() {
+		entryAction_main_region_Wave__region0_WaveFound();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Wave__region0_WaveFound;
+	}
+	
+	/* 'default' enter sequence for state Turn */
+	private void enterSequence_main_region_Wave__region0_Turn_default() {
+		entryAction_main_region_Wave__region0_Turn();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Wave__region0_Turn;
+	}
+	
+	/* 'default' enter sequence for state DetectionOn */
+	private void enterSequence_main_region_Wave__region0_DetectionOn_default() {
+		entryAction_main_region_Wave__region0_DetectionOn();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Wave__region0_DetectionOn;
+	}
+	
+	/* 'default' enter sequence for state PersonFound */
+	private void enterSequence_main_region_Wave__region0_PersonFound_default() {
+		entryAction_main_region_Wave__region0_PersonFound();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Wave__region0_PersonFound;
 	}
 	
 	/* 'default' enter sequence for state HowCanIHelpYou */
@@ -1077,6 +1216,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		react_main_region_StartTracking_WaitingForStopCommand__entry_Default();
 	}
 	
+	/* 'default' enter sequence for region null */
+	private void enterSequence_main_region_Wave__region0_default() {
+		react_main_region_Wave__region0__entry_Default();
+	}
+	
 	/* 'default' enter sequence for region main region */
 	private void enterSequence_main_region_HowCanIHelpYou_main_region_default() {
 		react_main_region_HowCanIHelpYou_main_region__entry_Default();
@@ -1130,10 +1274,41 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Default exit sequence for state Wave */
 	private void exitSequence_main_region_Wave() {
+		exitSequence_main_region_Wave__region0();
+	}
+	
+	/* Default exit sequence for state TrackingOffAndTurn */
+	private void exitSequence_main_region_Wave__region0_TrackingOffAndTurn() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_Wave();
+		exitAction_main_region_Wave__region0_TrackingOffAndTurn();
+	}
+	
+	/* Default exit sequence for state WaveFound */
+	private void exitSequence_main_region_Wave__region0_WaveFound() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Wave__region0_WaveFound();
+	}
+	
+	/* Default exit sequence for state Turn */
+	private void exitSequence_main_region_Wave__region0_Turn() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state DetectionOn */
+	private void exitSequence_main_region_Wave__region0_DetectionOn() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state PersonFound */
+	private void exitSequence_main_region_Wave__region0_PersonFound() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state HowCanIHelpYou */
@@ -1262,8 +1437,20 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_StartTracking_WaitingForStopCommand_STTstart:
 			exitSequence_main_region_StartTracking_WaitingForStopCommand_STTstart();
 			break;
-		case main_region_Wave:
-			exitSequence_main_region_Wave();
+		case main_region_Wave__region0_TrackingOffAndTurn:
+			exitSequence_main_region_Wave__region0_TrackingOffAndTurn();
+			break;
+		case main_region_Wave__region0_WaveFound:
+			exitSequence_main_region_Wave__region0_WaveFound();
+			break;
+		case main_region_Wave__region0_Turn:
+			exitSequence_main_region_Wave__region0_Turn();
+			break;
+		case main_region_Wave__region0_DetectionOn:
+			exitSequence_main_region_Wave__region0_DetectionOn();
+			break;
+		case main_region_Wave__region0_PersonFound:
+			exitSequence_main_region_Wave__region0_PersonFound();
 			break;
 		case main_region_HowCanIHelpYou_main_region_StateA:
 			exitSequence_main_region_HowCanIHelpYou_main_region_StateA();
@@ -1326,6 +1513,29 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			break;
 		case main_region_StartTracking_WaitingForStopCommand_STTstart:
 			exitSequence_main_region_StartTracking_WaitingForStopCommand_STTstart();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region null */
+	private void exitSequence_main_region_Wave__region0() {
+		switch (stateVector[0]) {
+		case main_region_Wave__region0_TrackingOffAndTurn:
+			exitSequence_main_region_Wave__region0_TrackingOffAndTurn();
+			break;
+		case main_region_Wave__region0_WaveFound:
+			exitSequence_main_region_Wave__region0_WaveFound();
+			break;
+		case main_region_Wave__region0_Turn:
+			exitSequence_main_region_Wave__region0_Turn();
+			break;
+		case main_region_Wave__region0_DetectionOn:
+			exitSequence_main_region_Wave__region0_DetectionOn();
+			break;
+		case main_region_Wave__region0_PersonFound:
+			exitSequence_main_region_Wave__region0_PersonFound();
 			break;
 		default:
 			break;
@@ -1429,11 +1639,37 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		}
 	}
 	
-	/* The reactions of state Wave. */
-	private void react_main_region_Wave() {
-		if (check_main_region_Wave_tr0_tr0()) {
-			effect_main_region_Wave_tr0();
+	/* The reactions of state TrackingOffAndTurn. */
+	private void react_main_region_Wave__region0_TrackingOffAndTurn() {
+		if (check_main_region_Wave__region0_TrackingOffAndTurn_tr0_tr0()) {
+			effect_main_region_Wave__region0_TrackingOffAndTurn_tr0();
 		}
+	}
+	
+	/* The reactions of state WaveFound. */
+	private void react_main_region_Wave__region0_WaveFound() {
+		if (check_main_region_Wave__region0_WaveFound_tr0_tr0()) {
+			effect_main_region_Wave__region0_WaveFound_tr0();
+		}
+	}
+	
+	/* The reactions of state Turn. */
+	private void react_main_region_Wave__region0_Turn() {
+		if (check_main_region_Wave__region0_Turn_tr0_tr0()) {
+			effect_main_region_Wave__region0_Turn_tr0();
+		}
+	}
+	
+	/* The reactions of state DetectionOn. */
+	private void react_main_region_Wave__region0_DetectionOn() {
+		if (check_main_region_Wave__region0_DetectionOn_tr0_tr0()) {
+			effect_main_region_Wave__region0_DetectionOn_tr0();
+		}
+	}
+	
+	/* The reactions of state PersonFound. */
+	private void react_main_region_Wave__region0_PersonFound() {
+		effect_main_region_Wave__region0_PersonFound_tr0();
 	}
 	
 	/* The reactions of state StateA. */
@@ -1605,6 +1841,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	/* Default react sequence for initial entry  */
+	private void react_main_region_Wave__region0__entry_Default() {
+		enterSequence_main_region_Wave__region0_TrackingOffAndTurn_default();
+	}
+	
+	/* Default react sequence for initial entry  */
 	private void react_main_region_HowCanIHelpYou_main_region__entry_Default() {
 		enterSequence_main_region_HowCanIHelpYou_main_region_StateA_default();
 	}
@@ -1617,6 +1858,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* The reactions of exit exit_arrived. */
 	private void react_main_region_StartTracking_WaitingForStopCommand_exit_arrived() {
 		effect_main_region_StartTracking_tr1();
+	}
+	
+	/* The reactions of exit exit_done. */
+	private void react_main_region_Wave__region0_exit_done() {
+		effect_main_region_Wave_tr0();
 	}
 	
 	/* The reactions of exit exit_goto. */
@@ -1651,8 +1897,20 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			case main_region_StartTracking_WaitingForStopCommand_STTstart:
 				react_main_region_StartTracking_WaitingForStopCommand_STTstart();
 				break;
-			case main_region_Wave:
-				react_main_region_Wave();
+			case main_region_Wave__region0_TrackingOffAndTurn:
+				react_main_region_Wave__region0_TrackingOffAndTurn();
+				break;
+			case main_region_Wave__region0_WaveFound:
+				react_main_region_Wave__region0_WaveFound();
+				break;
+			case main_region_Wave__region0_Turn:
+				react_main_region_Wave__region0_Turn();
+				break;
+			case main_region_Wave__region0_DetectionOn:
+				react_main_region_Wave__region0_DetectionOn();
+				break;
+			case main_region_Wave__region0_PersonFound:
+				react_main_region_Wave__region0_PersonFound();
 				break;
 			case main_region_HowCanIHelpYou_main_region_StateA:
 				react_main_region_HowCanIHelpYou_main_region_StateA();

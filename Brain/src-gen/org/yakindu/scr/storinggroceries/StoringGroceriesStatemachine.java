@@ -105,6 +105,8 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		main_region__final_,
 		main_region_requestReady,
 		main_region_AdditionalInfo,
+		main_region_movePTU,
+		main_region_wait,
 		$NullState$
 	};
 	
@@ -114,7 +116,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[2];
+	private final boolean[] timeEvents = new boolean[3];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -236,6 +238,10 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			return stateVector[0] == State.main_region_requestReady;
 		case main_region_AdditionalInfo:
 			return stateVector[0] == State.main_region_AdditionalInfo;
+		case main_region_movePTU:
+			return stateVector[0] == State.main_region_movePTU;
+		case main_region_wait:
+			return stateVector[0] == State.main_region_wait;
 		default:
 			return false;
 		}
@@ -278,7 +284,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	}
 	
 	private boolean check_main_region_doors_tr0_tr0() {
-		return timeEvents[0];
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_region_ObjectDetection_tr0_tr0() {
@@ -286,7 +292,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	}
 	
 	private boolean check_main_region_TurnToTable_tr0_tr0() {
-		return timeEvents[1];
+		return timeEvents[0];
 	}
 	
 	private boolean check_main_region_inspectTable_tr0_tr0() {
@@ -305,9 +311,17 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_movePTU_tr0_tr0() {
+		return timeEvents[1];
+	}
+	
+	private boolean check_main_region_wait_tr0_tr0() {
+		return timeEvents[2];
+	}
+	
 	private void effect_main_region_doors_tr0() {
 		exitSequence_main_region_doors();
-		enterSequence_main_region_ObjectDetection_default();
+		enterSequence_main_region_wait_default();
 	}
 	
 	private void effect_main_region_ObjectDetection_tr0() {
@@ -332,7 +346,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_main_region_requestReady_tr0() {
 		exitSequence_main_region_requestReady();
-		enterSequence_main_region_doors_default();
+		enterSequence_main_region_movePTU_default();
 	}
 	
 	private void effect_main_region_AdditionalInfo_tr0() {
@@ -340,11 +354,19 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		enterSequence_main_region__final__default();
 	}
 	
+	private void effect_main_region_movePTU_tr0() {
+		exitSequence_main_region_movePTU();
+		enterSequence_main_region_doors_default();
+	}
+	
+	private void effect_main_region_wait_tr0() {
+		exitSequence_main_region_wait();
+		enterSequence_main_region_ObjectDetection_default();
+	}
+	
 	/* Entry action for state 'doors'. */
 	private void entryAction_main_region_doors() {
-		timer.setTimer(this, 0, 10*1000, false);
-		
-		sCIHBrain.operationCallback.sendTTS("[:-|] I want to see the objects in the cupboard. [-.-] But I don't have a manipulator to open the doors. [:-)] Can somebody help me please.");
+		sCIHBrain.operationCallback.sendTTS("I want to see the objects in the cupboard. [-.-] But I don't have a manipulator to open the doors. [:-)] Can somebody help me please.");
 	}
 	
 	/* Entry action for state 'ObjectDetection'. */
@@ -354,9 +376,11 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'TurnToTable'. */
 	private void entryAction_main_region_TurnToTable() {
-		timer.setTimer(this, 1, 5*1000, false);
+		timer.setTimer(this, 0, 50*1000, false);
 		
-		sCIMira.operationCallback.sendTurnBody(180);
+		sCIMira.operationCallback.sendPanCamera(-100);
+		
+		sCIMira.operationCallback.sendTiltCamera(-50);
 	}
 	
 	/* Entry action for state 'inspectTable'. */
@@ -373,6 +397,8 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'requestReady'. */
 	private void entryAction_main_region_requestReady() {
+		sCIHBrain.operationCallback.sendTTS("[:-|][blush:false]");
+		
 		sCIObjectDetection.operationCallback.sendReadyRequest();
 	}
 	
@@ -381,14 +407,31 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		sCIHBrain.operationCallback.sendTTS("[:-|] You can find more detailed information about the found objects in the PDF document. Therefore ask another RT-Lion. [sleepy]");
 	}
 	
-	/* Exit action for state 'doors'. */
-	private void exitAction_main_region_doors() {
-		timer.unsetTimer(this, 0);
+	/* Entry action for state 'movePTU'. */
+	private void entryAction_main_region_movePTU() {
+		timer.setTimer(this, 1, 3*1000, false);
+		
+		sCIMira.operationCallback.sendPanTiltCamera(100, -10);
+	}
+	
+	/* Entry action for state 'wait'. */
+	private void entryAction_main_region_wait() {
+		timer.setTimer(this, 2, 10*1000, false);
 	}
 	
 	/* Exit action for state 'TurnToTable'. */
 	private void exitAction_main_region_TurnToTable() {
+		timer.unsetTimer(this, 0);
+	}
+	
+	/* Exit action for state 'movePTU'. */
+	private void exitAction_main_region_movePTU() {
 		timer.unsetTimer(this, 1);
+	}
+	
+	/* Exit action for state 'wait'. */
+	private void exitAction_main_region_wait() {
+		timer.unsetTimer(this, 2);
 	}
 	
 	/* 'default' enter sequence for state doors */
@@ -446,6 +489,20 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[0] = State.main_region_AdditionalInfo;
 	}
 	
+	/* 'default' enter sequence for state movePTU */
+	private void enterSequence_main_region_movePTU_default() {
+		entryAction_main_region_movePTU();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_movePTU;
+	}
+	
+	/* 'default' enter sequence for state wait */
+	private void enterSequence_main_region_wait_default() {
+		entryAction_main_region_wait();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_wait;
+	}
+	
 	/* 'default' enter sequence for region main region */
 	private void enterSequence_main_region_default() {
 		react_main_region__entry_Default();
@@ -455,8 +512,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	private void exitSequence_main_region_doors() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_region_doors();
 	}
 	
 	/* Default exit sequence for state ObjectDetection */
@@ -503,6 +558,22 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state movePTU */
+	private void exitSequence_main_region_movePTU() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_movePTU();
+	}
+	
+	/* Default exit sequence for state wait */
+	private void exitSequence_main_region_wait() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_wait();
+	}
+	
 	/* Default exit sequence for region main region */
 	private void exitSequence_main_region() {
 		switch (stateVector[0]) {
@@ -529,6 +600,12 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			break;
 		case main_region_AdditionalInfo:
 			exitSequence_main_region_AdditionalInfo();
+			break;
+		case main_region_movePTU:
+			exitSequence_main_region_movePTU();
+			break;
+		case main_region_wait:
+			exitSequence_main_region_wait();
 			break;
 		default:
 			break;
@@ -588,6 +665,20 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		}
 	}
 	
+	/* The reactions of state movePTU. */
+	private void react_main_region_movePTU() {
+		if (check_main_region_movePTU_tr0_tr0()) {
+			effect_main_region_movePTU_tr0();
+		}
+	}
+	
+	/* The reactions of state wait. */
+	private void react_main_region_wait() {
+		if (check_main_region_wait_tr0_tr0()) {
+			effect_main_region_wait_tr0();
+		}
+	}
+	
 	/* Default react sequence for initial entry  */
 	private void react_main_region__entry_Default() {
 		enterSequence_main_region_requestReady_default();
@@ -623,6 +714,12 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 				break;
 			case main_region_AdditionalInfo:
 				react_main_region_AdditionalInfo();
+				break;
+			case main_region_movePTU:
+				react_main_region_movePTU();
+				break;
+			case main_region_wait:
+				react_main_region_wait();
 				break;
 			default:
 				// $NullState$

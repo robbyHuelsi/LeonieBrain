@@ -35,17 +35,23 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 		public void raiseNoiseDetected();
 		
+		public void raiseWaveDetected();
+		
 		public void setSCIKinect2OperationCallback(SCIKinect2OperationCallback operationCallback);
 	
 	}
 	
 	public interface SCIKinect2OperationCallback {
 	
-		public String getGesture();
-		
 		public long getNoiseAngle();
 		
+		public double getWavingX();
+		
+		public double getWavingY();
+		
 		public void sendNoiseDetectionOnOff(boolean inOnOff);
+		
+		public void sendWavingDetectionOnOff(boolean inOnOff);
 		
 	}
 	
@@ -81,13 +87,19 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		
 		public void sendSearchOnOff(boolean inOnOff);
 		
+		public void sendPanCamera(long inPan);
+		
+		public void sendTiltCamera(long inTilt);
+		
+		public void sendPanTiltCamera(long inPan, long inTilt);
+		
 	}
 	
 	public SCIMira getSCIMira();
 	
 	public interface SCISTT {
 	
-		public void raiseTextReceived();
+		public void raiseSpokenTextReceived();
 		
 		public void raiseIncomprehensible();
 		

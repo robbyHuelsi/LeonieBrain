@@ -10,7 +10,8 @@ public class OpCallbackImplMira implements
 	org.yakindu.scr.storinggroceries.IStoringGroceriesStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIMiraOperationCallback,
-	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIMiraOperationCallback
+	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.test_mira.ITest_MiraStatemachine.SCIMiraOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();
@@ -63,14 +64,46 @@ public class OpCallbackImplMira implements
 
 	public void sendTurnHead(long inAngle) {
 		System.out.println("Turn Body: angle=" + inAngle);
-		  Communication.sendMessage("#MIRA#ROTHEAD#" + inAngle + "#", modules.get("Mira"));
+		Communication.sendMessage("#MIRA#ROTHEAD#" + inAngle + "#", modules.get("Mira"));
+	}
+	
+	public void sendPanCamera(long inPan){
+		System.out.println("Pan Camera:" + inPan);
+		Communication.sendMessage("#MIRA#PTU#setPanVelocity#30#", modules.get("Mira"));
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		Communication.sendMessage("#MIRA#PTU#pan#" + inPan + "#", modules.get("Mira"));
+	}
+	
+	public void sendTiltCamera(long inTilt){
+		System.out.println("Pan Camera:" + inTilt);
+		Communication.sendMessage("#MIRA#PTU#setTiltVelocity#30#", modules.get("Mira"));
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		Communication.sendMessage("#MIRA#PTU#tilt#" + inTilt + "#", modules.get("Mira"));
+	}
+	
+	public void sendPanTiltCamera(long inPan, long inTilt) {
+		System.out.println("Pan Camera:" + inPan);
+		sendPanCamera(inPan);
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		sendTiltCamera(inTilt);
+		
 	}
 
 	public void sendGoToLC(long inX, long inY) {
 		System.out.println("Go to local coordinates: x=" + inX + ", y=" + inY);
 		Communication.sendMessage("#MIRA#LC#" + inX + ";" + inY + ";#", modules.get("Mira"));
 	}
-	
-	//TODO implement sendTurnPTU()
 
 }

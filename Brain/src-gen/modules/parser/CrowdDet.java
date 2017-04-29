@@ -22,9 +22,7 @@ public class CrowdDet implements IParser, Serializable{
 		//age: -1 = not detectable
 		//position: 0 = stehen; 1 = sitzen; 2 = liegen
 
-		
-		//TODO Muss getestet werden
-		
+				
 		this.start = start;
 		
 		this.personList.removeAllElements();

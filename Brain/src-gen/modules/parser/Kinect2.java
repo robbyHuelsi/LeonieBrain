@@ -11,22 +11,43 @@ public class Kinect2 implements IParser, Serializable{
 	
 	// Parsed information
 	private boolean noiseDetected;
+	private boolean wavingDetected;
 	private int noiseAngle;
-	private String gesture;
-
+	private double wavingX;
+	private double wavingY;
+	
 	public boolean parse(String data, Start start) {
 		this.start = start;
-		// #NOISEDETECTION#1;30;32# [0]: (bool)found [1]:
-		// (int)angle_body [2]: (int)angle_noise
-		String[] attributePartsND = data.split(";");
-		if (attributePartsND[0].contains("1")) {
-			System.out.println("Noise detected: " + attributePartsND[1]);
-			this.setNoiseDetected(true);
-			this.setNoiseAngle(Integer.parseInt(attributePartsND[1]));
-		} else {
-			//System.out.println("No noises");
-			this.setNoiseDetected(false);
+		// NOISE#[FoundNoise:1/0];[ANGLE_BODY:int];[ANGLE_NOISE:int]#
+		// WAVE#[FoundWave:1/0];[HEAD_X:double];[HEAD_Y:double]#
+
+		String[] datas = data.split("#");
+		
+		if (datas[0].equals("NOISE")) {
+			String[] noiseDatas = datas[1].split(";");
+			if (noiseDatas[0].contains("1")) {
+				System.out.println("Noise detected: " + noiseDatas[1]);
+				this.setNoiseAngle(Integer.parseInt(noiseDatas[1]));
+				this.setNoiseDetected(true);
+			} else {
+				//System.out.println("No noises");
+				this.setNoiseDetected(false);
+			}
+			
+		}else if(datas[0].equals("WAVE")){
+			String[] waveDatas = datas[1].split(";");
+			if (waveDatas[0].contains("1")) {
+				System.out.println("Waving detected: " + waveDatas[1] + "; " + waveDatas[2]);
+				this.setWavingX(Double.parseDouble(waveDatas[1]));
+				this.setWavingY(Double.parseDouble(waveDatas[2]));
+				this.setWavingDetected(true);
+			} else {
+				//System.out.println("No waving");
+				this.setWavingDetected(false);
+			}
 		}
+		
+		
 		return true;
 		
 	}
@@ -42,6 +63,19 @@ public class Kinect2 implements IParser, Serializable{
 			start.getStatemachine().raiseEventOfSCI("Kinect2","noiseDetected");
 		}
 	}
+	
+	public boolean isWavingDetected() {
+		return wavingDetected;
+	}
+
+	public void setWavingDetected(boolean wavingDetected) {
+		this.wavingDetected = wavingDetected;
+		
+		if (wavingDetected) {
+			start.getStatemachine().raiseEventOfSCI("Kinect2","wavingDetected");
+		}
+		
+	}
 
 	public int getNoiseAngle() {
 		return noiseAngle;
@@ -51,18 +85,28 @@ public class Kinect2 implements IParser, Serializable{
 		this.noiseAngle = noiseAngle;
 	}
 
-	public String getGesture() {
-		return gesture;
+	public double getWavingX() {
+		return wavingX;
 	}
 
-	public void setGesture(String gesture) {
-		this.gesture = gesture;
+	public void setWavingX(double wavingX) {
+		this.wavingX = wavingX;
+	}
+
+	public double getWavingY() {
+		return wavingY;
+	}
+
+	public void setWavingY(double wavingY) {
+		this.wavingY = wavingY;
 	}
 
 	public boolean removeParsedInformation() {
 		this.noiseDetected = false;
+		this.wavingDetected = false;
 		this.noiseAngle = -1;
-		this.gesture = "";
+		this.wavingX = -1;
+		this.wavingY = -1;
 		return true;
 	}
 
