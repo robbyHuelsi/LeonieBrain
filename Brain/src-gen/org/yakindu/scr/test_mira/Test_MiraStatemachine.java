@@ -297,28 +297,28 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 	private void entryAction_main_region_PTU() {
 		timer.setTimer(this, 0, 5*1000, false);
 		
-		sCIMira.operationCallback.sendPanCamera(100);
+		sCIMira.operationCallback.sendPanTiltCamera(0, 0);
 	}
 	
 	/* Entry action for state 'Copy_1_PTU'. */
 	private void entryAction_main_region_Copy_1_PTU() {
 		timer.setTimer(this, 1, 5*1000, false);
 		
-		sCIMira.operationCallback.sendTiltCamera(100);
+		sCIMira.operationCallback.sendPanTiltCamera(100, 100);
 	}
 	
 	/* Entry action for state 'Copy_2_PTU'. */
 	private void entryAction_main_region_Copy_2_PTU() {
 		timer.setTimer(this, 2, 5*1000, false);
 		
-		sCIMira.operationCallback.sendTiltCamera(-100);
+		sCIMira.operationCallback.sendPanTiltCamera(100, -100);
 	}
 	
 	/* Entry action for state 'Copy_3_PTU'. */
 	private void entryAction_main_region_Copy_3_PTU() {
 		timer.setTimer(this, 3, 5*1000, false);
 		
-		sCIMira.operationCallback.sendPanCamera(-100);
+		sCIMira.operationCallback.sendPanTiltCamera(-100, 0);
 	}
 	
 	/* Entry action for state 'Bumpered'. */

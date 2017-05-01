@@ -5,16 +5,16 @@
       <vertices xsi:type="sgraph:Entry" xmi:id="_JpfZQSW6Eee3AZC_9tnEag">
         <outgoingTransitions xmi:id="_X4zZoCz3Eeecj-uLLtmD-Q" specification="" target="_XbfykCz3Eeecj-uLLtmD-Q"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_XbfykCz3Eeecj-uLLtmD-Q" specification="entry /&#xA;Mira.sendPanCamera(100)" name="PTU" incomingTransitions="_X4zZoCz3Eeecj-uLLtmD-Q _vH9n4Cz3Eeecj-uLLtmD-Q">
+      <vertices xsi:type="sgraph:State" xmi:id="_XbfykCz3Eeecj-uLLtmD-Q" specification="entry /&#xA;Mira.sendPanTiltCamera(0,0)" name="PTU" incomingTransitions="_X4zZoCz3Eeecj-uLLtmD-Q _vH9n4Cz3Eeecj-uLLtmD-Q">
         <outgoingTransitions xmi:id="_r4lh0Cz3Eeecj-uLLtmD-Q" specification="after 5s" target="_njETHCz3Eeecj-uLLtmD-Q"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_njETHCz3Eeecj-uLLtmD-Q" specification="entry /&#xA;Mira.sendTiltCamera(100)" name="Copy_1_PTU" incomingTransitions="_r4lh0Cz3Eeecj-uLLtmD-Q">
+      <vertices xsi:type="sgraph:State" xmi:id="_njETHCz3Eeecj-uLLtmD-Q" specification="entry /&#xA;Mira.sendPanTiltCamera(100,100)" name="Copy_1_PTU" incomingTransitions="_r4lh0Cz3Eeecj-uLLtmD-Q">
         <outgoingTransitions xmi:id="_tLZ0kCz3Eeecj-uLLtmD-Q" specification="after 5s" target="_qDVQYCz3Eeecj-uLLtmD-Q"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_qDUpUCz3Eeecj-uLLtmD-Q" specification="entry /&#xA;Mira.sendTiltCamera(-100)" name="Copy_2_PTU" incomingTransitions="_uEPhECz3Eeecj-uLLtmD-Q">
+      <vertices xsi:type="sgraph:State" xmi:id="_qDUpUCz3Eeecj-uLLtmD-Q" specification="entry /&#xA;Mira.sendPanTiltCamera(100,-100)" name="Copy_2_PTU" incomingTransitions="_uEPhECz3Eeecj-uLLtmD-Q">
         <outgoingTransitions xmi:id="_vH9n4Cz3Eeecj-uLLtmD-Q" specification="after 5s" target="_XbfykCz3Eeecj-uLLtmD-Q"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_qDVQYCz3Eeecj-uLLtmD-Q" specification="entry /&#xA;Mira.sendPanCamera(-100)" name="Copy_3_PTU" incomingTransitions="_tLZ0kCz3Eeecj-uLLtmD-Q">
+      <vertices xsi:type="sgraph:State" xmi:id="_qDVQYCz3Eeecj-uLLtmD-Q" specification="entry /&#xA;Mira.sendPanTiltCamera(-100,0)" name="Copy_3_PTU" incomingTransitions="_tLZ0kCz3Eeecj-uLLtmD-Q">
         <outgoingTransitions xmi:id="_uEPhECz3Eeecj-uLLtmD-Q" specification="after 5s" target="_qDUpUCz3Eeecj-uLLtmD-Q"/>
       </vertices>
     </regions>
@@ -71,7 +71,7 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_XbgZoSz3Eeecj-uLLtmD-Q" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_XbgZoiz3Eeecj-uLLtmD-Q"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_XbgZqyz3Eeecj-uLLtmD-Q" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_XbgZoyz3Eeecj-uLLtmD-Q" x="145" y="99" width="264"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_XbgZoyz3Eeecj-uLLtmD-Q" x="145" y="75" width="264" height="77"/>
         </children>
         <children xmi:id="_njETECz3Eeecj-uLLtmD-Q" type="State" element="_njETHCz3Eeecj-uLLtmD-Q">
           <children xsi:type="notation:DecorationNode" xmi:id="_njETESz3Eeecj-uLLtmD-Q" type="StateName">
@@ -134,7 +134,7 @@
       <children xsi:type="notation:Shape" xmi:id="_JpjqtSW6Eee3AZC_9tnEag" type="StatechartTextExpression" fontName="Verdana" lineColor="4210752">
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_JpjqtiW6Eee3AZC_9tnEag"/>
       </children>
-      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_JpkRwCW6Eee3AZC_9tnEag" x="10" y="10" width="345" height="610"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_JpkRwCW6Eee3AZC_9tnEag" x="10" y="10" width="345" height="570"/>
     </children>
     <children xmi:id="_yaHAsC5NEeeEYrHQueAAcQ" type="Region" element="_yaHA8i5NEeeEYrHQueAAcQ">
       <children xsi:type="notation:DecorationNode" xmi:id="_yaHAsS5NEeeEYrHQueAAcQ" type="RegionName">

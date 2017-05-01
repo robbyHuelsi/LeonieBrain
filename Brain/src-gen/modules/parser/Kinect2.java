@@ -38,7 +38,7 @@ public class Kinect2 implements IParser, Serializable{
 		}else if(datas[0].equals("PERSON")){
 			String[] waveDatas = datas[1].split(";");
 			if (waveDatas[0].contains("1")) {
-				System.out.println("Kinect2: Person detected (x: " + waveDatas[2] + ", y: " + waveDatas[3] + ", Wiving: " + waveDatas[1] + ")");
+				System.out.println("Kinect2: Person detected (x: " + waveDatas[2] + ", y: " + waveDatas[3] + ", Waving: " + waveDatas[1] + ")");
 				this.setWavingX(Double.parseDouble(waveDatas[2]));
 				this.setWavingY(Double.parseDouble(waveDatas[3]));
 				this.setWavingDetected(waveDatas[1].equals("1"));

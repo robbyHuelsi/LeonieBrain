@@ -47,7 +47,6 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 		return ((Kinect2)modules.getParser("Kinect2")).getWavingY();
 	}
 
-	@Override
 	public void sendInit() {
 		sendNoiseDetectionOnOff(false);
 		sendWavingDetectionOnOff(false);
