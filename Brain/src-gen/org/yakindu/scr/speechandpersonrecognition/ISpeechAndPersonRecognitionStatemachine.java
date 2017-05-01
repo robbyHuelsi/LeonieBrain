@@ -27,6 +27,8 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		
 		public long getRandNum(long max);
 		
+		public long getGWPByName(String inName);
+		
 	}
 	
 	public SCIBGF getSCIBGF();
@@ -186,6 +188,8 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		public long getSpecificCount(long gender, long minAge, long maxAge, long position);
 		
 		public String getSummaryText();
+		
+		public String getAnswerForSecificCrowdDetails(String inDetails);
 		
 		public boolean areAllGendersDetected();
 		

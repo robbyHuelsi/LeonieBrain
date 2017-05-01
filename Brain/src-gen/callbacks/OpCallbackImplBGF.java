@@ -8,7 +8,9 @@ import modules.Modules;
 
 public class OpCallbackImplBGF implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIBGFOperationCallback,
-	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIBGFOperationCallback
+	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIBGFOperationCallback
 {
 	
 	private PersonList personList = Start.instanceOf().getPersonList();
@@ -35,5 +37,21 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 
 	public String intToString(long inInt) {
 		return "" + inInt;
+	}
+
+	public long getGWPByName(String inName) {
+		switch (inName) {
+		case "kitchen":
+			return 0;
+			
+		case "frontdoor":
+			return 1;
+			
+		case "living room":
+			return 2;
+
+		default:
+			return -1;
+		}
 	}
 }

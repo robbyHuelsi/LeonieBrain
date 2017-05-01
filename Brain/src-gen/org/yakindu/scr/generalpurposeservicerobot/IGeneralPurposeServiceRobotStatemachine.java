@@ -5,6 +5,34 @@ import org.yakindu.scr.ITimerCallback;
 
 public interface IGeneralPurposeServiceRobotStatemachine extends ITimerCallback,IStatemachine {
 
+	public interface SCIBGF {
+	
+		public long getEventNum();
+		
+		public void setEventNum(long value);
+		
+		public long getRandNum();
+		
+		public void setRandNum(long value);
+		
+		public void setSCIBGFOperationCallback(SCIBGFOperationCallback operationCallback);
+	
+	}
+	
+	public interface SCIBGFOperationCallback {
+	
+		public void printToConsole(String msg);
+		
+		public String intToString(long inInt);
+		
+		public long getRandNum(long max);
+		
+		public long getGWPByName(String inName);
+		
+	}
+	
+	public SCIBGF getSCIBGF();
+	
 	public interface SCIHBrain {
 	
 		public void raiseTTSReady();
@@ -132,6 +160,8 @@ public interface IGeneralPurposeServiceRobotStatemachine extends ITimerCallback,
 		public long getSpecificCount(long gender, long minAge, long maxAge, long position);
 		
 		public String getSummaryText();
+		
+		public String getAnswerForSecificCrowdDetails(String inDetails);
 		
 		public boolean areAllGendersDetected();
 		

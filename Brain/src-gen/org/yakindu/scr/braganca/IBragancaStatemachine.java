@@ -27,6 +27,8 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 		
 		public long getRandNum(long max);
 		
+		public long getGWPByName(String inName);
+		
 	}
 	
 	public SCIBGF getSCIBGF();

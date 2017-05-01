@@ -3,6 +3,38 @@ import org.yakindu.scr.ITimer;
 
 public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeServiceRobotStatemachine {
 
+	protected class SCIBGFImpl implements SCIBGF {
+	
+		private SCIBGFOperationCallback operationCallback;
+		
+		public void setSCIBGFOperationCallback(
+				SCIBGFOperationCallback operationCallback) {
+			this.operationCallback = operationCallback;
+		}
+		private long eventNum;
+		
+		public long getEventNum() {
+			return eventNum;
+		}
+		
+		public void setEventNum(long value) {
+			this.eventNum = value;
+		}
+		
+		private long randNum;
+		
+		public long getRandNum() {
+			return randNum;
+		}
+		
+		public void setRandNum(long value) {
+			this.randNum = value;
+		}
+		
+	}
+	
+	protected SCIBGFImpl sCIBGF;
+	
 	protected class SCIHBrainImpl implements SCIHBrain {
 	
 		private SCIHBrainOperationCallback operationCallback;
@@ -180,18 +212,21 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		main_region_StartSTT,
 		main_region_TellSpokenText,
 		main_region_TellAnswer,
-		main_region_TellAction,
-		main_region_TellAction_Instructions_GoTo,
-		main_region_TellAction_Instructions_crowd,
-		main_region_TellAction_Instructions_surrounding,
-		main_region_TellAction_Instructions_bring,
-		main_region_TellAction_Instructions_open,
-		main_region_TellAction_Instructions_followme,
-		main_region_TellAction_Instructions_unknown,
-		main_region_TellAction_Instructions_Tracking,
-		main_region_TellAction_Instructions_ReturnToOperator,
-		main_region_TellAction_Instructions_AnswerCrowd,
-		main_region_TellAction_Instructions_AnswerSurrounding,
+		main_region_DoAction,
+		main_region_DoAction_Instructions_GoTo,
+		main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom,
+		main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound,
+		main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived,
+		main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator,
+		main_region_DoAction_Instructions_surrounding,
+		main_region_DoAction_Instructions_bring,
+		main_region_DoAction_Instructions_open,
+		main_region_DoAction_Instructions_followme,
+		main_region_DoAction_Instructions_unknown,
+		main_region_DoAction_Instructions_Tracking,
+		main_region_DoAction_Instructions_ReturnToOperator,
+		main_region_DoAction_Instructions_AnswerSurrounding,
+		main_region_DoAction_Instructions_Copy_1_crowd,
 		main_region_StopSTT,
 		main_region_TellIncomprehensible,
 		main_region_NextQuestion,
@@ -240,6 +275,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	public GeneralPurposeServiceRobotStatemachine() {
+		sCIBGF = new SCIBGFImpl();
 		sCIHBrain = new SCIHBrainImpl();
 		sCIMira = new SCIMiraImpl();
 		sCISTT = new SCISTTImpl();
@@ -258,6 +294,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		}
 		clearEvents();
 		clearOutEvents();
+		sCIBGF.setEventNum(0);
+		
+		sCIBGF.setRandNum(0);
+		
 		setCounter(0);
 		
 		setGWPout(0);
@@ -339,31 +379,38 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			return stateVector[0] == State.main_region_TellSpokenText;
 		case main_region_TellAnswer:
 			return stateVector[0] == State.main_region_TellAnswer;
-		case main_region_TellAction:
+		case main_region_DoAction:
 			return stateVector[0].ordinal() >= State.
-					main_region_TellAction.ordinal()&& stateVector[0].ordinal() <= State.main_region_TellAction_Instructions_AnswerSurrounding.ordinal();
-		case main_region_TellAction_Instructions_GoTo:
-			return stateVector[0] == State.main_region_TellAction_Instructions_GoTo;
-		case main_region_TellAction_Instructions_crowd:
-			return stateVector[0] == State.main_region_TellAction_Instructions_crowd;
-		case main_region_TellAction_Instructions_surrounding:
-			return stateVector[0] == State.main_region_TellAction_Instructions_surrounding;
-		case main_region_TellAction_Instructions_bring:
-			return stateVector[0] == State.main_region_TellAction_Instructions_bring;
-		case main_region_TellAction_Instructions_open:
-			return stateVector[0] == State.main_region_TellAction_Instructions_open;
-		case main_region_TellAction_Instructions_followme:
-			return stateVector[0] == State.main_region_TellAction_Instructions_followme;
-		case main_region_TellAction_Instructions_unknown:
-			return stateVector[0] == State.main_region_TellAction_Instructions_unknown;
-		case main_region_TellAction_Instructions_Tracking:
-			return stateVector[0] == State.main_region_TellAction_Instructions_Tracking;
-		case main_region_TellAction_Instructions_ReturnToOperator:
-			return stateVector[0] == State.main_region_TellAction_Instructions_ReturnToOperator;
-		case main_region_TellAction_Instructions_AnswerCrowd:
-			return stateVector[0] == State.main_region_TellAction_Instructions_AnswerCrowd;
-		case main_region_TellAction_Instructions_AnswerSurrounding:
-			return stateVector[0] == State.main_region_TellAction_Instructions_AnswerSurrounding;
+					main_region_DoAction.ordinal()&& stateVector[0].ordinal() <= State.main_region_DoAction_Instructions_Copy_1_crowd.ordinal();
+		case main_region_DoAction_Instructions_GoTo:
+			return stateVector[0].ordinal() >= State.
+					main_region_DoAction_Instructions_GoTo.ordinal()&& stateVector[0].ordinal() <= State.main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator.ordinal();
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom:
+			return stateVector[0] == State.main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom;
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound:
+			return stateVector[0] == State.main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound;
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived:
+			return stateVector[0] == State.main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived;
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator:
+			return stateVector[0] == State.main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator;
+		case main_region_DoAction_Instructions_surrounding:
+			return stateVector[0] == State.main_region_DoAction_Instructions_surrounding;
+		case main_region_DoAction_Instructions_bring:
+			return stateVector[0] == State.main_region_DoAction_Instructions_bring;
+		case main_region_DoAction_Instructions_open:
+			return stateVector[0] == State.main_region_DoAction_Instructions_open;
+		case main_region_DoAction_Instructions_followme:
+			return stateVector[0] == State.main_region_DoAction_Instructions_followme;
+		case main_region_DoAction_Instructions_unknown:
+			return stateVector[0] == State.main_region_DoAction_Instructions_unknown;
+		case main_region_DoAction_Instructions_Tracking:
+			return stateVector[0] == State.main_region_DoAction_Instructions_Tracking;
+		case main_region_DoAction_Instructions_ReturnToOperator:
+			return stateVector[0] == State.main_region_DoAction_Instructions_ReturnToOperator;
+		case main_region_DoAction_Instructions_AnswerSurrounding:
+			return stateVector[0] == State.main_region_DoAction_Instructions_AnswerSurrounding;
+		case main_region_DoAction_Instructions_Copy_1_crowd:
+			return stateVector[0] == State.main_region_DoAction_Instructions_Copy_1_crowd;
 		case main_region_StopSTT:
 			return stateVector[0] == State.main_region_StopSTT;
 		case main_region_TellIncomprehensible:
@@ -405,6 +452,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	public void timeElapsed(int eventID) {
 		timeEvents[eventID] = true;
+	}
+	
+	public SCIBGF getSCIBGF() {
+		return sCIBGF;
 	}
 	
 	public SCIHBrain getSCIHBrain() {
@@ -467,47 +518,59 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_TellAction_Instructions_GoTo_tr0_tr0() {
+	private boolean check_main_region_DoAction_Instructions_GoTo_tr0_tr0() {
 		return sCIMira.arrivedWP;
 	}
 	
-	private boolean check_main_region_TellAction_Instructions_crowd_tr0_tr0() {
-		return sCISTT.answerReceived;
+	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_tr0_tr0() {
+		return sCIMira.arrivedWP;
 	}
 	
-	private boolean check_main_region_TellAction_Instructions_surrounding_tr0_tr0() {
-		return sCISTT.answerReceived;
-	}
-	
-	private boolean check_main_region_TellAction_Instructions_bring_tr0_tr0() {
+	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_TellAction_Instructions_open_tr0_tr0() {
+	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_TellAction_Instructions_followme_tr0_tr0() {
+	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator_tr0_tr0() {
+		return sCIMira.arrivedWP;
+	}
+	
+	private boolean check_main_region_DoAction_Instructions_surrounding_tr0_tr0() {
+		return sCISTT.answerReceived;
+	}
+	
+	private boolean check_main_region_DoAction_Instructions_bring_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_DoAction_Instructions_open_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_DoAction_Instructions_followme_tr0_tr0() {
 		return sCIFollowMe.detectionPersonFound;
 	}
 	
-	private boolean check_main_region_TellAction_Instructions_unknown_tr0_tr0() {
+	private boolean check_main_region_DoAction_Instructions_unknown_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_TellAction_Instructions_Tracking_tr1_tr1() {
+	private boolean check_main_region_DoAction_Instructions_Tracking_tr1_tr1() {
 		return sCIFollowMe.trackingPersonLost;
 	}
 	
-	private boolean check_main_region_TellAction_Instructions_ReturnToOperator_tr0_tr0() {
+	private boolean check_main_region_DoAction_Instructions_ReturnToOperator_tr0_tr0() {
 		return sCIMira.arrivedWP;
 	}
 	
-	private boolean check_main_region_TellAction_Instructions_AnswerCrowd_tr0_tr0() {
+	private boolean check_main_region_DoAction_Instructions_AnswerSurrounding_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_TellAction_Instructions_AnswerSurrounding_tr0_tr0() {
+	private boolean check_main_region_DoAction_Instructions_Copy_1_crowd_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
@@ -543,31 +606,39 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return timeEvents[1];
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr0_tr0() {
+	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP__choice_0_tr1_tr1() {
+		return sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObject())==-1;
+	}
+	
+	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP__choice_0_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_DoAction_Instructions__choice_0_tr0_tr0() {
 		return (sCISTT.operationCallback.getInstruction()== null?"goto" ==null :sCISTT.operationCallback.getInstruction().equals("goto"));
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr1_tr1() {
+	private boolean check_main_region_DoAction_Instructions__choice_0_tr1_tr1() {
 		return (sCISTT.operationCallback.getInstruction()== null?"crowd" ==null :sCISTT.operationCallback.getInstruction().equals("crowd"));
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr2_tr2() {
+	private boolean check_main_region_DoAction_Instructions__choice_0_tr2_tr2() {
 		return (sCISTT.operationCallback.getInstruction()== null?"surrounding" ==null :sCISTT.operationCallback.getInstruction().equals("surrounding"));
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr3_tr3() {
+	private boolean check_main_region_DoAction_Instructions__choice_0_tr3_tr3() {
 		return (sCISTT.operationCallback.getInstruction()== null?"bring" ==null :sCISTT.operationCallback.getInstruction().equals("bring"));
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr4_tr4() {
+	private boolean check_main_region_DoAction_Instructions__choice_0_tr4_tr4() {
 		return (sCISTT.operationCallback.getInstruction()== null?"open" ==null :sCISTT.operationCallback.getInstruction().equals("open"));
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr5_tr5() {
+	private boolean check_main_region_DoAction_Instructions__choice_0_tr5_tr5() {
 		return (sCISTT.operationCallback.getInstruction()== null?"followme" ==null :sCISTT.operationCallback.getInstruction().equals("followme"));
 	}
 	
-	private boolean check_main_region_TellAction_Instructions__choice_0_tr6_tr6() {
+	private boolean check_main_region_DoAction_Instructions__choice_0_tr6_tr6() {
 		return true;
 	}
 	
@@ -611,7 +682,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	private void effect_main_region_TellSpokenText_tr1() {
 		exitSequence_main_region_TellSpokenText();
-		enterSequence_main_region_TellAction_default();
+		enterSequence_main_region_DoAction_default();
 	}
 	
 	private void effect_main_region_TellSpokenText_tr2() {
@@ -624,64 +695,77 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		enterSequence_main_region_StopSTT_default();
 	}
 	
-	private void effect_main_region_TellAction_tr0() {
-		exitSequence_main_region_TellAction();
+	private void effect_main_region_DoAction_tr0() {
+		exitSequence_main_region_DoAction();
 		enterSequence_main_region_StopSTT_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions_GoTo_tr0() {
-		exitSequence_main_region_TellAction_Instructions_GoTo();
-		react_main_region_TellAction_Instructions_exit_done();
+	private void effect_main_region_DoAction_Instructions_GoTo_tr0() {
+		exitSequence_main_region_DoAction_Instructions_GoTo();
+		react_main_region_DoAction_Instructions_exit_done();
 	}
 	
-	private void effect_main_region_TellAction_Instructions_crowd_tr0() {
-		exitSequence_main_region_TellAction_Instructions_crowd();
-		enterSequence_main_region_TellAction_Instructions_AnswerCrowd_default();
+	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_tr0() {
+		exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom();
+		enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions_surrounding_tr0() {
-		exitSequence_main_region_TellAction_Instructions_surrounding();
-		enterSequence_main_region_TellAction_Instructions_AnswerSurrounding_default();
+	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr0() {
+		exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound();
 	}
 	
-	private void effect_main_region_TellAction_Instructions_bring_tr0() {
-		exitSequence_main_region_TellAction_Instructions_bring();
-		react_main_region_TellAction_Instructions_exit_done();
+	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr0() {
+		exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived();
+		enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions_open_tr0() {
-		exitSequence_main_region_TellAction_Instructions_open();
-		react_main_region_TellAction_Instructions_exit_done();
+	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator_tr0() {
+		exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator();
 	}
 	
-	private void effect_main_region_TellAction_Instructions_followme_tr0() {
-		exitSequence_main_region_TellAction_Instructions_followme();
-		enterSequence_main_region_TellAction_Instructions_Tracking_default();
+	private void effect_main_region_DoAction_Instructions_surrounding_tr0() {
+		exitSequence_main_region_DoAction_Instructions_surrounding();
+		enterSequence_main_region_DoAction_Instructions_AnswerSurrounding_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions_unknown_tr0() {
-		exitSequence_main_region_TellAction_Instructions_unknown();
-		react_main_region_TellAction_Instructions_exit_done();
+	private void effect_main_region_DoAction_Instructions_bring_tr0() {
+		exitSequence_main_region_DoAction_Instructions_bring();
+		react_main_region_DoAction_Instructions_exit_done();
 	}
 	
-	private void effect_main_region_TellAction_Instructions_Tracking_tr1() {
-		exitSequence_main_region_TellAction_Instructions_Tracking();
-		enterSequence_main_region_TellAction_Instructions_followme_default();
+	private void effect_main_region_DoAction_Instructions_open_tr0() {
+		exitSequence_main_region_DoAction_Instructions_open();
+		react_main_region_DoAction_Instructions_exit_done();
 	}
 	
-	private void effect_main_region_TellAction_Instructions_ReturnToOperator_tr0() {
-		exitSequence_main_region_TellAction_Instructions_ReturnToOperator();
-		react_main_region_TellAction_Instructions_exit_done();
+	private void effect_main_region_DoAction_Instructions_followme_tr0() {
+		exitSequence_main_region_DoAction_Instructions_followme();
+		enterSequence_main_region_DoAction_Instructions_Tracking_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions_AnswerCrowd_tr0() {
-		exitSequence_main_region_TellAction_Instructions_AnswerCrowd();
-		react_main_region_TellAction_Instructions_exit_done();
+	private void effect_main_region_DoAction_Instructions_unknown_tr0() {
+		exitSequence_main_region_DoAction_Instructions_unknown();
+		react_main_region_DoAction_Instructions_exit_done();
 	}
 	
-	private void effect_main_region_TellAction_Instructions_AnswerSurrounding_tr0() {
-		exitSequence_main_region_TellAction_Instructions_AnswerSurrounding();
-		react_main_region_TellAction_Instructions_exit_done();
+	private void effect_main_region_DoAction_Instructions_Tracking_tr1() {
+		exitSequence_main_region_DoAction_Instructions_Tracking();
+		enterSequence_main_region_DoAction_Instructions_followme_default();
+	}
+	
+	private void effect_main_region_DoAction_Instructions_ReturnToOperator_tr0() {
+		exitSequence_main_region_DoAction_Instructions_ReturnToOperator();
+		react_main_region_DoAction_Instructions_exit_done();
+	}
+	
+	private void effect_main_region_DoAction_Instructions_AnswerSurrounding_tr0() {
+		exitSequence_main_region_DoAction_Instructions_AnswerSurrounding();
+		react_main_region_DoAction_Instructions_exit_done();
+	}
+	
+	private void effect_main_region_DoAction_Instructions_Copy_1_crowd_tr0() {
+		exitSequence_main_region_DoAction_Instructions_Copy_1_crowd();
+		react_main_region_DoAction_Instructions_exit_done();
 	}
 	
 	private void effect_main_region_StopSTT_tr0() {
@@ -724,32 +808,40 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions__choice_0_tr0() {
-		enterSequence_main_region_TellAction_Instructions_GoTo_default();
+	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP__choice_0_tr1() {
+		enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions__choice_0_tr1() {
-		enterSequence_main_region_TellAction_Instructions_crowd_default();
+	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP__choice_0_tr0() {
+		enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions__choice_0_tr2() {
-		enterSequence_main_region_TellAction_Instructions_surrounding_default();
+	private void effect_main_region_DoAction_Instructions__choice_0_tr0() {
+		enterSequence_main_region_DoAction_Instructions_GoTo_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions__choice_0_tr3() {
-		enterSequence_main_region_TellAction_Instructions_bring_default();
+	private void effect_main_region_DoAction_Instructions__choice_0_tr1() {
+		enterSequence_main_region_DoAction_Instructions_Copy_1_crowd_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions__choice_0_tr4() {
-		enterSequence_main_region_TellAction_Instructions_open_default();
+	private void effect_main_region_DoAction_Instructions__choice_0_tr2() {
+		enterSequence_main_region_DoAction_Instructions_surrounding_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions__choice_0_tr5() {
-		enterSequence_main_region_TellAction_Instructions_followme_default();
+	private void effect_main_region_DoAction_Instructions__choice_0_tr3() {
+		enterSequence_main_region_DoAction_Instructions_bring_default();
 	}
 	
-	private void effect_main_region_TellAction_Instructions__choice_0_tr6() {
-		enterSequence_main_region_TellAction_Instructions_unknown_default();
+	private void effect_main_region_DoAction_Instructions__choice_0_tr4() {
+		enterSequence_main_region_DoAction_Instructions_open_default();
+	}
+	
+	private void effect_main_region_DoAction_Instructions__choice_0_tr5() {
+		enterSequence_main_region_DoAction_Instructions_followme_default();
+	}
+	
+	private void effect_main_region_DoAction_Instructions__choice_0_tr6() {
+		enterSequence_main_region_DoAction_Instructions_unknown_default();
 	}
 	
 	private void effect_main_region__choice_0_tr1() {
@@ -793,6 +885,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_StartSTT() {
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		
+		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
 	
 	/* Entry action for state 'TellSpokenText'. */
@@ -807,64 +901,74 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		setCounter(counter+1);
 	}
 	
-	/* Entry action for state 'TellAction'. */
-	private void entryAction_main_region_TellAction() {
+	/* Entry action for state 'DoAction'. */
+	private void entryAction_main_region_DoAction() {
 		setCounter(counter+1);
 	}
 	
-	/* Entry action for state 'GoTo'. */
-	private void entryAction_main_region_TellAction_Instructions_GoTo() {
-		sCIMira.operationCallback.sendGoToGWP(0);
+	/* Entry action for state 'livingroom'. */
+	private void entryAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom() {
+		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObject()));
 	}
 	
-	/* Entry action for state 'crowd'. */
-	private void entryAction_main_region_TellAction_Instructions_crowd() {
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+	/* Entry action for state 'notFound'. */
+	private void entryAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound() {
+		sCIHBrain.operationCallback.sendTTS3("I don't know a location called ", sCISTT.operationCallback.getObject(), ".");
+	}
+	
+	/* Entry action for state 'arrived'. */
+	private void entryAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived() {
+		sCIHBrain.operationCallback.sendTTS3("I arrived at ", sCISTT.operationCallback.getObject(), ".");
+	}
+	
+	/* Entry action for state 'backToTheOperator'. */
+	private void entryAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator() {
+		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
 	}
 	
 	/* Entry action for state 'surrounding'. */
-	private void entryAction_main_region_TellAction_Instructions_surrounding() {
+	private void entryAction_main_region_DoAction_Instructions_surrounding() {
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 	}
 	
 	/* Entry action for state 'bring'. */
-	private void entryAction_main_region_TellAction_Instructions_bring() {
+	private void entryAction_main_region_DoAction_Instructions_bring() {
 		sCIHBrain.operationCallback.sendTTS("I'm sorry. I can't do this.");
 	}
 	
 	/* Entry action for state 'open'. */
-	private void entryAction_main_region_TellAction_Instructions_open() {
+	private void entryAction_main_region_DoAction_Instructions_open() {
 		sCIHBrain.operationCallback.sendTTS("I'm sorry. I can't do this.");
 	}
 	
 	/* Entry action for state 'followme'. */
-	private void entryAction_main_region_TellAction_Instructions_followme() {
+	private void entryAction_main_region_DoAction_Instructions_followme() {
 		sCIFollowMe.operationCallback.sendDetectionOn();
 	}
 	
 	/* Entry action for state 'unknown'. */
-	private void entryAction_main_region_TellAction_Instructions_unknown() {
+	private void entryAction_main_region_DoAction_Instructions_unknown() {
 		sCIHBrain.operationCallback.sendTTS("I'm sorry. This command is unknown.");
 	}
 	
 	/* Entry action for state 'Tracking'. */
-	private void entryAction_main_region_TellAction_Instructions_Tracking() {
+	private void entryAction_main_region_DoAction_Instructions_Tracking() {
 		sCIFollowMe.operationCallback.sendTrackingOnAtNext();
 	}
 	
 	/* Entry action for state 'ReturnToOperator'. */
-	private void entryAction_main_region_TellAction_Instructions_ReturnToOperator() {
+	private void entryAction_main_region_DoAction_Instructions_ReturnToOperator() {
 		sCIMira.operationCallback.sendGoToGWP(0);
 	}
 	
-	/* Entry action for state 'AnswerCrowd'. */
-	private void entryAction_main_region_TellAction_Instructions_AnswerCrowd() {
+	/* Entry action for state 'AnswerSurrounding'. */
+	private void entryAction_main_region_DoAction_Instructions_AnswerSurrounding() {
 		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
 	}
 	
-	/* Entry action for state 'AnswerSurrounding'. */
-	private void entryAction_main_region_TellAction_Instructions_AnswerSurrounding() {
-		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
+	/* Entry action for state 'Copy_1_crowd'. */
+	private void entryAction_main_region_DoAction_Instructions_Copy_1_crowd() {
+		sCIHBrain.operationCallback.sendTTS(sCICrowdDetection.operationCallback.getAnswerForSecificCrowdDetails(sCISTT.operationCallback.getObject()));
 	}
 	
 	/* Entry action for state 'StopSTT'. */
@@ -966,87 +1070,106 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.main_region_TellAnswer;
 	}
 	
-	/* 'default' enter sequence for state TellAction */
-	private void enterSequence_main_region_TellAction_default() {
-		entryAction_main_region_TellAction();
-		enterSequence_main_region_TellAction_Instructions_default();
+	/* 'default' enter sequence for state DoAction */
+	private void enterSequence_main_region_DoAction_default() {
+		entryAction_main_region_DoAction();
+		enterSequence_main_region_DoAction_Instructions_default();
 	}
 	
 	/* 'default' enter sequence for state GoTo */
-	private void enterSequence_main_region_TellAction_Instructions_GoTo_default() {
-		entryAction_main_region_TellAction_Instructions_GoTo();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellAction_Instructions_GoTo;
+	private void enterSequence_main_region_DoAction_Instructions_GoTo_default() {
+		enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_default();
 	}
 	
-	/* 'default' enter sequence for state crowd */
-	private void enterSequence_main_region_TellAction_Instructions_crowd_default() {
-		entryAction_main_region_TellAction_Instructions_crowd();
+	/* 'default' enter sequence for state livingroom */
+	private void enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_default() {
+		entryAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellAction_Instructions_crowd;
+		stateVector[0] = State.main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom;
+	}
+	
+	/* 'default' enter sequence for state notFound */
+	private void enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_default() {
+		entryAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound;
+	}
+	
+	/* 'default' enter sequence for state arrived */
+	private void enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_default() {
+		entryAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived;
+	}
+	
+	/* 'default' enter sequence for state backToTheOperator */
+	private void enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator_default() {
+		entryAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator;
 	}
 	
 	/* 'default' enter sequence for state surrounding */
-	private void enterSequence_main_region_TellAction_Instructions_surrounding_default() {
-		entryAction_main_region_TellAction_Instructions_surrounding();
+	private void enterSequence_main_region_DoAction_Instructions_surrounding_default() {
+		entryAction_main_region_DoAction_Instructions_surrounding();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellAction_Instructions_surrounding;
+		stateVector[0] = State.main_region_DoAction_Instructions_surrounding;
 	}
 	
 	/* 'default' enter sequence for state bring */
-	private void enterSequence_main_region_TellAction_Instructions_bring_default() {
-		entryAction_main_region_TellAction_Instructions_bring();
+	private void enterSequence_main_region_DoAction_Instructions_bring_default() {
+		entryAction_main_region_DoAction_Instructions_bring();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellAction_Instructions_bring;
+		stateVector[0] = State.main_region_DoAction_Instructions_bring;
 	}
 	
 	/* 'default' enter sequence for state open */
-	private void enterSequence_main_region_TellAction_Instructions_open_default() {
-		entryAction_main_region_TellAction_Instructions_open();
+	private void enterSequence_main_region_DoAction_Instructions_open_default() {
+		entryAction_main_region_DoAction_Instructions_open();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellAction_Instructions_open;
+		stateVector[0] = State.main_region_DoAction_Instructions_open;
 	}
 	
 	/* 'default' enter sequence for state followme */
-	private void enterSequence_main_region_TellAction_Instructions_followme_default() {
-		entryAction_main_region_TellAction_Instructions_followme();
+	private void enterSequence_main_region_DoAction_Instructions_followme_default() {
+		entryAction_main_region_DoAction_Instructions_followme();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellAction_Instructions_followme;
+		stateVector[0] = State.main_region_DoAction_Instructions_followme;
 	}
 	
 	/* 'default' enter sequence for state unknown */
-	private void enterSequence_main_region_TellAction_Instructions_unknown_default() {
-		entryAction_main_region_TellAction_Instructions_unknown();
+	private void enterSequence_main_region_DoAction_Instructions_unknown_default() {
+		entryAction_main_region_DoAction_Instructions_unknown();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellAction_Instructions_unknown;
+		stateVector[0] = State.main_region_DoAction_Instructions_unknown;
 	}
 	
 	/* 'default' enter sequence for state Tracking */
-	private void enterSequence_main_region_TellAction_Instructions_Tracking_default() {
-		entryAction_main_region_TellAction_Instructions_Tracking();
+	private void enterSequence_main_region_DoAction_Instructions_Tracking_default() {
+		entryAction_main_region_DoAction_Instructions_Tracking();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellAction_Instructions_Tracking;
+		stateVector[0] = State.main_region_DoAction_Instructions_Tracking;
 	}
 	
 	/* 'default' enter sequence for state ReturnToOperator */
-	private void enterSequence_main_region_TellAction_Instructions_ReturnToOperator_default() {
-		entryAction_main_region_TellAction_Instructions_ReturnToOperator();
+	private void enterSequence_main_region_DoAction_Instructions_ReturnToOperator_default() {
+		entryAction_main_region_DoAction_Instructions_ReturnToOperator();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellAction_Instructions_ReturnToOperator;
-	}
-	
-	/* 'default' enter sequence for state AnswerCrowd */
-	private void enterSequence_main_region_TellAction_Instructions_AnswerCrowd_default() {
-		entryAction_main_region_TellAction_Instructions_AnswerCrowd();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellAction_Instructions_AnswerCrowd;
+		stateVector[0] = State.main_region_DoAction_Instructions_ReturnToOperator;
 	}
 	
 	/* 'default' enter sequence for state AnswerSurrounding */
-	private void enterSequence_main_region_TellAction_Instructions_AnswerSurrounding_default() {
-		entryAction_main_region_TellAction_Instructions_AnswerSurrounding();
+	private void enterSequence_main_region_DoAction_Instructions_AnswerSurrounding_default() {
+		entryAction_main_region_DoAction_Instructions_AnswerSurrounding();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellAction_Instructions_AnswerSurrounding;
+		stateVector[0] = State.main_region_DoAction_Instructions_AnswerSurrounding;
+	}
+	
+	/* 'default' enter sequence for state Copy_1_crowd */
+	private void enterSequence_main_region_DoAction_Instructions_Copy_1_crowd_default() {
+		entryAction_main_region_DoAction_Instructions_Copy_1_crowd();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_DoAction_Instructions_Copy_1_crowd;
 	}
 	
 	/* 'default' enter sequence for state StopSTT */
@@ -1103,8 +1226,13 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	/* 'default' enter sequence for region Instructions */
-	private void enterSequence_main_region_TellAction_Instructions_default() {
-		react_main_region_TellAction_Instructions__entry_Default();
+	private void enterSequence_main_region_DoAction_Instructions_default() {
+		react_main_region_DoAction_Instructions__entry_Default();
+	}
+	
+	/* 'default' enter sequence for region goto GeneralP */
+	private void enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_default() {
+		react_main_region_DoAction_Instructions_GoTo_goto_GeneralP__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region Leonie Bupered Or Emergency Stop */
@@ -1160,73 +1288,90 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state TellAction */
-	private void exitSequence_main_region_TellAction() {
-		exitSequence_main_region_TellAction_Instructions();
+	/* Default exit sequence for state DoAction */
+	private void exitSequence_main_region_DoAction() {
+		exitSequence_main_region_DoAction_Instructions();
 	}
 	
 	/* Default exit sequence for state GoTo */
-	private void exitSequence_main_region_TellAction_Instructions_GoTo() {
+	private void exitSequence_main_region_DoAction_Instructions_GoTo() {
+		exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP();
+	}
+	
+	/* Default exit sequence for state livingroom */
+	private void exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state crowd */
-	private void exitSequence_main_region_TellAction_Instructions_crowd() {
+	/* Default exit sequence for state notFound */
+	private void exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state arrived */
+	private void exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state backToTheOperator */
+	private void exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state surrounding */
-	private void exitSequence_main_region_TellAction_Instructions_surrounding() {
+	private void exitSequence_main_region_DoAction_Instructions_surrounding() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state bring */
-	private void exitSequence_main_region_TellAction_Instructions_bring() {
+	private void exitSequence_main_region_DoAction_Instructions_bring() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state open */
-	private void exitSequence_main_region_TellAction_Instructions_open() {
+	private void exitSequence_main_region_DoAction_Instructions_open() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state followme */
-	private void exitSequence_main_region_TellAction_Instructions_followme() {
+	private void exitSequence_main_region_DoAction_Instructions_followme() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state unknown */
-	private void exitSequence_main_region_TellAction_Instructions_unknown() {
+	private void exitSequence_main_region_DoAction_Instructions_unknown() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state Tracking */
-	private void exitSequence_main_region_TellAction_Instructions_Tracking() {
+	private void exitSequence_main_region_DoAction_Instructions_Tracking() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state ReturnToOperator */
-	private void exitSequence_main_region_TellAction_Instructions_ReturnToOperator() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state AnswerCrowd */
-	private void exitSequence_main_region_TellAction_Instructions_AnswerCrowd() {
+	private void exitSequence_main_region_DoAction_Instructions_ReturnToOperator() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state AnswerSurrounding */
-	private void exitSequence_main_region_TellAction_Instructions_AnswerSurrounding() {
+	private void exitSequence_main_region_DoAction_Instructions_AnswerSurrounding() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state Copy_1_crowd */
+	private void exitSequence_main_region_DoAction_Instructions_Copy_1_crowd() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -1304,38 +1449,44 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		case main_region_TellAnswer:
 			exitSequence_main_region_TellAnswer();
 			break;
-		case main_region_TellAction_Instructions_GoTo:
-			exitSequence_main_region_TellAction_Instructions_GoTo();
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom();
 			break;
-		case main_region_TellAction_Instructions_crowd:
-			exitSequence_main_region_TellAction_Instructions_crowd();
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound();
 			break;
-		case main_region_TellAction_Instructions_surrounding:
-			exitSequence_main_region_TellAction_Instructions_surrounding();
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived();
 			break;
-		case main_region_TellAction_Instructions_bring:
-			exitSequence_main_region_TellAction_Instructions_bring();
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator();
 			break;
-		case main_region_TellAction_Instructions_open:
-			exitSequence_main_region_TellAction_Instructions_open();
+		case main_region_DoAction_Instructions_surrounding:
+			exitSequence_main_region_DoAction_Instructions_surrounding();
 			break;
-		case main_region_TellAction_Instructions_followme:
-			exitSequence_main_region_TellAction_Instructions_followme();
+		case main_region_DoAction_Instructions_bring:
+			exitSequence_main_region_DoAction_Instructions_bring();
 			break;
-		case main_region_TellAction_Instructions_unknown:
-			exitSequence_main_region_TellAction_Instructions_unknown();
+		case main_region_DoAction_Instructions_open:
+			exitSequence_main_region_DoAction_Instructions_open();
 			break;
-		case main_region_TellAction_Instructions_Tracking:
-			exitSequence_main_region_TellAction_Instructions_Tracking();
+		case main_region_DoAction_Instructions_followme:
+			exitSequence_main_region_DoAction_Instructions_followme();
 			break;
-		case main_region_TellAction_Instructions_ReturnToOperator:
-			exitSequence_main_region_TellAction_Instructions_ReturnToOperator();
+		case main_region_DoAction_Instructions_unknown:
+			exitSequence_main_region_DoAction_Instructions_unknown();
 			break;
-		case main_region_TellAction_Instructions_AnswerCrowd:
-			exitSequence_main_region_TellAction_Instructions_AnswerCrowd();
+		case main_region_DoAction_Instructions_Tracking:
+			exitSequence_main_region_DoAction_Instructions_Tracking();
 			break;
-		case main_region_TellAction_Instructions_AnswerSurrounding:
-			exitSequence_main_region_TellAction_Instructions_AnswerSurrounding();
+		case main_region_DoAction_Instructions_ReturnToOperator:
+			exitSequence_main_region_DoAction_Instructions_ReturnToOperator();
+			break;
+		case main_region_DoAction_Instructions_AnswerSurrounding:
+			exitSequence_main_region_DoAction_Instructions_AnswerSurrounding();
+			break;
+		case main_region_DoAction_Instructions_Copy_1_crowd:
+			exitSequence_main_region_DoAction_Instructions_Copy_1_crowd();
 			break;
 		case main_region_StopSTT:
 			exitSequence_main_region_StopSTT();
@@ -1352,40 +1503,66 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	/* Default exit sequence for region Instructions */
-	private void exitSequence_main_region_TellAction_Instructions() {
+	private void exitSequence_main_region_DoAction_Instructions() {
 		switch (stateVector[0]) {
-		case main_region_TellAction_Instructions_GoTo:
-			exitSequence_main_region_TellAction_Instructions_GoTo();
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom();
 			break;
-		case main_region_TellAction_Instructions_crowd:
-			exitSequence_main_region_TellAction_Instructions_crowd();
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound();
 			break;
-		case main_region_TellAction_Instructions_surrounding:
-			exitSequence_main_region_TellAction_Instructions_surrounding();
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived();
 			break;
-		case main_region_TellAction_Instructions_bring:
-			exitSequence_main_region_TellAction_Instructions_bring();
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator();
 			break;
-		case main_region_TellAction_Instructions_open:
-			exitSequence_main_region_TellAction_Instructions_open();
+		case main_region_DoAction_Instructions_surrounding:
+			exitSequence_main_region_DoAction_Instructions_surrounding();
 			break;
-		case main_region_TellAction_Instructions_followme:
-			exitSequence_main_region_TellAction_Instructions_followme();
+		case main_region_DoAction_Instructions_bring:
+			exitSequence_main_region_DoAction_Instructions_bring();
 			break;
-		case main_region_TellAction_Instructions_unknown:
-			exitSequence_main_region_TellAction_Instructions_unknown();
+		case main_region_DoAction_Instructions_open:
+			exitSequence_main_region_DoAction_Instructions_open();
 			break;
-		case main_region_TellAction_Instructions_Tracking:
-			exitSequence_main_region_TellAction_Instructions_Tracking();
+		case main_region_DoAction_Instructions_followme:
+			exitSequence_main_region_DoAction_Instructions_followme();
 			break;
-		case main_region_TellAction_Instructions_ReturnToOperator:
-			exitSequence_main_region_TellAction_Instructions_ReturnToOperator();
+		case main_region_DoAction_Instructions_unknown:
+			exitSequence_main_region_DoAction_Instructions_unknown();
 			break;
-		case main_region_TellAction_Instructions_AnswerCrowd:
-			exitSequence_main_region_TellAction_Instructions_AnswerCrowd();
+		case main_region_DoAction_Instructions_Tracking:
+			exitSequence_main_region_DoAction_Instructions_Tracking();
 			break;
-		case main_region_TellAction_Instructions_AnswerSurrounding:
-			exitSequence_main_region_TellAction_Instructions_AnswerSurrounding();
+		case main_region_DoAction_Instructions_ReturnToOperator:
+			exitSequence_main_region_DoAction_Instructions_ReturnToOperator();
+			break;
+		case main_region_DoAction_Instructions_AnswerSurrounding:
+			exitSequence_main_region_DoAction_Instructions_AnswerSurrounding();
+			break;
+		case main_region_DoAction_Instructions_Copy_1_crowd:
+			exitSequence_main_region_DoAction_Instructions_Copy_1_crowd();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region goto GeneralP */
+	private void exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP() {
+		switch (stateVector[0]) {
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom();
+			break;
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound();
+			break;
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived();
+			break;
+		case main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator:
+			exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator();
 			break;
 		default:
 			break;
@@ -1473,80 +1650,110 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		}
 	}
 	
-	/* The reactions of state GoTo. */
-	private void react_main_region_TellAction_Instructions_GoTo() {
-		if (check_main_region_TellAction_Instructions_GoTo_tr0_tr0()) {
-			effect_main_region_TellAction_Instructions_GoTo_tr0();
+	/* The reactions of state livingroom. */
+	private void react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom() {
+		if (check_main_region_DoAction_Instructions_GoTo_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_GoTo_tr0();
+		} else {
+			if (check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_tr0_tr0()) {
+				effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_tr0();
+			}
 		}
 	}
 	
-	/* The reactions of state crowd. */
-	private void react_main_region_TellAction_Instructions_crowd() {
-		if (check_main_region_TellAction_Instructions_crowd_tr0_tr0()) {
-			effect_main_region_TellAction_Instructions_crowd_tr0();
+	/* The reactions of state notFound. */
+	private void react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound() {
+		if (check_main_region_DoAction_Instructions_GoTo_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_GoTo_tr0();
+		} else {
+			if (check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr0_tr0()) {
+				effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr0();
+			}
+		}
+	}
+	
+	/* The reactions of state arrived. */
+	private void react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived() {
+		if (check_main_region_DoAction_Instructions_GoTo_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_GoTo_tr0();
+		} else {
+			if (check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr0_tr0()) {
+				effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr0();
+			}
+		}
+	}
+	
+	/* The reactions of state backToTheOperator. */
+	private void react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator() {
+		if (check_main_region_DoAction_Instructions_GoTo_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_GoTo_tr0();
+		} else {
+			if (check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator_tr0_tr0()) {
+				effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator_tr0();
+			}
 		}
 	}
 	
 	/* The reactions of state surrounding. */
-	private void react_main_region_TellAction_Instructions_surrounding() {
-		if (check_main_region_TellAction_Instructions_surrounding_tr0_tr0()) {
-			effect_main_region_TellAction_Instructions_surrounding_tr0();
+	private void react_main_region_DoAction_Instructions_surrounding() {
+		if (check_main_region_DoAction_Instructions_surrounding_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_surrounding_tr0();
 		}
 	}
 	
 	/* The reactions of state bring. */
-	private void react_main_region_TellAction_Instructions_bring() {
-		if (check_main_region_TellAction_Instructions_bring_tr0_tr0()) {
-			effect_main_region_TellAction_Instructions_bring_tr0();
+	private void react_main_region_DoAction_Instructions_bring() {
+		if (check_main_region_DoAction_Instructions_bring_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_bring_tr0();
 		}
 	}
 	
 	/* The reactions of state open. */
-	private void react_main_region_TellAction_Instructions_open() {
-		if (check_main_region_TellAction_Instructions_open_tr0_tr0()) {
-			effect_main_region_TellAction_Instructions_open_tr0();
+	private void react_main_region_DoAction_Instructions_open() {
+		if (check_main_region_DoAction_Instructions_open_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_open_tr0();
 		}
 	}
 	
 	/* The reactions of state followme. */
-	private void react_main_region_TellAction_Instructions_followme() {
-		if (check_main_region_TellAction_Instructions_followme_tr0_tr0()) {
-			effect_main_region_TellAction_Instructions_followme_tr0();
+	private void react_main_region_DoAction_Instructions_followme() {
+		if (check_main_region_DoAction_Instructions_followme_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_followme_tr0();
 		}
 	}
 	
 	/* The reactions of state unknown. */
-	private void react_main_region_TellAction_Instructions_unknown() {
-		if (check_main_region_TellAction_Instructions_unknown_tr0_tr0()) {
-			effect_main_region_TellAction_Instructions_unknown_tr0();
+	private void react_main_region_DoAction_Instructions_unknown() {
+		if (check_main_region_DoAction_Instructions_unknown_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_unknown_tr0();
 		}
 	}
 	
 	/* The reactions of state Tracking. */
-	private void react_main_region_TellAction_Instructions_Tracking() {
-		if (check_main_region_TellAction_Instructions_Tracking_tr1_tr1()) {
-			effect_main_region_TellAction_Instructions_Tracking_tr1();
+	private void react_main_region_DoAction_Instructions_Tracking() {
+		if (check_main_region_DoAction_Instructions_Tracking_tr1_tr1()) {
+			effect_main_region_DoAction_Instructions_Tracking_tr1();
 		}
 	}
 	
 	/* The reactions of state ReturnToOperator. */
-	private void react_main_region_TellAction_Instructions_ReturnToOperator() {
-		if (check_main_region_TellAction_Instructions_ReturnToOperator_tr0_tr0()) {
-			effect_main_region_TellAction_Instructions_ReturnToOperator_tr0();
-		}
-	}
-	
-	/* The reactions of state AnswerCrowd. */
-	private void react_main_region_TellAction_Instructions_AnswerCrowd() {
-		if (check_main_region_TellAction_Instructions_AnswerCrowd_tr0_tr0()) {
-			effect_main_region_TellAction_Instructions_AnswerCrowd_tr0();
+	private void react_main_region_DoAction_Instructions_ReturnToOperator() {
+		if (check_main_region_DoAction_Instructions_ReturnToOperator_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_ReturnToOperator_tr0();
 		}
 	}
 	
 	/* The reactions of state AnswerSurrounding. */
-	private void react_main_region_TellAction_Instructions_AnswerSurrounding() {
-		if (check_main_region_TellAction_Instructions_AnswerSurrounding_tr0_tr0()) {
-			effect_main_region_TellAction_Instructions_AnswerSurrounding_tr0();
+	private void react_main_region_DoAction_Instructions_AnswerSurrounding() {
+		if (check_main_region_DoAction_Instructions_AnswerSurrounding_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_AnswerSurrounding_tr0();
+		}
+	}
+	
+	/* The reactions of state Copy_1_crowd. */
+	private void react_main_region_DoAction_Instructions_Copy_1_crowd() {
+		if (check_main_region_DoAction_Instructions_Copy_1_crowd_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions_Copy_1_crowd_tr0();
 		}
 	}
 	
@@ -1600,26 +1807,35 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	/* The reactions of state null. */
-	private void react_main_region_TellAction_Instructions__choice_0() {
-		if (check_main_region_TellAction_Instructions__choice_0_tr0_tr0()) {
-			effect_main_region_TellAction_Instructions__choice_0_tr0();
+	private void react_main_region_DoAction_Instructions_GoTo_goto_GeneralP__choice_0() {
+		if (check_main_region_DoAction_Instructions_GoTo_goto_GeneralP__choice_0_tr1_tr1()) {
+			effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP__choice_0_tr1();
 		} else {
-			if (check_main_region_TellAction_Instructions__choice_0_tr1_tr1()) {
-				effect_main_region_TellAction_Instructions__choice_0_tr1();
+			effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP__choice_0_tr0();
+		}
+	}
+	
+	/* The reactions of state null. */
+	private void react_main_region_DoAction_Instructions__choice_0() {
+		if (check_main_region_DoAction_Instructions__choice_0_tr0_tr0()) {
+			effect_main_region_DoAction_Instructions__choice_0_tr0();
+		} else {
+			if (check_main_region_DoAction_Instructions__choice_0_tr1_tr1()) {
+				effect_main_region_DoAction_Instructions__choice_0_tr1();
 			} else {
-				if (check_main_region_TellAction_Instructions__choice_0_tr2_tr2()) {
-					effect_main_region_TellAction_Instructions__choice_0_tr2();
+				if (check_main_region_DoAction_Instructions__choice_0_tr2_tr2()) {
+					effect_main_region_DoAction_Instructions__choice_0_tr2();
 				} else {
-					if (check_main_region_TellAction_Instructions__choice_0_tr3_tr3()) {
-						effect_main_region_TellAction_Instructions__choice_0_tr3();
+					if (check_main_region_DoAction_Instructions__choice_0_tr3_tr3()) {
+						effect_main_region_DoAction_Instructions__choice_0_tr3();
 					} else {
-						if (check_main_region_TellAction_Instructions__choice_0_tr4_tr4()) {
-							effect_main_region_TellAction_Instructions__choice_0_tr4();
+						if (check_main_region_DoAction_Instructions__choice_0_tr4_tr4()) {
+							effect_main_region_DoAction_Instructions__choice_0_tr4();
 						} else {
-							if (check_main_region_TellAction_Instructions__choice_0_tr5_tr5()) {
-								effect_main_region_TellAction_Instructions__choice_0_tr5();
+							if (check_main_region_DoAction_Instructions__choice_0_tr5_tr5()) {
+								effect_main_region_DoAction_Instructions__choice_0_tr5();
 							} else {
-								effect_main_region_TellAction_Instructions__choice_0_tr6();
+								effect_main_region_DoAction_Instructions__choice_0_tr6();
 							}
 						}
 					}
@@ -1643,8 +1859,13 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	/* Default react sequence for initial entry  */
-	private void react_main_region_TellAction_Instructions__entry_Default() {
-		react_main_region_TellAction_Instructions__choice_0();
+	private void react_main_region_DoAction_Instructions__entry_Default() {
+		react_main_region_DoAction_Instructions__choice_0();
+	}
+	
+	/* Default react sequence for initial entry  */
+	private void react_main_region_DoAction_Instructions_GoTo_goto_GeneralP__entry_Default() {
+		react_main_region_DoAction_Instructions_GoTo_goto_GeneralP__choice_0();
 	}
 	
 	/* Default react sequence for initial entry  */
@@ -1653,8 +1874,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	/* The reactions of exit exit_done. */
-	private void react_main_region_TellAction_Instructions_exit_done() {
-		effect_main_region_TellAction_tr0();
+	private void react_main_region_DoAction_Instructions_exit_done() {
+		effect_main_region_DoAction_tr0();
 	}
 	
 	public void runCycle() {
@@ -1688,38 +1909,44 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			case main_region_TellAnswer:
 				react_main_region_TellAnswer();
 				break;
-			case main_region_TellAction_Instructions_GoTo:
-				react_main_region_TellAction_Instructions_GoTo();
+			case main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom:
+				react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom();
 				break;
-			case main_region_TellAction_Instructions_crowd:
-				react_main_region_TellAction_Instructions_crowd();
+			case main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound:
+				react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound();
 				break;
-			case main_region_TellAction_Instructions_surrounding:
-				react_main_region_TellAction_Instructions_surrounding();
+			case main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived:
+				react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived();
 				break;
-			case main_region_TellAction_Instructions_bring:
-				react_main_region_TellAction_Instructions_bring();
+			case main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator:
+				react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator();
 				break;
-			case main_region_TellAction_Instructions_open:
-				react_main_region_TellAction_Instructions_open();
+			case main_region_DoAction_Instructions_surrounding:
+				react_main_region_DoAction_Instructions_surrounding();
 				break;
-			case main_region_TellAction_Instructions_followme:
-				react_main_region_TellAction_Instructions_followme();
+			case main_region_DoAction_Instructions_bring:
+				react_main_region_DoAction_Instructions_bring();
 				break;
-			case main_region_TellAction_Instructions_unknown:
-				react_main_region_TellAction_Instructions_unknown();
+			case main_region_DoAction_Instructions_open:
+				react_main_region_DoAction_Instructions_open();
 				break;
-			case main_region_TellAction_Instructions_Tracking:
-				react_main_region_TellAction_Instructions_Tracking();
+			case main_region_DoAction_Instructions_followme:
+				react_main_region_DoAction_Instructions_followme();
 				break;
-			case main_region_TellAction_Instructions_ReturnToOperator:
-				react_main_region_TellAction_Instructions_ReturnToOperator();
+			case main_region_DoAction_Instructions_unknown:
+				react_main_region_DoAction_Instructions_unknown();
 				break;
-			case main_region_TellAction_Instructions_AnswerCrowd:
-				react_main_region_TellAction_Instructions_AnswerCrowd();
+			case main_region_DoAction_Instructions_Tracking:
+				react_main_region_DoAction_Instructions_Tracking();
 				break;
-			case main_region_TellAction_Instructions_AnswerSurrounding:
-				react_main_region_TellAction_Instructions_AnswerSurrounding();
+			case main_region_DoAction_Instructions_ReturnToOperator:
+				react_main_region_DoAction_Instructions_ReturnToOperator();
+				break;
+			case main_region_DoAction_Instructions_AnswerSurrounding:
+				react_main_region_DoAction_Instructions_AnswerSurrounding();
+				break;
+			case main_region_DoAction_Instructions_Copy_1_crowd:
+				react_main_region_DoAction_Instructions_Copy_1_crowd();
 				break;
 			case main_region_StopSTT:
 				react_main_region_StopSTT();

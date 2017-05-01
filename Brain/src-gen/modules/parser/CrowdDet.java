@@ -268,4 +268,40 @@ public class CrowdDet implements IParser, Serializable{
 		
 		}
 	}
+
+	public String getAnswerForSecificCrowdDetails(String inDetails) {
+		switch (inDetails) {
+		case "countAll":
+			return "I found " + getTotalCount() + " people.";
+			
+		case "countMale":
+			return "I found " + getSpecificCount(0,-1,-1,-1) + " male people.";
+
+		case "countFemale":
+			return "I found " + getSpecificCount(1,-1,-1,-1) + " female people.";
+
+		case "countStanding":
+			return "I found " + getSpecificCount(-1,-1,-1,0) + " standing people.";
+
+		case "countSitting":
+			return "I found " + getSpecificCount(-1,-1,-1,1) + " sitting people.";
+
+		case "countLaying":
+			return "I found " + getSpecificCount(-1,-1,-1,2) + " laying people.";
+
+		case "countHandSign":
+			return "[:-(] I'm sorry, I can't detect hand signs";
+
+		case "countYoung":
+			return "I found " + getSpecificCount(-1,-1,26,-1) + " young people.";
+
+		case "countOld":
+			return "I found " + getSpecificCount(-1,54,-1,1) + " old people.";
+		
+
+		default:
+			return "I don't know, what you mean with " + inDetails + ".";
+		}
+		
+	} 
 }
