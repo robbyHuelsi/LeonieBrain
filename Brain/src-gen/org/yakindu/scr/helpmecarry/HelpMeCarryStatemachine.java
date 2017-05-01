@@ -197,6 +197,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_GoTo_goto_room3,
 		main_region_LocationNotFound,
 		main_region_DetectionOn,
+		main_region_LockingForNextOperator,
+		main_region_Wait,
+		main_region_MoveBodyRight,
+		main_region_PersonFound,
+		main_region_MoveBodyLeft,
+		main_region_GuideMe,
 		$NullState$
 	};
 	
@@ -206,7 +212,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[6];
+	private final boolean[] timeEvents = new boolean[8];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -237,6 +243,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return questionCounter;
 	}
 	
+	private boolean bodyMoved;
+	
+	protected void setBodyMoved(boolean value) {
+		bodyMoved = value;
+	}
+	
+	protected boolean getBodyMoved() {
+		return bodyMoved;
+	}
+	
 	public HelpMeCarryStatemachine() {
 		sCIHBrain = new SCIHBrainImpl();
 		sCIKinect2 = new SCIKinect2Impl();
@@ -260,6 +276,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		setNameBuffer("");
 		
 		setQuestionCounter(0);
+		
+		setBodyMoved(false);
 	}
 	
 	public void enter() {
@@ -380,6 +398,18 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_LocationNotFound;
 		case main_region_DetectionOn:
 			return stateVector[0] == State.main_region_DetectionOn;
+		case main_region_LockingForNextOperator:
+			return stateVector[0] == State.main_region_LockingForNextOperator;
+		case main_region_Wait:
+			return stateVector[0] == State.main_region_Wait;
+		case main_region_MoveBodyRight:
+			return stateVector[0] == State.main_region_MoveBodyRight;
+		case main_region_PersonFound:
+			return stateVector[0] == State.main_region_PersonFound;
+		case main_region_MoveBodyLeft:
+			return stateVector[0] == State.main_region_MoveBodyLeft;
+		case main_region_GuideMe:
+			return stateVector[0] == State.main_region_GuideMe;
 		default:
 			return false;
 		}
@@ -553,6 +583,22 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return true;
 	}
 	
+	private boolean check_main_region_LockingForNextOperator_tr0_tr0() {
+		return timeEvents[6];
+	}
+	
+	private boolean check_main_region_MoveBodyRight_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_PersonFound_tr0_tr0() {
+		return timeEvents[7];
+	}
+	
+	private boolean check_main_region_MoveBodyLeft_tr0_tr0() {
+		return true;
+	}
+	
 	private boolean check_main_region_StartTracking_WaitingForStopCommand__choice_0_tr0_tr0() {
 		return (sCISTT.operationCallback.getInstruction()== null?"followme" ==null :sCISTT.operationCallback.getInstruction().equals("followme")) && (sCISTT.operationCallback.getObject()== null?"stop" ==null :sCISTT.operationCallback.getObject().equals("stop"));
 	}
@@ -591,6 +637,18 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private boolean check_main_region_GoTo_goto__choice_0_tr3_tr3() {
 		return true;
+	}
+	
+	private boolean check_main_region__choice_1_tr0_tr0() {
+		return getBodyMoved()==false;
+	}
+	
+	private boolean check_main_region__choice_1_tr1_tr1() {
+		return sCIFollowMe.detectionPersonFound;
+	}
+	
+	private boolean check_main_region__choice_1_tr2_tr2() {
+		return getBodyMoved();
 	}
 	
 	private void effect_main_region_Detection_tr0() {
@@ -725,7 +783,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private void effect_main_region_ArrivedWaypoint_tr0() {
 		exitSequence_main_region_ArrivedWaypoint();
-		enterSequence_main_region__final__default();
+		enterSequence_main_region_LockingForNextOperator_default();
 	}
 	
 	private void effect_main_region_StartSTT_tr0() {
@@ -768,6 +826,26 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_Detection_default();
 	}
 	
+	private void effect_main_region_LockingForNextOperator_tr0() {
+		exitSequence_main_region_LockingForNextOperator();
+		enterSequence_main_region_Wait_default();
+	}
+	
+	private void effect_main_region_MoveBodyRight_tr0() {
+		exitSequence_main_region_MoveBodyRight();
+		enterSequence_main_region_LockingForNextOperator_default();
+	}
+	
+	private void effect_main_region_PersonFound_tr0() {
+		exitSequence_main_region_PersonFound();
+		enterSequence_main_region_GuideMe_default();
+	}
+	
+	private void effect_main_region_MoveBodyLeft_tr0() {
+		exitSequence_main_region_MoveBodyLeft();
+		enterSequence_main_region_LockingForNextOperator_default();
+	}
+	
 	private void effect_main_region_StartTracking_WaitingForStopCommand__choice_0_tr0() {
 		react_main_region_StartTracking_WaitingForStopCommand_exit_arrived();
 	}
@@ -808,18 +886,30 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		react_main_region_GoTo_goto_exit_notFound();
 	}
 	
+	private void effect_main_region__choice_1_tr0() {
+		enterSequence_main_region_MoveBodyRight_default();
+	}
+	
+	private void effect_main_region__choice_1_tr1() {
+		enterSequence_main_region_PersonFound_default();
+	}
+	
+	private void effect_main_region__choice_1_tr2() {
+		enterSequence_main_region_MoveBodyLeft_default();
+	}
+	
 	/* Entry action for state 'Detection'. */
 	private void entryAction_main_region_Detection() {
-		timer.setTimer(this, 0, 1*1000, false);
+		timer.setTimer(this, 0, 1 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
-		setCounter(counter+1);
+		setCounter(counter + 1);
 	}
 	
 	/* Entry action for state 'NotFound'. */
 	private void entryAction_main_region_NotFound() {
-		sCIHBrain.operationCallback.sendTTS("[:-(] I want so follow somebody, but nobody is here!");
+		sCIHBrain.operationCallback.sendTTS("[:-(] I want to follow somebody, but nobody is here!");
 		
 		setCounter(0);
 	}
@@ -836,21 +926,21 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'STToff'. */
 	private void entryAction_main_region_StartTracking_WaitingForStopCommand_STToff() {
-		timer.setTimer(this, 1, 5*1000, false);
+		timer.setTimer(this, 1, 5 * 1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Entry action for state 'STTstart'. */
 	private void entryAction_main_region_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.setTimer(this, 2, 5*1000, false);
+		timer.setTimer(this, 2, 5 * 1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 	}
 	
 	/* Entry action for state 'TrackingOffAndTurn'. */
 	private void entryAction_main_region_Wave__region0_TrackingOffAndTurn() {
-		timer.setTimer(this, 3, 1*1000, false);
+		timer.setTimer(this, 3, 1 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOff();
 		
@@ -861,7 +951,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'WaveFound'. */
 	private void entryAction_main_region_Wave__region0_WaveFound() {
-		timer.setTimer(this, 4, 1*1000, false);
+		timer.setTimer(this, 4, 1 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("{Person}Thank you! Please hold on.");
 		
@@ -919,12 +1009,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'ArrivedWaypoint'. */
 	private void entryAction_main_region_ArrivedWaypoint() {
-		sCIHBrain.operationCallback.sendTTS("I'm there. Good night. [sleepy]");
+		sCIHBrain.operationCallback.sendTTS("I'm there. Please take the groceries.");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_StartSTT() {
-		timer.setTimer(this, 5, 3*1000, false);
+		timer.setTimer(this, 5, 3 * 1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionYesNo();
 	}
@@ -961,7 +1051,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'LocationNotFound'. */
 	private void entryAction_main_region_LocationNotFound() {
-		sCIHBrain.operationCallback.sendTTS3("[:-(] Sorry, I don't konw a location like ", sCISTT.operationCallback.getObject(), ".");
+		sCIHBrain.operationCallback.sendTTS3("[:-(] Sorry, I don't know a location like ", sCISTT.operationCallback.getObject(), ".");
 	}
 	
 	/* Entry action for state 'DetectionOn'. */
@@ -971,6 +1061,35 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		sCIHBrain.operationCallback.sendTTS("[:-|]");
 		
 		setCounter(0);
+	}
+	
+	/* Entry action for state 'LockingForNextOperator'. */
+	private void entryAction_main_region_LockingForNextOperator() {
+		timer.setTimer(this, 6, 3 * 1000, false);
+		
+		sCIFollowMe.operationCallback.sendDetectionOn();
+	}
+	
+	/* Entry action for state 'MoveBodyRight'. */
+	private void entryAction_main_region_MoveBodyRight() {
+		sCIMira.operationCallback.sendPanCamera(20);
+	}
+	
+	/* Entry action for state 'PersonFound'. */
+	private void entryAction_main_region_PersonFound() {
+		timer.setTimer(this, 7, 5 * 1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("Hello. Can you take the groceries please? I want you to follow me to the car.");
+	}
+	
+	/* Entry action for state 'MoveBodyLeft'. */
+	private void entryAction_main_region_MoveBodyLeft() {
+		sCIMira.operationCallback.sendPanCamera(-20);
+	}
+	
+	/* Entry action for state 'GuideMe'. */
+	private void entryAction_main_region_GuideMe() {
+		sCIHBrain.operationCallback.sendTTS("Guide me...");
 	}
 	
 	/* Exit action for state 'Detection'. */
@@ -1001,6 +1120,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_region_StartSTT() {
 		timer.unsetTimer(this, 5);
+	}
+	
+	/* Exit action for state 'LockingForNextOperator'. */
+	private void exitAction_main_region_LockingForNextOperator() {
+		timer.unsetTimer(this, 6);
+	}
+	
+	/* Exit action for state 'PersonFound'. */
+	private void exitAction_main_region_PersonFound() {
+		timer.unsetTimer(this, 7);
 	}
 	
 	/* 'default' enter sequence for state Detection */
@@ -1204,6 +1333,47 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		entryAction_main_region_DetectionOn();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_DetectionOn;
+	}
+	
+	/* 'default' enter sequence for state LockingForNextOperator */
+	private void enterSequence_main_region_LockingForNextOperator_default() {
+		entryAction_main_region_LockingForNextOperator();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_LockingForNextOperator;
+	}
+	
+	/* 'default' enter sequence for state Wait */
+	private void enterSequence_main_region_Wait_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Wait;
+	}
+	
+	/* 'default' enter sequence for state MoveBodyRight */
+	private void enterSequence_main_region_MoveBodyRight_default() {
+		entryAction_main_region_MoveBodyRight();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_MoveBodyRight;
+	}
+	
+	/* 'default' enter sequence for state PersonFound */
+	private void enterSequence_main_region_PersonFound_default() {
+		entryAction_main_region_PersonFound();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_PersonFound;
+	}
+	
+	/* 'default' enter sequence for state MoveBodyLeft */
+	private void enterSequence_main_region_MoveBodyLeft_default() {
+		entryAction_main_region_MoveBodyLeft();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_MoveBodyLeft;
+	}
+	
+	/* 'default' enter sequence for state GuideMe */
+	private void enterSequence_main_region_GuideMe_default() {
+		entryAction_main_region_GuideMe();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_GuideMe;
 	}
 	
 	/* 'default' enter sequence for region main region */
@@ -1419,6 +1589,46 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state LockingForNextOperator */
+	private void exitSequence_main_region_LockingForNextOperator() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_LockingForNextOperator();
+	}
+	
+	/* Default exit sequence for state Wait */
+	private void exitSequence_main_region_Wait() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state MoveBodyRight */
+	private void exitSequence_main_region_MoveBodyRight() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state PersonFound */
+	private void exitSequence_main_region_PersonFound() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_PersonFound();
+	}
+	
+	/* Default exit sequence for state MoveBodyLeft */
+	private void exitSequence_main_region_MoveBodyLeft() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state GuideMe */
+	private void exitSequence_main_region_GuideMe() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for region main region */
 	private void exitSequence_main_region() {
 		switch (stateVector[0]) {
@@ -1499,6 +1709,24 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			break;
 		case main_region_DetectionOn:
 			exitSequence_main_region_DetectionOn();
+			break;
+		case main_region_LockingForNextOperator:
+			exitSequence_main_region_LockingForNextOperator();
+			break;
+		case main_region_Wait:
+			exitSequence_main_region_Wait();
+			break;
+		case main_region_MoveBodyRight:
+			exitSequence_main_region_MoveBodyRight();
+			break;
+		case main_region_PersonFound:
+			exitSequence_main_region_PersonFound();
+			break;
+		case main_region_MoveBodyLeft:
+			exitSequence_main_region_MoveBodyLeft();
+			break;
+		case main_region_GuideMe:
+			exitSequence_main_region_GuideMe();
 			break;
 		default:
 			break;
@@ -1786,6 +2014,38 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		effect_main_region_DetectionOn_tr0();
 	}
 	
+	/* The reactions of state LockingForNextOperator. */
+	private void react_main_region_LockingForNextOperator() {
+		if (check_main_region_LockingForNextOperator_tr0_tr0()) {
+			effect_main_region_LockingForNextOperator_tr0();
+		}
+	}
+	
+	/* The reactions of state Wait. */
+	private void react_main_region_Wait() {
+	}
+	
+	/* The reactions of state MoveBodyRight. */
+	private void react_main_region_MoveBodyRight() {
+		effect_main_region_MoveBodyRight_tr0();
+	}
+	
+	/* The reactions of state PersonFound. */
+	private void react_main_region_PersonFound() {
+		if (check_main_region_PersonFound_tr0_tr0()) {
+			effect_main_region_PersonFound_tr0();
+		}
+	}
+	
+	/* The reactions of state MoveBodyLeft. */
+	private void react_main_region_MoveBodyLeft() {
+		effect_main_region_MoveBodyLeft_tr0();
+	}
+	
+	/* The reactions of state GuideMe. */
+	private void react_main_region_GuideMe() {
+	}
+	
 	/* The reactions of state null. */
 	private void react_main_region_StartTracking_WaitingForStopCommand__choice_0() {
 		if (check_main_region_StartTracking_WaitingForStopCommand__choice_0_tr0_tr0()) {
@@ -1825,6 +2085,21 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 					effect_main_region_GoTo_goto__choice_0_tr2();
 				} else {
 					effect_main_region_GoTo_goto__choice_0_tr3();
+				}
+			}
+		}
+	}
+	
+	/* The reactions of state null. */
+	private void react_main_region__choice_1() {
+		if (check_main_region__choice_1_tr0_tr0()) {
+			effect_main_region__choice_1_tr0();
+		} else {
+			if (check_main_region__choice_1_tr1_tr1()) {
+				effect_main_region__choice_1_tr1();
+			} else {
+				if (check_main_region__choice_1_tr2_tr2()) {
+					effect_main_region__choice_1_tr2();
 				}
 			}
 		}
@@ -1959,6 +2234,24 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 				break;
 			case main_region_DetectionOn:
 				react_main_region_DetectionOn();
+				break;
+			case main_region_LockingForNextOperator:
+				react_main_region_LockingForNextOperator();
+				break;
+			case main_region_Wait:
+				react_main_region_Wait();
+				break;
+			case main_region_MoveBodyRight:
+				react_main_region_MoveBodyRight();
+				break;
+			case main_region_PersonFound:
+				react_main_region_PersonFound();
+				break;
+			case main_region_MoveBodyLeft:
+				react_main_region_MoveBodyLeft();
+				break;
+			case main_region_GuideMe:
+				react_main_region_GuideMe();
 				break;
 			default:
 				// $NullState$

@@ -396,7 +396,7 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 	
 	/* Entry action for state 'sayAutsch'. */
 	private void entryAction_Leonie_Bupered_sayAutsch() {
-		timer.setTimer(this, 0, 5*1000, false);
+		timer.setTimer(this, 0, 5 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}

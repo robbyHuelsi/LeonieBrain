@@ -253,7 +253,7 @@ public class Test_STT_NamesStatemachine implements ITest_STT_NamesStatemachine {
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_StartSTT() {
-		timer.setTimer(this, 0, 2*1000, false);
+		timer.setTimer(this, 0, 2 * 1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionName();
 	}

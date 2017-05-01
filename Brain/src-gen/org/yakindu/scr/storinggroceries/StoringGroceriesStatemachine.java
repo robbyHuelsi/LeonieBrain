@@ -376,7 +376,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'TurnToTable'. */
 	private void entryAction_main_region_TurnToTable() {
-		timer.setTimer(this, 0, 50*1000, false);
+		timer.setTimer(this, 0, 50 * 1000, false);
 		
 		sCIMira.operationCallback.sendPanCamera(-100);
 		
@@ -409,14 +409,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'movePTU'. */
 	private void entryAction_main_region_movePTU() {
-		timer.setTimer(this, 1, 3*1000, false);
+		timer.setTimer(this, 1, 3 * 1000, false);
 		
 		sCIMira.operationCallback.sendPanTiltCamera(100, -10);
 	}
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_main_region_wait() {
-		timer.setTimer(this, 2, 10*1000, false);
+		timer.setTimer(this, 2, 10 * 1000, false);
 	}
 	
 	/* Exit action for state 'TurnToTable'. */
