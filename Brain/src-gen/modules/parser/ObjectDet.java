@@ -10,9 +10,9 @@ public class ObjectDet implements IParser, Serializable {
 	private Start start;
 	
 	private Vector<Objects.object> objList = new Vector<Objects.object>();
+	
 	private boolean ready;
 	private boolean analyseDone;
-
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		
@@ -27,6 +27,7 @@ public class ObjectDet implements IParser, Serializable {
 				int width = Integer.parseInt(d[3]);
 				int height = Integer.parseInt(d[4]);
 				this.objList.add(new Objects.object(name, xPos, yPos, width, height));
+				start.getStatemachine().raiseEventOfSCI("ObjectDetection","objectDetected");
 			} catch (NumberFormatException e) {
 				System.err.println("ObjectDetection: Parsing int failed");
 				e.printStackTrace();
@@ -39,6 +40,8 @@ public class ObjectDet implements IParser, Serializable {
 		}else if(data.equals("RESPONSE#READY")){
 			this.setReady(true);
 			return true;
+		}else if(data.contains("RESPONSE#PDF#")){
+			
 		}
 		return false;
 	}
@@ -73,13 +76,50 @@ public class ObjectDet implements IParser, Serializable {
 			start.getStatemachine().raiseEventOfSCI("ObjectDetection","analyseDone");
 		}
 	}
+	
+	public String getNewesObject() {
+		if (!this.objList.isEmpty()) {
+			return this.objList.lastElement().getName();
+		}else{
+			return "";
+		}
+	}
 
 	public String getSummaryText() {
 		if (this.objList.isEmpty()) {
 			return "[:-(] I didn't found objects.";
 		}else{
-			String sum = "[:-)] I found " + this.objList.size() + " objects!";
+			String sum;
+			
+			if(this.objList.size() == 1){
+				sum = "[:-)] I found one object!";
+			}else{
+				sum = "[:-)] I found " + this.objList.size() + " objects!";
+			}
+			
 			Vector<Objects.object> ol = this.objList;
+			
+			//Get unknown objects
+			int unknownCounter = 0;
+			for (int i = 0; i < ol.size(); i++) {
+				if (ol.get(i).getName().contains("Unknown")) {
+					unknownCounter++;
+					ol.remove(i);
+					i--;
+				}
+			}
+			
+			if (this.objList.size() == 1 && unknownCounter == 1) {
+				sum += " But this object is unknown [:-(]";
+			}else if (this.objList.size() == unknownCounter) {
+				sum += " But all objects are unknown [:-(]";
+			}else if (unknownCounter == 1) {
+				sum += " One of the objects is unknown.";
+			}else if(unknownCounter > 1){
+				sum += " I found " + unknownCounter + " unknown objects.";
+			}
+			
+			//Get other objects
 			while (!ol.isEmpty()) {
 				String oName = ol.get(0).getName();
 				int oCount = 0;

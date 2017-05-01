@@ -37,5 +37,10 @@ public class OpCallbackImplObjectDetection implements IOpCallbackImpl,
 	public void sendInit() {
 		// Nothing to do
 	}
+
+	@Override
+	public String getNewesObject() {
+		return ((ObjectDet)modules.getParser("ObjectDet")).getNewesObject();
+	}
 		
 }

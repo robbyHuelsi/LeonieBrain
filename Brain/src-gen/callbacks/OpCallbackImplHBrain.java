@@ -49,7 +49,7 @@ public class OpCallbackImplHBrain implements IOpCallbackImpl,
 
 	@Override
 	public void sendInit() {
-		sendTTS("[:-|] {person} [blush:false]");
+		sendTTS("[:-|] {person} [blush:false] [idle:false] [idle2:false] [idle3:false]");
 	}
 	
 }

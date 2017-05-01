@@ -69,7 +69,7 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	
 	public void sendPanCamera(long inPan){
 		System.out.println("Mira: Pan Camera:" + inPan);
-		Communication.sendMessage("#MIRA#PTU#setPanVelocity#30#", modules.get("Mira"));
+		Communication.sendMessage("#MIRA#PTU#setPanVelocity#20#", modules.get("Mira"));
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -80,7 +80,7 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	
 	public void sendTiltCamera(long inTilt){
 		System.out.println("Mira: Pan Camera:" + inTilt);
-		Communication.sendMessage("#MIRA#PTU#setTiltVelocity#30#", modules.get("Mira"));
+		Communication.sendMessage("#MIRA#PTU#setTiltVelocity#20#", modules.get("Mira"));
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {

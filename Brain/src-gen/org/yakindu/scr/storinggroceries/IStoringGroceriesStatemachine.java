@@ -83,6 +83,8 @@ public interface IStoringGroceriesStatemachine extends ITimerCallback,IStatemach
 		
 		public void raiseAnalyseDone();
 		
+		public void raiseObjectDetected();
+		
 		public void setSCIObjectDetectionOperationCallback(SCIObjectDetectionOperationCallback operationCallback);
 	
 	}
@@ -98,6 +100,8 @@ public interface IStoringGroceriesStatemachine extends ITimerCallback,IStatemach
 		public void sendPrintPDF();
 		
 		public String getSummaryText();
+		
+		public String getNewesObject();
 		
 	}
 	
