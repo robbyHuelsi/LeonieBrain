@@ -11,6 +11,12 @@ public class Test_WavingStatemachine implements ITest_WavingStatemachine {
 				SCIKinect2OperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
+		private boolean personDetected;
+		
+		public void raisePersonDetected() {
+			personDetected = true;
+		}
+		
 		private boolean noiseDetected;
 		
 		public void raiseNoiseDetected() {
@@ -24,6 +30,7 @@ public class Test_WavingStatemachine implements ITest_WavingStatemachine {
 		}
 		
 		protected void clearEvents() {
+			personDetected = false;
 			noiseDetected = false;
 			wavingDetected = false;
 		}
@@ -215,7 +222,7 @@ public class Test_WavingStatemachine implements ITest_WavingStatemachine {
 	
 	/* Entry action for state 'TrackingOn'. */
 	private void entryAction_main_region_TrackingOn() {
-		timer.setTimer(this, 0, 2 * 1000, false);
+		timer.setTimer(this, 0, 2*1000, false);
 		
 		sCIKinect2.operationCallback.sendWavingDetectionOnOff(false);
 		

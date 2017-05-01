@@ -67,6 +67,12 @@ public interface IStoringGroceriesStatemachine extends ITimerCallback,IStatemach
 		
 		public void sendPanTiltCamera(long inPan, long inTilt);
 		
+		public void sendSaveRuntimeStartPoint();
+		
+		public void sendSaveRuntimeEndPoint();
+		
+		public void sendGoToRuntimeEndPoint();
+		
 	}
 	
 	public SCIMira getSCIMira();

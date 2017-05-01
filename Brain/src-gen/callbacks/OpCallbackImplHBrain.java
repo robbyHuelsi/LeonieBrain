@@ -4,7 +4,7 @@ import communication.Communication;
 import main.Start;
 import modules.Modules;
 
-public class OpCallbackImplHBrain implements
+public class OpCallbackImplHBrain implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.storinggroceries.IStoringGroceriesStatemachine.SCIHBrainOperationCallback,
@@ -44,6 +44,11 @@ public class OpCallbackImplHBrain implements
 	
 	public void sendPersonPosition(){
 		
+	}
+
+	@Override
+	public void sendInit() {
+		sendTTS("[:-|] {person} [blush:false]");
 	}
 	
 }

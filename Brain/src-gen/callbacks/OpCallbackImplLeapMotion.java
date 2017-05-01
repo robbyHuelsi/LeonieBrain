@@ -6,7 +6,7 @@ import main.Start;
 import modules.Modules;
 import modules.parser.LeapMotion;
 
-public class OpCallbackImplLeapMotion implements
+public class OpCallbackImplLeapMotion implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCILeapMotionOperationCallback
 {
 	
@@ -34,5 +34,10 @@ public class OpCallbackImplLeapMotion implements
 	@Override
 	public void resetDetectedString() {
 		((LeapMotion)modules.getParser("LeapMotion")).setGesturedString("");
+	}
+
+	@Override
+	public void sendInit() {
+		sendGestureDetectionOnOff(0);
 	}
 }

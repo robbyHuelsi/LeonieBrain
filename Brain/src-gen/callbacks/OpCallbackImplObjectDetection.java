@@ -5,7 +5,7 @@ import main.Start;
 import modules.Modules;
 import modules.parser.ObjectDet;
 
-public class OpCallbackImplObjectDetection implements
+public class OpCallbackImplObjectDetection implements IOpCallbackImpl,
 	org.yakindu.scr.storinggroceries.IStoringGroceriesStatemachine.SCIObjectDetectionOperationCallback
 {
 	private Modules modules = Start.instanceOf().getModules();
@@ -31,6 +31,11 @@ public class OpCallbackImplObjectDetection implements
 
 	public String getSummaryText() {
 		return ((ObjectDet)modules.getParser("ObjectDet")).getSummaryText();
+	}
+
+	@Override
+	public void sendInit() {
+		// Nothing to do
 	}
 		
 }

@@ -4,7 +4,7 @@ import communication.Communication;
 import main.Start;
 import modules.Modules;
 
-public class OpCallbackImplAttractiveness implements
+public class OpCallbackImplAttractiveness implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIAttractivenessOperationCallback
 {
 
@@ -13,5 +13,9 @@ public class OpCallbackImplAttractiveness implements
 	 public void sendToAttr_estimate() {
 		 Communication.sendMessage("/home/leonie/ACI/org.png", modules.get("Attractiveness"));
 	 }
+
+	public void sendInit() {
+		// nothing to do
+	}
 
 }

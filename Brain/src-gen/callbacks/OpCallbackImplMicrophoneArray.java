@@ -1,6 +1,6 @@
 package callbacks;
 
-public class OpCallbackImplMicrophoneArray implements
+public class OpCallbackImplMicrophoneArray implements IOpCallbackImpl,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIMicrophoneArrayOperationCallback,
 	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIMicrophoneArrayOperationCallback
 {
@@ -16,6 +16,11 @@ public class OpCallbackImplMicrophoneArray implements
 	public void detectionOnOff(boolean onOff) {
 		// TODO implement sendDetectionOnOff(boolean onOff)
 		System.err.println("detectionOnOff(boolean onOff) not implemented");
+	}
+
+	@Override
+	public void sendInit() {
+		// TODO implement sendInit
 	}
 
 }

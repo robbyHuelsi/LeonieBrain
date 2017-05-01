@@ -23,6 +23,8 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 	
 		public void printToConsole(String msg);
 		
+		public String intToString(long inInt);
+		
 		public long getRandNum(long max);
 		
 	}
@@ -97,9 +99,11 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 	
 	public interface SCIKinect2 {
 	
+		public void raisePersonDetected();
+		
 		public void raiseNoiseDetected();
 		
-		public void raiseWaveDetected();
+		public void raiseWavingDetected();
 		
 		public void setSCIKinect2OperationCallback(SCIKinect2OperationCallback operationCallback);
 	
@@ -182,6 +186,12 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 		public void sendTiltCamera(long inTilt);
 		
 		public void sendPanTiltCamera(long inPan, long inTilt);
+		
+		public void sendSaveRuntimeStartPoint();
+		
+		public void sendSaveRuntimeEndPoint();
+		
+		public void sendGoToRuntimeEndPoint();
 		
 	}
 	

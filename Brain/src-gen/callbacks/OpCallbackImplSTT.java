@@ -6,7 +6,7 @@ import main.Start;
 import modules.Modules;
 import modules.parser.STT;
 
-public class OpCallbackImplSTT implements
+public class OpCallbackImplSTT implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCISTTOperationCallback,
@@ -72,6 +72,11 @@ public class OpCallbackImplSTT implements
 		stt.setSpokenTextReceived(false);
 		stt.setIncomprehensible(false);
 		stt.setActionReceived(false);
+	}
+
+	@Override
+	public void sendInit() {
+		sendSpeechDetectionOff();
 	}
 
 

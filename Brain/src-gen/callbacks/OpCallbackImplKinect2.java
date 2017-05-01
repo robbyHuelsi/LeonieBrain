@@ -5,7 +5,7 @@ import main.Start;
 import modules.Modules;
 import modules.parser.Kinect2;
 
-public class OpCallbackImplKinect2 implements
+public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIKinect2OperationCallback,
@@ -25,7 +25,7 @@ public class OpCallbackImplKinect2 implements
 	}
 	
 	public void sendWavingDetectionOnOff(boolean inOnOff){
-		Communication.sendMessage("#KINECT2#WAVE#" + (inOnOff?"1":"0") + "#", modules.get("Kinect2"));
+		Communication.sendMessage("#KINECT2#PERSON#" + (inOnOff?"1":"0") + "#", modules.get("Kinect2"));
 		
 		if (!inOnOff) {
 			Kinect2 k2 = ((Kinect2)modules.getParser("Kinect2"));
@@ -45,6 +45,12 @@ public class OpCallbackImplKinect2 implements
 
 	public double getWavingY() {
 		return ((Kinect2)modules.getParser("Kinect2")).getWavingY();
+	}
+
+	@Override
+	public void sendInit() {
+		sendNoiseDetectionOnOff(false);
+		sendWavingDetectionOnOff(false);
 	}
 
 }

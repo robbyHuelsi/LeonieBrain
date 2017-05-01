@@ -3,7 +3,7 @@ package callbacks;
 import Persons.PersonList;
 import main.Start;
 
-public class OpCallbackImplCurrPerson implements
+public class OpCallbackImplCurrPerson implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCICurrPersonOperationCallback
 {
 	
@@ -239,6 +239,12 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			personList.getCurrPerson().getCurrDynData().setEmotion(-1, Start.instanceOf());
 		}
+	}
+
+
+	@Override
+	public void sendInit() {
+		// Nothing to do
 	}
 
 }

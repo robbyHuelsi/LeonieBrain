@@ -11,6 +11,7 @@ public class Kinect2 implements IParser, Serializable{
 	
 	// Parsed information
 	private boolean noiseDetected;
+	private boolean personDetected;
 	private boolean wavingDetected;
 	private int noiseAngle;
 	private double wavingX;
@@ -34,16 +35,20 @@ public class Kinect2 implements IParser, Serializable{
 				this.setNoiseDetected(false);
 			}
 			
-		}else if(datas[0].equals("WAVE")){
+		}else if(datas[0].equals("PERSON")){
 			String[] waveDatas = datas[1].split(";");
 			if (waveDatas[0].contains("1")) {
-				System.out.println("Waving detected: " + waveDatas[1] + "; " + waveDatas[2]);
-				this.setWavingX(Double.parseDouble(waveDatas[1]));
-				this.setWavingY(Double.parseDouble(waveDatas[2]));
-				this.setWavingDetected(true);
+				System.out.println("Kinect2: Person detected (x: " + waveDatas[2] + ", y: " + waveDatas[3] + ", Wiving: " + waveDatas[1] + ")");
+				this.setWavingX(Double.parseDouble(waveDatas[2]));
+				this.setWavingY(Double.parseDouble(waveDatas[3]));
+				this.setWavingDetected(waveDatas[1].equals("1"));
+				this.setPersonDetected(true);
 			} else {
-				//System.out.println("No waving");
+				System.out.println("Kinect2: No Person");
+				this.setWavingX(-1);
+				this.setWavingY(-1);
 				this.setWavingDetected(false);
+				this.setPersonDetected(false);
 			}
 		}
 		
@@ -64,6 +69,20 @@ public class Kinect2 implements IParser, Serializable{
 		}
 	}
 	
+	
+	
+	public boolean isPersonDetected() {
+		return personDetected;
+	}
+
+	public void setPersonDetected(boolean personDetected) {
+		this.personDetected = personDetected;
+		
+		if (personDetected) {
+			start.getStatemachine().raiseEventOfSCI("Kinect2","personDetected");
+		}
+	}
+
 	public boolean isWavingDetected() {
 		return wavingDetected;
 	}
@@ -102,6 +121,7 @@ public class Kinect2 implements IParser, Serializable{
 	}
 
 	public boolean removeParsedInformation() {
+		this.personDetected = false;
 		this.noiseDetected = false;
 		this.wavingDetected = false;
 		this.noiseAngle = -1;

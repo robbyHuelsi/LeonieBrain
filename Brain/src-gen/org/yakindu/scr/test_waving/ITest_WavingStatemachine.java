@@ -7,6 +7,8 @@ public interface ITest_WavingStatemachine extends ITimerCallback,IStatemachine {
 
 	public interface SCIKinect2 {
 	
+		public void raisePersonDetected();
+		
 		public void raiseNoiseDetected();
 		
 		public void raiseWavingDetected();

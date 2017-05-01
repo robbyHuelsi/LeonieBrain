@@ -87,6 +87,12 @@ public interface ICocktailPartyStatemachine extends ITimerCallback,IStatemachine
 		
 		public void sendPanTiltCamera(long inPan, long inTilt);
 		
+		public void sendSaveRuntimeStartPoint();
+		
+		public void sendSaveRuntimeEndPoint();
+		
+		public void sendGoToRuntimeEndPoint();
+		
 	}
 	
 	public SCIMira getSCIMira();

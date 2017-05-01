@@ -1,8 +1,9 @@
 package org.yakindu.scr.generalpurposeservicerobot;
 
 import org.yakindu.scr.IStatemachine;
+import org.yakindu.scr.ITimerCallback;
 
-public interface IGeneralPurposeServiceRobotStatemachine extends IStatemachine {
+public interface IGeneralPurposeServiceRobotStatemachine extends ITimerCallback,IStatemachine {
 
 	public interface SCIHBrain {
 	
@@ -65,6 +66,12 @@ public interface IGeneralPurposeServiceRobotStatemachine extends IStatemachine {
 		public void sendTiltCamera(long inTilt);
 		
 		public void sendPanTiltCamera(long inPan, long inTilt);
+		
+		public void sendSaveRuntimeStartPoint();
+		
+		public void sendSaveRuntimeEndPoint();
+		
+		public void sendGoToRuntimeEndPoint();
 		
 	}
 	

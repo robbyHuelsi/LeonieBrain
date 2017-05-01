@@ -6,7 +6,7 @@ import modules.Modules;
 import modules.parser.FollowMe;
 import modules.parser.STT;
 
-public class OpCallbackImplFollowMe implements
+public class OpCallbackImplFollowMe implements IOpCallbackImpl,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIFollowMeOperationCallback,
 	org.yakindu.scr.test_followme.ITest_FollowMeStatemachine.SCIFollowMeOperationCallback,
 	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIFollowMeOperationCallback
@@ -56,6 +56,12 @@ public class OpCallbackImplFollowMe implements
 	public long getNextpersonYPos() {
 		FollowMe fm = (FollowMe)Start.getModules().getParser("FollowMe");
 		return fm.getNextPersonYPos();
+	}
+
+	@Override
+	public void sendInit() {
+		sendTrackingOff();
+		sendDetectionOff();
 	}
 	
 	

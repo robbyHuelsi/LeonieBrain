@@ -165,9 +165,6 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 	private boolean initialized = false;
 	
 	public enum State {
-		leonie_Bupered_init,
-		leonie_Bupered_sayAutsch,
-		leonie_Bupered_resetFace,
 		main_region_Init,
 		main_region_Entering,
 		main_region_WaitingForOrder,
@@ -179,6 +176,10 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 		main_region_DetectPerson,
 		main_region_BringTheOrder,
 		main_region_TellWaiterTheOrder,
+		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
+		leonie_Bupered_Or_Emergency_Stop_Bumpered,
+		leonie_Bupered_Or_Emergency_Stop_resetFace,
+		leonie_Bupered_Or_Emergency_Stop_EmergencyStop,
 		$NullState$
 	};
 	
@@ -188,7 +189,7 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[1];
+	private final boolean[] timeEvents = new boolean[2];
 	public CocktailPartyStatemachine() {
 		sCIHBrain = new SCIHBrainImpl();
 		sCIKinect2 = new SCIKinect2Impl();
@@ -218,13 +219,13 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 		if (timer == null) {
 			throw new IllegalStateException("timer not set.");
 		}
-		enterSequence_Leonie_Bupered_default();
 		enterSequence_main_region_default();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_default();
 	}
 	
 	public void exit() {
-		exitSequence_Leonie_Bupered();
 		exitSequence_main_region();
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop();
 	}
 	
 	/**
@@ -268,34 +269,36 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 	public boolean isStateActive(State state) {
 	
 		switch (state) {
-		case leonie_Bupered_init:
-			return stateVector[0] == State.leonie_Bupered_init;
-		case leonie_Bupered_sayAutsch:
-			return stateVector[0] == State.leonie_Bupered_sayAutsch;
-		case leonie_Bupered_resetFace:
-			return stateVector[0] == State.leonie_Bupered_resetFace;
 		case main_region_Init:
-			return stateVector[1] == State.main_region_Init;
+			return stateVector[0] == State.main_region_Init;
 		case main_region_Entering:
-			return stateVector[1] == State.main_region_Entering;
+			return stateVector[0] == State.main_region_Entering;
 		case main_region_WaitingForOrder:
-			return stateVector[1] == State.main_region_WaitingForOrder;
+			return stateVector[0] == State.main_region_WaitingForOrder;
 		case main_region_GoToPerson:
-			return stateVector[1] == State.main_region_GoToPerson;
+			return stateVector[0] == State.main_region_GoToPerson;
 		case main_region_Order:
-			return stateVector[1] == State.main_region_Order;
+			return stateVector[0] == State.main_region_Order;
 		case main_region_AskForOrder:
-			return stateVector[1] == State.main_region_AskForOrder;
+			return stateVector[0] == State.main_region_AskForOrder;
 		case main_region_Bar:
-			return stateVector[1] == State.main_region_Bar;
+			return stateVector[0] == State.main_region_Bar;
 		case main_region_AskForWave:
-			return stateVector[1] == State.main_region_AskForWave;
+			return stateVector[0] == State.main_region_AskForWave;
 		case main_region_DetectPerson:
-			return stateVector[1] == State.main_region_DetectPerson;
+			return stateVector[0] == State.main_region_DetectPerson;
 		case main_region_BringTheOrder:
-			return stateVector[1] == State.main_region_BringTheOrder;
+			return stateVector[0] == State.main_region_BringTheOrder;
 		case main_region_TellWaiterTheOrder:
-			return stateVector[1] == State.main_region_TellWaiterTheOrder;
+			return stateVector[0] == State.main_region_TellWaiterTheOrder;
+		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
+		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_Bumpered;
+		case leonie_Bupered_Or_Emergency_Stop_resetFace:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_resetFace;
+		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
 		default:
 			return false;
 		}
@@ -349,18 +352,6 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 		return sCIMicrophoneArray;
 	}
 	
-	private boolean check_Leonie_Bupered_init_tr0_tr0() {
-		return sCIMira.bumpered;
-	}
-	
-	private boolean check_Leonie_Bupered_sayAutsch_tr0_tr0() {
-		return timeEvents[0];
-	}
-	
-	private boolean check_Leonie_Bupered_resetFace_tr0_tr0() {
-		return true;
-	}
-	
 	private boolean check_main_region_GoToPerson_tr0_tr0() {
 		return sCIMira.arrivedWP;
 	}
@@ -369,19 +360,24 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 		return sCIMira.arrivedWP;
 	}
 	
-	private void effect_Leonie_Bupered_init_tr0() {
-		exitSequence_Leonie_Bupered_init();
-		enterSequence_Leonie_Bupered_sayAutsch_default();
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
+		return sCIMira.bumpered;
 	}
 	
-	private void effect_Leonie_Bupered_sayAutsch_tr0() {
-		exitSequence_Leonie_Bupered_sayAutsch();
-		enterSequence_Leonie_Bupered_resetFace_default();
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1_tr1() {
+		return sCIMira.emergencyStop;
 	}
 	
-	private void effect_Leonie_Bupered_resetFace_tr0() {
-		exitSequence_Leonie_Bupered_resetFace();
-		enterSequence_Leonie_Bupered_init_default();
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
+		return timeEvents[0];
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0() {
+		return timeEvents[1];
 	}
 	
 	private void effect_main_region_GoToPerson_tr0() {
@@ -394,16 +390,29 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 		enterSequence_main_region_TellWaiterTheOrder_default();
 	}
 	
-	/* Entry action for state 'sayAutsch'. */
-	private void entryAction_Leonie_Bupered_sayAutsch() {
-		timer.setTimer(this, 0, 5 * 1000, false);
-		
-		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered_default();
 	}
 	
-	/* Entry action for state 'resetFace'. */
-	private void entryAction_Leonie_Bupered_resetFace() {
-		sCIHBrain.operationCallback.sendTTS("[:-|]");
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
 	}
 	
 	/* Entry action for state 'Entering'. */
@@ -450,108 +459,134 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 		sCIHBrain.operationCallback.sendTTS("STT.order");
 	}
 	
-	/* Exit action for state 'sayAutsch'. */
-	private void exitAction_Leonie_Bupered_sayAutsch() {
+	/* Entry action for state 'Bumpered'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+		timer.setTimer(this, 0, 3*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
+	}
+	
+	/* Entry action for state 'resetFace'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
+		sCIHBrain.operationCallback.sendTTS("[:-|]");
+	}
+	
+	/* Entry action for state 'EmergencyStop'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		timer.setTimer(this, 1, 3*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
+	}
+	
+	/* Exit action for state 'Bumpered'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
 		timer.unsetTimer(this, 0);
 	}
 	
-	/* 'default' enter sequence for state init */
-	private void enterSequence_Leonie_Bupered_init_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.leonie_Bupered_init;
-	}
-	
-	/* 'default' enter sequence for state sayAutsch */
-	private void enterSequence_Leonie_Bupered_sayAutsch_default() {
-		entryAction_Leonie_Bupered_sayAutsch();
-		nextStateIndex = 0;
-		stateVector[0] = State.leonie_Bupered_sayAutsch;
-	}
-	
-	/* 'default' enter sequence for state resetFace */
-	private void enterSequence_Leonie_Bupered_resetFace_default() {
-		entryAction_Leonie_Bupered_resetFace();
-		nextStateIndex = 0;
-		stateVector[0] = State.leonie_Bupered_resetFace;
+	/* Exit action for state 'EmergencyStop'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		timer.unsetTimer(this, 1);
 	}
 	
 	/* 'default' enter sequence for state Init */
 	private void enterSequence_main_region_Init_default() {
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_Init;
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Init;
 	}
 	
 	/* 'default' enter sequence for state Entering */
 	private void enterSequence_main_region_Entering_default() {
 		entryAction_main_region_Entering();
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_Entering;
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Entering;
 	}
 	
 	/* 'default' enter sequence for state WaitingForOrder */
 	private void enterSequence_main_region_WaitingForOrder_default() {
 		entryAction_main_region_WaitingForOrder();
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_WaitingForOrder;
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_WaitingForOrder;
 	}
 	
 	/* 'default' enter sequence for state GoToPerson */
 	private void enterSequence_main_region_GoToPerson_default() {
 		entryAction_main_region_GoToPerson();
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_GoToPerson;
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_GoToPerson;
 	}
 	
 	/* 'default' enter sequence for state Order */
 	private void enterSequence_main_region_Order_default() {
 		entryAction_main_region_Order();
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_Order;
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Order;
 	}
 	
 	/* 'default' enter sequence for state AskForOrder */
 	private void enterSequence_main_region_AskForOrder_default() {
 		entryAction_main_region_AskForOrder();
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_AskForOrder;
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_AskForOrder;
 	}
 	
 	/* 'default' enter sequence for state Bar */
 	private void enterSequence_main_region_Bar_default() {
 		entryAction_main_region_Bar();
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_Bar;
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Bar;
 	}
 	
 	/* 'default' enter sequence for state AskForWave */
 	private void enterSequence_main_region_AskForWave_default() {
 		entryAction_main_region_AskForWave();
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_AskForWave;
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_AskForWave;
 	}
 	
 	/* 'default' enter sequence for state DetectPerson */
 	private void enterSequence_main_region_DetectPerson_default() {
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_DetectPerson;
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_DetectPerson;
 	}
 	
 	/* 'default' enter sequence for state BringTheOrder */
 	private void enterSequence_main_region_BringTheOrder_default() {
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_BringTheOrder;
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_BringTheOrder;
 	}
 	
 	/* 'default' enter sequence for state TellWaiterTheOrder */
 	private void enterSequence_main_region_TellWaiterTheOrder_default() {
 		entryAction_main_region_TellWaiterTheOrder();
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_TellWaiterTheOrder;
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TellWaiterTheOrder;
 	}
 	
-	/* 'default' enter sequence for region Leonie Bupered */
-	private void enterSequence_Leonie_Bupered_default() {
-		react_Leonie_Bupered__entry_Default();
+	/* 'default' enter sequence for state waitForEvent */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default() {
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
+	}
+	
+	/* 'default' enter sequence for state Bumpered */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_Bumpered;
+	}
+	
+	/* 'default' enter sequence for state resetFace */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_resetFace();
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_resetFace;
+	}
+	
+	/* 'default' enter sequence for state EmergencyStop */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
 	}
 	
 	/* 'default' enter sequence for region main region */
@@ -559,112 +594,108 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 		react_main_region__entry_Default();
 	}
 	
-	/* Default exit sequence for state init */
-	private void exitSequence_Leonie_Bupered_init() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state sayAutsch */
-	private void exitSequence_Leonie_Bupered_sayAutsch() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_Leonie_Bupered_sayAutsch();
-	}
-	
-	/* Default exit sequence for state resetFace */
-	private void exitSequence_Leonie_Bupered_resetFace() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
+	/* 'default' enter sequence for region Leonie Bupered Or Emergency Stop */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_default() {
+		react_Leonie_Bupered_Or_Emergency_Stop__entry_Default();
 	}
 	
 	/* Default exit sequence for state Init */
 	private void exitSequence_main_region_Init() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state Entering */
 	private void exitSequence_main_region_Entering() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state WaitingForOrder */
 	private void exitSequence_main_region_WaitingForOrder() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state GoToPerson */
 	private void exitSequence_main_region_GoToPerson() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state Order */
 	private void exitSequence_main_region_Order() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state AskForOrder */
 	private void exitSequence_main_region_AskForOrder() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state Bar */
 	private void exitSequence_main_region_Bar() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state AskForWave */
 	private void exitSequence_main_region_AskForWave() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state DetectPerson */
 	private void exitSequence_main_region_DetectPerson() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state BringTheOrder */
 	private void exitSequence_main_region_BringTheOrder() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state TellWaiterTheOrder */
 	private void exitSequence_main_region_TellWaiterTheOrder() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state waitForEvent */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		nextStateIndex = 1;
 		stateVector[1] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for region Leonie Bupered */
-	private void exitSequence_Leonie_Bupered() {
-		switch (stateVector[0]) {
-		case leonie_Bupered_init:
-			exitSequence_Leonie_Bupered_init();
-			break;
-		case leonie_Bupered_sayAutsch:
-			exitSequence_Leonie_Bupered_sayAutsch();
-			break;
-		case leonie_Bupered_resetFace:
-			exitSequence_Leonie_Bupered_resetFace();
-			break;
-		default:
-			break;
-		}
+	/* Default exit sequence for state Bumpered */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
+		
+		exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
+	}
+	
+	/* Default exit sequence for state resetFace */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state EmergencyStop */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
+		
+		exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
 	}
 	
 	/* Default exit sequence for region main region */
 	private void exitSequence_main_region() {
-		switch (stateVector[1]) {
+		switch (stateVector[0]) {
 		case main_region_Init:
 			exitSequence_main_region_Init();
 			break;
@@ -703,23 +734,24 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 		}
 	}
 	
-	/* The reactions of state init. */
-	private void react_Leonie_Bupered_init() {
-		if (check_Leonie_Bupered_init_tr0_tr0()) {
-			effect_Leonie_Bupered_init_tr0();
+	/* Default exit sequence for region Leonie Bupered Or Emergency Stop */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop() {
+		switch (stateVector[1]) {
+		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_resetFace:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+			break;
+		default:
+			break;
 		}
-	}
-	
-	/* The reactions of state sayAutsch. */
-	private void react_Leonie_Bupered_sayAutsch() {
-		if (check_Leonie_Bupered_sayAutsch_tr0_tr0()) {
-			effect_Leonie_Bupered_sayAutsch_tr0();
-		}
-	}
-	
-	/* The reactions of state resetFace. */
-	private void react_Leonie_Bupered_resetFace() {
-		effect_Leonie_Bupered_resetFace_tr0();
 	}
 	
 	/* The reactions of state Init. */
@@ -772,14 +804,44 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 	private void react_main_region_TellWaiterTheOrder() {
 	}
 	
-	/* Default react sequence for initial entry  */
-	private void react_Leonie_Bupered__entry_Default() {
-		enterSequence_Leonie_Bupered_init_default();
+	/* The reactions of state waitForEvent. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0();
+		} else {
+			if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1_tr1()) {
+				effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1();
+			}
+		}
+	}
+	
+	/* The reactions of state Bumpered. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0();
+		}
+	}
+	
+	/* The reactions of state resetFace. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
+		effect_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0();
+	}
+	
+	/* The reactions of state EmergencyStop. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+		}
 	}
 	
 	/* Default react sequence for initial entry  */
 	private void react_main_region__entry_Default() {
 		enterSequence_main_region_Init_default();
+	}
+	
+	/* Default react sequence for initial entry  */
+	private void react_Leonie_Bupered_Or_Emergency_Stop__entry_Default() {
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default();
 	}
 	
 	public void runCycle() {
@@ -789,15 +851,6 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 		clearOutEvents();
 		for (nextStateIndex = 0; nextStateIndex < stateVector.length; nextStateIndex++) {
 			switch (stateVector[nextStateIndex]) {
-			case leonie_Bupered_init:
-				react_Leonie_Bupered_init();
-				break;
-			case leonie_Bupered_sayAutsch:
-				react_Leonie_Bupered_sayAutsch();
-				break;
-			case leonie_Bupered_resetFace:
-				react_Leonie_Bupered_resetFace();
-				break;
 			case main_region_Init:
 				react_main_region_Init();
 				break;
@@ -830,6 +883,18 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 				break;
 			case main_region_TellWaiterTheOrder:
 				react_main_region_TellWaiterTheOrder();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
+				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_Bumpered:
+				react_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_resetFace:
+				react_Leonie_Bupered_Or_Emergency_Stop_resetFace();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
+				react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
 				break;
 			default:
 				// $NullState$

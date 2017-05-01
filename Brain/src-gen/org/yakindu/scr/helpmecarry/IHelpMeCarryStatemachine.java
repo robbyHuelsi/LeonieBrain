@@ -33,6 +33,8 @@ public interface IHelpMeCarryStatemachine extends ITimerCallback,IStatemachine {
 	
 	public interface SCIKinect2 {
 	
+		public void raisePersonDetected();
+		
 		public void raiseNoiseDetected();
 		
 		public void raiseWavingDetected();
@@ -92,6 +94,12 @@ public interface IHelpMeCarryStatemachine extends ITimerCallback,IStatemachine {
 		public void sendTiltCamera(long inTilt);
 		
 		public void sendPanTiltCamera(long inPan, long inTilt);
+		
+		public void sendSaveRuntimeStartPoint();
+		
+		public void sendSaveRuntimeEndPoint();
+		
+		public void sendGoToRuntimeEndPoint();
 		
 	}
 	

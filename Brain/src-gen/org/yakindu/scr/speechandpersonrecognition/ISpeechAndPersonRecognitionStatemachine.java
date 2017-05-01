@@ -5,6 +5,32 @@ import org.yakindu.scr.ITimerCallback;
 
 public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,IStatemachine {
 
+	public interface SCIBGF {
+	
+		public long getEventNum();
+		
+		public void setEventNum(long value);
+		
+		public long getRandNum();
+		
+		public void setRandNum(long value);
+		
+		public void setSCIBGFOperationCallback(SCIBGFOperationCallback operationCallback);
+	
+	}
+	
+	public interface SCIBGFOperationCallback {
+	
+		public void printToConsole(String msg);
+		
+		public String intToString(long inInt);
+		
+		public long getRandNum(long max);
+		
+	}
+	
+	public SCIBGF getSCIBGF();
+	
 	public interface SCIHBrain {
 	
 		public void raiseTTSReady();
@@ -33,9 +59,11 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 	public interface SCIKinect2 {
 	
+		public void raisePersonDetected();
+		
 		public void raiseNoiseDetected();
 		
-		public void raiseWaveDetected();
+		public void raiseWavingDetected();
 		
 		public void setSCIKinect2OperationCallback(SCIKinect2OperationCallback operationCallback);
 	
@@ -92,6 +120,12 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		public void sendTiltCamera(long inTilt);
 		
 		public void sendPanTiltCamera(long inPan, long inTilt);
+		
+		public void sendSaveRuntimeStartPoint();
+		
+		public void sendSaveRuntimeEndPoint();
+		
+		public void sendGoToRuntimeEndPoint();
 		
 	}
 	

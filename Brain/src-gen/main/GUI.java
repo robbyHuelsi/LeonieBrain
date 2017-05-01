@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -36,13 +37,17 @@ public class GUI extends JFrame{
 		
 		JComboBox comboStatemachines = new JComboBox(start.getStatemachineNames());
 		comboStatemachines.setMaximumRowCount(20);
+		
 		JButton buttonStart = new JButton("Start");
 		buttonStart.setForeground(new Color(0, 255, 0));
+		
+		JCheckBox checkBoxSendInitAll = new JCheckBox("Send Init To All Modules", true);
 		
 		JPanel panelStateChoose = new JPanel();
 		panelStateChoose.setLayout(new FlowLayout(FlowLayout.CENTER));
 		panelStateChoose.add(comboStatemachines);
-		panelStateChoose.add(buttonStart); 
+		panelStateChoose.add(checkBoxSendInitAll);
+		panelStateChoose.add(buttonStart);
 		total.add(panelStateChoose,BorderLayout.NORTH);
 		
 		
@@ -126,7 +131,7 @@ public class GUI extends JFrame{
 		
 		total.add(tabPane, BorderLayout.CENTER);
 		
-		total.setSize(500,500);
+		total.setSize(600,400);
 		total.setVisible(true);
 		
 		
@@ -135,9 +140,10 @@ public class GUI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if (start.getStatemachine() == null) {
 					start.setStatemachine(comboStatemachines.getSelectedItem().toString(), start);
-					start.getStatemachine().setOperationCallbacks();
+					start.getStatemachine().setOperationCallbacks(checkBoxSendInitAll.isSelected());
 					
 					comboStatemachines.setEnabled(false);
+					checkBoxSendInitAll.setEnabled(false);
 					//buttonStart.setEnabled(false);
 					buttonStart.setText("Stop");
 					buttonStart.setForeground(new Color(255, 0, 0));
@@ -148,6 +154,7 @@ public class GUI extends JFrame{
 					start.setStatemachine(null, start);
 					
 					comboStatemachines.setEnabled(true);
+					checkBoxSendInitAll.setEnabled(true);
 					//buttonStart.setEnabled(true);
 					buttonStart.setText("Start");
 					buttonStart.setForeground(new Color(0, 255, 0));

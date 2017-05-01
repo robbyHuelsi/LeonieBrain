@@ -6,7 +6,7 @@ import main.Start;
 import modules.Modules;
 import modules.parser.VBrain;
 
-public class OpCallbackImplVBrain implements
+public class OpCallbackImplVBrain implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIVBrainOperationCallback
 {
 	
@@ -35,5 +35,10 @@ public class OpCallbackImplVBrain implements
 
 	public boolean isNessesaryToSavePersonList() {
 		return ((VBrain)modules.getParser("VBrain")).isNessesaryToSavePersonList();
+	}
+
+	@Override
+	public void sendInit() {
+		sendACIOnOff(false);
 	}
 }

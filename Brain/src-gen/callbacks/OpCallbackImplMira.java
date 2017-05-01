@@ -5,7 +5,7 @@ import main.Start;
 import modules.Modules;
 import modules.parser.Mira;
 
-public class OpCallbackImplMira implements
+public class OpCallbackImplMira implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.storinggroceries.IStoringGroceriesStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIMiraOperationCallback,
@@ -58,17 +58,17 @@ public class OpCallbackImplMira implements
 	}
 
 	public void sendTurnBody(long inAngle) {
-		System.out.println("Turn Body: angle=" + inAngle);
+		System.out.println("Mira: Turn Body: angle=" + inAngle);
 		Communication.sendMessage("#MIRA#ROTBODY#" + inAngle + "#", modules.get("Mira"));
 	}
 
 	public void sendTurnHead(long inAngle) {
-		System.out.println("Turn Body: angle=" + inAngle);
+		System.out.println("Mira: Turn Body: angle=" + inAngle);
 		Communication.sendMessage("#MIRA#ROTHEAD#" + inAngle + "#", modules.get("Mira"));
 	}
 	
 	public void sendPanCamera(long inPan){
-		System.out.println("Pan Camera:" + inPan);
+		System.out.println("Mira: Pan Camera:" + inPan);
 		Communication.sendMessage("#MIRA#PTU#setPanVelocity#30#", modules.get("Mira"));
 		try {
 			Thread.sleep(200);
@@ -79,7 +79,7 @@ public class OpCallbackImplMira implements
 	}
 	
 	public void sendTiltCamera(long inTilt){
-		System.out.println("Pan Camera:" + inTilt);
+		System.out.println("Mira: Pan Camera:" + inTilt);
 		Communication.sendMessage("#MIRA#PTU#setTiltVelocity#30#", modules.get("Mira"));
 		try {
 			Thread.sleep(200);
@@ -90,7 +90,7 @@ public class OpCallbackImplMira implements
 	}
 	
 	public void sendPanTiltCamera(long inPan, long inTilt) {
-		System.out.println("Pan Camera:" + inPan);
+		System.out.println("Mira: Pan Camera:" + inPan);
 		sendPanCamera(inPan);
 		try {
 			Thread.sleep(200);
@@ -102,8 +102,28 @@ public class OpCallbackImplMira implements
 	}
 
 	public void sendGoToLC(long inX, long inY) {
-		System.out.println("Go to local coordinates: x=" + inX + ", y=" + inY);
+		System.out.println("Mira: Go to local coordinates: x=" + inX + ", y=" + inY);
 		Communication.sendMessage("#MIRA#LC#" + inX + ";" + inY + ";#", modules.get("Mira"));
+	}
+
+	public void sendSaveRuntimeStartPoint() {
+		System.out.println("Mira: sendSaveRuntimeStartPoint");
+		Communication.sendMessage("#MIRA#ADDRUNTIMESTARTPOINT#", modules.get("Mira"));
+	}
+
+	public void sendSaveRuntimeEndPoint() {
+		System.out.println("Mira: sendSaveRuntimeEndPoint");
+		Communication.sendMessage("#MIRA#ADDRUNTIMEENDPOINT#", modules.get("Mira"));
+	}
+
+	public void sendGoToRuntimeEndPoint() {
+		System.out.println("Mira: sendGoToRuntimeEndPoint");
+		Communication.sendMessage("#MIRA#GOTORUNTIMEENDPOINT#", modules.get("Mira"));
+	}
+
+	@Override
+	public void sendInit() {
+		sendPanTiltCamera(0, 0);
 	}
 
 }

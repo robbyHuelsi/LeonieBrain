@@ -72,7 +72,7 @@ public class Statemachine {
 		}
 	}
 	
-	public boolean setOperationCallbacks(){		
+	public boolean setOperationCallbacks(boolean sendInitToAllModules){		
 		if (this.statemachine != null) {
 
 			Vector<String> opCallbackImplNames = new Vector<String>();
@@ -94,7 +94,13 @@ public class Statemachine {
 					Class<?> sciOperationCallback = Class.forName("org.yakindu.scr." + this.statemachineName.toLowerCase() + ".I" + this.statemachineName + "Statemachine$SCI" + opCallbackImplName + "OperationCallback");
 					Class<?> opCallbackImplClass = Class.forName("callbacks.OpCallbackImpl" + opCallbackImplName);
 					Method setSCIOperationCallback = sciClass.getDeclaredMethod("setSCI" + opCallbackImplName + "OperationCallback", new Class[]{sciOperationCallback});
-					setSCIOperationCallback.invoke(sci, opCallbackImplClass.newInstance());	
+					Object opCallback = setSCIOperationCallback.invoke(sci, opCallbackImplClass.newInstance());
+					
+					
+					if (sendInitToAllModules) {
+						Method sendInit = opCallbackImplClass.getDeclaredMethod("sendInit", new Class[]{});
+						sendInit.invoke(opCallbackImplClass.newInstance());
+					}
 				} catch (NoSuchMethodException e) {
 					e.printStackTrace();
 					return false;

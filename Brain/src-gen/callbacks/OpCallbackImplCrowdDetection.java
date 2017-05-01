@@ -6,7 +6,7 @@ import modules.Modules;
 import modules.parser.CrowdDet;
 import modules.parser.STT;
 
-public class OpCallbackImplCrowdDetection implements
+public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCICrowdDetectionOperationCallback,
 	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCICrowdDetectionOperationCallback
 {
@@ -41,6 +41,11 @@ public class OpCallbackImplCrowdDetection implements
 
 	public String getSummaryText() {
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getSummaryString();
+	}
+
+	@Override
+	public void sendInit() {
+		sendDetectionOff();
 	}	
 	
 }

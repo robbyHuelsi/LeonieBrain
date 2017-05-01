@@ -6,8 +6,9 @@ import Persons.PersonList;
 import main.Start;
 import modules.Modules;
 
-public class OpCallbackImplBGF implements
-	org.yakindu.scr.braganca.IBragancaStatemachine.SCIBGFOperationCallback
+public class OpCallbackImplBGF implements IOpCallbackImpl,
+	org.yakindu.scr.braganca.IBragancaStatemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIBGFOperationCallback
 {
 	
 	private PersonList personList = Start.instanceOf().getPersonList();
@@ -26,5 +27,13 @@ public class OpCallbackImplBGF implements
 		long randNum = randGen.nextInt((int)max);
 		System.out.println("New random number: " + randNum);
 		return randNum;
+	}
+
+	public void sendInit() {
+		// Nothing to do
+	}
+
+	public String intToString(long inInt) {
+		return "" + inInt;
 	}
 }

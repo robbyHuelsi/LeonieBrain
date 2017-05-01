@@ -1,4 +1,5 @@
 package org.yakindu.scr.generalpurposeservicerobot;
+import org.yakindu.scr.ITimer;
 
 public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeServiceRobotStatemachine {
 
@@ -194,13 +195,20 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		main_region_StopSTT,
 		main_region_TellIncomprehensible,
 		main_region_NextQuestion,
+		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
+		leonie_Bupered_Or_Emergency_Stop_Bumpered,
+		leonie_Bupered_Or_Emergency_Stop_resetFace,
+		leonie_Bupered_Or_Emergency_Stop_EmergencyStop,
 		$NullState$
 	};
 	
-	private final State[] stateVector = new State[1];
+	private final State[] stateVector = new State[2];
 	
 	private int nextStateIndex;
 	
+	private ITimer timer;
+	
+	private final boolean[] timeEvents = new boolean[2];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -242,7 +250,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	public void init() {
 		this.initialized = true;
-		for (int i = 0; i < 1; i++) {
+		if (timer == null) {
+			throw new IllegalStateException("timer not set.");
+		}
+		for (int i = 0; i < 2; i++) {
 			stateVector[i] = State.$NullState$;
 		}
 		clearEvents();
@@ -259,25 +270,32 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			throw new IllegalStateException(
 					"The state machine needs to be initialized first by calling the init() function.");
 		}
+		if (timer == null) {
+			throw new IllegalStateException("timer not set.");
+		}
 		enterSequence_main_region_default();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_default();
 	}
 	
 	public void exit() {
 		exitSequence_main_region();
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop();
 	}
 	
 	/**
 	 * @see IStatemachine#isActive()
 	 */
 	public boolean isActive() {
-		return stateVector[0] != State.$NullState$;
+		return stateVector[0] != State.$NullState$||stateVector[1] != State.$NullState$;
 	}
 	
 	/** 
+	* Always returns 'false' since this state machine can never become final.
+	*
 	* @see IStatemachine#isFinal()
 	*/
 	public boolean isFinal() {
-		return (stateVector[0] == State.main_region__final_);
+		return false;
 	}
 	/**
 	* This method resets the incoming events (time events included).
@@ -288,6 +306,9 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		sCISTT.clearEvents();
 		sCICrowdDetection.clearEvents();
 		sCIFollowMe.clearEvents();
+		for (int i=0; i<timeEvents.length; i++) {
+			timeEvents[i] = false;
+		}
 	}
 	
 	/**
@@ -349,9 +370,41 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			return stateVector[0] == State.main_region_TellIncomprehensible;
 		case main_region_NextQuestion:
 			return stateVector[0] == State.main_region_NextQuestion;
+		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
+		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_Bumpered;
+		case leonie_Bupered_Or_Emergency_Stop_resetFace:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_resetFace;
+		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
 		default:
 			return false;
 		}
+	}
+	
+	/**
+	* Set the {@link ITimer} for the state machine. It must be set
+	* externally on a timed state machine before a run cycle can be correct
+	* executed.
+	* 
+	* @param timer
+	*/
+	public void setTimer(ITimer timer) {
+		this.timer = timer;
+	}
+	
+	/**
+	* Returns the currently used timer.
+	* 
+	* @return {@link ITimer}
+	*/
+	public ITimer getTimer() {
+		return timer;
+	}
+	
+	public void timeElapsed(int eventID) {
+		timeEvents[eventID] = true;
 	}
 	
 	public SCIHBrain getSCIHBrain() {
@@ -468,6 +521,26 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	private boolean check_main_region_NextQuestion_tr0_tr0() {
 		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
+		return sCIMira.bumpered;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1_tr1() {
+		return sCIMira.emergencyStop;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
+		return timeEvents[0];
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0() {
+		return timeEvents[1];
 	}
 	
 	private boolean check_main_region_TellAction_Instructions__choice_0_tr0_tr0() {
@@ -626,6 +699,31 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		enterSequence_main_region_StartSTT_default();
 	}
 	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
+	}
+	
 	private void effect_main_region_TellAction_Instructions__choice_0_tr0() {
 		enterSequence_main_region_TellAction_Instructions_GoTo_default();
 	}
@@ -689,8 +787,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		
 		setGWPstart(1);
 		
-		sCIHBrain.operationCallback.sendTTS("[:-|]");
-		
 		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
 	}
 	
@@ -708,12 +804,12 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void entryAction_main_region_TellAnswer() {
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getAnswer(), " [:-)]");
 		
-		setCounter(counter + 1);
+		setCounter(counter+1);
 	}
 	
 	/* Entry action for state 'TellAction'. */
 	private void entryAction_main_region_TellAction() {
-		setCounter(counter + 1);
+		setCounter(counter+1);
 	}
 	
 	/* Entry action for state 'GoTo'. */
@@ -784,6 +880,35 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	/* Entry action for state 'NextQuestion'. */
 	private void entryAction_main_region_NextQuestion() {
 		sCIHBrain.operationCallback.sendTTS("Please give me the next command or ask me a question. [attentive]");
+	}
+	
+	/* Entry action for state 'Bumpered'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+		timer.setTimer(this, 0, 3*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
+	}
+	
+	/* Entry action for state 'resetFace'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
+		sCIHBrain.operationCallback.sendTTS("[:-|]");
+	}
+	
+	/* Entry action for state 'EmergencyStop'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		timer.setTimer(this, 1, 3*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
+	}
+	
+	/* Exit action for state 'Bumpered'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+		timer.unsetTimer(this, 0);
+	}
+	
+	/* Exit action for state 'EmergencyStop'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		timer.unsetTimer(this, 1);
 	}
 	
 	/* 'default' enter sequence for state Hello */
@@ -945,6 +1070,33 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.main_region_NextQuestion;
 	}
 	
+	/* 'default' enter sequence for state waitForEvent */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default() {
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
+	}
+	
+	/* 'default' enter sequence for state Bumpered */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_Bumpered;
+	}
+	
+	/* 'default' enter sequence for state resetFace */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_resetFace();
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_resetFace;
+	}
+	
+	/* 'default' enter sequence for state EmergencyStop */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+	}
+	
 	/* 'default' enter sequence for region main region */
 	private void enterSequence_main_region_default() {
 		react_main_region__entry_Default();
@@ -953,6 +1105,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	/* 'default' enter sequence for region Instructions */
 	private void enterSequence_main_region_TellAction_Instructions_default() {
 		react_main_region_TellAction_Instructions__entry_Default();
+	}
+	
+	/* 'default' enter sequence for region Leonie Bupered Or Emergency Stop */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_default() {
+		react_Leonie_Bupered_Or_Emergency_Stop__entry_Default();
 	}
 	
 	/* Default exit sequence for state Hello */
@@ -1092,6 +1249,34 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state waitForEvent */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state Bumpered */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
+		
+		exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
+	}
+	
+	/* Default exit sequence for state resetFace */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state EmergencyStop */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
+		
+		exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+	}
+	
 	/* Default exit sequence for region main region */
 	private void exitSequence_main_region() {
 		switch (stateVector[0]) {
@@ -1201,6 +1386,26 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			break;
 		case main_region_TellAction_Instructions_AnswerSurrounding:
 			exitSequence_main_region_TellAction_Instructions_AnswerSurrounding();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region Leonie Bupered Or Emergency Stop */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop() {
+		switch (stateVector[1]) {
+		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_resetFace:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
 			break;
 		default:
 			break;
@@ -1364,6 +1569,36 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		}
 	}
 	
+	/* The reactions of state waitForEvent. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0();
+		} else {
+			if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1_tr1()) {
+				effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1();
+			}
+		}
+	}
+	
+	/* The reactions of state Bumpered. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0();
+		}
+	}
+	
+	/* The reactions of state resetFace. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
+		effect_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0();
+	}
+	
+	/* The reactions of state EmergencyStop. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+		}
+	}
+	
 	/* The reactions of state null. */
 	private void react_main_region_TellAction_Instructions__choice_0() {
 		if (check_main_region_TellAction_Instructions__choice_0_tr0_tr0()) {
@@ -1410,6 +1645,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	/* Default react sequence for initial entry  */
 	private void react_main_region_TellAction_Instructions__entry_Default() {
 		react_main_region_TellAction_Instructions__choice_0();
+	}
+	
+	/* Default react sequence for initial entry  */
+	private void react_Leonie_Bupered_Or_Emergency_Stop__entry_Default() {
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default();
 	}
 	
 	/* The reactions of exit exit_done. */
@@ -1489,6 +1729,18 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 				break;
 			case main_region_NextQuestion:
 				react_main_region_NextQuestion();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
+				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_Bumpered:
+				react_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_resetFace:
+				react_Leonie_Bupered_Or_Emergency_Stop_resetFace();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
+				react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
 				break;
 			default:
 				// $NullState$
