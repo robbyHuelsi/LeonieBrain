@@ -245,6 +245,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_GuideMe,
 		main_region_wait,
 		main_region_arrived,
+		main_region_DetectionOff,
+		main_region_TrackingOffAndSavePoint,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
@@ -258,7 +260,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[13];
+	private final boolean[] timeEvents = new boolean[14];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -471,6 +473,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_wait;
 		case main_region_arrived:
 			return stateVector[0] == State.main_region_arrived;
+		case main_region_DetectionOff:
+			return stateVector[0] == State.main_region_DetectionOff;
+		case main_region_TrackingOffAndSavePoint:
+			return stateVector[0] == State.main_region_TrackingOffAndSavePoint;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -724,6 +730,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_DetectionOff_tr0_tr0() {
+		return timeEvents[11];
+	}
+	
+	private boolean check_main_region_TrackingOffAndSavePoint_tr0_tr0() {
+		return true;
+	}
+	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
 		return sCIMira.bumpered;
 	}
@@ -733,7 +747,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[11];
+		return timeEvents[12];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -741,7 +755,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0() {
-		return timeEvents[12];
+		return timeEvents[13];
 	}
 	
 	private boolean check_main_region_StartTracking_WaitingForStopCommand__choice_0_tr0_tr0() {
@@ -813,7 +827,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private void effect_main_region_StartTracking_tr1() {
 		exitSequence_main_region_StartTracking();
-		enterSequence_main_region_HowCanIHelpYou_default();
+		enterSequence_main_region_DetectionOff_default();
 	}
 	
 	private void effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr0() {
@@ -1036,6 +1050,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region__final__default();
 	}
 	
+	private void effect_main_region_DetectionOff_tr0() {
+		exitSequence_main_region_DetectionOff();
+		enterSequence_main_region_TrackingOffAndSavePoint_default();
+	}
+	
+	private void effect_main_region_TrackingOffAndSavePoint_tr0() {
+		exitSequence_main_region_TrackingOffAndSavePoint();
+		enterSequence_main_region_HowCanIHelpYou_default();
+	}
+	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
 		exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered_default();
@@ -1202,15 +1226,6 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		setCounter(0);
 	}
 	
-	/* Entry action for state 'HowCanIHelpYou'. */
-	private void entryAction_main_region_HowCanIHelpYou() {
-		sCIFollowMe.operationCallback.sendTrackingOff();
-		
-		sCIFollowMe.operationCallback.sendDetectionOff();
-		
-		sCIMira.operationCallback.sendSaveRuntimeEndPoint();
-	}
-	
 	/* Entry action for state 'StateA'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StateA() {
 		sCIHBrain.operationCallback.sendTTS("[:-)] Please hang your grocery on me and tell me, where shall I go?");
@@ -1321,6 +1336,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'PersonFound'. */
 	private void entryAction_main_region_PersonFound() {
+		sCIFollowMe.operationCallback.sendDetectionOff();
+		
 		sCIHBrain.operationCallback.sendTTS("Hello. Can you take the groceries please? And I want you to follow me to the car.");
 	}
 	
@@ -1341,9 +1358,23 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		sCIHBrain.operationCallback.sendTTS("Arrived. Thanks for your attention! I have done my job. [:-O]");
 	}
 	
+	/* Entry action for state 'DetectionOff'. */
+	private void entryAction_main_region_DetectionOff() {
+		timer.setTimer(this, 11, 400, false);
+		
+		sCIFollowMe.operationCallback.sendTrackingOff();
+	}
+	
+	/* Entry action for state 'TrackingOffAndSavePoint'. */
+	private void entryAction_main_region_TrackingOffAndSavePoint() {
+		sCIFollowMe.operationCallback.sendDetectionOff();
+		
+		sCIMira.operationCallback.sendSaveRuntimeEndPoint();
+	}
+	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 11, 3*1000, false);
+		timer.setTimer(this, 12, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1355,7 +1386,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'EmergencyStop'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		timer.setTimer(this, 12, 3*1000, false);
+		timer.setTimer(this, 13, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
 	}
@@ -1415,14 +1446,19 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		timer.unsetTimer(this, 10);
 	}
 	
+	/* Exit action for state 'DetectionOff'. */
+	private void exitAction_main_region_DetectionOff() {
+		timer.unsetTimer(this, 11);
+	}
+	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 11);
+		timer.unsetTimer(this, 12);
 	}
 	
 	/* Exit action for state 'EmergencyStop'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		timer.unsetTimer(this, 12);
+		timer.unsetTimer(this, 13);
 	}
 	
 	/* 'default' enter sequence for state Detection */
@@ -1536,7 +1572,6 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* 'default' enter sequence for state HowCanIHelpYou */
 	private void enterSequence_main_region_HowCanIHelpYou_default() {
-		entryAction_main_region_HowCanIHelpYou();
 		enterSequence_main_region_HowCanIHelpYou_main_region_default();
 	}
 	
@@ -1689,6 +1724,20 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		entryAction_main_region_arrived();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_arrived;
+	}
+	
+	/* 'default' enter sequence for state DetectionOff */
+	private void enterSequence_main_region_DetectionOff_default() {
+		entryAction_main_region_DetectionOff();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_DetectionOff;
+	}
+	
+	/* 'default' enter sequence for state TrackingOffAndSavePoint */
+	private void enterSequence_main_region_TrackingOffAndSavePoint_default() {
+		entryAction_main_region_TrackingOffAndSavePoint();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_TrackingOffAndSavePoint;
 	}
 	
 	/* 'default' enter sequence for state waitForEvent */
@@ -2000,6 +2049,20 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state DetectionOff */
+	private void exitSequence_main_region_DetectionOff() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_DetectionOff();
+	}
+	
+	/* Default exit sequence for state TrackingOffAndSavePoint */
+	private void exitSequence_main_region_TrackingOffAndSavePoint() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for state waitForEvent */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		nextStateIndex = 1;
@@ -2135,6 +2198,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			break;
 		case main_region_arrived:
 			exitSequence_main_region_arrived();
+			break;
+		case main_region_DetectionOff:
+			exitSequence_main_region_DetectionOff();
+			break;
+		case main_region_TrackingOffAndSavePoint:
+			exitSequence_main_region_TrackingOffAndSavePoint();
 			break;
 		default:
 			break;
@@ -2530,6 +2599,18 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		}
 	}
 	
+	/* The reactions of state DetectionOff. */
+	private void react_main_region_DetectionOff() {
+		if (check_main_region_DetectionOff_tr0_tr0()) {
+			effect_main_region_DetectionOff_tr0();
+		}
+	}
+	
+	/* The reactions of state TrackingOffAndSavePoint. */
+	private void react_main_region_TrackingOffAndSavePoint() {
+		effect_main_region_TrackingOffAndSavePoint_tr0();
+	}
+	
 	/* The reactions of state waitForEvent. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0()) {
@@ -2757,6 +2838,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 				break;
 			case main_region_arrived:
 				react_main_region_arrived();
+				break;
+			case main_region_DetectionOff:
+				react_main_region_DetectionOff();
+				break;
+			case main_region_TrackingOffAndSavePoint:
+				react_main_region_TrackingOffAndSavePoint();
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
