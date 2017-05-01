@@ -203,6 +203,34 @@ public interface IGeneralPurposeServiceRobotStatemachine extends ITimerCallback,
 	
 	public SCIFollowMe getSCIFollowMe();
 	
+	public interface SCIKinect2 {
+	
+		public void raisePersonDetected();
+		
+		public void raiseNoiseDetected();
+		
+		public void raiseWavingDetected();
+		
+		public void setSCIKinect2OperationCallback(SCIKinect2OperationCallback operationCallback);
+	
+	}
+	
+	public interface SCIKinect2OperationCallback {
+	
+		public long getNoiseAngle();
+		
+		public double getWavingX();
+		
+		public double getWavingY();
+		
+		public void sendNoiseDetectionOnOff(boolean inOnOff);
+		
+		public void sendWavingDetectionOnOff(boolean inOnOff);
+		
+	}
+	
+	public SCIKinect2 getSCIKinect2();
+	
 	public interface SCIMicrophoneArray {
 	
 		public void setSCIMicrophoneArrayOperationCallback(SCIMicrophoneArrayOperationCallback operationCallback);
