@@ -1213,7 +1213,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'StateA'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StateA() {
-		sCIHBrain.operationCallback.sendTTS("[:-)] Please hang your grocery on me and tell me, where shall I go? [attentive]");
+		sCIHBrain.operationCallback.sendTTS("[:-)] Please hang your grocery on me and tell me, where shall I go?");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
@@ -1221,6 +1221,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		timer.setTimer(this, 7, 3*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		
+		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
 	
 	/* Entry action for state 'TellAnswer'. */
@@ -1285,6 +1287,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* Entry action for state 'livingroom'. */
 	private void entryAction_main_region_GoTo_goto_livingroom() {
 		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObject()));
+		
+		sCIHBrain.operationCallback.sendTTS3("Your wish is my command. I will go to ", sCISTT.operationCallback.getObject(), ". But first, I have to localize myself.");
 	}
 	
 	/* Entry action for state 'LocationNotFound'. */
