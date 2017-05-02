@@ -9,7 +9,9 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIKinect2OperationCallback,
-	org.yakindu.scr.test_waving.ITest_WavingStatemachine.SCIKinect2OperationCallback
+	org.yakindu.scr.test_waving.ITest_WavingStatemachine.SCIKinect2OperationCallback,
+	org.yakindu.scr.test_noise.ITest_NoiseStatemachine.SCIKinect2OperationCallback,
+	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIKinect2OperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();
@@ -20,7 +22,7 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 		if (!inOnOff) {
 			Kinect2 k2 = ((Kinect2)modules.getParser("Kinect2"));
 			k2.setNoiseAngle(-1);
-			k2.setNoiseDetected(false);
+			k2.setNoiseWithBoneDetected(false);
 		}
 	}
 	
@@ -49,6 +51,11 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 
 	public void sendInit() {
 		sendNoiseDetectionOnOff(false);
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		sendWavingDetectionOnOff(false);
 	}
 

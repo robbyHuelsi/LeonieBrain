@@ -70,10 +70,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			personDetected = true;
 		}
 		
-		private boolean noiseDetected;
+		private boolean noiseDeviatinWithoutBoneDetected;
 		
-		public void raiseNoiseDetected() {
-			noiseDetected = true;
+		public void raiseNoiseDeviatinWithoutBoneDetected() {
+			noiseDeviatinWithoutBoneDetected = true;
+		}
+		
+		private boolean noiseWithBoneDetected;
+		
+		public void raiseNoiseWithBoneDetected() {
+			noiseWithBoneDetected = true;
 		}
 		
 		private boolean wavingDetected;
@@ -84,7 +90,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		
 		protected void clearEvents() {
 			personDetected = false;
-			noiseDetected = false;
+			noiseDeviatinWithoutBoneDetected = false;
+			noiseWithBoneDetected = false;
 			wavingDetected = false;
 		}
 	}

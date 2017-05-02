@@ -2,7 +2,8 @@ package callbacks;
 
 public class OpCallbackImplMicrophoneArray implements IOpCallbackImpl,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIMicrophoneArrayOperationCallback,
-	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIMicrophoneArrayOperationCallback
+	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIMicrophoneArrayOperationCallback,
+	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIMicrophoneArrayOperationCallback
 {
 
 	//TODO impement in events for noiseDetected and noiseEndDetected

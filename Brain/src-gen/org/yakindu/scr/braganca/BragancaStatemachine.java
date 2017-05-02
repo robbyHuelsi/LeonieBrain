@@ -104,10 +104,16 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			personDetected = true;
 		}
 		
-		private boolean noiseDetected;
+		private boolean noiseDeviatinWithoutBoneDetected;
 		
-		public void raiseNoiseDetected() {
-			noiseDetected = true;
+		public void raiseNoiseDeviatinWithoutBoneDetected() {
+			noiseDeviatinWithoutBoneDetected = true;
+		}
+		
+		private boolean noiseWithBoneDetected;
+		
+		public void raiseNoiseWithBoneDetected() {
+			noiseWithBoneDetected = true;
 		}
 		
 		private boolean wavingDetected;
@@ -118,7 +124,8 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		protected void clearEvents() {
 			personDetected = false;
-			noiseDetected = false;
+			noiseDeviatinWithoutBoneDetected = false;
+			noiseWithBoneDetected = false;
 			wavingDetected = false;
 		}
 	}
@@ -877,7 +884,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_tr1_tr1() {
-		return sCIKinect2.noiseDetected && sCIBGF.eventNum==2;
+		return sCIKinect2.noiseWithBoneDetected && sCIBGF.eventNum==2;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName_tr0_tr0() {

@@ -63,7 +63,9 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 		public void raisePersonDetected();
 		
-		public void raiseNoiseDetected();
+		public void raiseNoiseDeviatinWithoutBoneDetected();
+		
+		public void raiseNoiseWithBoneDetected();
 		
 		public void raiseWavingDetected();
 		

@@ -10,7 +10,8 @@ public class Kinect2 implements IParser, Serializable{
 	private Start start;
 	
 	// Parsed information
-	private boolean noiseDetected;
+	private boolean noiseWithBoneDetected;
+	private boolean noiseDeviatinWithoutBoneDetected;
 	private boolean personDetected;
 	private boolean wavingDetected;
 	private int noiseAngle;
@@ -26,13 +27,21 @@ public class Kinect2 implements IParser, Serializable{
 		
 		if (datas[0].equals("NOISE")) {
 			String[] noiseDatas = datas[1].split(";");
+			int inNoiseAngle = Integer.parseInt(noiseDatas[2]);
+			
 			if (noiseDatas[0].contains("1")) {
-				System.out.println("Noise detected: " + noiseDatas[1]);
-				this.setNoiseAngle(Integer.parseInt(noiseDatas[1]));
-				this.setNoiseDetected(true);
-			} else {
-				//System.out.println("No noises");
-				this.setNoiseDetected(false);
+				System.out.println("Noise and Bone detected: " + inNoiseAngle);
+				this.setNoiseAngle(inNoiseAngle);
+				this.setNoiseDeviatinWithoutBoneDetected(false);
+				this.setNoiseWithBoneDetected(true);
+			} else if(inNoiseAngle != this.noiseAngle && (inNoiseAngle > 3 || inNoiseAngle < -3)){
+				System.out.println("Noise deviation w/o bone model found");
+				this.setNoiseAngle(inNoiseAngle);
+				this.setNoiseWithBoneDetected(false);
+				this.setNoiseDeviatinWithoutBoneDetected(true);
+			} else{
+				this.setNoiseWithBoneDetected(false);
+				this.setNoiseDeviatinWithoutBoneDetected(false);
 			}
 			
 		}else if(datas[0].equals("PERSON")){
@@ -57,20 +66,32 @@ public class Kinect2 implements IParser, Serializable{
 		
 	}
 
-	public boolean isNoiseDetected() {
-		return noiseDetected;
+	public boolean isNoiseWithBoneDetected() {
+		return noiseWithBoneDetected;
 	}
 
-	public void setNoiseDetected(boolean noiseDetected) {
-		this.noiseDetected = noiseDetected;
+	public void setNoiseWithBoneDetected(boolean noiseDetected) {
+		this.noiseWithBoneDetected = noiseDetected;
 		
 		if (noiseDetected) {
-			start.getStatemachine().raiseEventOfSCI("Kinect2","noiseDetected");
+			start.getStatemachine().raiseEventOfSCI("Kinect2","noiseWithBoneDetected");
 		}
 	}
 	
 	
 	
+	public boolean isNoiseDeviatinWithoutBoneDetected() {
+		return noiseDeviatinWithoutBoneDetected;
+	}
+
+	public void setNoiseDeviatinWithoutBoneDetected(boolean noiseDeviatinWithoutBoneDetected) {
+		this.noiseDeviatinWithoutBoneDetected = noiseDeviatinWithoutBoneDetected;
+		
+		if (noiseDeviatinWithoutBoneDetected) {
+			start.getStatemachine().raiseEventOfSCI("Kinect2","noiseDeviatinWithoutBoneDetected");
+		}
+	}
+
 	public boolean isPersonDetected() {
 		return personDetected;
 	}
@@ -122,9 +143,9 @@ public class Kinect2 implements IParser, Serializable{
 
 	public boolean removeParsedInformation() {
 		this.personDetected = false;
-		this.noiseDetected = false;
+		this.noiseWithBoneDetected = false;
 		this.wavingDetected = false;
-		this.noiseAngle = -1;
+		this.noiseAngle = 0;
 		this.wavingX = -1;
 		this.wavingY = -1;
 		return true;

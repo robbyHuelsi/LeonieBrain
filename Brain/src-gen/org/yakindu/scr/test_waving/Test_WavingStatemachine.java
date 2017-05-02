@@ -17,10 +17,16 @@ public class Test_WavingStatemachine implements ITest_WavingStatemachine {
 			personDetected = true;
 		}
 		
-		private boolean noiseDetected;
+		private boolean noiseDeviatinWithoutBoneDetected;
 		
-		public void raiseNoiseDetected() {
-			noiseDetected = true;
+		public void raiseNoiseDeviatinWithoutBoneDetected() {
+			noiseDeviatinWithoutBoneDetected = true;
+		}
+		
+		private boolean noiseWithBoneDetected;
+		
+		public void raiseNoiseWithBoneDetected() {
+			noiseWithBoneDetected = true;
 		}
 		
 		private boolean wavingDetected;
@@ -31,7 +37,8 @@ public class Test_WavingStatemachine implements ITest_WavingStatemachine {
 		
 		protected void clearEvents() {
 			personDetected = false;
-			noiseDetected = false;
+			noiseDeviatinWithoutBoneDetected = false;
+			noiseWithBoneDetected = false;
 			wavingDetected = false;
 		}
 	}

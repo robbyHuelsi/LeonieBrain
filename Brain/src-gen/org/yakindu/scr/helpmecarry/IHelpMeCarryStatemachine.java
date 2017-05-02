@@ -63,7 +63,9 @@ public interface IHelpMeCarryStatemachine extends ITimerCallback,IStatemachine {
 	
 		public void raisePersonDetected();
 		
-		public void raiseNoiseDetected();
+		public void raiseNoiseDeviatinWithoutBoneDetected();
+		
+		public void raiseNoiseWithBoneDetected();
 		
 		public void raiseWavingDetected();
 		
