@@ -41,15 +41,73 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 	}
 
 	public long getGWPByName(String inName) {
-		switch (inName) {
+		switch (inName.toLowerCase()) {
 		case "kitchen":
+		case "apple":
 			return 0;
 			
-		case "frontdoor":
+		case "dinnertable":
+		case "diningroom":
 			return 1;
 			
-		case "living room":
+		case "cabinet":
 			return 2;
+			
+		case "bookshelf":
+			return 3;
+			
+		case "kitchencounter":
+			return 4;
+			
+		case "sofa":
+		case "couch":
+			return 5;
+			
+		case "couchtable":
+			return 6;
+			
+		case "sidetable":
+			return 7;
+			
+		case "stove":
+			return 8;
+			
+		case "bed":
+		case "bedroom":
+			return 9;
+			
+		case "closet":
+			return 10;
+			
+		case "desk":
+			return 11;
+			
+		case "bar":
+			return 12;
+			
+		case "out":
+		case "outside":
+		case "frontdoorout":
+			return 13;
+			
+		case "frontdoor":
+			return 14;
+			
+		case "middledoorin":
+			return 15;
+			
+		case "middledoorout":
+			return 16;
+			
+		case "backdoorout":
+			return 17;
+			
+		case "backdoorin":
+			return 18;
+			
+		case "start":
+			return 19;
+			
 
 		default:
 			return -1;

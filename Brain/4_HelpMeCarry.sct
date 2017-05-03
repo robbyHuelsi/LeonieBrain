@@ -66,7 +66,7 @@
             <outgoingTransitions xmi:id="_whB9AC4-EeeEYrHQueAAcQ" specification="HBrain.TTSReady" target="_8d-r8CzlEeecj-uLLtmD-Q"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_5bNpwC4-EeeEYrHQueAAcQ" specification="entry /&#xA;Mira.sendBodyUTurn()" name="UTurn2" incomingTransitions="_BHxFwC4_EeeEYrHQueAAcQ">
-            <outgoingTransitions xmi:id="_1GedcCzmEeecj-uLLtmD-Q" specification="after 1s" target="_r03SsCznEeecj-uLLtmD-Q"/>
+            <outgoingTransitions xmi:id="_1GedcCzmEeecj-uLLtmD-Q" specification="after 3s" target="_r03SsCznEeecj-uLLtmD-Q"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_YteWXC5AEeeEYrHQueAAcQ" specification="entry/&#xA;FollowMe.sendRequestDetectionDetails();&#xA;counter = counter +1" name="Detection" incomingTransitions="_Yte9ay5AEeeEYrHQueAAcQ _mpQUsC5AEeeEYrHQueAAcQ _ltdYAC6GEeeSdrDiApNpGw">
             <outgoingTransitions xmi:id="_Yte9ay5AEeeEYrHQueAAcQ" specification="after 1s" target="_YteWXC5AEeeEYrHQueAAcQ"/>
@@ -88,7 +88,7 @@
             <outgoingTransitions xmi:id="_TaQGqikFEeerIsa7nI0F3w" specification="HBrain.TTSReady" target="_TaQGrykFEeerIsa7nI0F3w"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_TaQGrykFEeerIsa7nI0F3w" specification="entry /&#xA;STT.sendSpeechDetectionSmalltalk();&#xA;HBrain.sendTTS(&quot;[attentive]&quot;)" name="StartSTT" incomingTransitions="_TaQGqikFEeerIsa7nI0F3w _TaR71ykFEeerIsa7nI0F3w">
-            <outgoingTransitions xmi:id="_vh8O0C5PEeeEYrHQueAAcQ" specification="after 3s" target="_ILcwoC5PEeeEYrHQueAAcQ"/>
+            <outgoingTransitions xmi:id="_vh8O0C5PEeeEYrHQueAAcQ" specification="after 5s" target="_ILcwoC5PEeeEYrHQueAAcQ"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_UpbVQC5EEeeEYrHQueAAcQ" specification="entry /&#xA;HBrain.sendTTS2(STT.getAnswer(), &quot;. That is interesting, but I think, I should send the grocery first!&quot;)" name="TellAnswer" incomingTransitions="_UpaHIC5EEeeEYrHQueAAcQ">
             <outgoingTransitions xmi:id="_Upb8VC5EEeeEYrHQueAAcQ" specification="HBrain.TTSReady" target="_TaRU6SkFEeerIsa7nI0F3w"/>

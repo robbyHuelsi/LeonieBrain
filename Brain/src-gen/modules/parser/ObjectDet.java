@@ -15,9 +15,7 @@ public class ObjectDet implements IParser, Serializable {
 	private boolean analyseDone;
 	public boolean parse(String data, Start start) {
 		this.start = start;
-		
-		//TODO Muss getestet werden
-		
+				
 		if (data.contains("OUTPUT#")) {
 			String[] d = data.substring(7).split(";");	
 			try {

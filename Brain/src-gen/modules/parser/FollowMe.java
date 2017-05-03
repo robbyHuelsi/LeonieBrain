@@ -17,8 +17,6 @@ public class FollowMe implements IParser, Serializable {
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		
-		//TODO Muss getestet werden
-		
 		if (data.equals("FOUND")) {
 			return true;
 			

@@ -1301,7 +1301,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'UTurn2'. */
 	private void entryAction_main_region_Wave_WavingToFindPerson_UTurn2() {
-		timer.setTimer(this, 5, 1*1000, false);
+		timer.setTimer(this, 5, 3*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -1329,7 +1329,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StartSTT() {
-		timer.setTimer(this, 7, 3*1000, false);
+		timer.setTimer(this, 7, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 		
