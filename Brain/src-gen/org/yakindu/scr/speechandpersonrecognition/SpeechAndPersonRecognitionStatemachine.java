@@ -228,7 +228,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		main_region_RiddleGame_RiddleGame_WaitForOperator,
 		main_region_RiddleGame_RiddleGame_Hello,
 		main_region_RiddleGame_RiddleGame_Leave_the_arena,
-		main_region_RiddleGame_RiddleGame_StartSTT,
 		main_region_RiddleGame_RiddleGame_TellAnswer,
 		main_region_RiddleGame_RiddleGame_PrepareForNextQuestion,
 		main_region_RiddleGame_RiddleGame_TellIncomprehensible,
@@ -241,7 +240,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_followme,
 		main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown,
 		main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd,
-		main_region_RiddleGame_RiddleGame_StopSTT,
+		main_region_RiddleGame_RiddleGame_STT,
+		main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT,
+		main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText,
+		main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT,
 		main_region_BlindMansBlufGame,
 		main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame,
 		main_region_BlindMansBlufGame_BlindMansBlufGame_StartSTT,
@@ -286,7 +288,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[10];
+	private final boolean[] timeEvents = new boolean[31];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -442,7 +444,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			return stateVector[0] == State.main_region_CrowdScanningAndCounting;
 		case main_region_RiddleGame:
 			return stateVector[0].ordinal() >= State.
-					main_region_RiddleGame.ordinal()&& stateVector[0].ordinal() <= State.main_region_RiddleGame_RiddleGame_StopSTT.ordinal();
+					main_region_RiddleGame.ordinal()&& stateVector[0].ordinal() <= State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT.ordinal();
 		case main_region_RiddleGame_RiddleGame_StartGame:
 			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_StartGame;
 		case main_region_RiddleGame_RiddleGame_WaitForOperator:
@@ -451,8 +453,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_Hello;
 		case main_region_RiddleGame_RiddleGame_Leave_the_arena:
 			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_Leave_the_arena;
-		case main_region_RiddleGame_RiddleGame_StartSTT:
-			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_StartSTT;
 		case main_region_RiddleGame_RiddleGame_TellAnswer:
 			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_TellAnswer;
 		case main_region_RiddleGame_RiddleGame_PrepareForNextQuestion:
@@ -478,8 +478,15 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd:
 			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd;
-		case main_region_RiddleGame_RiddleGame_StopSTT:
-			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_StopSTT;
+		case main_region_RiddleGame_RiddleGame_STT:
+			return stateVector[0].ordinal() >= State.
+					main_region_RiddleGame_RiddleGame_STT.ordinal()&& stateVector[0].ordinal() <= State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT.ordinal();
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT:
+			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT;
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText:
+			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText;
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT:
+			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT;
 		case main_region_BlindMansBlufGame:
 			return stateVector[0].ordinal() >= State.
 					main_region_BlindMansBlufGame.ordinal()&& stateVector[0].ordinal() <= State.main_region_BlindMansBlufGame_BlindMansBlufGame_wait.ordinal();
@@ -618,40 +625,60 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_Wait_tr0_tr0() {
+	private boolean check_main_region_Announcement_tr1_tr1() {
 		return timeEvents[0];
 	}
 	
-	private boolean check_main_region_TurnAround_tr0_tr0() {
+	private boolean check_main_region_Wait_tr0_tr0() {
 		return timeEvents[1];
+	}
+	
+	private boolean check_main_region_TurnAround_tr0_tr0() {
+		return timeEvents[2];
 	}
 	
 	private boolean check_main_region_CrowdScanningAndCounting_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_CrowdScanningAndCounting_tr1_tr1() {
+		return timeEvents[3];
+	}
+	
 	private boolean check_main_region_RiddleGame_RiddleGame_StartGame_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_RiddleGame_RiddleGame_StartGame_tr1_tr1() {
+		return timeEvents[4];
+	}
+	
 	private boolean check_main_region_RiddleGame_RiddleGame_WaitForOperator_tr0_tr0() {
-		return timeEvents[2];
+		return timeEvents[5];
 	}
 	
 	private boolean check_main_region_RiddleGame_RiddleGame_Hello_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_RiddleGame_RiddleGame_Hello_tr1_tr1() {
+		return timeEvents[6];
+	}
+	
 	private boolean check_main_region_RiddleGame_RiddleGame_Leave_the_arena_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_RiddleGame_RiddleGame_StartSTT_tr0_tr0() {
-		return timeEvents[3];
+	private boolean check_main_region_RiddleGame_RiddleGame_Leave_the_arena_tr1_tr1() {
+		return timeEvents[7];
 	}
 	
 	private boolean check_main_region_RiddleGame_RiddleGame_TellAnswer_tr0_tr0() {
 		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_TellAnswer_tr1_tr1() {
+		return timeEvents[8];
 	}
 	
 	private boolean check_main_region_RiddleGame_RiddleGame_PrepareForNextQuestion_tr0_tr0() {
@@ -662,12 +689,20 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_RiddleGame_RiddleGame_TellIncomprehensible_tr1_tr1() {
+		return timeEvents[9];
+	}
+	
 	private boolean check_main_region_RiddleGame_RiddleGame_NextQuestion_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_RiddleGame_RiddleGame_TellAction_tr0_tr0() {
-		return sCIHBrain.tTSReady;
+	private boolean check_main_region_RiddleGame_RiddleGame_NextQuestion_tr1_tr1() {
+		return timeEvents[10];
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_TellAction_tr1_tr1() {
+		return timeEvents[11];
 	}
 	
 	private boolean check_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_GoTo_tr0_tr0() {
@@ -694,20 +729,40 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_RiddleGame_RiddleGame_StopSTT_tr0_tr0() {
+	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_tr0_tr0() {
+		return timeEvents[12];
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr0_tr0() {
 		return sCISTT.answerReceived;
 	}
 	
-	private boolean check_main_region_RiddleGame_RiddleGame_StopSTT_tr1_tr1() {
+	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr1_tr1() {
 		return sCISTT.actionReceived;
 	}
 	
-	private boolean check_main_region_RiddleGame_RiddleGame_StopSTT_tr2_tr2() {
+	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr2_tr2() {
 		return sCISTT.incomprehensible;
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr3_tr3() {
+		return timeEvents[13];
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr0_tr0() {
+		return sCISTT.spokenTextReceived;
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr1_tr1() {
+		return timeEvents[14];
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr0_tr0() {
 		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr1_tr1() {
+		return timeEvents[15];
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_StartSTT_tr0_tr0() {
@@ -715,15 +770,23 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_waitForSTT_tr0_tr0() {
-		return timeEvents[4];
+		return timeEvents[16];
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer_tr1_tr1() {
+		return timeEvents[17];
+	}
+	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0_tr0() {
 		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1_tr1() {
+		return timeEvents[18];
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo_tr0_tr0() {
@@ -754,6 +817,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible_tr1_tr1() {
+		return timeEvents[19];
+	}
+	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2_tr0_SpeechAndPersonRecognition_main_region_BlindMansBlufGame_BlindMansBlufGame__sync1join_check() {
 		return isStateActive(State.main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_endNoise);
 	}
@@ -770,6 +837,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return sCISTT.incomprehensible;
 	}
 	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT_tr3_tr3() {
+		return timeEvents[20];
+	}
+	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise_tr0_tr0() {
 		return sCIKinect2.noiseDeviatinWithoutBoneDetected;
 	}
@@ -782,12 +853,16 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return sCIKinect2.noiseWithBoneDetected;
 	}
 	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise_tr3_tr3() {
+		return timeEvents[21];
+	}
+	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_Turn_tr0_tr0() {
 		return sCISTT.spokenTextReceived;
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_Turn_tr1_tr1() {
-		return timeEvents[5];
+		return timeEvents[22];
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_endNoise_tr0_SpeechAndPersonRecognition_main_region_BlindMansBlufGame_BlindMansBlufGame__sync1join_check() {
@@ -798,24 +873,40 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone_tr1_tr1() {
+		return timeEvents[23];
+	}
+	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_NoRepeat_tr0_tr0() {
 		return getQuestionCounter()>=6;
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat_tr0_tr0() {
-		return true;
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat_tr1_tr1() {
+		return timeEvents[24];
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion_tr0_tr0() {
-		return true;
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion_tr1_tr1() {
+		return timeEvents[25];
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr1_tr1() {
+		return timeEvents[26];
+	}
+	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_wait_tr0_tr0() {
-		return timeEvents[6];
+		return timeEvents[27];
 	}
 	
 	private boolean check_main_region_LeaveTheRoom_tr0_tr0() {
@@ -823,7 +914,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_main_region_DetectionOn_tr0_tr0() {
-		return timeEvents[7];
+		return timeEvents[28];
 	}
 	
 	private boolean check_main_region_waitForMarc_tr0_tr0() {
@@ -839,7 +930,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[8];
+		return timeEvents[29];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -851,7 +942,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[9];
+		return timeEvents[30];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -891,6 +982,14 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame__choice_0_tr6_tr6() {
+		return true;
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr1_tr1() {
+		return (sCISTT.operationCallback.getSpokenText()== null?"" !=null : !sCISTT.operationCallback.getSpokenText().equals(""));
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr0_tr0() {
 		return true;
 	}
 	
@@ -956,6 +1055,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_Wait_default();
 	}
 	
+	private void effect_main_region_Announcement_tr1() {
+		exitSequence_main_region_Announcement();
+		enterSequence_main_region_Wait_default();
+	}
+	
 	private void effect_main_region_Wait_tr0() {
 		exitSequence_main_region_Wait();
 		enterSequence_main_region_TurnAround_default();
@@ -971,12 +1075,22 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_RiddleGame_default();
 	}
 	
+	private void effect_main_region_CrowdScanningAndCounting_tr1() {
+		exitSequence_main_region_CrowdScanningAndCounting();
+		enterSequence_main_region_RiddleGame_default();
+	}
+	
 	private void effect_main_region_RiddleGame_tr0() {
 		exitSequence_main_region_RiddleGame();
 		enterSequence_main_region_BlindMansBlufGame_exit_done();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_StartGame_tr0() {
+		exitSequence_main_region_RiddleGame_RiddleGame_StartGame();
+		enterSequence_main_region_RiddleGame_RiddleGame_WaitForOperator_default();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_StartGame_tr1() {
 		exitSequence_main_region_RiddleGame_RiddleGame_StartGame();
 		enterSequence_main_region_RiddleGame_RiddleGame_WaitForOperator_default();
 	}
@@ -988,7 +1102,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private void effect_main_region_RiddleGame_RiddleGame_Hello_tr0() {
 		exitSequence_main_region_RiddleGame_RiddleGame_Hello();
-		enterSequence_main_region_RiddleGame_RiddleGame_StartSTT_default();
+		enterSequence_main_region_RiddleGame_RiddleGame_STT_default();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_Hello_tr1() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Hello();
+		enterSequence_main_region_RiddleGame_RiddleGame_STT_default();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_Leave_the_arena_tr0() {
@@ -996,12 +1115,17 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		react_main_region_RiddleGame_RiddleGame_exit_done();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_StartSTT_tr0() {
-		exitSequence_main_region_RiddleGame_RiddleGame_StartSTT();
-		enterSequence_main_region_RiddleGame_RiddleGame_StopSTT_default();
+	private void effect_main_region_RiddleGame_RiddleGame_Leave_the_arena_tr1() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Leave_the_arena();
+		react_main_region_RiddleGame_RiddleGame_exit_done();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_TellAnswer_tr0() {
+		exitSequence_main_region_RiddleGame_RiddleGame_TellAnswer();
+		enterSequence_main_region_RiddleGame_RiddleGame_PrepareForNextQuestion_default();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_TellAnswer_tr1() {
 		exitSequence_main_region_RiddleGame_RiddleGame_TellAnswer();
 		enterSequence_main_region_RiddleGame_RiddleGame_PrepareForNextQuestion_default();
 	}
@@ -1016,9 +1140,19 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_RiddleGame_RiddleGame_PrepareForNextQuestion_default();
 	}
 	
+	private void effect_main_region_RiddleGame_RiddleGame_TellIncomprehensible_tr1() {
+		exitSequence_main_region_RiddleGame_RiddleGame_TellIncomprehensible();
+		enterSequence_main_region_RiddleGame_RiddleGame_PrepareForNextQuestion_default();
+	}
+	
 	private void effect_main_region_RiddleGame_RiddleGame_NextQuestion_tr0() {
 		exitSequence_main_region_RiddleGame_RiddleGame_NextQuestion();
-		enterSequence_main_region_RiddleGame_RiddleGame_StartSTT_default();
+		enterSequence_main_region_RiddleGame_RiddleGame_STT_default();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_NextQuestion_tr1() {
+		exitSequence_main_region_RiddleGame_RiddleGame_NextQuestion();
+		enterSequence_main_region_RiddleGame_RiddleGame_STT_default();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_TellAction_tr0() {
@@ -1026,47 +1160,94 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_RiddleGame_RiddleGame_PrepareForNextQuestion_default();
 	}
 	
+	private void effect_main_region_RiddleGame_RiddleGame_TellAction_tr1() {
+		exitSequence_main_region_RiddleGame_RiddleGame_TellAction();
+		enterSequence_main_region_RiddleGame_RiddleGame_PrepareForNextQuestion_default();
+	}
+	
 	private void effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_GoTo_tr0() {
 		exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_GoTo();
+		react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_exit_done();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_surrounding_tr0() {
 		exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_surrounding();
+		react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_exit_done();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_bring_tr0() {
 		exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_bring();
+		react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_exit_done();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_open_tr0() {
 		exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_open();
+		react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_exit_done();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_followme_tr0() {
 		exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_followme();
+		react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_exit_done();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown_tr0() {
 		exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown();
+		react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_exit_done();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd_tr0() {
 		exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd();
+		react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_exit_done();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_StopSTT_tr0() {
-		exitSequence_main_region_RiddleGame_RiddleGame_StopSTT();
+	private void effect_main_region_RiddleGame_RiddleGame_STT_tr0() {
+		exitSequence_main_region_RiddleGame_RiddleGame_STT();
 		enterSequence_main_region_RiddleGame_RiddleGame_TellAnswer_default();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_StopSTT_tr1() {
-		exitSequence_main_region_RiddleGame_RiddleGame_StopSTT();
+	private void effect_main_region_RiddleGame_RiddleGame_STT_tr1() {
+		exitSequence_main_region_RiddleGame_RiddleGame_STT();
 		enterSequence_main_region_RiddleGame_RiddleGame_TellAction_default();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_StopSTT_tr2() {
-		exitSequence_main_region_RiddleGame_RiddleGame_StopSTT();
+	private void effect_main_region_RiddleGame_RiddleGame_STT_tr2() {
+		exitSequence_main_region_RiddleGame_RiddleGame_STT();
 		enterSequence_main_region_RiddleGame_RiddleGame_TellIncomprehensible_default();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_tr0() {
+		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+		enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_default();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr0() {
+		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
+		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_answer();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr1() {
+		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
+		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_action();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr2() {
+		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
+		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_incomprehensible();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr3() {
+		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
+		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_incomprehensible();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr0() {
+		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
+		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr1() {
+		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
+		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_incomprehensible();
 	}
 	
 	private void effect_main_region_BlindMansBlufGame_tr0() {
@@ -1075,6 +1256,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr0() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame();
+		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_wait_default();
+	}
+	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr1() {
 		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame();
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_wait_default();
 	}
@@ -1094,7 +1280,17 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2_default();
 	}
 	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer_tr1() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer();
+		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2_default();
+	}
+	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
+		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2_default();
+	}
+	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1() {
 		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2_default();
 	}
@@ -1132,6 +1328,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2_default();
 	}
 	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible_tr1() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible();
+		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2_default();
+	}
+	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2_tr0() {
 		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2();
 		react_main_region_BlindMansBlufGame_BlindMansBlufGame__sync1();
@@ -1152,6 +1353,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible_default();
 	}
 	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT_tr3() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT();
+		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible_default();
+	}
+	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise_tr0() {
 		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise();
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_Turn_default();
@@ -1165,6 +1371,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise_tr2() {
 		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise();
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_Turn_default();
+	}
+	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise_tr3() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise();
+		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_endNoise_default();
 	}
 	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_Turn_tr0() {
@@ -1187,6 +1398,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		react_main_region_BlindMansBlufGame_BlindMansBlufGame_exit_done();
 	}
 	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone_tr1() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone();
+		react_main_region_BlindMansBlufGame_BlindMansBlufGame_exit_done();
+	}
+	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_NoRepeat_tr0() {
 		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_NoRepeat();
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone_default();
@@ -1197,12 +1413,27 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		react_main_region_BlindMansBlufGame_BlindMansBlufGame__choice_2();
 	}
 	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat_tr1() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat();
+		react_main_region_BlindMansBlufGame_BlindMansBlufGame__choice_2();
+	}
+	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion_tr0() {
 		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion();
 		react_main_region_BlindMansBlufGame_BlindMansBlufGame__choice_2();
 	}
 	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion_tr1() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion();
+		react_main_region_BlindMansBlufGame_BlindMansBlufGame__choice_2();
+	}
+	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr0() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ();
+		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartSTT_default();
+	}
+	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr1() {
 		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ();
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartSTT_default();
 	}
@@ -1298,6 +1529,14 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown_default();
 	}
 	
+	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr1() {
+		enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_default();
+	}
+	
+	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr0() {
+		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_incomprehensible();
+	}
+	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame__choice_0_tr0() {
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo_default();
 	}
@@ -1357,23 +1596,27 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Announcement'. */
 	private void entryAction_main_region_Announcement() {
+		timer.setTimer(this, 0, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("[:-)] I want to play the riddle game in 10 seconds!");
 	}
 	
 	/* Entry action for state 'Wait'. */
 	private void entryAction_main_region_Wait() {
-		timer.setTimer(this, 0, 10*1000, false);
+		timer.setTimer(this, 1, 10*1000, false);
 	}
 	
 	/* Entry action for state 'TurnAround'. */
 	private void entryAction_main_region_TurnAround() {
-		timer.setTimer(this, 1, 5*1000, false);
+		timer.setTimer(this, 2, 5*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'CrowdScanningAndCounting'. */
 	private void entryAction_main_region_CrowdScanningAndCounting() {
+		timer.setTimer(this, 3, 50*1000, false);
+		
 		sCICrowdDetection.operationCallback.sendDetectionOff();
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
@@ -1383,6 +1626,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'StartGame'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_StartGame() {
+		timer.setTimer(this, 4, 10*1000, false);
+		
 		setQuestionCounter(0);
 		
 		setQuestionRepeat(0);
@@ -1392,11 +1637,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'WaitForOperator'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_WaitForOperator() {
-		timer.setTimer(this, 2, 3*1000, false);
+		timer.setTimer(this, 5, 3*1000, false);
 	}
 	
 	/* Entry action for state 'Hello'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_Hello() {
+		timer.setTimer(this, 6, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("[:-)] Ask me a question! [attentive]");
 		
 		setCounter(0);
@@ -1404,18 +1651,15 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Leave the arena'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_Leave_the_arena() {
-		sCIHBrain.operationCallback.sendTTS("Okay, that's enough for now.");
-	}
-	
-	/* Entry action for state 'StartSTT'. */
-	private void entryAction_main_region_RiddleGame_RiddleGame_StartSTT() {
-		timer.setTimer(this, 3, 5*1000, false);
+		timer.setTimer(this, 7, 10*1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCIHBrain.operationCallback.sendTTS("Okay, that's enough for now.");
 	}
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_TellAnswer() {
+		timer.setTimer(this, 8, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getAnswer(), " [:-)]");
 	}
 	
@@ -1428,12 +1672,21 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_TellIncomprehensible() {
+		timer.setTimer(this, 9, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS3("[:-(]", sCISTT.operationCallback.getAnswer(), "[:-|]");
 	}
 	
 	/* Entry action for state 'NextQuestion'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_NextQuestion() {
+		timer.setTimer(this, 10, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("Please ask me the next question. [attentive]");
+	}
+	
+	/* Entry action for state 'TellAction'. */
+	private void entryAction_main_region_RiddleGame_RiddleGame_TellAction() {
+		timer.setTimer(this, 11, 10*1000, false);
 	}
 	
 	/* Entry action for state 'GoTo'. */
@@ -1466,15 +1719,33 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		sCIHBrain.operationCallback.sendTTS(sCICrowdDetection.operationCallback.getAnswerForSecificCrowdDetails(sCISTT.operationCallback.getObject()));
 	}
 	
-	/* Entry action for state 'StopSTT'. */
-	private void entryAction_main_region_RiddleGame_RiddleGame_StopSTT() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
+	/* Entry action for state 'StartSTT'. */
+	private void entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT() {
+		timer.setTimer(this, 12, 5*1000, false);
 		
-		sCIHBrain.operationCallback.sendTTS("[:-)]");
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		
+		sCIHBrain.operationCallback.sendTTS("[attentive]");
+	}
+	
+	/* Entry action for state 'TellSpokenText'. */
+	private void entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText() {
+		timer.setTimer(this, 13, 10*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("[:-|]");
+	}
+	
+	/* Entry action for state 'StropSTT'. */
+	private void entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT() {
+		timer.setTimer(this, 14, 10*1000, false);
+		
+		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Entry action for state 'StartGame'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame() {
+		timer.setTimer(this, 15, 15*1000, false);
+		
 		setQuestionCounter(0);
 		
 		setQuestionRepeat(0);
@@ -1491,13 +1762,15 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'waitForSTT'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_waitForSTT() {
-		timer.setTimer(this, 4, 5*1000, false);
+		timer.setTimer(this, 16, 5*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer() {
+		timer.setTimer(this, 17, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getAnswer(), " [:-)]");
 		
 		setQuestionCounter(getQuestionCounter() + 1);
@@ -1505,6 +1778,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'TellAction'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction() {
+		timer.setTimer(this, 18, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("Sorry, I can't do this at the moment.");
 	}
 	
@@ -1540,6 +1815,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible() {
+		timer.setTimer(this, 19, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS3("[:-(]", sCISTT.operationCallback.getAnswer(), "[:-|]");
 	}
 	
@@ -1550,14 +1827,21 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'StopSTT'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT() {
+		timer.setTimer(this, 20, 10*1000, false);
+		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
+	/* Entry action for state 'WaitForNoise'. */
+	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise() {
+		timer.setTimer(this, 21, 25*1000, false);
+	}
+	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_Turn() {
-		timer.setTimer(this, 5, 500, false);
+		timer.setTimer(this, 22, 500, false);
 		
 		sCIMira.operationCallback.sendTurnBody(sCIKinect2.operationCallback.getNoiseAngle());
 	}
@@ -1569,6 +1853,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'allQuestionsDone'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone() {
+		timer.setTimer(this, 23, 5*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("Okay. Thats all.");
 	}
 	
@@ -1583,6 +1869,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Repeat'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat() {
+		timer.setTimer(this, 24, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("Please repeat the question. [attentive]");
 		
 		setQuestionRepeat(getQuestionRepeat() + 1);
@@ -1590,17 +1878,21 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'NextQuestion'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion() {
+		timer.setTimer(this, 25, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("Please ask me the next question. [attentive]");
 	}
 	
 	/* Entry action for state 'firstQ'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ() {
+		timer.setTimer(this, 26, 15*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("I'm ready for the blind mans bluff game. [:-)] Ask me the first question. [attentive]");
 	}
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_wait() {
-		timer.setTimer(this, 6, 5*1000, false);
+		timer.setTimer(this, 27, 5*1000, false);
 	}
 	
 	/* Entry action for state 'LeaveTheRoom'. */
@@ -1610,7 +1902,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'DetectionOn'. */
 	private void entryAction_main_region_DetectionOn() {
-		timer.setTimer(this, 7, 2*1000, false);
+		timer.setTimer(this, 28, 2*1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 		
@@ -1619,7 +1911,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 8, 3*1000, false);
+		timer.setTimer(this, 29, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1636,57 +1928,162 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 9, 3*1000, false);
+		timer.setTimer(this, 30, 3*1000, false);
+	}
+	
+	/* Exit action for state 'Announcement'. */
+	private void exitAction_main_region_Announcement() {
+		timer.unsetTimer(this, 0);
 	}
 	
 	/* Exit action for state 'Wait'. */
 	private void exitAction_main_region_Wait() {
-		timer.unsetTimer(this, 0);
+		timer.unsetTimer(this, 1);
 	}
 	
 	/* Exit action for state 'TurnAround'. */
 	private void exitAction_main_region_TurnAround() {
-		timer.unsetTimer(this, 1);
+		timer.unsetTimer(this, 2);
+	}
+	
+	/* Exit action for state 'CrowdScanningAndCounting'. */
+	private void exitAction_main_region_CrowdScanningAndCounting() {
+		timer.unsetTimer(this, 3);
+	}
+	
+	/* Exit action for state 'StartGame'. */
+	private void exitAction_main_region_RiddleGame_RiddleGame_StartGame() {
+		timer.unsetTimer(this, 4);
 	}
 	
 	/* Exit action for state 'WaitForOperator'. */
 	private void exitAction_main_region_RiddleGame_RiddleGame_WaitForOperator() {
-		timer.unsetTimer(this, 2);
+		timer.unsetTimer(this, 5);
+	}
+	
+	/* Exit action for state 'Hello'. */
+	private void exitAction_main_region_RiddleGame_RiddleGame_Hello() {
+		timer.unsetTimer(this, 6);
+	}
+	
+	/* Exit action for state 'Leave the arena'. */
+	private void exitAction_main_region_RiddleGame_RiddleGame_Leave_the_arena() {
+		timer.unsetTimer(this, 7);
+	}
+	
+	/* Exit action for state 'TellAnswer'. */
+	private void exitAction_main_region_RiddleGame_RiddleGame_TellAnswer() {
+		timer.unsetTimer(this, 8);
+	}
+	
+	/* Exit action for state 'TellIncomprehensible'. */
+	private void exitAction_main_region_RiddleGame_RiddleGame_TellIncomprehensible() {
+		timer.unsetTimer(this, 9);
+	}
+	
+	/* Exit action for state 'NextQuestion'. */
+	private void exitAction_main_region_RiddleGame_RiddleGame_NextQuestion() {
+		timer.unsetTimer(this, 10);
+	}
+	
+	/* Exit action for state 'TellAction'. */
+	private void exitAction_main_region_RiddleGame_RiddleGame_TellAction() {
+		timer.unsetTimer(this, 11);
 	}
 	
 	/* Exit action for state 'StartSTT'. */
-	private void exitAction_main_region_RiddleGame_RiddleGame_StartSTT() {
-		timer.unsetTimer(this, 3);
+	private void exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT() {
+		timer.unsetTimer(this, 12);
+	}
+	
+	/* Exit action for state 'TellSpokenText'. */
+	private void exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText() {
+		timer.unsetTimer(this, 13);
+	}
+	
+	/* Exit action for state 'StropSTT'. */
+	private void exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT() {
+		timer.unsetTimer(this, 14);
+	}
+	
+	/* Exit action for state 'StartGame'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame() {
+		timer.unsetTimer(this, 15);
 	}
 	
 	/* Exit action for state 'waitForSTT'. */
 	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_waitForSTT() {
-		timer.unsetTimer(this, 4);
+		timer.unsetTimer(this, 16);
+	}
+	
+	/* Exit action for state 'TellAnswer'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer() {
+		timer.unsetTimer(this, 17);
+	}
+	
+	/* Exit action for state 'TellAction'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction() {
+		timer.unsetTimer(this, 18);
+	}
+	
+	/* Exit action for state 'TellIncomprehensible'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible() {
+		timer.unsetTimer(this, 19);
+	}
+	
+	/* Exit action for state 'StopSTT'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT() {
+		timer.unsetTimer(this, 20);
+	}
+	
+	/* Exit action for state 'WaitForNoise'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise() {
+		timer.unsetTimer(this, 21);
 	}
 	
 	/* Exit action for state 'Turn'. */
 	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_Turn() {
-		timer.unsetTimer(this, 5);
+		timer.unsetTimer(this, 22);
+	}
+	
+	/* Exit action for state 'allQuestionsDone'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone() {
+		timer.unsetTimer(this, 23);
+	}
+	
+	/* Exit action for state 'Repeat'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat() {
+		timer.unsetTimer(this, 24);
+	}
+	
+	/* Exit action for state 'NextQuestion'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion() {
+		timer.unsetTimer(this, 25);
+	}
+	
+	/* Exit action for state 'firstQ'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ() {
+		timer.unsetTimer(this, 26);
 	}
 	
 	/* Exit action for state 'wait'. */
 	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_wait() {
-		timer.unsetTimer(this, 6);
+		timer.unsetTimer(this, 27);
 	}
 	
 	/* Exit action for state 'DetectionOn'. */
 	private void exitAction_main_region_DetectionOn() {
-		timer.unsetTimer(this, 7);
+		timer.unsetTimer(this, 28);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 8);
+		timer.unsetTimer(this, 29);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 9);
+		timer.unsetTimer(this, 30);
 	}
 	
 	/* 'default' enter sequence for state Init */
@@ -1757,13 +2154,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		stateVector[0] = State.main_region_RiddleGame_RiddleGame_Leave_the_arena;
 	}
 	
-	/* 'default' enter sequence for state StartSTT */
-	private void enterSequence_main_region_RiddleGame_RiddleGame_StartSTT_default() {
-		entryAction_main_region_RiddleGame_RiddleGame_StartSTT();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_RiddleGame_RiddleGame_StartSTT;
-	}
-	
 	/* 'default' enter sequence for state TellAnswer */
 	private void enterSequence_main_region_RiddleGame_RiddleGame_TellAnswer_default() {
 		entryAction_main_region_RiddleGame_RiddleGame_TellAnswer();
@@ -1794,6 +2184,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* 'default' enter sequence for state TellAction */
 	private void enterSequence_main_region_RiddleGame_RiddleGame_TellAction_default() {
+		entryAction_main_region_RiddleGame_RiddleGame_TellAction();
 		enterSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_default();
 	}
 	
@@ -1845,11 +2236,30 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		stateVector[0] = State.main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd;
 	}
 	
-	/* 'default' enter sequence for state StopSTT */
-	private void enterSequence_main_region_RiddleGame_RiddleGame_StopSTT_default() {
-		entryAction_main_region_RiddleGame_RiddleGame_StopSTT();
+	/* 'default' enter sequence for state STT */
+	private void enterSequence_main_region_RiddleGame_RiddleGame_STT_default() {
+		enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_default();
+	}
+	
+	/* 'default' enter sequence for state StartSTT */
+	private void enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_default() {
+		entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_RiddleGame_RiddleGame_StopSTT;
+		stateVector[0] = State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT;
+	}
+	
+	/* 'default' enter sequence for state TellSpokenText */
+	private void enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_default() {
+		entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText;
+	}
+	
+	/* 'default' enter sequence for state StropSTT */
+	private void enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_default() {
+		entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT;
 	}
 	
 	/* 'exit_done' enter sequence for state BlindMansBlufGame */
@@ -1962,6 +2372,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* 'default' enter sequence for state WaitForNoise */
 	private void enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise_default() {
+		entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise();
 		nextStateIndex = 1;
 		stateVector[1] = State.main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise;
 	}
@@ -2097,6 +2508,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame__entry_Default();
 	}
 	
+	/* 'default' enter sequence for region STT RiddleGame */
+	private void enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_default() {
+		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__entry_Default();
+	}
+	
 	/* 'default' enter sequence for region BlindMansBlufGame */
 	private void enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_default() {
 		react_main_region_BlindMansBlufGame_BlindMansBlufGame__entry_Default();
@@ -2122,6 +2538,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_Announcement() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Announcement();
 	}
 	
 	/* Default exit sequence for state Wait */
@@ -2144,6 +2562,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_CrowdScanningAndCounting() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_CrowdScanningAndCounting();
 	}
 	
 	/* Default exit sequence for state RiddleGame */
@@ -2155,6 +2575,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_RiddleGame_RiddleGame_StartGame() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_RiddleGame_RiddleGame_StartGame();
 	}
 	
 	/* Default exit sequence for state WaitForOperator */
@@ -2169,26 +2591,24 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_RiddleGame_RiddleGame_Hello() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_RiddleGame_RiddleGame_Hello();
 	}
 	
 	/* Default exit sequence for state Leave the arena */
 	private void exitSequence_main_region_RiddleGame_RiddleGame_Leave_the_arena() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state StartSTT */
-	private void exitSequence_main_region_RiddleGame_RiddleGame_StartSTT() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_RiddleGame_RiddleGame_StartSTT();
+		exitAction_main_region_RiddleGame_RiddleGame_Leave_the_arena();
 	}
 	
 	/* Default exit sequence for state TellAnswer */
 	private void exitSequence_main_region_RiddleGame_RiddleGame_TellAnswer() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_RiddleGame_RiddleGame_TellAnswer();
 	}
 	
 	/* Default exit sequence for state PrepareForNextQuestion */
@@ -2201,17 +2621,22 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_RiddleGame_RiddleGame_TellIncomprehensible() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_RiddleGame_RiddleGame_TellIncomprehensible();
 	}
 	
 	/* Default exit sequence for state NextQuestion */
 	private void exitSequence_main_region_RiddleGame_RiddleGame_NextQuestion() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_RiddleGame_RiddleGame_NextQuestion();
 	}
 	
 	/* Default exit sequence for state TellAction */
 	private void exitSequence_main_region_RiddleGame_RiddleGame_TellAction() {
 		exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame();
+		exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 	}
 	
 	/* Default exit sequence for state GoTo */
@@ -2256,10 +2681,33 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state StopSTT */
-	private void exitSequence_main_region_RiddleGame_RiddleGame_StopSTT() {
+	/* Default exit sequence for state STT */
+	private void exitSequence_main_region_RiddleGame_RiddleGame_STT() {
+		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame();
+	}
+	
+	/* Default exit sequence for state StartSTT */
+	private void exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+	}
+	
+	/* Default exit sequence for state TellSpokenText */
+	private void exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
+	}
+	
+	/* Default exit sequence for state StropSTT */
+	private void exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
 	}
 	
 	/* Default exit sequence for state BlindMansBlufGame */
@@ -2271,6 +2719,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame();
 	}
 	
 	/* Default exit sequence for state StartSTT */
@@ -2297,11 +2747,14 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer();
 	}
 	
 	/* Default exit sequence for state TellAction */
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction() {
 		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame();
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 	}
 	
 	/* Default exit sequence for state GoTo */
@@ -2350,6 +2803,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible();
 	}
 	
 	/* Default exit sequence for state StopSTT2 */
@@ -2362,12 +2817,16 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT();
 	}
 	
 	/* Default exit sequence for state WaitForNoise */
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise() {
 		nextStateIndex = 1;
 		stateVector[1] = State.$NullState$;
+		
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise();
 	}
 	
 	/* Default exit sequence for state Turn */
@@ -2388,6 +2847,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone();
 	}
 	
 	/* Default exit sequence for state NoRepeat */
@@ -2400,18 +2861,24 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat();
 	}
 	
 	/* Default exit sequence for state NextQuestion */
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion();
 	}
 	
 	/* Default exit sequence for state firstQ */
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ();
 	}
 	
 	/* Default exit sequence for state wait */
@@ -2512,9 +2979,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		case main_region_RiddleGame_RiddleGame_Leave_the_arena:
 			exitSequence_main_region_RiddleGame_RiddleGame_Leave_the_arena();
 			break;
-		case main_region_RiddleGame_RiddleGame_StartSTT:
-			exitSequence_main_region_RiddleGame_RiddleGame_StartSTT();
-			break;
 		case main_region_RiddleGame_RiddleGame_TellAnswer:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAnswer();
 			break;
@@ -2529,27 +2993,40 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_GoTo:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_GoTo();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_surrounding:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_surrounding();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_bring:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_bring();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_open:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_open();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_followme:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_followme();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
-		case main_region_RiddleGame_RiddleGame_StopSTT:
-			exitSequence_main_region_RiddleGame_RiddleGame_StopSTT();
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT:
+			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+			break;
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText:
+			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
+			break;
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT:
+			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame();
@@ -2565,24 +3042,31 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_surrounding:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_surrounding();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_bring:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_bring();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_open:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_open();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_followme:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_followme();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_unknown:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_unknown();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_Copy_1_crowd:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_Copy_1_crowd();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible();
@@ -2657,9 +3141,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		case main_region_RiddleGame_RiddleGame_Leave_the_arena:
 			exitSequence_main_region_RiddleGame_RiddleGame_Leave_the_arena();
 			break;
-		case main_region_RiddleGame_RiddleGame_StartSTT:
-			exitSequence_main_region_RiddleGame_RiddleGame_StartSTT();
-			break;
 		case main_region_RiddleGame_RiddleGame_TellAnswer:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAnswer();
 			break;
@@ -2674,27 +3155,40 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_GoTo:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_GoTo();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_surrounding:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_surrounding();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_bring:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_bring();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_open:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_open();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_followme:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_followme();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd:
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd();
+			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
-		case main_region_RiddleGame_RiddleGame_StopSTT:
-			exitSequence_main_region_RiddleGame_RiddleGame_StopSTT();
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT:
+			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+			break;
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText:
+			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
+			break;
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT:
+			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
 			break;
 		default:
 			break;
@@ -2730,6 +3224,23 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		}
 	}
 	
+	/* Default exit sequence for region STT RiddleGame */
+	private void exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame() {
+		switch (stateVector[0]) {
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT:
+			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+			break;
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText:
+			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
+			break;
+		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT:
+			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
+			break;
+		default:
+			break;
+		}
+	}
+	
 	/* Default exit sequence for region BlindMansBlufGame */
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame() {
 		switch (stateVector[0]) {
@@ -2747,24 +3258,31 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_surrounding:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_surrounding();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_bring:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_bring();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_open:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_open();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_followme:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_followme();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_unknown:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_unknown();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_Copy_1_crowd:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_Copy_1_crowd();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible();
@@ -2823,24 +3341,31 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_surrounding:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_surrounding();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_bring:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_bring();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_open:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_open();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_followme:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_followme();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_unknown:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_unknown();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_Copy_1_crowd:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_Copy_1_crowd();
+			exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible();
@@ -2934,6 +3459,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_Announcement() {
 		if (check_main_region_Announcement_tr0_tr0()) {
 			effect_main_region_Announcement_tr0();
+		} else {
+			if (check_main_region_Announcement_tr1_tr1()) {
+				effect_main_region_Announcement_tr1();
+			}
 		}
 	}
 	
@@ -2955,6 +3484,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_CrowdScanningAndCounting() {
 		if (check_main_region_CrowdScanningAndCounting_tr0_tr0()) {
 			effect_main_region_CrowdScanningAndCounting_tr0();
+		} else {
+			if (check_main_region_CrowdScanningAndCounting_tr1_tr1()) {
+				effect_main_region_CrowdScanningAndCounting_tr1();
+			}
 		}
 	}
 	
@@ -2962,6 +3495,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_RiddleGame_RiddleGame_StartGame() {
 		if (check_main_region_RiddleGame_RiddleGame_StartGame_tr0_tr0()) {
 			effect_main_region_RiddleGame_RiddleGame_StartGame_tr0();
+		} else {
+			if (check_main_region_RiddleGame_RiddleGame_StartGame_tr1_tr1()) {
+				effect_main_region_RiddleGame_RiddleGame_StartGame_tr1();
+			}
 		}
 	}
 	
@@ -2976,6 +3513,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_RiddleGame_RiddleGame_Hello() {
 		if (check_main_region_RiddleGame_RiddleGame_Hello_tr0_tr0()) {
 			effect_main_region_RiddleGame_RiddleGame_Hello_tr0();
+		} else {
+			if (check_main_region_RiddleGame_RiddleGame_Hello_tr1_tr1()) {
+				effect_main_region_RiddleGame_RiddleGame_Hello_tr1();
+			}
 		}
 	}
 	
@@ -2983,13 +3524,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_RiddleGame_RiddleGame_Leave_the_arena() {
 		if (check_main_region_RiddleGame_RiddleGame_Leave_the_arena_tr0_tr0()) {
 			effect_main_region_RiddleGame_RiddleGame_Leave_the_arena_tr0();
-		}
-	}
-	
-	/* The reactions of state StartSTT. */
-	private void react_main_region_RiddleGame_RiddleGame_StartSTT() {
-		if (check_main_region_RiddleGame_RiddleGame_StartSTT_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_StartSTT_tr0();
+		} else {
+			if (check_main_region_RiddleGame_RiddleGame_Leave_the_arena_tr1_tr1()) {
+				effect_main_region_RiddleGame_RiddleGame_Leave_the_arena_tr1();
+			}
 		}
 	}
 	
@@ -2997,6 +3535,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_RiddleGame_RiddleGame_TellAnswer() {
 		if (check_main_region_RiddleGame_RiddleGame_TellAnswer_tr0_tr0()) {
 			effect_main_region_RiddleGame_RiddleGame_TellAnswer_tr0();
+		} else {
+			if (check_main_region_RiddleGame_RiddleGame_TellAnswer_tr1_tr1()) {
+				effect_main_region_RiddleGame_RiddleGame_TellAnswer_tr1();
+			}
 		}
 	}
 	
@@ -3009,6 +3551,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_RiddleGame_RiddleGame_TellIncomprehensible() {
 		if (check_main_region_RiddleGame_RiddleGame_TellIncomprehensible_tr0_tr0()) {
 			effect_main_region_RiddleGame_RiddleGame_TellIncomprehensible_tr0();
+		} else {
+			if (check_main_region_RiddleGame_RiddleGame_TellIncomprehensible_tr1_tr1()) {
+				effect_main_region_RiddleGame_RiddleGame_TellIncomprehensible_tr1();
+			}
 		}
 	}
 	
@@ -3016,13 +3562,17 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_RiddleGame_RiddleGame_NextQuestion() {
 		if (check_main_region_RiddleGame_RiddleGame_NextQuestion_tr0_tr0()) {
 			effect_main_region_RiddleGame_RiddleGame_NextQuestion_tr0();
+		} else {
+			if (check_main_region_RiddleGame_RiddleGame_NextQuestion_tr1_tr1()) {
+				effect_main_region_RiddleGame_RiddleGame_NextQuestion_tr1();
+			}
 		}
 	}
 	
 	/* The reactions of state GoTo. */
 	private void react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_GoTo() {
-		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_TellAction_tr0();
+		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr1_tr1()) {
+			effect_main_region_RiddleGame_RiddleGame_TellAction_tr1();
 		} else {
 			if (check_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_GoTo_tr0_tr0()) {
 				effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_GoTo_tr0();
@@ -3032,16 +3582,16 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* The reactions of state surrounding. */
 	private void react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_surrounding() {
-		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_TellAction_tr0();
+		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr1_tr1()) {
+			effect_main_region_RiddleGame_RiddleGame_TellAction_tr1();
 		} else {
 		}
 	}
 	
 	/* The reactions of state bring. */
 	private void react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_bring() {
-		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_TellAction_tr0();
+		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr1_tr1()) {
+			effect_main_region_RiddleGame_RiddleGame_TellAction_tr1();
 		} else {
 			if (check_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_bring_tr0_tr0()) {
 				effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_bring_tr0();
@@ -3051,8 +3601,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* The reactions of state open. */
 	private void react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_open() {
-		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_TellAction_tr0();
+		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr1_tr1()) {
+			effect_main_region_RiddleGame_RiddleGame_TellAction_tr1();
 		} else {
 			if (check_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_open_tr0_tr0()) {
 				effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_open_tr0();
@@ -3062,8 +3612,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* The reactions of state followme. */
 	private void react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_followme() {
-		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_TellAction_tr0();
+		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr1_tr1()) {
+			effect_main_region_RiddleGame_RiddleGame_TellAction_tr1();
 		} else {
 			if (check_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_followme_tr0_tr0()) {
 				effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_followme_tr0();
@@ -3073,8 +3623,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* The reactions of state unknown. */
 	private void react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown() {
-		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_TellAction_tr0();
+		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr1_tr1()) {
+			effect_main_region_RiddleGame_RiddleGame_TellAction_tr1();
 		} else {
 			if (check_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown_tr0_tr0()) {
 				effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown_tr0();
@@ -3084,8 +3634,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* The reactions of state crowd. */
 	private void react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd() {
-		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_TellAction_tr0();
+		if (check_main_region_RiddleGame_RiddleGame_TellAction_tr1_tr1()) {
+			effect_main_region_RiddleGame_RiddleGame_TellAction_tr1();
 		} else {
 			if (check_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd_tr0_tr0()) {
 				effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd_tr0();
@@ -3093,17 +3643,39 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		}
 	}
 	
-	/* The reactions of state StopSTT. */
-	private void react_main_region_RiddleGame_RiddleGame_StopSTT() {
-		if (check_main_region_RiddleGame_RiddleGame_StopSTT_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_StopSTT_tr0();
+	/* The reactions of state StartSTT. */
+	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT() {
+		if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_tr0_tr0()) {
+			effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_tr0();
+		}
+	}
+	
+	/* The reactions of state TellSpokenText. */
+	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText() {
+		if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr0_tr0()) {
+			effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr0();
 		} else {
-			if (check_main_region_RiddleGame_RiddleGame_StopSTT_tr1_tr1()) {
-				effect_main_region_RiddleGame_RiddleGame_StopSTT_tr1();
+			if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr1_tr1()) {
+				effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr1();
 			} else {
-				if (check_main_region_RiddleGame_RiddleGame_StopSTT_tr2_tr2()) {
-					effect_main_region_RiddleGame_RiddleGame_StopSTT_tr2();
+				if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr2_tr2()) {
+					effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr2();
+				} else {
+					if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr3_tr3()) {
+						effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr3();
+					}
 				}
+			}
+		}
+	}
+	
+	/* The reactions of state StropSTT. */
+	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT() {
+		if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr0_tr0()) {
+			effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr0();
+		} else {
+			if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr1_tr1()) {
+				effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr1();
 			}
 		}
 	}
@@ -3112,6 +3684,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame() {
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr0();
+		} else {
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr1();
+			}
 		}
 	}
 	
@@ -3131,6 +3707,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer() {
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer_tr0();
+		} else {
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAnswer_tr1();
+			}
 		}
 	}
 	
@@ -3139,8 +3719,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0();
 		} else {
-			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo_tr0_tr0()) {
-				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo_tr0();
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1();
+			} else {
+				if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo_tr0_tr0()) {
+					effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_GoTo_tr0();
+				}
 			}
 		}
 	}
@@ -3150,6 +3734,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0();
 		} else {
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1();
+			} else {
+			}
 		}
 	}
 	
@@ -3158,8 +3746,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0();
 		} else {
-			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_bring_tr0_tr0()) {
-				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_bring_tr0();
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1();
+			} else {
+				if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_bring_tr0_tr0()) {
+					effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_bring_tr0();
+				}
 			}
 		}
 	}
@@ -3169,8 +3761,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0();
 		} else {
-			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_open_tr0_tr0()) {
-				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_open_tr0();
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1();
+			} else {
+				if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_open_tr0_tr0()) {
+					effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_open_tr0();
+				}
 			}
 		}
 	}
@@ -3180,8 +3776,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0();
 		} else {
-			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_followme_tr0_tr0()) {
-				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_followme_tr0();
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1();
+			} else {
+				if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_followme_tr0_tr0()) {
+					effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_followme_tr0();
+				}
 			}
 		}
 	}
@@ -3191,8 +3791,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0();
 		} else {
-			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_unknown_tr0_tr0()) {
-				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_unknown_tr0();
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1();
+			} else {
+				if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_unknown_tr0_tr0()) {
+					effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_unknown_tr0();
+				}
 			}
 		}
 	}
@@ -3202,8 +3806,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr0();
 		} else {
-			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_Copy_1_crowd_tr0_tr0()) {
-				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_Copy_1_crowd_tr0();
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_tr1();
+			} else {
+				if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_Copy_1_crowd_tr0_tr0()) {
+					effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame_Copy_1_crowd_tr0();
+				}
 			}
 		}
 	}
@@ -3212,6 +3820,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible() {
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible_tr0();
+		} else {
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellIncomprehensible_tr1();
+			}
 		}
 	}
 	
@@ -3232,6 +3844,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			} else {
 				if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT_tr2_tr2()) {
 					effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT_tr2();
+				} else {
+					if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT_tr3_tr3()) {
+						effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT_tr3();
+					}
 				}
 			}
 		}
@@ -3247,6 +3863,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			} else {
 				if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise_tr2_tr2()) {
 					effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise_tr2();
+				} else {
+					if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise_tr3_tr3()) {
+						effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_WaitForNoise_tr3();
+					}
 				}
 			}
 		}
@@ -3274,6 +3894,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone() {
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone_tr0();
+		} else {
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_allQuestionsDone_tr1();
+			}
 		}
 	}
 	
@@ -3286,18 +3910,34 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* The reactions of state Repeat. */
 	private void react_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat() {
-		effect_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat_tr0();
+		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat_tr0_tr0()) {
+			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat_tr0();
+		} else {
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat_tr1();
+			}
+		}
 	}
 	
 	/* The reactions of state NextQuestion. */
 	private void react_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion() {
-		effect_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion_tr0();
+		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion_tr0_tr0()) {
+			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion_tr0();
+		} else {
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_NextQuestion_tr1();
+			}
+		}
 	}
 	
 	/* The reactions of state firstQ. */
 	private void react_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ() {
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr0();
+		} else {
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr1();
+			}
 		}
 	}
 	
@@ -3411,6 +4051,15 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	/* The reactions of state null. */
+	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0() {
+		if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr1_tr1()) {
+			effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr1();
+		} else {
+			effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr0();
+		}
+	}
+	
+	/* The reactions of state null. */
 	private void react_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame__choice_0() {
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame__choice_0_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame__choice_0_tr0();
@@ -3487,6 +4136,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	/* Default react sequence for initial entry  */
+	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__entry_Default() {
+		enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_default();
+	}
+	
+	/* Default react sequence for initial entry  */
 	private void react_main_region_BlindMansBlufGame_BlindMansBlufGame__entry_Default() {
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_default();
 	}
@@ -3512,8 +4166,28 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	/* The reactions of exit exit_done. */
+	private void react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_exit_done() {
+		effect_main_region_RiddleGame_RiddleGame_TellAction_tr0();
+	}
+	
+	/* The reactions of exit exit_done. */
 	private void react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_surrounding_surrounding_RiddleGame_exit_done() {
 		effect_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_surrounding_tr0();
+	}
+	
+	/* The reactions of exit exit_answer. */
+	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_answer() {
+		effect_main_region_RiddleGame_RiddleGame_STT_tr0();
+	}
+	
+	/* The reactions of exit exit_action. */
+	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_action() {
+		effect_main_region_RiddleGame_RiddleGame_STT_tr1();
+	}
+	
+	/* The reactions of exit exit_incomprehensible. */
+	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_incomprehensible() {
+		effect_main_region_RiddleGame_RiddleGame_STT_tr2();
 	}
 	
 	/* The reactions of exit exit_done. */
@@ -3571,9 +4245,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			case main_region_RiddleGame_RiddleGame_Leave_the_arena:
 				react_main_region_RiddleGame_RiddleGame_Leave_the_arena();
 				break;
-			case main_region_RiddleGame_RiddleGame_StartSTT:
-				react_main_region_RiddleGame_RiddleGame_StartSTT();
-				break;
 			case main_region_RiddleGame_RiddleGame_TellAnswer:
 				react_main_region_RiddleGame_RiddleGame_TellAnswer();
 				break;
@@ -3607,8 +4278,14 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd:
 				react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd();
 				break;
-			case main_region_RiddleGame_RiddleGame_StopSTT:
-				react_main_region_RiddleGame_RiddleGame_StopSTT();
+			case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT:
+				react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+				break;
+			case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText:
+				react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
+				break;
+			case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT:
+				react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
 				break;
 			case main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame:
 				react_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame();

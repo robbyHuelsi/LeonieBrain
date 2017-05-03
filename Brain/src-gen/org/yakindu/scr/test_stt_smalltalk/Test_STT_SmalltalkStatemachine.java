@@ -87,7 +87,7 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[1];
+	private final boolean[] timeEvents = new boolean[3];
 	public Test_STT_SmalltalkStatemachine() {
 		sCIHBrain = new SCIHBrainImpl();
 		sCISTT = new SCISTTImpl();
@@ -234,8 +234,16 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		return sCISTT.incomprehensible;
 	}
 	
+	private boolean check_main_region_STT_STT_TellSpokenText_tr3_tr3() {
+		return timeEvents[1];
+	}
+	
 	private boolean check_main_region_STT_STT_StropSTT_tr0_tr0() {
 		return sCISTT.spokenTextReceived;
+	}
+	
+	private boolean check_main_region_STT_STT_StropSTT_tr1_tr1() {
+		return timeEvents[2];
 	}
 	
 	private boolean check_main_region_TellAnswer_tr0_tr0() {
@@ -302,9 +310,19 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		react_main_region_STT_STT_exit_incomprehensible();
 	}
 	
+	private void effect_main_region_STT_STT_TellSpokenText_tr3() {
+		exitSequence_main_region_STT_STT_TellSpokenText();
+		react_main_region_STT_STT_exit_incomprehensible();
+	}
+	
 	private void effect_main_region_STT_STT_StropSTT_tr0() {
 		exitSequence_main_region_STT_STT_StropSTT();
 		react_main_region_STT_STT__choice_0();
+	}
+	
+	private void effect_main_region_STT_STT_StropSTT_tr1() {
+		exitSequence_main_region_STT_STT_StropSTT();
+		react_main_region_STT_STT_exit_incomprehensible();
 	}
 	
 	private void effect_main_region_TellAnswer_tr0() {
@@ -351,11 +369,15 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	
 	/* Entry action for state 'TellSpokenText'. */
 	private void entryAction_main_region_STT_STT_TellSpokenText() {
+		timer.setTimer(this, 1, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS2("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText());
 	}
 	
 	/* Entry action for state 'StropSTT'. */
 	private void entryAction_main_region_STT_STT_StropSTT() {
+		timer.setTimer(this, 2, 10*1000, false);
+		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
@@ -384,6 +406,16 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_region_STT_STT_StartSTT() {
 		timer.unsetTimer(this, 0);
+	}
+	
+	/* Exit action for state 'TellSpokenText'. */
+	private void exitAction_main_region_STT_STT_TellSpokenText() {
+		timer.unsetTimer(this, 1);
+	}
+	
+	/* Exit action for state 'StropSTT'. */
+	private void exitAction_main_region_STT_STT_StropSTT() {
+		timer.unsetTimer(this, 2);
 	}
 	
 	/* 'default' enter sequence for state StateA */
@@ -480,12 +512,16 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	private void exitSequence_main_region_STT_STT_TellSpokenText() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_STT_STT_TellSpokenText();
 	}
 	
 	/* Default exit sequence for state StropSTT */
 	private void exitSequence_main_region_STT_STT_StropSTT() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_STT_STT_StropSTT();
 	}
 	
 	/* Default exit sequence for state TellAnswer */
@@ -585,6 +621,10 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 			} else {
 				if (check_main_region_STT_STT_TellSpokenText_tr2_tr2()) {
 					effect_main_region_STT_STT_TellSpokenText_tr2();
+				} else {
+					if (check_main_region_STT_STT_TellSpokenText_tr3_tr3()) {
+						effect_main_region_STT_STT_TellSpokenText_tr3();
+					}
 				}
 			}
 		}
@@ -594,6 +634,10 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	private void react_main_region_STT_STT_StropSTT() {
 		if (check_main_region_STT_STT_StropSTT_tr0_tr0()) {
 			effect_main_region_STT_STT_StropSTT_tr0();
+		} else {
+			if (check_main_region_STT_STT_StropSTT_tr1_tr1()) {
+				effect_main_region_STT_STT_StropSTT_tr1();
+			}
 		}
 	}
 	
