@@ -109,14 +109,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		main_region_ObjectDetection_cupboard_waitForNewObj,
 		main_region__final_,
 		main_region_requestReady,
-		main_region_Composite_panCupboard_tiltCupboard,
-		main_region_Composite_panCupboard_tiltCupboard__region0_doors,
-		main_region_Composite_panCupboard_tiltCupboard__region0_wait,
-		main_region_Composite_panCupboard_tiltCupboard__region0_sync1,
-		main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard,
-		main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard,
-		main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira,
-		main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1,
 		main_region_Table,
 		main_region_Table__region0_lookToFront,
 		main_region_Table__region0_sync1,
@@ -135,6 +127,9 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		main_region_Copy_1_Table__region1_Copy_1_tiltCupboard,
 		main_region_Copy_1_Table__region1_sync1,
 		main_region_Copy_1_Table__region1_wait_for_Mira,
+		main_region_wait_for_Mira,
+		main_region_panCupboard,
+		main_region_tiltCupboard,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
@@ -149,7 +144,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[10];
+	private final boolean[] timeEvents = new boolean[12];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -270,23 +265,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			return stateVector[0] == State.main_region__final_;
 		case main_region_requestReady:
 			return stateVector[0] == State.main_region_requestReady;
-		case main_region_Composite_panCupboard_tiltCupboard:
-			return stateVector[0].ordinal() >= State.
-					main_region_Composite_panCupboard_tiltCupboard.ordinal()&& stateVector[0].ordinal() <= State.main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1.ordinal();
-		case main_region_Composite_panCupboard_tiltCupboard__region0_doors:
-			return stateVector[0] == State.main_region_Composite_panCupboard_tiltCupboard__region0_doors;
-		case main_region_Composite_panCupboard_tiltCupboard__region0_wait:
-			return stateVector[0] == State.main_region_Composite_panCupboard_tiltCupboard__region0_wait;
-		case main_region_Composite_panCupboard_tiltCupboard__region0_sync1:
-			return stateVector[0] == State.main_region_Composite_panCupboard_tiltCupboard__region0_sync1;
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard:
-			return stateVector[1] == State.main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard;
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard:
-			return stateVector[1] == State.main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard;
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira:
-			return stateVector[1] == State.main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira;
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1:
-			return stateVector[1] == State.main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1;
 		case main_region_Table:
 			return stateVector[0].ordinal() >= State.
 					main_region_Table.ordinal()&& stateVector[0].ordinal() <= State.main_region_Table__region1_wait_for_Mira.ordinal();
@@ -326,6 +304,12 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			return stateVector[1] == State.main_region_Copy_1_Table__region1_sync1;
 		case main_region_Copy_1_Table__region1_wait_for_Mira:
 			return stateVector[1] == State.main_region_Copy_1_Table__region1_wait_for_Mira;
+		case main_region_wait_for_Mira:
+			return stateVector[0] == State.main_region_wait_for_Mira;
+		case main_region_panCupboard:
+			return stateVector[0] == State.main_region_panCupboard;
+		case main_region_tiltCupboard:
+			return stateVector[0] == State.main_region_tiltCupboard;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[2] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -393,56 +377,28 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		return sCIObjectDetection.ready;
 	}
 	
-	private boolean check_main_region_Composite_panCupboard_tiltCupboard__region0_doors_tr0_tr0() {
-		return sCIHBrain.tTSReady;
-	}
-	
-	private boolean check_main_region_Composite_panCupboard_tiltCupboard__region0_wait_tr0_tr0() {
+	private boolean check_main_region_Table__region0_lookToFront_tr0_tr0() {
 		return timeEvents[0];
 	}
 	
-	private boolean check_main_region_Composite_panCupboard_tiltCupboard__region0_sync1_tr0_StoringGroceries_main_region__sync1join_check() {
-		return isStateActive(State.main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1);
-	}
-	
-	private boolean check_main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard_tr0_tr0() {
-		return true;
-	}
-	
-	private boolean check_main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard_tr0_tr0() {
-		return true;
-	}
-	
-	private boolean check_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira_tr0_tr0() {
-		return true;
-	}
-	
-	private boolean check_main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1_tr0_StoringGroceries_main_region__sync1join_check() {
-		return isStateActive(State.main_region_Composite_panCupboard_tiltCupboard__region0_sync1);
-	}
-	
-	private boolean check_main_region_Table__region0_lookToFront_tr0_tr0() {
-		return timeEvents[1];
-	}
-	
-	private boolean check_main_region_Table__region0_sync1_tr0_StoringGroceries_main_region__sync3join_check() {
+	private boolean check_main_region_Table__region0_sync1_tr0_StoringGroceries_main_region__sync1join_check() {
 		return isStateActive(State.main_region_Table__region1_sync1);
 	}
 	
 	private boolean check_main_region_Table__region1_Copy_1_panCupboard_tr0_tr0() {
-		return timeEvents[2];
+		return timeEvents[1];
 	}
 	
 	private boolean check_main_region_Table__region1_Copy_1_tiltCupboard_tr0_tr0() {
-		return timeEvents[3];
+		return timeEvents[2];
 	}
 	
-	private boolean check_main_region_Table__region1_sync1_tr0_StoringGroceries_main_region__sync3join_check() {
+	private boolean check_main_region_Table__region1_sync1_tr0_StoringGroceries_main_region__sync1join_check() {
 		return isStateActive(State.main_region_Table__region0_sync1);
 	}
 	
 	private boolean check_main_region_Table__region1_wait_for_Mira_tr0_tr0() {
-		return timeEvents[4];
+		return timeEvents[3];
 	}
 	
 	private boolean check_main_region_inspectTable_tr0_tr0() {
@@ -465,24 +421,36 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_Copy_1_Table__region0_sync1_tr0_StoringGroceries_main_region__sync5join_check() {
+	private boolean check_main_region_Copy_1_Table__region0_sync1_tr0_StoringGroceries_main_region__sync3join_check() {
 		return isStateActive(State.main_region_Copy_1_Table__region1_sync1);
 	}
 	
 	private boolean check_main_region_Copy_1_Table__region1_Copy_1_panCupboard_tr0_tr0() {
-		return timeEvents[5];
+		return timeEvents[4];
 	}
 	
 	private boolean check_main_region_Copy_1_Table__region1_Copy_1_tiltCupboard_tr0_tr0() {
-		return timeEvents[6];
+		return timeEvents[5];
 	}
 	
-	private boolean check_main_region_Copy_1_Table__region1_sync1_tr0_StoringGroceries_main_region__sync5join_check() {
+	private boolean check_main_region_Copy_1_Table__region1_sync1_tr0_StoringGroceries_main_region__sync3join_check() {
 		return isStateActive(State.main_region_Copy_1_Table__region0_sync1);
 	}
 	
 	private boolean check_main_region_Copy_1_Table__region1_wait_for_Mira_tr0_tr0() {
+		return timeEvents[6];
+	}
+	
+	private boolean check_main_region_wait_for_Mira_tr0_tr0() {
 		return timeEvents[7];
+	}
+	
+	private boolean check_main_region_panCupboard_tr0_tr0() {
+		return timeEvents[8];
+	}
+	
+	private boolean check_main_region_tiltCupboard_tr0_tr0() {
+		return timeEvents[9];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
@@ -494,7 +462,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[8];
+		return timeEvents[10];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -506,7 +474,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[9];
+		return timeEvents[11];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -515,7 +483,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_main_region_ObjectDetection_tr0() {
 		exitSequence_main_region_ObjectDetection();
-		react_main_region__sync2();
+		react_main_region__sync0();
 	}
 	
 	private void effect_main_region_ObjectDetection_cupboard_tellObj_tr0() {
@@ -530,42 +498,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_main_region_requestReady_tr0() {
 		exitSequence_main_region_requestReady();
-		react_main_region__sync0();
-	}
-	
-	private void effect_main_region_Composite_panCupboard_tiltCupboard__region0_doors_tr0() {
-		exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0_doors();
-		enterSequence_main_region_Composite_panCupboard_tiltCupboard__region0_wait_default();
-	}
-	
-	private void effect_main_region_Composite_panCupboard_tiltCupboard__region0_wait_tr0() {
-		exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0_wait();
-		enterSequence_main_region_Composite_panCupboard_tiltCupboard__region0_sync1_default();
-	}
-	
-	private void effect_main_region_Composite_panCupboard_tiltCupboard__region0_sync1_tr0() {
-		exitSequence_main_region_Composite_panCupboard_tiltCupboard();
-		react_main_region__sync1();
-	}
-	
-	private void effect_main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard_tr0() {
-		exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard();
-		enterSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard_default();
-	}
-	
-	private void effect_main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard_tr0() {
-		exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard();
-		enterSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1_default();
-	}
-	
-	private void effect_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira_tr0() {
-		exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira();
-		enterSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard_default();
-	}
-	
-	private void effect_main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1_tr0() {
-		exitSequence_main_region_Composite_panCupboard_tiltCupboard();
-		react_main_region__sync1();
+		enterSequence_main_region_wait_for_Mira_default();
 	}
 	
 	private void effect_main_region_Table__region0_lookToFront_tr0() {
@@ -575,7 +508,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_main_region_Table__region0_sync1_tr0() {
 		exitSequence_main_region_Table();
-		react_main_region__sync3();
+		react_main_region__sync1();
 	}
 	
 	private void effect_main_region_Table__region1_Copy_1_panCupboard_tr0() {
@@ -590,7 +523,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_main_region_Table__region1_sync1_tr0() {
 		exitSequence_main_region_Table();
-		react_main_region__sync3();
+		react_main_region__sync1();
 	}
 	
 	private void effect_main_region_Table__region1_wait_for_Mira_tr0() {
@@ -600,7 +533,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_main_region_inspectTable_tr0() {
 		exitSequence_main_region_inspectTable();
-		react_main_region__sync4();
+		react_main_region__sync2();
 	}
 	
 	private void effect_main_region_inspectTable_table_tellObj_tr0() {
@@ -625,7 +558,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_main_region_Copy_1_Table__region0_sync1_tr0() {
 		exitSequence_main_region_Copy_1_Table();
-		react_main_region__sync5();
+		react_main_region__sync3();
 	}
 	
 	private void effect_main_region_Copy_1_Table__region1_Copy_1_panCupboard_tr0() {
@@ -640,12 +573,27 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_main_region_Copy_1_Table__region1_sync1_tr0() {
 		exitSequence_main_region_Copy_1_Table();
-		react_main_region__sync5();
+		react_main_region__sync3();
 	}
 	
 	private void effect_main_region_Copy_1_Table__region1_wait_for_Mira_tr0() {
 		exitSequence_main_region_Copy_1_Table__region1_wait_for_Mira();
 		enterSequence_main_region_Copy_1_Table__region1_Copy_1_panCupboard_default();
+	}
+	
+	private void effect_main_region_wait_for_Mira_tr0() {
+		exitSequence_main_region_wait_for_Mira();
+		enterSequence_main_region_panCupboard_default();
+	}
+	
+	private void effect_main_region_panCupboard_tr0() {
+		exitSequence_main_region_panCupboard();
+		enterSequence_main_region_tiltCupboard_default();
+	}
+	
+	private void effect_main_region_tiltCupboard_tr0() {
+		exitSequence_main_region_tiltCupboard();
+		enterSequence_main_region_ObjectDetection_default();
 	}
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
@@ -700,40 +648,30 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		sCIObjectDetection.operationCallback.sendReadyRequest();
 	}
 	
-	/* Entry action for state 'doors'. */
-	private void entryAction_main_region_Composite_panCupboard_tiltCupboard__region0_doors() {
-		sCIHBrain.operationCallback.sendTTS("{90;-80}I want to see the objects in the cupboard. [:-(] But I don't have a manipulator to open the doors. [:-)] Can somebody help me please.");
-	}
-	
-	/* Entry action for state 'wait'. */
-	private void entryAction_main_region_Composite_panCupboard_tiltCupboard__region0_wait() {
-		timer.setTimer(this, 0, 1*1000, false);
-	}
-	
 	/* Entry action for state 'lookToFront'. */
 	private void entryAction_main_region_Table__region0_lookToFront() {
-		timer.setTimer(this, 1, 3*1000, false);
+		timer.setTimer(this, 0, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("{-80;-100} [:-)]");
 	}
 	
 	/* Entry action for state 'Copy_1_panCupboard'. */
 	private void entryAction_main_region_Table__region1_Copy_1_panCupboard() {
-		timer.setTimer(this, 2, 10*1000, false);
+		timer.setTimer(this, 1, 10*1000, false);
 		
-		sCIMira.operationCallback.sendPanCamera(90);
+		sCIMira.operationCallback.sendPanCamera(-40);
 	}
 	
 	/* Entry action for state 'Copy_1_tiltCupboard'. */
 	private void entryAction_main_region_Table__region1_Copy_1_tiltCupboard() {
-		timer.setTimer(this, 3, 4*1000, false);
+		timer.setTimer(this, 2, 4*1000, false);
 		
-		sCIMira.operationCallback.sendTiltCamera(-30);
+		sCIMira.operationCallback.sendTiltCamera(-40);
 	}
 	
 	/* Entry action for state 'wait for Mira'. */
 	private void entryAction_main_region_Table__region1_wait_for_Mira() {
-		timer.setTimer(this, 4, 1*1000, false);
+		timer.setTimer(this, 3, 1*1000, false);
 	}
 	
 	/* Entry action for state 'inspectTable'. */
@@ -764,26 +702,47 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'Copy_1_panCupboard'. */
 	private void entryAction_main_region_Copy_1_Table__region1_Copy_1_panCupboard() {
-		timer.setTimer(this, 5, 10*1000, false);
+		timer.setTimer(this, 4, 10*1000, false);
 		
 		sCIMira.operationCallback.sendPanCamera(0);
 	}
 	
 	/* Entry action for state 'Copy_1_tiltCupboard'. */
 	private void entryAction_main_region_Copy_1_Table__region1_Copy_1_tiltCupboard() {
-		timer.setTimer(this, 6, 4*1000, false);
+		timer.setTimer(this, 5, 4*1000, false);
 		
 		sCIMira.operationCallback.sendTiltCamera(0);
 	}
 	
 	/* Entry action for state 'wait for Mira'. */
 	private void entryAction_main_region_Copy_1_Table__region1_wait_for_Mira() {
+		timer.setTimer(this, 6, 1*1000, false);
+	}
+	
+	/* Entry action for state 'wait for Mira'. */
+	private void entryAction_main_region_wait_for_Mira() {
 		timer.setTimer(this, 7, 1*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("Ready to start");
+	}
+	
+	/* Entry action for state 'panCupboard'. */
+	private void entryAction_main_region_panCupboard() {
+		timer.setTimer(this, 8, 2*1000, false);
+		
+		sCIMira.operationCallback.sendPanCamera(0);
+	}
+	
+	/* Entry action for state 'tiltCupboard'. */
+	private void entryAction_main_region_tiltCupboard() {
+		timer.setTimer(this, 9, 4*1000, false);
+		
+		sCIMira.operationCallback.sendTiltCamera(-18);
 	}
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 8, 3*1000, false);
+		timer.setTimer(this, 10, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -800,57 +759,67 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 9, 3*1000, false);
-	}
-	
-	/* Exit action for state 'wait'. */
-	private void exitAction_main_region_Composite_panCupboard_tiltCupboard__region0_wait() {
-		timer.unsetTimer(this, 0);
+		timer.setTimer(this, 11, 3*1000, false);
 	}
 	
 	/* Exit action for state 'lookToFront'. */
 	private void exitAction_main_region_Table__region0_lookToFront() {
-		timer.unsetTimer(this, 1);
+		timer.unsetTimer(this, 0);
 	}
 	
 	/* Exit action for state 'Copy_1_panCupboard'. */
 	private void exitAction_main_region_Table__region1_Copy_1_panCupboard() {
-		timer.unsetTimer(this, 2);
+		timer.unsetTimer(this, 1);
 	}
 	
 	/* Exit action for state 'Copy_1_tiltCupboard'. */
 	private void exitAction_main_region_Table__region1_Copy_1_tiltCupboard() {
-		timer.unsetTimer(this, 3);
+		timer.unsetTimer(this, 2);
 	}
 	
 	/* Exit action for state 'wait for Mira'. */
 	private void exitAction_main_region_Table__region1_wait_for_Mira() {
-		timer.unsetTimer(this, 4);
+		timer.unsetTimer(this, 3);
 	}
 	
 	/* Exit action for state 'Copy_1_panCupboard'. */
 	private void exitAction_main_region_Copy_1_Table__region1_Copy_1_panCupboard() {
-		timer.unsetTimer(this, 5);
+		timer.unsetTimer(this, 4);
 	}
 	
 	/* Exit action for state 'Copy_1_tiltCupboard'. */
 	private void exitAction_main_region_Copy_1_Table__region1_Copy_1_tiltCupboard() {
-		timer.unsetTimer(this, 6);
+		timer.unsetTimer(this, 5);
 	}
 	
 	/* Exit action for state 'wait for Mira'. */
 	private void exitAction_main_region_Copy_1_Table__region1_wait_for_Mira() {
+		timer.unsetTimer(this, 6);
+	}
+	
+	/* Exit action for state 'wait for Mira'. */
+	private void exitAction_main_region_wait_for_Mira() {
 		timer.unsetTimer(this, 7);
+	}
+	
+	/* Exit action for state 'panCupboard'. */
+	private void exitAction_main_region_panCupboard() {
+		timer.unsetTimer(this, 8);
+	}
+	
+	/* Exit action for state 'tiltCupboard'. */
+	private void exitAction_main_region_tiltCupboard() {
+		timer.unsetTimer(this, 9);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 8);
+		timer.unsetTimer(this, 10);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 9);
+		timer.unsetTimer(this, 11);
 	}
 	
 	/* 'default' enter sequence for state ObjectDetection */
@@ -883,50 +852,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		entryAction_main_region_requestReady();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_requestReady;
-	}
-	
-	/* 'default' enter sequence for state doors */
-	private void enterSequence_main_region_Composite_panCupboard_tiltCupboard__region0_doors_default() {
-		entryAction_main_region_Composite_panCupboard_tiltCupboard__region0_doors();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Composite_panCupboard_tiltCupboard__region0_doors;
-	}
-	
-	/* 'default' enter sequence for state wait */
-	private void enterSequence_main_region_Composite_panCupboard_tiltCupboard__region0_wait_default() {
-		entryAction_main_region_Composite_panCupboard_tiltCupboard__region0_wait();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Composite_panCupboard_tiltCupboard__region0_wait;
-	}
-	
-	/* 'default' enter sequence for state sync1 */
-	private void enterSequence_main_region_Composite_panCupboard_tiltCupboard__region0_sync1_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Composite_panCupboard_tiltCupboard__region0_sync1;
-	}
-	
-	/* 'default' enter sequence for state panCupboard */
-	private void enterSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard_default() {
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard;
-	}
-	
-	/* 'default' enter sequence for state tiltCupboard */
-	private void enterSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard_default() {
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard;
-	}
-	
-	/* 'default' enter sequence for state wait for Mira */
-	private void enterSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira_default() {
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira;
-	}
-	
-	/* 'default' enter sequence for state sync1 */
-	private void enterSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1_default() {
-		nextStateIndex = 1;
-		stateVector[1] = State.main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1;
 	}
 	
 	/* 'default' enter sequence for state lookToFront */
@@ -1035,6 +960,27 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[1] = State.main_region_Copy_1_Table__region1_wait_for_Mira;
 	}
 	
+	/* 'default' enter sequence for state wait for Mira */
+	private void enterSequence_main_region_wait_for_Mira_default() {
+		entryAction_main_region_wait_for_Mira();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_wait_for_Mira;
+	}
+	
+	/* 'default' enter sequence for state panCupboard */
+	private void enterSequence_main_region_panCupboard_default() {
+		entryAction_main_region_panCupboard();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_panCupboard;
+	}
+	
+	/* 'default' enter sequence for state tiltCupboard */
+	private void enterSequence_main_region_tiltCupboard_default() {
+		entryAction_main_region_tiltCupboard();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_tiltCupboard;
+	}
+	
 	/* 'default' enter sequence for state waitForEvent */
 	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default() {
 		nextStateIndex = 2;
@@ -1116,56 +1062,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	private void exitSequence_main_region_requestReady() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state Composite_panCupboard_tiltCupboard */
-	private void exitSequence_main_region_Composite_panCupboard_tiltCupboard() {
-		exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0();
-		exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region();
-	}
-	
-	/* Default exit sequence for state doors */
-	private void exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0_doors() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state wait */
-	private void exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0_wait() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_region_Composite_panCupboard_tiltCupboard__region0_wait();
-	}
-	
-	/* Default exit sequence for state sync1 */
-	private void exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0_sync1() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state panCupboard */
-	private void exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state tiltCupboard */
-	private void exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state wait for Mira */
-	private void exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state sync1 */
-	private void exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1() {
-		nextStateIndex = 1;
-		stateVector[1] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state Table */
@@ -1289,6 +1185,30 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		exitAction_main_region_Copy_1_Table__region1_wait_for_Mira();
 	}
 	
+	/* Default exit sequence for state wait for Mira */
+	private void exitSequence_main_region_wait_for_Mira() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_wait_for_Mira();
+	}
+	
+	/* Default exit sequence for state panCupboard */
+	private void exitSequence_main_region_panCupboard() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_panCupboard();
+	}
+	
+	/* Default exit sequence for state tiltCupboard */
+	private void exitSequence_main_region_tiltCupboard() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_tiltCupboard();
+	}
+	
 	/* Default exit sequence for state waitForEvent */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		nextStateIndex = 2;
@@ -1338,15 +1258,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		case main_region_requestReady:
 			exitSequence_main_region_requestReady();
 			break;
-		case main_region_Composite_panCupboard_tiltCupboard__region0_doors:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0_doors();
-			break;
-		case main_region_Composite_panCupboard_tiltCupboard__region0_wait:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0_wait();
-			break;
-		case main_region_Composite_panCupboard_tiltCupboard__region0_sync1:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0_sync1();
-			break;
 		case main_region_Table__region0_lookToFront:
 			exitSequence_main_region_Table__region0_lookToFront();
 			break;
@@ -1368,23 +1279,20 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		case main_region_Copy_1_Table__region0_sync1:
 			exitSequence_main_region_Copy_1_Table__region0_sync1();
 			break;
+		case main_region_wait_for_Mira:
+			exitSequence_main_region_wait_for_Mira();
+			break;
+		case main_region_panCupboard:
+			exitSequence_main_region_panCupboard();
+			break;
+		case main_region_tiltCupboard:
+			exitSequence_main_region_tiltCupboard();
+			break;
 		default:
 			break;
 		}
 		
 		switch (stateVector[1]) {
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard();
-			break;
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard();
-			break;
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira();
-			break;
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1();
-			break;
 		case main_region_Table__region1_Copy_1_panCupboard:
 			exitSequence_main_region_Table__region1_Copy_1_panCupboard();
 			break;
@@ -1422,43 +1330,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			break;
 		case main_region_ObjectDetection_cupboard_waitForNewObj:
 			exitSequence_main_region_ObjectDetection_cupboard_waitForNewObj();
-			break;
-		default:
-			break;
-		}
-	}
-	
-	/* Default exit sequence for region null */
-	private void exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0() {
-		switch (stateVector[0]) {
-		case main_region_Composite_panCupboard_tiltCupboard__region0_doors:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0_doors();
-			break;
-		case main_region_Composite_panCupboard_tiltCupboard__region0_wait:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0_wait();
-			break;
-		case main_region_Composite_panCupboard_tiltCupboard__region0_sync1:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard__region0_sync1();
-			break;
-		default:
-			break;
-		}
-	}
-	
-	/* Default exit sequence for region inner region */
-	private void exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region() {
-		switch (stateVector[1]) {
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard();
-			break;
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard();
-			break;
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira();
-			break;
-		case main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1:
-			exitSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1();
 			break;
 		default:
 			break;
@@ -1604,49 +1475,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		}
 	}
 	
-	/* The reactions of state doors. */
-	private void react_main_region_Composite_panCupboard_tiltCupboard__region0_doors() {
-		if (check_main_region_Composite_panCupboard_tiltCupboard__region0_doors_tr0_tr0()) {
-			effect_main_region_Composite_panCupboard_tiltCupboard__region0_doors_tr0();
-		}
-	}
-	
-	/* The reactions of state wait. */
-	private void react_main_region_Composite_panCupboard_tiltCupboard__region0_wait() {
-		if (check_main_region_Composite_panCupboard_tiltCupboard__region0_wait_tr0_tr0()) {
-			effect_main_region_Composite_panCupboard_tiltCupboard__region0_wait_tr0();
-		}
-	}
-	
-	/* The reactions of state sync1. */
-	private void react_main_region_Composite_panCupboard_tiltCupboard__region0_sync1() {
-		if (check_main_region_Composite_panCupboard_tiltCupboard__region0_sync1_tr0_StoringGroceries_main_region__sync1join_check()) {
-			effect_main_region_Composite_panCupboard_tiltCupboard__region0_sync1_tr0();
-		}
-	}
-	
-	/* The reactions of state panCupboard. */
-	private void react_main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard() {
-		effect_main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard_tr0();
-	}
-	
-	/* The reactions of state tiltCupboard. */
-	private void react_main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard() {
-		effect_main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard_tr0();
-	}
-	
-	/* The reactions of state wait for Mira. */
-	private void react_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira() {
-		effect_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira_tr0();
-	}
-	
-	/* The reactions of state sync1. */
-	private void react_main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1() {
-		if (check_main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1_tr0_StoringGroceries_main_region__sync1join_check()) {
-			effect_main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1_tr0();
-		}
-	}
-	
 	/* The reactions of state lookToFront. */
 	private void react_main_region_Table__region0_lookToFront() {
 		if (check_main_region_Table__region0_lookToFront_tr0_tr0()) {
@@ -1656,7 +1484,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* The reactions of state sync1. */
 	private void react_main_region_Table__region0_sync1() {
-		if (check_main_region_Table__region0_sync1_tr0_StoringGroceries_main_region__sync3join_check()) {
+		if (check_main_region_Table__region0_sync1_tr0_StoringGroceries_main_region__sync1join_check()) {
 			effect_main_region_Table__region0_sync1_tr0();
 		}
 	}
@@ -1677,7 +1505,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* The reactions of state sync1. */
 	private void react_main_region_Table__region1_sync1() {
-		if (check_main_region_Table__region1_sync1_tr0_StoringGroceries_main_region__sync3join_check()) {
+		if (check_main_region_Table__region1_sync1_tr0_StoringGroceries_main_region__sync1join_check()) {
 			effect_main_region_Table__region1_sync1_tr0();
 		}
 	}
@@ -1725,7 +1553,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* The reactions of state sync1. */
 	private void react_main_region_Copy_1_Table__region0_sync1() {
-		if (check_main_region_Copy_1_Table__region0_sync1_tr0_StoringGroceries_main_region__sync5join_check()) {
+		if (check_main_region_Copy_1_Table__region0_sync1_tr0_StoringGroceries_main_region__sync3join_check()) {
 			effect_main_region_Copy_1_Table__region0_sync1_tr0();
 		}
 	}
@@ -1746,7 +1574,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* The reactions of state sync1. */
 	private void react_main_region_Copy_1_Table__region1_sync1() {
-		if (check_main_region_Copy_1_Table__region1_sync1_tr0_StoringGroceries_main_region__sync5join_check()) {
+		if (check_main_region_Copy_1_Table__region1_sync1_tr0_StoringGroceries_main_region__sync3join_check()) {
 			effect_main_region_Copy_1_Table__region1_sync1_tr0();
 		}
 	}
@@ -1755,6 +1583,27 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	private void react_main_region_Copy_1_Table__region1_wait_for_Mira() {
 		if (check_main_region_Copy_1_Table__region1_wait_for_Mira_tr0_tr0()) {
 			effect_main_region_Copy_1_Table__region1_wait_for_Mira_tr0();
+		}
+	}
+	
+	/* The reactions of state wait for Mira. */
+	private void react_main_region_wait_for_Mira() {
+		if (check_main_region_wait_for_Mira_tr0_tr0()) {
+			effect_main_region_wait_for_Mira_tr0();
+		}
+	}
+	
+	/* The reactions of state panCupboard. */
+	private void react_main_region_panCupboard() {
+		if (check_main_region_panCupboard_tr0_tr0()) {
+			effect_main_region_panCupboard_tr0();
+		}
+	}
+	
+	/* The reactions of state tiltCupboard. */
+	private void react_main_region_tiltCupboard() {
+		if (check_main_region_tiltCupboard_tr0_tr0()) {
+			effect_main_region_tiltCupboard_tr0();
 		}
 	}
 	
@@ -1819,34 +1668,23 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* The reactions of state null. */
 	private void react_main_region__sync0() {
-		enterSequence_main_region_Composite_panCupboard_tiltCupboard__region0_sync1_default();
-		enterSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira_default();
-	}
-	
-	/* The reactions of state null. */
-	private void react_main_region__sync1() {
-		enterSequence_main_region_ObjectDetection_default();
-	}
-	
-	/* The reactions of state null. */
-	private void react_main_region__sync2() {
 		enterSequence_main_region_Table__region0_lookToFront_default();
 		enterSequence_main_region_Table__region1_wait_for_Mira_default();
 	}
 	
 	/* The reactions of state null. */
-	private void react_main_region__sync3() {
+	private void react_main_region__sync1() {
 		enterSequence_main_region_inspectTable_default();
 	}
 	
 	/* The reactions of state null. */
-	private void react_main_region__sync4() {
+	private void react_main_region__sync2() {
 		enterSequence_main_region_Copy_1_Table__region0_PDFAndSummary_default();
 		enterSequence_main_region_Copy_1_Table__region1_wait_for_Mira_default();
 	}
 	
 	/* The reactions of state null. */
-	private void react_main_region__sync5() {
+	private void react_main_region__sync3() {
 		enterSequence_main_region__final__default();
 	}
 	
@@ -1868,27 +1706,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 				break;
 			case main_region_requestReady:
 				react_main_region_requestReady();
-				break;
-			case main_region_Composite_panCupboard_tiltCupboard__region0_doors:
-				react_main_region_Composite_panCupboard_tiltCupboard__region0_doors();
-				break;
-			case main_region_Composite_panCupboard_tiltCupboard__region0_wait:
-				react_main_region_Composite_panCupboard_tiltCupboard__region0_wait();
-				break;
-			case main_region_Composite_panCupboard_tiltCupboard__region0_sync1:
-				react_main_region_Composite_panCupboard_tiltCupboard__region0_sync1();
-				break;
-			case main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard:
-				react_main_region_Composite_panCupboard_tiltCupboard_inner_region_panCupboard();
-				break;
-			case main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard:
-				react_main_region_Composite_panCupboard_tiltCupboard_inner_region_tiltCupboard();
-				break;
-			case main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira:
-				react_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira();
-				break;
-			case main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1:
-				react_main_region_Composite_panCupboard_tiltCupboard_inner_region_sync1();
 				break;
 			case main_region_Table__region0_lookToFront:
 				react_main_region_Table__region0_lookToFront();
@@ -1934,6 +1751,15 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 				break;
 			case main_region_Copy_1_Table__region1_wait_for_Mira:
 				react_main_region_Copy_1_Table__region1_wait_for_Mira();
+				break;
+			case main_region_wait_for_Mira:
+				react_main_region_wait_for_Mira();
+				break;
+			case main_region_panCupboard:
+				react_main_region_panCupboard();
+				break;
+			case main_region_tiltCupboard:
+				react_main_region_tiltCupboard();
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
