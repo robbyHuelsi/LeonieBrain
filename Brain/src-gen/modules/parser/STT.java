@@ -30,16 +30,19 @@ public class STT implements IParser, Serializable{
 		if (data.contains("TEXT#")) {
 			this.setSpokenText(data.substring(5));
 			this.setSpokenTextReceived(true);
+			System.out.println("SpokenText: " + this.getSpokenText());
 			return true;
 			
 		}else if(data.contains("ANSWER#")){
 			this.setAnswer(data.substring(7));
 			this.setAnswerReceived(true);
+			System.out.println("Answer: " + this.getAnswer());
 			return true;
 			
 		}else if(data.contains("RETRY#")){
 			this.setAnswer(data.substring(6));
 			this.setIncomprehensible(true);
+			System.out.println("Retry: " + this.getAnswer());
 			return true;
 			
 		}else if(data.contains("ACTION#")){
@@ -47,6 +50,7 @@ public class STT implements IParser, Serializable{
 			this.setInstruction(t[0]);
 			this.setObject(t[1]);
 			this.setActionReceived(true);
+			System.out.println("Action: " + this.getInstruction() + ", " + this.getObject());
 			return true;
 		}
 		

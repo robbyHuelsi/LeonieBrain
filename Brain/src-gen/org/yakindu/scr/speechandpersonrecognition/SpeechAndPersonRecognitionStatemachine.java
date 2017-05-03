@@ -271,10 +271,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		main_region_LeaveTheRoom,
 		main_region__final_,
 		main_region_DetectionOn,
+		main_region_waitForMarc,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
 		leonie_Bupered_Or_Emergency_Stop_EmergencyStop,
+		leonie_Bupered_Or_Emergency_Stop_checkEmergency,
 		$NullState$
 	};
 	
@@ -284,7 +286,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[9];
+	private final boolean[] timeEvents = new boolean[10];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -539,6 +541,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			return stateVector[0] == State.main_region__final_;
 		case main_region_DetectionOn:
 			return stateVector[0] == State.main_region_DetectionOn;
+		case main_region_waitForMarc:
+			return stateVector[0] == State.main_region_waitForMarc;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[2] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -547,6 +551,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			return stateVector[2] == State.leonie_Bupered_Or_Emergency_Stop_resetFace;
 		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 			return stateVector[2] == State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			return stateVector[2] == State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
 		default:
 			return false;
 		}
@@ -817,6 +823,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_main_region_DetectionOn_tr0_tr0() {
+		return timeEvents[7];
+	}
+	
+	private boolean check_main_region_waitForMarc_tr0_tr0() {
 		return sCICrowdDetection.detected;
 	}
 	
@@ -829,7 +839,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[7];
+		return timeEvents[8];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -837,7 +847,15 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0() {
-		return timeEvents[8];
+		return true;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
+		return timeEvents[9];
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
+		return sCIMira.emergencyStop;
 	}
 	
 	private boolean check_main_region_RiddleGame_RiddleGame__choice_0_tr1_tr1() {
@@ -1201,6 +1219,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private void effect_main_region_DetectionOn_tr0() {
 		exitSequence_main_region_DetectionOn();
+		enterSequence_main_region_waitForMarc_default();
+	}
+	
+	private void effect_main_region_waitForMarc_tr0() {
+		exitSequence_main_region_waitForMarc();
 		enterSequence_main_region_CrowdScanningAndCounting_default();
 	}
 	
@@ -1226,7 +1249,17 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0() {
 		exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame__choice_0_tr1() {
@@ -1577,6 +1610,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'DetectionOn'. */
 	private void entryAction_main_region_DetectionOn() {
+		timer.setTimer(this, 7, 2*1000, false);
+		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 		
 		sCIHBrain.operationCallback.sendTTS("[:-O]");
@@ -1584,21 +1619,24 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 7, 3*1000, false);
+		timer.setTimer(this, 8, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
 	
 	/* Entry action for state 'resetFace'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
-		sCIHBrain.operationCallback.sendTTS("[:-|]");
+		sCIHBrain.operationCallback.sendTTS("[:-|] [blush:false]");
 	}
 	
 	/* Entry action for state 'EmergencyStop'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		timer.setTimer(this, 8, 3*1000, false);
-		
-		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
+		sCIHBrain.operationCallback.sendTTS("[blush:true] [:-O] What happend?");
+	}
+	
+	/* Entry action for state 'checkEmergency'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		timer.setTimer(this, 9, 3*1000, false);
 	}
 	
 	/* Exit action for state 'Wait'. */
@@ -1636,14 +1674,19 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		timer.unsetTimer(this, 6);
 	}
 	
-	/* Exit action for state 'Bumpered'. */
-	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+	/* Exit action for state 'DetectionOn'. */
+	private void exitAction_main_region_DetectionOn() {
 		timer.unsetTimer(this, 7);
 	}
 	
-	/* Exit action for state 'EmergencyStop'. */
-	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+	/* Exit action for state 'Bumpered'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
 		timer.unsetTimer(this, 8);
+	}
+	
+	/* Exit action for state 'checkEmergency'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		timer.unsetTimer(this, 9);
 	}
 	
 	/* 'default' enter sequence for state Init */
@@ -1999,6 +2042,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		stateVector[0] = State.main_region_DetectionOn;
 	}
 	
+	/* 'default' enter sequence for state waitForMarc */
+	private void enterSequence_main_region_waitForMarc_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_waitForMarc;
+	}
+	
 	/* 'default' enter sequence for state waitForEvent */
 	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default() {
 		nextStateIndex = 2;
@@ -2024,6 +2073,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
 		nextStateIndex = 2;
 		stateVector[2] = State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+	}
+	
+	/* 'default' enter sequence for state checkEmergency */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		nextStateIndex = 2;
+		stateVector[2] = State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
 	}
 	
 	/* 'default' enter sequence for region main region */
@@ -2382,6 +2438,14 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_DetectionOn() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_DetectionOn();
+	}
+	
+	/* Default exit sequence for state waitForMarc */
+	private void exitSequence_main_region_waitForMarc() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state waitForEvent */
@@ -2408,8 +2472,14 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
 		nextStateIndex = 2;
 		stateVector[2] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state checkEmergency */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		nextStateIndex = 2;
+		stateVector[2] = State.$NullState$;
 		
-		exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 	}
 	
 	/* Default exit sequence for region main region */
@@ -2549,6 +2619,9 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			break;
 		case main_region_DetectionOn:
 			exitSequence_main_region_DetectionOn();
+			break;
+		case main_region_waitForMarc:
+			exitSequence_main_region_waitForMarc();
 			break;
 		default:
 			break;
@@ -2843,6 +2916,9 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			break;
 		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 			exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 			break;
 		default:
 			break;
@@ -3250,6 +3326,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		}
 	}
 	
+	/* The reactions of state waitForMarc. */
+	private void react_main_region_waitForMarc() {
+		if (check_main_region_waitForMarc_tr0_tr0()) {
+			effect_main_region_waitForMarc_tr0();
+		}
+	}
+	
 	/* The reactions of state waitForEvent. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0()) {
@@ -3275,8 +3358,17 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* The reactions of state EmergencyStop. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		if (check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0()) {
-			effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+		effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+	}
+	
+	/* The reactions of state checkEmergency. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0();
+		} else {
+			if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1()) {
+				effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1();
+			}
 		}
 	}
 	
@@ -3596,6 +3688,9 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			case main_region_DetectionOn:
 				react_main_region_DetectionOn();
 				break;
+			case main_region_waitForMarc:
+				react_main_region_waitForMarc();
+				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
 				break;
@@ -3607,6 +3702,9 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 				react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+				react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 				break;
 			default:
 				// $NullState$

@@ -270,33 +270,119 @@ public class CrowdDet implements IParser, Serializable{
 	}
 
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
+		int count;
+		
 		switch (inDetails) {
 		case "countAll":
-			return "I found " + getTotalCount() + " people.";
+			count = getTotalCount();
+			if (count == 0) {
+				return "I found no people.";
+			}else if(count == 1){
+				return "I found one person.";
+			}else{
+				return "I found " + count + " people.";
+			}
+			
 			
 		case "countMale":
-			return "I found " + getSpecificCount(0,-1,-1,-1) + " male people.";
+			count = getSpecificCount(0,-1,-1,-1);
+			if (count == 0) {
+				return "I found no male people.";
+			}else if(count == 1){
+				return "I found one male person.";
+			}else{
+				return "I found " + count + " male people.";
+			}
+			
 
 		case "countFemale":
-			return "I found " + getSpecificCount(1,-1,-1,-1) + " female people.";
+			count = getSpecificCount(1,-1,-1,-1);
+			if (count == 0) {
+				return "I found no female people.";
+			}else if(count == 1){
+				return "I found one lady.";
+			}else{
+				return "I found " + count + " female people.";
+			}
+			
 
 		case "countStanding":
-			return "I found " + getSpecificCount(-1,-1,-1,0) + " standing people.";
+			count = getSpecificCount(-1,-1,-1,0);
+			if (count == 0) {
+				return "I found no standing people.";
+			}else if(count == 1){
+				return "I found one standing person.";
+			}else{
+				return "I found " + count + " standing people.";
+			}
+			
 
 		case "countSitting":
-			return "I found " + getSpecificCount(-1,-1,-1,1) + " sitting people.";
+			count = getSpecificCount(-1,-1,-1,1);
+			if (count == 0) {
+				return "I found no sitting people.";
+			}else if(count == 1){
+				return "I found one sitting person.";
+			}else{
+				return "I found " + count + " sitting people.";
+			}
+			
 
 		case "countLaying":
-			return "I found " + getSpecificCount(-1,-1,-1,2) + " laying people.";
+			count = getSpecificCount(-1,-1,-1,2);
+			if (count == 0) {
+				return "I found no laying people.";
+			}else if(count == 1){
+				return "I found one laying person.";
+			}else{
+				return "I found " + count + " laying people.";
+			}
+			
 
 		case "countHandSign":
 			return "[:-(] I'm sorry, I can't detect hand signs";
 
 		case "countYoung":
-			return "I found " + getSpecificCount(-1,-1,26,-1) + " young people.";
+			count = getSpecificCount(-1,-1,18,-1);
+			if (count == 0) {
+				return "I found no person younger than 21.";
+			}else if(count == 1){
+				return "I found one person younger than 21.";
+			}else{
+				return "I found " + count + "people younger than 21.";
+			}
+			
 
 		case "countOld":
-			return "I found " + getSpecificCount(-1,54,-1,1) + " old people.";
+			count = getSpecificCount(-1,79,-1,1);
+			if (count == 0) {
+				return "I found no person older than 59.";
+			}else if(count == 1){
+				return "I found one person older than 59.";
+			}else{
+				return "I found " + count + " old people older than 59.";
+			}
+			
+		case "countBoys":
+			count = getSpecificCount(0,-1,18,-1);
+			if (count == 0) {
+				return "I found no male person younger than 21.";
+			}else if(count == 1){
+				return "I found one male person younger than 21.";
+			}else{
+				return "I found " + count + " male person younger than 21.";
+			}
+			
+		case "countGirls":
+			count = getSpecificCount(1,-1,18,-1);
+			if (count == 0) {
+				return "I found no female person younger than 21.";
+			}else if(count == 1){
+				return "I found one female person younger than 21.";
+			}else{
+				return "I found " + count + " female person younger than 21.";
+			}
+			
 		
 
 		default:

@@ -196,5 +196,18 @@ GeneratorModel for yakindu::java {
 		}
 	}
 	
+	statechart Poster {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
 	
 }

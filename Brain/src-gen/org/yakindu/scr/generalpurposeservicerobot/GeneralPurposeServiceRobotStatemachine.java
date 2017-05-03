@@ -244,8 +244,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		main_region__final_,
 		main_region_DetectionsOn,
 		main_region_Init,
-		main_region_StartSTT,
-		main_region_TellSpokenText,
 		main_region_TellAnswer,
 		main_region_DoAction,
 		main_region_DoAction_Instructions_GoTo,
@@ -283,10 +281,15 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		main_region_StopSTT,
 		main_region_TellIncomprehensible,
 		main_region_NextQuestion,
+		main_region_Copy_1_STT,
+		main_region_Copy_1_STT_STT_StartSTT,
+		main_region_Copy_1_STT_STT_TellSpokenText,
+		main_region_Copy_1_STT_STT_StropSTT,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
 		leonie_Bupered_Or_Emergency_Stop_EmergencyStop,
+		leonie_Bupered_Or_Emergency_Stop_checkEmergency,
 		$NullState$
 	};
 	
@@ -296,7 +299,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[9];
+	private final boolean[] timeEvents = new boolean[10];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -428,10 +431,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			return stateVector[0] == State.main_region_DetectionsOn;
 		case main_region_Init:
 			return stateVector[0] == State.main_region_Init;
-		case main_region_StartSTT:
-			return stateVector[0] == State.main_region_StartSTT;
-		case main_region_TellSpokenText:
-			return stateVector[0] == State.main_region_TellSpokenText;
 		case main_region_TellAnswer:
 			return stateVector[0] == State.main_region_TellAnswer;
 		case main_region_DoAction:
@@ -512,6 +511,15 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			return stateVector[0] == State.main_region_TellIncomprehensible;
 		case main_region_NextQuestion:
 			return stateVector[0] == State.main_region_NextQuestion;
+		case main_region_Copy_1_STT:
+			return stateVector[0].ordinal() >= State.
+					main_region_Copy_1_STT.ordinal()&& stateVector[0].ordinal() <= State.main_region_Copy_1_STT_STT_StropSTT.ordinal();
+		case main_region_Copy_1_STT_STT_StartSTT:
+			return stateVector[0] == State.main_region_Copy_1_STT_STT_StartSTT;
+		case main_region_Copy_1_STT_STT_TellSpokenText:
+			return stateVector[0] == State.main_region_Copy_1_STT_STT_TellSpokenText;
+		case main_region_Copy_1_STT_STT_StropSTT:
+			return stateVector[0] == State.main_region_Copy_1_STT_STT_StropSTT;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -520,6 +528,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_resetFace;
 		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
 		default:
 			return false;
 		}
@@ -595,22 +605,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	private boolean check_main_region_Init_tr0_tr0() {
 		return sCIMira.arrivedWP;
-	}
-	
-	private boolean check_main_region_StartSTT_tr0_tr0() {
-		return sCISTT.spokenTextReceived;
-	}
-	
-	private boolean check_main_region_TellSpokenText_tr0_tr0() {
-		return sCISTT.answerReceived;
-	}
-	
-	private boolean check_main_region_TellSpokenText_tr1_tr1() {
-		return sCISTT.actionReceived;
-	}
-	
-	private boolean check_main_region_TellSpokenText_tr2_tr2() {
-		return sCISTT.incomprehensible;
 	}
 	
 	private boolean check_main_region_TellAnswer_tr0_tr0() {
@@ -769,6 +763,38 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_Copy_1_STT_tr0_tr0() {
+		return sCISTT.answerReceived;
+	}
+	
+	private boolean check_main_region_Copy_1_STT_tr1_tr1() {
+		return sCISTT.actionReceived;
+	}
+	
+	private boolean check_main_region_Copy_1_STT_tr2_tr2() {
+		return sCISTT.incomprehensible;
+	}
+	
+	private boolean check_main_region_Copy_1_STT_STT_StartSTT_tr0_tr0() {
+		return timeEvents[7];
+	}
+	
+	private boolean check_main_region_Copy_1_STT_STT_TellSpokenText_tr0_tr0() {
+		return sCISTT.answerReceived;
+	}
+	
+	private boolean check_main_region_Copy_1_STT_STT_TellSpokenText_tr1_tr1() {
+		return sCISTT.actionReceived;
+	}
+	
+	private boolean check_main_region_Copy_1_STT_STT_TellSpokenText_tr2_tr2() {
+		return sCISTT.incomprehensible;
+	}
+	
+	private boolean check_main_region_Copy_1_STT_STT_StropSTT_tr0_tr0() {
+		return sCISTT.spokenTextReceived;
+	}
+	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
 		return sCIMira.bumpered;
 	}
@@ -778,7 +804,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[7];
+		return timeEvents[8];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -786,7 +812,15 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0() {
-		return timeEvents[8];
+		return true;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
+		return timeEvents[9];
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
+		return sCIMira.emergencyStop;
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP__choice_0_tr1_tr1() {
@@ -849,9 +883,17 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return true;
 	}
 	
+	private boolean check_main_region_Copy_1_STT_STT__choice_0_tr1_tr1() {
+		return (sCISTT.operationCallback.getSpokenText()== null?"" !=null : !sCISTT.operationCallback.getSpokenText().equals(""));
+	}
+	
+	private boolean check_main_region_Copy_1_STT_STT__choice_0_tr0_tr0() {
+		return true;
+	}
+	
 	private void effect_main_region_Hello_tr0() {
 		exitSequence_main_region_Hello();
-		enterSequence_main_region_StartSTT_default();
+		enterSequence_main_region_Copy_1_STT_default();
 	}
 	
 	private void effect_main_region_Leave_the_arena_tr0() {
@@ -867,26 +909,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void effect_main_region_Init_tr0() {
 		exitSequence_main_region_Init();
 		enterSequence_main_region_DetectionsOn_default();
-	}
-	
-	private void effect_main_region_StartSTT_tr0() {
-		exitSequence_main_region_StartSTT();
-		enterSequence_main_region_TellSpokenText_default();
-	}
-	
-	private void effect_main_region_TellSpokenText_tr0() {
-		exitSequence_main_region_TellSpokenText();
-		enterSequence_main_region_TellAnswer_default();
-	}
-	
-	private void effect_main_region_TellSpokenText_tr1() {
-		exitSequence_main_region_TellSpokenText();
-		enterSequence_main_region_DoAction_default();
-	}
-	
-	private void effect_main_region_TellSpokenText_tr2() {
-		exitSequence_main_region_TellSpokenText();
-		enterSequence_main_region_TellIncomprehensible_default();
 	}
 	
 	private void effect_main_region_TellAnswer_tr0() {
@@ -1111,7 +1133,44 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	private void effect_main_region_NextQuestion_tr0() {
 		exitSequence_main_region_NextQuestion();
-		enterSequence_main_region_StartSTT_default();
+		enterSequence_main_region_Copy_1_STT_default();
+	}
+	
+	private void effect_main_region_Copy_1_STT_tr0() {
+		exitSequence_main_region_Copy_1_STT();
+		enterSequence_main_region_TellAnswer_default();
+	}
+	
+	private void effect_main_region_Copy_1_STT_tr1() {
+		exitSequence_main_region_Copy_1_STT();
+		enterSequence_main_region_DoAction_default();
+	}
+	
+	private void effect_main_region_Copy_1_STT_tr2() {
+		exitSequence_main_region_Copy_1_STT();
+		enterSequence_main_region_TellIncomprehensible_default();
+	}
+	
+	private void effect_main_region_Copy_1_STT_STT_StartSTT_tr0() {
+		exitSequence_main_region_Copy_1_STT_STT_StartSTT();
+		enterSequence_main_region_Copy_1_STT_STT_StropSTT_default();
+	}
+	
+	private void effect_main_region_Copy_1_STT_STT_TellSpokenText_tr0() {
+		exitSequence_main_region_Copy_1_STT_STT_TellSpokenText();
+	}
+	
+	private void effect_main_region_Copy_1_STT_STT_TellSpokenText_tr1() {
+		exitSequence_main_region_Copy_1_STT_STT_TellSpokenText();
+	}
+	
+	private void effect_main_region_Copy_1_STT_STT_TellSpokenText_tr2() {
+		exitSequence_main_region_Copy_1_STT_STT_TellSpokenText();
+	}
+	
+	private void effect_main_region_Copy_1_STT_STT_StropSTT_tr0() {
+		exitSequence_main_region_Copy_1_STT_STT_StropSTT();
+		react_main_region_Copy_1_STT_STT__choice_0();
 	}
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
@@ -1136,7 +1195,17 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0() {
 		exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
 	}
 	
 	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP__choice_0_tr1() {
@@ -1199,6 +1268,13 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		enterSequence_main_region_NextQuestion_default();
 	}
 	
+	private void effect_main_region_Copy_1_STT_STT__choice_0_tr1() {
+		enterSequence_main_region_Copy_1_STT_STT_TellSpokenText_default();
+	}
+	
+	private void effect_main_region_Copy_1_STT_STT__choice_0_tr0() {
+	}
+	
 	/* Entry action for state 'Hello'. */
 	private void entryAction_main_region_Hello() {
 		sCICrowdDetection.operationCallback.sendDetectionOff();
@@ -1227,18 +1303,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		setGWPstart(1);
 		
 		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
-	}
-	
-	/* Entry action for state 'StartSTT'. */
-	private void entryAction_main_region_StartSTT() {
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
-		
-		sCIHBrain.operationCallback.sendTTS("[attentive]");
-	}
-	
-	/* Entry action for state 'TellSpokenText'. */
-	private void entryAction_main_region_TellSpokenText() {
-		sCIHBrain.operationCallback.sendTTS3("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText(), ".");
 	}
 	
 	/* Entry action for state 'TellAnswer'. */
@@ -1446,23 +1510,45 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		sCIHBrain.operationCallback.sendTTS("Please give me the next command or ask me a question. [attentive]");
 	}
 	
+	/* Entry action for state 'StartSTT'. */
+	private void entryAction_main_region_Copy_1_STT_STT_StartSTT() {
+		timer.setTimer(this, 7, 5*1000, false);
+		
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		
+		sCIHBrain.operationCallback.sendTTS("[attentive]");
+	}
+	
+	/* Entry action for state 'TellSpokenText'. */
+	private void entryAction_main_region_Copy_1_STT_STT_TellSpokenText() {
+		sCIHBrain.operationCallback.sendTTS2("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText());
+	}
+	
+	/* Entry action for state 'StropSTT'. */
+	private void entryAction_main_region_Copy_1_STT_STT_StropSTT() {
+		sCISTT.operationCallback.sendSpeechDetectionOff();
+	}
+	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 7, 3*1000, false);
+		timer.setTimer(this, 8, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
 	
 	/* Entry action for state 'resetFace'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
-		sCIHBrain.operationCallback.sendTTS("[:-|]");
+		sCIHBrain.operationCallback.sendTTS("[:-|] [blush:false]");
 	}
 	
 	/* Entry action for state 'EmergencyStop'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		timer.setTimer(this, 8, 3*1000, false);
-		
-		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
+		sCIHBrain.operationCallback.sendTTS("[blush:true] [:-O] What happend?");
+	}
+	
+	/* Entry action for state 'checkEmergency'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		timer.setTimer(this, 9, 3*1000, false);
 	}
 	
 	/* Exit action for state 'STToff'. */
@@ -1500,14 +1586,19 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		timer.unsetTimer(this, 6);
 	}
 	
-	/* Exit action for state 'Bumpered'. */
-	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+	/* Exit action for state 'StartSTT'. */
+	private void exitAction_main_region_Copy_1_STT_STT_StartSTT() {
 		timer.unsetTimer(this, 7);
 	}
 	
-	/* Exit action for state 'EmergencyStop'. */
-	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+	/* Exit action for state 'Bumpered'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
 		timer.unsetTimer(this, 8);
+	}
+	
+	/* Exit action for state 'checkEmergency'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		timer.unsetTimer(this, 9);
 	}
 	
 	/* 'default' enter sequence for state Hello */
@@ -1542,20 +1633,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		entryAction_main_region_Init();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_Init;
-	}
-	
-	/* 'default' enter sequence for state StartSTT */
-	private void enterSequence_main_region_StartSTT_default() {
-		entryAction_main_region_StartSTT();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_StartSTT;
-	}
-	
-	/* 'default' enter sequence for state TellSpokenText */
-	private void enterSequence_main_region_TellSpokenText_default() {
-		entryAction_main_region_TellSpokenText();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellSpokenText;
 	}
 	
 	/* 'default' enter sequence for state TellAnswer */
@@ -1807,6 +1884,32 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.main_region_NextQuestion;
 	}
 	
+	/* 'default' enter sequence for state Copy_1_STT */
+	private void enterSequence_main_region_Copy_1_STT_default() {
+		enterSequence_main_region_Copy_1_STT_STT_default();
+	}
+	
+	/* 'default' enter sequence for state StartSTT */
+	private void enterSequence_main_region_Copy_1_STT_STT_StartSTT_default() {
+		entryAction_main_region_Copy_1_STT_STT_StartSTT();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Copy_1_STT_STT_StartSTT;
+	}
+	
+	/* 'default' enter sequence for state TellSpokenText */
+	private void enterSequence_main_region_Copy_1_STT_STT_TellSpokenText_default() {
+		entryAction_main_region_Copy_1_STT_STT_TellSpokenText();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Copy_1_STT_STT_TellSpokenText;
+	}
+	
+	/* 'default' enter sequence for state StropSTT */
+	private void enterSequence_main_region_Copy_1_STT_STT_StropSTT_default() {
+		entryAction_main_region_Copy_1_STT_STT_StropSTT();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Copy_1_STT_STT_StropSTT;
+	}
+	
 	/* 'default' enter sequence for state waitForEvent */
 	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default() {
 		nextStateIndex = 1;
@@ -1832,6 +1935,13 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
 		nextStateIndex = 1;
 		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+	}
+	
+	/* 'default' enter sequence for state checkEmergency */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
 	}
 	
 	/* 'default' enter sequence for region main region */
@@ -1869,6 +1979,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		react_main_region_DoAction_Instructions_followme__region0_HowCanIHelpYou_main_region__entry_Default();
 	}
 	
+	/* 'default' enter sequence for region STT */
+	private void enterSequence_main_region_Copy_1_STT_STT_default() {
+		react_main_region_Copy_1_STT_STT__entry_Default();
+	}
+	
 	/* 'default' enter sequence for region Leonie Bupered Or Emergency Stop */
 	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_default() {
 		react_Leonie_Bupered_Or_Emergency_Stop__entry_Default();
@@ -1900,18 +2015,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Default exit sequence for state Init */
 	private void exitSequence_main_region_Init() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state StartSTT */
-	private void exitSequence_main_region_StartSTT() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state TellSpokenText */
-	private void exitSequence_main_region_TellSpokenText() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -2146,6 +2249,31 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state Copy_1_STT */
+	private void exitSequence_main_region_Copy_1_STT() {
+		exitSequence_main_region_Copy_1_STT_STT();
+	}
+	
+	/* Default exit sequence for state StartSTT */
+	private void exitSequence_main_region_Copy_1_STT_STT_StartSTT() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Copy_1_STT_STT_StartSTT();
+	}
+	
+	/* Default exit sequence for state TellSpokenText */
+	private void exitSequence_main_region_Copy_1_STT_STT_TellSpokenText() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state StropSTT */
+	private void exitSequence_main_region_Copy_1_STT_STT_StropSTT() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for state waitForEvent */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		nextStateIndex = 1;
@@ -2170,8 +2298,14 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
 		nextStateIndex = 1;
 		stateVector[1] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state checkEmergency */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
 		
-		exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 	}
 	
 	/* Default exit sequence for region main region */
@@ -2191,12 +2325,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			break;
 		case main_region_Init:
 			exitSequence_main_region_Init();
-			break;
-		case main_region_StartSTT:
-			exitSequence_main_region_StartSTT();
-			break;
-		case main_region_TellSpokenText:
-			exitSequence_main_region_TellSpokenText();
 			break;
 		case main_region_TellAnswer:
 			exitSequence_main_region_TellAnswer();
@@ -2290,6 +2418,15 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			break;
 		case main_region_NextQuestion:
 			exitSequence_main_region_NextQuestion();
+			break;
+		case main_region_Copy_1_STT_STT_StartSTT:
+			exitSequence_main_region_Copy_1_STT_STT_StartSTT();
+			break;
+		case main_region_Copy_1_STT_STT_TellSpokenText:
+			exitSequence_main_region_Copy_1_STT_STT_TellSpokenText();
+			break;
+		case main_region_Copy_1_STT_STT_StropSTT:
+			exitSequence_main_region_Copy_1_STT_STT_StropSTT();
 			break;
 		default:
 			break;
@@ -2542,6 +2679,23 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		}
 	}
 	
+	/* Default exit sequence for region STT */
+	private void exitSequence_main_region_Copy_1_STT_STT() {
+		switch (stateVector[0]) {
+		case main_region_Copy_1_STT_STT_StartSTT:
+			exitSequence_main_region_Copy_1_STT_STT_StartSTT();
+			break;
+		case main_region_Copy_1_STT_STT_TellSpokenText:
+			exitSequence_main_region_Copy_1_STT_STT_TellSpokenText();
+			break;
+		case main_region_Copy_1_STT_STT_StropSTT:
+			exitSequence_main_region_Copy_1_STT_STT_StropSTT();
+			break;
+		default:
+			break;
+		}
+	}
+	
 	/* Default exit sequence for region Leonie Bupered Or Emergency Stop */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop() {
 		switch (stateVector[1]) {
@@ -2556,6 +2710,9 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			break;
 		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 			exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 			break;
 		default:
 			break;
@@ -2591,28 +2748,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_Init() {
 		if (check_main_region_Init_tr0_tr0()) {
 			effect_main_region_Init_tr0();
-		}
-	}
-	
-	/* The reactions of state StartSTT. */
-	private void react_main_region_StartSTT() {
-		if (check_main_region_StartSTT_tr0_tr0()) {
-			effect_main_region_StartSTT_tr0();
-		}
-	}
-	
-	/* The reactions of state TellSpokenText. */
-	private void react_main_region_TellSpokenText() {
-		if (check_main_region_TellSpokenText_tr0_tr0()) {
-			effect_main_region_TellSpokenText_tr0();
-		} else {
-			if (check_main_region_TellSpokenText_tr1_tr1()) {
-				effect_main_region_TellSpokenText_tr1();
-			} else {
-				if (check_main_region_TellSpokenText_tr2_tr2()) {
-					effect_main_region_TellSpokenText_tr2();
-				}
-			}
 		}
 	}
 	
@@ -2857,6 +2992,71 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		}
 	}
 	
+	/* The reactions of state StartSTT. */
+	private void react_main_region_Copy_1_STT_STT_StartSTT() {
+		if (check_main_region_Copy_1_STT_tr0_tr0()) {
+			effect_main_region_Copy_1_STT_tr0();
+		} else {
+			if (check_main_region_Copy_1_STT_tr1_tr1()) {
+				effect_main_region_Copy_1_STT_tr1();
+			} else {
+				if (check_main_region_Copy_1_STT_tr2_tr2()) {
+					effect_main_region_Copy_1_STT_tr2();
+				} else {
+					if (check_main_region_Copy_1_STT_STT_StartSTT_tr0_tr0()) {
+						effect_main_region_Copy_1_STT_STT_StartSTT_tr0();
+					}
+				}
+			}
+		}
+	}
+	
+	/* The reactions of state TellSpokenText. */
+	private void react_main_region_Copy_1_STT_STT_TellSpokenText() {
+		if (check_main_region_Copy_1_STT_tr0_tr0()) {
+			effect_main_region_Copy_1_STT_tr0();
+		} else {
+			if (check_main_region_Copy_1_STT_tr1_tr1()) {
+				effect_main_region_Copy_1_STT_tr1();
+			} else {
+				if (check_main_region_Copy_1_STT_tr2_tr2()) {
+					effect_main_region_Copy_1_STT_tr2();
+				} else {
+					if (check_main_region_Copy_1_STT_STT_TellSpokenText_tr0_tr0()) {
+						effect_main_region_Copy_1_STT_STT_TellSpokenText_tr0();
+					} else {
+						if (check_main_region_Copy_1_STT_STT_TellSpokenText_tr1_tr1()) {
+							effect_main_region_Copy_1_STT_STT_TellSpokenText_tr1();
+						} else {
+							if (check_main_region_Copy_1_STT_STT_TellSpokenText_tr2_tr2()) {
+								effect_main_region_Copy_1_STT_STT_TellSpokenText_tr2();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/* The reactions of state StropSTT. */
+	private void react_main_region_Copy_1_STT_STT_StropSTT() {
+		if (check_main_region_Copy_1_STT_tr0_tr0()) {
+			effect_main_region_Copy_1_STT_tr0();
+		} else {
+			if (check_main_region_Copy_1_STT_tr1_tr1()) {
+				effect_main_region_Copy_1_STT_tr1();
+			} else {
+				if (check_main_region_Copy_1_STT_tr2_tr2()) {
+					effect_main_region_Copy_1_STT_tr2();
+				} else {
+					if (check_main_region_Copy_1_STT_STT_StropSTT_tr0_tr0()) {
+						effect_main_region_Copy_1_STT_STT_StropSTT_tr0();
+					}
+				}
+			}
+		}
+	}
+	
 	/* The reactions of state waitForEvent. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0()) {
@@ -2882,8 +3082,17 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* The reactions of state EmergencyStop. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		if (check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0()) {
-			effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+		effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+	}
+	
+	/* The reactions of state checkEmergency. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0();
+		} else {
+			if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1()) {
+				effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1();
+			}
 		}
 	}
 	
@@ -2952,6 +3161,15 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		}
 	}
 	
+	/* The reactions of state null. */
+	private void react_main_region_Copy_1_STT_STT__choice_0() {
+		if (check_main_region_Copy_1_STT_STT__choice_0_tr1_tr1()) {
+			effect_main_region_Copy_1_STT_STT__choice_0_tr1();
+		} else {
+			effect_main_region_Copy_1_STT_STT__choice_0_tr0();
+		}
+	}
+	
 	/* Default react sequence for initial entry  */
 	private void react_main_region__entry_Default() {
 		enterSequence_main_region_Init_default();
@@ -2985,6 +3203,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	/* Default react sequence for initial entry  */
 	private void react_main_region_DoAction_Instructions_followme__region0__entry_Default() {
 		enterSequence_main_region_DoAction_Instructions_followme__region0_StartTracking_default();
+	}
+	
+	/* Default react sequence for initial entry  */
+	private void react_main_region_Copy_1_STT_STT__entry_Default() {
+		enterSequence_main_region_Copy_1_STT_STT_StartSTT_default();
 	}
 	
 	/* Default react sequence for initial entry  */
@@ -3043,12 +3266,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 				break;
 			case main_region_Init:
 				react_main_region_Init();
-				break;
-			case main_region_StartSTT:
-				react_main_region_StartSTT();
-				break;
-			case main_region_TellSpokenText:
-				react_main_region_TellSpokenText();
 				break;
 			case main_region_TellAnswer:
 				react_main_region_TellAnswer();
@@ -3143,6 +3360,15 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			case main_region_NextQuestion:
 				react_main_region_NextQuestion();
 				break;
+			case main_region_Copy_1_STT_STT_StartSTT:
+				react_main_region_Copy_1_STT_STT_StartSTT();
+				break;
+			case main_region_Copy_1_STT_STT_TellSpokenText:
+				react_main_region_Copy_1_STT_STT_TellSpokenText();
+				break;
+			case main_region_Copy_1_STT_STT_StropSTT:
+				react_main_region_Copy_1_STT_STT_StropSTT();
+				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
 				break;
@@ -3154,6 +3380,9 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 				react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+				react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 				break;
 			default:
 				// $NullState$

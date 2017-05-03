@@ -1,4 +1,5 @@
 package org.yakindu.scr.test_stt_smalltalk;
+import org.yakindu.scr.ITimer;
 
 public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatemachine {
 
@@ -69,12 +70,14 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	
 	public enum State {
 		main_region_StateA,
-		main_region_StartSTT,
-		main_region_TellSpokenText,
+		main_region_STT,
+		main_region_STT_STT_StartSTT,
+		main_region_STT_STT_TellSpokenText,
+		main_region_STT_STT_StropSTT,
 		main_region_TellAnswer,
 		main_region_TellAction,
-		main_region_StopSTT,
 		main_region_TellIncomprehensible,
+		main_region_StopSTT,
 		$NullState$
 	};
 	
@@ -82,6 +85,9 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	
 	private int nextStateIndex;
 	
+	private ITimer timer;
+	
+	private final boolean[] timeEvents = new boolean[1];
 	public Test_STT_SmalltalkStatemachine() {
 		sCIHBrain = new SCIHBrainImpl();
 		sCISTT = new SCISTTImpl();
@@ -89,6 +95,9 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	
 	public void init() {
 		this.initialized = true;
+		if (timer == null) {
+			throw new IllegalStateException("timer not set.");
+		}
 		for (int i = 0; i < 1; i++) {
 			stateVector[i] = State.$NullState$;
 		}
@@ -100,6 +109,9 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		if (!initialized) {
 			throw new IllegalStateException(
 					"The state machine needs to be initialized first by calling the init() function.");
+		}
+		if (timer == null) {
+			throw new IllegalStateException("timer not set.");
 		}
 		enterSequence_main_region_default();
 	}
@@ -129,6 +141,9 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	protected void clearEvents() {
 		sCIHBrain.clearEvents();
 		sCISTT.clearEvents();
+		for (int i=0; i<timeEvents.length; i++) {
+			timeEvents[i] = false;
+		}
 	}
 	
 	/**
@@ -145,21 +160,50 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		switch (state) {
 		case main_region_StateA:
 			return stateVector[0] == State.main_region_StateA;
-		case main_region_StartSTT:
-			return stateVector[0] == State.main_region_StartSTT;
-		case main_region_TellSpokenText:
-			return stateVector[0] == State.main_region_TellSpokenText;
+		case main_region_STT:
+			return stateVector[0].ordinal() >= State.
+					main_region_STT.ordinal()&& stateVector[0].ordinal() <= State.main_region_STT_STT_StropSTT.ordinal();
+		case main_region_STT_STT_StartSTT:
+			return stateVector[0] == State.main_region_STT_STT_StartSTT;
+		case main_region_STT_STT_TellSpokenText:
+			return stateVector[0] == State.main_region_STT_STT_TellSpokenText;
+		case main_region_STT_STT_StropSTT:
+			return stateVector[0] == State.main_region_STT_STT_StropSTT;
 		case main_region_TellAnswer:
 			return stateVector[0] == State.main_region_TellAnswer;
 		case main_region_TellAction:
 			return stateVector[0] == State.main_region_TellAction;
-		case main_region_StopSTT:
-			return stateVector[0] == State.main_region_StopSTT;
 		case main_region_TellIncomprehensible:
 			return stateVector[0] == State.main_region_TellIncomprehensible;
+		case main_region_StopSTT:
+			return stateVector[0] == State.main_region_StopSTT;
 		default:
 			return false;
 		}
+	}
+	
+	/**
+	* Set the {@link ITimer} for the state machine. It must be set
+	* externally on a timed state machine before a run cycle can be correct
+	* executed.
+	* 
+	* @param timer
+	*/
+	public void setTimer(ITimer timer) {
+		this.timer = timer;
+	}
+	
+	/**
+	* Returns the currently used timer.
+	* 
+	* @return {@link ITimer}
+	*/
+	public ITimer getTimer() {
+		return timer;
+	}
+	
+	public void timeElapsed(int eventID) {
+		timeEvents[eventID] = true;
 	}
 	
 	public SCIHBrain getSCIHBrain() {
@@ -174,20 +218,24 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_StartSTT_tr0_tr0() {
-		return sCISTT.spokenTextReceived;
+	private boolean check_main_region_STT_STT_StartSTT_tr0_tr0() {
+		return timeEvents[0];
 	}
 	
-	private boolean check_main_region_TellSpokenText_tr0_tr0() {
+	private boolean check_main_region_STT_STT_TellSpokenText_tr0_tr0() {
 		return sCISTT.answerReceived;
 	}
 	
-	private boolean check_main_region_TellSpokenText_tr1_tr1() {
+	private boolean check_main_region_STT_STT_TellSpokenText_tr1_tr1() {
 		return sCISTT.actionReceived;
 	}
 	
-	private boolean check_main_region_TellSpokenText_tr2_tr2() {
+	private boolean check_main_region_STT_STT_TellSpokenText_tr2_tr2() {
 		return sCISTT.incomprehensible;
+	}
+	
+	private boolean check_main_region_STT_STT_StropSTT_tr0_tr0() {
+		return sCISTT.spokenTextReceived;
 	}
 	
 	private boolean check_main_region_TellAnswer_tr0_tr0() {
@@ -198,37 +246,65 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_StopSTT_tr0_tr0() {
-		return true;
-	}
-	
 	private boolean check_main_region_TellIncomprehensible_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_StopSTT_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_STT_STT__choice_0_tr1_tr1() {
+		return (sCISTT.operationCallback.getSpokenText()== null?"" !=null : !sCISTT.operationCallback.getSpokenText().equals(""));
+	}
+	
+	private boolean check_main_region_STT_STT__choice_0_tr0_tr0() {
+		return true;
+	}
+	
 	private void effect_main_region_StateA_tr0() {
 		exitSequence_main_region_StateA();
-		enterSequence_main_region_StartSTT_default();
+		enterSequence_main_region_STT_default();
 	}
 	
-	private void effect_main_region_StartSTT_tr0() {
-		exitSequence_main_region_StartSTT();
-		enterSequence_main_region_TellSpokenText_default();
-	}
-	
-	private void effect_main_region_TellSpokenText_tr0() {
-		exitSequence_main_region_TellSpokenText();
+	private void effect_main_region_STT_tr0() {
+		exitSequence_main_region_STT();
 		enterSequence_main_region_TellAnswer_default();
 	}
 	
-	private void effect_main_region_TellSpokenText_tr1() {
-		exitSequence_main_region_TellSpokenText();
+	private void effect_main_region_STT_tr1() {
+		exitSequence_main_region_STT();
 		enterSequence_main_region_TellAction_default();
 	}
 	
-	private void effect_main_region_TellSpokenText_tr2() {
-		exitSequence_main_region_TellSpokenText();
+	private void effect_main_region_STT_tr2() {
+		exitSequence_main_region_STT();
 		enterSequence_main_region_TellIncomprehensible_default();
+	}
+	
+	private void effect_main_region_STT_STT_StartSTT_tr0() {
+		exitSequence_main_region_STT_STT_StartSTT();
+		enterSequence_main_region_STT_STT_StropSTT_default();
+	}
+	
+	private void effect_main_region_STT_STT_TellSpokenText_tr0() {
+		exitSequence_main_region_STT_STT_TellSpokenText();
+		react_main_region_STT_STT_exit_answer();
+	}
+	
+	private void effect_main_region_STT_STT_TellSpokenText_tr1() {
+		exitSequence_main_region_STT_STT_TellSpokenText();
+		react_main_region_STT_STT_exit_action();
+	}
+	
+	private void effect_main_region_STT_STT_TellSpokenText_tr2() {
+		exitSequence_main_region_STT_STT_TellSpokenText();
+		react_main_region_STT_STT_exit_incomprehensible();
+	}
+	
+	private void effect_main_region_STT_STT_StropSTT_tr0() {
+		exitSequence_main_region_STT_STT_StropSTT();
+		react_main_region_STT_STT__choice_0();
 	}
 	
 	private void effect_main_region_TellAnswer_tr0() {
@@ -241,14 +317,22 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		enterSequence_main_region_StopSTT_default();
 	}
 	
+	private void effect_main_region_TellIncomprehensible_tr0() {
+		exitSequence_main_region_TellIncomprehensible();
+		enterSequence_main_region_StopSTT_default();
+	}
+	
 	private void effect_main_region_StopSTT_tr0() {
 		exitSequence_main_region_StopSTT();
 		enterSequence_main_region_StateA_default();
 	}
 	
-	private void effect_main_region_TellIncomprehensible_tr0() {
-		exitSequence_main_region_TellIncomprehensible();
-		enterSequence_main_region_StopSTT_default();
+	private void effect_main_region_STT_STT__choice_0_tr1() {
+		enterSequence_main_region_STT_STT_TellSpokenText_default();
+	}
+	
+	private void effect_main_region_STT_STT__choice_0_tr0() {
+		react_main_region_STT_STT_exit_incomprehensible();
 	}
 	
 	/* Entry action for state 'StateA'. */
@@ -257,13 +341,22 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	}
 	
 	/* Entry action for state 'StartSTT'. */
-	private void entryAction_main_region_StartSTT() {
+	private void entryAction_main_region_STT_STT_StartSTT() {
+		timer.setTimer(this, 0, 5*1000, false);
+		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		
+		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
 	
 	/* Entry action for state 'TellSpokenText'. */
-	private void entryAction_main_region_TellSpokenText() {
-		sCIHBrain.operationCallback.sendTTS2("I unterstood: ", sCISTT.operationCallback.getSpokenText());
+	private void entryAction_main_region_STT_STT_TellSpokenText() {
+		sCIHBrain.operationCallback.sendTTS2("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText());
+	}
+	
+	/* Entry action for state 'StropSTT'. */
+	private void entryAction_main_region_STT_STT_StropSTT() {
+		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Entry action for state 'TellAnswer'. */
@@ -278,14 +371,19 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		sCIHBrain.operationCallback.sendTTS3("The object is: ", sCISTT.operationCallback.getObject(), ".");
 	}
 	
+	/* Entry action for state 'TellIncomprehensible'. */
+	private void entryAction_main_region_TellIncomprehensible() {
+		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
+	}
+	
 	/* Entry action for state 'StopSTT'. */
 	private void entryAction_main_region_StopSTT() {
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
-	/* Entry action for state 'TellIncomprehensible'. */
-	private void entryAction_main_region_TellIncomprehensible() {
-		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
+	/* Exit action for state 'StartSTT'. */
+	private void exitAction_main_region_STT_STT_StartSTT() {
+		timer.unsetTimer(this, 0);
 	}
 	
 	/* 'default' enter sequence for state StateA */
@@ -295,18 +393,30 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		stateVector[0] = State.main_region_StateA;
 	}
 	
+	/* 'default' enter sequence for state STT */
+	private void enterSequence_main_region_STT_default() {
+		enterSequence_main_region_STT_STT_default();
+	}
+	
 	/* 'default' enter sequence for state StartSTT */
-	private void enterSequence_main_region_StartSTT_default() {
-		entryAction_main_region_StartSTT();
+	private void enterSequence_main_region_STT_STT_StartSTT_default() {
+		entryAction_main_region_STT_STT_StartSTT();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_StartSTT;
+		stateVector[0] = State.main_region_STT_STT_StartSTT;
 	}
 	
 	/* 'default' enter sequence for state TellSpokenText */
-	private void enterSequence_main_region_TellSpokenText_default() {
-		entryAction_main_region_TellSpokenText();
+	private void enterSequence_main_region_STT_STT_TellSpokenText_default() {
+		entryAction_main_region_STT_STT_TellSpokenText();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_TellSpokenText;
+		stateVector[0] = State.main_region_STT_STT_TellSpokenText;
+	}
+	
+	/* 'default' enter sequence for state StropSTT */
+	private void enterSequence_main_region_STT_STT_StropSTT_default() {
+		entryAction_main_region_STT_STT_StropSTT();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_STT_STT_StropSTT;
 	}
 	
 	/* 'default' enter sequence for state TellAnswer */
@@ -323,13 +433,6 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		stateVector[0] = State.main_region_TellAction;
 	}
 	
-	/* 'default' enter sequence for state StopSTT */
-	private void enterSequence_main_region_StopSTT_default() {
-		entryAction_main_region_StopSTT();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_StopSTT;
-	}
-	
 	/* 'default' enter sequence for state TellIncomprehensible */
 	private void enterSequence_main_region_TellIncomprehensible_default() {
 		entryAction_main_region_TellIncomprehensible();
@@ -337,9 +440,21 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		stateVector[0] = State.main_region_TellIncomprehensible;
 	}
 	
+	/* 'default' enter sequence for state StopSTT */
+	private void enterSequence_main_region_StopSTT_default() {
+		entryAction_main_region_StopSTT();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_StopSTT;
+	}
+	
 	/* 'default' enter sequence for region main region */
 	private void enterSequence_main_region_default() {
 		react_main_region__entry_Default();
+	}
+	
+	/* 'default' enter sequence for region STT */
+	private void enterSequence_main_region_STT_STT_default() {
+		react_main_region_STT_STT__entry_Default();
 	}
 	
 	/* Default exit sequence for state StateA */
@@ -348,14 +463,27 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state STT */
+	private void exitSequence_main_region_STT() {
+		exitSequence_main_region_STT_STT();
+	}
+	
 	/* Default exit sequence for state StartSTT */
-	private void exitSequence_main_region_StartSTT() {
+	private void exitSequence_main_region_STT_STT_StartSTT() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_STT_STT_StartSTT();
+	}
+	
+	/* Default exit sequence for state TellSpokenText */
+	private void exitSequence_main_region_STT_STT_TellSpokenText() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state TellSpokenText */
-	private void exitSequence_main_region_TellSpokenText() {
+	/* Default exit sequence for state StropSTT */
+	private void exitSequence_main_region_STT_STT_StropSTT() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -372,14 +500,14 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state StopSTT */
-	private void exitSequence_main_region_StopSTT() {
+	/* Default exit sequence for state TellIncomprehensible */
+	private void exitSequence_main_region_TellIncomprehensible() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state TellIncomprehensible */
-	private void exitSequence_main_region_TellIncomprehensible() {
+	/* Default exit sequence for state StopSTT */
+	private void exitSequence_main_region_StopSTT() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -390,11 +518,14 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		case main_region_StateA:
 			exitSequence_main_region_StateA();
 			break;
-		case main_region_StartSTT:
-			exitSequence_main_region_StartSTT();
+		case main_region_STT_STT_StartSTT:
+			exitSequence_main_region_STT_STT_StartSTT();
 			break;
-		case main_region_TellSpokenText:
-			exitSequence_main_region_TellSpokenText();
+		case main_region_STT_STT_TellSpokenText:
+			exitSequence_main_region_STT_STT_TellSpokenText();
+			break;
+		case main_region_STT_STT_StropSTT:
+			exitSequence_main_region_STT_STT_StropSTT();
 			break;
 		case main_region_TellAnswer:
 			exitSequence_main_region_TellAnswer();
@@ -402,11 +533,28 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		case main_region_TellAction:
 			exitSequence_main_region_TellAction();
 			break;
+		case main_region_TellIncomprehensible:
+			exitSequence_main_region_TellIncomprehensible();
+			break;
 		case main_region_StopSTT:
 			exitSequence_main_region_StopSTT();
 			break;
-		case main_region_TellIncomprehensible:
-			exitSequence_main_region_TellIncomprehensible();
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region STT */
+	private void exitSequence_main_region_STT_STT() {
+		switch (stateVector[0]) {
+		case main_region_STT_STT_StartSTT:
+			exitSequence_main_region_STT_STT_StartSTT();
+			break;
+		case main_region_STT_STT_TellSpokenText:
+			exitSequence_main_region_STT_STT_TellSpokenText();
+			break;
+		case main_region_STT_STT_StropSTT:
+			exitSequence_main_region_STT_STT_StropSTT();
 			break;
 		default:
 			break;
@@ -421,24 +569,31 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	}
 	
 	/* The reactions of state StartSTT. */
-	private void react_main_region_StartSTT() {
-		if (check_main_region_StartSTT_tr0_tr0()) {
-			effect_main_region_StartSTT_tr0();
+	private void react_main_region_STT_STT_StartSTT() {
+		if (check_main_region_STT_STT_StartSTT_tr0_tr0()) {
+			effect_main_region_STT_STT_StartSTT_tr0();
 		}
 	}
 	
 	/* The reactions of state TellSpokenText. */
-	private void react_main_region_TellSpokenText() {
-		if (check_main_region_TellSpokenText_tr0_tr0()) {
-			effect_main_region_TellSpokenText_tr0();
+	private void react_main_region_STT_STT_TellSpokenText() {
+		if (check_main_region_STT_STT_TellSpokenText_tr0_tr0()) {
+			effect_main_region_STT_STT_TellSpokenText_tr0();
 		} else {
-			if (check_main_region_TellSpokenText_tr1_tr1()) {
-				effect_main_region_TellSpokenText_tr1();
+			if (check_main_region_STT_STT_TellSpokenText_tr1_tr1()) {
+				effect_main_region_STT_STT_TellSpokenText_tr1();
 			} else {
-				if (check_main_region_TellSpokenText_tr2_tr2()) {
-					effect_main_region_TellSpokenText_tr2();
+				if (check_main_region_STT_STT_TellSpokenText_tr2_tr2()) {
+					effect_main_region_STT_STT_TellSpokenText_tr2();
 				}
 			}
+		}
+	}
+	
+	/* The reactions of state StropSTT. */
+	private void react_main_region_STT_STT_StropSTT() {
+		if (check_main_region_STT_STT_StropSTT_tr0_tr0()) {
+			effect_main_region_STT_STT_StropSTT_tr0();
 		}
 	}
 	
@@ -456,11 +611,6 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		}
 	}
 	
-	/* The reactions of state StopSTT. */
-	private void react_main_region_StopSTT() {
-		effect_main_region_StopSTT_tr0();
-	}
-	
 	/* The reactions of state TellIncomprehensible. */
 	private void react_main_region_TellIncomprehensible() {
 		if (check_main_region_TellIncomprehensible_tr0_tr0()) {
@@ -468,9 +618,43 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 		}
 	}
 	
+	/* The reactions of state StopSTT. */
+	private void react_main_region_StopSTT() {
+		effect_main_region_StopSTT_tr0();
+	}
+	
+	/* The reactions of state null. */
+	private void react_main_region_STT_STT__choice_0() {
+		if (check_main_region_STT_STT__choice_0_tr1_tr1()) {
+			effect_main_region_STT_STT__choice_0_tr1();
+		} else {
+			effect_main_region_STT_STT__choice_0_tr0();
+		}
+	}
+	
 	/* Default react sequence for initial entry  */
 	private void react_main_region__entry_Default() {
 		enterSequence_main_region_StateA_default();
+	}
+	
+	/* Default react sequence for initial entry  */
+	private void react_main_region_STT_STT__entry_Default() {
+		enterSequence_main_region_STT_STT_StartSTT_default();
+	}
+	
+	/* The reactions of exit exit_answer. */
+	private void react_main_region_STT_STT_exit_answer() {
+		effect_main_region_STT_tr0();
+	}
+	
+	/* The reactions of exit exit_action. */
+	private void react_main_region_STT_STT_exit_action() {
+		effect_main_region_STT_tr1();
+	}
+	
+	/* The reactions of exit exit_incomprehensible. */
+	private void react_main_region_STT_STT_exit_incomprehensible() {
+		effect_main_region_STT_tr2();
 	}
 	
 	public void runCycle() {
@@ -483,11 +667,14 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 			case main_region_StateA:
 				react_main_region_StateA();
 				break;
-			case main_region_StartSTT:
-				react_main_region_StartSTT();
+			case main_region_STT_STT_StartSTT:
+				react_main_region_STT_STT_StartSTT();
 				break;
-			case main_region_TellSpokenText:
-				react_main_region_TellSpokenText();
+			case main_region_STT_STT_TellSpokenText:
+				react_main_region_STT_STT_TellSpokenText();
+				break;
+			case main_region_STT_STT_StropSTT:
+				react_main_region_STT_STT_StropSTT();
 				break;
 			case main_region_TellAnswer:
 				react_main_region_TellAnswer();
@@ -495,11 +682,11 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 			case main_region_TellAction:
 				react_main_region_TellAction();
 				break;
-			case main_region_StopSTT:
-				react_main_region_StopSTT();
-				break;
 			case main_region_TellIncomprehensible:
 				react_main_region_TellIncomprehensible();
+				break;
+			case main_region_StopSTT:
+				react_main_region_StopSTT();
 				break;
 			default:
 				// $NullState$

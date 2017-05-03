@@ -77,6 +77,7 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
 		leonie_Bupered_Or_Emergency_Stop_EmergencyStop,
+		leonie_Bupered_Or_Emergency_Stop_checkEmergency,
 		$NullState$
 	};
 	
@@ -175,6 +176,8 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_resetFace;
 		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
 		default:
 			return false;
 		}
@@ -245,7 +248,15 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
 		return timeEvents[5];
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
+		return sCIMira.emergencyStop;
 	}
 	
 	private void effect_main_region_PTU_tr0() {
@@ -290,7 +301,17 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0() {
 		exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
 	}
 	
 	/* Entry action for state 'PTU'. */
@@ -330,14 +351,17 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 	
 	/* Entry action for state 'resetFace'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
-		sCIHBrain.operationCallback.sendTTS("[:-|]");
+		sCIHBrain.operationCallback.sendTTS("[:-|] [blush:false]");
 	}
 	
 	/* Entry action for state 'EmergencyStop'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		sCIHBrain.operationCallback.sendTTS("[blush:true] [:-O] What happend?");
+	}
+	
+	/* Entry action for state 'checkEmergency'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
 		timer.setTimer(this, 5, 3*1000, false);
-		
-		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
 	}
 	
 	/* Exit action for state 'PTU'. */
@@ -365,8 +389,8 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 		timer.unsetTimer(this, 4);
 	}
 	
-	/* Exit action for state 'EmergencyStop'. */
-	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+	/* Exit action for state 'checkEmergency'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
 		timer.unsetTimer(this, 5);
 	}
 	
@@ -423,6 +447,13 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 		entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
 		nextStateIndex = 1;
 		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+	}
+	
+	/* 'default' enter sequence for state checkEmergency */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
 	}
 	
 	/* 'default' enter sequence for region main region */
@@ -491,8 +522,14 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
 		nextStateIndex = 1;
 		stateVector[1] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state checkEmergency */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
 		
-		exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 	}
 	
 	/* Default exit sequence for region main region */
@@ -529,6 +566,9 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 			break;
 		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 			exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 			break;
 		default:
 			break;
@@ -588,8 +628,17 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 	
 	/* The reactions of state EmergencyStop. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		if (check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0()) {
-			effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+		effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+	}
+	
+	/* The reactions of state checkEmergency. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0();
+		} else {
+			if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1()) {
+				effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1();
+			}
 		}
 	}
 	
@@ -633,6 +682,9 @@ public class Test_MiraStatemachine implements ITest_MiraStatemachine {
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 				react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+				react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 				break;
 			default:
 				// $NullState$

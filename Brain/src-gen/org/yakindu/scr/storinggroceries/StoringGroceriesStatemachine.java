@@ -139,6 +139,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
 		leonie_Bupered_Or_Emergency_Stop_EmergencyStop,
+		leonie_Bupered_Or_Emergency_Stop_checkEmergency,
 		$NullState$
 	};
 	
@@ -333,6 +334,8 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			return stateVector[2] == State.leonie_Bupered_Or_Emergency_Stop_resetFace;
 		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 			return stateVector[2] == State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			return stateVector[2] == State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
 		default:
 			return false;
 		}
@@ -499,7 +502,15 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
 		return timeEvents[12];
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
+		return sCIMira.emergencyStop;
 	}
 	
 	private void effect_main_region_ObjectDetection_tr0() {
@@ -659,7 +670,17 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0() {
 		exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
 	}
 	
 	/* Entry action for state 'ObjectDetection'. */
@@ -788,14 +809,17 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'resetFace'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
-		sCIHBrain.operationCallback.sendTTS("[:-|]");
+		sCIHBrain.operationCallback.sendTTS("[:-|] [blush:false]");
 	}
 	
 	/* Entry action for state 'EmergencyStop'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		sCIHBrain.operationCallback.sendTTS("[blush:true] [:-O] What happend?");
+	}
+	
+	/* Entry action for state 'checkEmergency'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
 		timer.setTimer(this, 12, 3*1000, false);
-		
-		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
 	}
 	
 	/* Exit action for state 'wait'. */
@@ -858,8 +882,8 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		timer.unsetTimer(this, 11);
 	}
 	
-	/* Exit action for state 'EmergencyStop'. */
-	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+	/* Exit action for state 'checkEmergency'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
 		timer.unsetTimer(this, 12);
 	}
 	
@@ -1073,6 +1097,13 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
 		nextStateIndex = 2;
 		stateVector[2] = State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+	}
+	
+	/* 'default' enter sequence for state checkEmergency */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		nextStateIndex = 2;
+		stateVector[2] = State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
 	}
 	
 	/* 'default' enter sequence for region main region */
@@ -1325,8 +1356,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
 		nextStateIndex = 2;
 		stateVector[2] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state checkEmergency */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		nextStateIndex = 2;
+		stateVector[2] = State.$NullState$;
 		
-		exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 	}
 	
 	/* Default exit sequence for region main region */
@@ -1571,6 +1608,9 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 			exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
 			break;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+			break;
 		default:
 			break;
 		}
@@ -1792,8 +1832,17 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* The reactions of state EmergencyStop. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		if (check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0()) {
-			effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+		effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+	}
+	
+	/* The reactions of state checkEmergency. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0();
+		} else {
+			if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1()) {
+				effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1();
+			}
 		}
 	}
 	
@@ -1819,7 +1868,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* The reactions of state null. */
 	private void react_main_region__sync0() {
-		enterSequence_main_region_Composite_panCupboard_tiltCupboard__region0_doors_default();
+		enterSequence_main_region_Composite_panCupboard_tiltCupboard__region0_sync1_default();
 		enterSequence_main_region_Composite_panCupboard_tiltCupboard_inner_region_wait_for_Mira_default();
 	}
 	
@@ -1946,6 +1995,9 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 				react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+				react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 				break;
 			default:
 				// $NullState$

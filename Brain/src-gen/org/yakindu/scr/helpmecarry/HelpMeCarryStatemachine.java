@@ -254,10 +254,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_arrived,
 		main_region_DetectionOff,
 		main_region_TrackingOffAndSavePoint,
+		main_region_PathBlocked,
+		main_region_PathBlocked_Blocked_speak,
+		main_region_PathBlocked_Blocked_gotoendp,
+		main_region_blocked2ndTime,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
 		leonie_Bupered_Or_Emergency_Stop_EmergencyStop,
+		leonie_Bupered_Or_Emergency_Stop_checkEmergency,
 		$NullState$
 	};
 	
@@ -484,6 +489,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_DetectionOff;
 		case main_region_TrackingOffAndSavePoint:
 			return stateVector[0] == State.main_region_TrackingOffAndSavePoint;
+		case main_region_PathBlocked:
+			return stateVector[0].ordinal() >= State.
+					main_region_PathBlocked.ordinal()&& stateVector[0].ordinal() <= State.main_region_PathBlocked_Blocked_gotoendp.ordinal();
+		case main_region_PathBlocked_Blocked_speak:
+			return stateVector[0] == State.main_region_PathBlocked_Blocked_speak;
+		case main_region_PathBlocked_Blocked_gotoendp:
+			return stateVector[0] == State.main_region_PathBlocked_Blocked_gotoendp;
+		case main_region_blocked2ndTime:
+			return stateVector[0] == State.main_region_blocked2ndTime;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -492,6 +506,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_resetFace;
 		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
 		default:
 			return false;
 		}
@@ -729,6 +745,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCIMira.arrivedWP;
 	}
 	
+	private boolean check_main_region_GuideMe_tr1_tr1() {
+		return sCIMira.blocked;
+	}
+	
 	private boolean check_main_region_wait_tr0_tr0() {
 		return timeEvents[10];
 	}
@@ -743,6 +763,22 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private boolean check_main_region_TrackingOffAndSavePoint_tr0_tr0() {
 		return true;
+	}
+	
+	private boolean check_main_region_PathBlocked_Blocked_speak_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_PathBlocked_Blocked_gotoendp_tr0_tr0() {
+		return sCIMira.arrivedWP;
+	}
+	
+	private boolean check_main_region_PathBlocked_Blocked_gotoendp_tr1_tr1() {
+		return sCIMira.blocked;
+	}
+	
+	private boolean check_main_region_blocked2ndTime_tr0_tr0() {
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
@@ -762,7 +798,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
 		return timeEvents[13];
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
+		return sCIMira.emergencyStop;
 	}
 	
 	private boolean check_main_region_StartTracking_WaitingForStopCommand__choice_0_tr0_tr0() {
@@ -1047,6 +1091,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_arrived_default();
 	}
 	
+	private void effect_main_region_GuideMe_tr1() {
+		exitSequence_main_region_GuideMe();
+		enterSequence_main_region_PathBlocked_default();
+	}
+	
 	private void effect_main_region_wait_tr0() {
 		exitSequence_main_region_wait();
 		enterSequence_main_region_GuideMe_default();
@@ -1065,6 +1114,36 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void effect_main_region_TrackingOffAndSavePoint_tr0() {
 		exitSequence_main_region_TrackingOffAndSavePoint();
 		enterSequence_main_region_HowCanIHelpYou_default();
+	}
+	
+	private void effect_main_region_PathBlocked_tr0() {
+		exitSequence_main_region_PathBlocked();
+		enterSequence_main_region_arrived_default();
+	}
+	
+	private void effect_main_region_PathBlocked_tr1() {
+		exitSequence_main_region_PathBlocked();
+		enterSequence_main_region_blocked2ndTime_default();
+	}
+	
+	private void effect_main_region_PathBlocked_Blocked_speak_tr0() {
+		exitSequence_main_region_PathBlocked_Blocked_speak();
+		enterSequence_main_region_PathBlocked_Blocked_gotoendp_default();
+	}
+	
+	private void effect_main_region_PathBlocked_Blocked_gotoendp_tr0() {
+		exitSequence_main_region_PathBlocked_Blocked_gotoendp();
+		react_main_region_PathBlocked_Blocked_exit_done();
+	}
+	
+	private void effect_main_region_PathBlocked_Blocked_gotoendp_tr1() {
+		exitSequence_main_region_PathBlocked_Blocked_gotoendp();
+		react_main_region_PathBlocked_Blocked_exit_failed();
+	}
+	
+	private void effect_main_region_blocked2ndTime_tr0() {
+		exitSequence_main_region_blocked2ndTime();
+		enterSequence_main_region__final__default();
 	}
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
@@ -1089,7 +1168,17 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0() {
 		exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
 	}
 	
 	private void effect_main_region_StartTracking_WaitingForStopCommand__choice_0_tr0() {
@@ -1379,6 +1468,21 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		sCIMira.operationCallback.sendSaveRuntimeEndPoint();
 	}
 	
+	/* Entry action for state 'speak'. */
+	private void entryAction_main_region_PathBlocked_Blocked_speak() {
+		sCIHBrain.operationCallback.sendTTS("Oh no. [:-(] There is an obstacle that I can't avoid. Can you take it away for me and I try it again. [:-|] ");
+	}
+	
+	/* Entry action for state 'gotoendp'. */
+	private void entryAction_main_region_PathBlocked_Blocked_gotoendp() {
+		sCIMira.operationCallback.sendGoToRuntimeEndPoint();
+	}
+	
+	/* Entry action for state 'blocked2ndTime'. */
+	private void entryAction_main_region_blocked2ndTime() {
+		sCIHBrain.operationCallback.sendTTS("I tried my best, but I'm not able to reach the destination. I'm sorry.");
+	}
+	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
 		timer.setTimer(this, 12, 3*1000, false);
@@ -1388,14 +1492,17 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'resetFace'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
-		sCIHBrain.operationCallback.sendTTS("[:-|]");
+		sCIHBrain.operationCallback.sendTTS("[:-|] [blush:false]");
 	}
 	
 	/* Entry action for state 'EmergencyStop'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		sCIHBrain.operationCallback.sendTTS("[blush:true] [:-O] What happend?");
+	}
+	
+	/* Entry action for state 'checkEmergency'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
 		timer.setTimer(this, 13, 3*1000, false);
-		
-		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
 	}
 	
 	/* Exit action for state 'Detection'. */
@@ -1463,8 +1570,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		timer.unsetTimer(this, 12);
 	}
 	
-	/* Exit action for state 'EmergencyStop'. */
-	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+	/* Exit action for state 'checkEmergency'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
 		timer.unsetTimer(this, 13);
 	}
 	
@@ -1747,6 +1854,32 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.main_region_TrackingOffAndSavePoint;
 	}
 	
+	/* 'default' enter sequence for state PathBlocked */
+	private void enterSequence_main_region_PathBlocked_default() {
+		enterSequence_main_region_PathBlocked_Blocked_default();
+	}
+	
+	/* 'default' enter sequence for state speak */
+	private void enterSequence_main_region_PathBlocked_Blocked_speak_default() {
+		entryAction_main_region_PathBlocked_Blocked_speak();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_PathBlocked_Blocked_speak;
+	}
+	
+	/* 'default' enter sequence for state gotoendp */
+	private void enterSequence_main_region_PathBlocked_Blocked_gotoendp_default() {
+		entryAction_main_region_PathBlocked_Blocked_gotoendp();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_PathBlocked_Blocked_gotoendp;
+	}
+	
+	/* 'default' enter sequence for state blocked2ndTime */
+	private void enterSequence_main_region_blocked2ndTime_default() {
+		entryAction_main_region_blocked2ndTime();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_blocked2ndTime;
+	}
+	
 	/* 'default' enter sequence for state waitForEvent */
 	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default() {
 		nextStateIndex = 1;
@@ -1774,6 +1907,13 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
 	}
 	
+	/* 'default' enter sequence for state checkEmergency */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
+	}
+	
 	/* 'default' enter sequence for region main region */
 	private void enterSequence_main_region_default() {
 		react_main_region__entry_Default();
@@ -1797,6 +1937,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* 'default' enter sequence for region goto */
 	private void enterSequence_main_region_GoTo_goto_default() {
 		react_main_region_GoTo_goto__entry_Default();
+	}
+	
+	/* 'default' enter sequence for region Blocked */
+	private void enterSequence_main_region_PathBlocked_Blocked_default() {
+		react_main_region_PathBlocked_Blocked__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region Leonie Bupered Or Emergency Stop */
@@ -2070,6 +2215,29 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state PathBlocked */
+	private void exitSequence_main_region_PathBlocked() {
+		exitSequence_main_region_PathBlocked_Blocked();
+	}
+	
+	/* Default exit sequence for state speak */
+	private void exitSequence_main_region_PathBlocked_Blocked_speak() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state gotoendp */
+	private void exitSequence_main_region_PathBlocked_Blocked_gotoendp() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state blocked2ndTime */
+	private void exitSequence_main_region_blocked2ndTime() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for state waitForEvent */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		nextStateIndex = 1;
@@ -2094,8 +2262,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
 		nextStateIndex = 1;
 		stateVector[1] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state checkEmergency */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
 		
-		exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 	}
 	
 	/* Default exit sequence for region main region */
@@ -2212,6 +2386,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_TrackingOffAndSavePoint:
 			exitSequence_main_region_TrackingOffAndSavePoint();
 			break;
+		case main_region_PathBlocked_Blocked_speak:
+			exitSequence_main_region_PathBlocked_Blocked_speak();
+			break;
+		case main_region_PathBlocked_Blocked_gotoendp:
+			exitSequence_main_region_PathBlocked_Blocked_gotoendp();
+			break;
+		case main_region_blocked2ndTime:
+			exitSequence_main_region_blocked2ndTime();
+			break;
 		default:
 			break;
 		}
@@ -2303,6 +2486,20 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		}
 	}
 	
+	/* Default exit sequence for region Blocked */
+	private void exitSequence_main_region_PathBlocked_Blocked() {
+		switch (stateVector[0]) {
+		case main_region_PathBlocked_Blocked_speak:
+			exitSequence_main_region_PathBlocked_Blocked_speak();
+			break;
+		case main_region_PathBlocked_Blocked_gotoendp:
+			exitSequence_main_region_PathBlocked_Blocked_gotoendp();
+			break;
+		default:
+			break;
+		}
+	}
+	
 	/* Default exit sequence for region Leonie Bupered Or Emergency Stop */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop() {
 		switch (stateVector[1]) {
@@ -2317,6 +2514,9 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			break;
 		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 			exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 			break;
 		default:
 			break;
@@ -2589,6 +2789,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void react_main_region_GuideMe() {
 		if (check_main_region_GuideMe_tr0_tr0()) {
 			effect_main_region_GuideMe_tr0();
+		} else {
+			if (check_main_region_GuideMe_tr1_tr1()) {
+				effect_main_region_GuideMe_tr1();
+			}
 		}
 	}
 	
@@ -2618,6 +2822,31 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		effect_main_region_TrackingOffAndSavePoint_tr0();
 	}
 	
+	/* The reactions of state speak. */
+	private void react_main_region_PathBlocked_Blocked_speak() {
+		if (check_main_region_PathBlocked_Blocked_speak_tr0_tr0()) {
+			effect_main_region_PathBlocked_Blocked_speak_tr0();
+		}
+	}
+	
+	/* The reactions of state gotoendp. */
+	private void react_main_region_PathBlocked_Blocked_gotoendp() {
+		if (check_main_region_PathBlocked_Blocked_gotoendp_tr0_tr0()) {
+			effect_main_region_PathBlocked_Blocked_gotoendp_tr0();
+		} else {
+			if (check_main_region_PathBlocked_Blocked_gotoendp_tr1_tr1()) {
+				effect_main_region_PathBlocked_Blocked_gotoendp_tr1();
+			}
+		}
+	}
+	
+	/* The reactions of state blocked2ndTime. */
+	private void react_main_region_blocked2ndTime() {
+		if (check_main_region_blocked2ndTime_tr0_tr0()) {
+			effect_main_region_blocked2ndTime_tr0();
+		}
+	}
+	
 	/* The reactions of state waitForEvent. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0()) {
@@ -2643,8 +2872,17 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* The reactions of state EmergencyStop. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		if (check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0()) {
-			effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+		effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+	}
+	
+	/* The reactions of state checkEmergency. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0();
+		} else {
+			if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1()) {
+				effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1();
+			}
 		}
 	}
 	
@@ -2710,6 +2948,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	/* Default react sequence for initial entry  */
+	private void react_main_region_PathBlocked_Blocked__entry_Default() {
+		enterSequence_main_region_PathBlocked_Blocked_speak_default();
+	}
+	
+	/* Default react sequence for initial entry  */
 	private void react_Leonie_Bupered_Or_Emergency_Stop__entry_Default() {
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default();
 	}
@@ -2732,6 +2975,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* The reactions of exit exit_notFound. */
 	private void react_main_region_GoTo_goto_exit_notFound() {
 		effect_main_region_GoTo_tr1();
+	}
+	
+	/* The reactions of exit exit_done. */
+	private void react_main_region_PathBlocked_Blocked_exit_done() {
+		effect_main_region_PathBlocked_tr0();
+	}
+	
+	/* The reactions of exit exit_failed. */
+	private void react_main_region_PathBlocked_Blocked_exit_failed() {
+		effect_main_region_PathBlocked_tr1();
 	}
 	
 	public void runCycle() {
@@ -2852,6 +3105,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			case main_region_TrackingOffAndSavePoint:
 				react_main_region_TrackingOffAndSavePoint();
 				break;
+			case main_region_PathBlocked_Blocked_speak:
+				react_main_region_PathBlocked_Blocked_speak();
+				break;
+			case main_region_PathBlocked_Blocked_gotoendp:
+				react_main_region_PathBlocked_Blocked_gotoendp();
+				break;
+			case main_region_blocked2ndTime:
+				react_main_region_blocked2ndTime();
+				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
 				break;
@@ -2863,6 +3125,9 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
 				react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+				react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 				break;
 			default:
 				// $NullState$

@@ -239,11 +239,12 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 		blindMansBlufGame_ParallelOfSTTAndKinect2_Kinect2_endNoise,
 		blindMansBlufGame_allQuestionsDone,
 		blindMansBlufGame_NoRepeat,
-		blindMansBlufGame_Repeat,
+		blindMansBlufGame_Turn,
 		blindMansBlufGame_NextQuestion,
 		blindMansBlufGame_firstQ,
 		blindMansBlufGame_wait,
 		blindMansBlufGame__final_,
+		blindMansBlufGame_Repeat,
 		$NullState$
 	};
 	
@@ -253,7 +254,7 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[3];
+	private final boolean[] timeEvents = new boolean[4];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -437,8 +438,8 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 			return stateVector[0] == State.blindMansBlufGame_allQuestionsDone;
 		case blindMansBlufGame_NoRepeat:
 			return stateVector[0] == State.blindMansBlufGame_NoRepeat;
-		case blindMansBlufGame_Repeat:
-			return stateVector[0] == State.blindMansBlufGame_Repeat;
+		case blindMansBlufGame_Turn:
+			return stateVector[0] == State.blindMansBlufGame_Turn;
 		case blindMansBlufGame_NextQuestion:
 			return stateVector[0] == State.blindMansBlufGame_NextQuestion;
 		case blindMansBlufGame_firstQ:
@@ -447,6 +448,8 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 			return stateVector[0] == State.blindMansBlufGame_wait;
 		case blindMansBlufGame__final_:
 			return stateVector[0] == State.blindMansBlufGame__final_;
+		case blindMansBlufGame_Repeat:
+			return stateVector[0] == State.blindMansBlufGame_Repeat;
 		default:
 			return false;
 		}
@@ -600,8 +603,8 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_BlindMansBlufGame_Repeat_tr0_tr0() {
-		return true;
+	private boolean check_BlindMansBlufGame_Turn_tr0_tr0() {
+		return timeEvents[2];
 	}
 	
 	private boolean check_BlindMansBlufGame_NextQuestion_tr0_tr0() {
@@ -613,7 +616,11 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	}
 	
 	private boolean check_BlindMansBlufGame_wait_tr0_tr0() {
-		return timeEvents[2];
+		return timeEvents[3];
+	}
+	
+	private boolean check_BlindMansBlufGame_Repeat_tr0_tr0() {
+		return true;
 	}
 	
 	private boolean check_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame__choice_0_tr0_tr0() {
@@ -786,9 +793,9 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 		react_BlindMansBlufGame__choice_0();
 	}
 	
-	private void effect_BlindMansBlufGame_Repeat_tr0() {
-		exitSequence_BlindMansBlufGame_Repeat();
-		react_BlindMansBlufGame__choice_2();
+	private void effect_BlindMansBlufGame_Turn_tr0() {
+		exitSequence_BlindMansBlufGame_Turn();
+		enterSequence_BlindMansBlufGame_Repeat_default();
 	}
 	
 	private void effect_BlindMansBlufGame_NextQuestion_tr0() {
@@ -804,6 +811,11 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	private void effect_BlindMansBlufGame_wait_tr0() {
 		exitSequence_BlindMansBlufGame_wait();
 		enterSequence_BlindMansBlufGame_firstQ_default();
+	}
+	
+	private void effect_BlindMansBlufGame_Repeat_tr0() {
+		exitSequence_BlindMansBlufGame_Repeat();
+		react_BlindMansBlufGame__choice_2();
 	}
 	
 	private void effect_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame__choice_0_tr0() {
@@ -847,7 +859,7 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	}
 	
 	private void effect_BlindMansBlufGame__choice_1_tr1() {
-		enterSequence_BlindMansBlufGame_Repeat_default();
+		enterSequence_BlindMansBlufGame_Turn_default();
 	}
 	
 	private void effect_BlindMansBlufGame__choice_1_tr2() {
@@ -972,9 +984,11 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 		setQuestionRepeat(0);
 	}
 	
-	/* Entry action for state 'Repeat'. */
-	private void entryAction_BlindMansBlufGame_Repeat() {
-		sCIHBrain.operationCallback.sendTTS("Please repeat the question. [attentive]");
+	/* Entry action for state 'Turn'. */
+	private void entryAction_BlindMansBlufGame_Turn() {
+		timer.setTimer(this, 2, 2*1000, false);
+		
+		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'NextQuestion'. */
@@ -989,7 +1003,12 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_BlindMansBlufGame_wait() {
-		timer.setTimer(this, 2, 5*1000, false);
+		timer.setTimer(this, 3, 5*1000, false);
+	}
+	
+	/* Entry action for state 'Repeat'. */
+	private void entryAction_BlindMansBlufGame_Repeat() {
+		sCIHBrain.operationCallback.sendTTS("Please repeat the question. [attentive]");
 	}
 	
 	/* Exit action for state 'waitForSTT'. */
@@ -1002,9 +1021,14 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 		timer.unsetTimer(this, 1);
 	}
 	
+	/* Exit action for state 'Turn'. */
+	private void exitAction_BlindMansBlufGame_Turn() {
+		timer.unsetTimer(this, 2);
+	}
+	
 	/* Exit action for state 'wait'. */
 	private void exitAction_BlindMansBlufGame_wait() {
-		timer.unsetTimer(this, 2);
+		timer.unsetTimer(this, 3);
 	}
 	
 	/* 'default' enter sequence for state StartGame */
@@ -1144,11 +1168,11 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 		stateVector[0] = State.blindMansBlufGame_NoRepeat;
 	}
 	
-	/* 'default' enter sequence for state Repeat */
-	private void enterSequence_BlindMansBlufGame_Repeat_default() {
-		entryAction_BlindMansBlufGame_Repeat();
+	/* 'default' enter sequence for state Turn */
+	private void enterSequence_BlindMansBlufGame_Turn_default() {
+		entryAction_BlindMansBlufGame_Turn();
 		nextStateIndex = 0;
-		stateVector[0] = State.blindMansBlufGame_Repeat;
+		stateVector[0] = State.blindMansBlufGame_Turn;
 	}
 	
 	/* 'default' enter sequence for state NextQuestion */
@@ -1176,6 +1200,13 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	private void enterSequence_BlindMansBlufGame__final__default() {
 		nextStateIndex = 0;
 		stateVector[0] = State.blindMansBlufGame__final_;
+	}
+	
+	/* 'default' enter sequence for state Repeat */
+	private void enterSequence_BlindMansBlufGame_Repeat_default() {
+		entryAction_BlindMansBlufGame_Repeat();
+		nextStateIndex = 0;
+		stateVector[0] = State.blindMansBlufGame_Repeat;
 	}
 	
 	/* 'default' enter sequence for region BlindMansBlufGame */
@@ -1317,10 +1348,12 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state Repeat */
-	private void exitSequence_BlindMansBlufGame_Repeat() {
+	/* Default exit sequence for state Turn */
+	private void exitSequence_BlindMansBlufGame_Turn() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_BlindMansBlufGame_Turn();
 	}
 	
 	/* Default exit sequence for state NextQuestion */
@@ -1345,6 +1378,12 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	
 	/* Default exit sequence for final state. */
 	private void exitSequence_BlindMansBlufGame__final_() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state Repeat */
+	private void exitSequence_BlindMansBlufGame_Repeat() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -1400,8 +1439,8 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 		case blindMansBlufGame_NoRepeat:
 			exitSequence_BlindMansBlufGame_NoRepeat();
 			break;
-		case blindMansBlufGame_Repeat:
-			exitSequence_BlindMansBlufGame_Repeat();
+		case blindMansBlufGame_Turn:
+			exitSequence_BlindMansBlufGame_Turn();
 			break;
 		case blindMansBlufGame_NextQuestion:
 			exitSequence_BlindMansBlufGame_NextQuestion();
@@ -1414,6 +1453,9 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 			break;
 		case blindMansBlufGame__final_:
 			exitSequence_BlindMansBlufGame__final_();
+			break;
+		case blindMansBlufGame_Repeat:
+			exitSequence_BlindMansBlufGame_Repeat();
 			break;
 		default:
 			break;
@@ -1700,9 +1742,11 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 		}
 	}
 	
-	/* The reactions of state Repeat. */
-	private void react_BlindMansBlufGame_Repeat() {
-		effect_BlindMansBlufGame_Repeat_tr0();
+	/* The reactions of state Turn. */
+	private void react_BlindMansBlufGame_Turn() {
+		if (check_BlindMansBlufGame_Turn_tr0_tr0()) {
+			effect_BlindMansBlufGame_Turn_tr0();
+		}
 	}
 	
 	/* The reactions of state NextQuestion. */
@@ -1726,6 +1770,11 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	
 	/* The reactions of state null. */
 	private void react_BlindMansBlufGame__final_() {
+	}
+	
+	/* The reactions of state Repeat. */
+	private void react_BlindMansBlufGame_Repeat() {
+		effect_BlindMansBlufGame_Repeat_tr0();
 	}
 	
 	/* The reactions of state null. */
@@ -1879,8 +1928,8 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 			case blindMansBlufGame_NoRepeat:
 				react_BlindMansBlufGame_NoRepeat();
 				break;
-			case blindMansBlufGame_Repeat:
-				react_BlindMansBlufGame_Repeat();
+			case blindMansBlufGame_Turn:
+				react_BlindMansBlufGame_Turn();
 				break;
 			case blindMansBlufGame_NextQuestion:
 				react_BlindMansBlufGame_NextQuestion();
@@ -1893,6 +1942,9 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 				break;
 			case blindMansBlufGame__final_:
 				react_BlindMansBlufGame__final_();
+				break;
+			case blindMansBlufGame_Repeat:
+				react_BlindMansBlufGame_Repeat();
 				break;
 			default:
 				// $NullState$

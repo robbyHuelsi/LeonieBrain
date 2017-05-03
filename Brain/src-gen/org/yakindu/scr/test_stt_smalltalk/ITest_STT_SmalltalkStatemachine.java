@@ -1,8 +1,9 @@
 package org.yakindu.scr.test_stt_smalltalk;
 
 import org.yakindu.scr.IStatemachine;
+import org.yakindu.scr.ITimerCallback;
 
-public interface ITest_STT_SmalltalkStatemachine extends IStatemachine {
+public interface ITest_STT_SmalltalkStatemachine extends ITimerCallback,IStatemachine {
 
 	public interface SCIHBrain {
 	
