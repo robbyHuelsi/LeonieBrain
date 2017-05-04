@@ -121,11 +121,9 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		main_region__final_,
 		main_region_Welcome,
 		main_region_Entry,
-		main_region_EMERGENCY_STOP,
 		main_region_LeaveTheArema,
 		main_region_GoToLivingRoom,
 		main_region_StartDrivingAroung,
-		main_region_AfterManuelStart,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
@@ -139,7 +137,7 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[2];
+	private final boolean[] timeEvents = new boolean[3];
 	public RobotInspectionStatemachine() {
 		sCIHBrain = new SCIHBrainImpl();
 		sCISTT = new SCISTTImpl();
@@ -220,16 +218,12 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 			return stateVector[0] == State.main_region_Welcome;
 		case main_region_Entry:
 			return stateVector[0] == State.main_region_Entry;
-		case main_region_EMERGENCY_STOP:
-			return stateVector[0] == State.main_region_EMERGENCY_STOP;
 		case main_region_LeaveTheArema:
 			return stateVector[0] == State.main_region_LeaveTheArema;
 		case main_region_GoToLivingRoom:
 			return stateVector[0] == State.main_region_GoToLivingRoom;
 		case main_region_StartDrivingAroung:
 			return stateVector[0] == State.main_region_StartDrivingAroung;
-		case main_region_AfterManuelStart:
-			return stateVector[0] == State.main_region_AfterManuelStart;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -283,6 +277,10 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_Welcome_tr1_tr1() {
+		return timeEvents[0];
+	}
+	
 	private boolean check_main_region_Entry_tr0_tr0() {
 		return sCIMira.arrivedWP;
 	}
@@ -292,7 +290,7 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	}
 	
 	private boolean check_main_region_GoToLivingRoom_tr0_tr0() {
-		return sCIMira.emergencyStop;
+		return sCIMira.arrivedWP;
 	}
 	
 	private boolean check_main_region_StartDrivingAroung_tr0_tr0() {
@@ -308,7 +306,7 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[0];
+		return timeEvents[1];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -316,10 +314,15 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0() {
-		return timeEvents[1];
+		return timeEvents[2];
 	}
 	
 	private void effect_main_region_Welcome_tr0() {
+		exitSequence_main_region_Welcome();
+		enterSequence_main_region_StartDrivingAroung_default();
+	}
+	
+	private void effect_main_region_Welcome_tr1() {
 		exitSequence_main_region_Welcome();
 		enterSequence_main_region_StartDrivingAroung_default();
 	}
@@ -336,7 +339,7 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	
 	private void effect_main_region_GoToLivingRoom_tr0() {
 		exitSequence_main_region_GoToLivingRoom();
-		enterSequence_main_region_EMERGENCY_STOP_default();
+		enterSequence_main_region_LeaveTheArema_default();
 	}
 	
 	private void effect_main_region_StartDrivingAroung_tr0() {
@@ -371,6 +374,8 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	
 	/* Entry action for state 'Welcome'. */
 	private void entryAction_main_region_Welcome() {
+		timer.setTimer(this, 0, 20*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("[:-O]wow! So many people![idle3:true] [blush:true] I’m nervous [:-)] But I try to make a great show! [blush:false]");
 	}
 	
@@ -386,7 +391,7 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	
 	/* Entry action for state 'GoToLivingRoom'. */
 	private void entryAction_main_region_GoToLivingRoom() {
-		sCIMira.operationCallback.sendGoToGWP(13);
+		sCIMira.operationCallback.sendGoToGWP(1);
 	}
 	
 	/* Entry action for state 'StartDrivingAroung'. */
@@ -396,14 +401,9 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		sCIHBrain.operationCallback.sendTTS("My name is Leonie. I'm so exited to be here [happy]. Now, you can test my abilities.");
 	}
 	
-	/* Entry action for state 'AfterManuelStart'. */
-	private void entryAction_main_region_AfterManuelStart() {
-		sCIHBrain.operationCallback.sendTTS("Emergency stop button is reseted. We can go on.");
-	}
-	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 0, 3*1000, false);
+		timer.setTimer(this, 1, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -415,19 +415,24 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	
 	/* Entry action for state 'EmergencyStop'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		timer.setTimer(this, 1, 3*1000, false);
+		timer.setTimer(this, 2, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
 	}
 	
+	/* Exit action for state 'Welcome'. */
+	private void exitAction_main_region_Welcome() {
+		timer.unsetTimer(this, 0);
+	}
+	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 0);
+		timer.unsetTimer(this, 1);
 	}
 	
 	/* Exit action for state 'EmergencyStop'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		timer.unsetTimer(this, 1);
+		timer.unsetTimer(this, 2);
 	}
 	
 	/* Default enter sequence for state null */
@@ -450,12 +455,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		stateVector[0] = State.main_region_Entry;
 	}
 	
-	/* 'default' enter sequence for state EMERGENCY_STOP */
-	private void enterSequence_main_region_EMERGENCY_STOP_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_EMERGENCY_STOP;
-	}
-	
 	/* 'default' enter sequence for state LeaveTheArema */
 	private void enterSequence_main_region_LeaveTheArema_default() {
 		entryAction_main_region_LeaveTheArema();
@@ -475,13 +474,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		entryAction_main_region_StartDrivingAroung();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_StartDrivingAroung;
-	}
-	
-	/* 'default' enter sequence for state AfterManuelStart */
-	private void enterSequence_main_region_AfterManuelStart_default() {
-		entryAction_main_region_AfterManuelStart();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_AfterManuelStart;
 	}
 	
 	/* 'default' enter sequence for state waitForEvent */
@@ -531,16 +523,12 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	private void exitSequence_main_region_Welcome() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Welcome();
 	}
 	
 	/* Default exit sequence for state Entry */
 	private void exitSequence_main_region_Entry() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state EMERGENCY_STOP */
-	private void exitSequence_main_region_EMERGENCY_STOP() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -559,12 +547,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	
 	/* Default exit sequence for state StartDrivingAroung */
 	private void exitSequence_main_region_StartDrivingAroung() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state AfterManuelStart */
-	private void exitSequence_main_region_AfterManuelStart() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -609,9 +591,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		case main_region_Entry:
 			exitSequence_main_region_Entry();
 			break;
-		case main_region_EMERGENCY_STOP:
-			exitSequence_main_region_EMERGENCY_STOP();
-			break;
 		case main_region_LeaveTheArema:
 			exitSequence_main_region_LeaveTheArema();
 			break;
@@ -620,9 +599,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 			break;
 		case main_region_StartDrivingAroung:
 			exitSequence_main_region_StartDrivingAroung();
-			break;
-		case main_region_AfterManuelStart:
-			exitSequence_main_region_AfterManuelStart();
 			break;
 		default:
 			break;
@@ -657,6 +633,10 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	private void react_main_region_Welcome() {
 		if (check_main_region_Welcome_tr0_tr0()) {
 			effect_main_region_Welcome_tr0();
+		} else {
+			if (check_main_region_Welcome_tr1_tr1()) {
+				effect_main_region_Welcome_tr1();
+			}
 		}
 	}
 	
@@ -665,10 +645,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		if (check_main_region_Entry_tr0_tr0()) {
 			effect_main_region_Entry_tr0();
 		}
-	}
-	
-	/* The reactions of state EMERGENCY_STOP. */
-	private void react_main_region_EMERGENCY_STOP() {
 	}
 	
 	/* The reactions of state LeaveTheArema. */
@@ -690,10 +666,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		if (check_main_region_StartDrivingAroung_tr0_tr0()) {
 			effect_main_region_StartDrivingAroung_tr0();
 		}
-	}
-	
-	/* The reactions of state AfterManuelStart. */
-	private void react_main_region_AfterManuelStart() {
 	}
 	
 	/* The reactions of state waitForEvent. */
@@ -752,9 +724,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 			case main_region_Entry:
 				react_main_region_Entry();
 				break;
-			case main_region_EMERGENCY_STOP:
-				react_main_region_EMERGENCY_STOP();
-				break;
 			case main_region_LeaveTheArema:
 				react_main_region_LeaveTheArema();
 				break;
@@ -763,9 +732,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 				break;
 			case main_region_StartDrivingAroung:
 				react_main_region_StartDrivingAroung();
-				break;
-			case main_region_AfterManuelStart:
-				react_main_region_AfterManuelStart();
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();

@@ -46,7 +46,7 @@
             <outgoingTransitions xmi:id="_0maJ4DCiEeeGYMEkKz9wVA" specification="[BGF.containsString(STT.getSpokenText, &quot;stop&quot;) == true]" target="_YY1rcDCjEeeGYMEkKz9wVA"/>
             <outgoingTransitions xmi:id="_DrItUDCjEeeGYMEkKz9wVA" specification="[BGF.containsString(STT.getSpokenText, &quot;car&quot;) == true]" target="_YY1rcDCjEeeGYMEkKz9wVA"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_YY1rcDCjEeeGYMEkKz9wVA" specification="entry /&#xA;HBrain.sendTTS3(&quot;I understood: &quot;, STT.getSpokenText, &quot;So, I think we arrived.&quot;)" name="TTS" incomingTransitions="_0maJ4DCiEeeGYMEkKz9wVA _DrItUDCjEeeGYMEkKz9wVA">
+          <vertices xsi:type="sgraph:State" xmi:id="_YY1rcDCjEeeGYMEkKz9wVA" specification="entry /&#xA;HBrain.sendTTS3(&quot;I understood: &quot;, STT.getSpokenText, &quot;. So, I think we arrived.&quot;)" name="TTS" incomingTransitions="_0maJ4DCiEeeGYMEkKz9wVA _DrItUDCjEeeGYMEkKz9wVA">
             <outgoingTransitions xmi:id="_jHMrkDCjEeeGYMEkKz9wVA" specification="always" target="_O-ULACj-EeerIsa7nI0F3w"/>
           </vertices>
         </regions>

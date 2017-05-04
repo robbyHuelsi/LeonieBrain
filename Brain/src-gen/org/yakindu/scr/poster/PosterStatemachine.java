@@ -116,7 +116,7 @@ public class PosterStatemachine implements IPosterStatemachine {
 	
 	/* Entry action for state 'Introduction'. */
 	private void entryAction_main_region_Introduction() {
-		sCIHBrain.operationCallback.sendTTS("[attentive] Hello my name is Leonie. [blush:Bool] I want presentate the poster to you but I'm to nervous. So I will pass you over to my colleague professor Rätsch.");
+		sCIHBrain.operationCallback.sendTTS("[attentive] Hello my name is Leonie. I want presentate the poster to you but I'm to nervous. So I will pass you over to my colleague professor Rätsch.");
 	}
 	
 	/* 'default' enter sequence for state Introduction */

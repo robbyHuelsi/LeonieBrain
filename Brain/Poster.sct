@@ -5,7 +5,7 @@
       <vertices xsi:type="sgraph:Entry" xmi:id="_L43hmSj3EeerIsa7nI0F3w">
         <outgoingTransitions xmi:id="_lL7MsCmuEeevtqslXB21pw" target="_Too0wCmxEeevtqslXB21pw"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_Too0wCmxEeevtqslXB21pw" specification="entry /&#xA;HBrain.sendTTS(&quot;[attentive] Hello my name is Leonie. [blush:Bool] I want presentate the poster to you but I'm to nervous. So I will pass you over to my colleague professor Rätsch.&quot;)" name="Introduction" incomingTransitions="_lL7MsCmuEeevtqslXB21pw">
+      <vertices xsi:type="sgraph:State" xmi:id="_Too0wCmxEeevtqslXB21pw" specification="entry /&#xA;HBrain.sendTTS(&quot;[attentive] Hello my name is Leonie. I want presentate the poster to you but I'm to nervous. So I will pass you over to my colleague professor Rätsch.&quot;)" name="Introduction" incomingTransitions="_lL7MsCmuEeevtqslXB21pw">
         <outgoingTransitions xmi:id="_C1GwYC_3Eee1LLy7pSGAmQ" specification="HBrain.TTSReady" target="_mwgyUC_4Eee1LLy7pSGAmQ"/>
       </vertices>
       <vertices xsi:type="sgraph:FinalState" xmi:id="_mwgyUC_4Eee1LLy7pSGAmQ" incomingTransitions="_C1GwYC_3Eee1LLy7pSGAmQ"/>
@@ -55,10 +55,10 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_Topb0SmxEeevtqslXB21pw" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_Topb0imxEeevtqslXB21pw"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_Topb2ymxEeevtqslXB21pw" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Topb0ymxEeevtqslXB21pw" x="31" y="-7" width="1321" height="166"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Topb0ymxEeevtqslXB21pw" x="31" y="-7" width="846" height="53"/>
         </children>
         <children xsi:type="notation:Shape" xmi:id="_mwhZYC_4Eee1LLy7pSGAmQ" type="FinalState" element="_mwgyUC_4Eee1LLy7pSGAmQ" fontName="Verdana" lineColor="4210752">
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_mwhZYS_4Eee1LLy7pSGAmQ" x="373" y="439"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_mwhZYS_4Eee1LLy7pSGAmQ" x="439" y="210"/>
         </children>
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_L43hlSj3EeerIsa7nI0F3w"/>
       </children>

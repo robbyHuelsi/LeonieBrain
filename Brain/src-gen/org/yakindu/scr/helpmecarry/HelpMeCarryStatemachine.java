@@ -1555,7 +1555,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'TTS'. */
 	private void entryAction_main_region_StartTracking_WaitingForStopCommand_TTS() {
-		sCIHBrain.operationCallback.sendTTS3("I understood: ", sCISTT.operationCallback.getSpokenText(), "So, I think we arrived.");
+		sCIHBrain.operationCallback.sendTTS3("I understood: ", sCISTT.operationCallback.getSpokenText(), ". So, I think we arrived.");
 	}
 	
 	/* Entry action for state 'UTurn1'. */
