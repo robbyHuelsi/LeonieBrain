@@ -249,7 +249,7 @@ public class CrowdDet implements IParser, Serializable{
 				}
 				
 				if (sitting == 1) {
-					sum += " One person is stitting.";
+					sum += " One person is sitting.";
 				}else if (sitting > 1){
 					sum += " " + sitting + " of the persons are sitting.";
 				}

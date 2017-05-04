@@ -13,7 +13,8 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.test_mira.ITest_MiraStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.test_noise.ITest_NoiseStatemachine.SCIMiraOperationCallback,
-	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIMiraOperationCallback
+	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.robotinspection.IRobotInspectionStatemachine.SCIMiraOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();

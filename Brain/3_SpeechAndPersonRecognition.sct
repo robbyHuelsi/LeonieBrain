@@ -8,7 +8,7 @@
       <vertices xsi:type="sgraph:State" xmi:id="_4ewjwym4EeeNltMwhJMMvg" specification="entry /&#xA;GWPout = 13" name="Init" incomingTransitions="_4ewjwim4EeeNltMwhJMMvg">
         <outgoingTransitions xmi:id="_4exK3Sm4EeeNltMwhJMMvg" specification="always" target="_4exK4Cm4EeeNltMwhJMMvg"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_4exK4Cm4EeeNltMwhJMMvg" specification="entry /&#xA;HBrain.sendTTS(&quot;[:-)] I want to play the riddle game in 10 seconds. Please stand, sit or lie behind me.&quot;)" name="Announcement" incomingTransitions="_4exK3Sm4EeeNltMwhJMMvg" documentation="Leonie says: &quot;Want to play the riddle game&quot;">
+      <vertices xsi:type="sgraph:State" xmi:id="_4exK4Cm4EeeNltMwhJMMvg" specification="entry /&#xA;HBrain.sendTTS(&quot;[:-)] I want to play the riddle game in 10 seconds.&quot;)" name="Announcement" incomingTransitions="_4exK3Sm4EeeNltMwhJMMvg" documentation="Leonie says: &quot;Want to play the riddle game&quot;">
         <outgoingTransitions xmi:id="_4exx6Sm4EeeNltMwhJMMvg" specification="HBrain.TTSReady" target="_4exx7im4EeeNltMwhJMMvg"/>
         <outgoingTransitions xmi:id="_Rbth4DBOEee0875Bvs1VDA" specification="after 10s" target="_4exx7im4EeeNltMwhJMMvg"/>
       </vertices>
@@ -793,7 +793,7 @@
     <edges xmi:id="_D_aE0zAVEee0875Bvs1VDA" type="Transition" element="_D_VzRjAVEee0875Bvs1VDA" source="_D_VMPzAVEee0875Bvs1VDA" target="_D_VMYzAVEee0875Bvs1VDA">
       <children xsi:type="notation:DecorationNode" xmi:id="_D_aE1DAVEee0875Bvs1VDA" type="TransitionExpression">
         <styles xsi:type="notation:ShapeStyle" xmi:id="_D_aE1TAVEee0875Bvs1VDA"/>
-        <layoutConstraint xsi:type="notation:Location" xmi:id="_D_aE1jAVEee0875Bvs1VDA" x="-6" y="-58"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_D_aE1jAVEee0875Bvs1VDA" x="-26" y="-42"/>
       </children>
       <styles xsi:type="notation:ConnectorStyle" xmi:id="_D_aE1zAVEee0875Bvs1VDA" lineColor="4210752"/>
       <styles xsi:type="notation:FontStyle" xmi:id="_D_aE2DAVEee0875Bvs1VDA" fontName="Verdana"/>
@@ -847,7 +847,7 @@
     <edges xmi:id="_RbuwADBOEee0875Bvs1VDA" type="Transition" element="_Rbth4DBOEee0875Bvs1VDA" source="_4evVuym4EeeNltMwhJMMvg" target="_4evVxym4EeeNltMwhJMMvg">
       <children xsi:type="notation:DecorationNode" xmi:id="_RbuwBDBOEee0875Bvs1VDA" type="TransitionExpression">
         <styles xsi:type="notation:ShapeStyle" xmi:id="_RbuwBTBOEee0875Bvs1VDA"/>
-        <layoutConstraint xsi:type="notation:Location" xmi:id="_RbuwBjBOEee0875Bvs1VDA" x="4" y="-26"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_RbuwBjBOEee0875Bvs1VDA" x="-16" y="-23"/>
       </children>
       <styles xsi:type="notation:ConnectorStyle" xmi:id="_RbuwATBOEee0875Bvs1VDA" lineColor="4210752"/>
       <styles xsi:type="notation:FontStyle" xmi:id="_RbuwAzBOEee0875Bvs1VDA" fontName="Verdana"/>

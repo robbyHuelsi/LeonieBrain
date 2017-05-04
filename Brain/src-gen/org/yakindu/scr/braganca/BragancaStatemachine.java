@@ -3254,7 +3254,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'Init'. */
 	private void entryAction_main_Init() {
-		timer.setTimer(this, 14, 500, false);
+		timer.setTimer(this, 14, 500*1000, false);
 		
 		sCIBGF.setEventNum(0);
 	}

@@ -477,7 +477,7 @@
         </regions>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_KGTtoPiqEeWcn8poFBqj7w" specification="entry / &#xD;&#xA;&#xD;&#xA;BGF.eventNum = 0&#xD;&#xA;&#xD;&#xA;" name="Init" incomingTransitions="_GqRdQAyCEeaVIPg4Qi-3TQ">
-        <outgoingTransitions xmi:id="__CpbECR0EeeAEbmUNFHh4Q" specification="after 500ms" target="_41bq4CR0EeeAEbmUNFHh4Q"/>
+        <outgoingTransitions xmi:id="__CpbECR0EeeAEbmUNFHh4Q" specification="after 500s" target="_41bq4CR0EeeAEbmUNFHh4Q"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_lHqmAA-yEeabk_5g1uV7Pw" specification="entry / BGF.randNum = BGF.getRandNum(3);&#xD;&#xA;HBrain.sendTTS_num(BGF.randNum)" name="randTest" incomingTransitions="_0g6A4A-yEeabk_5g1uV7Pw _CzmqcA-zEeabk_5g1uV7Pw">
         <outgoingTransitions xmi:id="_CzmqcA-zEeabk_5g1uV7Pw" specification="after 3s" target="_lHqmAA-yEeabk_5g1uV7Pw"/>

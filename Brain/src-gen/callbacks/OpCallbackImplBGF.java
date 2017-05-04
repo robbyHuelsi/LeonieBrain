@@ -43,20 +43,54 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 	public long getGWPByName(String inName) {
 		switch (inName.toLowerCase()) {
 		case "kitchen":
-		case "apple":
+		case "potato": 			//MAYBE
 			return 0;
 			
 		case "dinnertable":
 		case "diningroom":
+		case "candle":			//MAYBE
 			return 1;
 			
 		case "cabinet":
+		case "spoon":
+		case "knife":
 			return 2;
 			
 		case "bookshelf":
+		case "water": 				//MAYBE	
+		case "apple": 				//Bei Carsten on the desk
+		case "lemon": 				//Bei Carsten on the desk
+		case "pepper": 				//MAYBE
+		case "chocolate egg": 		//MAYBE
+		case "peas": 				//MAYBE
+		case "milk": 				//MAYBE
+		case "kelloggs smacks":		//MAYBE
+		case "kelloggs cornflakes":	//MAYBE
+		case "kelloggs":			//MAYBE
+		case "party cracker":		//MAYBE
+		case "cracker":				//MAYBE
+		case "orange juice":		//MAYBE
+		case "cup soup":			//MAYBE
+		case "soup":				//MAYBE
+		case "pear":				//MAYBE
+		case "sandwich":			//MAYBE
+		case "noodles":				//MAYBE
 			return 3;
 			
-		case "kitchencounter":
+		case "kitchencounter": 
+		case "coke":				//MAYBE
+		case "towel":				//MAYBE
+		case "plate":				//MAYBE
+		case "coffee cup":			//MAYBE
+		case "coffee":				//MAYBE
+		case "cup":					//MAYBE
+		case "bowl":				//MAYBE
+		case "salt":				//MAYBE
+		case "tissue":				//MAYBE
+		case "glass pot":			//MAYBE
+		case "glass":				//MAYBE
+		case "candlestick":			//MAYBE
+		case "candle holder":		//MAYBE
 			return 4;
 			
 		case "sofa":
@@ -64,22 +98,36 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			return 5;
 			
 		case "couchtable":
+		case "crisps":				//MAYBE
+		case "chips": 				//MAYBE
 			return 6;
 			
 		case "sidetable":
 			return 7;
 			
 		case "stove":
+		case "pot":
+		case "egg":
+		case "cutlery holder":
+		case "pan":
 			return 8;
 			
 		case "bed":
 		case "bedroom":
 			return 9;
 			
-		case "closet":
+		case "closet": 
+		case "sponge": 
+		case "cleaning tissue": 
+		case "beach lounger": 
+		case "book": 				//MAYBE
+		case "picture": 			//MAYBE
+		case "basket": 				//MAYBE
+		case "lamp":	
 			return 10;
 			
 		case "desk":
+		case "chair":	
 			return 11;
 			
 		case "bar":
@@ -91,6 +139,7 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			return 13;
 			
 		case "frontdoor":
+		case "plant":
 			return 14;
 			
 		case "middledoorin":

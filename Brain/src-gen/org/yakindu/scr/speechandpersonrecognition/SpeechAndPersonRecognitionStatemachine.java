@@ -1520,7 +1520,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void entryAction_main_region_Announcement() {
 		timer.setTimer(this, 0, 10*1000, false);
 		
-		sCIHBrain.operationCallback.sendTTS("[:-)] I want to play the riddle game in 10 seconds. Please stand, sit or lie behind me.");
+		sCIHBrain.operationCallback.sendTTS("[:-)] I want to play the riddle game in 10 seconds.");
 	}
 	
 	/* Entry action for state 'Wait'. */

@@ -16,7 +16,9 @@ public class OpCallbackImplHBrain implements IOpCallbackImpl,
 	org.yakindu.scr.test_followme.ITest_FollowMeStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.test_waving.ITest_WavingStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.test_mira.ITest_MiraStatemachine.SCIHBrainOperationCallback,
-	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIHBrainOperationCallback
+	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.robotinspection.IRobotInspectionStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.poster.IPosterStatemachine.SCIHBrainOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();
