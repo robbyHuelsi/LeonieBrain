@@ -1608,7 +1608,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'TurnAround'. */
 	private void entryAction_main_region_TurnAround() {
-		timer.setTimer(this, 2, 5*1000, false);
+		timer.setTimer(this, 2, 7*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -1902,7 +1902,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'DetectionOn'. */
 	private void entryAction_main_region_DetectionOn() {
-		timer.setTimer(this, 28, 2*1000, false);
+		timer.setTimer(this, 28, 5*1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 		

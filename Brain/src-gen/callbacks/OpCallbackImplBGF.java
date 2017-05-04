@@ -113,4 +113,8 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			return -1;
 		}
 	}
+
+	public boolean containsString(String main, String check) {
+		return main.contains(check);
+	}
 }

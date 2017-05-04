@@ -29,6 +29,8 @@ public interface IHelpMeCarryStatemachine extends ITimerCallback,IStatemachine {
 		
 		public long getGWPByName(String inName);
 		
+		public boolean containsString(String main, String check);
+		
 	}
 	
 	public SCIBGF getSCIBGF();

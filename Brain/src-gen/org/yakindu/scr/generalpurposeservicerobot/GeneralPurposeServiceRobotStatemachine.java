@@ -307,7 +307,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[12];
+	private final boolean[] timeEvents = new boolean[24];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -620,12 +620,20 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_Hello_tr1_tr1() {
+		return timeEvents[0];
+	}
+	
 	private boolean check_main_region_Leave_the_arena_tr0_tr0() {
 		return sCIMira.arrivedWP;
 	}
 	
 	private boolean check_main_region_DetectionsOn_tr0_tr0() {
 		return sCICrowdDetection.detected;
+	}
+	
+	private boolean check_main_region_DetectionsOn_tr1_tr1() {
+		return timeEvents[1];
 	}
 	
 	private boolean check_main_region_Init_tr0_tr0() {
@@ -636,16 +644,32 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_TellAnswer_tr1_tr1() {
+		return timeEvents[2];
+	}
+	
 	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_tr0_tr0() {
 		return sCIMira.arrivedWP;
+	}
+	
+	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_tr1_tr1() {
+		return timeEvents[3];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr1_tr1() {
+		return timeEvents[4];
+	}
+	
 	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr0_tr0() {
 		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr1_tr1() {
+		return timeEvents[5];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator_tr0_tr0() {
@@ -664,6 +688,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound_tr1_tr1() {
+		return timeEvents[6];
+	}
+	
 	private boolean check_main_region_DoAction_Instructions_bring_bring_GeneralP_arrived_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
@@ -674,6 +702,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	private boolean check_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht_tr0_tr0() {
 		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht_tr1_tr1() {
+		return timeEvents[7];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_bring_bring_GeneralP_stattdessen_goto_tr0_tr0() {
@@ -693,11 +725,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STToff_tr1_tr1() {
-		return timeEvents[0];
+		return timeEvents[8];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart_tr0_tr0() {
-		return timeEvents[1];
+		return timeEvents[9];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart_tr1_tr1() {
@@ -705,11 +737,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_tr1_tr1() {
-		return timeEvents[2];
+		return timeEvents[10];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn1_tr0_tr0() {
-		return timeEvents[3];
+		return timeEvents[11];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_WaveFound_tr0_tr0() {
@@ -721,7 +753,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Turn_tr1_tr1() {
-		return timeEvents[4];
+		return timeEvents[12];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_DetectionOn_tr0_tr0() {
@@ -737,11 +769,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn2_tr0_tr0() {
-		return timeEvents[5];
+		return timeEvents[13];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Detection_tr0_tr0() {
-		return timeEvents[6];
+		return timeEvents[14];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Detection_tr1_tr1() {
@@ -761,7 +793,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_HowCanIHelpYou_main_region_StartSTT_tr0_tr0() {
-		return timeEvents[7];
+		return timeEvents[15];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_HowCanIHelpYou_main_region_TellAnswer_tr0_tr0() {
@@ -797,7 +829,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Detect_tr1_tr1() {
-		return timeEvents[8];
+		return timeEvents[16];
 	}
 	
 	private boolean check_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_no_tr0_tr0() {
@@ -820,12 +852,20 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_TellIncomprehensible_tr1_tr1() {
+		return timeEvents[17];
+	}
+	
 	private boolean check_main_region_NextQuestion_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_NextQuestion_tr1_tr1() {
+		return timeEvents[18];
+	}
+	
 	private boolean check_main_region_Copy_1_STT_STT_StartSTT_tr0_tr0() {
-		return timeEvents[9];
+		return timeEvents[19];
 	}
 	
 	private boolean check_main_region_Copy_1_STT_STT_TellSpokenText_tr0_tr0() {
@@ -840,8 +880,16 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		return sCISTT.incomprehensible;
 	}
 	
+	private boolean check_main_region_Copy_1_STT_STT_TellSpokenText_tr3_tr3() {
+		return timeEvents[20];
+	}
+	
 	private boolean check_main_region_Copy_1_STT_STT_StropSTT_tr0_tr0() {
 		return sCISTT.spokenTextReceived;
+	}
+	
+	private boolean check_main_region_Copy_1_STT_STT_StropSTT_tr1_tr1() {
+		return timeEvents[21];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
@@ -853,7 +901,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[10];
+		return timeEvents[22];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -865,7 +913,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[11];
+		return timeEvents[23];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -953,6 +1001,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		enterSequence_main_region_Copy_1_STT_default();
 	}
 	
+	private void effect_main_region_Hello_tr1() {
+		exitSequence_main_region_Hello();
+		enterSequence_main_region_Copy_1_STT_default();
+	}
+	
 	private void effect_main_region_Leave_the_arena_tr0() {
 		exitSequence_main_region_Leave_the_arena();
 		enterSequence_main_region__final__default();
@@ -963,12 +1016,22 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		enterSequence_main_region_Hello_default();
 	}
 	
+	private void effect_main_region_DetectionsOn_tr1() {
+		exitSequence_main_region_DetectionsOn();
+		enterSequence_main_region_Hello_default();
+	}
+	
 	private void effect_main_region_Init_tr0() {
 		exitSequence_main_region_Init();
 		enterSequence_main_region_DetectionsOn_default();
 	}
 	
 	private void effect_main_region_TellAnswer_tr0() {
+		exitSequence_main_region_TellAnswer();
+		enterSequence_main_region_StopSTT_default();
+	}
+	
+	private void effect_main_region_TellAnswer_tr1() {
 		exitSequence_main_region_TellAnswer();
 		enterSequence_main_region_StopSTT_default();
 	}
@@ -988,12 +1051,27 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_default();
 	}
 	
+	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_tr1() {
+		exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom();
+		enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_default();
+	}
+	
 	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr0() {
 		exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound();
 		react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_exit_done();
 	}
 	
+	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr1() {
+		exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound();
+		react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_exit_done();
+	}
+	
 	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr0() {
+		exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived();
+		enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator_default();
+	}
+	
+	private void effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr1() {
 		exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived();
 		enterSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_backToTheOperator_default();
 	}
@@ -1023,6 +1101,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		react_main_region_DoAction_Instructions_bring_bring_GeneralP_exit_done();
 	}
 	
+	private void effect_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound_tr1() {
+		exitSequence_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound();
+		react_main_region_DoAction_Instructions_bring_bring_GeneralP_exit_done();
+	}
+	
 	private void effect_main_region_DoAction_Instructions_bring_bring_GeneralP_arrived_tr0() {
 		exitSequence_main_region_DoAction_Instructions_bring_bring_GeneralP_arrived();
 		enterSequence_main_region_DoAction_Instructions_bring_bring_GeneralP_backToTheOperator_default();
@@ -1034,6 +1117,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private void effect_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht_tr0() {
+		exitSequence_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht();
+		react_main_region_DoAction_Instructions_bring_bring_GeneralP__choice_0();
+	}
+	
+	private void effect_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht_tr1() {
 		exitSequence_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht();
 		react_main_region_DoAction_Instructions_bring_bring_GeneralP__choice_0();
 	}
@@ -1238,7 +1326,17 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		enterSequence_main_region_StopSTT_default();
 	}
 	
+	private void effect_main_region_TellIncomprehensible_tr1() {
+		exitSequence_main_region_TellIncomprehensible();
+		enterSequence_main_region_StopSTT_default();
+	}
+	
 	private void effect_main_region_NextQuestion_tr0() {
+		exitSequence_main_region_NextQuestion();
+		enterSequence_main_region_Copy_1_STT_default();
+	}
+	
+	private void effect_main_region_NextQuestion_tr1() {
 		exitSequence_main_region_NextQuestion();
 		enterSequence_main_region_Copy_1_STT_default();
 	}
@@ -1278,9 +1376,19 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		react_main_region_Copy_1_STT_STT_exit_incomprehensible();
 	}
 	
+	private void effect_main_region_Copy_1_STT_STT_TellSpokenText_tr3() {
+		exitSequence_main_region_Copy_1_STT_STT_TellSpokenText();
+		react_main_region_Copy_1_STT_STT_exit_incomprehensible();
+	}
+	
 	private void effect_main_region_Copy_1_STT_STT_StropSTT_tr0() {
 		exitSequence_main_region_Copy_1_STT_STT_StropSTT();
 		react_main_region_Copy_1_STT_STT__choice_0();
+	}
+	
+	private void effect_main_region_Copy_1_STT_STT_StropSTT_tr1() {
+		exitSequence_main_region_Copy_1_STT_STT_StropSTT();
+		react_main_region_Copy_1_STT_STT_exit_incomprehensible();
 	}
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
@@ -1396,6 +1504,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Hello'. */
 	private void entryAction_main_region_Hello() {
+		timer.setTimer(this, 0, 10*1000, false);
+		
 		sCICrowdDetection.operationCallback.sendDetectionOff();
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)] Hello! What can I do for you? [attentive]");
@@ -1412,6 +1522,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'DetectionsOn'. */
 	private void entryAction_main_region_DetectionsOn() {
+		timer.setTimer(this, 1, 10*1000, false);
+		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
 	
@@ -1426,6 +1538,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_region_TellAnswer() {
+		timer.setTimer(this, 2, 30*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getAnswer(), " [:-)]");
 		
 		setCounter(counter+1);
@@ -1438,16 +1552,22 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'livingroom'. */
 	private void entryAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom() {
+		timer.setTimer(this, 3, 180*1000, false);
+		
 		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObject()));
 	}
 	
 	/* Entry action for state 'notFound'. */
 	private void entryAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound() {
+		timer.setTimer(this, 4, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS3("I don't know a location called ", sCISTT.operationCallback.getObject(), ".");
 	}
 	
 	/* Entry action for state 'arrived'. */
 	private void entryAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived() {
+		timer.setTimer(this, 5, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS3("I arrived at ", sCISTT.operationCallback.getObject(), ". That was my task.");
 	}
 	
@@ -1465,6 +1585,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'notFound'. */
 	private void entryAction_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound() {
+		timer.setTimer(this, 6, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS3("Furthermore, I don't know a location for ", sCISTT.operationCallback.getObject(), ".");
 	}
 	
@@ -1482,6 +1604,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'bringGehtnicht'. */
 	private void entryAction_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht() {
+		timer.setTimer(this, 7, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("[:-(] I'm sorry. I can't bring you something, because I have no manipulator. [:-)]");
 	}
 	
@@ -1504,7 +1628,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'STToff'. */
 	private void entryAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STToff() {
-		timer.setTimer(this, 0, 5*1000, false);
+		timer.setTimer(this, 8, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
@@ -1513,7 +1637,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'STTstart'. */
 	private void entryAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.setTimer(this, 1, 5*1000, false);
+		timer.setTimer(this, 9, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 		
@@ -1522,12 +1646,12 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Wave'. */
 	private void entryAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave() {
-		timer.setTimer(this, 2, 10*1000, false);
+		timer.setTimer(this, 10, 10*1000, false);
 	}
 	
 	/* Entry action for state 'UTurn1'. */
 	private void entryAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn1() {
-		timer.setTimer(this, 3, 1*1000, false);
+		timer.setTimer(this, 11, 1*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -1541,7 +1665,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Turn() {
-		timer.setTimer(this, 4, 5*1000, false);
+		timer.setTimer(this, 12, 5*1000, false);
 		
 		sCIKinect2.operationCallback.sendWavingDetectionOnOff(true);
 		
@@ -1569,14 +1693,14 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'UTurn2'. */
 	private void entryAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn2() {
-		timer.setTimer(this, 5, 3*1000, false);
+		timer.setTimer(this, 13, 3*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'Detection'. */
 	private void entryAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Detection() {
-		timer.setTimer(this, 6, 1*1000, false);
+		timer.setTimer(this, 14, 1*1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
@@ -1606,7 +1730,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_HowCanIHelpYou_main_region_StartSTT() {
-		timer.setTimer(this, 7, 5*1000, false);
+		timer.setTimer(this, 15, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 	}
@@ -1642,7 +1766,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Detect'. */
 	private void entryAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Detect() {
-		timer.setTimer(this, 8, 5*1000, false);
+		timer.setTimer(this, 16, 5*1000, false);
 		
 		sCIFollowMe.operationCallback.sendDetectionOff();
 	}
@@ -1675,17 +1799,21 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_region_TellIncomprehensible() {
+		timer.setTimer(this, 17, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS3("[:-(]", sCISTT.operationCallback.getAnswer(), "[:-|]");
 	}
 	
 	/* Entry action for state 'NextQuestion'. */
 	private void entryAction_main_region_NextQuestion() {
+		timer.setTimer(this, 18, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("Please give me the next command or ask me a question. [attentive]");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_Copy_1_STT_STT_StartSTT() {
-		timer.setTimer(this, 9, 5*1000, false);
+		timer.setTimer(this, 19, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 		
@@ -1694,17 +1822,21 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'TellSpokenText'. */
 	private void entryAction_main_region_Copy_1_STT_STT_TellSpokenText() {
+		timer.setTimer(this, 20, 5*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS2("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText());
 	}
 	
 	/* Entry action for state 'StropSTT'. */
 	private void entryAction_main_region_Copy_1_STT_STT_StropSTT() {
+		timer.setTimer(this, 21, 5*1000, false);
+		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 10, 3*1000, false);
+		timer.setTimer(this, 22, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1721,67 +1853,127 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 11, 3*1000, false);
+		timer.setTimer(this, 23, 3*1000, false);
+	}
+	
+	/* Exit action for state 'Hello'. */
+	private void exitAction_main_region_Hello() {
+		timer.unsetTimer(this, 0);
+	}
+	
+	/* Exit action for state 'DetectionsOn'. */
+	private void exitAction_main_region_DetectionsOn() {
+		timer.unsetTimer(this, 1);
+	}
+	
+	/* Exit action for state 'TellAnswer'. */
+	private void exitAction_main_region_TellAnswer() {
+		timer.unsetTimer(this, 2);
+	}
+	
+	/* Exit action for state 'livingroom'. */
+	private void exitAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom() {
+		timer.unsetTimer(this, 3);
+	}
+	
+	/* Exit action for state 'notFound'. */
+	private void exitAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound() {
+		timer.unsetTimer(this, 4);
+	}
+	
+	/* Exit action for state 'arrived'. */
+	private void exitAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived() {
+		timer.unsetTimer(this, 5);
+	}
+	
+	/* Exit action for state 'notFound'. */
+	private void exitAction_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound() {
+		timer.unsetTimer(this, 6);
+	}
+	
+	/* Exit action for state 'bringGehtnicht'. */
+	private void exitAction_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht() {
+		timer.unsetTimer(this, 7);
 	}
 	
 	/* Exit action for state 'STToff'. */
 	private void exitAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STToff() {
-		timer.unsetTimer(this, 0);
+		timer.unsetTimer(this, 8);
 	}
 	
 	/* Exit action for state 'STTstart'. */
 	private void exitAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.unsetTimer(this, 1);
+		timer.unsetTimer(this, 9);
 	}
 	
 	/* Exit action for state 'Wave'. */
 	private void exitAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave() {
-		timer.unsetTimer(this, 2);
+		timer.unsetTimer(this, 10);
 	}
 	
 	/* Exit action for state 'UTurn1'. */
 	private void exitAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn1() {
-		timer.unsetTimer(this, 3);
+		timer.unsetTimer(this, 11);
 	}
 	
 	/* Exit action for state 'Turn'. */
 	private void exitAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Turn() {
-		timer.unsetTimer(this, 4);
+		timer.unsetTimer(this, 12);
 	}
 	
 	/* Exit action for state 'UTurn2'. */
 	private void exitAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn2() {
-		timer.unsetTimer(this, 5);
+		timer.unsetTimer(this, 13);
 	}
 	
 	/* Exit action for state 'Detection'. */
 	private void exitAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Detection() {
-		timer.unsetTimer(this, 6);
+		timer.unsetTimer(this, 14);
 	}
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_HowCanIHelpYou_main_region_StartSTT() {
-		timer.unsetTimer(this, 7);
+		timer.unsetTimer(this, 15);
 	}
 	
 	/* Exit action for state 'Detect'. */
 	private void exitAction_main_region_DoAction_Instructions_followme_FollowMe_in_GPSR_Detect() {
-		timer.unsetTimer(this, 8);
+		timer.unsetTimer(this, 16);
+	}
+	
+	/* Exit action for state 'TellIncomprehensible'. */
+	private void exitAction_main_region_TellIncomprehensible() {
+		timer.unsetTimer(this, 17);
+	}
+	
+	/* Exit action for state 'NextQuestion'. */
+	private void exitAction_main_region_NextQuestion() {
+		timer.unsetTimer(this, 18);
 	}
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_region_Copy_1_STT_STT_StartSTT() {
-		timer.unsetTimer(this, 9);
+		timer.unsetTimer(this, 19);
+	}
+	
+	/* Exit action for state 'TellSpokenText'. */
+	private void exitAction_main_region_Copy_1_STT_STT_TellSpokenText() {
+		timer.unsetTimer(this, 20);
+	}
+	
+	/* Exit action for state 'StropSTT'. */
+	private void exitAction_main_region_Copy_1_STT_STT_StropSTT() {
+		timer.unsetTimer(this, 21);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 10);
+		timer.unsetTimer(this, 22);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 11);
+		timer.unsetTimer(this, 23);
 	}
 	
 	/* 'default' enter sequence for state Hello */
@@ -2236,6 +2428,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void exitSequence_main_region_Hello() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Hello();
 	}
 	
 	/* Default exit sequence for state Leave the arena */
@@ -2254,6 +2448,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void exitSequence_main_region_DetectionsOn() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_DetectionsOn();
 	}
 	
 	/* Default exit sequence for state Init */
@@ -2266,6 +2462,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void exitSequence_main_region_TellAnswer() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_TellAnswer();
 	}
 	
 	/* Default exit sequence for state DoAction */
@@ -2282,18 +2480,24 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom();
 	}
 	
 	/* Default exit sequence for state notFound */
 	private void exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound();
 	}
 	
 	/* Default exit sequence for state arrived */
 	private void exitSequence_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived();
 	}
 	
 	/* Default exit sequence for state backToTheOperator */
@@ -2323,6 +2527,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void exitSequence_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound();
 	}
 	
 	/* Default exit sequence for state arrived */
@@ -2341,6 +2547,8 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void exitSequence_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht();
 	}
 	
 	/* Default exit sequence for state stattdessen goto */
@@ -2534,12 +2742,16 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void exitSequence_main_region_TellIncomprehensible() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_TellIncomprehensible();
 	}
 	
 	/* Default exit sequence for state NextQuestion */
 	private void exitSequence_main_region_NextQuestion() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_NextQuestion();
 	}
 	
 	/* Default exit sequence for state Copy_1_STT */
@@ -2559,12 +2771,16 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void exitSequence_main_region_Copy_1_STT_STT_TellSpokenText() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Copy_1_STT_STT_TellSpokenText();
 	}
 	
 	/* Default exit sequence for state StropSTT */
 	private void exitSequence_main_region_Copy_1_STT_STT_StropSTT() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Copy_1_STT_STT_StropSTT();
 	}
 	
 	/* Default exit sequence for state waitForEvent */
@@ -3117,6 +3333,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_Hello() {
 		if (check_main_region_Hello_tr0_tr0()) {
 			effect_main_region_Hello_tr0();
+		} else {
+			if (check_main_region_Hello_tr1_tr1()) {
+				effect_main_region_Hello_tr1();
+			}
 		}
 	}
 	
@@ -3135,6 +3355,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_DetectionsOn() {
 		if (check_main_region_DetectionsOn_tr0_tr0()) {
 			effect_main_region_DetectionsOn_tr0();
+		} else {
+			if (check_main_region_DetectionsOn_tr1_tr1()) {
+				effect_main_region_DetectionsOn_tr1();
+			}
 		}
 	}
 	
@@ -3149,6 +3373,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_TellAnswer() {
 		if (check_main_region_TellAnswer_tr0_tr0()) {
 			effect_main_region_TellAnswer_tr0();
+		} else {
+			if (check_main_region_TellAnswer_tr1_tr1()) {
+				effect_main_region_TellAnswer_tr1();
+			}
 		}
 	}
 	
@@ -3156,6 +3384,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom() {
 		if (check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_tr0_tr0()) {
 			effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_tr0();
+		} else {
+			if (check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_tr1_tr1()) {
+				effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_livingroom_tr1();
+			}
 		}
 	}
 	
@@ -3163,6 +3395,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound() {
 		if (check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr0_tr0()) {
 			effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr0();
+		} else {
+			if (check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr1_tr1()) {
+				effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_notFound_tr1();
+			}
 		}
 	}
 	
@@ -3170,6 +3406,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived() {
 		if (check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr0_tr0()) {
 			effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr0();
+		} else {
+			if (check_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr1_tr1()) {
+				effect_main_region_DoAction_Instructions_GoTo_goto_GeneralP_arrived_tr1();
+			}
 		}
 	}
 	
@@ -3196,6 +3436,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound() {
 		if (check_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound_tr0_tr0()) {
 			effect_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound_tr0();
+		} else {
+			if (check_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound_tr1_tr1()) {
+				effect_main_region_DoAction_Instructions_bring_bring_GeneralP_notFound_tr1();
+			}
 		}
 	}
 	
@@ -3217,6 +3461,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht() {
 		if (check_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht_tr0_tr0()) {
 			effect_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht_tr0();
+		} else {
+			if (check_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht_tr1_tr1()) {
+				effect_main_region_DoAction_Instructions_bring_bring_GeneralP_bringGehtnicht_tr1();
+			}
 		}
 	}
 	
@@ -3463,6 +3711,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_TellIncomprehensible() {
 		if (check_main_region_TellIncomprehensible_tr0_tr0()) {
 			effect_main_region_TellIncomprehensible_tr0();
+		} else {
+			if (check_main_region_TellIncomprehensible_tr1_tr1()) {
+				effect_main_region_TellIncomprehensible_tr1();
+			}
 		}
 	}
 	
@@ -3470,6 +3722,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_NextQuestion() {
 		if (check_main_region_NextQuestion_tr0_tr0()) {
 			effect_main_region_NextQuestion_tr0();
+		} else {
+			if (check_main_region_NextQuestion_tr1_tr1()) {
+				effect_main_region_NextQuestion_tr1();
+			}
 		}
 	}
 	
@@ -3490,6 +3746,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			} else {
 				if (check_main_region_Copy_1_STT_STT_TellSpokenText_tr2_tr2()) {
 					effect_main_region_Copy_1_STT_STT_TellSpokenText_tr2();
+				} else {
+					if (check_main_region_Copy_1_STT_STT_TellSpokenText_tr3_tr3()) {
+						effect_main_region_Copy_1_STT_STT_TellSpokenText_tr3();
+					}
 				}
 			}
 		}
@@ -3499,6 +3759,10 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void react_main_region_Copy_1_STT_STT_StropSTT() {
 		if (check_main_region_Copy_1_STT_STT_StropSTT_tr0_tr0()) {
 			effect_main_region_Copy_1_STT_STT_StropSTT_tr0();
+		} else {
+			if (check_main_region_Copy_1_STT_STT_StropSTT_tr1_tr1()) {
+				effect_main_region_Copy_1_STT_STT_StropSTT_tr1();
+			}
 		}
 	}
 	

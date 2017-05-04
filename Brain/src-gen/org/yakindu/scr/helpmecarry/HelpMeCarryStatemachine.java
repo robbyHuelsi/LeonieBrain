@@ -219,16 +219,19 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_StartTracking,
 		main_region_StartTracking_WaitingForStopCommand_STToff,
 		main_region_StartTracking_WaitingForStopCommand_STTstart,
-		main_region_Wave,
-		main_region_Wave_WavingToFindPerson_UTurn1,
-		main_region_Wave_WavingToFindPerson_WaveFound,
-		main_region_Wave_WavingToFindPerson_Turn,
-		main_region_Wave_WavingToFindPerson_DetectionOn,
-		main_region_Wave_WavingToFindPerson_PersonFound,
-		main_region_Wave_WavingToFindPerson_ILostYou,
-		main_region_Wave_WavingToFindPerson_UTurn2,
-		main_region_Wave_WavingToFindPerson_Detection,
-		main_region_Wave_WavingToFindPerson_NotFound,
+		main_region_StartTracking_WaitingForStopCommand_TextReceived,
+		main_region_StartTracking_WaitingForStopCommand_TTS,
+		main_region_Lost,
+		main_region_Lost_WavingToFindPerson_UTurn1,
+		main_region_Lost_WavingToFindPerson_WaveFound,
+		main_region_Lost_WavingToFindPerson_Turn,
+		main_region_Lost_WavingToFindPerson_DetectionOn,
+		main_region_Lost_WavingToFindPerson_PersonFound,
+		main_region_Lost_WavingToFindPerson_ILostYou,
+		main_region_Lost_WavingToFindPerson_UTurn2,
+		main_region_Lost_WavingToFindPerson_Detection,
+		main_region_Lost_WavingToFindPerson_NotFound,
+		main_region_Lost_WavingToFindPerson_ILostU,
 		main_region_HowCanIHelpYou,
 		main_region_HowCanIHelpYou_main_region_StateA,
 		main_region_HowCanIHelpYou_main_region_StartSTT,
@@ -236,6 +239,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_HowCanIHelpYou_main_region_Repeat,
 		main_region_HowCanIHelpYou_main_region_TellIncomprehensible,
 		main_region_HowCanIHelpYou_main_region_StopSTT,
+		main_region_HowCanIHelpYou_main_region_Stop2,
 		main_region_ArrivedWaypoint,
 		main_region__final_,
 		main_region_StartSTT,
@@ -243,7 +247,9 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_FollowYes,
 		main_region_FollowNo,
 		main_region_GoTo,
-		main_region_GoTo_goto_livingroom,
+		main_region_GoTo_goto_goto,
+		main_region_GoTo_goto_goto_fallback,
+		main_region_GoTo_goto_gotoWP,
 		main_region_LocationNotFound,
 		main_region_DetectionOn,
 		main_region_LockingForNextOperator,
@@ -272,7 +278,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[14];
+	private final boolean[] timeEvents = new boolean[25];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -281,6 +287,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	protected long getCounter() {
 		return counter;
+	}
+	
+	private long counterTwo;
+	
+	protected void setCounterTwo(long value) {
+		counterTwo = value;
+	}
+	
+	protected long getCounterTwo() {
+		return counterTwo;
 	}
 	
 	private String nameBuffer;
@@ -337,6 +353,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		sCIBGF.setRandNum(0);
 		
 		setCounter(0);
+		
+		setCounterTwo(0);
 		
 		setNameBuffer("");
 		
@@ -411,35 +429,41 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_Found;
 		case main_region_StartTracking:
 			return stateVector[0].ordinal() >= State.
-					main_region_StartTracking.ordinal()&& stateVector[0].ordinal() <= State.main_region_StartTracking_WaitingForStopCommand_STTstart.ordinal();
+					main_region_StartTracking.ordinal()&& stateVector[0].ordinal() <= State.main_region_StartTracking_WaitingForStopCommand_TTS.ordinal();
 		case main_region_StartTracking_WaitingForStopCommand_STToff:
 			return stateVector[0] == State.main_region_StartTracking_WaitingForStopCommand_STToff;
 		case main_region_StartTracking_WaitingForStopCommand_STTstart:
 			return stateVector[0] == State.main_region_StartTracking_WaitingForStopCommand_STTstart;
-		case main_region_Wave:
+		case main_region_StartTracking_WaitingForStopCommand_TextReceived:
+			return stateVector[0] == State.main_region_StartTracking_WaitingForStopCommand_TextReceived;
+		case main_region_StartTracking_WaitingForStopCommand_TTS:
+			return stateVector[0] == State.main_region_StartTracking_WaitingForStopCommand_TTS;
+		case main_region_Lost:
 			return stateVector[0].ordinal() >= State.
-					main_region_Wave.ordinal()&& stateVector[0].ordinal() <= State.main_region_Wave_WavingToFindPerson_NotFound.ordinal();
-		case main_region_Wave_WavingToFindPerson_UTurn1:
-			return stateVector[0] == State.main_region_Wave_WavingToFindPerson_UTurn1;
-		case main_region_Wave_WavingToFindPerson_WaveFound:
-			return stateVector[0] == State.main_region_Wave_WavingToFindPerson_WaveFound;
-		case main_region_Wave_WavingToFindPerson_Turn:
-			return stateVector[0] == State.main_region_Wave_WavingToFindPerson_Turn;
-		case main_region_Wave_WavingToFindPerson_DetectionOn:
-			return stateVector[0] == State.main_region_Wave_WavingToFindPerson_DetectionOn;
-		case main_region_Wave_WavingToFindPerson_PersonFound:
-			return stateVector[0] == State.main_region_Wave_WavingToFindPerson_PersonFound;
-		case main_region_Wave_WavingToFindPerson_ILostYou:
-			return stateVector[0] == State.main_region_Wave_WavingToFindPerson_ILostYou;
-		case main_region_Wave_WavingToFindPerson_UTurn2:
-			return stateVector[0] == State.main_region_Wave_WavingToFindPerson_UTurn2;
-		case main_region_Wave_WavingToFindPerson_Detection:
-			return stateVector[0] == State.main_region_Wave_WavingToFindPerson_Detection;
-		case main_region_Wave_WavingToFindPerson_NotFound:
-			return stateVector[0] == State.main_region_Wave_WavingToFindPerson_NotFound;
+					main_region_Lost.ordinal()&& stateVector[0].ordinal() <= State.main_region_Lost_WavingToFindPerson_ILostU.ordinal();
+		case main_region_Lost_WavingToFindPerson_UTurn1:
+			return stateVector[0] == State.main_region_Lost_WavingToFindPerson_UTurn1;
+		case main_region_Lost_WavingToFindPerson_WaveFound:
+			return stateVector[0] == State.main_region_Lost_WavingToFindPerson_WaveFound;
+		case main_region_Lost_WavingToFindPerson_Turn:
+			return stateVector[0] == State.main_region_Lost_WavingToFindPerson_Turn;
+		case main_region_Lost_WavingToFindPerson_DetectionOn:
+			return stateVector[0] == State.main_region_Lost_WavingToFindPerson_DetectionOn;
+		case main_region_Lost_WavingToFindPerson_PersonFound:
+			return stateVector[0] == State.main_region_Lost_WavingToFindPerson_PersonFound;
+		case main_region_Lost_WavingToFindPerson_ILostYou:
+			return stateVector[0] == State.main_region_Lost_WavingToFindPerson_ILostYou;
+		case main_region_Lost_WavingToFindPerson_UTurn2:
+			return stateVector[0] == State.main_region_Lost_WavingToFindPerson_UTurn2;
+		case main_region_Lost_WavingToFindPerson_Detection:
+			return stateVector[0] == State.main_region_Lost_WavingToFindPerson_Detection;
+		case main_region_Lost_WavingToFindPerson_NotFound:
+			return stateVector[0] == State.main_region_Lost_WavingToFindPerson_NotFound;
+		case main_region_Lost_WavingToFindPerson_ILostU:
+			return stateVector[0] == State.main_region_Lost_WavingToFindPerson_ILostU;
 		case main_region_HowCanIHelpYou:
 			return stateVector[0].ordinal() >= State.
-					main_region_HowCanIHelpYou.ordinal()&& stateVector[0].ordinal() <= State.main_region_HowCanIHelpYou_main_region_StopSTT.ordinal();
+					main_region_HowCanIHelpYou.ordinal()&& stateVector[0].ordinal() <= State.main_region_HowCanIHelpYou_main_region_Stop2.ordinal();
 		case main_region_HowCanIHelpYou_main_region_StateA:
 			return stateVector[0] == State.main_region_HowCanIHelpYou_main_region_StateA;
 		case main_region_HowCanIHelpYou_main_region_StartSTT:
@@ -452,6 +476,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_HowCanIHelpYou_main_region_TellIncomprehensible;
 		case main_region_HowCanIHelpYou_main_region_StopSTT:
 			return stateVector[0] == State.main_region_HowCanIHelpYou_main_region_StopSTT;
+		case main_region_HowCanIHelpYou_main_region_Stop2:
+			return stateVector[0] == State.main_region_HowCanIHelpYou_main_region_Stop2;
 		case main_region_ArrivedWaypoint:
 			return stateVector[0] == State.main_region_ArrivedWaypoint;
 		case main_region__final_:
@@ -466,9 +492,13 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_FollowNo;
 		case main_region_GoTo:
 			return stateVector[0].ordinal() >= State.
-					main_region_GoTo.ordinal()&& stateVector[0].ordinal() <= State.main_region_GoTo_goto_livingroom.ordinal();
-		case main_region_GoTo_goto_livingroom:
-			return stateVector[0] == State.main_region_GoTo_goto_livingroom;
+					main_region_GoTo.ordinal()&& stateVector[0].ordinal() <= State.main_region_GoTo_goto_gotoWP.ordinal();
+		case main_region_GoTo_goto_goto:
+			return stateVector[0] == State.main_region_GoTo_goto_goto;
+		case main_region_GoTo_goto_goto_fallback:
+			return stateVector[0] == State.main_region_GoTo_goto_goto_fallback;
+		case main_region_GoTo_goto_gotoWP:
+			return stateVector[0] == State.main_region_GoTo_goto_gotoWP;
 		case main_region_LocationNotFound:
 			return stateVector[0] == State.main_region_LocationNotFound;
 		case main_region_DetectionOn:
@@ -585,6 +615,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_Found_tr1_tr1() {
+		return timeEvents[1];
+	}
+	
 	private boolean check_main_region_StartTracking_tr0_tr0() {
 		return sCIFollowMe.trackingPersonLost;
 	}
@@ -594,75 +628,127 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_StartTracking_WaitingForStopCommand_STToff_tr1_tr1() {
-		return timeEvents[1];
+		return timeEvents[2];
+	}
+	
+	private boolean check_main_region_StartTracking_WaitingForStopCommand_STToff_tr2_tr2() {
+		return sCISTT.spokenTextReceived;
 	}
 	
 	private boolean check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr0_tr0() {
-		return timeEvents[2];
+		return timeEvents[3];
 	}
 	
 	private boolean check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr1_tr1() {
 		return sCISTT.actionReceived;
 	}
 	
-	private boolean check_main_region_Wave_WavingToFindPerson_UTurn1_tr0_tr0() {
-		return timeEvents[3];
+	private boolean check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr2_tr2() {
+		return sCISTT.spokenTextReceived;
 	}
 	
-	private boolean check_main_region_Wave_WavingToFindPerson_WaveFound_tr0_tr0() {
-		return sCIHBrain.tTSReady;
+	private boolean check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr0_tr0() {
+		return sCISTT.actionReceived;
 	}
 	
-	private boolean check_main_region_Wave_WavingToFindPerson_Turn_tr0_tr0() {
-		return sCIKinect2.wavingDetected;
-	}
-	
-	private boolean check_main_region_Wave_WavingToFindPerson_Turn_tr1_tr1() {
+	private boolean check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr1_tr1() {
 		return timeEvents[4];
 	}
 	
-	private boolean check_main_region_Wave_WavingToFindPerson_DetectionOn_tr0_tr0() {
+	private boolean check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr2_tr2() {
+		return sCIBGF.operationCallback.containsString(sCISTT.operationCallback.getSpokenText(), "stop")==true;
+	}
+	
+	private boolean check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr3_tr3() {
+		return sCIBGF.operationCallback.containsString(sCISTT.operationCallback.getSpokenText(), "car")==true;
+	}
+	
+	private boolean check_main_region_StartTracking_WaitingForStopCommand_TTS_tr0_tr0() {
 		return true;
 	}
 	
-	private boolean check_main_region_Wave_WavingToFindPerson_PersonFound_tr0_tr0() {
-		return true;
-	}
-	
-	private boolean check_main_region_Wave_WavingToFindPerson_ILostYou_tr0_tr0() {
-		return sCIHBrain.tTSReady;
-	}
-	
-	private boolean check_main_region_Wave_WavingToFindPerson_UTurn2_tr0_tr0() {
+	private boolean check_main_region_Lost_WavingToFindPerson_UTurn1_tr0_tr0() {
 		return timeEvents[5];
 	}
 	
-	private boolean check_main_region_Wave_WavingToFindPerson_Detection_tr0_tr0() {
+	private boolean check_main_region_Lost_WavingToFindPerson_WaveFound_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_Lost_WavingToFindPerson_Turn_tr0_tr0() {
+		return sCIKinect2.wavingDetected;
+	}
+	
+	private boolean check_main_region_Lost_WavingToFindPerson_Turn_tr1_tr1() {
 		return timeEvents[6];
 	}
 	
-	private boolean check_main_region_Wave_WavingToFindPerson_Detection_tr1_tr1() {
+	private boolean check_main_region_Lost_WavingToFindPerson_DetectionOn_tr0_tr0() {
+		return timeEvents[7];
+	}
+	
+	private boolean check_main_region_Lost_WavingToFindPerson_PersonFound_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_Lost_WavingToFindPerson_ILostYou_tr0_tr0() {
+		return 1==0;
+	}
+	
+	private boolean check_main_region_Lost_WavingToFindPerson_ILostYou_tr1_tr1() {
+		return true;
+	}
+	
+	private boolean check_main_region_Lost_WavingToFindPerson_UTurn2_tr0_tr0() {
+		return timeEvents[8];
+	}
+	
+	private boolean check_main_region_Lost_WavingToFindPerson_Detection_tr0_tr0() {
+		return timeEvents[9];
+	}
+	
+	private boolean check_main_region_Lost_WavingToFindPerson_Detection_tr1_tr1() {
 		return sCIFollowMe.detectionPersonFound;
 	}
 	
-	private boolean check_main_region_Wave_WavingToFindPerson_Detection_tr2_tr2() {
+	private boolean check_main_region_Lost_WavingToFindPerson_Detection_tr2_tr2() {
 		return getCounter()>10;
 	}
 	
-	private boolean check_main_region_Wave_WavingToFindPerson_NotFound_tr0_tr0() {
+	private boolean check_main_region_Lost_WavingToFindPerson_NotFound_tr0_tr0() {
 		return true;
+	}
+	
+	private boolean check_main_region_Lost_WavingToFindPerson_ILostU_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_Lost_WavingToFindPerson_ILostU_tr1_tr1() {
+		return timeEvents[10];
 	}
 	
 	private boolean check_main_region_HowCanIHelpYou_main_region_StateA_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_HowCanIHelpYou_main_region_StateA_tr1_tr1() {
+		return timeEvents[11];
+	}
+	
 	private boolean check_main_region_HowCanIHelpYou_main_region_StartSTT_tr0_tr0() {
-		return timeEvents[7];
+		return timeEvents[12];
+	}
+	
+	private boolean check_main_region_HowCanIHelpYou_main_region_StartSTT_tr1_tr1() {
+		return getCounter()>3;
 	}
 	
 	private boolean check_main_region_HowCanIHelpYou_main_region_TellAnswer_tr0_tr0() {
 		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_HowCanIHelpYou_main_region_TellAnswer_tr1_tr1() {
+		return timeEvents[13];
 	}
 	
 	private boolean check_main_region_HowCanIHelpYou_main_region_Repeat_tr0_tr0() {
@@ -685,12 +771,24 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCISTT.incomprehensible;
 	}
 	
+	private boolean check_main_region_HowCanIHelpYou_main_region_StopSTT_tr3_tr3() {
+		return timeEvents[14];
+	}
+	
+	private boolean check_main_region_HowCanIHelpYou_main_region_Stop2_tr0_tr0() {
+		return true;
+	}
+	
 	private boolean check_main_region_ArrivedWaypoint_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_ArrivedWaypoint_tr1_tr1() {
+		return timeEvents[15];
+	}
+	
 	private boolean check_main_region_StartSTT_tr0_tr0() {
-		return timeEvents[8];
+		return timeEvents[16];
 	}
 	
 	private boolean check_main_region_StopSTT_tr0_tr0() {
@@ -701,6 +799,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCISTT.incomprehensible;
 	}
 	
+	private boolean check_main_region_StopSTT_tr2_tr2() {
+		return timeEvents[17];
+	}
+	
 	private boolean check_main_region_FollowYes_tr0_tr0() {
 		return true;
 	}
@@ -709,7 +811,19 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_GoTo_tr0_tr0() {
+	private boolean check_main_region_FollowNo_tr1_tr1() {
+		return timeEvents[18];
+	}
+	
+	private boolean check_main_region_GoTo_goto_goto_tr0_tr0() {
+		return sCIMira.arrivedWP;
+	}
+	
+	private boolean check_main_region_GoTo_goto_goto_fallback_tr0_tr0() {
+		return sCIMira.arrivedWP;
+	}
+	
+	private boolean check_main_region_GoTo_goto_gotoWP_tr0_tr0() {
 		return sCIMira.arrivedWP;
 	}
 	
@@ -726,7 +840,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_LockingForNextOperator_tr1_tr1() {
-		return timeEvents[9];
+		return timeEvents[19];
 	}
 	
 	private boolean check_main_region_LockingForNextOperator_tr2_tr2() {
@@ -741,6 +855,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_PersonFound_tr1_tr1() {
+		return timeEvents[20];
+	}
+	
 	private boolean check_main_region_GuideMe_tr0_tr0() {
 		return sCIMira.arrivedWP;
 	}
@@ -750,7 +868,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_wait_tr0_tr0() {
-		return timeEvents[10];
+		return timeEvents[21];
 	}
 	
 	private boolean check_main_region_arrived_tr0_tr0() {
@@ -758,7 +876,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_DetectionOff_tr0_tr0() {
-		return timeEvents[11];
+		return timeEvents[22];
 	}
 	
 	private boolean check_main_region_TrackingOffAndSavePoint_tr0_tr0() {
@@ -790,7 +908,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[12];
+		return timeEvents[23];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -802,7 +920,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[13];
+		return timeEvents[24];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -825,6 +943,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return true;
 	}
 	
+	private boolean check_main_region_HowCanIHelpYou_main_region__choice_1_tr1_tr1() {
+		return getCounter()>3;
+	}
+	
+	private boolean check_main_region_HowCanIHelpYou_main_region__choice_1_tr0_tr0() {
+		return true;
+	}
+	
 	private boolean check_main_region__choice_0_tr0_tr0() {
 		return (sCISTT.operationCallback.getSpokenText()== null?"yes" ==null :sCISTT.operationCallback.getSpokenText().equals("yes"));
 	}
@@ -838,6 +964,26 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_GoTo_goto__choice_0_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region_GoTo_goto__choice_1_tr0_tr0() {
+		return (sCISTT.operationCallback.getObject()== null?"" ==null :sCISTT.operationCallback.getObject().equals(""));
+	}
+	
+	private boolean check_main_region_GoTo_goto__choice_1_tr1_tr1() {
+		return true;
+	}
+	
+	private boolean check_main_region__choice_1_tr0() {
+		return true;
+	}
+	
+	private boolean check_main_region__choice_2_tr0_tr0() {
+		return getCounterTwo()<3;
+	}
+	
+	private boolean check_main_region__choice_2_tr1_tr1() {
 		return true;
 	}
 	
@@ -871,9 +1017,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_StartSTT_default();
 	}
 	
+	private void effect_main_region_Found_tr1() {
+		exitSequence_main_region_Found();
+		enterSequence_main_region_StopSTT_default();
+	}
+	
 	private void effect_main_region_StartTracking_tr0() {
 		exitSequence_main_region_StartTracking();
-		enterSequence_main_region_Wave_default();
+		enterSequence_main_region_Lost_default();
 	}
 	
 	private void effect_main_region_StartTracking_tr1() {
@@ -891,6 +1042,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_StartTracking_WaitingForStopCommand_STTstart_default();
 	}
 	
+	private void effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr2() {
+		exitSequence_main_region_StartTracking_WaitingForStopCommand_STToff();
+		enterSequence_main_region_StartTracking_WaitingForStopCommand_TextReceived_default();
+	}
+	
 	private void effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr0() {
 		exitSequence_main_region_StartTracking_WaitingForStopCommand_STTstart();
 		enterSequence_main_region_StartTracking_WaitingForStopCommand_STToff_default();
@@ -901,69 +1057,114 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		react_main_region_StartTracking_WaitingForStopCommand__choice_0();
 	}
 	
-	private void effect_main_region_Wave_tr0() {
-		exitSequence_main_region_Wave();
+	private void effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr2() {
+		exitSequence_main_region_StartTracking_WaitingForStopCommand_STTstart();
+		enterSequence_main_region_StartTracking_WaitingForStopCommand_TextReceived_default();
+	}
+	
+	private void effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr0() {
+		exitSequence_main_region_StartTracking_WaitingForStopCommand_TextReceived();
+		react_main_region_StartTracking_WaitingForStopCommand__choice_0();
+	}
+	
+	private void effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr1() {
+		exitSequence_main_region_StartTracking_WaitingForStopCommand_TextReceived();
+		react_main_region_StartTracking_WaitingForStopCommand__choice_0();
+	}
+	
+	private void effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr2() {
+		exitSequence_main_region_StartTracking_WaitingForStopCommand_TextReceived();
+		enterSequence_main_region_StartTracking_WaitingForStopCommand_TTS_default();
+	}
+	
+	private void effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr3() {
+		exitSequence_main_region_StartTracking_WaitingForStopCommand_TextReceived();
+		enterSequence_main_region_StartTracking_WaitingForStopCommand_TTS_default();
+	}
+	
+	private void effect_main_region_StartTracking_WaitingForStopCommand_TTS_tr0() {
+		exitSequence_main_region_StartTracking_WaitingForStopCommand_TTS();
+		react_main_region_StartTracking_WaitingForStopCommand_exit_arrived();
+	}
+	
+	private void effect_main_region_Lost_tr0() {
+		exitSequence_main_region_Lost();
 		enterSequence_main_region_StartTracking_default();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_UTurn1_tr0() {
-		exitSequence_main_region_Wave_WavingToFindPerson_UTurn1();
-		enterSequence_main_region_Wave_WavingToFindPerson_Turn_default();
+	private void effect_main_region_Lost_WavingToFindPerson_UTurn1_tr0() {
+		exitSequence_main_region_Lost_WavingToFindPerson_UTurn1();
+		enterSequence_main_region_Lost_WavingToFindPerson_Turn_default();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_WaveFound_tr0() {
-		exitSequence_main_region_Wave_WavingToFindPerson_WaveFound();
-		enterSequence_main_region_Wave_WavingToFindPerson_UTurn2_default();
+	private void effect_main_region_Lost_WavingToFindPerson_WaveFound_tr0() {
+		exitSequence_main_region_Lost_WavingToFindPerson_WaveFound();
+		enterSequence_main_region_Lost_WavingToFindPerson_UTurn2_default();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_Turn_tr0() {
-		exitSequence_main_region_Wave_WavingToFindPerson_Turn();
-		enterSequence_main_region_Wave_WavingToFindPerson_WaveFound_default();
+	private void effect_main_region_Lost_WavingToFindPerson_Turn_tr0() {
+		exitSequence_main_region_Lost_WavingToFindPerson_Turn();
+		enterSequence_main_region_Lost_WavingToFindPerson_WaveFound_default();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_Turn_tr1() {
-		exitSequence_main_region_Wave_WavingToFindPerson_Turn();
-		enterSequence_main_region_Wave_WavingToFindPerson_Turn_default();
+	private void effect_main_region_Lost_WavingToFindPerson_Turn_tr1() {
+		exitSequence_main_region_Lost_WavingToFindPerson_Turn();
+		enterSequence_main_region_Lost_WavingToFindPerson_Turn_default();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_DetectionOn_tr0() {
-		exitSequence_main_region_Wave_WavingToFindPerson_DetectionOn();
-		enterSequence_main_region_Wave_WavingToFindPerson_Detection_default();
+	private void effect_main_region_Lost_WavingToFindPerson_DetectionOn_tr0() {
+		exitSequence_main_region_Lost_WavingToFindPerson_DetectionOn();
+		enterSequence_main_region_Lost_WavingToFindPerson_Detection_default();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_PersonFound_tr0() {
-		exitSequence_main_region_Wave_WavingToFindPerson_PersonFound();
-		react_main_region_Wave_WavingToFindPerson_exit_done();
+	private void effect_main_region_Lost_WavingToFindPerson_PersonFound_tr0() {
+		exitSequence_main_region_Lost_WavingToFindPerson_PersonFound();
+		react_main_region_Lost_WavingToFindPerson_exit_done();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_ILostYou_tr0() {
-		exitSequence_main_region_Wave_WavingToFindPerson_ILostYou();
-		enterSequence_main_region_Wave_WavingToFindPerson_UTurn1_default();
+	private void effect_main_region_Lost_WavingToFindPerson_ILostYou_tr0() {
+		exitSequence_main_region_Lost_WavingToFindPerson_ILostYou();
+		enterSequence_main_region_Lost_WavingToFindPerson_UTurn1_default();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_UTurn2_tr0() {
-		exitSequence_main_region_Wave_WavingToFindPerson_UTurn2();
-		enterSequence_main_region_Wave_WavingToFindPerson_DetectionOn_default();
+	private void effect_main_region_Lost_WavingToFindPerson_ILostYou_tr1() {
+		exitSequence_main_region_Lost_WavingToFindPerson_ILostYou();
+		enterSequence_main_region_Lost_WavingToFindPerson_ILostU_default();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_Detection_tr0() {
-		exitSequence_main_region_Wave_WavingToFindPerson_Detection();
-		enterSequence_main_region_Wave_WavingToFindPerson_Detection_default();
+	private void effect_main_region_Lost_WavingToFindPerson_UTurn2_tr0() {
+		exitSequence_main_region_Lost_WavingToFindPerson_UTurn2();
+		enterSequence_main_region_Lost_WavingToFindPerson_DetectionOn_default();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_Detection_tr1() {
-		exitSequence_main_region_Wave_WavingToFindPerson_Detection();
-		enterSequence_main_region_Wave_WavingToFindPerson_PersonFound_default();
+	private void effect_main_region_Lost_WavingToFindPerson_Detection_tr0() {
+		exitSequence_main_region_Lost_WavingToFindPerson_Detection();
+		enterSequence_main_region_Lost_WavingToFindPerson_Detection_default();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_Detection_tr2() {
-		exitSequence_main_region_Wave_WavingToFindPerson_Detection();
-		enterSequence_main_region_Wave_WavingToFindPerson_NotFound_default();
+	private void effect_main_region_Lost_WavingToFindPerson_Detection_tr1() {
+		exitSequence_main_region_Lost_WavingToFindPerson_Detection();
+		enterSequence_main_region_Lost_WavingToFindPerson_PersonFound_default();
 	}
 	
-	private void effect_main_region_Wave_WavingToFindPerson_NotFound_tr0() {
-		exitSequence_main_region_Wave_WavingToFindPerson_NotFound();
-		enterSequence_main_region_Wave_WavingToFindPerson_Detection_default();
+	private void effect_main_region_Lost_WavingToFindPerson_Detection_tr2() {
+		exitSequence_main_region_Lost_WavingToFindPerson_Detection();
+		enterSequence_main_region_Lost_WavingToFindPerson_NotFound_default();
+	}
+	
+	private void effect_main_region_Lost_WavingToFindPerson_NotFound_tr0() {
+		exitSequence_main_region_Lost_WavingToFindPerson_NotFound();
+		enterSequence_main_region_Lost_WavingToFindPerson_Detection_default();
+	}
+	
+	private void effect_main_region_Lost_WavingToFindPerson_ILostU_tr0() {
+		exitSequence_main_region_Lost_WavingToFindPerson_ILostU();
+		enterSequence_main_region_Lost_WavingToFindPerson_DetectionOn_default();
+	}
+	
+	private void effect_main_region_Lost_WavingToFindPerson_ILostU_tr1() {
+		exitSequence_main_region_Lost_WavingToFindPerson_ILostU();
+		enterSequence_main_region_Lost_WavingToFindPerson_DetectionOn_default();
 	}
 	
 	private void effect_main_region_HowCanIHelpYou_tr0() {
@@ -976,14 +1177,29 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_HowCanIHelpYou_main_region_StartSTT_default();
 	}
 	
+	private void effect_main_region_HowCanIHelpYou_main_region_StateA_tr1() {
+		exitSequence_main_region_HowCanIHelpYou_main_region_StateA();
+		enterSequence_main_region_HowCanIHelpYou_main_region_StartSTT_default();
+	}
+	
 	private void effect_main_region_HowCanIHelpYou_main_region_StartSTT_tr0() {
 		exitSequence_main_region_HowCanIHelpYou_main_region_StartSTT();
 		enterSequence_main_region_HowCanIHelpYou_main_region_StopSTT_default();
 	}
 	
+	private void effect_main_region_HowCanIHelpYou_main_region_StartSTT_tr1() {
+		exitSequence_main_region_HowCanIHelpYou_main_region_StartSTT();
+		enterSequence_main_region_HowCanIHelpYou_main_region_Stop2_default();
+	}
+	
 	private void effect_main_region_HowCanIHelpYou_main_region_TellAnswer_tr0() {
 		exitSequence_main_region_HowCanIHelpYou_main_region_TellAnswer();
-		enterSequence_main_region_HowCanIHelpYou_main_region_Repeat_default();
+		react_main_region_HowCanIHelpYou_main_region__choice_1();
+	}
+	
+	private void effect_main_region_HowCanIHelpYou_main_region_TellAnswer_tr1() {
+		exitSequence_main_region_HowCanIHelpYou_main_region_TellAnswer();
+		react_main_region_HowCanIHelpYou_main_region__choice_1();
 	}
 	
 	private void effect_main_region_HowCanIHelpYou_main_region_Repeat_tr0() {
@@ -993,7 +1209,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private void effect_main_region_HowCanIHelpYou_main_region_TellIncomprehensible_tr0() {
 		exitSequence_main_region_HowCanIHelpYou_main_region_TellIncomprehensible();
-		enterSequence_main_region_HowCanIHelpYou_main_region_Repeat_default();
+		react_main_region_HowCanIHelpYou_main_region__choice_1();
 	}
 	
 	private void effect_main_region_HowCanIHelpYou_main_region_StopSTT_tr0() {
@@ -1011,7 +1227,22 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_HowCanIHelpYou_main_region_TellIncomprehensible_default();
 	}
 	
+	private void effect_main_region_HowCanIHelpYou_main_region_StopSTT_tr3() {
+		exitSequence_main_region_HowCanIHelpYou_main_region_StopSTT();
+		react_main_region_HowCanIHelpYou_main_region_exit_goto();
+	}
+	
+	private void effect_main_region_HowCanIHelpYou_main_region_Stop2_tr0() {
+		exitSequence_main_region_HowCanIHelpYou_main_region_Stop2();
+		react_main_region_HowCanIHelpYou_main_region_exit_goto();
+	}
+	
 	private void effect_main_region_ArrivedWaypoint_tr0() {
+		exitSequence_main_region_ArrivedWaypoint();
+		enterSequence_main_region_LockingForNextOperator_default();
+	}
+	
+	private void effect_main_region_ArrivedWaypoint_tr1() {
 		exitSequence_main_region_ArrivedWaypoint();
 		enterSequence_main_region_LockingForNextOperator_default();
 	}
@@ -1028,7 +1259,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private void effect_main_region_StopSTT_tr1() {
 		exitSequence_main_region_StopSTT();
-		enterSequence_main_region_FollowNo_default();
+		react_main_region__choice_2();
+	}
+	
+	private void effect_main_region_StopSTT_tr2() {
+		exitSequence_main_region_StopSTT();
+		enterSequence_main_region_FollowYes_default();
 	}
 	
 	private void effect_main_region_FollowYes_tr0() {
@@ -1038,7 +1274,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private void effect_main_region_FollowNo_tr0() {
 		exitSequence_main_region_FollowNo();
-		enterSequence_main_region_Detection_default();
+		react_main_region__choice_1();
+	}
+	
+	private void effect_main_region_FollowNo_tr1() {
+		exitSequence_main_region_FollowNo();
+		react_main_region__choice_1();
 	}
 	
 	private void effect_main_region_GoTo_tr0() {
@@ -1049,6 +1290,21 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void effect_main_region_GoTo_tr1() {
 		exitSequence_main_region_GoTo();
 		enterSequence_main_region_LocationNotFound_default();
+	}
+	
+	private void effect_main_region_GoTo_goto_goto_tr0() {
+		exitSequence_main_region_GoTo_goto_goto();
+		enterSequence_main_region_GoTo_goto_gotoWP_default();
+	}
+	
+	private void effect_main_region_GoTo_goto_goto_fallback_tr0() {
+		exitSequence_main_region_GoTo_goto_goto_fallback();
+		enterSequence_main_region_GoTo_goto_gotoWP_default();
+	}
+	
+	private void effect_main_region_GoTo_goto_gotoWP_tr0() {
+		exitSequence_main_region_GoTo_goto_gotoWP();
+		react_main_region_GoTo_goto_exit_arrived();
 	}
 	
 	private void effect_main_region_LocationNotFound_tr0() {
@@ -1082,6 +1338,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private void effect_main_region_PersonFound_tr0() {
+		exitSequence_main_region_PersonFound();
+		enterSequence_main_region_wait_default();
+	}
+	
+	private void effect_main_region_PersonFound_tr1() {
 		exitSequence_main_region_PersonFound();
 		enterSequence_main_region_wait_default();
 	}
@@ -1194,6 +1455,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private void effect_main_region_HowCanIHelpYou_main_region__choice_0_tr0() {
+		react_main_region_HowCanIHelpYou_main_region__choice_1();
+	}
+	
+	private void effect_main_region_HowCanIHelpYou_main_region__choice_1_tr1() {
+		react_main_region_HowCanIHelpYou_main_region_exit_goto();
+	}
+	
+	private void effect_main_region_HowCanIHelpYou_main_region__choice_1_tr0() {
 		enterSequence_main_region_HowCanIHelpYou_main_region_Repeat_default();
 	}
 	
@@ -1202,15 +1471,35 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private void effect_main_region__choice_0_tr1() {
-		enterSequence_main_region_FollowNo_default();
+		react_main_region__choice_2();
 	}
 	
 	private void effect_main_region_GoTo_goto__choice_0_tr1() {
-		react_main_region_GoTo_goto_exit_notFound();
+		react_main_region_GoTo_goto__choice_1();
 	}
 	
 	private void effect_main_region_GoTo_goto__choice_0_tr0() {
-		enterSequence_main_region_GoTo_goto_livingroom_default();
+		enterSequence_main_region_GoTo_goto_goto_default();
+	}
+	
+	private void effect_main_region_GoTo_goto__choice_1_tr0() {
+		enterSequence_main_region_GoTo_goto_goto_fallback_default();
+	}
+	
+	private void effect_main_region_GoTo_goto__choice_1_tr1() {
+		react_main_region_GoTo_goto_exit_notFound();
+	}
+	
+	private void effect_main_region__choice_1_tr0() {
+		enterSequence_main_region_Detection_default();
+	}
+	
+	private void effect_main_region__choice_2_tr0() {
+		enterSequence_main_region_FollowNo_default();
+	}
+	
+	private void effect_main_region__choice_2_tr1() {
+		enterSequence_main_region_FollowYes_default();
 	}
 	
 	/* Entry action for state 'Detection'. */
@@ -1231,6 +1520,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'Found'. */
 	private void entryAction_main_region_Found() {
+		timer.setTimer(this, 1, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("[:-)] Hello! Should I follow you? [attentive]");
 	}
 	
@@ -1241,7 +1532,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'STToff'. */
 	private void entryAction_main_region_StartTracking_WaitingForStopCommand_STToff() {
-		timer.setTimer(this, 1, 5*1000, false);
+		timer.setTimer(this, 2, 2*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
@@ -1250,30 +1541,40 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'STTstart'. */
 	private void entryAction_main_region_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.setTimer(this, 2, 5*1000, false);
+		timer.setTimer(this, 3, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
 	
+	/* Entry action for state 'TextReceived'. */
+	private void entryAction_main_region_StartTracking_WaitingForStopCommand_TextReceived() {
+		timer.setTimer(this, 4, 3*1000, false);
+	}
+	
+	/* Entry action for state 'TTS'. */
+	private void entryAction_main_region_StartTracking_WaitingForStopCommand_TTS() {
+		sCIHBrain.operationCallback.sendTTS3("I understood: ", sCISTT.operationCallback.getSpokenText(), "So, I think we arrived.");
+	}
+	
 	/* Entry action for state 'UTurn1'. */
-	private void entryAction_main_region_Wave_WavingToFindPerson_UTurn1() {
-		timer.setTimer(this, 3, 1*1000, false);
+	private void entryAction_main_region_Lost_WavingToFindPerson_UTurn1() {
+		timer.setTimer(this, 5, 1*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'WaveFound'. */
-	private void entryAction_main_region_Wave_WavingToFindPerson_WaveFound() {
+	private void entryAction_main_region_Lost_WavingToFindPerson_WaveFound() {
 		sCIHBrain.operationCallback.sendTTS("{Person}Thank you! Please hold on.");
 		
 		sCIKinect2.operationCallback.sendWavingDetectionOnOff(false);
 	}
 	
 	/* Entry action for state 'Turn'. */
-	private void entryAction_main_region_Wave_WavingToFindPerson_Turn() {
-		timer.setTimer(this, 4, 5*1000, false);
+	private void entryAction_main_region_Lost_WavingToFindPerson_Turn() {
+		timer.setTimer(this, 6, 5*1000, false);
 		
 		sCIKinect2.operationCallback.sendWavingDetectionOnOff(true);
 		
@@ -1281,34 +1582,34 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	/* Entry action for state 'DetectionOn'. */
-	private void entryAction_main_region_Wave_WavingToFindPerson_DetectionOn() {
+	private void entryAction_main_region_Lost_WavingToFindPerson_DetectionOn() {
+		timer.setTimer(this, 7, 1*1000, false);
+		
 		sCIFollowMe.operationCallback.sendDetectionOn();
 		
 		setCounter(0);
 	}
 	
 	/* Entry action for state 'PersonFound'. */
-	private void entryAction_main_region_Wave_WavingToFindPerson_PersonFound() {
+	private void entryAction_main_region_Lost_WavingToFindPerson_PersonFound() {
 		sCIHBrain.operationCallback.sendTTS("[:-)] Okay, let's go on!");
 	}
 	
 	/* Entry action for state 'ILostYou'. */
-	private void entryAction_main_region_Wave_WavingToFindPerson_ILostYou() {
+	private void entryAction_main_region_Lost_WavingToFindPerson_ILostYou() {
 		sCIFollowMe.operationCallback.sendTrackingOff();
-		
-		sCIHBrain.operationCallback.sendTTS("[-.-] I lost you!{180;0}");
 	}
 	
 	/* Entry action for state 'UTurn2'. */
-	private void entryAction_main_region_Wave_WavingToFindPerson_UTurn2() {
-		timer.setTimer(this, 5, 3*1000, false);
+	private void entryAction_main_region_Lost_WavingToFindPerson_UTurn2() {
+		timer.setTimer(this, 8, 3*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'Detection'. */
-	private void entryAction_main_region_Wave_WavingToFindPerson_Detection() {
-		timer.setTimer(this, 6, 1*1000, false);
+	private void entryAction_main_region_Lost_WavingToFindPerson_Detection() {
+		timer.setTimer(this, 9, 1*1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
@@ -1316,28 +1617,43 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	/* Entry action for state 'NotFound'. */
-	private void entryAction_main_region_Wave_WavingToFindPerson_NotFound() {
+	private void entryAction_main_region_Lost_WavingToFindPerson_NotFound() {
 		sCIHBrain.operationCallback.sendTTS("[:-(] Please get into my view!");
 		
 		setCounter(0);
 	}
 	
+	/* Entry action for state 'ILostU'. */
+	private void entryAction_main_region_Lost_WavingToFindPerson_ILostU() {
+		timer.setTimer(this, 10, 10*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("[:-(] I lost you! Please come back.");
+	}
+	
 	/* Entry action for state 'StateA'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StateA() {
+		timer.setTimer(this, 11, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("[:-)] Please hang your grocery on me and tell me, where shall I go?");
+		
+		setCounter(0);
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StartSTT() {
-		timer.setTimer(this, 7, 5*1000, false);
+		timer.setTimer(this, 12, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
+		
+		setCounter(getCounter() + 1);
 	}
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_TellAnswer() {
+		timer.setTimer(this, 13, 15*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getAnswer(), ". That is interesting, but I think, I should send the grocery first!");
 	}
 	
@@ -1345,7 +1661,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void entryAction_main_region_HowCanIHelpYou_main_region_Repeat() {
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
-		sCIHBrain.operationCallback.sendTTS("Where shall I go?");
+		sCIHBrain.operationCallback.sendTTS("Where shall I go to?");
 	}
 	
 	/* Entry action for state 'TellIncomprehensible'. */
@@ -1355,6 +1671,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'StopSTT'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StopSTT() {
+		timer.setTimer(this, 14, 10*1000, false);
+		
+		sCISTT.operationCallback.sendSpeechDetectionOff();
+		
+		sCIHBrain.operationCallback.sendTTS("[:-)]");
+	}
+	
+	/* Entry action for state 'Stop2'. */
+	private void entryAction_main_region_HowCanIHelpYou_main_region_Stop2() {
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
@@ -1362,6 +1687,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'ArrivedWaypoint'. */
 	private void entryAction_main_region_ArrivedWaypoint() {
+		timer.setTimer(this, 15, 10*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("I'm here. Is anyone here to help me? [:-)]");
 		
 		sCIFollowMe.operationCallback.sendDetectionOn();
@@ -1371,14 +1698,18 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_StartSTT() {
-		timer.setTimer(this, 8, 3*1000, false);
+		timer.setTimer(this, 16, 3*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionYesNo();
 	}
 	
 	/* Entry action for state 'StopSTT'. */
 	private void entryAction_main_region_StopSTT() {
+		timer.setTimer(this, 17, 5*1000, false);
+		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
+		
+		setCounterTwo(getCounterTwo() + 1);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
@@ -1392,14 +1723,23 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'FollowNo'. */
 	private void entryAction_main_region_FollowNo() {
+		timer.setTimer(this, 18, 7*1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("No? [:-(] Okay. I'm looking for another person.");
 	}
 	
-	/* Entry action for state 'livingroom'. */
-	private void entryAction_main_region_GoTo_goto_livingroom() {
+	/* Entry action for state 'goto'. */
+	private void entryAction_main_region_GoTo_goto_goto() {
 		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObject()));
 		
 		sCIHBrain.operationCallback.sendTTS3("Your wish is my command. I will go to ", sCISTT.operationCallback.getObject(), ". But first, I have to localize myself.");
+	}
+	
+	/* Entry action for state 'goto_fallback'. */
+	private void entryAction_main_region_GoTo_goto_goto_fallback() {
+		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName("kitchen"));
+		
+		sCIHBrain.operationCallback.sendTTS("Okay, I think, I should go to kitchen. But first, I have to localize myself.");
 	}
 	
 	/* Entry action for state 'LocationNotFound'. */
@@ -1412,11 +1752,13 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		sCIFollowMe.operationCallback.sendDetectionOn();
 		
 		setCounter(0);
+		
+		setCounterTwo(0);
 	}
 	
 	/* Entry action for state 'LockingForNextOperator'. */
 	private void entryAction_main_region_LockingForNextOperator() {
-		timer.setTimer(this, 9, 1*1000, false);
+		timer.setTimer(this, 19, 1*1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
@@ -1432,6 +1774,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'PersonFound'. */
 	private void entryAction_main_region_PersonFound() {
+		timer.setTimer(this, 20, 10*1000, false);
+		
 		sCIFollowMe.operationCallback.sendDetectionOff();
 		
 		sCIHBrain.operationCallback.sendTTS("Hello. Can you take the groceries please? And I want you to follow me to the car.");
@@ -1446,7 +1790,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_main_region_wait() {
-		timer.setTimer(this, 10, 10*1000, false);
+		timer.setTimer(this, 21, 10*1000, false);
 	}
 	
 	/* Entry action for state 'arrived'. */
@@ -1456,7 +1800,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'DetectionOff'. */
 	private void entryAction_main_region_DetectionOff() {
-		timer.setTimer(this, 11, 400, false);
+		timer.setTimer(this, 22, 400, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOff();
 	}
@@ -1485,7 +1829,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 12, 3*1000, false);
+		timer.setTimer(this, 23, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1502,7 +1846,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 13, 3*1000, false);
+		timer.setTimer(this, 24, 3*1000, false);
 	}
 	
 	/* Exit action for state 'Detection'. */
@@ -1510,69 +1854,124 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		timer.unsetTimer(this, 0);
 	}
 	
+	/* Exit action for state 'Found'. */
+	private void exitAction_main_region_Found() {
+		timer.unsetTimer(this, 1);
+	}
+	
 	/* Exit action for state 'STToff'. */
 	private void exitAction_main_region_StartTracking_WaitingForStopCommand_STToff() {
-		timer.unsetTimer(this, 1);
+		timer.unsetTimer(this, 2);
 	}
 	
 	/* Exit action for state 'STTstart'. */
 	private void exitAction_main_region_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.unsetTimer(this, 2);
-	}
-	
-	/* Exit action for state 'UTurn1'. */
-	private void exitAction_main_region_Wave_WavingToFindPerson_UTurn1() {
 		timer.unsetTimer(this, 3);
 	}
 	
-	/* Exit action for state 'Turn'. */
-	private void exitAction_main_region_Wave_WavingToFindPerson_Turn() {
+	/* Exit action for state 'TextReceived'. */
+	private void exitAction_main_region_StartTracking_WaitingForStopCommand_TextReceived() {
 		timer.unsetTimer(this, 4);
 	}
 	
-	/* Exit action for state 'UTurn2'. */
-	private void exitAction_main_region_Wave_WavingToFindPerson_UTurn2() {
+	/* Exit action for state 'UTurn1'. */
+	private void exitAction_main_region_Lost_WavingToFindPerson_UTurn1() {
 		timer.unsetTimer(this, 5);
 	}
 	
-	/* Exit action for state 'Detection'. */
-	private void exitAction_main_region_Wave_WavingToFindPerson_Detection() {
+	/* Exit action for state 'Turn'. */
+	private void exitAction_main_region_Lost_WavingToFindPerson_Turn() {
 		timer.unsetTimer(this, 6);
+	}
+	
+	/* Exit action for state 'DetectionOn'. */
+	private void exitAction_main_region_Lost_WavingToFindPerson_DetectionOn() {
+		timer.unsetTimer(this, 7);
+	}
+	
+	/* Exit action for state 'UTurn2'. */
+	private void exitAction_main_region_Lost_WavingToFindPerson_UTurn2() {
+		timer.unsetTimer(this, 8);
+	}
+	
+	/* Exit action for state 'Detection'. */
+	private void exitAction_main_region_Lost_WavingToFindPerson_Detection() {
+		timer.unsetTimer(this, 9);
+	}
+	
+	/* Exit action for state 'ILostU'. */
+	private void exitAction_main_region_Lost_WavingToFindPerson_ILostU() {
+		timer.unsetTimer(this, 10);
+	}
+	
+	/* Exit action for state 'StateA'. */
+	private void exitAction_main_region_HowCanIHelpYou_main_region_StateA() {
+		timer.unsetTimer(this, 11);
 	}
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_region_HowCanIHelpYou_main_region_StartSTT() {
-		timer.unsetTimer(this, 7);
+		timer.unsetTimer(this, 12);
+	}
+	
+	/* Exit action for state 'TellAnswer'. */
+	private void exitAction_main_region_HowCanIHelpYou_main_region_TellAnswer() {
+		timer.unsetTimer(this, 13);
+	}
+	
+	/* Exit action for state 'StopSTT'. */
+	private void exitAction_main_region_HowCanIHelpYou_main_region_StopSTT() {
+		timer.unsetTimer(this, 14);
+	}
+	
+	/* Exit action for state 'ArrivedWaypoint'. */
+	private void exitAction_main_region_ArrivedWaypoint() {
+		timer.unsetTimer(this, 15);
 	}
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_region_StartSTT() {
-		timer.unsetTimer(this, 8);
+		timer.unsetTimer(this, 16);
+	}
+	
+	/* Exit action for state 'StopSTT'. */
+	private void exitAction_main_region_StopSTT() {
+		timer.unsetTimer(this, 17);
+	}
+	
+	/* Exit action for state 'FollowNo'. */
+	private void exitAction_main_region_FollowNo() {
+		timer.unsetTimer(this, 18);
 	}
 	
 	/* Exit action for state 'LockingForNextOperator'. */
 	private void exitAction_main_region_LockingForNextOperator() {
-		timer.unsetTimer(this, 9);
+		timer.unsetTimer(this, 19);
+	}
+	
+	/* Exit action for state 'PersonFound'. */
+	private void exitAction_main_region_PersonFound() {
+		timer.unsetTimer(this, 20);
 	}
 	
 	/* Exit action for state 'wait'. */
 	private void exitAction_main_region_wait() {
-		timer.unsetTimer(this, 10);
+		timer.unsetTimer(this, 21);
 	}
 	
 	/* Exit action for state 'DetectionOff'. */
 	private void exitAction_main_region_DetectionOff() {
-		timer.unsetTimer(this, 11);
+		timer.unsetTimer(this, 22);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 12);
+		timer.unsetTimer(this, 23);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 13);
+		timer.unsetTimer(this, 24);
 	}
 	
 	/* 'default' enter sequence for state Detection */
@@ -1616,72 +2015,93 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.main_region_StartTracking_WaitingForStopCommand_STTstart;
 	}
 	
-	/* 'default' enter sequence for state Wave */
-	private void enterSequence_main_region_Wave_default() {
-		enterSequence_main_region_Wave_WavingToFindPerson_default();
+	/* 'default' enter sequence for state TextReceived */
+	private void enterSequence_main_region_StartTracking_WaitingForStopCommand_TextReceived_default() {
+		entryAction_main_region_StartTracking_WaitingForStopCommand_TextReceived();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_StartTracking_WaitingForStopCommand_TextReceived;
+	}
+	
+	/* 'default' enter sequence for state TTS */
+	private void enterSequence_main_region_StartTracking_WaitingForStopCommand_TTS_default() {
+		entryAction_main_region_StartTracking_WaitingForStopCommand_TTS();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_StartTracking_WaitingForStopCommand_TTS;
+	}
+	
+	/* 'default' enter sequence for state Lost */
+	private void enterSequence_main_region_Lost_default() {
+		enterSequence_main_region_Lost_WavingToFindPerson_default();
 	}
 	
 	/* 'default' enter sequence for state UTurn1 */
-	private void enterSequence_main_region_Wave_WavingToFindPerson_UTurn1_default() {
-		entryAction_main_region_Wave_WavingToFindPerson_UTurn1();
+	private void enterSequence_main_region_Lost_WavingToFindPerson_UTurn1_default() {
+		entryAction_main_region_Lost_WavingToFindPerson_UTurn1();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Wave_WavingToFindPerson_UTurn1;
+		stateVector[0] = State.main_region_Lost_WavingToFindPerson_UTurn1;
 	}
 	
 	/* 'default' enter sequence for state WaveFound */
-	private void enterSequence_main_region_Wave_WavingToFindPerson_WaveFound_default() {
-		entryAction_main_region_Wave_WavingToFindPerson_WaveFound();
+	private void enterSequence_main_region_Lost_WavingToFindPerson_WaveFound_default() {
+		entryAction_main_region_Lost_WavingToFindPerson_WaveFound();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Wave_WavingToFindPerson_WaveFound;
+		stateVector[0] = State.main_region_Lost_WavingToFindPerson_WaveFound;
 	}
 	
 	/* 'default' enter sequence for state Turn */
-	private void enterSequence_main_region_Wave_WavingToFindPerson_Turn_default() {
-		entryAction_main_region_Wave_WavingToFindPerson_Turn();
+	private void enterSequence_main_region_Lost_WavingToFindPerson_Turn_default() {
+		entryAction_main_region_Lost_WavingToFindPerson_Turn();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Wave_WavingToFindPerson_Turn;
+		stateVector[0] = State.main_region_Lost_WavingToFindPerson_Turn;
 	}
 	
 	/* 'default' enter sequence for state DetectionOn */
-	private void enterSequence_main_region_Wave_WavingToFindPerson_DetectionOn_default() {
-		entryAction_main_region_Wave_WavingToFindPerson_DetectionOn();
+	private void enterSequence_main_region_Lost_WavingToFindPerson_DetectionOn_default() {
+		entryAction_main_region_Lost_WavingToFindPerson_DetectionOn();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Wave_WavingToFindPerson_DetectionOn;
+		stateVector[0] = State.main_region_Lost_WavingToFindPerson_DetectionOn;
 	}
 	
 	/* 'default' enter sequence for state PersonFound */
-	private void enterSequence_main_region_Wave_WavingToFindPerson_PersonFound_default() {
-		entryAction_main_region_Wave_WavingToFindPerson_PersonFound();
+	private void enterSequence_main_region_Lost_WavingToFindPerson_PersonFound_default() {
+		entryAction_main_region_Lost_WavingToFindPerson_PersonFound();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Wave_WavingToFindPerson_PersonFound;
+		stateVector[0] = State.main_region_Lost_WavingToFindPerson_PersonFound;
 	}
 	
 	/* 'default' enter sequence for state ILostYou */
-	private void enterSequence_main_region_Wave_WavingToFindPerson_ILostYou_default() {
-		entryAction_main_region_Wave_WavingToFindPerson_ILostYou();
+	private void enterSequence_main_region_Lost_WavingToFindPerson_ILostYou_default() {
+		entryAction_main_region_Lost_WavingToFindPerson_ILostYou();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Wave_WavingToFindPerson_ILostYou;
+		stateVector[0] = State.main_region_Lost_WavingToFindPerson_ILostYou;
 	}
 	
 	/* 'default' enter sequence for state UTurn2 */
-	private void enterSequence_main_region_Wave_WavingToFindPerson_UTurn2_default() {
-		entryAction_main_region_Wave_WavingToFindPerson_UTurn2();
+	private void enterSequence_main_region_Lost_WavingToFindPerson_UTurn2_default() {
+		entryAction_main_region_Lost_WavingToFindPerson_UTurn2();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Wave_WavingToFindPerson_UTurn2;
+		stateVector[0] = State.main_region_Lost_WavingToFindPerson_UTurn2;
 	}
 	
 	/* 'default' enter sequence for state Detection */
-	private void enterSequence_main_region_Wave_WavingToFindPerson_Detection_default() {
-		entryAction_main_region_Wave_WavingToFindPerson_Detection();
+	private void enterSequence_main_region_Lost_WavingToFindPerson_Detection_default() {
+		entryAction_main_region_Lost_WavingToFindPerson_Detection();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Wave_WavingToFindPerson_Detection;
+		stateVector[0] = State.main_region_Lost_WavingToFindPerson_Detection;
 	}
 	
 	/* 'default' enter sequence for state NotFound */
-	private void enterSequence_main_region_Wave_WavingToFindPerson_NotFound_default() {
-		entryAction_main_region_Wave_WavingToFindPerson_NotFound();
+	private void enterSequence_main_region_Lost_WavingToFindPerson_NotFound_default() {
+		entryAction_main_region_Lost_WavingToFindPerson_NotFound();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Wave_WavingToFindPerson_NotFound;
+		stateVector[0] = State.main_region_Lost_WavingToFindPerson_NotFound;
+	}
+	
+	/* 'default' enter sequence for state ILostU */
+	private void enterSequence_main_region_Lost_WavingToFindPerson_ILostU_default() {
+		entryAction_main_region_Lost_WavingToFindPerson_ILostU();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_Lost_WavingToFindPerson_ILostU;
 	}
 	
 	/* 'default' enter sequence for state HowCanIHelpYou */
@@ -1731,6 +2151,13 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.main_region_HowCanIHelpYou_main_region_StopSTT;
 	}
 	
+	/* 'default' enter sequence for state Stop2 */
+	private void enterSequence_main_region_HowCanIHelpYou_main_region_Stop2_default() {
+		entryAction_main_region_HowCanIHelpYou_main_region_Stop2();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_HowCanIHelpYou_main_region_Stop2;
+	}
+	
 	/* 'default' enter sequence for state ArrivedWaypoint */
 	private void enterSequence_main_region_ArrivedWaypoint_default() {
 		entryAction_main_region_ArrivedWaypoint();
@@ -1777,11 +2204,24 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_GoTo_goto_default();
 	}
 	
-	/* 'default' enter sequence for state livingroom */
-	private void enterSequence_main_region_GoTo_goto_livingroom_default() {
-		entryAction_main_region_GoTo_goto_livingroom();
+	/* 'default' enter sequence for state goto */
+	private void enterSequence_main_region_GoTo_goto_goto_default() {
+		entryAction_main_region_GoTo_goto_goto();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_GoTo_goto_livingroom;
+		stateVector[0] = State.main_region_GoTo_goto_goto;
+	}
+	
+	/* 'default' enter sequence for state goto_fallback */
+	private void enterSequence_main_region_GoTo_goto_goto_fallback_default() {
+		entryAction_main_region_GoTo_goto_goto_fallback();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_GoTo_goto_goto_fallback;
+	}
+	
+	/* 'default' enter sequence for state gotoWP */
+	private void enterSequence_main_region_GoTo_goto_gotoWP_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_GoTo_goto_gotoWP;
 	}
 	
 	/* 'default' enter sequence for state LocationNotFound */
@@ -1925,8 +2365,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	/* 'default' enter sequence for region WavingToFindPerson */
-	private void enterSequence_main_region_Wave_WavingToFindPerson_default() {
-		react_main_region_Wave_WavingToFindPerson__entry_Default();
+	private void enterSequence_main_region_Lost_WavingToFindPerson_default() {
+		react_main_region_Lost_WavingToFindPerson__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region main region */
@@ -1967,6 +2407,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void exitSequence_main_region_Found() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Found();
 	}
 	
 	/* Default exit sequence for state StartTracking */
@@ -1990,71 +2432,95 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		exitAction_main_region_StartTracking_WaitingForStopCommand_STTstart();
 	}
 	
-	/* Default exit sequence for state Wave */
-	private void exitSequence_main_region_Wave() {
-		exitSequence_main_region_Wave_WavingToFindPerson();
-	}
-	
-	/* Default exit sequence for state UTurn1 */
-	private void exitSequence_main_region_Wave_WavingToFindPerson_UTurn1() {
+	/* Default exit sequence for state TextReceived */
+	private void exitSequence_main_region_StartTracking_WaitingForStopCommand_TextReceived() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_Wave_WavingToFindPerson_UTurn1();
+		exitAction_main_region_StartTracking_WaitingForStopCommand_TextReceived();
+	}
+	
+	/* Default exit sequence for state TTS */
+	private void exitSequence_main_region_StartTracking_WaitingForStopCommand_TTS() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state Lost */
+	private void exitSequence_main_region_Lost() {
+		exitSequence_main_region_Lost_WavingToFindPerson();
+	}
+	
+	/* Default exit sequence for state UTurn1 */
+	private void exitSequence_main_region_Lost_WavingToFindPerson_UTurn1() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Lost_WavingToFindPerson_UTurn1();
 	}
 	
 	/* Default exit sequence for state WaveFound */
-	private void exitSequence_main_region_Wave_WavingToFindPerson_WaveFound() {
+	private void exitSequence_main_region_Lost_WavingToFindPerson_WaveFound() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state Turn */
-	private void exitSequence_main_region_Wave_WavingToFindPerson_Turn() {
+	private void exitSequence_main_region_Lost_WavingToFindPerson_Turn() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_Wave_WavingToFindPerson_Turn();
+		exitAction_main_region_Lost_WavingToFindPerson_Turn();
 	}
 	
 	/* Default exit sequence for state DetectionOn */
-	private void exitSequence_main_region_Wave_WavingToFindPerson_DetectionOn() {
+	private void exitSequence_main_region_Lost_WavingToFindPerson_DetectionOn() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Lost_WavingToFindPerson_DetectionOn();
 	}
 	
 	/* Default exit sequence for state PersonFound */
-	private void exitSequence_main_region_Wave_WavingToFindPerson_PersonFound() {
+	private void exitSequence_main_region_Lost_WavingToFindPerson_PersonFound() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state ILostYou */
-	private void exitSequence_main_region_Wave_WavingToFindPerson_ILostYou() {
+	private void exitSequence_main_region_Lost_WavingToFindPerson_ILostYou() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state UTurn2 */
-	private void exitSequence_main_region_Wave_WavingToFindPerson_UTurn2() {
+	private void exitSequence_main_region_Lost_WavingToFindPerson_UTurn2() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_Wave_WavingToFindPerson_UTurn2();
+		exitAction_main_region_Lost_WavingToFindPerson_UTurn2();
 	}
 	
 	/* Default exit sequence for state Detection */
-	private void exitSequence_main_region_Wave_WavingToFindPerson_Detection() {
+	private void exitSequence_main_region_Lost_WavingToFindPerson_Detection() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_Wave_WavingToFindPerson_Detection();
+		exitAction_main_region_Lost_WavingToFindPerson_Detection();
 	}
 	
 	/* Default exit sequence for state NotFound */
-	private void exitSequence_main_region_Wave_WavingToFindPerson_NotFound() {
+	private void exitSequence_main_region_Lost_WavingToFindPerson_NotFound() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state ILostU */
+	private void exitSequence_main_region_Lost_WavingToFindPerson_ILostU() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Lost_WavingToFindPerson_ILostU();
 	}
 	
 	/* Default exit sequence for state HowCanIHelpYou */
@@ -2066,6 +2532,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void exitSequence_main_region_HowCanIHelpYou_main_region_StateA() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_HowCanIHelpYou_main_region_StateA();
 	}
 	
 	/* Default exit sequence for state StartSTT */
@@ -2080,6 +2548,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void exitSequence_main_region_HowCanIHelpYou_main_region_TellAnswer() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_HowCanIHelpYou_main_region_TellAnswer();
 	}
 	
 	/* Default exit sequence for state Repeat */
@@ -2098,12 +2568,22 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void exitSequence_main_region_HowCanIHelpYou_main_region_StopSTT() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_HowCanIHelpYou_main_region_StopSTT();
+	}
+	
+	/* Default exit sequence for state Stop2 */
+	private void exitSequence_main_region_HowCanIHelpYou_main_region_Stop2() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
 	}
 	
 	/* Default exit sequence for state ArrivedWaypoint */
 	private void exitSequence_main_region_ArrivedWaypoint() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_ArrivedWaypoint();
 	}
 	
 	/* Default exit sequence for final state. */
@@ -2124,6 +2604,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void exitSequence_main_region_StopSTT() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_StopSTT();
 	}
 	
 	/* Default exit sequence for state FollowYes */
@@ -2136,6 +2618,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void exitSequence_main_region_FollowNo() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_FollowNo();
 	}
 	
 	/* Default exit sequence for state GoTo */
@@ -2143,8 +2627,20 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		exitSequence_main_region_GoTo_goto();
 	}
 	
-	/* Default exit sequence for state livingroom */
-	private void exitSequence_main_region_GoTo_goto_livingroom() {
+	/* Default exit sequence for state goto */
+	private void exitSequence_main_region_GoTo_goto_goto() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state goto_fallback */
+	private void exitSequence_main_region_GoTo_goto_goto_fallback() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state gotoWP */
+	private void exitSequence_main_region_GoTo_goto_gotoWP() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -2179,6 +2675,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void exitSequence_main_region_PersonFound() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_PersonFound();
 	}
 	
 	/* Default exit sequence for state GuideMe */
@@ -2290,32 +2788,41 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_StartTracking_WaitingForStopCommand_STTstart:
 			exitSequence_main_region_StartTracking_WaitingForStopCommand_STTstart();
 			break;
-		case main_region_Wave_WavingToFindPerson_UTurn1:
-			exitSequence_main_region_Wave_WavingToFindPerson_UTurn1();
+		case main_region_StartTracking_WaitingForStopCommand_TextReceived:
+			exitSequence_main_region_StartTracking_WaitingForStopCommand_TextReceived();
 			break;
-		case main_region_Wave_WavingToFindPerson_WaveFound:
-			exitSequence_main_region_Wave_WavingToFindPerson_WaveFound();
+		case main_region_StartTracking_WaitingForStopCommand_TTS:
+			exitSequence_main_region_StartTracking_WaitingForStopCommand_TTS();
 			break;
-		case main_region_Wave_WavingToFindPerson_Turn:
-			exitSequence_main_region_Wave_WavingToFindPerson_Turn();
+		case main_region_Lost_WavingToFindPerson_UTurn1:
+			exitSequence_main_region_Lost_WavingToFindPerson_UTurn1();
 			break;
-		case main_region_Wave_WavingToFindPerson_DetectionOn:
-			exitSequence_main_region_Wave_WavingToFindPerson_DetectionOn();
+		case main_region_Lost_WavingToFindPerson_WaveFound:
+			exitSequence_main_region_Lost_WavingToFindPerson_WaveFound();
 			break;
-		case main_region_Wave_WavingToFindPerson_PersonFound:
-			exitSequence_main_region_Wave_WavingToFindPerson_PersonFound();
+		case main_region_Lost_WavingToFindPerson_Turn:
+			exitSequence_main_region_Lost_WavingToFindPerson_Turn();
 			break;
-		case main_region_Wave_WavingToFindPerson_ILostYou:
-			exitSequence_main_region_Wave_WavingToFindPerson_ILostYou();
+		case main_region_Lost_WavingToFindPerson_DetectionOn:
+			exitSequence_main_region_Lost_WavingToFindPerson_DetectionOn();
 			break;
-		case main_region_Wave_WavingToFindPerson_UTurn2:
-			exitSequence_main_region_Wave_WavingToFindPerson_UTurn2();
+		case main_region_Lost_WavingToFindPerson_PersonFound:
+			exitSequence_main_region_Lost_WavingToFindPerson_PersonFound();
 			break;
-		case main_region_Wave_WavingToFindPerson_Detection:
-			exitSequence_main_region_Wave_WavingToFindPerson_Detection();
+		case main_region_Lost_WavingToFindPerson_ILostYou:
+			exitSequence_main_region_Lost_WavingToFindPerson_ILostYou();
 			break;
-		case main_region_Wave_WavingToFindPerson_NotFound:
-			exitSequence_main_region_Wave_WavingToFindPerson_NotFound();
+		case main_region_Lost_WavingToFindPerson_UTurn2:
+			exitSequence_main_region_Lost_WavingToFindPerson_UTurn2();
+			break;
+		case main_region_Lost_WavingToFindPerson_Detection:
+			exitSequence_main_region_Lost_WavingToFindPerson_Detection();
+			break;
+		case main_region_Lost_WavingToFindPerson_NotFound:
+			exitSequence_main_region_Lost_WavingToFindPerson_NotFound();
+			break;
+		case main_region_Lost_WavingToFindPerson_ILostU:
+			exitSequence_main_region_Lost_WavingToFindPerson_ILostU();
 			break;
 		case main_region_HowCanIHelpYou_main_region_StateA:
 			exitSequence_main_region_HowCanIHelpYou_main_region_StateA();
@@ -2335,6 +2842,9 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_HowCanIHelpYou_main_region_StopSTT:
 			exitSequence_main_region_HowCanIHelpYou_main_region_StopSTT();
 			break;
+		case main_region_HowCanIHelpYou_main_region_Stop2:
+			exitSequence_main_region_HowCanIHelpYou_main_region_Stop2();
+			break;
 		case main_region_ArrivedWaypoint:
 			exitSequence_main_region_ArrivedWaypoint();
 			break;
@@ -2353,8 +2863,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_FollowNo:
 			exitSequence_main_region_FollowNo();
 			break;
-		case main_region_GoTo_goto_livingroom:
-			exitSequence_main_region_GoTo_goto_livingroom();
+		case main_region_GoTo_goto_goto:
+			exitSequence_main_region_GoTo_goto_goto();
+			break;
+		case main_region_GoTo_goto_goto_fallback:
+			exitSequence_main_region_GoTo_goto_goto_fallback();
+			break;
+		case main_region_GoTo_goto_gotoWP:
+			exitSequence_main_region_GoTo_goto_gotoWP();
 			break;
 		case main_region_LocationNotFound:
 			exitSequence_main_region_LocationNotFound();
@@ -2409,40 +2925,49 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_StartTracking_WaitingForStopCommand_STTstart:
 			exitSequence_main_region_StartTracking_WaitingForStopCommand_STTstart();
 			break;
+		case main_region_StartTracking_WaitingForStopCommand_TextReceived:
+			exitSequence_main_region_StartTracking_WaitingForStopCommand_TextReceived();
+			break;
+		case main_region_StartTracking_WaitingForStopCommand_TTS:
+			exitSequence_main_region_StartTracking_WaitingForStopCommand_TTS();
+			break;
 		default:
 			break;
 		}
 	}
 	
 	/* Default exit sequence for region WavingToFindPerson */
-	private void exitSequence_main_region_Wave_WavingToFindPerson() {
+	private void exitSequence_main_region_Lost_WavingToFindPerson() {
 		switch (stateVector[0]) {
-		case main_region_Wave_WavingToFindPerson_UTurn1:
-			exitSequence_main_region_Wave_WavingToFindPerson_UTurn1();
+		case main_region_Lost_WavingToFindPerson_UTurn1:
+			exitSequence_main_region_Lost_WavingToFindPerson_UTurn1();
 			break;
-		case main_region_Wave_WavingToFindPerson_WaveFound:
-			exitSequence_main_region_Wave_WavingToFindPerson_WaveFound();
+		case main_region_Lost_WavingToFindPerson_WaveFound:
+			exitSequence_main_region_Lost_WavingToFindPerson_WaveFound();
 			break;
-		case main_region_Wave_WavingToFindPerson_Turn:
-			exitSequence_main_region_Wave_WavingToFindPerson_Turn();
+		case main_region_Lost_WavingToFindPerson_Turn:
+			exitSequence_main_region_Lost_WavingToFindPerson_Turn();
 			break;
-		case main_region_Wave_WavingToFindPerson_DetectionOn:
-			exitSequence_main_region_Wave_WavingToFindPerson_DetectionOn();
+		case main_region_Lost_WavingToFindPerson_DetectionOn:
+			exitSequence_main_region_Lost_WavingToFindPerson_DetectionOn();
 			break;
-		case main_region_Wave_WavingToFindPerson_PersonFound:
-			exitSequence_main_region_Wave_WavingToFindPerson_PersonFound();
+		case main_region_Lost_WavingToFindPerson_PersonFound:
+			exitSequence_main_region_Lost_WavingToFindPerson_PersonFound();
 			break;
-		case main_region_Wave_WavingToFindPerson_ILostYou:
-			exitSequence_main_region_Wave_WavingToFindPerson_ILostYou();
+		case main_region_Lost_WavingToFindPerson_ILostYou:
+			exitSequence_main_region_Lost_WavingToFindPerson_ILostYou();
 			break;
-		case main_region_Wave_WavingToFindPerson_UTurn2:
-			exitSequence_main_region_Wave_WavingToFindPerson_UTurn2();
+		case main_region_Lost_WavingToFindPerson_UTurn2:
+			exitSequence_main_region_Lost_WavingToFindPerson_UTurn2();
 			break;
-		case main_region_Wave_WavingToFindPerson_Detection:
-			exitSequence_main_region_Wave_WavingToFindPerson_Detection();
+		case main_region_Lost_WavingToFindPerson_Detection:
+			exitSequence_main_region_Lost_WavingToFindPerson_Detection();
 			break;
-		case main_region_Wave_WavingToFindPerson_NotFound:
-			exitSequence_main_region_Wave_WavingToFindPerson_NotFound();
+		case main_region_Lost_WavingToFindPerson_NotFound:
+			exitSequence_main_region_Lost_WavingToFindPerson_NotFound();
+			break;
+		case main_region_Lost_WavingToFindPerson_ILostU:
+			exitSequence_main_region_Lost_WavingToFindPerson_ILostU();
 			break;
 		default:
 			break;
@@ -2470,6 +2995,9 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_HowCanIHelpYou_main_region_StopSTT:
 			exitSequence_main_region_HowCanIHelpYou_main_region_StopSTT();
 			break;
+		case main_region_HowCanIHelpYou_main_region_Stop2:
+			exitSequence_main_region_HowCanIHelpYou_main_region_Stop2();
+			break;
 		default:
 			break;
 		}
@@ -2478,8 +3006,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* Default exit sequence for region goto */
 	private void exitSequence_main_region_GoTo_goto() {
 		switch (stateVector[0]) {
-		case main_region_GoTo_goto_livingroom:
-			exitSequence_main_region_GoTo_goto_livingroom();
+		case main_region_GoTo_goto_goto:
+			exitSequence_main_region_GoTo_goto_goto();
+			break;
+		case main_region_GoTo_goto_goto_fallback:
+			exitSequence_main_region_GoTo_goto_goto_fallback();
+			break;
+		case main_region_GoTo_goto_gotoWP:
+			exitSequence_main_region_GoTo_goto_gotoWP();
 			break;
 		default:
 			break;
@@ -2547,6 +3081,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void react_main_region_Found() {
 		if (check_main_region_Found_tr0_tr0()) {
 			effect_main_region_Found_tr0();
+		} else {
+			if (check_main_region_Found_tr1_tr1()) {
+				effect_main_region_Found_tr1();
+			}
 		}
 	}
 	
@@ -2560,6 +3098,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			} else {
 				if (check_main_region_StartTracking_WaitingForStopCommand_STToff_tr1_tr1()) {
 					effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr1();
+				} else {
+					if (check_main_region_StartTracking_WaitingForStopCommand_STToff_tr2_tr2()) {
+						effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr2();
+					}
 				}
 			}
 		}
@@ -2575,84 +3117,139 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			} else {
 				if (check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr1_tr1()) {
 					effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr1();
+				} else {
+					if (check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr2_tr2()) {
+						effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr2();
+					}
 				}
 			}
 		}
 	}
 	
+	/* The reactions of state TextReceived. */
+	private void react_main_region_StartTracking_WaitingForStopCommand_TextReceived() {
+		if (check_main_region_StartTracking_tr0_tr0()) {
+			effect_main_region_StartTracking_tr0();
+		} else {
+			if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr0_tr0()) {
+				effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr0();
+			} else {
+				if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr1_tr1()) {
+					effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr1();
+				} else {
+					if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr2_tr2()) {
+						effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr2();
+					} else {
+						if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr3_tr3()) {
+							effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr3();
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/* The reactions of state TTS. */
+	private void react_main_region_StartTracking_WaitingForStopCommand_TTS() {
+		if (check_main_region_StartTracking_tr0_tr0()) {
+			effect_main_region_StartTracking_tr0();
+		} else {
+			effect_main_region_StartTracking_WaitingForStopCommand_TTS_tr0();
+		}
+	}
+	
 	/* The reactions of state UTurn1. */
-	private void react_main_region_Wave_WavingToFindPerson_UTurn1() {
-		if (check_main_region_Wave_WavingToFindPerson_UTurn1_tr0_tr0()) {
-			effect_main_region_Wave_WavingToFindPerson_UTurn1_tr0();
+	private void react_main_region_Lost_WavingToFindPerson_UTurn1() {
+		if (check_main_region_Lost_WavingToFindPerson_UTurn1_tr0_tr0()) {
+			effect_main_region_Lost_WavingToFindPerson_UTurn1_tr0();
 		}
 	}
 	
 	/* The reactions of state WaveFound. */
-	private void react_main_region_Wave_WavingToFindPerson_WaveFound() {
-		if (check_main_region_Wave_WavingToFindPerson_WaveFound_tr0_tr0()) {
-			effect_main_region_Wave_WavingToFindPerson_WaveFound_tr0();
+	private void react_main_region_Lost_WavingToFindPerson_WaveFound() {
+		if (check_main_region_Lost_WavingToFindPerson_WaveFound_tr0_tr0()) {
+			effect_main_region_Lost_WavingToFindPerson_WaveFound_tr0();
 		}
 	}
 	
 	/* The reactions of state Turn. */
-	private void react_main_region_Wave_WavingToFindPerson_Turn() {
-		if (check_main_region_Wave_WavingToFindPerson_Turn_tr0_tr0()) {
-			effect_main_region_Wave_WavingToFindPerson_Turn_tr0();
+	private void react_main_region_Lost_WavingToFindPerson_Turn() {
+		if (check_main_region_Lost_WavingToFindPerson_Turn_tr0_tr0()) {
+			effect_main_region_Lost_WavingToFindPerson_Turn_tr0();
 		} else {
-			if (check_main_region_Wave_WavingToFindPerson_Turn_tr1_tr1()) {
-				effect_main_region_Wave_WavingToFindPerson_Turn_tr1();
+			if (check_main_region_Lost_WavingToFindPerson_Turn_tr1_tr1()) {
+				effect_main_region_Lost_WavingToFindPerson_Turn_tr1();
 			}
 		}
 	}
 	
 	/* The reactions of state DetectionOn. */
-	private void react_main_region_Wave_WavingToFindPerson_DetectionOn() {
-		effect_main_region_Wave_WavingToFindPerson_DetectionOn_tr0();
+	private void react_main_region_Lost_WavingToFindPerson_DetectionOn() {
+		if (check_main_region_Lost_WavingToFindPerson_DetectionOn_tr0_tr0()) {
+			effect_main_region_Lost_WavingToFindPerson_DetectionOn_tr0();
+		}
 	}
 	
 	/* The reactions of state PersonFound. */
-	private void react_main_region_Wave_WavingToFindPerson_PersonFound() {
-		effect_main_region_Wave_WavingToFindPerson_PersonFound_tr0();
+	private void react_main_region_Lost_WavingToFindPerson_PersonFound() {
+		effect_main_region_Lost_WavingToFindPerson_PersonFound_tr0();
 	}
 	
 	/* The reactions of state ILostYou. */
-	private void react_main_region_Wave_WavingToFindPerson_ILostYou() {
-		if (check_main_region_Wave_WavingToFindPerson_ILostYou_tr0_tr0()) {
-			effect_main_region_Wave_WavingToFindPerson_ILostYou_tr0();
+	private void react_main_region_Lost_WavingToFindPerson_ILostYou() {
+		if (check_main_region_Lost_WavingToFindPerson_ILostYou_tr0_tr0()) {
+			effect_main_region_Lost_WavingToFindPerson_ILostYou_tr0();
+		} else {
+			effect_main_region_Lost_WavingToFindPerson_ILostYou_tr1();
 		}
 	}
 	
 	/* The reactions of state UTurn2. */
-	private void react_main_region_Wave_WavingToFindPerson_UTurn2() {
-		if (check_main_region_Wave_WavingToFindPerson_UTurn2_tr0_tr0()) {
-			effect_main_region_Wave_WavingToFindPerson_UTurn2_tr0();
+	private void react_main_region_Lost_WavingToFindPerson_UTurn2() {
+		if (check_main_region_Lost_WavingToFindPerson_UTurn2_tr0_tr0()) {
+			effect_main_region_Lost_WavingToFindPerson_UTurn2_tr0();
 		}
 	}
 	
 	/* The reactions of state Detection. */
-	private void react_main_region_Wave_WavingToFindPerson_Detection() {
-		if (check_main_region_Wave_WavingToFindPerson_Detection_tr0_tr0()) {
-			effect_main_region_Wave_WavingToFindPerson_Detection_tr0();
+	private void react_main_region_Lost_WavingToFindPerson_Detection() {
+		if (check_main_region_Lost_WavingToFindPerson_Detection_tr0_tr0()) {
+			effect_main_region_Lost_WavingToFindPerson_Detection_tr0();
 		} else {
-			if (check_main_region_Wave_WavingToFindPerson_Detection_tr1_tr1()) {
-				effect_main_region_Wave_WavingToFindPerson_Detection_tr1();
+			if (check_main_region_Lost_WavingToFindPerson_Detection_tr1_tr1()) {
+				effect_main_region_Lost_WavingToFindPerson_Detection_tr1();
 			} else {
-				if (check_main_region_Wave_WavingToFindPerson_Detection_tr2_tr2()) {
-					effect_main_region_Wave_WavingToFindPerson_Detection_tr2();
+				if (check_main_region_Lost_WavingToFindPerson_Detection_tr2_tr2()) {
+					effect_main_region_Lost_WavingToFindPerson_Detection_tr2();
 				}
 			}
 		}
 	}
 	
 	/* The reactions of state NotFound. */
-	private void react_main_region_Wave_WavingToFindPerson_NotFound() {
-		effect_main_region_Wave_WavingToFindPerson_NotFound_tr0();
+	private void react_main_region_Lost_WavingToFindPerson_NotFound() {
+		effect_main_region_Lost_WavingToFindPerson_NotFound_tr0();
+	}
+	
+	/* The reactions of state ILostU. */
+	private void react_main_region_Lost_WavingToFindPerson_ILostU() {
+		if (check_main_region_Lost_WavingToFindPerson_ILostU_tr0_tr0()) {
+			effect_main_region_Lost_WavingToFindPerson_ILostU_tr0();
+		} else {
+			if (check_main_region_Lost_WavingToFindPerson_ILostU_tr1_tr1()) {
+				effect_main_region_Lost_WavingToFindPerson_ILostU_tr1();
+			}
+		}
 	}
 	
 	/* The reactions of state StateA. */
 	private void react_main_region_HowCanIHelpYou_main_region_StateA() {
 		if (check_main_region_HowCanIHelpYou_main_region_StateA_tr0_tr0()) {
 			effect_main_region_HowCanIHelpYou_main_region_StateA_tr0();
+		} else {
+			if (check_main_region_HowCanIHelpYou_main_region_StateA_tr1_tr1()) {
+				effect_main_region_HowCanIHelpYou_main_region_StateA_tr1();
+			}
 		}
 	}
 	
@@ -2660,6 +3257,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void react_main_region_HowCanIHelpYou_main_region_StartSTT() {
 		if (check_main_region_HowCanIHelpYou_main_region_StartSTT_tr0_tr0()) {
 			effect_main_region_HowCanIHelpYou_main_region_StartSTT_tr0();
+		} else {
+			if (check_main_region_HowCanIHelpYou_main_region_StartSTT_tr1_tr1()) {
+				effect_main_region_HowCanIHelpYou_main_region_StartSTT_tr1();
+			}
 		}
 	}
 	
@@ -2667,6 +3268,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void react_main_region_HowCanIHelpYou_main_region_TellAnswer() {
 		if (check_main_region_HowCanIHelpYou_main_region_TellAnswer_tr0_tr0()) {
 			effect_main_region_HowCanIHelpYou_main_region_TellAnswer_tr0();
+		} else {
+			if (check_main_region_HowCanIHelpYou_main_region_TellAnswer_tr1_tr1()) {
+				effect_main_region_HowCanIHelpYou_main_region_TellAnswer_tr1();
+			}
 		}
 	}
 	
@@ -2692,15 +3297,28 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			} else {
 				if (check_main_region_HowCanIHelpYou_main_region_StopSTT_tr2_tr2()) {
 					effect_main_region_HowCanIHelpYou_main_region_StopSTT_tr2();
+				} else {
+					if (check_main_region_HowCanIHelpYou_main_region_StopSTT_tr3_tr3()) {
+						effect_main_region_HowCanIHelpYou_main_region_StopSTT_tr3();
+					}
 				}
 			}
 		}
+	}
+	
+	/* The reactions of state Stop2. */
+	private void react_main_region_HowCanIHelpYou_main_region_Stop2() {
+		effect_main_region_HowCanIHelpYou_main_region_Stop2_tr0();
 	}
 	
 	/* The reactions of state ArrivedWaypoint. */
 	private void react_main_region_ArrivedWaypoint() {
 		if (check_main_region_ArrivedWaypoint_tr0_tr0()) {
 			effect_main_region_ArrivedWaypoint_tr0();
+		} else {
+			if (check_main_region_ArrivedWaypoint_tr1_tr1()) {
+				effect_main_region_ArrivedWaypoint_tr1();
+			}
 		}
 	}
 	
@@ -2722,6 +3340,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		} else {
 			if (check_main_region_StopSTT_tr1_tr1()) {
 				effect_main_region_StopSTT_tr1();
+			} else {
+				if (check_main_region_StopSTT_tr2_tr2()) {
+					effect_main_region_StopSTT_tr2();
+				}
 			}
 		}
 	}
@@ -2735,14 +3357,31 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void react_main_region_FollowNo() {
 		if (check_main_region_FollowNo_tr0_tr0()) {
 			effect_main_region_FollowNo_tr0();
+		} else {
+			if (check_main_region_FollowNo_tr1_tr1()) {
+				effect_main_region_FollowNo_tr1();
+			}
 		}
 	}
 	
-	/* The reactions of state livingroom. */
-	private void react_main_region_GoTo_goto_livingroom() {
-		if (check_main_region_GoTo_tr0_tr0()) {
-			effect_main_region_GoTo_tr0();
-		} else {
+	/* The reactions of state goto. */
+	private void react_main_region_GoTo_goto_goto() {
+		if (check_main_region_GoTo_goto_goto_tr0_tr0()) {
+			effect_main_region_GoTo_goto_goto_tr0();
+		}
+	}
+	
+	/* The reactions of state goto_fallback. */
+	private void react_main_region_GoTo_goto_goto_fallback() {
+		if (check_main_region_GoTo_goto_goto_fallback_tr0_tr0()) {
+			effect_main_region_GoTo_goto_goto_fallback_tr0();
+		}
+	}
+	
+	/* The reactions of state gotoWP. */
+	private void react_main_region_GoTo_goto_gotoWP() {
+		if (check_main_region_GoTo_goto_gotoWP_tr0_tr0()) {
+			effect_main_region_GoTo_goto_gotoWP_tr0();
 		}
 	}
 	
@@ -2782,6 +3421,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void react_main_region_PersonFound() {
 		if (check_main_region_PersonFound_tr0_tr0()) {
 			effect_main_region_PersonFound_tr0();
+		} else {
+			if (check_main_region_PersonFound_tr1_tr1()) {
+				effect_main_region_PersonFound_tr1();
+			}
 		}
 	}
 	
@@ -2905,6 +3548,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	/* The reactions of state null. */
+	private void react_main_region_HowCanIHelpYou_main_region__choice_1() {
+		if (check_main_region_HowCanIHelpYou_main_region__choice_1_tr1_tr1()) {
+			effect_main_region_HowCanIHelpYou_main_region__choice_1_tr1();
+		} else {
+			effect_main_region_HowCanIHelpYou_main_region__choice_1_tr0();
+		}
+	}
+	
+	/* The reactions of state null. */
 	private void react_main_region__choice_0() {
 		if (check_main_region__choice_0_tr0_tr0()) {
 			effect_main_region__choice_0_tr0();
@@ -2922,6 +3574,29 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		}
 	}
 	
+	/* The reactions of state null. */
+	private void react_main_region_GoTo_goto__choice_1() {
+		if (check_main_region_GoTo_goto__choice_1_tr0_tr0()) {
+			effect_main_region_GoTo_goto__choice_1_tr0();
+		} else {
+			effect_main_region_GoTo_goto__choice_1_tr1();
+		}
+	}
+	
+	/* The reactions of state null. */
+	private void react_main_region__choice_1() {
+		effect_main_region__choice_1_tr0();
+	}
+	
+	/* The reactions of state null. */
+	private void react_main_region__choice_2() {
+		if (check_main_region__choice_2_tr0_tr0()) {
+			effect_main_region__choice_2_tr0();
+		} else {
+			effect_main_region__choice_2_tr1();
+		}
+	}
+	
 	/* Default react sequence for initial entry  */
 	private void react_main_region__entry_Default() {
 		enterSequence_main_region_DetectionOn_default();
@@ -2933,8 +3608,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	/* Default react sequence for initial entry  */
-	private void react_main_region_Wave_WavingToFindPerson__entry_Default() {
-		enterSequence_main_region_Wave_WavingToFindPerson_ILostYou_default();
+	private void react_main_region_Lost_WavingToFindPerson__entry_Default() {
+		enterSequence_main_region_Lost_WavingToFindPerson_ILostYou_default();
 	}
 	
 	/* Default react sequence for initial entry  */
@@ -2963,8 +3638,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	/* The reactions of exit exit_done. */
-	private void react_main_region_Wave_WavingToFindPerson_exit_done() {
-		effect_main_region_Wave_tr0();
+	private void react_main_region_Lost_WavingToFindPerson_exit_done() {
+		effect_main_region_Lost_tr0();
 	}
 	
 	/* The reactions of exit exit_goto. */
@@ -2975,6 +3650,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* The reactions of exit exit_notFound. */
 	private void react_main_region_GoTo_goto_exit_notFound() {
 		effect_main_region_GoTo_tr1();
+	}
+	
+	/* The reactions of exit exit_arrived. */
+	private void react_main_region_GoTo_goto_exit_arrived() {
+		effect_main_region_GoTo_tr0();
 	}
 	
 	/* The reactions of exit exit_done. */
@@ -3009,32 +3689,41 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			case main_region_StartTracking_WaitingForStopCommand_STTstart:
 				react_main_region_StartTracking_WaitingForStopCommand_STTstart();
 				break;
-			case main_region_Wave_WavingToFindPerson_UTurn1:
-				react_main_region_Wave_WavingToFindPerson_UTurn1();
+			case main_region_StartTracking_WaitingForStopCommand_TextReceived:
+				react_main_region_StartTracking_WaitingForStopCommand_TextReceived();
 				break;
-			case main_region_Wave_WavingToFindPerson_WaveFound:
-				react_main_region_Wave_WavingToFindPerson_WaveFound();
+			case main_region_StartTracking_WaitingForStopCommand_TTS:
+				react_main_region_StartTracking_WaitingForStopCommand_TTS();
 				break;
-			case main_region_Wave_WavingToFindPerson_Turn:
-				react_main_region_Wave_WavingToFindPerson_Turn();
+			case main_region_Lost_WavingToFindPerson_UTurn1:
+				react_main_region_Lost_WavingToFindPerson_UTurn1();
 				break;
-			case main_region_Wave_WavingToFindPerson_DetectionOn:
-				react_main_region_Wave_WavingToFindPerson_DetectionOn();
+			case main_region_Lost_WavingToFindPerson_WaveFound:
+				react_main_region_Lost_WavingToFindPerson_WaveFound();
 				break;
-			case main_region_Wave_WavingToFindPerson_PersonFound:
-				react_main_region_Wave_WavingToFindPerson_PersonFound();
+			case main_region_Lost_WavingToFindPerson_Turn:
+				react_main_region_Lost_WavingToFindPerson_Turn();
 				break;
-			case main_region_Wave_WavingToFindPerson_ILostYou:
-				react_main_region_Wave_WavingToFindPerson_ILostYou();
+			case main_region_Lost_WavingToFindPerson_DetectionOn:
+				react_main_region_Lost_WavingToFindPerson_DetectionOn();
 				break;
-			case main_region_Wave_WavingToFindPerson_UTurn2:
-				react_main_region_Wave_WavingToFindPerson_UTurn2();
+			case main_region_Lost_WavingToFindPerson_PersonFound:
+				react_main_region_Lost_WavingToFindPerson_PersonFound();
 				break;
-			case main_region_Wave_WavingToFindPerson_Detection:
-				react_main_region_Wave_WavingToFindPerson_Detection();
+			case main_region_Lost_WavingToFindPerson_ILostYou:
+				react_main_region_Lost_WavingToFindPerson_ILostYou();
 				break;
-			case main_region_Wave_WavingToFindPerson_NotFound:
-				react_main_region_Wave_WavingToFindPerson_NotFound();
+			case main_region_Lost_WavingToFindPerson_UTurn2:
+				react_main_region_Lost_WavingToFindPerson_UTurn2();
+				break;
+			case main_region_Lost_WavingToFindPerson_Detection:
+				react_main_region_Lost_WavingToFindPerson_Detection();
+				break;
+			case main_region_Lost_WavingToFindPerson_NotFound:
+				react_main_region_Lost_WavingToFindPerson_NotFound();
+				break;
+			case main_region_Lost_WavingToFindPerson_ILostU:
+				react_main_region_Lost_WavingToFindPerson_ILostU();
 				break;
 			case main_region_HowCanIHelpYou_main_region_StateA:
 				react_main_region_HowCanIHelpYou_main_region_StateA();
@@ -3054,6 +3743,9 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			case main_region_HowCanIHelpYou_main_region_StopSTT:
 				react_main_region_HowCanIHelpYou_main_region_StopSTT();
 				break;
+			case main_region_HowCanIHelpYou_main_region_Stop2:
+				react_main_region_HowCanIHelpYou_main_region_Stop2();
+				break;
 			case main_region_ArrivedWaypoint:
 				react_main_region_ArrivedWaypoint();
 				break;
@@ -3072,8 +3764,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			case main_region_FollowNo:
 				react_main_region_FollowNo();
 				break;
-			case main_region_GoTo_goto_livingroom:
-				react_main_region_GoTo_goto_livingroom();
+			case main_region_GoTo_goto_goto:
+				react_main_region_GoTo_goto_goto();
+				break;
+			case main_region_GoTo_goto_goto_fallback:
+				react_main_region_GoTo_goto_goto_fallback();
+				break;
+			case main_region_GoTo_goto_gotoWP:
+				react_main_region_GoTo_goto_gotoWP();
 				break;
 			case main_region_LocationNotFound:
 				react_main_region_LocationNotFound();
