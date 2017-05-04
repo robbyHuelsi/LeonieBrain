@@ -24,48 +24,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	
 	protected SCIHBrainImpl sCIHBrain;
 	
-	protected class SCISTTImpl implements SCISTT {
-	
-		private SCISTTOperationCallback operationCallback;
-		
-		public void setSCISTTOperationCallback(
-				SCISTTOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-		private boolean spokenTextReceived;
-		
-		public void raiseSpokenTextReceived() {
-			spokenTextReceived = true;
-		}
-		
-		private boolean incomprehensible;
-		
-		public void raiseIncomprehensible() {
-			incomprehensible = true;
-		}
-		
-		private boolean actionReceived;
-		
-		public void raiseActionReceived() {
-			actionReceived = true;
-		}
-		
-		private boolean answerReceived;
-		
-		public void raiseAnswerReceived() {
-			answerReceived = true;
-		}
-		
-		protected void clearEvents() {
-			spokenTextReceived = false;
-			incomprehensible = false;
-			actionReceived = false;
-			answerReceived = false;
-		}
-	}
-	
-	protected SCISTTImpl sCISTT;
-	
 	protected class SCIMiraImpl implements SCIMira {
 	
 		private SCIMiraOperationCallback operationCallback;
@@ -119,10 +77,8 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	
 	public enum State {
 		main_region__final_,
-		main_region_Welcome,
 		main_region_Entry,
 		main_region_LeaveTheArema,
-		main_region_GoToLivingRoom,
 		main_region_StartDrivingAroung,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
@@ -140,7 +96,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	private final boolean[] timeEvents = new boolean[3];
 	public RobotInspectionStatemachine() {
 		sCIHBrain = new SCIHBrainImpl();
-		sCISTT = new SCISTTImpl();
 		sCIMira = new SCIMiraImpl();
 	}
 	
@@ -193,7 +148,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	*/
 	protected void clearEvents() {
 		sCIHBrain.clearEvents();
-		sCISTT.clearEvents();
 		sCIMira.clearEvents();
 		for (int i=0; i<timeEvents.length; i++) {
 			timeEvents[i] = false;
@@ -214,14 +168,10 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		switch (state) {
 		case main_region__final_:
 			return stateVector[0] == State.main_region__final_;
-		case main_region_Welcome:
-			return stateVector[0] == State.main_region_Welcome;
 		case main_region_Entry:
 			return stateVector[0] == State.main_region_Entry;
 		case main_region_LeaveTheArema:
 			return stateVector[0] == State.main_region_LeaveTheArema;
-		case main_region_GoToLivingRoom:
-			return stateVector[0] == State.main_region_GoToLivingRoom;
 		case main_region_StartDrivingAroung:
 			return stateVector[0] == State.main_region_StartDrivingAroung;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
@@ -265,31 +215,15 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		return sCIHBrain;
 	}
 	
-	public SCISTT getSCISTT() {
-		return sCISTT;
-	}
-	
 	public SCIMira getSCIMira() {
 		return sCIMira;
 	}
 	
-	private boolean check_main_region_Welcome_tr0_tr0() {
-		return sCIHBrain.tTSReady;
-	}
-	
-	private boolean check_main_region_Welcome_tr1_tr1() {
+	private boolean check_main_region_Entry_tr0_tr0() {
 		return timeEvents[0];
 	}
 	
-	private boolean check_main_region_Entry_tr0_tr0() {
-		return sCIMira.arrivedWP;
-	}
-	
 	private boolean check_main_region_LeaveTheArema_tr0_tr0() {
-		return sCIMira.arrivedWP;
-	}
-	
-	private boolean check_main_region_GoToLivingRoom_tr0_tr0() {
 		return sCIMira.arrivedWP;
 	}
 	
@@ -317,19 +251,9 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		return timeEvents[2];
 	}
 	
-	private void effect_main_region_Welcome_tr0() {
-		exitSequence_main_region_Welcome();
-		enterSequence_main_region_StartDrivingAroung_default();
-	}
-	
-	private void effect_main_region_Welcome_tr1() {
-		exitSequence_main_region_Welcome();
-		enterSequence_main_region_StartDrivingAroung_default();
-	}
-	
 	private void effect_main_region_Entry_tr0() {
 		exitSequence_main_region_Entry();
-		enterSequence_main_region_Welcome_default();
+		enterSequence_main_region_StartDrivingAroung_default();
 	}
 	
 	private void effect_main_region_LeaveTheArema_tr0() {
@@ -337,14 +261,9 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		enterSequence_main_region__final__default();
 	}
 	
-	private void effect_main_region_GoToLivingRoom_tr0() {
-		exitSequence_main_region_GoToLivingRoom();
-		enterSequence_main_region_LeaveTheArema_default();
-	}
-	
 	private void effect_main_region_StartDrivingAroung_tr0() {
 		exitSequence_main_region_StartDrivingAroung();
-		enterSequence_main_region_GoToLivingRoom_default();
+		enterSequence_main_region_LeaveTheArema_default();
 	}
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
@@ -372,16 +291,13 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
 	}
 	
-	/* Entry action for state 'Welcome'. */
-	private void entryAction_main_region_Welcome() {
-		timer.setTimer(this, 0, 20*1000, false);
-		
-		sCIHBrain.operationCallback.sendTTS("[:-O]wow! So many people![idle3:true] [blush:true] I’m nervous [:-)] But I try to make a great show! [blush:false]");
-	}
-	
 	/* Entry action for state 'Entry'. */
 	private void entryAction_main_region_Entry() {
-		sCIMira.operationCallback.sendGoToGWP(19);
+		timer.setTimer(this, 0, 3*1000, false);
+		
+		sCIMira.operationCallback.sendGoToGWP(16);
+		
+		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
 	
 	/* Entry action for state 'LeaveTheArema'. */
@@ -389,16 +305,9 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		sCIMira.operationCallback.sendGoToGWP(13);
 	}
 	
-	/* Entry action for state 'GoToLivingRoom'. */
-	private void entryAction_main_region_GoToLivingRoom() {
-		sCIMira.operationCallback.sendGoToGWP(1);
-	}
-	
 	/* Entry action for state 'StartDrivingAroung'. */
 	private void entryAction_main_region_StartDrivingAroung() {
-		sCIMira.operationCallback.sendGoToGWP(0);
-		
-		sCIHBrain.operationCallback.sendTTS("My name is Leonie. I'm so exited to be here [happy]. Now, you can test my abilities.");
+		sCIHBrain.operationCallback.sendTTS("Hello. [:-)] My name is Leonie. I'm so exited to be here [happy]. Now, you can test my abilities.");
 	}
 	
 	/* Entry action for state 'Bumpered'. */
@@ -420,8 +329,8 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
 	}
 	
-	/* Exit action for state 'Welcome'. */
-	private void exitAction_main_region_Welcome() {
+	/* Exit action for state 'Entry'. */
+	private void exitAction_main_region_Entry() {
 		timer.unsetTimer(this, 0);
 	}
 	
@@ -441,13 +350,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		stateVector[0] = State.main_region__final_;
 	}
 	
-	/* 'default' enter sequence for state Welcome */
-	private void enterSequence_main_region_Welcome_default() {
-		entryAction_main_region_Welcome();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Welcome;
-	}
-	
 	/* 'default' enter sequence for state Entry */
 	private void enterSequence_main_region_Entry_default() {
 		entryAction_main_region_Entry();
@@ -460,13 +362,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		entryAction_main_region_LeaveTheArema();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_LeaveTheArema;
-	}
-	
-	/* 'default' enter sequence for state GoToLivingRoom */
-	private void enterSequence_main_region_GoToLivingRoom_default() {
-		entryAction_main_region_GoToLivingRoom();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_GoToLivingRoom;
 	}
 	
 	/* 'default' enter sequence for state StartDrivingAroung */
@@ -519,28 +414,16 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state Welcome */
-	private void exitSequence_main_region_Welcome() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_region_Welcome();
-	}
-	
 	/* Default exit sequence for state Entry */
 	private void exitSequence_main_region_Entry() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_Entry();
 	}
 	
 	/* Default exit sequence for state LeaveTheArema */
 	private void exitSequence_main_region_LeaveTheArema() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state GoToLivingRoom */
-	private void exitSequence_main_region_GoToLivingRoom() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -585,17 +468,11 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 		case main_region__final_:
 			exitSequence_main_region__final_();
 			break;
-		case main_region_Welcome:
-			exitSequence_main_region_Welcome();
-			break;
 		case main_region_Entry:
 			exitSequence_main_region_Entry();
 			break;
 		case main_region_LeaveTheArema:
 			exitSequence_main_region_LeaveTheArema();
-			break;
-		case main_region_GoToLivingRoom:
-			exitSequence_main_region_GoToLivingRoom();
 			break;
 		case main_region_StartDrivingAroung:
 			exitSequence_main_region_StartDrivingAroung();
@@ -629,17 +506,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	private void react_main_region__final_() {
 	}
 	
-	/* The reactions of state Welcome. */
-	private void react_main_region_Welcome() {
-		if (check_main_region_Welcome_tr0_tr0()) {
-			effect_main_region_Welcome_tr0();
-		} else {
-			if (check_main_region_Welcome_tr1_tr1()) {
-				effect_main_region_Welcome_tr1();
-			}
-		}
-	}
-	
 	/* The reactions of state Entry. */
 	private void react_main_region_Entry() {
 		if (check_main_region_Entry_tr0_tr0()) {
@@ -651,13 +517,6 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	private void react_main_region_LeaveTheArema() {
 		if (check_main_region_LeaveTheArema_tr0_tr0()) {
 			effect_main_region_LeaveTheArema_tr0();
-		}
-	}
-	
-	/* The reactions of state GoToLivingRoom. */
-	private void react_main_region_GoToLivingRoom() {
-		if (check_main_region_GoToLivingRoom_tr0_tr0()) {
-			effect_main_region_GoToLivingRoom_tr0();
 		}
 	}
 	
@@ -718,17 +577,11 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 			case main_region__final_:
 				react_main_region__final_();
 				break;
-			case main_region_Welcome:
-				react_main_region_Welcome();
-				break;
 			case main_region_Entry:
 				react_main_region_Entry();
 				break;
 			case main_region_LeaveTheArema:
 				react_main_region_LeaveTheArema();
-				break;
-			case main_region_GoToLivingRoom:
-				react_main_region_GoToLivingRoom();
 				break;
 			case main_region_StartDrivingAroung:
 				react_main_region_StartDrivingAroung();

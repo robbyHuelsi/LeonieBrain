@@ -20,7 +20,6 @@ public class Mira implements IParser, Serializable{
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
-		System.out.println("NAV: " + data);
 		//Arrived waypoint by pilot:  #MIRA#ARR_WP#1#   //#MIRA#ARR_WP#1# (=> arrived at global waypoint 
 		//Path blocked:  #MIRA#PATH_BLOCKED#1#      	//#MIRA#PATH_BLOCKED#1#  (=> path is blocked
 		//Bumpered: #MIRA#BUMPERED#1#            		//#MIRA#BUMPERED#1#  (=> leonie is bumpered
@@ -31,7 +30,7 @@ public class Mira implements IParser, Serializable{
 		} else if (data.contains("BUMPERED#1")) {
 			this.setBumpered(true);
 		}else{
-			System.err.println("emergencyStop not implemented");
+			this.setEmergencyStop(true);
 		}
 
 		return true;

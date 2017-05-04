@@ -31,42 +31,6 @@ public interface IRobotInspectionStatemachine extends ITimerCallback,IStatemachi
 	
 	public SCIHBrain getSCIHBrain();
 	
-	public interface SCISTT {
-	
-		public void raiseSpokenTextReceived();
-		
-		public void raiseIncomprehensible();
-		
-		public void raiseActionReceived();
-		
-		public void raiseAnswerReceived();
-		
-		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCISTTOperationCallback {
-	
-		public String getSpokenText();
-		
-		public String getAnswer();
-		
-		public String getInstruction();
-		
-		public String getObject();
-		
-		public void sendSpeechDetectionOff();
-		
-		public void sendSpeechDetectionSmalltalk();
-		
-		public void sendSpeechDetectionYesNo();
-		
-		public void sendSpeechDetectionName();
-		
-	}
-	
-	public SCISTT getSCISTT();
-	
 	public interface SCIMira {
 	
 		public void raiseEmergencyStop();

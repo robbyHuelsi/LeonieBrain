@@ -951,6 +951,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return true;
 	}
 	
+	private boolean check_main_region_HowCanIHelpYou_main_region__choice_2_tr0_tr0() {
+		return sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getAnswer())!=-1;
+	}
+	
+	private boolean check_main_region_HowCanIHelpYou_main_region__choice_2_tr1_tr1() {
+		return true;
+	}
+	
 	private boolean check_main_region__choice_0_tr0_tr0() {
 		return (sCISTT.operationCallback.getSpokenText()== null?"yes" ==null :sCISTT.operationCallback.getSpokenText().equals("yes"));
 	}
@@ -1214,7 +1222,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private void effect_main_region_HowCanIHelpYou_main_region_StopSTT_tr0() {
 		exitSequence_main_region_HowCanIHelpYou_main_region_StopSTT();
-		enterSequence_main_region_HowCanIHelpYou_main_region_TellAnswer_default();
+		react_main_region_HowCanIHelpYou_main_region__choice_2();
 	}
 	
 	private void effect_main_region_HowCanIHelpYou_main_region_StopSTT_tr1() {
@@ -1464,6 +1472,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private void effect_main_region_HowCanIHelpYou_main_region__choice_1_tr0() {
 		enterSequence_main_region_HowCanIHelpYou_main_region_Repeat_default();
+	}
+	
+	private void effect_main_region_HowCanIHelpYou_main_region__choice_2_tr0() {
+		react_main_region_HowCanIHelpYou_main_region__choice_0();
+	}
+	
+	private void effect_main_region_HowCanIHelpYou_main_region__choice_2_tr1() {
+		enterSequence_main_region_HowCanIHelpYou_main_region_TellAnswer_default();
 	}
 	
 	private void effect_main_region__choice_0_tr0() {
@@ -3553,6 +3569,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			effect_main_region_HowCanIHelpYou_main_region__choice_1_tr1();
 		} else {
 			effect_main_region_HowCanIHelpYou_main_region__choice_1_tr0();
+		}
+	}
+	
+	/* The reactions of state null. */
+	private void react_main_region_HowCanIHelpYou_main_region__choice_2() {
+		if (check_main_region_HowCanIHelpYou_main_region__choice_2_tr0_tr0()) {
+			effect_main_region_HowCanIHelpYou_main_region__choice_2_tr0();
+		} else {
+			effect_main_region_HowCanIHelpYou_main_region__choice_2_tr1();
 		}
 	}
 	
