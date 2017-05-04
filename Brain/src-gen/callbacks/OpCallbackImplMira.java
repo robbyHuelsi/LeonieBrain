@@ -127,7 +127,7 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 
 	@Override
 	public void sendInit() {
-		sendPanTiltCamera(0, 0);
+		//sendPanTiltCamera(0, 0);
 	}
 
 }
