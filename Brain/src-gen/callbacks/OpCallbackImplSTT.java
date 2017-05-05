@@ -14,7 +14,8 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	org.yakindu.scr.test_stt_smalltalk.ITest_STT_SmalltalkStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.test_stt_yesno.ITest_STT_YesNoStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.test_stt_names.ITest_STT_NamesStatemachine.SCISTTOperationCallback,
-	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCISTTOperationCallback
+	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCISTTOperationCallback,
+	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIAttractivenessOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();
@@ -78,6 +79,12 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	@Override
 	public void sendInit() {
 		sendSpeechDetectionOff();
+	}
+
+	@Override
+	public void sendToAttr_estimate() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

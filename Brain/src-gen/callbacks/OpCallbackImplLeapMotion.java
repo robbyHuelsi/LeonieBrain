@@ -7,7 +7,8 @@ import modules.Modules;
 import modules.parser.LeapMotion;
 
 public class OpCallbackImplLeapMotion implements IOpCallbackImpl,
-	org.yakindu.scr.braganca.IBragancaStatemachine.SCILeapMotionOperationCallback
+	org.yakindu.scr.braganca.IBragancaStatemachine.SCILeapMotionOperationCallback,
+	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIAttractivenessOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();
@@ -39,5 +40,11 @@ public class OpCallbackImplLeapMotion implements IOpCallbackImpl,
 	@Override
 	public void sendInit() {
 		sendGestureDetectionOnOff(0);
+	}
+
+	@Override
+	public void sendToAttr_estimate() {
+		// TODO Auto-generated method stub
+		
 	}
 }

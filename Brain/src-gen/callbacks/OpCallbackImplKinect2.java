@@ -12,7 +12,8 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.test_waving.ITest_WavingStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.test_noise.ITest_NoiseStatemachine.SCIKinect2OperationCallback,
-	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIKinect2OperationCallback
+	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIKinect2OperationCallback,
+	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIAttractivenessOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();
@@ -58,6 +59,14 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 			e.printStackTrace();
 		}
 		sendWavingDetectionOnOff(false);
+	}
+
+	
+	//-------------------- INTERFACE NICHT AKTUELL---------------------------
+	@Override
+	public void sendToAttr_estimate() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

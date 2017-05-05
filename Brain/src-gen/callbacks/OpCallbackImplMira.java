@@ -14,7 +14,8 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	org.yakindu.scr.test_mira.ITest_MiraStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.test_noise.ITest_NoiseStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIMiraOperationCallback,
-	org.yakindu.scr.robotinspection.IRobotInspectionStatemachine.SCIMiraOperationCallback
+	org.yakindu.scr.robotinspection.IRobotInspectionStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIAttractivenessOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();
@@ -134,6 +135,12 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	public void sendInterrupt() {
 		System.out.println("Mira: sendInterrupt()");
 		Communication.sendMessage("#MIRA#INTERRUPT#", modules.get("Mira"));
+	}
+
+	@Override
+	public void sendToAttr_estimate() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

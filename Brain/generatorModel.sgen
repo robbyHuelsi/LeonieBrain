@@ -222,5 +222,17 @@ GeneratorModel for yakindu::java {
 		}
 	}
 	
+		statechart OpenChallenge {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
 	
 }

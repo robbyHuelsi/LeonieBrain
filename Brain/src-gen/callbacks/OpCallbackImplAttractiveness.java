@@ -5,7 +5,8 @@ import main.Start;
 import modules.Modules;
 
 public class OpCallbackImplAttractiveness implements IOpCallbackImpl,
-	org.yakindu.scr.braganca.IBragancaStatemachine.SCIAttractivenessOperationCallback
+	org.yakindu.scr.braganca.IBragancaStatemachine.SCIAttractivenessOperationCallback,
+	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIAttractivenessOperationCallback
 {
 
 	private Modules modules = Start.instanceOf().getModules();
