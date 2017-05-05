@@ -133,6 +133,8 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		
 		public void sendGoToRuntimeEndPoint();
 		
+		public void sendInterrupt();
+		
 	}
 	
 	public SCIMira getSCIMira();

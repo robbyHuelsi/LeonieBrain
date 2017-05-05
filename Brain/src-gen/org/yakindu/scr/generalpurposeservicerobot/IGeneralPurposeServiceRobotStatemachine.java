@@ -103,6 +103,8 @@ public interface IGeneralPurposeServiceRobotStatemachine extends ITimerCallback,
 		
 		public void sendGoToRuntimeEndPoint();
 		
+		public void sendInterrupt();
+		
 	}
 	
 	public SCIMira getSCIMira();

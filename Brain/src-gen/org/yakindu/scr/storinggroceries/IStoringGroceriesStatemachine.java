@@ -73,6 +73,8 @@ public interface IStoringGroceriesStatemachine extends ITimerCallback,IStatemach
 		
 		public void sendGoToRuntimeEndPoint();
 		
+		public void sendInterrupt();
+		
 	}
 	
 	public SCIMira getSCIMira();

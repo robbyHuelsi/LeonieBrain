@@ -240,6 +240,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_HowCanIHelpYou_main_region_TellIncomprehensible,
 		main_region_HowCanIHelpYou_main_region_StopSTT,
 		main_region_HowCanIHelpYou_main_region_Stop2,
+		main_region_HowCanIHelpYou_main_region_wait,
+		main_region_HowCanIHelpYou_main_region_stateB,
 		main_region_ArrivedWaypoint,
 		main_region__final_,
 		main_region_StartSTT,
@@ -256,6 +258,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_Turn,
 		main_region_PersonFound,
 		main_region_GuideMe,
+		main_region_GuideMe_folllowMePleaseRepeat_TTS,
 		main_region_wait,
 		main_region_arrived,
 		main_region_DetectionOff,
@@ -264,6 +267,9 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_PathBlocked_Blocked_speak,
 		main_region_PathBlocked_Blocked_gotoendp,
 		main_region_blocked2ndTime,
+		main_region_blocked,
+		main_region_nextTry,
+		main_region_arrived1,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
@@ -278,7 +284,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[25];
+	private final boolean[] timeEvents = new boolean[29];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -329,6 +335,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return bodyMoved;
 	}
 	
+	private long gWPtemp;
+	
+	protected void setGWPtemp(long value) {
+		gWPtemp = value;
+	}
+	
+	protected long getGWPtemp() {
+		return gWPtemp;
+	}
+	
 	public HelpMeCarryStatemachine() {
 		sCIBGF = new SCIBGFImpl();
 		sCIHBrain = new SCIHBrainImpl();
@@ -361,6 +377,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		setQuestionCounter(0);
 		
 		setBodyMoved(false);
+		
+		setGWPtemp(0);
 	}
 	
 	public void enter() {
@@ -463,7 +481,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_Lost_WavingToFindPerson_ILostU;
 		case main_region_HowCanIHelpYou:
 			return stateVector[0].ordinal() >= State.
-					main_region_HowCanIHelpYou.ordinal()&& stateVector[0].ordinal() <= State.main_region_HowCanIHelpYou_main_region_Stop2.ordinal();
+					main_region_HowCanIHelpYou.ordinal()&& stateVector[0].ordinal() <= State.main_region_HowCanIHelpYou_main_region_stateB.ordinal();
 		case main_region_HowCanIHelpYou_main_region_StateA:
 			return stateVector[0] == State.main_region_HowCanIHelpYou_main_region_StateA;
 		case main_region_HowCanIHelpYou_main_region_StartSTT:
@@ -478,6 +496,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_HowCanIHelpYou_main_region_StopSTT;
 		case main_region_HowCanIHelpYou_main_region_Stop2:
 			return stateVector[0] == State.main_region_HowCanIHelpYou_main_region_Stop2;
+		case main_region_HowCanIHelpYou_main_region_wait:
+			return stateVector[0] == State.main_region_HowCanIHelpYou_main_region_wait;
+		case main_region_HowCanIHelpYou_main_region_stateB:
+			return stateVector[0] == State.main_region_HowCanIHelpYou_main_region_stateB;
 		case main_region_ArrivedWaypoint:
 			return stateVector[0] == State.main_region_ArrivedWaypoint;
 		case main_region__final_:
@@ -510,7 +532,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_PersonFound:
 			return stateVector[0] == State.main_region_PersonFound;
 		case main_region_GuideMe:
-			return stateVector[0] == State.main_region_GuideMe;
+			return stateVector[0].ordinal() >= State.
+					main_region_GuideMe.ordinal()&& stateVector[0].ordinal() <= State.main_region_GuideMe_folllowMePleaseRepeat_TTS.ordinal();
+		case main_region_GuideMe_folllowMePleaseRepeat_TTS:
+			return stateVector[0] == State.main_region_GuideMe_folllowMePleaseRepeat_TTS;
 		case main_region_wait:
 			return stateVector[0] == State.main_region_wait;
 		case main_region_arrived:
@@ -528,6 +553,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_PathBlocked_Blocked_gotoendp;
 		case main_region_blocked2ndTime:
 			return stateVector[0] == State.main_region_blocked2ndTime;
+		case main_region_blocked:
+			return stateVector[0] == State.main_region_blocked;
+		case main_region_nextTry:
+			return stateVector[0] == State.main_region_nextTry;
+		case main_region_arrived1:
+			return stateVector[0] == State.main_region_arrived1;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -663,6 +694,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCIBGF.operationCallback.containsString(sCISTT.operationCallback.getSpokenText(), "car")==true;
 	}
 	
+	private boolean check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr4_tr4() {
+		return sCIBGF.operationCallback.containsString(sCISTT.operationCallback.getSpokenText(), "arrive")==true;
+	}
+	
 	private boolean check_main_region_StartTracking_WaitingForStopCommand_TTS_tr0_tr0() {
 		return true;
 	}
@@ -779,16 +814,28 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return true;
 	}
 	
+	private boolean check_main_region_HowCanIHelpYou_main_region_wait_tr0_tr0() {
+		return timeEvents[15];
+	}
+	
+	private boolean check_main_region_HowCanIHelpYou_main_region_stateB_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_HowCanIHelpYou_main_region_stateB_tr1_tr1() {
+		return timeEvents[16];
+	}
+	
 	private boolean check_main_region_ArrivedWaypoint_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_region_ArrivedWaypoint_tr1_tr1() {
-		return timeEvents[15];
+		return timeEvents[17];
 	}
 	
 	private boolean check_main_region_StartSTT_tr0_tr0() {
-		return timeEvents[16];
+		return timeEvents[18];
 	}
 	
 	private boolean check_main_region_StopSTT_tr0_tr0() {
@@ -800,7 +847,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_StopSTT_tr2_tr2() {
-		return timeEvents[17];
+		return timeEvents[19];
 	}
 	
 	private boolean check_main_region_FollowYes_tr0_tr0() {
@@ -812,7 +859,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_FollowNo_tr1_tr1() {
-		return timeEvents[18];
+		return timeEvents[20];
+	}
+	
+	private boolean check_main_region_GoTo_tr2_tr2() {
+		return sCIMira.blocked;
 	}
 	
 	private boolean check_main_region_GoTo_goto_goto_tr0_tr0() {
@@ -840,7 +891,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_LockingForNextOperator_tr1_tr1() {
-		return timeEvents[19];
+		return timeEvents[21];
 	}
 	
 	private boolean check_main_region_LockingForNextOperator_tr2_tr2() {
@@ -856,7 +907,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_PersonFound_tr1_tr1() {
-		return timeEvents[20];
+		return timeEvents[22];
 	}
 	
 	private boolean check_main_region_GuideMe_tr0_tr0() {
@@ -867,8 +918,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCIMira.blocked;
 	}
 	
+	private boolean check_main_region_GuideMe_folllowMePleaseRepeat_TTS_tr0_tr0() {
+		return timeEvents[23];
+	}
+	
 	private boolean check_main_region_wait_tr0_tr0() {
-		return timeEvents[21];
+		return timeEvents[24];
 	}
 	
 	private boolean check_main_region_arrived_tr0_tr0() {
@@ -876,7 +931,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_DetectionOff_tr0_tr0() {
-		return timeEvents[22];
+		return timeEvents[25];
 	}
 	
 	private boolean check_main_region_TrackingOffAndSavePoint_tr0_tr0() {
@@ -899,6 +954,18 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_blocked_tr0_tr0() {
+		return timeEvents[26];
+	}
+	
+	private boolean check_main_region_nextTry_tr0_tr0() {
+		return sCIMira.arrivedWP;
+	}
+	
+	private boolean check_main_region_arrived1_tr0_tr0() {
+		return sCIMira.arrivedWP;
+	}
+	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
 		return sCIMira.bumpered;
 	}
@@ -908,7 +975,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[23];
+		return timeEvents[27];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -920,7 +987,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[24];
+		return timeEvents[28];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -1090,6 +1157,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_StartTracking_WaitingForStopCommand_TTS_default();
 	}
 	
+	private void effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr4() {
+		exitSequence_main_region_StartTracking_WaitingForStopCommand_TextReceived();
+		enterSequence_main_region_StartTracking_WaitingForStopCommand_TTS_default();
+	}
+	
 	private void effect_main_region_StartTracking_WaitingForStopCommand_TTS_tr0() {
 		exitSequence_main_region_StartTracking_WaitingForStopCommand_TTS();
 		react_main_region_StartTracking_WaitingForStopCommand_exit_arrived();
@@ -1182,12 +1254,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private void effect_main_region_HowCanIHelpYou_main_region_StateA_tr0() {
 		exitSequence_main_region_HowCanIHelpYou_main_region_StateA();
-		enterSequence_main_region_HowCanIHelpYou_main_region_StartSTT_default();
+		enterSequence_main_region_HowCanIHelpYou_main_region_wait_default();
 	}
 	
 	private void effect_main_region_HowCanIHelpYou_main_region_StateA_tr1() {
 		exitSequence_main_region_HowCanIHelpYou_main_region_StateA();
-		enterSequence_main_region_HowCanIHelpYou_main_region_StartSTT_default();
+		enterSequence_main_region_HowCanIHelpYou_main_region_wait_default();
 	}
 	
 	private void effect_main_region_HowCanIHelpYou_main_region_StartSTT_tr0() {
@@ -1245,6 +1317,21 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		react_main_region_HowCanIHelpYou_main_region_exit_goto();
 	}
 	
+	private void effect_main_region_HowCanIHelpYou_main_region_wait_tr0() {
+		exitSequence_main_region_HowCanIHelpYou_main_region_wait();
+		enterSequence_main_region_HowCanIHelpYou_main_region_stateB_default();
+	}
+	
+	private void effect_main_region_HowCanIHelpYou_main_region_stateB_tr0() {
+		exitSequence_main_region_HowCanIHelpYou_main_region_stateB();
+		enterSequence_main_region_HowCanIHelpYou_main_region_StartSTT_default();
+	}
+	
+	private void effect_main_region_HowCanIHelpYou_main_region_stateB_tr1() {
+		exitSequence_main_region_HowCanIHelpYou_main_region_stateB();
+		enterSequence_main_region_HowCanIHelpYou_main_region_StartSTT_default();
+	}
+	
 	private void effect_main_region_ArrivedWaypoint_tr0() {
 		exitSequence_main_region_ArrivedWaypoint();
 		enterSequence_main_region_LockingForNextOperator_default();
@@ -1298,6 +1385,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void effect_main_region_GoTo_tr1() {
 		exitSequence_main_region_GoTo();
 		enterSequence_main_region_LocationNotFound_default();
+	}
+	
+	private void effect_main_region_GoTo_tr2() {
+		exitSequence_main_region_GoTo();
+		enterSequence_main_region_blocked_default();
 	}
 	
 	private void effect_main_region_GoTo_goto_goto_tr0() {
@@ -1365,6 +1457,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_PathBlocked_default();
 	}
 	
+	private void effect_main_region_GuideMe_folllowMePleaseRepeat_TTS_tr0() {
+		exitSequence_main_region_GuideMe_folllowMePleaseRepeat_TTS();
+		enterSequence_main_region_GuideMe_folllowMePleaseRepeat_TTS_default();
+	}
+	
 	private void effect_main_region_wait_tr0() {
 		exitSequence_main_region_wait();
 		enterSequence_main_region_GuideMe_default();
@@ -1413,6 +1510,21 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void effect_main_region_blocked2ndTime_tr0() {
 		exitSequence_main_region_blocked2ndTime();
 		enterSequence_main_region__final__default();
+	}
+	
+	private void effect_main_region_blocked_tr0() {
+		exitSequence_main_region_blocked();
+		enterSequence_main_region_nextTry_default();
+	}
+	
+	private void effect_main_region_nextTry_tr0() {
+		exitSequence_main_region_nextTry();
+		enterSequence_main_region_arrived1_default();
+	}
+	
+	private void effect_main_region_arrived1_tr0() {
+		exitSequence_main_region_arrived1();
+		enterSequence_main_region_ArrivedWaypoint_default();
 	}
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
@@ -1650,7 +1762,9 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StateA() {
 		timer.setTimer(this, 11, 10 * 1000, false);
 		
-		sCIHBrain.operationCallback.sendTTS("[:-)] Please hang your grocery on the hook next to my monitor and tell me, where shall I go?");
+		sCIMira.operationCallback.sendTurnBody(90);
+		
+		sCIHBrain.operationCallback.sendTTS("[:-)] Please hang your grocery on the hook next to my display.");
 		
 		setCounter(0);
 	}
@@ -1701,9 +1815,23 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
+	/* Entry action for state 'wait'. */
+	private void entryAction_main_region_HowCanIHelpYou_main_region_wait() {
+		timer.setTimer(this, 15, 3 * 1000, false);
+	}
+	
+	/* Entry action for state 'stateB'. */
+	private void entryAction_main_region_HowCanIHelpYou_main_region_stateB() {
+		timer.setTimer(this, 16, 10 * 1000, false);
+		
+		sCIMira.operationCallback.sendTurnBody(-90);
+		
+		sCIHBrain.operationCallback.sendTTS("Tell me please, where shall I go?");
+	}
+	
 	/* Entry action for state 'ArrivedWaypoint'. */
 	private void entryAction_main_region_ArrivedWaypoint() {
-		timer.setTimer(this, 15, 10 * 1000, false);
+		timer.setTimer(this, 17, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I'm here. Is anyone here to help me? [:-)]");
 		
@@ -1714,14 +1842,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_StartSTT() {
-		timer.setTimer(this, 16, 3 * 1000, false);
+		timer.setTimer(this, 18, 3 * 1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionYesNo();
 	}
 	
 	/* Entry action for state 'StopSTT'. */
 	private void entryAction_main_region_StopSTT() {
-		timer.setTimer(this, 17, 5 * 1000, false);
+		timer.setTimer(this, 19, 5 * 1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
@@ -1732,28 +1860,32 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'FollowYes'. */
 	private void entryAction_main_region_FollowYes() {
-		sCIHBrain.operationCallback.sendTTS("[:-)] Okay. I come with you.");
+		sCIHBrain.operationCallback.sendTTS("[:-)] Okay. I come with you. Tell me, if I should stop.");
 		
 		sCIMira.operationCallback.sendSaveRuntimeStartPoint();
 	}
 	
 	/* Entry action for state 'FollowNo'. */
 	private void entryAction_main_region_FollowNo() {
-		timer.setTimer(this, 18, 7 * 1000, false);
+		timer.setTimer(this, 20, 7 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("No? [:-(] Okay. I'm looking for another person.");
 	}
 	
 	/* Entry action for state 'goto'. */
 	private void entryAction_main_region_GoTo_goto_goto() {
-		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObject()));
+		setGWPtemp(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObject()));
+		
+		sCIMira.operationCallback.sendGoToGWP(getGWPtemp());
 		
 		sCIHBrain.operationCallback.sendTTS3("Your wish is my command. I will go to ", sCISTT.operationCallback.getObject(), ". But first, I have to localize myself.");
 	}
 	
 	/* Entry action for state 'goto_fallback'. */
 	private void entryAction_main_region_GoTo_goto_goto_fallback() {
-		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName("kitchen"));
+		setGWPtemp(sCIBGF.operationCallback.getGWPByName("kitchen"));
+		
+		sCIMira.operationCallback.sendGoToGWP(getGWPtemp());
 		
 		sCIHBrain.operationCallback.sendTTS("Okay, I think, I should go to kitchen. But first, I have to localize myself.");
 	}
@@ -1774,7 +1906,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'LockingForNextOperator'. */
 	private void entryAction_main_region_LockingForNextOperator() {
-		timer.setTimer(this, 19, 1 * 1000, false);
+		timer.setTimer(this, 21, 1 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
@@ -1790,23 +1922,30 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'PersonFound'. */
 	private void entryAction_main_region_PersonFound() {
-		timer.setTimer(this, 20, 10 * 1000, false);
+		timer.setTimer(this, 22, 10 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendDetectionOff();
+		
+		sCIMira.operationCallback.sendTurnBody(90);
 		
 		sCIHBrain.operationCallback.sendTTS("Hello. Can you take the groceries please? And I want you to follow me to the car.");
 	}
 	
 	/* Entry action for state 'GuideMe'. */
 	private void entryAction_main_region_GuideMe() {
-		sCIHBrain.operationCallback.sendTTS("Follow me please!");
-		
 		sCIMira.operationCallback.sendGoToRuntimeEndPoint();
+	}
+	
+	/* Entry action for state 'TTS'. */
+	private void entryAction_main_region_GuideMe_folllowMePleaseRepeat_TTS() {
+		timer.setTimer(this, 23, 10 * 1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("Follow me please!");
 	}
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_main_region_wait() {
-		timer.setTimer(this, 21, 10 * 1000, false);
+		timer.setTimer(this, 24, 10 * 1000, false);
 	}
 	
 	/* Entry action for state 'arrived'. */
@@ -1816,7 +1955,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'DetectionOff'. */
 	private void entryAction_main_region_DetectionOff() {
-		timer.setTimer(this, 22, 400, false);
+		timer.setTimer(this, 25, 400, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOff();
 	}
@@ -1843,9 +1982,23 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		sCIHBrain.operationCallback.sendTTS("I tried my best, but I'm not able to reach the destination. I'm sorry.");
 	}
 	
+	/* Entry action for state 'blocked'. */
+	private void entryAction_main_region_blocked() {
+		timer.setTimer(this, 26, 2 * 1000, false);
+		
+		sCIMira.operationCallback.sendInterrupt();
+		
+		sCIHBrain.operationCallback.sendTTS("[:-(] It seems to be hard to find the way back. But I will try it again. [:-|]");
+	}
+	
+	/* Entry action for state 'nextTry'. */
+	private void entryAction_main_region_nextTry() {
+		sCIMira.operationCallback.sendGoToGWP(getGWPtemp());
+	}
+	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 23, 3 * 1000, false);
+		timer.setTimer(this, 27, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1862,7 +2015,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 24, 3 * 1000, false);
+		timer.setTimer(this, 28, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'Detection'. */
@@ -1940,54 +2093,74 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		timer.unsetTimer(this, 14);
 	}
 	
+	/* Exit action for state 'wait'. */
+	private void exitAction_main_region_HowCanIHelpYou_main_region_wait() {
+		timer.unsetTimer(this, 15);
+	}
+	
+	/* Exit action for state 'stateB'. */
+	private void exitAction_main_region_HowCanIHelpYou_main_region_stateB() {
+		timer.unsetTimer(this, 16);
+	}
+	
 	/* Exit action for state 'ArrivedWaypoint'. */
 	private void exitAction_main_region_ArrivedWaypoint() {
-		timer.unsetTimer(this, 15);
+		timer.unsetTimer(this, 17);
 	}
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_region_StartSTT() {
-		timer.unsetTimer(this, 16);
+		timer.unsetTimer(this, 18);
 	}
 	
 	/* Exit action for state 'StopSTT'. */
 	private void exitAction_main_region_StopSTT() {
-		timer.unsetTimer(this, 17);
+		timer.unsetTimer(this, 19);
 	}
 	
 	/* Exit action for state 'FollowNo'. */
 	private void exitAction_main_region_FollowNo() {
-		timer.unsetTimer(this, 18);
+		timer.unsetTimer(this, 20);
 	}
 	
 	/* Exit action for state 'LockingForNextOperator'. */
 	private void exitAction_main_region_LockingForNextOperator() {
-		timer.unsetTimer(this, 19);
+		timer.unsetTimer(this, 21);
 	}
 	
 	/* Exit action for state 'PersonFound'. */
 	private void exitAction_main_region_PersonFound() {
-		timer.unsetTimer(this, 20);
+		timer.unsetTimer(this, 22);
+	}
+	
+	/* Exit action for state 'TTS'. */
+	private void exitAction_main_region_GuideMe_folllowMePleaseRepeat_TTS() {
+		timer.unsetTimer(this, 23);
 	}
 	
 	/* Exit action for state 'wait'. */
 	private void exitAction_main_region_wait() {
-		timer.unsetTimer(this, 21);
+		timer.unsetTimer(this, 24);
 	}
 	
 	/* Exit action for state 'DetectionOff'. */
 	private void exitAction_main_region_DetectionOff() {
-		timer.unsetTimer(this, 22);
+		timer.unsetTimer(this, 25);
+	}
+	
+	/* Exit action for state 'blocked'. */
+	private void exitAction_main_region_blocked() {
+		timer.unsetTimer(this, 26);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 23);
+		timer.unsetTimer(this, 27);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 24);
+		timer.unsetTimer(this, 28);
 	}
 	
 	/* 'default' enter sequence for state Detection */
@@ -2174,6 +2347,20 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.main_region_HowCanIHelpYou_main_region_Stop2;
 	}
 	
+	/* 'default' enter sequence for state wait */
+	private void enterSequence_main_region_HowCanIHelpYou_main_region_wait_default() {
+		entryAction_main_region_HowCanIHelpYou_main_region_wait();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_HowCanIHelpYou_main_region_wait;
+	}
+	
+	/* 'default' enter sequence for state stateB */
+	private void enterSequence_main_region_HowCanIHelpYou_main_region_stateB_default() {
+		entryAction_main_region_HowCanIHelpYou_main_region_stateB();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_HowCanIHelpYou_main_region_stateB;
+	}
+	
 	/* 'default' enter sequence for state ArrivedWaypoint */
 	private void enterSequence_main_region_ArrivedWaypoint_default() {
 		entryAction_main_region_ArrivedWaypoint();
@@ -2278,8 +2465,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* 'default' enter sequence for state GuideMe */
 	private void enterSequence_main_region_GuideMe_default() {
 		entryAction_main_region_GuideMe();
+		enterSequence_main_region_GuideMe_folllowMePleaseRepeat_default();
+	}
+	
+	/* 'default' enter sequence for state TTS */
+	private void enterSequence_main_region_GuideMe_folllowMePleaseRepeat_TTS_default() {
+		entryAction_main_region_GuideMe_folllowMePleaseRepeat_TTS();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_GuideMe;
+		stateVector[0] = State.main_region_GuideMe_folllowMePleaseRepeat_TTS;
 	}
 	
 	/* 'default' enter sequence for state wait */
@@ -2334,6 +2527,26 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		entryAction_main_region_blocked2ndTime();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_blocked2ndTime;
+	}
+	
+	/* 'default' enter sequence for state blocked */
+	private void enterSequence_main_region_blocked_default() {
+		entryAction_main_region_blocked();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_blocked;
+	}
+	
+	/* 'default' enter sequence for state nextTry */
+	private void enterSequence_main_region_nextTry_default() {
+		entryAction_main_region_nextTry();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_nextTry;
+	}
+	
+	/* 'default' enter sequence for state arrived1 */
+	private void enterSequence_main_region_arrived1_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_arrived1;
 	}
 	
 	/* 'default' enter sequence for state waitForEvent */
@@ -2393,6 +2606,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* 'default' enter sequence for region goto */
 	private void enterSequence_main_region_GoTo_goto_default() {
 		react_main_region_GoTo_goto__entry_Default();
+	}
+	
+	/* 'default' enter sequence for region folllowMePleaseRepeat */
+	private void enterSequence_main_region_GuideMe_folllowMePleaseRepeat_default() {
+		react_main_region_GuideMe_folllowMePleaseRepeat__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region Blocked */
@@ -2594,6 +2812,22 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state wait */
+	private void exitSequence_main_region_HowCanIHelpYou_main_region_wait() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_HowCanIHelpYou_main_region_wait();
+	}
+	
+	/* Default exit sequence for state stateB */
+	private void exitSequence_main_region_HowCanIHelpYou_main_region_stateB() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_HowCanIHelpYou_main_region_stateB();
+	}
+	
 	/* Default exit sequence for state ArrivedWaypoint */
 	private void exitSequence_main_region_ArrivedWaypoint() {
 		nextStateIndex = 0;
@@ -2697,8 +2931,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Default exit sequence for state GuideMe */
 	private void exitSequence_main_region_GuideMe() {
+		exitSequence_main_region_GuideMe_folllowMePleaseRepeat();
+	}
+	
+	/* Default exit sequence for state TTS */
+	private void exitSequence_main_region_GuideMe_folllowMePleaseRepeat_TTS() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_GuideMe_folllowMePleaseRepeat_TTS();
 	}
 	
 	/* Default exit sequence for state wait */
@@ -2748,6 +2989,26 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Default exit sequence for state blocked2ndTime */
 	private void exitSequence_main_region_blocked2ndTime() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state blocked */
+	private void exitSequence_main_region_blocked() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_blocked();
+	}
+	
+	/* Default exit sequence for state nextTry */
+	private void exitSequence_main_region_nextTry() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state arrived1 */
+	private void exitSequence_main_region_arrived1() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -2861,6 +3122,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_HowCanIHelpYou_main_region_Stop2:
 			exitSequence_main_region_HowCanIHelpYou_main_region_Stop2();
 			break;
+		case main_region_HowCanIHelpYou_main_region_wait:
+			exitSequence_main_region_HowCanIHelpYou_main_region_wait();
+			break;
+		case main_region_HowCanIHelpYou_main_region_stateB:
+			exitSequence_main_region_HowCanIHelpYou_main_region_stateB();
+			break;
 		case main_region_ArrivedWaypoint:
 			exitSequence_main_region_ArrivedWaypoint();
 			break;
@@ -2903,8 +3170,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_PersonFound:
 			exitSequence_main_region_PersonFound();
 			break;
-		case main_region_GuideMe:
-			exitSequence_main_region_GuideMe();
+		case main_region_GuideMe_folllowMePleaseRepeat_TTS:
+			exitSequence_main_region_GuideMe_folllowMePleaseRepeat_TTS();
 			break;
 		case main_region_wait:
 			exitSequence_main_region_wait();
@@ -2926,6 +3193,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			break;
 		case main_region_blocked2ndTime:
 			exitSequence_main_region_blocked2ndTime();
+			break;
+		case main_region_blocked:
+			exitSequence_main_region_blocked();
+			break;
+		case main_region_nextTry:
+			exitSequence_main_region_nextTry();
+			break;
+		case main_region_arrived1:
+			exitSequence_main_region_arrived1();
 			break;
 		default:
 			break;
@@ -3014,6 +3290,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_HowCanIHelpYou_main_region_Stop2:
 			exitSequence_main_region_HowCanIHelpYou_main_region_Stop2();
 			break;
+		case main_region_HowCanIHelpYou_main_region_wait:
+			exitSequence_main_region_HowCanIHelpYou_main_region_wait();
+			break;
+		case main_region_HowCanIHelpYou_main_region_stateB:
+			exitSequence_main_region_HowCanIHelpYou_main_region_stateB();
+			break;
 		default:
 			break;
 		}
@@ -3030,6 +3312,17 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			break;
 		case main_region_GoTo_goto_gotoWP:
 			exitSequence_main_region_GoTo_goto_gotoWP();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region folllowMePleaseRepeat */
+	private void exitSequence_main_region_GuideMe_folllowMePleaseRepeat() {
+		switch (stateVector[0]) {
+		case main_region_GuideMe_folllowMePleaseRepeat_TTS:
+			exitSequence_main_region_GuideMe_folllowMePleaseRepeat_TTS();
 			break;
 		default:
 			break;
@@ -3158,6 +3451,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 					} else {
 						if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr3_tr3()) {
 							effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr3();
+						} else {
+							if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr4_tr4()) {
+								effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr4();
+							}
 						}
 					}
 				}
@@ -3327,6 +3624,24 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		effect_main_region_HowCanIHelpYou_main_region_Stop2_tr0();
 	}
 	
+	/* The reactions of state wait. */
+	private void react_main_region_HowCanIHelpYou_main_region_wait() {
+		if (check_main_region_HowCanIHelpYou_main_region_wait_tr0_tr0()) {
+			effect_main_region_HowCanIHelpYou_main_region_wait_tr0();
+		}
+	}
+	
+	/* The reactions of state stateB. */
+	private void react_main_region_HowCanIHelpYou_main_region_stateB() {
+		if (check_main_region_HowCanIHelpYou_main_region_stateB_tr0_tr0()) {
+			effect_main_region_HowCanIHelpYou_main_region_stateB_tr0();
+		} else {
+			if (check_main_region_HowCanIHelpYou_main_region_stateB_tr1_tr1()) {
+				effect_main_region_HowCanIHelpYou_main_region_stateB_tr1();
+			}
+		}
+	}
+	
 	/* The reactions of state ArrivedWaypoint. */
 	private void react_main_region_ArrivedWaypoint() {
 		if (check_main_region_ArrivedWaypoint_tr0_tr0()) {
@@ -3382,22 +3697,34 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* The reactions of state goto. */
 	private void react_main_region_GoTo_goto_goto() {
-		if (check_main_region_GoTo_goto_goto_tr0_tr0()) {
-			effect_main_region_GoTo_goto_goto_tr0();
+		if (check_main_region_GoTo_tr2_tr2()) {
+			effect_main_region_GoTo_tr2();
+		} else {
+			if (check_main_region_GoTo_goto_goto_tr0_tr0()) {
+				effect_main_region_GoTo_goto_goto_tr0();
+			}
 		}
 	}
 	
 	/* The reactions of state goto_fallback. */
 	private void react_main_region_GoTo_goto_goto_fallback() {
-		if (check_main_region_GoTo_goto_goto_fallback_tr0_tr0()) {
-			effect_main_region_GoTo_goto_goto_fallback_tr0();
+		if (check_main_region_GoTo_tr2_tr2()) {
+			effect_main_region_GoTo_tr2();
+		} else {
+			if (check_main_region_GoTo_goto_goto_fallback_tr0_tr0()) {
+				effect_main_region_GoTo_goto_goto_fallback_tr0();
+			}
 		}
 	}
 	
 	/* The reactions of state gotoWP. */
 	private void react_main_region_GoTo_goto_gotoWP() {
-		if (check_main_region_GoTo_goto_gotoWP_tr0_tr0()) {
-			effect_main_region_GoTo_goto_gotoWP_tr0();
+		if (check_main_region_GoTo_tr2_tr2()) {
+			effect_main_region_GoTo_tr2();
+		} else {
+			if (check_main_region_GoTo_goto_gotoWP_tr0_tr0()) {
+				effect_main_region_GoTo_goto_gotoWP_tr0();
+			}
 		}
 	}
 	
@@ -3444,13 +3771,17 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		}
 	}
 	
-	/* The reactions of state GuideMe. */
-	private void react_main_region_GuideMe() {
+	/* The reactions of state TTS. */
+	private void react_main_region_GuideMe_folllowMePleaseRepeat_TTS() {
 		if (check_main_region_GuideMe_tr0_tr0()) {
 			effect_main_region_GuideMe_tr0();
 		} else {
 			if (check_main_region_GuideMe_tr1_tr1()) {
 				effect_main_region_GuideMe_tr1();
+			} else {
+				if (check_main_region_GuideMe_folllowMePleaseRepeat_TTS_tr0_tr0()) {
+					effect_main_region_GuideMe_folllowMePleaseRepeat_TTS_tr0();
+				}
 			}
 		}
 	}
@@ -3503,6 +3834,27 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void react_main_region_blocked2ndTime() {
 		if (check_main_region_blocked2ndTime_tr0_tr0()) {
 			effect_main_region_blocked2ndTime_tr0();
+		}
+	}
+	
+	/* The reactions of state blocked. */
+	private void react_main_region_blocked() {
+		if (check_main_region_blocked_tr0_tr0()) {
+			effect_main_region_blocked_tr0();
+		}
+	}
+	
+	/* The reactions of state nextTry. */
+	private void react_main_region_nextTry() {
+		if (check_main_region_nextTry_tr0_tr0()) {
+			effect_main_region_nextTry_tr0();
+		}
+	}
+	
+	/* The reactions of state arrived1. */
+	private void react_main_region_arrived1() {
+		if (check_main_region_arrived1_tr0_tr0()) {
+			effect_main_region_arrived1_tr0();
 		}
 	}
 	
@@ -3648,6 +4000,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	/* Default react sequence for initial entry  */
+	private void react_main_region_GuideMe_folllowMePleaseRepeat__entry_Default() {
+		enterSequence_main_region_GuideMe_folllowMePleaseRepeat_TTS_default();
+	}
+	
+	/* Default react sequence for initial entry  */
 	private void react_main_region_PathBlocked_Blocked__entry_Default() {
 		enterSequence_main_region_PathBlocked_Blocked_speak_default();
 	}
@@ -3771,6 +4128,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			case main_region_HowCanIHelpYou_main_region_Stop2:
 				react_main_region_HowCanIHelpYou_main_region_Stop2();
 				break;
+			case main_region_HowCanIHelpYou_main_region_wait:
+				react_main_region_HowCanIHelpYou_main_region_wait();
+				break;
+			case main_region_HowCanIHelpYou_main_region_stateB:
+				react_main_region_HowCanIHelpYou_main_region_stateB();
+				break;
 			case main_region_ArrivedWaypoint:
 				react_main_region_ArrivedWaypoint();
 				break;
@@ -3813,8 +4176,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			case main_region_PersonFound:
 				react_main_region_PersonFound();
 				break;
-			case main_region_GuideMe:
-				react_main_region_GuideMe();
+			case main_region_GuideMe_folllowMePleaseRepeat_TTS:
+				react_main_region_GuideMe_folllowMePleaseRepeat_TTS();
 				break;
 			case main_region_wait:
 				react_main_region_wait();
@@ -3836,6 +4199,15 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 				break;
 			case main_region_blocked2ndTime:
 				react_main_region_blocked2ndTime();
+				break;
+			case main_region_blocked:
+				react_main_region_blocked();
+				break;
+			case main_region_nextTry:
+				react_main_region_nextTry();
+				break;
+			case main_region_arrived1:
+				react_main_region_arrived1();
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();

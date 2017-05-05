@@ -163,6 +163,10 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 		case "start":
 			return 19;
 			
+		case "tv":
+		case "television":
+		case "monitor":
+			return 24;
 
 		default:
 			return -1;

@@ -133,6 +133,8 @@ public interface IHelpMeCarryStatemachine extends ITimerCallback,IStatemachine {
 		
 		public void sendGoToRuntimeEndPoint();
 		
+		public void sendInterrupt();
+		
 	}
 	
 	public SCIMira getSCIMira();

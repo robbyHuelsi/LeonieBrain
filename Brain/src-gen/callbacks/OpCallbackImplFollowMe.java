@@ -42,10 +42,12 @@ public class OpCallbackImplFollowMe implements IOpCallbackImpl,
 		System.out.println("FollowMe: sendTrackingOnAtNext()");
 		//Communication.sendMessage("#FOLLOWME#TRACKING#true#", modules.get("FollowMe"));
 		
-		FollowMe fm = (FollowMe)Start.getModules().getParser("FollowMe");
+		/*FollowMe fm = (FollowMe)Start.getModules().getParser("FollowMe");
 		int x = fm.getNextPersonXPos();
 		int y = fm.getNextPersonYPos();
-		sendTrackingOnAtPos(x,y);
+		sendTrackingOnAtPos(x,y);*/
+		
+		Communication.sendMessage("#FOLLOWME#TRACKING#POSITION#320;240#", modules.get("FollowMe"));
 	}
 
 	public long getNextPersonXPos() {

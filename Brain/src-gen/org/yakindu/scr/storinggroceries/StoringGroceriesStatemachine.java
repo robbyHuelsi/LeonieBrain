@@ -125,7 +125,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		main_region_tiltCupboard,
 		main_region_lookToFront,
 		main_region_C1,
-		main_region_C2,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
@@ -343,8 +342,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			return stateVector[0] == State.main_region_lookToFront;
 		case main_region_C1:
 			return stateVector[0] == State.main_region_C1;
-		case main_region_C2:
-			return stateVector[0] == State.main_region_C2;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[2] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -472,10 +469,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		return true;
 	}
 	
-	private boolean check_main_region_C2_tr0_tr0() {
-		return true;
-	}
-	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
 		return sCIMira.bumpered;
 	}
@@ -504,14 +497,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		return sCIMira.emergencyStop;
 	}
 	
-	private boolean check_main_region__choice_0_tr0_tr0() {
-		return getCupboard()==1;
-	}
-	
-	private boolean check_main_region__choice_0_tr1_tr1() {
-		return getCupboard()==2;
-	}
-	
 	private void effect_main_region_ObjectDetection_tr0() {
 		exitSequence_main_region_ObjectDetection();
 		enterSequence_main_region_lookToFront_default();
@@ -529,7 +514,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_main_region_requestReady_tr0() {
 		exitSequence_main_region_requestReady();
-		react_main_region__choice_0();
+		enterSequence_main_region_C1_default();
 	}
 	
 	private void effect_main_region_inspectTable_tr0() {
@@ -607,11 +592,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		enterSequence_main_region_move_to_wp_default();
 	}
 	
-	private void effect_main_region_C2_tr0() {
-		exitSequence_main_region_C2();
-		enterSequence_main_region_move_to_wp_default();
-	}
-	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
 		exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered_default();
@@ -647,19 +627,11 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
 	}
 	
-	private void effect_main_region__choice_0_tr0() {
-		enterSequence_main_region_C1_default();
-	}
-	
-	private void effect_main_region__choice_0_tr1() {
-		enterSequence_main_region_C2_default();
-	}
-	
 	/* Entry action for state 'ObjectDetection'. */
 	private void entryAction_main_region_ObjectDetection() {
 		sCIObjectDetection.operationCallback.sendAnalyseCupboard();
 		
-		sCIHBrain.operationCallback.sendTTS("[attentive] Okay. Now I am analysing the cupboard.");
+		sCIHBrain.operationCallback.sendTTS("{0;0}[attentive] Okay. Now I am analysing the cupboard.");
 	}
 	
 	/* Entry action for state 'tellObj'. */
@@ -671,7 +643,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	private void entryAction_main_region_requestReady() {
 		sCIObjectDetection.operationCallback.sendReadyRequest();
 		
-		setCupboard(2);
+		setCupboard(1);
 		
 		setTiltAngle(-18);
 	}
@@ -690,7 +662,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'PDFAndSummary'. */
 	private void entryAction_main_region_Copy_1_Table__region0_PDFAndSummary() {
-		sCIHBrain.operationCallback.sendTTS("{Person} [:-)]");
+		sCIHBrain.operationCallback.sendTTS("{-180;0} [:-)]");
 		
 		sCIObjectDetection.operationCallback.sendPrintPDF();
 		
@@ -700,6 +672,11 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	/* Entry action for state 'AdditionalInfo'. */
 	private void entryAction_main_region_Copy_1_Table__region0_AdditionalInfo() {
 		sCIHBrain.operationCallback.sendTTS("[:-|] You can find more detailed information about the found objects in the PDF document. Therefore ask another RT-Lion. [:-)]");
+	}
+	
+	/* Entry action for state 'sync1'. */
+	private void entryAction_main_region_Copy_1_Table__region0_sync1() {
+		sCIHBrain.operationCallback.sendTTS("{0;0}");
 	}
 	
 	/* Entry action for state 'Copy_1_panCupboard'. */
@@ -744,7 +721,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'lookToFront'. */
 	private void entryAction_main_region_lookToFront() {
-		sCIHBrain.operationCallback.sendTTS("{0;-0} [:-)]");
+		sCIHBrain.operationCallback.sendTTS("{0;0} [:-)]");
 	}
 	
 	/* Entry action for state 'C1'. */
@@ -752,13 +729,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		setCupboardGWP(23);
 		
 		setPanAngle(45);
-	}
-	
-	/* Entry action for state 'C2'. */
-	private void entryAction_main_region_C2() {
-		setCupboardGWP(22);
-		
-		setPanAngle(-47);
 	}
 	
 	/* Entry action for state 'Bumpered'. */
@@ -885,6 +855,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* 'default' enter sequence for state sync1 */
 	private void enterSequence_main_region_Copy_1_Table__region0_sync1_default() {
+		entryAction_main_region_Copy_1_Table__region0_sync1();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_Copy_1_Table__region0_sync1;
 	}
@@ -949,13 +920,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		entryAction_main_region_C1();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_C1;
-	}
-	
-	/* 'default' enter sequence for state C2 */
-	private void enterSequence_main_region_C2_default() {
-		entryAction_main_region_C2();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_C2;
 	}
 	
 	/* 'default' enter sequence for state waitForEvent */
@@ -1146,12 +1110,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state C2 */
-	private void exitSequence_main_region_C2() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
 	/* Default exit sequence for state waitForEvent */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		nextStateIndex = 2;
@@ -1230,9 +1188,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			break;
 		case main_region_C1:
 			exitSequence_main_region_C1();
-			break;
-		case main_region_C2:
-			exitSequence_main_region_C2();
 			break;
 		default:
 			break;
@@ -1475,11 +1430,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		effect_main_region_C1_tr0();
 	}
 	
-	/* The reactions of state C2. */
-	private void react_main_region_C2() {
-		effect_main_region_C2_tr0();
-	}
-	
 	/* The reactions of state waitForEvent. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0()) {
@@ -1515,17 +1465,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		} else {
 			if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1()) {
 				effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1();
-			}
-		}
-	}
-	
-	/* The reactions of state null. */
-	private void react_main_region__choice_0() {
-		if (check_main_region__choice_0_tr0_tr0()) {
-			effect_main_region__choice_0_tr0();
-		} else {
-			if (check_main_region__choice_0_tr1_tr1()) {
-				effect_main_region__choice_0_tr1();
 			}
 		}
 	}
@@ -1621,9 +1560,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 				break;
 			case main_region_C1:
 				react_main_region_C1();
-				break;
-			case main_region_C2:
-				react_main_region_C2();
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
