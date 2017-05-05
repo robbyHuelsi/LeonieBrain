@@ -101,7 +101,7 @@
           <vertices xsi:type="sgraph:Entry" xmi:id="_TaPf9ykFEeerIsa7nI0F3w">
             <outgoingTransitions xmi:id="_TaPf-CkFEeerIsa7nI0F3w" target="_TaQGoCkFEeerIsa7nI0F3w"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_TaQGoCkFEeerIsa7nI0F3w" specification="entry /&#xA;HBrain.sendTTS(&quot;[:-)] Please hang your grocery on me and tell me, where shall I go?&quot;);&#xA;counter = 0" name="StateA" incomingTransitions="_TaPf-CkFEeerIsa7nI0F3w">
+          <vertices xsi:type="sgraph:State" xmi:id="_TaQGoCkFEeerIsa7nI0F3w" specification="entry /&#xA;HBrain.sendTTS(&quot;[:-)] Please hang your grocery on the hook next to my monitor and tell me, where shall I go?&quot;);&#xA;counter = 0" name="StateA" incomingTransitions="_TaPf-CkFEeerIsa7nI0F3w">
             <outgoingTransitions xmi:id="_TaQGqikFEeerIsa7nI0F3w" specification="HBrain.TTSReady" target="_TaQGrykFEeerIsa7nI0F3w"/>
             <outgoingTransitions xmi:id="_zRgfYDCVEeeGYMEkKz9wVA" specification="after 10s" target="_TaQGrykFEeerIsa7nI0F3w"/>
           </vertices>

@@ -1650,7 +1650,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StateA() {
 		timer.setTimer(this, 11, 10 * 1000, false);
 		
-		sCIHBrain.operationCallback.sendTTS("[:-)] Please hang your grocery on me and tell me, where shall I go?");
+		sCIHBrain.operationCallback.sendTTS("[:-)] Please hang your grocery on the hook next to my monitor and tell me, where shall I go?");
 		
 		setCounter(0);
 	}

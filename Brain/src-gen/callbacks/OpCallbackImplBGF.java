@@ -43,11 +43,12 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 	public long getGWPByName(String inName) {
 		switch (inName.toLowerCase()) {
 		case "kitchen":
-		case "potato": 			//MAYBE
 			return 0;
 			
 		case "dinnertable":
+		case "dinner table":
 		case "diningroom":
+		case "dining room":
 		case "candle":			//MAYBE
 			return 1;
 			
@@ -64,9 +65,6 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 		case "chocolate egg": 		//MAYBE
 		case "peas": 				//MAYBE
 		case "milk": 				//MAYBE
-		case "kelloggs smacks":		//MAYBE
-		case "kelloggs cornflakes":	//MAYBE
-		case "kelloggs":			//MAYBE
 		case "party cracker":		//MAYBE
 		case "cracker":				//MAYBE
 		case "orange juice":		//MAYBE
@@ -75,6 +73,7 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 		case "pear":				//MAYBE
 		case "sandwich":			//MAYBE
 		case "noodles":				//MAYBE
+		case "corridor":
 			return 3;
 			
 		case "kitchencounter": 
@@ -83,6 +82,7 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 		case "plate":				//MAYBE
 		case "coffee cup":			//MAYBE
 		case "coffee":				//MAYBE
+		case "potato": 				//MAYBE
 		case "cup":					//MAYBE
 		case "bowl":				//MAYBE
 		case "salt":				//MAYBE
@@ -91,12 +91,15 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 		case "glass":				//MAYBE
 		case "candlestick":			//MAYBE
 		case "candle holder":		//MAYBE
+		case "picture": 			//MAYBE
 			return 4;
 			
 		case "sofa":
 		case "couch":
 			return 5;
 			
+		case "livingroom":
+		case "plant":
 		case "couchtable":
 		case "crisps":				//MAYBE
 		case "chips": 				//MAYBE
@@ -114,16 +117,20 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			
 		case "bed":
 		case "bedroom":
+		case "pillow":
 			return 9;
 			
 		case "closet": 
 		case "sponge": 
 		case "cleaning tissue": 
 		case "beach lounger": 
+		case "palm": 
 		case "book": 				//MAYBE
-		case "picture": 			//MAYBE
 		case "basket": 				//MAYBE
 		case "lamp":	
+		case "kelloggs smacks":		//MAYBE
+		case "kelloggs cornflakes":	//MAYBE
+		case "kelloggs":			//MAYBE
 			return 10;
 			
 		case "desk":
@@ -139,7 +146,6 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			return 13;
 			
 		case "frontdoor":
-		case "plant":
 			return 14;
 			
 		case "middledoorin":
@@ -162,6 +168,7 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			return -1;
 		}
 	}
+
 
 	public boolean containsString(String main, String check) {
 		return main.contains(check);

@@ -32,6 +32,7 @@ public class MessageParser {
 		// ----------------------------------------------------------------------
 		// ----------------------------------------------------------------------
 		if (m.find() == true) {
+			System.out.println("::"+message+"::");
 			sender = m.group(1);
 			data = m.group(2);
 			System.out.println(sender + ": " + data);
