@@ -47,6 +47,8 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			
 		case "dinnertable":
 		case "dinner table":
+		case "table":
+		case "dinner":
 		case "diningroom":
 		case "dining room":
 		case "candle":			//MAYBE
@@ -76,7 +78,8 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 		case "corridor":
 			return 3;
 			
-		case "kitchencounter": 
+		case "kitchencounter":
+		case "kitchen counter":
 		case "coke":				//MAYBE
 		case "towel":				//MAYBE
 		case "plate":				//MAYBE
@@ -90,6 +93,8 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 		case "glass pot":			//MAYBE
 		case "glass":				//MAYBE
 		case "candlestick":			//MAYBE
+		case "candle stick":		//MAYBE
+		case "candleholder":		//MAYBE
 		case "candle holder":		//MAYBE
 		case "picture": 			//MAYBE
 			return 4;
@@ -99,13 +104,16 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			return 5;
 			
 		case "livingroom":
+		case "living room":
 		case "plant":
+		case "couch table":
 		case "couchtable":
 		case "crisps":				//MAYBE
 		case "chips": 				//MAYBE
 			return 6;
 			
 		case "sidetable":
+		case "side table":
 			return 7;
 			
 		case "stove":
@@ -143,9 +151,11 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 		case "out":
 		case "outside":
 		case "frontdoorout":
+		case "frontdoor out":
 			return 13;
 			
 		case "frontdoor":
+		case "front door":
 			return 14;
 			
 		case "middledoorin":
