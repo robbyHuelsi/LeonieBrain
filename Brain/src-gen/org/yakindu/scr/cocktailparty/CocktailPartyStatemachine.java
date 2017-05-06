@@ -482,7 +482,7 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 0, 3*1000, false);
+		timer.setTimer(this, 0, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -499,7 +499,7 @@ public class CocktailPartyStatemachine implements ICocktailPartyStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 1, 3*1000, false);
+		timer.setTimer(this, 1, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'Bumpered'. */

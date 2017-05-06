@@ -14,7 +14,7 @@ public class OpCallbackImplLeapMotion implements IOpCallbackImpl,
 	private Modules modules = Start.instanceOf().getModules();
 	
 	public void sendGestureDetectionOnOff(long inOnOff){
-		Communication.sendMessage("#HANDGESTURES#" + (int)inOnOff + "#", modules.get("HandGestures"));
+		Communication.sendMessage("#HANDGESTURES#" + (int)inOnOff + "#", modules.get("LeapMotion"));
 	}
 
 	@Override

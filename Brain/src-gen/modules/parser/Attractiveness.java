@@ -10,7 +10,7 @@ public class Attractiveness implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Start start;
 	
-	private float attrativeness;
+	private double attrativeness;
 	private boolean attractivenessDetected;
 	private boolean noFaceFound;
 
@@ -25,7 +25,7 @@ public class Attractiveness implements IParser, Serializable{
 			this.setNoFaceFound(true);
 		}else{
 			try {
-				this.setAttrativeness(Float.parseFloat(data));
+				this.setAttrativeness(Double.parseDouble(data));
 				this.setNoFaceFound(false);
 				this.setAttractivenessDetected(true);
 			
@@ -40,13 +40,13 @@ public class Attractiveness implements IParser, Serializable{
 		
 		
 
-	public float getAttrativeness() {
+	public double getAttrativeness() {
 		return attrativeness;
 	}
 
 
 
-	public void setAttrativeness(float attrativeness) {
+	public void setAttrativeness(double attrativeness) {
 		this.attrativeness = attrativeness;
 	}
 

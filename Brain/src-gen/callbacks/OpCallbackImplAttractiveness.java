@@ -14,7 +14,7 @@ public class OpCallbackImplAttractiveness implements IOpCallbackImpl,
 	private Modules modules = Start.instanceOf().getModules();
 
 	 public void sendToAttr_estimate() {
-		 Communication.sendMessage("#ATTRACT#START#", modules.get("Attractiveness"));
+		 Communication.sendMessage("#ATTRACTIVENESS#START#", modules.get("Attractiveness"));
 	 }
 
 	public void sendInit() {

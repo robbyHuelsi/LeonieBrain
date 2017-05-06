@@ -293,7 +293,7 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	
 	/* Entry action for state 'Entry'. */
 	private void entryAction_main_region_Entry() {
-		timer.setTimer(this, 0, 3*1000, false);
+		timer.setTimer(this, 0, 3 * 1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(16);
 		
@@ -312,7 +312,7 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 1, 3*1000, false);
+		timer.setTimer(this, 1, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -324,7 +324,7 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	
 	/* Entry action for state 'EmergencyStop'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
-		timer.setTimer(this, 2, 3*1000, false);
+		timer.setTimer(this, 2, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
 	}
