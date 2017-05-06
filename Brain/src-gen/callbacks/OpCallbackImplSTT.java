@@ -36,6 +36,26 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	public String getObject() {
 		return ((STT)modules.getParser("STT")).getObject();
 	}
+	
+	public long getActionListLength() {
+		return ((STT)modules.getParser("STT")).getActionListLength();
+	}
+
+	public String getInstructionFromActionListAt(long i) {
+		return ((STT)modules.getParser("STT")).getInstructionFromActionListAt(i);
+	}
+
+	public String getObjectFromActionListAt(long i) {
+		return ((STT)modules.getParser("STT")).getObjectFromActionListAt(i);
+	}
+
+	public String getLocationFromActionListAt(long i) {
+		return ((STT)modules.getParser("STT")).getLocationFromActionListAt(i);
+	}
+	
+	public String getActionCommandSentence() {
+		return ((STT)modules.getParser("STT")).getActionCommandSentence();
+	}
 
 	public void sendSpeechDetectionOff() {
 		Communication.sendMessage("#STT#0#", modules.get("STT"));
@@ -48,9 +68,11 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setSpokenText("");
 		stt.setInstruction("");
 		stt.setObject("");
+		stt.resetActionList();
 		stt.setSpokenTextReceived(false);
 		stt.setIncomprehensible(false);
 		stt.setActionReceived(false);
+		stt.setActionsReceived(false);
 	}
 
 	public void sendSpeechDetectionYesNo() {
@@ -60,9 +82,11 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setSpokenText("");
 		stt.setInstruction("");
 		stt.setObject("");
+		stt.resetActionList();
 		stt.setSpokenTextReceived(false);
 		stt.setIncomprehensible(false);
 		stt.setActionReceived(false);
+		stt.setActionsReceived(false);
 	}
 
 	public void sendSpeechDetectionName() {
@@ -72,17 +96,31 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setSpokenText("");
 		stt.setInstruction("");
 		stt.setObject("");
+		stt.resetActionList();
 		stt.setSpokenTextReceived(false);
 		stt.setIncomprehensible(false);
 		stt.setActionReceived(false);
+		stt.setActionsReceived(false);
 	}
 
-	@Override
+	public void sendSpeechDetectionActions() {
+	Communication.sendMessage("#STT#4#", modules.get("STT"));
+		
+		STT stt = (STT)Start.getModules().getParser("STT");
+		stt.setSpokenText("");
+		stt.setInstruction("");
+		stt.setObject("");
+		stt.resetActionList();
+		stt.setSpokenTextReceived(false);
+		stt.setIncomprehensible(false);
+		stt.setActionReceived(false);
+		stt.setActionsReceived(false);
+	}
+	
+
 	public void sendInit() {
 		sendSpeechDetectionOff();
 	}
-
-
 
 
 }

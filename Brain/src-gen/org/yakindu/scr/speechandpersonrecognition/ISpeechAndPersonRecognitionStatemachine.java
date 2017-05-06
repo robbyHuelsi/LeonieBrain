@@ -145,9 +145,11 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		
 		public void raiseIncomprehensible();
 		
+		public void raiseAnswerReceived();
+		
 		public void raiseActionReceived();
 		
-		public void raiseAnswerReceived();
+		public void raiseActionsReceived();
 		
 		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
 	
@@ -163,6 +165,16 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		
 		public String getObject();
 		
+		public long getActionListLength();
+		
+		public String getInstructionFromActionListAt(long i);
+		
+		public String getObjectFromActionListAt(long i);
+		
+		public String getLocationFromActionListAt(long i);
+		
+		public String getActionCommandSentence();
+		
 		public void sendSpeechDetectionOff();
 		
 		public void sendSpeechDetectionSmalltalk();
@@ -170,6 +182,8 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		public void sendSpeechDetectionYesNo();
 		
 		public void sendSpeechDetectionName();
+		
+		public void sendSpeechDetectionActions();
 		
 	}
 	

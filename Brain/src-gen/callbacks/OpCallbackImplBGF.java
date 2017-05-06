@@ -152,6 +152,7 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			
 		case "out":
 		case "outside":
+		case "exit":
 		case "frontdoorout":
 		case "frontdoor out":
 			return 13;

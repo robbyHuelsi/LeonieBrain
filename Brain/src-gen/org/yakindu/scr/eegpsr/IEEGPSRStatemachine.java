@@ -115,9 +115,11 @@ public interface IEEGPSRStatemachine extends ITimerCallback,IStatemachine {
 		
 		public void raiseIncomprehensible();
 		
+		public void raiseAnswerReceived();
+		
 		public void raiseActionReceived();
 		
-		public void raiseAnswerReceived();
+		public void raiseActionsReceived();
 		
 		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
 	
@@ -133,6 +135,14 @@ public interface IEEGPSRStatemachine extends ITimerCallback,IStatemachine {
 		
 		public String getObject();
 		
+		public long getActionListLength();
+		
+		public String getInstructionFromActionListAt(long i);
+		
+		public String getObjectFromActionListAt(long i);
+		
+		public String getLocationFromActionListAt(long i);
+		
 		public void sendSpeechDetectionOff();
 		
 		public void sendSpeechDetectionSmalltalk();
@@ -140,6 +150,8 @@ public interface IEEGPSRStatemachine extends ITimerCallback,IStatemachine {
 		public void sendSpeechDetectionYesNo();
 		
 		public void sendSpeechDetectionName();
+		
+		public void sendSpeechDetectionActions();
 		
 	}
 	

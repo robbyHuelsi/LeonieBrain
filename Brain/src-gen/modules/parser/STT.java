@@ -117,16 +117,73 @@ public class STT implements IParser, Serializable{
 		return this.actionList.size();
 	}
 	
-	public String getInstructionFromActionListAt(int i){
-		return this.actionList.get(i).getInstruction();
+	public String getInstructionFromActionListAt(long i){
+		return this.actionList.get((int)i).getInstruction();
 	}
 	
-	public String getObjectFromActionListAt(int i){
-		return this.actionList.get(i).getObject();
+	public String getObjectFromActionListAt(long i){
+		return this.actionList.get((int)i).getObject();
 	}
 	
-	public String getLocationFromActionListAt(int i){
-		return this.actionList.get(i).getLocation();
+	public String getLocationFromActionListAt(long i){
+		return this.actionList.get((int)i).getLocation();
+	}
+	
+	public String getActionCommandSentence() {
+		if (actionList.isEmpty()) {
+			return "I didnt get actions. Sorry [:-(]";
+		}else{
+			String answer = "";
+			for (Action action : actionList) {
+				switch (action.getInstruction()) {
+				case "goto":
+					answer += "I should go to the " + action.getLocation() + ". ";
+					break;
+					
+				case "crowd":
+					answer += "I should detect the crowd. "; // TODO: Hinzufügen, nachwas gefragt ist " + action.getLocation() + ". ";
+					break;
+					
+				case "surrounding":
+					answer += "I should look for something in the surrounding. "; //TODO: Ausweiten
+					break;
+					
+				case "bring":
+					if (action.getObject().isEmpty()) {
+						answer += "I should bring the " + action.getObject() + ". ";
+					}else{
+						answer += "I should bring the " + action.getObject() + ". "; //TODO: Ausweitern
+					}
+					
+					break;
+					
+				case "open":
+					answer += "I should open the " + action.getObject() + ". ";
+					break;
+					
+				case "followme":
+					answer += "I should follow " + action.getLocation() + ". ";
+					break;
+					
+				case "tell":
+					answer += "I should tell: " + action.getObject() + ". ";
+					break;
+					
+				case "question":
+					answer += "I answer a question. ";
+					break;
+
+				default:
+					answer += "I do something unknown. ";
+					break;
+				}
+			}
+			return answer;
+		}
+	}
+	
+	public void resetActionList(){
+		this.actionList = new Vector<Action>();
 	}
 
 	public boolean isSpokenTextReceived() {

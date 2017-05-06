@@ -160,23 +160,30 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			incomprehensible = true;
 		}
 		
-		private boolean actionReceived;
-		
-		public void raiseActionReceived() {
-			actionReceived = true;
-		}
-		
 		private boolean answerReceived;
 		
 		public void raiseAnswerReceived() {
 			answerReceived = true;
 		}
 		
+		private boolean actionReceived;
+		
+		public void raiseActionReceived() {
+			actionReceived = true;
+		}
+		
+		private boolean actionsReceived;
+		
+		public void raiseActionsReceived() {
+			actionsReceived = true;
+		}
+		
 		protected void clearEvents() {
 			spokenTextReceived = false;
 			incomprehensible = false;
-			actionReceived = false;
 			answerReceived = false;
+			actionReceived = false;
+			actionsReceived = false;
 		}
 	}
 	

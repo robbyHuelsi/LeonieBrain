@@ -35,9 +35,9 @@ public interface ITest_STT_SmalltalkStatemachine extends ITimerCallback,IStatema
 		
 		public void raiseIncomprehensible();
 		
-		public void raiseActionReceived();
-		
 		public void raiseAnswerReceived();
+		
+		public void raiseActionReceived();
 		
 		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
 	

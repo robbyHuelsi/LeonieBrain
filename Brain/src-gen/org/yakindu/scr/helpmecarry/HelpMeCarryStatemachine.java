@@ -160,23 +160,30 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			incomprehensible = true;
 		}
 		
-		private boolean actionReceived;
-		
-		public void raiseActionReceived() {
-			actionReceived = true;
-		}
-		
 		private boolean answerReceived;
 		
 		public void raiseAnswerReceived() {
 			answerReceived = true;
 		}
 		
+		private boolean actionReceived;
+		
+		public void raiseActionReceived() {
+			actionReceived = true;
+		}
+		
+		private boolean actionsReceived;
+		
+		public void raiseActionsReceived() {
+			actionsReceived = true;
+		}
+		
 		protected void clearEvents() {
 			spokenTextReceived = false;
 			incomprehensible = false;
-			actionReceived = false;
 			answerReceived = false;
+			actionReceived = false;
+			actionsReceived = false;
 		}
 	}
 	
@@ -839,7 +846,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_StopSTT_tr0_tr0() {
-		return sCISTT.spokenTextReceived;
+		return sCISTT.answerReceived;
 	}
 	
 	private boolean check_main_region_StopSTT_tr1_tr1() {
@@ -1027,7 +1034,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region__choice_0_tr0_tr0() {
-		return (sCISTT.operationCallback.getSpokenText()== null?"yes" ==null :sCISTT.operationCallback.getSpokenText().equals("yes"));
+		return (sCISTT.operationCallback.getAnswer()== null?"yes" ==null :sCISTT.operationCallback.getAnswer().equals("yes"));
 	}
 	
 	private boolean check_main_region__choice_0_tr1_tr1() {
