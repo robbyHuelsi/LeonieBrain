@@ -143,6 +143,8 @@ public interface IEEGPSRStatemachine extends ITimerCallback,IStatemachine {
 		
 		public String getLocationFromActionListAt(long i);
 		
+		public String getActionCommandSentence();
+		
 		public void sendSpeechDetectionOff();
 		
 		public void sendSpeechDetectionSmalltalk();
