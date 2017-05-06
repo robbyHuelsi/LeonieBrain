@@ -303,6 +303,8 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		main_region_DoAllActions__region0_DoAction_Instructions_crowd,
 		main_region_DoAllActions__region0_DoAction_Instructions_tell,
 		main_region_DoAllActions__region0_DoAction_Instructions_question,
+		main_region_GoToOp,
+		main_region_blocked,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
@@ -317,7 +319,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[38];
+	private final boolean[] timeEvents = new boolean[40];
 	private long actionCounter;
 	
 	protected void setActionCounter(long value) {
@@ -573,6 +575,10 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 			return stateVector[0] == State.main_region_DoAllActions__region0_DoAction_Instructions_tell;
 		case main_region_DoAllActions__region0_DoAction_Instructions_question:
 			return stateVector[0] == State.main_region_DoAllActions__region0_DoAction_Instructions_question;
+		case main_region_GoToOp:
+			return stateVector[0] == State.main_region_GoToOp;
+		case main_region_blocked:
+			return stateVector[0] == State.main_region_blocked;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -988,6 +994,26 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		return timeEvents[35];
 	}
 	
+	private boolean check_main_region_GoToOp_tr0_tr0() {
+		return sCIMira.arrivedWP;
+	}
+	
+	private boolean check_main_region_GoToOp_tr1_tr1() {
+		return sCIMira.blocked;
+	}
+	
+	private boolean check_main_region_GoToOp_tr2_tr2() {
+		return timeEvents[36];
+	}
+	
+	private boolean check_main_region_blocked_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_blocked_tr1_tr1() {
+		return timeEvents[37];
+	}
+	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
 		return sCIMira.bumpered;
 	}
@@ -997,7 +1023,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[36];
+		return timeEvents[38];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -1009,7 +1035,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[37];
+		return timeEvents[39];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -1263,7 +1289,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	private void effect_main_region_DoAllActions_tr0() {
 		exitSequence_main_region_DoAllActions();
-		enterSequence_main_region_StopSTT_default();
+		enterSequence_main_region_GoToOp_default();
 	}
 	
 	private void effect_main_region_DoAllActions__region0_DoAction_tr0() {
@@ -1606,6 +1632,31 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		react_main_region_DoAllActions__region0_DoAction_Instructions_exit_done();
 	}
 	
+	private void effect_main_region_GoToOp_tr0() {
+		exitSequence_main_region_GoToOp();
+		enterSequence_main_region_StopSTT_default();
+	}
+	
+	private void effect_main_region_GoToOp_tr1() {
+		exitSequence_main_region_GoToOp();
+		enterSequence_main_region_blocked_default();
+	}
+	
+	private void effect_main_region_GoToOp_tr2() {
+		exitSequence_main_region_GoToOp();
+		enterSequence_main_region_blocked_default();
+	}
+	
+	private void effect_main_region_blocked_tr0() {
+		exitSequence_main_region_blocked();
+		enterSequence_main_region_StopSTT_default();
+	}
+	
+	private void effect_main_region_blocked_tr1() {
+		exitSequence_main_region_blocked();
+		enterSequence_main_region_StopSTT_default();
+	}
+	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
 		exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered_default();
@@ -1768,7 +1819,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'Init'. */
 	private void entryAction_main_region_Init() {
-		setGWPout(13);
+		setGWPout(25);
 		
 		setGWPstart(6);
 		
@@ -2108,9 +2159,23 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), " [:-|]");
 	}
 	
+	/* Entry action for state 'GoToOp'. */
+	private void entryAction_main_region_GoToOp() {
+		timer.setTimer(this, 36, 100*1000, false);
+		
+		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
+	}
+	
+	/* Entry action for state 'blocked'. */
+	private void entryAction_main_region_blocked() {
+		timer.setTimer(this, 37, 10*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("I am not able to come back to the operator. Please tell me my next command here.");
+	}
+	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 36, 3*1000, false);
+		timer.setTimer(this, 38, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -2127,7 +2192,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 37, 3*1000, false);
+		timer.setTimer(this, 39, 3*1000, false);
 	}
 	
 	/* Exit action for state 'Hello'. */
@@ -2317,14 +2382,24 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		timer.unsetTimer(this, 35);
 	}
 	
+	/* Exit action for state 'GoToOp'. */
+	private void exitAction_main_region_GoToOp() {
+		timer.unsetTimer(this, 36);
+	}
+	
+	/* Exit action for state 'blocked'. */
+	private void exitAction_main_region_blocked() {
+		timer.unsetTimer(this, 37);
+	}
+	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 36);
+		timer.unsetTimer(this, 38);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 37);
+		timer.unsetTimer(this, 39);
 	}
 	
 	/* 'default' enter sequence for state Hello */
@@ -2708,6 +2783,20 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	private void enterSequence_main_region_DoAllActions__region0_DoAction_Instructions_question_default() {
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_DoAllActions__region0_DoAction_Instructions_question;
+	}
+	
+	/* 'default' enter sequence for state GoToOp */
+	private void enterSequence_main_region_GoToOp_default() {
+		entryAction_main_region_GoToOp();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_GoToOp;
+	}
+	
+	/* 'default' enter sequence for state blocked */
+	private void enterSequence_main_region_blocked_default() {
+		entryAction_main_region_blocked();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_blocked;
 	}
 	
 	/* 'default' enter sequence for state waitForEvent */
@@ -3198,6 +3287,22 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state GoToOp */
+	private void exitSequence_main_region_GoToOp() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_GoToOp();
+	}
+	
+	/* Default exit sequence for state blocked */
+	private void exitSequence_main_region_blocked() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_blocked();
+	}
+	
 	/* Default exit sequence for state waitForEvent */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		nextStateIndex = 1;
@@ -3458,6 +3563,12 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 			exitSequence_main_region_DoAllActions__region0_DoAction_Instructions_question();
 			exitAction_main_region_DoAllActions__region0_DoAction();
 			exitAction_main_region_DoAllActions();
+			break;
+		case main_region_GoToOp:
+			exitSequence_main_region_GoToOp();
+			break;
+		case main_region_blocked:
+			exitSequence_main_region_blocked();
 			break;
 		default:
 			break;
@@ -4468,6 +4579,32 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	private void react_main_region_DoAllActions__region0_DoAction_Instructions_question() {
 	}
 	
+	/* The reactions of state GoToOp. */
+	private void react_main_region_GoToOp() {
+		if (check_main_region_GoToOp_tr0_tr0()) {
+			effect_main_region_GoToOp_tr0();
+		} else {
+			if (check_main_region_GoToOp_tr1_tr1()) {
+				effect_main_region_GoToOp_tr1();
+			} else {
+				if (check_main_region_GoToOp_tr2_tr2()) {
+					effect_main_region_GoToOp_tr2();
+				}
+			}
+		}
+	}
+	
+	/* The reactions of state blocked. */
+	private void react_main_region_blocked() {
+		if (check_main_region_blocked_tr0_tr0()) {
+			effect_main_region_blocked_tr0();
+		} else {
+			if (check_main_region_blocked_tr1_tr1()) {
+				effect_main_region_blocked_tr1();
+			}
+		}
+	}
+	
 	/* The reactions of state waitForEvent. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0()) {
@@ -4884,6 +5021,12 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 				break;
 			case main_region_DoAllActions__region0_DoAction_Instructions_question:
 				react_main_region_DoAllActions__region0_DoAction_Instructions_question();
+				break;
+			case main_region_GoToOp:
+				react_main_region_GoToOp();
+				break;
+			case main_region_blocked:
+				react_main_region_blocked();
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
