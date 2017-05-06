@@ -315,7 +315,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[40];
+	private final boolean[] timeEvents = new boolean[41];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -832,11 +832,11 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr0_tr0() {
-		return (sCILeapMotion.operationCallback.getGesture()== null?"right" ==null :sCILeapMotion.operationCallback.getGesture().equals("right"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"true" ==null :sCILeapMotion.operationCallback.getGesture().equals("true"));
 	}
 	
 	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr1_tr1() {
-		return (sCILeapMotion.operationCallback.getGesture()== null?"left" ==null :sCILeapMotion.operationCallback.getGesture().equals("left"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"false" ==null :sCILeapMotion.operationCallback.getGesture().equals("false"));
 	}
 	
 	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr2_tr2() {
@@ -859,20 +859,20 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye_tr1_tr1() {
+		return timeEvents[30];
+	}
+	
 	private boolean check_main_ByeBye_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_InterruptionWave_wavingOf_tr0_tr0() {
-		return sCIMira.arrivedWP;
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_InterruptionWave_wavingOf_tr1_tr1() {
-		return sCIMira.blocked;
-	}
-	
-	private boolean check_main_InterruptionWave_wavingOf_tr2_tr2() {
-		return timeEvents[30];
+		return timeEvents[31];
 	}
 	
 	private boolean check_main_WolframAlphaTest_tr0_tr0() {
@@ -884,11 +884,11 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_StateA_tr1_tr1() {
-		return timeEvents[31];
+		return timeEvents[32];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_STT_STT_StartSTT_tr0_tr0() {
-		return timeEvents[32];
+		return timeEvents[33];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText_tr0_tr0() {
@@ -904,7 +904,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText_tr3_tr3() {
-		return timeEvents[33];
+		return timeEvents[34];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr0_tr0() {
@@ -912,7 +912,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr1_tr1() {
-		return timeEvents[34];
+		return timeEvents[35];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellAnswer_tr0_tr0() {
@@ -920,7 +920,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellAnswer_tr1_tr1() {
-		return timeEvents[35];
+		return timeEvents[36];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellAction_tr0_tr0() {
@@ -928,7 +928,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellAction_tr1_tr1() {
-		return timeEvents[36];
+		return timeEvents[37];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellIncomprehensible_tr0_tr0() {
@@ -936,7 +936,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellIncomprehensible_tr1_tr1() {
-		return timeEvents[37];
+		return timeEvents[38];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_StopSTT_tr0_tr0() {
@@ -952,7 +952,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[38];
+		return timeEvents[39];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -964,7 +964,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[39];
+		return timeEvents[40];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -1274,6 +1274,10 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye();
 	}
 	
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye_tr1() {
+		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye();
+	}
+	
 	private void effect_main_ByeBye_tr0() {
 		exitSequence_main_ByeBye();
 		enterSequence_main__final__default();
@@ -1285,11 +1289,6 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private void effect_main_InterruptionWave_wavingOf_tr1() {
-		exitSequence_main_InterruptionWave_wavingOf();
-		enterSequence_main_Attractiveness_default();
-	}
-	
-	private void effect_main_InterruptionWave_wavingOf_tr2() {
 		exitSequence_main_InterruptionWave_wavingOf();
 		enterSequence_main_Attractiveness_default();
 	}
@@ -1457,7 +1456,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	private void entryAction_main_GreetingsToVisitors_inner_region_GreetingsToVisitors() {
 		timer.setTimer(this, 0, 20 * 1000, false);
 		
-		sCIHBrain.operationCallback.sendTTS("Okay, I have to introduce myself.[blush:true] but I’m so nervous [:-)]I’m a helpful Robot in your smart home. [blush:false]But the special thing is, that I try to interact like a real Person. Look at my breathing.");
+		sCIHBrain.operationCallback.sendTTS("Okay, I have to introduce myself. [blush:true] But i am so nervous. [:-)] I am a helpful Robot in your smart home. [blush:false] But the special thing is, that I try to interact like a real Person. Look at my breathing.");
 	}
 	
 	/* Entry action for state 'Head_Eyes'. */
@@ -1539,6 +1538,8 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	/* Entry action for state 'STTIntro'. */
 	private void entryAction_main_GreetingsToVisitors_inner_region_STTIntro() {
 		timer.setTimer(this, 13, 30 * 1000, false);
+		
+		sCIMira.operationCallback.sendBodyUTurn();
 		
 		sCIHBrain.operationCallback.sendTTS("To understand humans I have a tough Speech to Text and Natural Language Processing System. However, if I don't know the answer of a question, I can ask web services like Wolfram Alpha.");
 	}
@@ -1629,14 +1630,14 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Text() {
 		timer.setTimer(this, 26, 10 * 1000, false);
 		
-		sCIHBrain.operationCallback.sendTTS("By the way, you can also control me with Finger Gestures. For example you can show me, in witch direction I should turn.");
+		sCIHBrain.operationCallback.sendTTS("[:-|] By the way, you can also control me with Finger Gestures. For example you can show me, in witch direction I should turn.");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT() {
 		timer.setTimer(this, 27, 15 * 1000, false);
 		
-		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(4);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 		
 		setCounter(getCounter() + 1);
 	}
@@ -1666,17 +1667,19 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'ByeBye'. */
 	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye() {
+		timer.setTimer(this, 30, 10 * 1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("So this was my gesture detection.");
 	}
 	
 	/* Entry action for state 'ByeBye'. */
 	private void entryAction_main_ByeBye() {
-		sCIHBrain.operationCallback.sendTTS("I will go now. Hope you enjoyed my presentation. Bye bye.");
+		sCIHBrain.operationCallback.sendTTS("That was my small presentation. Hope you enjoyed that. Bye bye.");
 	}
 	
 	/* Entry action for state 'InterruptionWave_wavingOf'. */
 	private void entryAction_main_InterruptionWave_wavingOf() {
-		timer.setTimer(this, 30, 30 * 1000, false);
+		timer.setTimer(this, 31, 10 * 1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 		
@@ -1692,14 +1695,14 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'StateA'. */
 	private void entryAction_main_WolframAlphaTest_main_region_StateA() {
-		timer.setTimer(this, 31, 5 * 1000, false);
+		timer.setTimer(this, 32, 5 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Ask me a question.");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_StartSTT() {
-		timer.setTimer(this, 32, 5 * 1000, false);
+		timer.setTimer(this, 33, 5 * 1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 		
@@ -1708,14 +1711,14 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'TellSpokenText'. */
 	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText() {
-		timer.setTimer(this, 33, 10 * 1000, false);
+		timer.setTimer(this, 34, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText());
 	}
 	
 	/* Entry action for state 'StropSTT'. */
 	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_StropSTT() {
-		timer.setTimer(this, 34, 10 * 1000, false);
+		timer.setTimer(this, 35, 10 * 1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
@@ -1724,21 +1727,21 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_WolframAlphaTest_main_region_TellAnswer() {
-		timer.setTimer(this, 35, 20 * 1000, false);
+		timer.setTimer(this, 36, 20 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
 	}
 	
 	/* Entry action for state 'TellAction'. */
 	private void entryAction_main_WolframAlphaTest_main_region_TellAction() {
-		timer.setTimer(this, 36, 20 * 1000, false);
+		timer.setTimer(this, 37, 20 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I think, that was a instruction to do something. Now, I just want to answer questions.");
 	}
 	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_WolframAlphaTest_main_region_TellIncomprehensible() {
-		timer.setTimer(this, 37, 20 * 1000, false);
+		timer.setTimer(this, 38, 20 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
 	}
@@ -1750,7 +1753,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 38, 3 * 1000, false);
+		timer.setTimer(this, 39, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1767,7 +1770,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 39, 3 * 1000, false);
+		timer.setTimer(this, 40, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'GreetingsToVisitors'. */
@@ -1922,54 +1925,59 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		timer.unsetTimer(this, 29);
 	}
 	
+	/* Exit action for state 'ByeBye'. */
+	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye() {
+		timer.unsetTimer(this, 30);
+	}
+	
 	/* Exit action for state 'InterruptionWave_wavingOf'. */
 	private void exitAction_main_InterruptionWave_wavingOf() {
-		timer.unsetTimer(this, 30);
+		timer.unsetTimer(this, 31);
 	}
 	
 	/* Exit action for state 'StateA'. */
 	private void exitAction_main_WolframAlphaTest_main_region_StateA() {
-		timer.unsetTimer(this, 31);
+		timer.unsetTimer(this, 32);
 	}
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_WolframAlphaTest_main_region_STT_STT_StartSTT() {
-		timer.unsetTimer(this, 32);
+		timer.unsetTimer(this, 33);
 	}
 	
 	/* Exit action for state 'TellSpokenText'. */
 	private void exitAction_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText() {
-		timer.unsetTimer(this, 33);
+		timer.unsetTimer(this, 34);
 	}
 	
 	/* Exit action for state 'StropSTT'. */
 	private void exitAction_main_WolframAlphaTest_main_region_STT_STT_StropSTT() {
-		timer.unsetTimer(this, 34);
+		timer.unsetTimer(this, 35);
 	}
 	
 	/* Exit action for state 'TellAnswer'. */
 	private void exitAction_main_WolframAlphaTest_main_region_TellAnswer() {
-		timer.unsetTimer(this, 35);
+		timer.unsetTimer(this, 36);
 	}
 	
 	/* Exit action for state 'TellAction'. */
 	private void exitAction_main_WolframAlphaTest_main_region_TellAction() {
-		timer.unsetTimer(this, 36);
+		timer.unsetTimer(this, 37);
 	}
 	
 	/* Exit action for state 'TellIncomprehensible'. */
 	private void exitAction_main_WolframAlphaTest_main_region_TellIncomprehensible() {
-		timer.unsetTimer(this, 37);
+		timer.unsetTimer(this, 38);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 38);
+		timer.unsetTimer(this, 39);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 39);
+		timer.unsetTimer(this, 40);
 	}
 	
 	/* 'default' enter sequence for state Init */
@@ -2665,6 +2673,8 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye();
 	}
 	
 	/* Default exit sequence for state ByeBye */
@@ -3432,10 +3442,6 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		} else {
 			if (check_main_InterruptionWave_wavingOf_tr1_tr1()) {
 				effect_main_InterruptionWave_wavingOf_tr1();
-			} else {
-				if (check_main_InterruptionWave_wavingOf_tr2_tr2()) {
-					effect_main_InterruptionWave_wavingOf_tr2();
-				}
 			}
 		}
 	}
