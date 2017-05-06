@@ -249,20 +249,4 @@ public interface IEEGPSRStatemachine extends ITimerCallback,IStatemachine {
 	
 	public SCIKinect2 getSCIKinect2();
 	
-	public interface SCIMicrophoneArray {
-	
-		public void setSCIMicrophoneArrayOperationCallback(SCIMicrophoneArrayOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCIMicrophoneArrayOperationCallback {
-	
-		public long getNoiseAngle();
-		
-		public void detectionOnOff(boolean onOff);
-		
-	}
-	
-	public SCIMicrophoneArray getSCIMicrophoneArray();
-	
 }

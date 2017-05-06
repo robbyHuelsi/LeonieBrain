@@ -114,7 +114,12 @@ public class STT implements IParser, Serializable{
 	}
 	
 	public int getActionListLength(){
-		return this.actionList.size();
+		if (this.actionList != null) {
+			return this.actionList.size();
+		}else{
+			return 0;
+		}
+		
 	}
 	
 	public String getInstructionFromActionListAt(long i){
