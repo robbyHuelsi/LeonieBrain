@@ -24,15 +24,13 @@ public class LeapMotion implements IParser, Serializable{
 			//System.out.println("LeapMotion: nothing detected");
 			this.setGestureDetected(false);
 			this.setStringFinished(false);
+			
 		}else if(attributePartsHG.length > 1){
-			if(attributePartsHG[0].contains("1")) {
+			if(attributePartsHG[0].equals("1")) {
 				this.setGesture(attributePartsHG[1]);
 				this.setGestureDetected(true);
-//				if(attributePartsHG[1].contains("true") && attributePartsHG[1].contains("false")) {
-//				start.instanceOf().
-//				}
 				System.out.println("LeapMotion: " + attributePartsHG[1] + " detected");
-			} else if (attributePartsHG[0].contains("2")) {
+			} else if (attributePartsHG[0].equals("2")) {
 				System.out.println("Finished string is " + attributePartsHG[1]);
 				this.setGesturedString(attributePartsHG[1]);
 				this.setStringFinished(true);

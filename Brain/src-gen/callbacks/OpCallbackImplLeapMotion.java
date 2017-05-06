@@ -8,13 +8,14 @@ import modules.parser.LeapMotion;
 
 public class OpCallbackImplLeapMotion implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCILeapMotionOperationCallback,
-	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCILeapMotionOperationCallback
+	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCILeapMotionOperationCallback,
+	org.yakindu.scr.test_leapmotion.ITest_LeapMotionStatemachine.SCILeapMotionOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();
 	
 	public void sendGestureDetectionOnOff(long inOnOff){
-		Communication.sendMessage("#HANDGESTURES#" + (int)inOnOff + "#", modules.get("LeapMotion"));
+		Communication.sendMessage("#LEAPMOTION#" + (int)inOnOff + "#", modules.get("LeapMotion"));
 	}
 
 	@Override

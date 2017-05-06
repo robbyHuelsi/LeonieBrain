@@ -1,38 +1,35 @@
 package org.yakindu.scr.test_leapmotion;
 
 import org.yakindu.scr.IStatemachine;
+import org.yakindu.scr.ITimerCallback;
 
-public interface ITest_LeapMotionStatemachine extends IStatemachine {
+public interface ITest_LeapMotionStatemachine extends ITimerCallback,IStatemachine {
 
-	public interface SCIKinect2 {
+	public interface SCILeapMotion {
 	
-		public void raisePersonDetected();
+		public void raiseGestureDetected();
 		
-		public void raiseNoiseDeviatinWithoutBoneDetected();
+		public void raiseStringFinished();
 		
-		public void raiseNoiseWithBoneDetected();
-		
-		public void raiseWavingDetected();
-		
-		public void setSCIKinect2OperationCallback(SCIKinect2OperationCallback operationCallback);
+		public void setSCILeapMotionOperationCallback(SCILeapMotionOperationCallback operationCallback);
 	
 	}
 	
-	public interface SCIKinect2OperationCallback {
+	public interface SCILeapMotionOperationCallback {
 	
-		public long getNoiseAngle();
+		public String getGesture();
 		
-		public double getWavingX();
+		public void resetGesture();
 		
-		public double getWavingY();
+		public String getDetectedString();
 		
-		public void sendNoiseDetectionOnOff(boolean inOnOff);
+		public void resetDetectedString();
 		
-		public void sendWavingDetectionOnOff(boolean inOnOff);
+		public void sendGestureDetectionOnOff(long inOnOff);
 		
 	}
 	
-	public SCIKinect2 getSCIKinect2();
+	public SCILeapMotion getSCILeapMotion();
 	
 	public interface SCIHBrain {
 	
