@@ -1,10 +1,11 @@
 package modules.parser;
 
 import java.io.Serializable;
-
+import java.util.Vector;
 
 import main.*;
 import modules.Module;
+import Objects.Action;
 
 public class STT implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
@@ -15,11 +16,14 @@ public class STT implements IParser, Serializable{
 	private String answer;
 	private String instruction;
 	private String object;
+	
+	private Vector<Action> actionList;
 
 	private boolean spokenTextReceived;
 	private boolean answerReceived;
 	private boolean incomprehensible;
 	private boolean actionReceived;
+	private boolean actionsReceived;
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
@@ -44,6 +48,26 @@ public class STT implements IParser, Serializable{
 			this.setIncomprehensible(true);
 			System.out.println("Retry: " + this.getAnswer());
 			return true;
+			
+		}else if(data.contains("ACTIONS#")){
+			this.actionList = new Vector<Action>();
+			
+			String[] actions = data.substring(8).split("\\|");
+			
+			for (String action : actions) {
+				String[] actionDatas = action.split(";");
+				if (actionDatas.length > 2) {
+					this.actionList.add(new Action(actionDatas[0],actionDatas[1], actionDatas[2]));
+				}else{
+					this.actionList.add(new Action(actionDatas[0], actionDatas[1]));
+				}
+			}
+			
+			this.setActionsReceived(true);
+			
+			System.out.println("Actions: " + this.actionList);
+			return true;
+			
 			
 		}else if(data.contains("ACTION#")){
 			String[] t = data.substring(7).split(";");
@@ -89,9 +113,21 @@ public class STT implements IParser, Serializable{
 		this.object = object;
 	}
 	
+	public int getActionListLength(){
+		return this.actionList.size();
+	}
 	
+	public String getInstructionFromActionListAt(int i){
+		return this.actionList.get(i).getInstruction();
+	}
 	
+	public String getObjectFromActionListAt(int i){
+		return this.actionList.get(i).getObject();
+	}
 	
+	public String getLocationFromActionListAt(int i){
+		return this.actionList.get(i).getLocation();
+	}
 
 	public boolean isSpokenTextReceived() {
 		return spokenTextReceived;
@@ -141,14 +177,28 @@ public class STT implements IParser, Serializable{
 		}
 	}
 
+	public boolean isActionsReceived() {
+		return actionsReceived;
+	}
+
+	public void setActionsReceived(boolean actionsReceived) {
+		this.actionsReceived = actionsReceived;
+		
+		if (actionsReceived) {
+			start.getStatemachine().raiseEventOfSCI("STT","actionsReceived");
+		}
+	}
+
 	public boolean removeParsedInformation() {
 		this.spokenText = "";
 		this.answer = "";
 		this.instruction = "";
 		this.object = "";
+		this.actionList = new Vector<Action>();
 		this.spokenTextReceived = false;
 		this.answerReceived = false;
 		this.incomprehensible = false;
+		this.actionReceived = false;
 		this.actionReceived = false;
 		
 		return true;
