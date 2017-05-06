@@ -63,9 +63,13 @@ public interface IOpenChallengeStatemachine extends ITimerCallback,IStatemachine
 	
 	public interface SCIAttractiveness {
 	
-		public double getOld_attr();
+		public void raiseAttractivenessDetected();
 		
-		public void setOld_attr(double value);
+		public void raiseNoFaceFound();
+		
+		public double getAttTemp();
+		
+		public void setAttTemp(double value);
 		
 		public void setSCIAttractivenessOperationCallback(SCIAttractivenessOperationCallback operationCallback);
 	
@@ -74,6 +78,8 @@ public interface IOpenChallengeStatemachine extends ITimerCallback,IStatemachine
 	public interface SCIAttractivenessOperationCallback {
 	
 		public void sendToAttr_estimate();
+		
+		public double getAttractiveness();
 		
 	}
 	

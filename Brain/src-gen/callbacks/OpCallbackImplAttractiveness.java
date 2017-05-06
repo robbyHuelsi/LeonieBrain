@@ -3,6 +3,8 @@ package callbacks;
 import communication.Communication;
 import main.Start;
 import modules.Modules;
+import modules.parser.Attractiveness;
+import modules.parser.STT;
 
 public class OpCallbackImplAttractiveness implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIAttractivenessOperationCallback,
@@ -18,5 +20,12 @@ public class OpCallbackImplAttractiveness implements IOpCallbackImpl,
 	public void sendInit() {
 		// nothing to do
 	}
+
+	@Override
+	public double getAttractiveness() {
+		return ((Attractiveness)modules.getParser("Attractiveness")).getAttrativeness();
+	}
+	
+	
 
 }

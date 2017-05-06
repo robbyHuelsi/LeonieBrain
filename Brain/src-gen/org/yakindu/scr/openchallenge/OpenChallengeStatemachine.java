@@ -64,16 +64,32 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 				SCIAttractivenessOperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private double old_attr;
+		private boolean attractivenessDetected;
 		
-		public double getOld_attr() {
-			return old_attr;
+		public void raiseAttractivenessDetected() {
+			attractivenessDetected = true;
 		}
 		
-		public void setOld_attr(double value) {
-			this.old_attr = value;
+		private boolean noFaceFound;
+		
+		public void raiseNoFaceFound() {
+			noFaceFound = true;
 		}
 		
+		private double attTemp;
+		
+		public double getAttTemp() {
+			return attTemp;
+		}
+		
+		public void setAttTemp(double value) {
+			this.attTemp = value;
+		}
+		
+		protected void clearEvents() {
+			attractivenessDetected = false;
+			noFaceFound = false;
+		}
 	}
 	
 	protected SCIAttractivenessImpl sCIAttractiveness;
@@ -258,24 +274,20 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		main_Attractiveness,
 		main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness,
 		main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness,
+		main_Attractiveness_openChallenge_attractiveness_saveAttr,
+		main_Attractiveness_openChallenge_attractiveness_waitForGlasses,
+		main_Attractiveness_openChallenge_attractiveness_DetAt2,
+		main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher,
+		main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher,
+		main_Attractiveness_openChallenge_attractiveness_failed1,
 		main_BackToPerson1,
-		main_Joke,
-		main_RecogniceSadness,
-		main_RecogniceSmile,
-		main_JokeFinished,
 		main_LeapMotion,
 		main_LeapMotion_LeapMotion_in_OpenChallenge_Text,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_yes,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_no,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO,
 		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight,
 		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_Left,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_Right,
+		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left,
+		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right,
+		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count,
 		main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye,
 		main_ByeBye,
 		main_InterruptionWave_wavingOf,
@@ -303,7 +315,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[30];
+	private final boolean[] timeEvents = new boolean[40];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -388,7 +400,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		
 		sCIBGF.setRandNum(0);
 		
-		sCIAttractiveness.setOld_attr(0.0);
+		sCIAttractiveness.setAttTemp(0.0);
 		
 		setCounter(0);
 		
@@ -440,6 +452,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	*/
 	protected void clearEvents() {
 		sCIHBrain.clearEvents();
+		sCIAttractiveness.clearEvents();
 		sCIKinect2.clearEvents();
 		sCILeapMotion.clearEvents();
 		sCIMira.clearEvents();
@@ -504,50 +517,41 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 			return stateVector[0] == State.main_waitAfterGreeting;
 		case main_Attractiveness:
 			return stateVector[0].ordinal() >= State.
-					main_Attractiveness.ordinal()&& stateVector[0].ordinal() <= State.main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness.ordinal();
+					main_Attractiveness.ordinal()&& stateVector[0].ordinal() <= State.main_Attractiveness_openChallenge_attractiveness_failed1.ordinal();
 		case main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness:
 			return stateVector[0] == State.main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness;
 		case main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness:
 			return stateVector[0] == State.main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness;
+		case main_Attractiveness_openChallenge_attractiveness_saveAttr:
+			return stateVector[0] == State.main_Attractiveness_openChallenge_attractiveness_saveAttr;
+		case main_Attractiveness_openChallenge_attractiveness_waitForGlasses:
+			return stateVector[0] == State.main_Attractiveness_openChallenge_attractiveness_waitForGlasses;
+		case main_Attractiveness_openChallenge_attractiveness_DetAt2:
+			return stateVector[0] == State.main_Attractiveness_openChallenge_attractiveness_DetAt2;
+		case main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher:
+			return stateVector[0] == State.main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher;
+		case main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher:
+			return stateVector[0] == State.main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher;
+		case main_Attractiveness_openChallenge_attractiveness_failed1:
+			return stateVector[0] == State.main_Attractiveness_openChallenge_attractiveness_failed1;
 		case main_BackToPerson1:
 			return stateVector[0] == State.main_BackToPerson1;
-		case main_Joke:
-			return stateVector[0] == State.main_Joke;
-		case main_RecogniceSadness:
-			return stateVector[0] == State.main_RecogniceSadness;
-		case main_RecogniceSmile:
-			return stateVector[0] == State.main_RecogniceSmile;
-		case main_JokeFinished:
-			return stateVector[0] == State.main_JokeFinished;
 		case main_LeapMotion:
 			return stateVector[0].ordinal() >= State.
 					main_LeapMotion.ordinal()&& stateVector[0].ordinal() <= State.main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye.ordinal();
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_Text:
 			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Text;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo:
-			return stateVector[0].ordinal() >= State.
-					main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo.ordinal()&& stateVector[0].ordinal() <= State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3.ordinal();
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_yes:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_yes;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_no:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_no;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO;
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight:
 			return stateVector[0].ordinal() >= State.
-					main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight.ordinal()&& stateVector[0].ordinal() <= State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3.ordinal();
+					main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight.ordinal()&& stateVector[0].ordinal() <= State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count.ordinal();
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT:
 			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Left:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Left;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Right:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Right;
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left:
+			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left;
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right:
+			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right;
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count:
+			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count;
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye:
 			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye;
 		case main_ByeBye:
@@ -644,7 +648,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_Init_tr0_tr0() {
-		return sCIMira.arrivedWP;
+		return true;
 	}
 	
 	private boolean check_main_GreetingsToVisitors_inner_region_GreetingsToVisitors_tr0_tr0() {
@@ -751,20 +755,68 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		return timeEvents[16];
 	}
 	
-	private boolean check_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness_tr0_tr0() {
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness_tr0_tr0() {
+		return sCIAttractiveness.attractivenessDetected;
+	}
+	
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness_tr1_tr1() {
 		return timeEvents[17];
+	}
+	
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness_tr0_tr0() {
+		return timeEvents[18];
 	}
 	
 	private boolean check_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness_tr1_tr1() {
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_BackToPerson1_tr0_tr0() {
-		return sCIMira.arrivedWP;
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_saveAttr_tr0_tr0() {
+		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_Joke_tr0_tr0() {
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_saveAttr_tr1_tr1() {
+		return timeEvents[19];
+	}
+	
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_waitForGlasses_tr0_tr0() {
+		return timeEvents[20];
+	}
+	
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_DetAt2_tr0_tr0() {
+		return sCIAttractiveness.attractivenessDetected;
+	}
+	
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_DetAt2_tr1_tr1() {
+		return timeEvents[21];
+	}
+	
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher_tr0_tr0() {
 		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher_tr1_tr1() {
+		return timeEvents[22];
+	}
+	
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher_tr1_tr1() {
+		return timeEvents[23];
+	}
+	
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_failed1_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_Attractiveness_openChallenge_attractiveness_failed1_tr1_tr1() {
+		return timeEvents[24];
+	}
+	
+	private boolean check_main_BackToPerson1_tr0_tr0() {
+		return timeEvents[25];
 	}
 	
 	private boolean check_main_LeapMotion_tr0_tr0() {
@@ -775,68 +827,32 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_tr2_tr2() {
-		return getCounter()==3;
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_tr0_tr0() {
-		return 1==0;
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_tr1_tr1() {
-		return 0==1;
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_tr2_tr2() {
-		return 0==1;
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_tr3_tr3() {
-		return (sCILeapMotion.operationCallback.getGesture()== null?"true" ==null :sCILeapMotion.operationCallback.getGesture().equals("true"));
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_tr4_tr4() {
-		return (sCILeapMotion.operationCallback.getGesture()== null?"false" ==null :sCILeapMotion.operationCallback.getGesture().equals("false"));
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3_tr0_tr0() {
-		return sCISTT.spokenTextReceived;
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_yes_tr0_tr0() {
-		return timeEvents[18];
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_no_tr0_tr0() {
-		return timeEvents[19];
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO_tr0_tr0() {
-		return sCIHBrain.tTSReady;
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Text_tr1_tr1() {
+		return timeEvents[26];
 	}
 	
 	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr0_tr0() {
-		return 1==0;
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr1_tr1() {
-		return 0==1;
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr2_tr2() {
-		return 0==1;
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr3_tr3() {
 		return (sCILeapMotion.operationCallback.getGesture()== null?"right" ==null :sCILeapMotion.operationCallback.getGesture().equals("right"));
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr4_tr4() {
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr1_tr1() {
 		return (sCILeapMotion.operationCallback.getGesture()== null?"left" ==null :sCILeapMotion.operationCallback.getGesture().equals("left"));
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3_tr0_tr0() {
-		return sCISTT.spokenTextReceived;
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr2_tr2() {
+		return timeEvents[27];
+	}
+	
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left_tr0_tr0() {
+		return timeEvents[28];
+	}
+	
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right_tr0_tr0() {
+		return timeEvents[29];
+	}
+	
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count_tr0_tr0() {
+		return true;
 	}
 	
 	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye_tr0_tr0() {
@@ -856,7 +872,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_InterruptionWave_wavingOf_tr2_tr2() {
-		return timeEvents[20];
+		return timeEvents[30];
 	}
 	
 	private boolean check_main_WolframAlphaTest_tr0_tr0() {
@@ -868,11 +884,11 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_StateA_tr1_tr1() {
-		return timeEvents[21];
+		return timeEvents[31];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_STT_STT_StartSTT_tr0_tr0() {
-		return timeEvents[22];
+		return timeEvents[32];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText_tr0_tr0() {
@@ -888,7 +904,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText_tr3_tr3() {
-		return timeEvents[23];
+		return timeEvents[33];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr0_tr0() {
@@ -896,7 +912,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr1_tr1() {
-		return timeEvents[24];
+		return timeEvents[34];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellAnswer_tr0_tr0() {
@@ -904,7 +920,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellAnswer_tr1_tr1() {
-		return timeEvents[25];
+		return timeEvents[35];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellAction_tr0_tr0() {
@@ -912,7 +928,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellAction_tr1_tr1() {
-		return timeEvents[26];
+		return timeEvents[36];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellIncomprehensible_tr0_tr0() {
@@ -920,7 +936,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellIncomprehensible_tr1_tr1() {
-		return timeEvents[27];
+		return timeEvents[37];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_StopSTT_tr0_tr0() {
@@ -936,7 +952,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[28];
+		return timeEvents[38];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -948,23 +964,23 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[29];
+		return timeEvents[39];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
 		return sCIMira.emergencyStop;
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region__choice_0_tr0_tr0() {
-		return (sCISTT.operationCallback.getSpokenText()== null?"yes" ==null :sCISTT.operationCallback.getSpokenText().equals("yes"));
+	private boolean check_main_Attractiveness_openChallenge_attractiveness__choice_0_tr0_tr0() {
+		return sCIAttractiveness.attTemp>sCIAttractiveness.operationCallback.getAttractiveness();
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region__choice_0_tr1_tr1() {
+	private boolean check_main_Attractiveness_openChallenge_attractiveness__choice_0_tr1_tr1() {
 		return true;
 	}
 	
 	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0_tr0_tr0() {
-		return (sCISTT.operationCallback.getSpokenText()== null?"yes" ==null :sCISTT.operationCallback.getSpokenText().equals("yes"));
+		return getCounter()<2;
 	}
 	
 	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0_tr1_tr1() {
@@ -1124,6 +1140,16 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		enterSequence_main_BackToPerson1_default();
 	}
 	
+	private void effect_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness_tr0() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness();
+		enterSequence_main_Attractiveness_openChallenge_attractiveness_saveAttr_default();
+	}
+	
+	private void effect_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness_tr1() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness();
+		enterSequence_main_Attractiveness_openChallenge_attractiveness_failed1_default();
+	}
+	
 	private void effect_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness_tr0() {
 		exitSequence_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness();
 		enterSequence_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness_default();
@@ -1134,14 +1160,64 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		enterSequence_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness_default();
 	}
 	
-	private void effect_main_BackToPerson1_tr0() {
-		exitSequence_main_BackToPerson1();
-		enterSequence_main_RecogniceSadness_default();
+	private void effect_main_Attractiveness_openChallenge_attractiveness_saveAttr_tr0() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_saveAttr();
+		enterSequence_main_Attractiveness_openChallenge_attractiveness_waitForGlasses_default();
 	}
 	
-	private void effect_main_Joke_tr0() {
-		exitSequence_main_Joke();
-		enterSequence_main_RecogniceSmile_default();
+	private void effect_main_Attractiveness_openChallenge_attractiveness_saveAttr_tr1() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_saveAttr();
+		enterSequence_main_Attractiveness_openChallenge_attractiveness_waitForGlasses_default();
+	}
+	
+	private void effect_main_Attractiveness_openChallenge_attractiveness_waitForGlasses_tr0() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_waitForGlasses();
+		enterSequence_main_Attractiveness_openChallenge_attractiveness_DetAt2_default();
+	}
+	
+	private void effect_main_Attractiveness_openChallenge_attractiveness_DetAt2_tr0() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_DetAt2();
+		react_main_Attractiveness_openChallenge_attractiveness__choice_0();
+	}
+	
+	private void effect_main_Attractiveness_openChallenge_attractiveness_DetAt2_tr1() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_DetAt2();
+		enterSequence_main_Attractiveness_openChallenge_attractiveness_failed1_default();
+	}
+	
+	private void effect_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher_tr0() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher();
+		react_main_Attractiveness_openChallenge_attractiveness_exit_attractiveness();
+	}
+	
+	private void effect_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher_tr1() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher();
+		react_main_Attractiveness_openChallenge_attractiveness_exit_attractiveness();
+	}
+	
+	private void effect_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher_tr0() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher();
+		react_main_Attractiveness_openChallenge_attractiveness_exit_attractiveness();
+	}
+	
+	private void effect_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher_tr1() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher();
+		react_main_Attractiveness_openChallenge_attractiveness_exit_attractiveness();
+	}
+	
+	private void effect_main_Attractiveness_openChallenge_attractiveness_failed1_tr0() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_failed1();
+		react_main_Attractiveness_openChallenge_attractiveness_exit_attractiveness();
+	}
+	
+	private void effect_main_Attractiveness_openChallenge_attractiveness_failed1_tr1() {
+		exitSequence_main_Attractiveness_openChallenge_attractiveness_failed1();
+		react_main_Attractiveness_openChallenge_attractiveness_exit_attractiveness();
+	}
+	
+	private void effect_main_BackToPerson1_tr0() {
+		exitSequence_main_BackToPerson1();
+		enterSequence_main_LeapMotion_default();
 	}
 	
 	private void effect_main_LeapMotion_tr0() {
@@ -1151,107 +1227,47 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Text_tr0() {
 		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Text();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO_default();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_tr0() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_no_default();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_tr1() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_yes_default();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_tr2() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo();
 		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_default();
 	}
 	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_tr0() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3_default();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_tr1() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_exit_yes();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_tr2() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_exit_no();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_tr3() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_exit_yes();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_tr4() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_exit_no();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3_tr0() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region__choice_0();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_yes_tr0() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_yes();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_default();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_no_tr0() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_no();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_default();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO_tr0() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_default();
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Text_tr1() {
+		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Text();
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_default();
 	}
 	
 	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_tr0() {
 		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Left_default();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_tr1() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Right_default();
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye_default();
 	}
 	
 	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr0() {
 		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3_default();
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left_default();
 	}
 	
 	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr1() {
 		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_right();
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right_default();
 	}
 	
 	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr2() {
 		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_left();
+		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_end();
 	}
 	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr3() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_right();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr4() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_left();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3_tr0() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3();
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left_tr0() {
+		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
 		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0();
+	}
+	
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right_tr0() {
+		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
+		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0();
+	}
+	
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count_tr0() {
+		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_default();
 	}
 	
 	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye_tr0() {
@@ -1413,20 +1429,20 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
 	}
 	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region__choice_0_tr0() {
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_exit_yes();
+	private void effect_main_Attractiveness_openChallenge_attractiveness__choice_0_tr0() {
+		enterSequence_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher_default();
 	}
 	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region__choice_0_tr1() {
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_exit_no();
+	private void effect_main_Attractiveness_openChallenge_attractiveness__choice_0_tr1() {
+		enterSequence_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher_default();
 	}
 	
 	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0_tr0() {
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_right();
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_default();
 	}
 	
 	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0_tr1() {
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_left();
+		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_end();
 	}
 	
 	private void effect_main_WolframAlphaTest_main_region_STT_STT__choice_0_tr1() {
@@ -1435,13 +1451,6 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	private void effect_main_WolframAlphaTest_main_region_STT_STT__choice_0_tr0() {
 		react_main_WolframAlphaTest_main_region_STT_STT_exit_incomprehensible();
-	}
-	
-	/* Entry action for state 'Init'. */
-	private void entryAction_main_Init() {
-		setStartGWP(0);
-		
-		sCIMira.operationCallback.sendGoToGWP(getStartGWP());
 	}
 	
 	/* Entry action for state 'GreetingsToVisitors'. */
@@ -1553,64 +1562,106 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'DetectAttractiveness'. */
 	private void entryAction_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness() {
+		timer.setTimer(this, 17, 20*1000, false);
+		
 		sCIAttractiveness.operationCallback.sendToAttr_estimate();
 	}
 	
 	/* Entry action for state 'Copy_1_ResponseToAskForAttractiveness'. */
 	private void entryAction_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness() {
-		timer.setTimer(this, 17, 30*1000, false);
+		timer.setTimer(this, 18, 30*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
-		sCIHBrain.operationCallback.sendTTS("I'm also helpful to find the best look for the day. I can analyse the attractiveness of a person and I want to demonstrate this now. Please hold on till I'm finished");
+		sCIHBrain.operationCallback.sendTTS("I'm also helpful to find the best look for the day. I can analyse the attractiveness of a person and I want to demonstrate this now. Please hold on till I'm finished.");
+	}
+	
+	/* Entry action for state 'saveAttr'. */
+	private void entryAction_main_Attractiveness_openChallenge_attractiveness_saveAttr() {
+		timer.setTimer(this, 19, 10*1000, false);
+		
+		sCIAttractiveness.setAttTemp(sCIAttractiveness.operationCallback.getAttractiveness());
+		
+		sCIHBrain.operationCallback.sendTTS("I know, you are wearing glasses. Please take it off and I will chek it again.");
+	}
+	
+	/* Entry action for state 'waitForGlasses'. */
+	private void entryAction_main_Attractiveness_openChallenge_attractiveness_waitForGlasses() {
+		timer.setTimer(this, 20, 3*1000, false);
+	}
+	
+	/* Entry action for state 'DetAt2'. */
+	private void entryAction_main_Attractiveness_openChallenge_attractiveness_DetAt2() {
+		timer.setTimer(this, 21, 20*1000, false);
+		
+		sCIAttractiveness.operationCallback.sendToAttr_estimate();
+	}
+	
+	/* Entry action for state 'MitBrilleHuebscher'. */
+	private void entryAction_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher() {
+		timer.setTimer(this, 22, 10*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("Your glasses are very nice. Put them back on!");
+	}
+	
+	/* Entry action for state 'OhneBrilleHuebscher'. */
+	private void entryAction_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher() {
+		timer.setTimer(this, 23, 10*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("Wow! you are so much more pretty without glasses!");
+	}
+	
+	/* Entry action for state 'failed1'. */
+	private void entryAction_main_Attractiveness_openChallenge_attractiveness_failed1() {
+		timer.setTimer(this, 24, 15*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("[:-(] I have problems with my attractiveness estimator. I will go on with the next show.");
 	}
 	
 	/* Entry action for state 'BackToPerson1'. */
 	private void entryAction_main_BackToPerson1() {
-		sCIMira.operationCallback.sendGoToGWP(getStartGWP());
-	}
-	
-	/* Entry action for state 'Joke'. */
-	private void entryAction_main_Joke() {
-		sCIHBrain.operationCallback.sendTTS("FUNNY JOKE HERE");
+		timer.setTimer(this, 25, 5*1000, false);
+		
+		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'Text'. */
 	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Text() {
-		sCIHBrain.operationCallback.sendTTS("By the way, you can also controll me with Finger Gestures");
-	}
-	
-	/* Entry action for state 'StartSTT'. */
-	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT() {
-		setCounter(getCounter() + 1);
+		timer.setTimer(this, 26, 10*1000, false);
 		
-		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
-	}
-	
-	/* Entry action for state 'yes'. */
-	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_yes() {
-		timer.setTimer(this, 18, 1*1000, false);
-		
-		sCIHBrain.operationCallback.sendTTS("Yes");
-	}
-	
-	/* Entry action for state 'no'. */
-	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_no() {
-		timer.setTimer(this, 19, 1*1000, false);
-		
-		sCIHBrain.operationCallback.sendTTS("No");
-	}
-	
-	/* Entry action for state 'YESNO'. */
-	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO() {
-		sCIHBrain.operationCallback.sendTTS("Show me the gesture for yes or no and I will tell you I you choose.");
+		sCIHBrain.operationCallback.sendTTS("By the way, you can also control me with Finger Gestures. For example you can show me, in witch direction I should turn.");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT() {
-		setCounter(getCounter() + 1);
+		timer.setTimer(this, 27, 15*1000, false);
 		
-		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(4);
+		
+		setCounter(getCounter() + 1);
+	}
+	
+	/* Entry action for state 'Left'. */
+	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left() {
+		timer.setTimer(this, 28, 5*1000, false);
+		
+		sCIMira.operationCallback.sendTurnBody(-30);
+		
+		sCIHBrain.operationCallback.sendTTS("Right.");
+	}
+	
+	/* Entry action for state 'Right'. */
+	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right() {
+		timer.setTimer(this, 29, 5*1000, false);
+		
+		sCIMira.operationCallback.sendTurnBody(30);
+		
+		sCIHBrain.operationCallback.sendTTS("Left");
+	}
+	
+	/* Entry action for state 'count'. */
+	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count() {
+		setCounter(0);
 	}
 	
 	/* Entry action for state 'ByeBye'. */
@@ -1625,7 +1676,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'InterruptionWave_wavingOf'. */
 	private void entryAction_main_InterruptionWave_wavingOf() {
-		timer.setTimer(this, 20, 30*1000, false);
+		timer.setTimer(this, 30, 30*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 		
@@ -1641,14 +1692,14 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'StateA'. */
 	private void entryAction_main_WolframAlphaTest_main_region_StateA() {
-		timer.setTimer(this, 21, 5*1000, false);
+		timer.setTimer(this, 31, 5*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Ask me a question.");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_StartSTT() {
-		timer.setTimer(this, 22, 5*1000, false);
+		timer.setTimer(this, 32, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 		
@@ -1657,14 +1708,14 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'TellSpokenText'. */
 	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText() {
-		timer.setTimer(this, 23, 10*1000, false);
+		timer.setTimer(this, 33, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText());
 	}
 	
 	/* Entry action for state 'StropSTT'. */
 	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_StropSTT() {
-		timer.setTimer(this, 24, 10*1000, false);
+		timer.setTimer(this, 34, 10*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
@@ -1673,21 +1724,21 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_WolframAlphaTest_main_region_TellAnswer() {
-		timer.setTimer(this, 25, 20*1000, false);
+		timer.setTimer(this, 35, 20*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
 	}
 	
 	/* Entry action for state 'TellAction'. */
 	private void entryAction_main_WolframAlphaTest_main_region_TellAction() {
-		timer.setTimer(this, 26, 20*1000, false);
+		timer.setTimer(this, 36, 20*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I think, that was a instruction to do something. Now, I just want to answer questions.");
 	}
 	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_WolframAlphaTest_main_region_TellIncomprehensible() {
-		timer.setTimer(this, 27, 20*1000, false);
+		timer.setTimer(this, 37, 20*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
 	}
@@ -1699,7 +1750,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 28, 3*1000, false);
+		timer.setTimer(this, 38, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1716,7 +1767,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 29, 3*1000, false);
+		timer.setTimer(this, 39, 3*1000, false);
 	}
 	
 	/* Exit action for state 'GreetingsToVisitors'. */
@@ -1804,84 +1855,125 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		timer.unsetTimer(this, 16);
 	}
 	
-	/* Exit action for state 'Copy_1_ResponseToAskForAttractiveness'. */
-	private void exitAction_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness() {
+	/* Exit action for state 'DetectAttractiveness'. */
+	private void exitAction_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness() {
 		timer.unsetTimer(this, 17);
 	}
 	
-	/* Exit action for state 'StartSTT'. */
-	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT() {
-		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
-	}
-	
-	/* Exit action for state 'yes'. */
-	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_yes() {
+	/* Exit action for state 'Copy_1_ResponseToAskForAttractiveness'. */
+	private void exitAction_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness() {
 		timer.unsetTimer(this, 18);
 	}
 	
-	/* Exit action for state 'no'. */
-	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_no() {
+	/* Exit action for state 'saveAttr'. */
+	private void exitAction_main_Attractiveness_openChallenge_attractiveness_saveAttr() {
 		timer.unsetTimer(this, 19);
+	}
+	
+	/* Exit action for state 'waitForGlasses'. */
+	private void exitAction_main_Attractiveness_openChallenge_attractiveness_waitForGlasses() {
+		timer.unsetTimer(this, 20);
+	}
+	
+	/* Exit action for state 'DetAt2'. */
+	private void exitAction_main_Attractiveness_openChallenge_attractiveness_DetAt2() {
+		timer.unsetTimer(this, 21);
+	}
+	
+	/* Exit action for state 'MitBrilleHuebscher'. */
+	private void exitAction_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher() {
+		timer.unsetTimer(this, 22);
+	}
+	
+	/* Exit action for state 'OhneBrilleHuebscher'. */
+	private void exitAction_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher() {
+		timer.unsetTimer(this, 23);
+	}
+	
+	/* Exit action for state 'failed1'. */
+	private void exitAction_main_Attractiveness_openChallenge_attractiveness_failed1() {
+		timer.unsetTimer(this, 24);
+	}
+	
+	/* Exit action for state 'BackToPerson1'. */
+	private void exitAction_main_BackToPerson1() {
+		timer.unsetTimer(this, 25);
+	}
+	
+	/* Exit action for state 'Text'. */
+	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Text() {
+		timer.unsetTimer(this, 26);
 	}
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT() {
+		timer.unsetTimer(this, 27);
+		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
+	}
+	
+	/* Exit action for state 'Left'. */
+	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left() {
+		timer.unsetTimer(this, 28);
+	}
+	
+	/* Exit action for state 'Right'. */
+	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right() {
+		timer.unsetTimer(this, 29);
 	}
 	
 	/* Exit action for state 'InterruptionWave_wavingOf'. */
 	private void exitAction_main_InterruptionWave_wavingOf() {
-		timer.unsetTimer(this, 20);
+		timer.unsetTimer(this, 30);
 	}
 	
 	/* Exit action for state 'StateA'. */
 	private void exitAction_main_WolframAlphaTest_main_region_StateA() {
-		timer.unsetTimer(this, 21);
+		timer.unsetTimer(this, 31);
 	}
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_WolframAlphaTest_main_region_STT_STT_StartSTT() {
-		timer.unsetTimer(this, 22);
+		timer.unsetTimer(this, 32);
 	}
 	
 	/* Exit action for state 'TellSpokenText'. */
 	private void exitAction_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText() {
-		timer.unsetTimer(this, 23);
+		timer.unsetTimer(this, 33);
 	}
 	
 	/* Exit action for state 'StropSTT'. */
 	private void exitAction_main_WolframAlphaTest_main_region_STT_STT_StropSTT() {
-		timer.unsetTimer(this, 24);
+		timer.unsetTimer(this, 34);
 	}
 	
 	/* Exit action for state 'TellAnswer'. */
 	private void exitAction_main_WolframAlphaTest_main_region_TellAnswer() {
-		timer.unsetTimer(this, 25);
+		timer.unsetTimer(this, 35);
 	}
 	
 	/* Exit action for state 'TellAction'. */
 	private void exitAction_main_WolframAlphaTest_main_region_TellAction() {
-		timer.unsetTimer(this, 26);
+		timer.unsetTimer(this, 36);
 	}
 	
 	/* Exit action for state 'TellIncomprehensible'. */
 	private void exitAction_main_WolframAlphaTest_main_region_TellIncomprehensible() {
-		timer.unsetTimer(this, 27);
+		timer.unsetTimer(this, 37);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 28);
+		timer.unsetTimer(this, 38);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 29);
+		timer.unsetTimer(this, 39);
 	}
 	
 	/* 'default' enter sequence for state Init */
 	private void enterSequence_main_Init_default() {
-		entryAction_main_Init();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_Init;
 	}
@@ -2035,36 +2127,53 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		stateVector[0] = State.main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness;
 	}
 	
+	/* 'default' enter sequence for state saveAttr */
+	private void enterSequence_main_Attractiveness_openChallenge_attractiveness_saveAttr_default() {
+		entryAction_main_Attractiveness_openChallenge_attractiveness_saveAttr();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_Attractiveness_openChallenge_attractiveness_saveAttr;
+	}
+	
+	/* 'default' enter sequence for state waitForGlasses */
+	private void enterSequence_main_Attractiveness_openChallenge_attractiveness_waitForGlasses_default() {
+		entryAction_main_Attractiveness_openChallenge_attractiveness_waitForGlasses();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_Attractiveness_openChallenge_attractiveness_waitForGlasses;
+	}
+	
+	/* 'default' enter sequence for state DetAt2 */
+	private void enterSequence_main_Attractiveness_openChallenge_attractiveness_DetAt2_default() {
+		entryAction_main_Attractiveness_openChallenge_attractiveness_DetAt2();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_Attractiveness_openChallenge_attractiveness_DetAt2;
+	}
+	
+	/* 'default' enter sequence for state MitBrilleHuebscher */
+	private void enterSequence_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher_default() {
+		entryAction_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher;
+	}
+	
+	/* 'default' enter sequence for state OhneBrilleHuebscher */
+	private void enterSequence_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher_default() {
+		entryAction_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher;
+	}
+	
+	/* 'default' enter sequence for state failed1 */
+	private void enterSequence_main_Attractiveness_openChallenge_attractiveness_failed1_default() {
+		entryAction_main_Attractiveness_openChallenge_attractiveness_failed1();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_Attractiveness_openChallenge_attractiveness_failed1;
+	}
+	
 	/* 'default' enter sequence for state BackToPerson1 */
 	private void enterSequence_main_BackToPerson1_default() {
 		entryAction_main_BackToPerson1();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_BackToPerson1;
-	}
-	
-	/* 'default' enter sequence for state Joke */
-	private void enterSequence_main_Joke_default() {
-		entryAction_main_Joke();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_Joke;
-	}
-	
-	/* 'default' enter sequence for state RecogniceSadness */
-	private void enterSequence_main_RecogniceSadness_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.main_RecogniceSadness;
-	}
-	
-	/* 'default' enter sequence for state RecogniceSmile */
-	private void enterSequence_main_RecogniceSmile_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.main_RecogniceSmile;
-	}
-	
-	/* 'default' enter sequence for state JokeFinished */
-	private void enterSequence_main_JokeFinished_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.main_JokeFinished;
 	}
 	
 	/* 'default' enter sequence for state LeapMotion */
@@ -2079,45 +2188,6 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Text;
 	}
 	
-	/* 'default' enter sequence for state Detect_YesNo */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_default() {
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_default();
-	}
-	
-	/* 'default' enter sequence for state StartSTT */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_default() {
-		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT;
-	}
-	
-	/* 'default' enter sequence for state Copy_1_STT3 */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3;
-	}
-	
-	/* 'default' enter sequence for state yes */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_yes_default() {
-		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_yes();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_yes;
-	}
-	
-	/* 'default' enter sequence for state no */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_no_default() {
-		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_no();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_no;
-	}
-	
-	/* 'default' enter sequence for state YESNO */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO_default() {
-		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO;
-	}
-	
 	/* 'default' enter sequence for state Detect_LeftRight */
 	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_default() {
 		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_default();
@@ -2130,22 +2200,25 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT;
 	}
 	
-	/* 'default' enter sequence for state Copy_1_STT3 */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3_default() {
-		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3;
-	}
-	
 	/* 'default' enter sequence for state Left */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Left_default() {
+	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left_default() {
+		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Left;
+		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left;
 	}
 	
 	/* 'default' enter sequence for state Right */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Right_default() {
+	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right_default() {
+		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Right;
+		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right;
+	}
+	
+	/* 'default' enter sequence for state count */
+	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count_default() {
+		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count;
 	}
 	
 	/* 'default' enter sequence for state ByeBye */
@@ -2288,11 +2361,6 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	/* 'default' enter sequence for region LeapMotion in OpenChallenge */
 	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_default() {
 		react_main_LeapMotion_LeapMotion_in_OpenChallenge__entry_Default();
-	}
-	
-	/* 'default' enter sequence for region inner region */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_default() {
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region Detect_LeftRight */
@@ -2477,6 +2545,8 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	private void exitSequence_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness();
 	}
 	
 	/* Default exit sequence for state Copy_1_ResponseToAskForAttractiveness */
@@ -2487,34 +2557,60 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		exitAction_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness();
 	}
 	
+	/* Default exit sequence for state saveAttr */
+	private void exitSequence_main_Attractiveness_openChallenge_attractiveness_saveAttr() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_Attractiveness_openChallenge_attractiveness_saveAttr();
+	}
+	
+	/* Default exit sequence for state waitForGlasses */
+	private void exitSequence_main_Attractiveness_openChallenge_attractiveness_waitForGlasses() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_Attractiveness_openChallenge_attractiveness_waitForGlasses();
+	}
+	
+	/* Default exit sequence for state DetAt2 */
+	private void exitSequence_main_Attractiveness_openChallenge_attractiveness_DetAt2() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_Attractiveness_openChallenge_attractiveness_DetAt2();
+	}
+	
+	/* Default exit sequence for state MitBrilleHuebscher */
+	private void exitSequence_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher();
+	}
+	
+	/* Default exit sequence for state OhneBrilleHuebscher */
+	private void exitSequence_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher();
+	}
+	
+	/* Default exit sequence for state failed1 */
+	private void exitSequence_main_Attractiveness_openChallenge_attractiveness_failed1() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_Attractiveness_openChallenge_attractiveness_failed1();
+	}
+	
 	/* Default exit sequence for state BackToPerson1 */
 	private void exitSequence_main_BackToPerson1() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state Joke */
-	private void exitSequence_main_Joke() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state RecogniceSadness */
-	private void exitSequence_main_RecogniceSadness() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state RecogniceSmile */
-	private void exitSequence_main_RecogniceSmile() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state JokeFinished */
-	private void exitSequence_main_JokeFinished() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_BackToPerson1();
 	}
 	
 	/* Default exit sequence for state LeapMotion */
@@ -2526,47 +2622,8 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Text() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state Detect_YesNo */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region();
-	}
-	
-	/* Default exit sequence for state StartSTT */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT();
-	}
-	
-	/* Default exit sequence for state Copy_1_STT3 */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
-	/* Default exit sequence for state yes */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_yes() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_yes();
-	}
-	
-	/* Default exit sequence for state no */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_no() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_no();
-	}
-	
-	/* Default exit sequence for state YESNO */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
+		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Text();
 	}
 	
 	/* Default exit sequence for state Detect_LeftRight */
@@ -2582,20 +2639,24 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
 	}
 	
-	/* Default exit sequence for state Copy_1_STT3 */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
 	/* Default exit sequence for state Left */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Left() {
+	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
 	}
 	
 	/* Default exit sequence for state Right */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Right() {
+	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
+	}
+	
+	/* Default exit sequence for state count */
+	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -2792,50 +2853,41 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		case main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness:
 			exitSequence_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness();
 			break;
+		case main_Attractiveness_openChallenge_attractiveness_saveAttr:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_saveAttr();
+			break;
+		case main_Attractiveness_openChallenge_attractiveness_waitForGlasses:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_waitForGlasses();
+			break;
+		case main_Attractiveness_openChallenge_attractiveness_DetAt2:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_DetAt2();
+			break;
+		case main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher();
+			break;
+		case main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher();
+			break;
+		case main_Attractiveness_openChallenge_attractiveness_failed1:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_failed1();
+			break;
 		case main_BackToPerson1:
 			exitSequence_main_BackToPerson1();
-			break;
-		case main_Joke:
-			exitSequence_main_Joke();
-			break;
-		case main_RecogniceSadness:
-			exitSequence_main_RecogniceSadness();
-			break;
-		case main_RecogniceSmile:
-			exitSequence_main_RecogniceSmile();
-			break;
-		case main_JokeFinished:
-			exitSequence_main_JokeFinished();
 			break;
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_Text:
 			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Text();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT();
-			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3();
-			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_yes:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_yes();
-			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_no:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_no();
-			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO();
-			break;
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT:
 			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Left:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Left();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Right:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Right();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
 			break;
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye:
 			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye();
@@ -2940,6 +2992,24 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		case main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness:
 			exitSequence_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness();
 			break;
+		case main_Attractiveness_openChallenge_attractiveness_saveAttr:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_saveAttr();
+			break;
+		case main_Attractiveness_openChallenge_attractiveness_waitForGlasses:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_waitForGlasses();
+			break;
+		case main_Attractiveness_openChallenge_attractiveness_DetAt2:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_DetAt2();
+			break;
+		case main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher();
+			break;
+		case main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher();
+			break;
+		case main_Attractiveness_openChallenge_attractiveness_failed1:
+			exitSequence_main_Attractiveness_openChallenge_attractiveness_failed1();
+			break;
 		default:
 			break;
 		}
@@ -2951,49 +3021,20 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_Text:
 			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Text();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT();
-			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3();
-			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_yes:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_yes();
-			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_no:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_no();
-			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO();
-			break;
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT:
 			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Left:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Left();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Right:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Right();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
 			break;
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye:
 			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye();
-			break;
-		default:
-			break;
-		}
-	}
-	
-	/* Default exit sequence for region inner region */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region() {
-		switch (stateVector[0]) {
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT();
-			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3();
 			break;
 		default:
 			break;
@@ -3006,8 +3047,14 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT:
 			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
+			break;
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
+			break;
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
 			break;
 		default:
 			break;
@@ -3088,9 +3135,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* The reactions of state Init. */
 	private void react_main_Init() {
-		if (check_main_Init_tr0_tr0()) {
-			effect_main_Init_tr0();
-		}
+		effect_main_Init_tr0();
 	}
 	
 	/* The reactions of state null. */
@@ -3254,6 +3299,13 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* The reactions of state DetectAttractiveness. */
 	private void react_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness() {
+		if (check_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness_tr0_tr0()) {
+			effect_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness_tr0();
+		} else {
+			if (check_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness_tr1_tr1()) {
+				effect_main_Attractiveness_openChallenge_attractiveness_DetectAttractiveness_tr1();
+			}
+		}
 	}
 	
 	/* The reactions of state Copy_1_ResponseToAskForAttractiveness. */
@@ -3267,30 +3319,73 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		}
 	}
 	
+	/* The reactions of state saveAttr. */
+	private void react_main_Attractiveness_openChallenge_attractiveness_saveAttr() {
+		if (check_main_Attractiveness_openChallenge_attractiveness_saveAttr_tr0_tr0()) {
+			effect_main_Attractiveness_openChallenge_attractiveness_saveAttr_tr0();
+		} else {
+			if (check_main_Attractiveness_openChallenge_attractiveness_saveAttr_tr1_tr1()) {
+				effect_main_Attractiveness_openChallenge_attractiveness_saveAttr_tr1();
+			}
+		}
+	}
+	
+	/* The reactions of state waitForGlasses. */
+	private void react_main_Attractiveness_openChallenge_attractiveness_waitForGlasses() {
+		if (check_main_Attractiveness_openChallenge_attractiveness_waitForGlasses_tr0_tr0()) {
+			effect_main_Attractiveness_openChallenge_attractiveness_waitForGlasses_tr0();
+		}
+	}
+	
+	/* The reactions of state DetAt2. */
+	private void react_main_Attractiveness_openChallenge_attractiveness_DetAt2() {
+		if (check_main_Attractiveness_openChallenge_attractiveness_DetAt2_tr0_tr0()) {
+			effect_main_Attractiveness_openChallenge_attractiveness_DetAt2_tr0();
+		} else {
+			if (check_main_Attractiveness_openChallenge_attractiveness_DetAt2_tr1_tr1()) {
+				effect_main_Attractiveness_openChallenge_attractiveness_DetAt2_tr1();
+			}
+		}
+	}
+	
+	/* The reactions of state MitBrilleHuebscher. */
+	private void react_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher() {
+		if (check_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher_tr0_tr0()) {
+			effect_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher_tr0();
+		} else {
+			if (check_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher_tr1_tr1()) {
+				effect_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher_tr1();
+			}
+		}
+	}
+	
+	/* The reactions of state OhneBrilleHuebscher. */
+	private void react_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher() {
+		if (check_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher_tr0_tr0()) {
+			effect_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher_tr0();
+		} else {
+			if (check_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher_tr1_tr1()) {
+				effect_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher_tr1();
+			}
+		}
+	}
+	
+	/* The reactions of state failed1. */
+	private void react_main_Attractiveness_openChallenge_attractiveness_failed1() {
+		if (check_main_Attractiveness_openChallenge_attractiveness_failed1_tr0_tr0()) {
+			effect_main_Attractiveness_openChallenge_attractiveness_failed1_tr0();
+		} else {
+			if (check_main_Attractiveness_openChallenge_attractiveness_failed1_tr1_tr1()) {
+				effect_main_Attractiveness_openChallenge_attractiveness_failed1_tr1();
+			}
+		}
+	}
+	
 	/* The reactions of state BackToPerson1. */
 	private void react_main_BackToPerson1() {
 		if (check_main_BackToPerson1_tr0_tr0()) {
 			effect_main_BackToPerson1_tr0();
 		}
-	}
-	
-	/* The reactions of state Joke. */
-	private void react_main_Joke() {
-		if (check_main_Joke_tr0_tr0()) {
-			effect_main_Joke_tr0();
-		}
-	}
-	
-	/* The reactions of state RecogniceSadness. */
-	private void react_main_RecogniceSadness() {
-	}
-	
-	/* The reactions of state RecogniceSmile. */
-	private void react_main_RecogniceSmile() {
-	}
-	
-	/* The reactions of state JokeFinished. */
-	private void react_main_JokeFinished() {
 	}
 	
 	/* The reactions of state Text. */
@@ -3299,47 +3394,22 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* The reactions of state StartSTT. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT() {
-		effect_main_LeapMotion_tr0();
-	}
-	
-	/* The reactions of state Copy_1_STT3. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3() {
-		effect_main_LeapMotion_tr0();
-	}
-	
-	/* The reactions of state yes. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_yes() {
-		effect_main_LeapMotion_tr0();
-	}
-	
-	/* The reactions of state no. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_no() {
-		effect_main_LeapMotion_tr0();
-	}
-	
-	/* The reactions of state YESNO. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO() {
-		effect_main_LeapMotion_tr0();
-	}
-	
-	/* The reactions of state StartSTT. */
 	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT() {
 		effect_main_LeapMotion_tr0();
 	}
 	
-	/* The reactions of state Copy_1_STT3. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3() {
-		effect_main_LeapMotion_tr0();
-	}
-	
 	/* The reactions of state Left. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Left() {
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left() {
 		effect_main_LeapMotion_tr0();
 	}
 	
 	/* The reactions of state Right. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Right() {
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right() {
+		effect_main_LeapMotion_tr0();
+	}
+	
+	/* The reactions of state count. */
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count() {
 		effect_main_LeapMotion_tr0();
 	}
 	
@@ -3528,11 +3598,11 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* The reactions of state null. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region__choice_0() {
-		if (check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region__choice_0_tr0_tr0()) {
-			effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region__choice_0_tr0();
+	private void react_main_Attractiveness_openChallenge_attractiveness__choice_0() {
+		if (check_main_Attractiveness_openChallenge_attractiveness__choice_0_tr0_tr0()) {
+			effect_main_Attractiveness_openChallenge_attractiveness__choice_0_tr0();
 		} else {
-			effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region__choice_0_tr1();
+			effect_main_Attractiveness_openChallenge_attractiveness__choice_0_tr1();
 		}
 	}
 	
@@ -3575,13 +3645,8 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* Default react sequence for initial entry  */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region__entry_Default() {
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT_default();
-	}
-	
-	/* Default react sequence for initial entry  */
 	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__entry_Default() {
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_default();
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count_default();
 	}
 	
 	/* Default react sequence for initial entry  */
@@ -3609,23 +3674,8 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		effect_main_Attractiveness_tr0();
 	}
 	
-	/* The reactions of exit exit_yes. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_exit_yes() {
-		effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_tr1();
-	}
-	
-	/* The reactions of exit exit_no. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_exit_no() {
-		effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_tr0();
-	}
-	
-	/* The reactions of exit exit_right. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_right() {
-		effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_tr1();
-	}
-	
-	/* The reactions of exit exit_left. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_left() {
+	/* The reactions of exit exit_end. */
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_end() {
 		effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_tr0();
 	}
 	
@@ -3714,50 +3764,41 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 			case main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness:
 				react_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness();
 				break;
+			case main_Attractiveness_openChallenge_attractiveness_saveAttr:
+				react_main_Attractiveness_openChallenge_attractiveness_saveAttr();
+				break;
+			case main_Attractiveness_openChallenge_attractiveness_waitForGlasses:
+				react_main_Attractiveness_openChallenge_attractiveness_waitForGlasses();
+				break;
+			case main_Attractiveness_openChallenge_attractiveness_DetAt2:
+				react_main_Attractiveness_openChallenge_attractiveness_DetAt2();
+				break;
+			case main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher:
+				react_main_Attractiveness_openChallenge_attractiveness_MitBrilleHuebscher();
+				break;
+			case main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher:
+				react_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher();
+				break;
+			case main_Attractiveness_openChallenge_attractiveness_failed1:
+				react_main_Attractiveness_openChallenge_attractiveness_failed1();
+				break;
 			case main_BackToPerson1:
 				react_main_BackToPerson1();
-				break;
-			case main_Joke:
-				react_main_Joke();
-				break;
-			case main_RecogniceSadness:
-				react_main_RecogniceSadness();
-				break;
-			case main_RecogniceSmile:
-				react_main_RecogniceSmile();
-				break;
-			case main_JokeFinished:
-				react_main_JokeFinished();
 				break;
 			case main_LeapMotion_LeapMotion_in_OpenChallenge_Text:
 				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Text();
 				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_StartSTT();
-				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_YesNo_inner_region_Copy_1_STT3();
-				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_yes:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_yes();
-				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_no:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_no();
-				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_YESNO();
-				break;
 			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT:
 				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
 				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Copy_1_STT3();
+			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left:
+				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
 				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_Left:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Left();
+			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right:
+				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
 				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_Right:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Right();
+			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count:
+				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
 				break;
 			case main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye:
 				react_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye();
