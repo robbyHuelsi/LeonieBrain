@@ -293,6 +293,7 @@
       <children xsi:type="notation:Shape" xmi:id="_4qKgcwOCEeeoKLLofQmJJA" type="StatechartTextExpression" fontName="Verdana" lineColor="4210752">
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_4qKgdAOCEeeoKLLofQmJJA"/>
       </children>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_4qLHgAOCEeeoKLLofQmJJA" x="7" y="9" width="1067" height="2205"/>
     </children>
     <children xmi:id="_L43hMCj3EeerIsa7nI0F3w" type="Region" element="_L43hmCj3EeerIsa7nI0F3w">
       <children xsi:type="notation:DecorationNode" xmi:id="_L43hMSj3EeerIsa7nI0F3w" type="RegionName">
