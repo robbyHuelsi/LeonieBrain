@@ -12,7 +12,7 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIBGFOperationCallback,
-	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIAttractivenessOperationCallback
+	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIBGFOperationCallback
 {
 	
 	private PersonList personList = Start.instanceOf().getPersonList();
@@ -187,11 +187,5 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 
 	public boolean containsString(String main, String check) {
 		return main.contains(check);
-	}
-
-	@Override
-	public void sendToAttr_estimate() {
-		// TODO Auto-generated method stub
-		
 	}
 }

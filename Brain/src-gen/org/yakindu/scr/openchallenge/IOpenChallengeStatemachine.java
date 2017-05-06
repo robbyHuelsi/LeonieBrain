@@ -61,28 +61,6 @@ public interface IOpenChallengeStatemachine extends ITimerCallback,IStatemachine
 	
 	public SCIHBrain getSCIHBrain();
 	
-	public interface SCIVBrain {
-	
-		public void setSCIVBrainOperationCallback(SCIVBrainOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCIVBrainOperationCallback {
-	
-		public long getCountFoundFaces();
-		
-		public void resetCountFoundFaces();
-		
-		public boolean isNessesaryToSavePersonList();
-		
-		public void sendACIOnOff(boolean inOnOff);
-		
-		public void savePersonList();
-		
-	}
-	
-	public SCIVBrain getSCIVBrain();
-	
 	public interface SCIAttractiveness {
 	
 		public double getOld_attr();
@@ -238,71 +216,5 @@ public interface IOpenChallengeStatemachine extends ITimerCallback,IStatemachine
 	}
 	
 	public SCISTT getSCISTT();
-	
-	public interface SCICurrPerson {
-	
-		public void setSCICurrPersonOperationCallback(SCICurrPersonOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCICurrPersonOperationCallback {
-	
-		public long getPersonID();
-		
-		public boolean isKnown();
-		
-		public String getFirstname();
-		
-		public String getLastname();
-		
-		public long getEstimatedAge();
-		
-		public long getBdYear();
-		
-		public long getBdMounth();
-		
-		public long getBdDay();
-		
-		public boolean getGender();
-		
-		public long getEthnicity();
-		
-		public boolean hasGlasses();
-		
-		public double getAttractiveness();
-		
-		public long getCurrHeadgestures();
-		
-		public boolean isCurrSpeaking();
-		
-		public long getCurrEmotion();
-		
-		public double getCurrDistance();
-		
-		public void resetCurrPerson();
-		
-		public void resetCurrEmotion();
-		
-		public void setKnown(boolean inKnown);
-		
-		public void setFirstname(String inFirstname);
-		
-		public void setLastname(String inLastname);
-		
-		public void setBdYear(long inBdYear);
-		
-		public void setBdMounth(long inBdMointh);
-		
-		public void setBdDay(long inBdDay);
-		
-		public void setGender(boolean inGender);
-		
-		public void setEthnicity(long inEthnicity);
-		
-		public void setAttractiveness(double attr);
-		
-	}
-	
-	public SCICurrPerson getSCICurrPerson();
 	
 }

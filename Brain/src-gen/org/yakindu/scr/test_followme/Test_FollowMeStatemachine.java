@@ -256,7 +256,7 @@ public class Test_FollowMeStatemachine implements ITest_FollowMeStatemachine {
 	
 	/* Entry action for state 'TurnAllOff'. */
 	private void entryAction_main_region_TurnAllOff() {
-		timer.setTimer(this, 0, 1 * 1000, false);
+		timer.setTimer(this, 0, 1*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Ops. I lost you. Bye bye.");
 		
@@ -267,7 +267,7 @@ public class Test_FollowMeStatemachine implements ITest_FollowMeStatemachine {
 	
 	/* Entry action for state 'RequestDetectionDetails'. */
 	private void entryAction_main_region_RequestDetectionDetails() {
-		timer.setTimer(this, 1, 1 * 1000, false);
+		timer.setTimer(this, 1, 1*1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 	}
