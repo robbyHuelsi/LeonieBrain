@@ -13,6 +13,32 @@ GeneratorModel for yakindu::java {
 		}
 	}
 	
+	statechart RobotInspection {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart Poster {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
 	statechart SpeechAndPersonRecognition {
 
 		feature Outlet {
@@ -66,6 +92,32 @@ GeneratorModel for yakindu::java {
 	}	
 	
 	statechart GeneralPurposeServiceRobot {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart OpenChallenge {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+		statechart EEGPSR {
 
 		feature Outlet {
 			targetProject = "Brain"
@@ -196,7 +248,7 @@ GeneratorModel for yakindu::java {
 		}
 	}
 	
-	statechart RobotInspection {
+	statechart Test_LeapMotion {
 
 		feature Outlet {
 			targetProject = "Brain"
@@ -209,42 +261,5 @@ GeneratorModel for yakindu::java {
 		}
 	}
 	
-	statechart Poster {
-
-		feature Outlet {
-			targetProject = "Brain"
-			targetFolder = "src-gen"
-			libraryTargetFolder = "src"
-		}
 		
-		feature GeneralFeatures {
-	    	TimerService = true
-		}
-	}
-	
-		statechart OpenChallenge {
-
-		feature Outlet {
-			targetProject = "Brain"
-			targetFolder = "src-gen"
-			libraryTargetFolder = "src"
-		}
-		
-		feature GeneralFeatures {
-	    	TimerService = true
-		}
-	}
-	
-		statechart EEGPSR {
-
-		feature Outlet {
-			targetProject = "Brain"
-			targetFolder = "src-gen"
-			libraryTargetFolder = "src"
-		}
-		
-		feature GeneralFeatures {
-	    	TimerService = true
-		}
-	}
 }
