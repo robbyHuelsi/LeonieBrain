@@ -12,7 +12,8 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIBGFOperationCallback,
-	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIBGFOperationCallback
+	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIBGFOperationCallback
 {
 	
 	private PersonList personList = Start.instanceOf().getPersonList();

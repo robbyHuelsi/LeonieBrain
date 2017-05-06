@@ -9,7 +9,8 @@ import modules.parser.STT;
 public class OpCallbackImplFollowMe implements IOpCallbackImpl,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIFollowMeOperationCallback,
 	org.yakindu.scr.test_followme.ITest_FollowMeStatemachine.SCIFollowMeOperationCallback,
-	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIFollowMeOperationCallback
+	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIFollowMeOperationCallback,
+	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIFollowMeOperationCallback
 {
 	private Modules modules = Start.instanceOf().getModules();
 
