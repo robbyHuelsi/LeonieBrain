@@ -119,16 +119,29 @@ GeneratorModel for yakindu::java {
 	
 		statechart EEGPSR {
 
-		feature Outlet {
-			targetProject = "Brain"
-			targetFolder = "src-gen"
-			libraryTargetFolder = "src"
+			feature Outlet {
+				targetProject = "Brain"
+				targetFolder = "src-gen"
+				libraryTargetFolder = "src"
+			}
+			
+			feature GeneralFeatures {
+		    	TimerService = true
+			}
 		}
 		
-		feature GeneralFeatures {
-	    	TimerService = true
+		statechart Finale {
+
+			feature Outlet {
+				targetProject = "Brain"
+				targetFolder = "src-gen"
+				libraryTargetFolder = "src"
+			}
+			
+			feature GeneralFeatures {
+		    	TimerService = true
+			}
 		}
-	}
 
 	
 	statechart Test_STT_Smalltalk {

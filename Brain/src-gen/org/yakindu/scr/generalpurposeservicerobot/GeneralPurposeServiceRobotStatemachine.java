@@ -1801,7 +1801,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void entryAction_main_region_leave2() {
 		timer.setTimer(this, 26, 10 * 1000, false);
 		
-		sCIHBrain.operationCallback.sendTTS("[:-0] Thanks for your attention. I wish you a nice day at the German Open. [:-)]");
+		sCIHBrain.operationCallback.sendTTS("[:-0] Thanks for your attention. I hope your enjoed your time here. See us in Japan again. [:-)]");
 	}
 	
 	/* Entry action for state 'leave3'. */

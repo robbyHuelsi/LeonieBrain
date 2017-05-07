@@ -249,7 +249,7 @@
           </vertices>
         </regions>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_zYKSkDGpEee6iepVRa3hDA" specification="entry /&#xD;&#xA;HBrain.sendTTS(&quot;[:-0] Thanks for your attention. I wish you a nice day at the German Open. [:-)]&quot;)" name="leave2" incomingTransitions="_L45WYij3EeerIsa7nI0F3w">
+      <vertices xsi:type="sgraph:State" xmi:id="_zYKSkDGpEee6iepVRa3hDA" specification="entry /&#xD;&#xA;HBrain.sendTTS(&quot;[:-0] Thanks for your attention. I hope your enjoed your time here. See us in Japan again. [:-)]&quot;)" name="leave2" incomingTransitions="_L45WYij3EeerIsa7nI0F3w">
         <outgoingTransitions xmi:id="_OFOyIDGqEee6iepVRa3hDA" specification="HBrain.TTSReady" target="_NF3m4DGqEee6iepVRa3hDA"/>
         <outgoingTransitions xmi:id="_P5m50DGqEee6iepVRa3hDA" specification="after 10s" target="_NF3m4DGqEee6iepVRa3hDA"/>
       </vertices>

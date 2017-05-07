@@ -13,7 +13,8 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIBGFOperationCallback,
-	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIBGFOperationCallback
+	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.finale.IFinaleStatemachine.SCIBGFOperationCallback
 {
 	
 	private PersonList personList = Start.instanceOf().getPersonList();
@@ -189,5 +190,14 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 
 	public boolean containsString(String main, String check) {
 		return main.contains(check);
+	}
+
+	@Override
+	public String floatToPercent(double i) {
+		try {
+			return Math.round(i * 100) + " Percent";
+		} catch (Exception e) {
+			return "";
+		}
 	}
 }

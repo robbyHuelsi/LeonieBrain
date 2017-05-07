@@ -291,10 +291,10 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		main_LeapMotion,
 		main_LeapMotion_LeapMotion_in_OpenChallenge_Text,
 		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right,
-		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count,
+		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT,
+		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left,
+		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right,
+		main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count,
 		main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye,
 		main_ByeBye,
 		main_InterruptionWave_wavingOf,
@@ -550,15 +550,15 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Text;
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight:
 			return stateVector[0].ordinal() >= State.
-					main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight.ordinal()&& stateVector[0].ordinal() <= State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count.ordinal();
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count:
-			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count;
+					main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight.ordinal()&& stateVector[0].ordinal() <= State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count.ordinal();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT:
+			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT;
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left:
+			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left;
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right:
+			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right;
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count:
+			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count;
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye:
 			return stateVector[0] == State.main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye;
 		case main_ByeBye:
@@ -838,27 +838,23 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		return timeEvents[26];
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr0_tr0() {
-		return (sCILeapMotion.operationCallback.getGesture()== null?"true" ==null :sCILeapMotion.operationCallback.getGesture().equals("true"));
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT_tr0_tr0() {
+		return sCILeapMotion.gestureDetected;
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr1_tr1() {
-		return (sCILeapMotion.operationCallback.getGesture()== null?"false" ==null :sCILeapMotion.operationCallback.getGesture().equals("false"));
-	}
-	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr2_tr2() {
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT_tr1_tr1() {
 		return timeEvents[27];
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left_tr0_tr0() {
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left_tr0_tr0() {
 		return timeEvents[28];
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right_tr0_tr0() {
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right_tr0_tr0() {
 		return timeEvents[29];
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count_tr0_tr0() {
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count_tr0_tr0() {
 		return true;
 	}
 	
@@ -986,11 +982,23 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		return true;
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0_tr0_tr0() {
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr0_tr0() {
+		return (sCILeapMotion.operationCallback.getGesture()== null?"yes" ==null :sCILeapMotion.operationCallback.getGesture().equals("yes"));
+	}
+	
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr1_tr1() {
+		return (sCILeapMotion.operationCallback.getGesture()== null?"no" ==null :sCILeapMotion.operationCallback.getGesture().equals("no"));
+	}
+	
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr2_tr2() {
+		return true;
+	}
+	
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_1_tr0_tr0() {
 		return getCounter()<2;
 	}
 	
-	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0_tr1_tr1() {
+	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_1_tr1_tr1() {
 		return true;
 	}
 	
@@ -1247,34 +1255,29 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye_default();
 	}
 	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr0() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left_default();
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT_tr0() {
+		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT();
+		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0();
 	}
 	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr1() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right_default();
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT_tr1() {
+		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT();
+		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_exit_end();
 	}
 	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_tr2() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_end();
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left_tr0() {
+		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left();
+		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_1();
 	}
 	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left_tr0() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0();
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right_tr0() {
+		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right();
+		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_1();
 	}
 	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right_tr0() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0();
-	}
-	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count_tr0() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_default();
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count_tr0() {
+		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count();
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT_default();
 	}
 	
 	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye_tr0() {
@@ -1443,12 +1446,24 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		enterSequence_main_Attractiveness_openChallenge_attractiveness_OhneBrilleHuebscher_default();
 	}
 	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0_tr0() {
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_default();
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr0() {
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left_default();
 	}
 	
-	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0_tr1() {
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_end();
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr1() {
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right_default();
+	}
+	
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr2() {
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT_default();
+	}
+	
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_1_tr0() {
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT_default();
+	}
+	
+	private void effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_1_tr1() {
+		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_exit_end();
 	}
 	
 	private void effect_main_WolframAlphaTest_main_region_STT_STT__choice_0_tr1() {
@@ -1641,7 +1656,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* Entry action for state 'StartSTT'. */
-	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT() {
+	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT() {
 		timer.setTimer(this, 27, 15 * 1000, false);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
@@ -1650,8 +1665,8 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* Entry action for state 'Left'. */
-	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left() {
-		timer.setTimer(this, 28, 5 * 1000, false);
+	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left() {
+		timer.setTimer(this, 28, 1 * 1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(-30);
 		
@@ -1659,8 +1674,8 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* Entry action for state 'Right'. */
-	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right() {
-		timer.setTimer(this, 29, 5 * 1000, false);
+	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right() {
+		timer.setTimer(this, 29, 1 * 1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(30);
 		
@@ -1668,7 +1683,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* Entry action for state 'count'. */
-	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count() {
+	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count() {
 		setCounter(0);
 	}
 	
@@ -1916,19 +1931,19 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* Exit action for state 'StartSTT'. */
-	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT() {
+	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT() {
 		timer.unsetTimer(this, 27);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 	}
 	
 	/* Exit action for state 'Left'. */
-	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left() {
+	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left() {
 		timer.unsetTimer(this, 28);
 	}
 	
 	/* Exit action for state 'Right'. */
-	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right() {
+	private void exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right() {
 		timer.unsetTimer(this, 29);
 	}
 	
@@ -2205,35 +2220,35 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* 'default' enter sequence for state Detect_LeftRight */
 	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_default() {
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_default();
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_default();
 	}
 	
 	/* 'default' enter sequence for state StartSTT */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT_default() {
-		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
+	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT_default() {
+		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT;
+		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT;
 	}
 	
 	/* 'default' enter sequence for state Left */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left_default() {
-		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
+	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left_default() {
+		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left;
+		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left;
 	}
 	
 	/* 'default' enter sequence for state Right */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right_default() {
-		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
+	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right_default() {
+		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right;
+		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right;
 	}
 	
 	/* 'default' enter sequence for state count */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count_default() {
-		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
+	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count_default() {
+		entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count;
+		stateVector[0] = State.main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count;
 	}
 	
 	/* 'default' enter sequence for state ByeBye */
@@ -2378,9 +2393,9 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		react_main_LeapMotion_LeapMotion_in_OpenChallenge__entry_Default();
 	}
 	
-	/* 'default' enter sequence for region Detect_LeftRight */
-	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_default() {
-		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__entry_Default();
+	/* 'default' enter sequence for region main region */
+	private void enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_default() {
+		react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region main region */
@@ -2643,35 +2658,35 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* Default exit sequence for state Detect_LeftRight */
 	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight() {
-		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight();
+		exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region();
 	}
 	
 	/* Default exit sequence for state StartSTT */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT() {
+	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
+		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT();
 	}
 	
 	/* Default exit sequence for state Left */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left() {
+	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
+		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left();
 	}
 	
 	/* Default exit sequence for state Right */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right() {
+	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
+		exitAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right();
 	}
 	
 	/* Default exit sequence for state count */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count() {
+	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -2894,17 +2909,17 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_Text:
 			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Text();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count();
 			break;
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye:
 			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye();
@@ -3038,17 +3053,17 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_Text:
 			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Text();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count();
 			break;
 		case main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye:
 			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye();
@@ -3058,20 +3073,20 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		}
 	}
 	
-	/* Default exit sequence for region Detect_LeftRight */
-	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight() {
+	/* Default exit sequence for region main region */
+	private void exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region() {
 		switch (stateVector[0]) {
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right();
 			break;
-		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count:
-			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
+		case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count:
+			exitSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count();
 			break;
 		default:
 			break;
@@ -3411,22 +3426,22 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* The reactions of state StartSTT. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT() {
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT() {
 		effect_main_LeapMotion_tr0();
 	}
 	
 	/* The reactions of state Left. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left() {
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left() {
 		effect_main_LeapMotion_tr0();
 	}
 	
 	/* The reactions of state Right. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right() {
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right() {
 		effect_main_LeapMotion_tr0();
 	}
 	
 	/* The reactions of state count. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count() {
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count() {
 		effect_main_LeapMotion_tr0();
 	}
 	
@@ -3620,11 +3635,24 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* The reactions of state null. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0() {
-		if (check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0_tr0_tr0()) {
-			effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0_tr0();
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0() {
+		if (check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr0_tr0()) {
+			effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr0();
 		} else {
-			effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__choice_0_tr1();
+			if (check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr1_tr1()) {
+				effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr1();
+			} else {
+				effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr2();
+			}
+		}
+	}
+	
+	/* The reactions of state null. */
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_1() {
+		if (check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_1_tr0_tr0()) {
+			effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_1_tr0();
+		} else {
+			effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_1_tr1();
 		}
 	}
 	
@@ -3658,8 +3686,8 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* Default react sequence for initial entry  */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight__entry_Default() {
-		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count_default();
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__entry_Default() {
+		enterSequence_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count_default();
 	}
 	
 	/* Default react sequence for initial entry  */
@@ -3688,7 +3716,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	}
 	
 	/* The reactions of exit exit_end. */
-	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_exit_end() {
+	private void react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_exit_end() {
 		effect_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_tr0();
 	}
 	
@@ -3801,17 +3829,17 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 			case main_LeapMotion_LeapMotion_in_OpenChallenge_Text:
 				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Text();
 				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_StartSTT();
+			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT:
+				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT();
 				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Left();
+			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left:
+				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Left();
 				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_Right();
+			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right:
+				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_Right();
 				break;
-			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count:
-				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_Detect_LeftRight_count();
+			case main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count:
+				react_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_count();
 				break;
 			case main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye:
 				react_main_LeapMotion_LeapMotion_in_OpenChallenge_ByeBye();

@@ -21,7 +21,8 @@ public class OpCallbackImplHBrain implements IOpCallbackImpl,
 	org.yakindu.scr.poster.IPosterStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIHBrainOperationCallback,
-	org.yakindu.scr.test_leapmotion.ITest_LeapMotionStatemachine.SCIHBrainOperationCallback
+	org.yakindu.scr.test_leapmotion.ITest_LeapMotionStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.finale.IFinaleStatemachine.SCIHBrainOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();
