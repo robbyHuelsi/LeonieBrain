@@ -142,6 +142,20 @@ GeneratorModel for yakindu::java {
 		    	TimerService = true
 			}
 		}
+		
+		statechart IntroRT {
+
+			feature Outlet {
+				targetProject = "Brain"
+				targetFolder = "src-gen"
+				libraryTargetFolder = "src"
+			}
+			
+			feature GeneralFeatures {
+		    	TimerService = true
+			}
+		}
+		
 
 	
 	statechart Test_STT_Smalltalk {

@@ -18,9 +18,11 @@ public class Statemachine {
 	private String statemachineName;
 	private Object statemachine = null;
 	private Class<?> statemachineClass = null;
+	private Vector<Class<?>> opCallbackImplClasses = new Vector<Class<?>>();
 	private Date dateStarted;
 	private String currState;
 	private int statesCount;
+	private boolean running;
 	
 	public Statemachine(Start start) {
 		this("", start);
@@ -72,7 +74,7 @@ public class Statemachine {
 		}
 	}
 	
-	public boolean setOperationCallbacks(boolean sendInitToAllModules){		
+	public boolean setOperationCallbacks(){		
 		if (this.statemachine != null) {
 
 			Vector<String> opCallbackImplNames = new Vector<String>();
@@ -93,14 +95,10 @@ public class Statemachine {
 					Class<?> sciClass = sci.getClass();
 					Class<?> sciOperationCallback = Class.forName("org.yakindu.scr." + this.statemachineName.toLowerCase() + ".I" + this.statemachineName + "Statemachine$SCI" + opCallbackImplName + "OperationCallback");
 					Class<?> opCallbackImplClass = Class.forName("callbacks.OpCallbackImpl" + opCallbackImplName);
+					this.opCallbackImplClasses.add(opCallbackImplClass);
 					Method setSCIOperationCallback = sciClass.getDeclaredMethod("setSCI" + opCallbackImplName + "OperationCallback", new Class[]{sciOperationCallback});
 					Object opCallback = setSCIOperationCallback.invoke(sci, opCallbackImplClass.newInstance());
 					
-					
-					if (sendInitToAllModules) {
-						Method sendInit = opCallbackImplClass.getDeclaredMethod("sendInit", new Class[]{});
-						sendInit.invoke(opCallbackImplClass.newInstance());
-					}
 				} catch (NoSuchMethodException e) {
 					e.printStackTrace();
 					return false;
@@ -132,6 +130,36 @@ public class Statemachine {
 		}
 	}
 	
+	public boolean sendInitToAllModules(boolean send) {
+		if (send) {
+			for (Class<?> opCallbackImplClass : this.opCallbackImplClasses) {
+				try {
+					Method sendInit = opCallbackImplClass.getDeclaredMethod("sendInit", new Class[]{});
+					sendInit.invoke(opCallbackImplClass.newInstance());
+				} catch (NoSuchMethodException e) {
+					e.printStackTrace();
+					return false;
+				} catch (SecurityException e) {
+					e.printStackTrace();
+					return false;
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+					return false;
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+					return false;
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+					return false;
+				} catch (InstantiationException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
 	public boolean initAndEnter(){
 		if (this.statemachine != null) {
 			try {
@@ -140,6 +168,7 @@ public class Statemachine {
 				init.invoke(statemachine);
 				enter.invoke(statemachine);
 				dateStarted = new Date();
+				running = true;
 				
 				start.getGui().updateUI();
 				
@@ -360,6 +389,10 @@ public class Statemachine {
 			}
 		}
 		return false;
+	}
+
+	public boolean isRunning() {
+		return running;
 	}
 	
 }

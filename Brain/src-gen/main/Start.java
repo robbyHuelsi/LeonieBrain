@@ -113,7 +113,7 @@ public class Start{
 		List<Class<?>> classes = ClassFinder.find("org.yakindu.scr");
 		Vector<String> classNames = new Vector<String>();
 		for (Class<?> clazz : classes) {
-			if (clazz.getSimpleName().contains("Statemachine") && !clazz.getSimpleName().substring(0, 1).equals("I")) {
+			if (clazz.getSimpleName().contains("Statemachine") && !clazz.isInterface()) {
 				classNames.add(clazz.getSimpleName().substring(0, clazz.getSimpleName().lastIndexOf("Statemachine")));
 				//classNames.add(clazz.getSimpleName());
 			}

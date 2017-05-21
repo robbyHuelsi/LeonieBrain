@@ -360,7 +360,7 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_STT_STT_StartSTT() {
-		timer.setTimer(this, 0, 5 * 1000, false);
+		timer.setTimer(this, 0, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 		
@@ -369,14 +369,14 @@ public class Test_STT_SmalltalkStatemachine implements ITest_STT_SmalltalkStatem
 	
 	/* Entry action for state 'TellSpokenText'. */
 	private void entryAction_main_region_STT_STT_TellSpokenText() {
-		timer.setTimer(this, 1, 10 * 1000, false);
+		timer.setTimer(this, 1, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText());
 	}
 	
 	/* Entry action for state 'StropSTT'. */
 	private void entryAction_main_region_STT_STT_StropSTT() {
-		timer.setTimer(this, 2, 10 * 1000, false);
+		timer.setTimer(this, 2, 10*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}

@@ -36,12 +36,15 @@ public class GUI extends JFrame{
 		total.setLayout(bl);
 		
 		JComboBox comboStatemachines = new JComboBox(start.getStatemachineNames());
+		comboStatemachines.setSelectedIndex(-1);
 		comboStatemachines.setMaximumRowCount(20);
 		
 		JButton buttonStart = new JButton("Start");
 		buttonStart.setForeground(new Color(0, 255, 0));
+		buttonStart.setEnabled(false);
 		
 		JCheckBox checkBoxSendInitAll = new JCheckBox("Send Init To All Modules", true);
+		checkBoxSendInitAll.setEnabled(false);
 		
 		JPanel panelStateChoose = new JPanel();
 		panelStateChoose.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -135,30 +138,76 @@ public class GUI extends JFrame{
 		total.setVisible(true);
 		
 		
+		comboStatemachines.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				start.setStatemachine(comboStatemachines.getSelectedItem().toString(), start);
+				if (start.getStatemachine().setOperationCallbacks()){
+					buttonStart.setEnabled(true);
+					checkBoxSendInitAll.setEnabled(true);
+				}else{
+					buttonStart.setEnabled(false);
+					checkBoxSendInitAll.setEnabled(false);
+				}
+			}
+		});
 		
 		buttonStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (start.getStatemachine() == null) {
-					start.setStatemachine(comboStatemachines.getSelectedItem().toString(), start);
-					start.getStatemachine().setOperationCallbacks(checkBoxSendInitAll.isSelected());
-					
-					comboStatemachines.setEnabled(false);
-					checkBoxSendInitAll.setEnabled(false);
-					//buttonStart.setEnabled(false);
-					buttonStart.setText("Stop");
-					buttonStart.setForeground(new Color(255, 0, 0));
-					//buttonStart.updateUI();
-					
-					start.runStatemachine(start);
-				}else{
+				if(start.getStatemachine() != null && start.getStatemachine().isRunning()){
+					//Stoppen
 					start.setStatemachine(null, start);
 					
 					comboStatemachines.setEnabled(true);
 					checkBoxSendInitAll.setEnabled(true);
-					//buttonStart.setEnabled(true);
 					buttonStart.setText("Start");
 					buttonStart.setForeground(new Color(0, 255, 0));
-					//buttonStart.updateUI();
+					comboStatemachines.updateUI();
+					checkBoxSendInitAll.updateUI();
+					buttonStart.updateUI();
+					
+				}else if (start.getStatemachine() != null && !start.getStatemachine().isRunning()) {
+					//Starten
+					comboStatemachines.setEnabled(false);
+					checkBoxSendInitAll.setEnabled(false);
+					buttonStart.setText("Stop");
+					buttonStart.setForeground(new Color(255, 0, 0));
+					comboStatemachines.updateUI();
+					checkBoxSendInitAll.updateUI();
+					buttonStart.updateUI();
+					
+					start.getStatemachine().sendInitToAllModules(checkBoxSendInitAll.isSelected());
+					start.runStatemachine(start);
+				}else{
+					// Keine Statemashine ausgewählt
+					if (((String)comboStatemachines.getSelectedItem()).isEmpty()) {
+						System.err.println("statemashine is null");
+						//Ausgangszustand
+						comboStatemachines.setEnabled(true);
+						checkBoxSendInitAll.setEnabled(false);
+						buttonStart.setEnabled(false);
+						buttonStart.setText("Start");
+						buttonStart.setForeground(new Color(0, 255, 0));
+						comboStatemachines.updateUI();
+						checkBoxSendInitAll.updateUI();
+						buttonStart.updateUI();
+						
+					}else{
+						//Ausgewählte SM setzen und danach starten
+						start.setStatemachine(comboStatemachines.getSelectedItem().toString(), start);
+						if (start.getStatemachine().setOperationCallbacks()){
+							//Starten
+							comboStatemachines.setEnabled(false);
+							checkBoxSendInitAll.setEnabled(false);
+							buttonStart.setEnabled(true);
+							buttonStart.setText("Stop");
+							buttonStart.setForeground(new Color(255, 0, 0));
+							comboStatemachines.updateUI();
+							checkBoxSendInitAll.updateUI();
+							buttonStart.updateUI();
+							start.getStatemachine().sendInitToAllModules(checkBoxSendInitAll.isSelected());
+							start.runStatemachine(start);
+						}
+					}
 				}
 				
 			}
