@@ -25,7 +25,7 @@ public class Start{
 		Start t = Start.instanceOf();
 		
 		//Load modules and personList
-		modules = new Modules(UDPListeningPort);
+		modules = new Modules(t);
 		personList = new PersonList();
 		
 		// Start listening for messages via UDP or TCP
@@ -83,6 +83,16 @@ public class Start{
 		
 	}
 	
+	public static int getUDPListeningPort() {
+		return UDPListeningPort;
+	}
+
+
+	public static int getTCPListeningPort() {
+		return TCPListeningPort;
+	}
+
+
 	public void setStatemachine(String statemachineName, Start inStart){
 		if (statemachineName != null) {
 			this.statemachine = new Statemachine(statemachineName, inStart); //Braganca, SpeechAndPersonRecognition, ...

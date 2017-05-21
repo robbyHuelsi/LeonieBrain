@@ -11,17 +11,16 @@ import java.net.UnknownHostException;
 import java.util.Vector;
 
 import Persons.Person;
+import main.Start;
 
 public class Modules {
 
+	private Start start;
 	private Vector<Module> modules = new Vector<Module>();
 	private String filePath = System.getProperty ("user.home") + System.getProperty("file.separator") + "LeonieBrain" + System.getProperty("file.separator") + "modules.brain";
 	
-	public Modules(){
-		this(null);
-	}
-	
-	public Modules(Integer listenPort){
+	public Modules(Start start){
+		this.start = start;
 		if(this.load()){
 			//Modules wurden aus Datei geladen
 			String ownIp = getOwnIpAddress();
@@ -33,7 +32,7 @@ public class Modules {
 			
 			System.out.println(modules.toString());
 		}else{
-			addModule("Brain", getOwnIpAddress(), listenPort, false, true);
+			addModule("Brain", getOwnIpAddress(), Start.getUDPListeningPort(), false, true);
 			addModule("CNS", true);
 			this.save();
 		}
@@ -47,6 +46,7 @@ public class Modules {
 					module = new Module(name, ip, port, setParser);
 					System.out.println("Module overwrite: " + module.toString());
 					this.save();
+					start.getGui().updateTableModulesUI();
 					return true;
 				}else{
 					System.out.println("Module exists and overwrite forbidden");
@@ -106,6 +106,10 @@ public class Modules {
 		return null;
 	}
 	
+	public Module get(int index){
+		return this.modules.get(index);
+	}
+	
 	public String getIp(String name){
 		for (Module module : modules) {
 			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
@@ -136,6 +140,31 @@ public class Modules {
 		return null;
 	}
 	
+	public boolean setOpCallback(String name, boolean opCallback){
+		for (Module module : modules) {
+			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
+				module.setOpCallback(opCallback);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasOpCallback(String name){
+		for (Module module : modules) {
+			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
+				return module.hasOpCallback();
+			}
+		}
+		return false;
+	}
+	
+	public void resetAllOpCallbacks(){
+		for (Module module : modules) {
+			module.setOpCallback(false);
+		}
+	}
+	
 	public void removeAll(){
 		modules.removeAllElements();
 	}
@@ -151,6 +180,10 @@ public class Modules {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public int size(){
+		return this.modules.size();
 	}
 	
 	public boolean setIpAndPortOldSchool(){

@@ -12,6 +12,7 @@ public class Module implements Serializable{
 	private Integer port;
 	private IParser parser;
 	private long udpTcp;
+	private boolean opCallback;
 	
 	
 	public Module(String name, String ip, Integer port, boolean setParser) {
@@ -81,5 +82,13 @@ public class Module implements Serializable{
 
 	public void setUdpTcp(long connection) {
 		this.udpTcp = connection;
+	}
+
+	public boolean hasOpCallback() {
+		return opCallback;
+	}
+
+	public void setOpCallback(boolean opCallback) {
+		this.opCallback = opCallback;
 	}
 }

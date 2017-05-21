@@ -12,13 +12,15 @@ import org.yakindu.scr.ITimer;
 import org.yakindu.scr.TimerService;
 import org.yakindu.scr.braganca.BragancaStatemachine;
 
+import callbacks.OpCallbacksInUse;
+
 public class Statemachine {
 	private Start start;
 	
 	private String statemachineName;
 	private Object statemachine = null;
 	private Class<?> statemachineClass = null;
-	private Vector<Class<?>> opCallbackImplClasses = new Vector<Class<?>>();
+	private Vector<OpCallbacksInUse> opCallbacksInUse = new Vector<OpCallbacksInUse>();
 	private Date dateStarted;
 	private String currState;
 	private int statesCount;
@@ -76,28 +78,33 @@ public class Statemachine {
 	
 	public boolean setOperationCallbacks(){		
 		if (this.statemachine != null) {
-
-			Vector<String> opCallbackImplNames = new Vector<String>();
+			
+			this.opCallbacksInUse.removeAllElements();
+			start.getModules().resetAllOpCallbacks();
 			
 			// Get used SCI's from statemachine
 			Method[] methods = statemachineClass.getDeclaredMethods();
 			for (Method method : methods) {
 				if (method.getName().startsWith("getSCI")) {
-					opCallbackImplNames.add(method.getName().substring(6));
+					this.opCallbacksInUse.add(new OpCallbacksInUse(method.getName().substring(6)));
 				}
 			}
-			System.out.println("opCallbackImplNames for " + this.statemachineName + ": " + opCallbackImplNames.toString());
+			System.out.println("opCallbackImplNames for " + this.statemachineName + ": " + this.opCallbacksInUse.toString());
 						
-			for (String opCallbackImplName : opCallbackImplNames) {
+			for (OpCallbacksInUse opCallback : this.opCallbacksInUse) {
 				try {
-					Method getSCI = this.statemachineClass.getDeclaredMethod("getSCI" + opCallbackImplName, new Class[]{});
+					Method getSCI = this.statemachineClass.getDeclaredMethod("getSCI" + opCallback.getName(), new Class[]{});
 					Object sci = getSCI.invoke(this.statemachine);
 					Class<?> sciClass = sci.getClass();
-					Class<?> sciOperationCallback = Class.forName("org.yakindu.scr." + this.statemachineName.toLowerCase() + ".I" + this.statemachineName + "Statemachine$SCI" + opCallbackImplName + "OperationCallback");
-					Class<?> opCallbackImplClass = Class.forName("callbacks.OpCallbackImpl" + opCallbackImplName);
-					this.opCallbackImplClasses.add(opCallbackImplClass);
-					Method setSCIOperationCallback = sciClass.getDeclaredMethod("setSCI" + opCallbackImplName + "OperationCallback", new Class[]{sciOperationCallback});
-					Object opCallback = setSCIOperationCallback.invoke(sci, opCallbackImplClass.newInstance());
+					Class<?> sciOperationCallback = Class.forName("org.yakindu.scr." + this.statemachineName.toLowerCase() + ".I" + this.statemachineName + "Statemachine$SCI" + opCallback.getName() + "OperationCallback");
+					Class<?> opCallbackImplClass = Class.forName("callbacks.OpCallbackImpl" + opCallback.getName());
+					
+					opCallback.setOpCallbackImplClass(opCallbackImplClass);
+					start.getModules().setOpCallback(opCallback.getName(), true);
+					start.getGui().updateTableModulesUI();
+					
+					Method setSCIOperationCallback = sciClass.getDeclaredMethod("setSCI" + opCallback.getName() + "OperationCallback", new Class[]{sciOperationCallback});
+					setSCIOperationCallback.invoke(sci, opCallbackImplClass.newInstance());
 					
 				} catch (NoSuchMethodException e) {
 					e.printStackTrace();
@@ -130,12 +137,20 @@ public class Statemachine {
 		}
 	}
 	
+//	public Vector<Class<?>> getOpCallbackImplClasses() {
+//		return opCallbackImplClasses;
+//	}
+
 	public boolean sendInitToAllModules(boolean send) {
 		if (send) {
-			for (Class<?> opCallbackImplClass : this.opCallbackImplClasses) {
+			for (OpCallbacksInUse opCallback : this.opCallbacksInUse) {
 				try {
-					Method sendInit = opCallbackImplClass.getDeclaredMethod("sendInit", new Class[]{});
-					sendInit.invoke(opCallbackImplClass.newInstance());
+					if (opCallback.getClass() != null) {
+						Method sendInit = opCallback.getOpCallbackImplClass().getDeclaredMethod("sendInit", new Class[]{});
+						sendInit.invoke(opCallback.getOpCallbackImplClass().newInstance());
+					}else{
+						System.err.println(opCallback.getName() + " has no getOpCallbackImplClass");
+					}
 				} catch (NoSuchMethodException e) {
 					e.printStackTrace();
 					return false;
@@ -170,7 +185,7 @@ public class Statemachine {
 				dateStarted = new Date();
 				running = true;
 				
-				start.getGui().updateUI();
+				start.getGui().updateTableStateInfoUI();
 				
 				return true;
 				
@@ -203,7 +218,7 @@ public class Statemachine {
 				runCycle.invoke(statemachine);
 				
 				try {
-					start.getGui().updateUI();
+					start.getGui().updateTableStateInfoUI();
 				} catch (Exception e) {
 					System.err.println("Problem with runCycle()");
 				}

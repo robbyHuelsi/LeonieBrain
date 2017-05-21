@@ -24,7 +24,10 @@ import javax.swing.table.TableColumn;
 
 public class GUI extends JFrame{
 	private JFrame total;
-	JTable tableStateInfo;
+	private JTable tableStateInfo;
+	private JTable tableModules;
+	private JTable tablePersons;
+	private JTextArea textAreaLog;
 	
 	public GUI(Start start){
 		super("LeonieBrain");
@@ -56,11 +59,10 @@ public class GUI extends JFrame{
 		
 		
 		JTabbedPane tabPane = new JTabbedPane();
-		JPanel panelModules = new JPanel();
 		JPanel panelPersons = new JPanel();
 		JPanel panelLog = new JPanel();
 		
-		// Build computers table
+		// Build StateInfo table
 		class tableStateInfoModel extends AbstractTableModel {
 			private static final long serialVersionUID = 1L;
 			String[] columnNames = { "A", "B"};
@@ -117,18 +119,72 @@ public class GUI extends JFrame{
 		};
 
 		tableStateInfo.setPreferredScrollableViewportSize(new Dimension(500, 70));
+
 		
-		JTable tableModules = new JTable(2,2);
-		panelModules.add(tableModules);
+		// Build Modules table
+		class tableModulesModel extends AbstractTableModel {
+			private static final long serialVersionUID = 1L;
+			String[] columnNames = { "Name", "IP", "Port", "OP Callback", "Status"};
+
+			public int getColumnCount() {
+				return columnNames.length;
+			}
+
+			public int getRowCount() {
+				if (start.getModules() == null) {
+					return 0;
+				}else{
+					return start.getModules().size() + 1; //Header
+				}
+			}
+
+			public String getColumnName(int col) {
+				return columnNames[col];
+			}
+			
+			public Object getValueAt(int row, int col) {
+				if (row == 0) {
+					return columnNames[col];
+				}else{
+					if (col == 0) {
+						return start.getModules().get(row-1).getName();
+					}else if (col == 1) {
+						return start.getModules().get(row-1).getIp();
+					}else if (col == 2) {
+						return start.getModules().get(row-1).getPort();
+					}else if (col == 3) {
+						return (start.getModules().get(row-1).hasOpCallback()?"yes":"");
+					
+					}else{
+						return "";
+					}
+				}
+			}
+		}
 		
-		JTable tablePersons = new JTable(2,2);
+		tableModules = new JTable(new tableModulesModel()){
+			private static final long serialVersionUID = 1L;
+
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component component = super.prepareRenderer(renderer, row, column);
+				int rendererWidth = component.getPreferredSize().width;
+				TableColumn tableColumn = getColumnModel().getColumn(column);
+				tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+		        return component;
+	        }
+		};
+
+		tableModules.setPreferredScrollableViewportSize(new Dimension(500, 70));
+
+				
+		tablePersons = new JTable(2,2);
 		panelPersons.add(tablePersons);
 		
-		JTextArea textAreaLog = new JTextArea();
+		textAreaLog = new JTextArea();
 		panelLog.add(textAreaLog);
 		
 		tabPane.add("Statemachine", tableStateInfo);
-		tabPane.add("Modules", panelModules);
+		tabPane.add("Modules", tableModules);
 		tabPane.add("Persons", panelPersons);
 		tabPane.add("Log", panelLog);
 		
@@ -214,8 +270,12 @@ public class GUI extends JFrame{
 		});
 	}
 	
-	public void updateUI(){
+	public void updateTableStateInfoUI(){
 		tableStateInfo.updateUI();
+	}
+	
+	public void updateTableModulesUI(){
+		tableModules.updateUI();
 	}
 
 }
