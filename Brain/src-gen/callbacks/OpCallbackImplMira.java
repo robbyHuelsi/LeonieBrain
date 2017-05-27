@@ -18,7 +18,8 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.test_leapmotion.ITest_LeapMotionStatemachine.SCIMiraOperationCallback,
-	org.yakindu.scr.finale.IFinaleStatemachine.SCIMiraOperationCallback
+	org.yakindu.scr.finale.IFinaleStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIMiraOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();

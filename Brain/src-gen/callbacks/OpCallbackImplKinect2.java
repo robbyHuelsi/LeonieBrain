@@ -15,7 +15,8 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIKinect2OperationCallback,
-	org.yakindu.scr.finale.IFinaleStatemachine.SCIKinect2OperationCallback
+	org.yakindu.scr.finale.IFinaleStatemachine.SCIKinect2OperationCallback,
+	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIKinect2OperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();

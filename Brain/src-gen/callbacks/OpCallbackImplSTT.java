@@ -17,7 +17,8 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCISTTOperationCallback,
-	org.yakindu.scr.finale.IFinaleStatemachine.SCISTTOperationCallback
+	org.yakindu.scr.finale.IFinaleStatemachine.SCISTTOperationCallback,
+	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCISTTOperationCallback
 {
 	
 	private Modules modules = Start.instanceOf().getModules();

@@ -11,7 +11,8 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCICrowdDetectionOperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCICrowdDetectionOperationCallback,
 	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCICrowdDetectionOperationCallback,
-	org.yakindu.scr.finale.IFinaleStatemachine.SCICrowdDetectionOperationCallback
+	org.yakindu.scr.finale.IFinaleStatemachine.SCICrowdDetectionOperationCallback,
+	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCICrowdDetectionOperationCallback
 {
 
 	private Modules modules = Start.instanceOf().getModules();
