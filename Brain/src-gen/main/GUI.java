@@ -22,6 +22,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import callbacks.OpCallbacksInUse;
+
 public class GUI extends JFrame{
 	private JFrame total;
 	private JTable tableStateInfo;
@@ -40,7 +42,7 @@ public class GUI extends JFrame{
 		
 		JComboBox comboStatemachines = new JComboBox(start.getStatemachineNames());
 		comboStatemachines.setSelectedIndex(-1);
-		comboStatemachines.setMaximumRowCount(20);
+		comboStatemachines.setMaximumRowCount(50);
 		
 		JButton buttonStart = new JButton("Start");
 		buttonStart.setForeground(new Color(0, 255, 0));
@@ -153,8 +155,25 @@ public class GUI extends JFrame{
 					}else if (col == 2) {
 						return start.getModules().get(row-1).getPort();
 					}else if (col == 3) {
-						return (start.getModules().get(row-1).hasOpCallback()?"yes":"");
-					
+						//Nur weiter, wenn Sm vorhanden
+						if (start.getStatemachine() == null){return "No SM";}
+						
+						int id = start.getModules().get(row-1).getOpCallbackId();
+						
+						//Nur weiter, wenn OpCallbackId nicht Null ist
+						if (id == 0) {return "";}
+						
+						OpCallbacksInUse op = start.getStatemachine().getOpCallbackInUseById(id);
+						
+						//Nur weiter, wenn OpCallback gefunden wurde
+						if (op == null){return "OP not found";}
+						
+						//Wenn keine Exeption, dann gut
+						if (op.getException() == null) {
+							return "yes";
+						}else{ //Ansonsten ausgeben
+							return op.getException().getLocalizedMessage();
+						}
 					}else{
 						return "";
 					}

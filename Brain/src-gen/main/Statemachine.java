@@ -78,7 +78,7 @@ public class Statemachine {
 	
 	public boolean setOperationCallbacks(){		
 		if (this.statemachine != null) {
-			
+			boolean failed = false;
 			this.opCallbacksInUse.removeAllElements();
 			start.getModules().resetAllOpCallbacks();
 			
@@ -100,37 +100,48 @@ public class Statemachine {
 					Class<?> opCallbackImplClass = Class.forName("callbacks.OpCallbackImpl" + opCallback.getName());
 					
 					opCallback.setOpCallbackImplClass(opCallbackImplClass);
-					start.getModules().setOpCallback(opCallback.getName(), true);
+					start.getModules().setOpCallbackId(opCallback.getName(), opCallback.getUid());
 					start.getGui().updateTableModulesUI();
 					
 					Method setSCIOperationCallback = sciClass.getDeclaredMethod("setSCI" + opCallback.getName() + "OperationCallback", new Class[]{sciOperationCallback});
 					setSCIOperationCallback.invoke(sci, opCallbackImplClass.newInstance());
 					
 				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
-					return false;
+					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
 				} catch (SecurityException e) {
-					e.printStackTrace();
-					return false;
+					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
 				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-					return false;
+					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
 				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-					return false;
+					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
 				} catch (InvocationTargetException e) {
-					e.printStackTrace();
-					return false;
+					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
 				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-					return false;
+					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
 				} catch (InstantiationException e) {
-					e.printStackTrace();
-					return false;
+					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
 				}
 			}
 
-			return true;
+			if (failed) {
+				return false;
+			}else{
+				return true;
+			}
 		}else{
 			System.err.println("setOperationCallbacks failed because statemashine not set");
 			return false;
@@ -408,6 +419,18 @@ public class Statemachine {
 
 	public boolean isRunning() {
 		return running;
+	}
+	
+	public OpCallbacksInUse getOpCallbackInUseById(int id){
+		if (id <= 0) {return null;}
+		
+		for (OpCallbacksInUse op : opCallbacksInUse) {
+			if (op.getUid() == id) {
+				return op;
+			}
+		}
+		
+		return null;
 	}
 	
 }

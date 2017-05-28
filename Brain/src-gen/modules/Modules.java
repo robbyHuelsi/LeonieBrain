@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 import java.util.Vector;
 
 import Persons.Person;
+import callbacks.OpCallbacksInUse;
 import main.Start;
 
 public class Modules {
@@ -22,12 +23,14 @@ public class Modules {
 	public Modules(Start start){
 		this.start = start;
 		if(this.load()){
+			resetAllOpCallbacks();
 			//Modules wurden aus Datei geladen
 			String ownIp = getOwnIpAddress();
 			
 			if (!get("Brain").getIp().equals(ownIp)) {
 				get("Brain").setIp(ownIp);
-				System.out.println("Brains IP was updated");
+				this.save();
+				System.out.println("Brains IP was updated and saved");
 			}
 			
 			System.out.println(modules.toString());
@@ -140,28 +143,28 @@ public class Modules {
 		return null;
 	}
 	
-	public boolean setOpCallback(String name, boolean opCallback){
+	public boolean setOpCallbackId(String name, int id){
 		for (Module module : modules) {
 			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
-				module.setOpCallback(opCallback);
+				module.setOpCallbackId(id);
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public boolean hasOpCallback(String name){
+	public int getOpCallback(String name){
 		for (Module module : modules) {
 			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
-				return module.hasOpCallback();
+				return module.getOpCallbackId();
 			}
 		}
-		return false;
+		return 0;
 	}
 	
 	public void resetAllOpCallbacks(){
 		for (Module module : modules) {
-			module.setOpCallback(false);
+			module.setOpCallbackId(0);
 		}
 	}
 	

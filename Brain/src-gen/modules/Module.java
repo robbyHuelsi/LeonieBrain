@@ -3,6 +3,7 @@ package modules;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
+import callbacks.OpCallbacksInUse;
 import modules.parser.IParser;
 
 public class Module implements Serializable{
@@ -12,7 +13,7 @@ public class Module implements Serializable{
 	private Integer port;
 	private IParser parser;
 	private long udpTcp;
-	private boolean opCallback;
+	private int opCallbackId;
 	
 	
 	public Module(String name, String ip, Integer port, boolean setParser) {
@@ -84,11 +85,11 @@ public class Module implements Serializable{
 		this.udpTcp = connection;
 	}
 
-	public boolean hasOpCallback() {
-		return opCallback;
+	public int getOpCallbackId() {
+		return opCallbackId;
 	}
 
-	public void setOpCallback(boolean opCallback) {
-		this.opCallback = opCallback;
+	public void setOpCallbackId(int id) {
+		this.opCallbackId = id;
 	}
 }

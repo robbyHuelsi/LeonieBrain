@@ -1,9 +1,12 @@
 package callbacks;
 
 public class OpCallbacksInUse {
+	static int UNIQUE_ID = 0;
+	private int uid = ++UNIQUE_ID;
+	
 	private String name;
 	private Class opCallbackImplClass;
-	private String errorString;
+	private Exception exception;
 	
 	
 	
@@ -24,11 +27,15 @@ public class OpCallbacksInUse {
 	public void setOpCallbackImplClass(Class opCallbackImplClass) {
 		this.opCallbackImplClass = opCallbackImplClass;
 	}
-	public String getErrorString() {
-		return errorString;
+	public Exception getException() {
+		return exception;
 	}
-	public void setErrorString(String errorString) {
-		this.errorString = errorString;
+	public void setException(Exception e) {
+		this.exception = e;
+	}
+
+	public int getUid() {
+		return uid;
 	}
 
 	@Override
