@@ -7,6 +7,8 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import main.Log;
+
 public class UDPConnection
 {
 	private boolean runThread = true;
@@ -107,7 +109,7 @@ public class UDPConnection
 	 * @param targetPort
 	 *            Port of the target
 	 */
-	public void sendSocket(String message, InetAddress targetAdress, int targetPort)
+	public void sendSocket(String message, InetAddress targetAdress, int targetPort, Log log)
 	{
 		DatagramSocket socket;
 
@@ -127,7 +129,7 @@ public class UDPConnection
 			e.printStackTrace();
 		}
 
-		System.out.println("Packet versendet: " + request.getAddress() + ":" + request.getPort() + " -> "
+		log.log("Packet versendet: " + request.getAddress() + ":" + request.getPort() + " -> "
 				+ new String(request.getData()));
 	}
 }

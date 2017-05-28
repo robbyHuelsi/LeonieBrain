@@ -1,6 +1,7 @@
 package callbacks;
 
 import communication.Communication;
+import main.Log;
 import main.Start;
 import modules.Modules;
 import modules.parser.CrowdDet;
@@ -14,16 +15,16 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCICrowdDetectionOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCICrowdDetectionOperationCallback
 {
-
+	private Log log = Start.instanceOf().getLog();
 	private Modules modules = Start.instanceOf().getModules();
 	
 	public void sendDetectionOn() {
-		Communication.sendMessage("#CROWDDET#ON#", modules.get("CrowdDet"));
+		Communication.sendMessage("#CROWDDET#ON#", modules.get("CrowdDet"), log);
 		
 	}
 
 	public void sendDetectionOff() {
-		Communication.sendMessage("#CROWDDET#OFF#", modules.get("CrowdDet"));
+		Communication.sendMessage("#CROWDDET#OFF#", modules.get("CrowdDet"), log);
 		
 	}
 

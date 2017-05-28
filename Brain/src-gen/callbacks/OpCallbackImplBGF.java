@@ -3,6 +3,7 @@ package callbacks;
 import java.util.Random;
 
 import Persons.PersonList;
+import main.Log;
 import main.Start;
 import modules.Modules;
 
@@ -17,22 +18,22 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIBGFOperationCallback
 {
-	
+	private Log log = Start.instanceOf().getLog();
 	private PersonList personList = Start.instanceOf().getPersonList();
 	private Modules modules = Start.instanceOf().getModules();
 	
 	
 	// ---- Brain General Functions Interface ---- //
 	public void printToConsole(String msg){
-		System.out.println(msg);
-		System.out.println(personList.toString());
-		System.out.println(Start.instanceOf().getPersonList().getCurrPerson().isKnown());
+		log.log(msg);
+		log.log(personList.toString());
+		log.log(Start.instanceOf().getPersonList().getCurrPerson().isKnown());
 	}
 	
 	public long getRandNum(long max) {
 		Random randGen = new Random();
 		long randNum = randGen.nextInt((int)max);
-		System.out.println("New random number: " + randNum);
+		log.log("New random number: " + randNum);
 		return randNum;
 	}
 

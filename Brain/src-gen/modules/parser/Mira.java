@@ -48,7 +48,7 @@ public class Mira implements IParser, Serializable{
 		this.emergencyStop = emergencyStop;
 		
 		if (emergencyStop) {
-			System.out.println("Emergency Stop");
+			start.getLog().log("Emergency Stop");
 			start.getStatemachine().raiseEventOfSCI("Mira","emergencyStop");
 		}
 	}
@@ -62,7 +62,7 @@ public class Mira implements IParser, Serializable{
 	public void setArrivedWP(boolean arrivedWP) {
 		this.arrivedWP = arrivedWP;
 		if (arrivedWP) {
-			System.out.println("Arrived at next waypoint: ");
+			start.getLog().log("Arrived at next waypoint: ");
 			start.getStatemachine().raiseEventOfSCI("Mira","arrivedWP");
 		}
 	}
@@ -75,7 +75,7 @@ public class Mira implements IParser, Serializable{
 		this.blocked = blocked;
 
 		if (blocked) {
-			System.out.println("No way found");
+			start.getLog().log("No way found");
 			start.getStatemachine().raiseEventOfSCI("Mira","blocked");
 		}
 	}
@@ -88,7 +88,7 @@ public class Mira implements IParser, Serializable{
 		this.bumpered = bumpered;
 
 		if (bumpered) {
-			System.out.println("Leonie was bumperd");
+			start.getLog().log("Leonie was bumperd");
 			start.getStatemachine().raiseEventOfSCI("Mira","bumpered");
 		}	
 	}

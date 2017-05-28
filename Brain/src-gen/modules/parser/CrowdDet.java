@@ -33,13 +33,13 @@ public class CrowdDet implements IParser, Serializable{
 			for(int i = 0; i < crowd.length; i++){
 				String[] person = crowd[i].split(",");
 				try {
-					System.out.println(crowd[i]);
+					start.getLog().log(crowd[i]);
 					int gender = Integer.parseInt(person[0]);
 					int age = Integer.parseInt(person[1]);
 					int position = Integer.parseInt(person[2]);
 					personList.add(new PersonCrowd(gender, age, position));
 				} catch (Exception e) {
-					System.err.println("CrowdDet: Parsing string to int failed");
+					start.getLog().error("CrowdDet: Parsing string to int failed");
 				}
 			}
 			int total = Integer.parseInt(datas[0]);
@@ -50,7 +50,7 @@ public class CrowdDet implements IParser, Serializable{
 				}
 				return true;
 			}else{
-				System.out.println("There is not the same number of Persons in personList (" + personList.size() + ") like total count (" + total + ")");
+				start.getLog().log("There is not the same number of Persons in personList (" + personList.size() + ") like total count (" + total + ")");
 				return false;
 			}
 		}else{

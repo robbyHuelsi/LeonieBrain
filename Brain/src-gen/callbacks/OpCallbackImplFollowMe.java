@@ -1,6 +1,7 @@
 package callbacks;
 
 import communication.Communication;
+import main.Log;
 import main.Start;
 import modules.Modules;
 import modules.parser.FollowMe;
@@ -13,35 +14,36 @@ public class OpCallbackImplFollowMe implements IOpCallbackImpl,
 	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIFollowMeOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIFollowMeOperationCallback
 {
+	private Log log = Start.instanceOf().getLog();
 	private Modules modules = Start.instanceOf().getModules();
 
 	public void sendDetectionOff() {
-		System.out.println("FollowMe: sendDetectionOff()");
-		Communication.sendMessage("#FOLLOWME#DETECTION#false#", modules.get("FollowMe"));
+		log.log("FollowMe: sendDetectionOff()");
+		Communication.sendMessage("#FOLLOWME#DETECTION#false#", modules.get("FollowMe"), log);
 	}
 
 	public void sendDetectionOn() {
-		System.out.println("FollowMe: sendDetectionOn()");
-		Communication.sendMessage("#FOLLOWME#DETECTION#true#", modules.get("FollowMe"));
+		log.log("FollowMe: sendDetectionOn()");
+		Communication.sendMessage("#FOLLOWME#DETECTION#true#", modules.get("FollowMe"), log);
 	}
 
 	public void sendRequestDetectionDetails() {
-		System.out.println("FollowMe: sendRequestDetectionDetails()");
-		Communication.sendMessage("#FOLLOWME#DETAILS#REQUEST#", modules.get("FollowMe"));
+		log.log("FollowMe: sendRequestDetectionDetails()");
+		Communication.sendMessage("#FOLLOWME#DETAILS#REQUEST#", modules.get("FollowMe"), log);
 	}
 
 	public void sendTrackingOff() {
-		System.out.println("FollowMe: sendTrackingOff()");
-		Communication.sendMessage("#FOLLOWME#TRACKING#false#", modules.get("FollowMe"));
+		log.log("FollowMe: sendTrackingOff()");
+		Communication.sendMessage("#FOLLOWME#TRACKING#false#", modules.get("FollowMe"), log);
 	}
 
 	public void sendTrackingOnAtPos(long x, long y) {
-		System.out.println("FollowMe: sendTrackingOnAtPos(long x, long y)");
-		Communication.sendMessage("#FOLLOWME#TRACKING#POSITION#" + x + ";" + y + "#", modules.get("FollowMe"));
+		log.log("FollowMe: sendTrackingOnAtPos(long x, long y)");
+		Communication.sendMessage("#FOLLOWME#TRACKING#POSITION#" + x + ";" + y + "#", modules.get("FollowMe"), log);
 	}
 
 	public void sendTrackingOnAtNext() {
-		System.out.println("FollowMe: sendTrackingOnAtNext()");
+		log.log("FollowMe: sendTrackingOnAtNext()");
 		//Communication.sendMessage("#FOLLOWME#TRACKING#true#", modules.get("FollowMe"));
 		
 		/*FollowMe fm = (FollowMe)Start.getModules().getParser("FollowMe");
@@ -49,7 +51,7 @@ public class OpCallbackImplFollowMe implements IOpCallbackImpl,
 		int y = fm.getNextPersonYPos();
 		sendTrackingOnAtPos(x,y);*/
 		
-		Communication.sendMessage("#FOLLOWME#TRACKING#POSITION#320;240#", modules.get("FollowMe"));
+		Communication.sendMessage("#FOLLOWME#TRACKING#POSITION#320;240#", modules.get("FollowMe"), log);
 	}
 
 	public long getNextPersonXPos() {

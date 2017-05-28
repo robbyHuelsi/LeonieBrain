@@ -10,7 +10,7 @@ import modules.Modules;
 public class Start{
 	
 	private static Start instance = null;
-	
+	private static Log log;
 	private Statemachine statemachine;
 	private static PersonList personList;
 	private static Modules modules;
@@ -23,13 +23,14 @@ public class Start{
 	
 	public static void main(String[] args) throws Exception{
 		Start t = Start.instanceOf();
+		log  = new Log();
 		
 		//Load modules and personList
 		modules = new Modules(t);
 		personList = new PersonList();
 		
 		// Start listening for messages via UDP or TCP
-		Communication.receive(modules.get("brain"));
+		Communication.receive(modules.get("brain"), log);
 		
 		//Show GUI
 		gui = new GUI(t);
@@ -81,6 +82,10 @@ public class Start{
 		    }
 		}).start();
 		
+	}
+	
+	public static Log getLog(){
+		return log;
 	}
 	
 	public static int getUDPListeningPort() {

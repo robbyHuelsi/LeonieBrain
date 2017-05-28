@@ -1,6 +1,7 @@
 package callbacks;
 
 import communication.Communication;
+import main.Log;
 import main.Start;
 import modules.Modules;
 import modules.parser.Kinect2;
@@ -18,11 +19,11 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIKinect2OperationCallback
 {
-	
+	private Log log = Start.instanceOf().getLog();
 	private Modules modules = Start.instanceOf().getModules();
 	
 	public void sendNoiseDetectionOnOff(boolean inOnOff){
-		Communication.sendMessage("#KINECT2#NOISE#" + (inOnOff?"1":"0") + "#", modules.get("Kinect2"));
+		Communication.sendMessage("#KINECT2#NOISE#" + (inOnOff?"1":"0") + "#", modules.get("Kinect2"), log);
 		
 		if (!inOnOff) {
 			Kinect2 k2 = ((Kinect2)modules.getParser("Kinect2"));
@@ -32,7 +33,7 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 	}
 	
 	public void sendWavingDetectionOnOff(boolean inOnOff){
-		Communication.sendMessage("#KINECT2#PERSON#" + (inOnOff?"1":"0") + "#", modules.get("Kinect2"));
+		Communication.sendMessage("#KINECT2#PERSON#" + (inOnOff?"1":"0") + "#", modules.get("Kinect2"), log);
 		
 		if (!inOnOff) {
 			Kinect2 k2 = ((Kinect2)modules.getParser("Kinect2"));

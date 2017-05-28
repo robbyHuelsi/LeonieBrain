@@ -27,7 +27,7 @@ public class ObjectDet implements IParser, Serializable {
 				this.objList.add(new Objects.object(name, xPos, yPos, width, height));
 				start.getStatemachine().raiseEventOfSCI("ObjectDetection","objectDetected");
 			} catch (NumberFormatException e) {
-				System.err.println("ObjectDetection: Parsing int failed");
+				start.getLog().error("ObjectDetection: Parsing int failed");
 				e.printStackTrace();
 			}
 			return true;

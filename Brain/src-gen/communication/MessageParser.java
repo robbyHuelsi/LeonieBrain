@@ -32,10 +32,10 @@ public class MessageParser {
 		// ----------------------------------------------------------------------
 		// ----------------------------------------------------------------------
 		if (m.find() == true) {
-			System.out.println("::"+message+"::");
+			start.getLog().log("::"+message+"::");
 			sender = m.group(1);
 			data = m.group(2);
-			System.out.println(sender + ": " + data);
+			start.getLog().log(sender + ": " + data);
 
 			// Decide what should be done, depending on sender
 			boolean parsingDone = false;
@@ -57,25 +57,25 @@ public class MessageParser {
 
 				case "ATTR2":
 					((IParser) start.getModules().getParser("Attractiveness")).parse(data, start);
-					System.out.println("ToDo: Update sender name ATTR2 to Attractiveness");
+					start.getLog().log("ToDo: Update sender name ATTR2 to Attractiveness");
 					return true;
 				// break;
 					
 				case "HandGestures":
 					((IParser) start.getModules().getParser("LeapMotion")).parse(data, start);
-					System.out.println("ToDo: Update sender name HandGestures to LeapMotion");
+					start.getLog().log("ToDo: Update sender name HandGestures to LeapMotion");
 					return true;
 				// break;
 					
 				case "NoiseDetection":
 					((IParser) start.getModules().getParser("Kinect2")).parse(data, start);
-					System.out.println("ToDo: Update sender name NoiseDetection to Kinect2");
+					start.getLog().log("ToDo: Update sender name NoiseDetection to Kinect2");
 					return true;
 				// break;
 
 				case "":
 				default:
-					System.out.println("No parser for " + sender + ": " + data);
+					start.getLog().log("No parser for " + sender + ": " + data);
 					return false;
 				// break;
 				}
@@ -83,7 +83,7 @@ public class MessageParser {
 
 		}
 
-		System.out.println("Unfound: " + m.toString() + "\n" + message);
+		start.getLog().log("Unfound: " + m.toString() + "\n" + message);
 		return false;
 	}
 }

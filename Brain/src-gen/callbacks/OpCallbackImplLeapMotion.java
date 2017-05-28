@@ -2,6 +2,7 @@ package callbacks;
 
 
 import communication.Communication;
+import main.Log;
 import main.Start;
 import modules.Modules;
 import modules.parser.LeapMotion;
@@ -13,11 +14,11 @@ public class OpCallbackImplLeapMotion implements IOpCallbackImpl,
 	org.yakindu.scr.test_leapmotion.ITest_LeapMotionStatemachine.SCILeapMotionOperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCILeapMotionOperationCallback
 {
-	
+	private Log log = Start.instanceOf().getLog();
 	private Modules modules = Start.instanceOf().getModules();
 	
 	public void sendGestureDetectionOnOff(long inOnOff){
-		Communication.sendMessage("#LEAPMOTION#" + (int)inOnOff + "#", modules.get("LeapMotion"));
+		Communication.sendMessage("#LEAPMOTION#" + (int)inOnOff + "#", modules.get("LeapMotion"), log);
 		
 		if (inOnOff != 0) {
 			LeapMotion lm = (LeapMotion)Start.getModules().getParser("LeapMotion");		

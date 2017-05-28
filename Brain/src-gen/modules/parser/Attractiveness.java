@@ -17,7 +17,7 @@ public class Attractiveness implements IParser, Serializable{
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		
-		System.out.println("Attractiveness: " + data);
+		start.getLog().log("Attractiveness: " + data);
 		//start.getPersonList().getCurrPerson().setAttractiveness(Float.parseFloat(data), start);
 		
 		if (data.contains("NOFACE")) {
@@ -30,7 +30,7 @@ public class Attractiveness implements IParser, Serializable{
 				this.setAttractivenessDetected(true);
 			
 			} catch (Exception e) {
-				System.err.println("Attract: String to Float failed");
+				start.getLog().error("Attract: String to Float failed");
 				return false;
 			}
 		}

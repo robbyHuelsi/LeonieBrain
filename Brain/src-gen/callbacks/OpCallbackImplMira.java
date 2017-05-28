@@ -1,6 +1,7 @@
 package callbacks;
 
 import communication.Communication;
+import main.Log;
 import main.Start;
 import modules.Modules;
 import modules.parser.Mira;
@@ -21,12 +22,12 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIMiraOperationCallback
 {
-	
+	private Log log = Start.instanceOf().getLog();
 	private Modules modules = Start.instanceOf().getModules();
 	
 	public void sendGoToGWP(long inWayPoint){
-		System.out.println("Go to global way point " + inWayPoint);
-		Communication.sendMessage("#MIRA#GWP#" + inWayPoint + "#", modules.get("Mira"));
+		log.log("Go to global way point " + inWayPoint);
+		Communication.sendMessage("#MIRA#GWP#" + inWayPoint + "#", modules.get("Mira"), log);
 	}
 	
 	public void sendGoToNextGWPForConf() {
@@ -61,45 +62,45 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 
 	
 	public void sendSearchOnOff(boolean inOnOff){
-		System.out.println(inOnOff?"Moving from WP to WP":"Standing");
-		Communication.sendMessage("#MIRA#RUN#" + (inOnOff?"1":"0") + "#", modules.get("Mira"));
+		log.log(inOnOff?"Moving from WP to WP":"Standing");
+		Communication.sendMessage("#MIRA#RUN#" + (inOnOff?"1":"0") + "#", modules.get("Mira"), log);
 //		this.sendToHBrain_TTS("[idle2:" + (inOnOff?"true":"false") + "]");
 	}
 
 	public void sendTurnBody(long inAngle) {
-		System.out.println("Mira: Turn Body: angle=" + inAngle);
-		Communication.sendMessage("#MIRA#ROTBODY#" + inAngle + "#", modules.get("Mira"));
+		log.log("Mira: Turn Body: angle=" + inAngle);
+		Communication.sendMessage("#MIRA#ROTBODY#" + inAngle + "#", modules.get("Mira"), log);
 	}
 
 	public void sendTurnHead(long inAngle) {
-		System.out.println("Mira: Turn Body: angle=" + inAngle);
-		Communication.sendMessage("#MIRA#ROTHEAD#" + inAngle + "#", modules.get("Mira"));
+		log.log("Mira: Turn Body: angle=" + inAngle);
+		Communication.sendMessage("#MIRA#ROTHEAD#" + inAngle + "#", modules.get("Mira"), log);
 	}
 	
 	public void sendPanCamera(long inPan){
-		System.out.println("Mira: Pan Camera:" + inPan);
-		Communication.sendMessage("#MIRA#PTU#setPanVelocity#20#", modules.get("Mira"));
+		log.log("Mira: Pan Camera:" + inPan);
+		Communication.sendMessage("#MIRA#PTU#setPanVelocity#20#", modules.get("Mira"), log);
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		Communication.sendMessage("#MIRA#PTU#pan#" + inPan + "#", modules.get("Mira"));
+		Communication.sendMessage("#MIRA#PTU#pan#" + inPan + "#", modules.get("Mira"), log);
 	}
 	
 	public void sendTiltCamera(long inTilt){
-		System.out.println("Mira: Pan Camera:" + inTilt);
-		Communication.sendMessage("#MIRA#PTU#setTiltVelocity#20#", modules.get("Mira"));
+		log.log("Mira: Pan Camera:" + inTilt);
+		Communication.sendMessage("#MIRA#PTU#setTiltVelocity#20#", modules.get("Mira"), log);
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		Communication.sendMessage("#MIRA#PTU#tilt#" + inTilt + "#", modules.get("Mira"));
+		Communication.sendMessage("#MIRA#PTU#tilt#" + inTilt + "#", modules.get("Mira"), log);
 	}
 	
 	public void sendPanTiltCamera(long inPan, long inTilt) {
-		System.out.println("Mira: Pan Camera:" + inPan);
+		log.log("Mira: Pan Camera:" + inPan);
 		sendPanCamera(inPan);
 		try {
 			Thread.sleep(100);
@@ -111,23 +112,23 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	}
 
 	public void sendGoToLC(long inX, long inY) {
-		System.out.println("Mira: Go to local coordinates: x=" + inX + ", y=" + inY);
-		Communication.sendMessage("#MIRA#LC#" + inX + ";" + inY + ";#", modules.get("Mira"));
+		log.log("Mira: Go to local coordinates: x=" + inX + ", y=" + inY);
+		Communication.sendMessage("#MIRA#LC#" + inX + ";" + inY + ";#", modules.get("Mira"), log);
 	}
 
 	public void sendSaveRuntimeStartPoint() {
-		System.out.println("Mira: sendSaveRuntimeStartPoint");
-		Communication.sendMessage("#MIRA#ADDRUNTIMESTARTPOINT#", modules.get("Mira"));
+		log.log("Mira: sendSaveRuntimeStartPoint");
+		Communication.sendMessage("#MIRA#ADDRUNTIMESTARTPOINT#", modules.get("Mira"), log);
 	}
 
 	public void sendSaveRuntimeEndPoint() {
-		System.out.println("Mira: sendSaveRuntimeEndPoint");
-		Communication.sendMessage("#MIRA#ADDRUNTIMEENDPOINT#", modules.get("Mira"));
+		log.log("Mira: sendSaveRuntimeEndPoint");
+		Communication.sendMessage("#MIRA#ADDRUNTIMEENDPOINT#", modules.get("Mira"), log);
 	}
 
 	public void sendGoToRuntimeEndPoint() {
-		System.out.println("Mira: sendGoToRuntimeEndPoint");
-		Communication.sendMessage("#MIRA#GOTORUNTIMEENDPOINT#", modules.get("Mira"));
+		log.log("Mira: sendGoToRuntimeEndPoint");
+		Communication.sendMessage("#MIRA#GOTORUNTIMEENDPOINT#", modules.get("Mira"), log);
 	}
 
 	@Override
@@ -137,8 +138,8 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 
 	@Override
 	public void sendInterrupt() {
-		System.out.println("Mira: sendInterrupt()");
-		Communication.sendMessage("#MIRA#INTERRUPT#", modules.get("Mira"));
+		log.log("Mira: sendInterrupt()");
+		Communication.sendMessage("#MIRA#INTERRUPT#", modules.get("Mira"), log);
 	}
 
 }

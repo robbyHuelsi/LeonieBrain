@@ -30,12 +30,12 @@ public class Kinect2 implements IParser, Serializable{
 			int inNoiseAngle = Integer.parseInt(noiseDatas[2]);
 			
 			if (noiseDatas[0].contains("1")) {
-				System.out.println("Noise and Bone detected: " + inNoiseAngle);
+				start.getLog().log("Noise and Bone detected: " + inNoiseAngle);
 				this.setNoiseAngle(inNoiseAngle);
 				this.setNoiseDeviatinWithoutBoneDetected(false);
 				this.setNoiseWithBoneDetected(true);
 			} else if(inNoiseAngle != this.noiseAngle && (inNoiseAngle > 3 || inNoiseAngle < -3)){
-				System.out.println("Noise deviation w/o bone model found");
+				start.getLog().log("Noise deviation w/o bone model found");
 				this.setNoiseAngle(inNoiseAngle);
 				this.setNoiseWithBoneDetected(false);
 				this.setNoiseDeviatinWithoutBoneDetected(true);
@@ -47,13 +47,13 @@ public class Kinect2 implements IParser, Serializable{
 		}else if(datas[0].equals("PERSON")){
 			String[] waveDatas = datas[1].split(";");
 			if (waveDatas[0].contains("1")) {
-				System.out.println("Kinect2: Person detected (x: " + waveDatas[2] + ", y: " + waveDatas[3] + ", Waving: " + waveDatas[1] + ")");
+				start.getLog().log("Kinect2: Person detected (x: " + waveDatas[2] + ", y: " + waveDatas[3] + ", Waving: " + waveDatas[1] + ")");
 				this.setWavingX(Double.parseDouble(waveDatas[2]));
 				this.setWavingY(Double.parseDouble(waveDatas[3]));
 				this.setWavingDetected(waveDatas[1].equals("1"));
 				this.setPersonDetected(true);
 			} else {
-				System.out.println("Kinect2: No Person");
+				start.getLog().log("Kinect2: No Person");
 				this.setWavingX(-1);
 				this.setWavingY(-1);
 				this.setWavingDetected(false);

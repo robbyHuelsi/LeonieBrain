@@ -1,6 +1,7 @@
 package callbacks;
 
 import communication.Communication;
+import main.Log;
 import main.Start;
 import modules.Modules;
 
@@ -25,17 +26,17 @@ public class OpCallbackImplHBrain implements IOpCallbackImpl,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIHBrainOperationCallback
 {
-	
+	private Log log = Start.instanceOf().getLog();
 	private Modules modules = Start.instanceOf().getModules();
 	
 	public void sendTTS(String inText){
-		//System.out.println(inText);
-		Communication.sendMessage("#BRAIN##TEXT#" + inText , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
+		//log.log(inText);
+		Communication.sendMessage("#BRAIN##TEXT#" + inText , modules.get("HBrain"), log); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendTTS_num(long inNum){
-		//System.out.println(inText);
-		Communication.sendMessage("#BRAIN##TEXT#" + inNum , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
+		//log.log(inText);
+		Communication.sendMessage("#BRAIN##TEXT#" + inNum , modules.get("HBrain"), log); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendTTS2(String inT1, String inT2){
@@ -47,7 +48,7 @@ public class OpCallbackImplHBrain implements IOpCallbackImpl,
 	}
 	
 	public void sendTTSWithPos(String inPos, String inText){
-		//System.out.println(inText);
+		//log.log(inText);
 		sendTTS("{0;" + inPos + "}" + inText);
 	}
 	

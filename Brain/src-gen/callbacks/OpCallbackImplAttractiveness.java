@@ -1,6 +1,7 @@
 package callbacks;
 
 import communication.Communication;
+import main.Log;
 import main.Start;
 import modules.Modules;
 import modules.parser.Attractiveness;
@@ -11,11 +12,11 @@ public class OpCallbackImplAttractiveness implements IOpCallbackImpl,
 	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIAttractivenessOperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIAttractivenessOperationCallback
 {
-
+	private Log log = Start.instanceOf().getLog();
 	private Modules modules = Start.instanceOf().getModules();
 
 	 public void sendToAttr_estimate() {
-		 Communication.sendMessage("#ATTRACTIVENESS#START#", modules.get("Attractiveness"));
+		 Communication.sendMessage("#ATTRACTIVENESS#START#", modules.get("Attractiveness"), log);
 	 }
 
 	public void sendInit() {
