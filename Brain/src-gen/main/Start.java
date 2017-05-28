@@ -16,6 +16,8 @@ public class Start{
 	private static Modules modules;
 	private static GUI gui;
 	
+	private static String savingsFolderPath = System.getProperty ("user.home") + System.getProperty("file.separator") + "LeonieBrain" + System.getProperty("file.separator");
+	
 	// ---- Communication -----------------------------------------------------
 	static private int UDPListeningPort = 50000;
 	static private int TCPListeningPort = 50001;
@@ -23,11 +25,11 @@ public class Start{
 	
 	public static void main(String[] args) throws Exception{
 		Start t = Start.instanceOf();
-		log  = new Log();
+		log  = new Log(savingsFolderPath);
 		
 		//Load modules and personList
-		modules = new Modules(t);
-		personList = new PersonList();
+		modules = new Modules(t, savingsFolderPath);
+		personList = new PersonList(savingsFolderPath);
 		
 		// Start listening for messages via UDP or TCP
 		Communication.receive(modules.get("brain"), log);
@@ -35,7 +37,16 @@ public class Start{
 		//Show GUI
 		gui = new GUI(t);
 		
+		
+		//Before stopping application
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+	        public void run() {
+	            log.endSM();
+	        }
+	    }));
 	}
+	
+	
 	
 	
 	private Start(){
@@ -63,6 +74,7 @@ public class Start{
 		inStart.modules.removeParsedInformation();
 		
 		Statemachine sm = this.statemachine;
+		log.startSM(this.statemachine.getName());
 		System.out.println("----------  Statemachine " + this.statemachine.getName() + " start  ----------");
 		sm.initAndEnter();
 		
@@ -78,6 +90,7 @@ public class Start{
 					}
 				}
 		    	
+		    	log.endSM();
 		    	System.out.println("----------   Statemachine " + sm.getName() + " end   ----------");
 		    }
 		}).start();

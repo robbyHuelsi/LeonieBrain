@@ -18,10 +18,12 @@ public class Modules {
 
 	private Start start;
 	private Vector<Module> modules = new Vector<Module>();
-	private String filePath = System.getProperty ("user.home") + System.getProperty("file.separator") + "LeonieBrain" + System.getProperty("file.separator") + "modules.brain";
+	private String filePath;
 	
-	public Modules(Start start){
+	public Modules(Start start, String savingsFolderPath){
 		this.start = start;
+		this.filePath = savingsFolderPath + "modules.brain";
+		
 		if(this.load()){
 			resetAllOpCallbacks();
 			//Modules wurden aus Datei geladen
