@@ -124,6 +124,10 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	public void sendInit() {
 		sendSpeechDetectionOff();
 	}
+	
+	public void sendPing() {
+		Communication.sendMessage("#STT#REQUEST#READY#", modules.get("STT"), log);
+	}
 
 
 }

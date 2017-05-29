@@ -3,6 +3,7 @@ package callbacks;
 import java.util.Random;
 
 import Persons.PersonList;
+import communication.Communication;
 import main.Log;
 import main.Start;
 import modules.Modules;
@@ -38,6 +39,10 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 	}
 
 	public void sendInit() {
+		// Nothing to do
+	}
+	
+	public void sendPing() {
 		// Nothing to do
 	}
 

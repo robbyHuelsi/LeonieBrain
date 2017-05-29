@@ -11,12 +11,14 @@ public class Module implements Serializable{
 	private String name;
 	private String ip;
 	private Integer port;
+	private long pongTime = -1;
 	private IParser parser;
 	private long udpTcp;
 	private int opCallbackId;
 	
 	
 	public Module(String name, String ip, Integer port, boolean setParser) {
+		this.pongTime = -1;
 		this.name = name;
 		this.ip = ip;
 		this.port = port;
@@ -24,12 +26,14 @@ public class Module implements Serializable{
 	}
 	
 	public Module(String name, String ip, boolean setParser) {
+		this.pongTime = -1;
 		this.name = name;
 		this.ip = ip;
 		if (setParser) this.setParser(name);
 	}
 	
 	public Module(String name, Integer port, boolean setParser) {
+		this.pongTime = -1;
 		this.name = name;
 		this.port = port;
 		if (setParser) this.setParser(name);
@@ -54,6 +58,15 @@ public class Module implements Serializable{
 	}
 	public boolean setPort(Integer port) {
 		this.port = port;
+		return true;
+	}
+
+	public long getPongTime() {
+		return pongTime;
+	}
+
+	public boolean setPongTime(long pongTime) {
+		this.pongTime = pongTime;
 		return true;
 	}
 

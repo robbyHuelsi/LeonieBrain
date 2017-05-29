@@ -22,6 +22,7 @@ public class Statemachine {
 	private Class<?> statemachineClass = null;
 	private Vector<OpCallbacksInUse> opCallbacksInUse = new Vector<OpCallbacksInUse>();
 	private Date dateStarted;
+	private Date lastPing;
 	private String currState;
 	private int statesCount;
 	private boolean running;
@@ -35,7 +36,7 @@ public class Statemachine {
 		
 		try {
 			if (statemachineName == null || statemachineName.isEmpty()) {
-				System.err.println("Getting statemashine failed bacause statemachineName is empty");
+				start.getLog().error("Getting statemashine failed bacause statemachineName is empty");
 				return;
 			}
 			
@@ -50,7 +51,7 @@ public class Statemachine {
 			
 			// setTime()
 			for (Method m : statemachineClass.getDeclaredMethods()) {
-				//System.out.println(m.getName());
+				//start.getLog().log(m.getName());
 				if (m.getName().equals("setTimer")) {
 					Method setTime = statemachineClass.getDeclaredMethod("setTimer", new Class[] { ITimer.class });
 					setTime.invoke(statemachine, new TimerService());
@@ -89,7 +90,7 @@ public class Statemachine {
 					this.opCallbacksInUse.add(new OpCallbacksInUse(method.getName().substring(6)));
 				}
 			}
-			System.out.println("opCallbackImplNames for " + this.statemachineName + ": " + this.opCallbacksInUse.toString());
+			start.getLog().log("opCallbackImplNames for " + this.statemachineName + ": " + this.opCallbacksInUse.toString());
 						
 			for (OpCallbacksInUse opCallback : this.opCallbacksInUse) {
 				try {
@@ -107,31 +108,31 @@ public class Statemachine {
 					setSCIOperationCallback.invoke(sci, opCallbackImplClass.newInstance());
 					
 				} catch (NoSuchMethodException e) {
-					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
 					opCallback.setException(e);
 					failed = true;
 				} catch (SecurityException e) {
-					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
 					opCallback.setException(e);
 					failed = true;
 				} catch (IllegalAccessException e) {
-					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
 					opCallback.setException(e);
 					failed = true;
 				} catch (IllegalArgumentException e) {
-					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
 					opCallback.setException(e);
 					failed = true;
 				} catch (InvocationTargetException e) {
-					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
 					opCallback.setException(e);
 					failed = true;
 				} catch (ClassNotFoundException e) {
-					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
 					opCallback.setException(e);
 					failed = true;
 				} catch (InstantiationException e) {
-					System.err.println(opCallback.getName() + ": " + e.getLocalizedMessage());
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
 					opCallback.setException(e);
 					failed = true;
 				}
@@ -143,7 +144,7 @@ public class Statemachine {
 				return true;
 			}
 		}else{
-			System.err.println("setOperationCallbacks failed because statemashine not set");
+			start.getLog().error("setOperationCallbacks failed because statemashine not set");
 			return false;
 		}
 	}
@@ -151,6 +152,45 @@ public class Statemachine {
 //	public Vector<Class<?>> getOpCallbackImplClasses() {
 //		return opCallbackImplClasses;
 //	}
+	
+	public boolean sendPingToAllModules(){
+		this.lastPing = new Date();
+		
+		for (OpCallbacksInUse opCallback : this.opCallbacksInUse) {
+			try {
+				if (opCallback.getClass() != null) {
+					Method sendInit = opCallback.getOpCallbackImplClass().getDeclaredMethod("sendPing", new Class[]{});
+					sendInit.invoke(opCallback.getOpCallbackImplClass().newInstance());
+				}else{
+					start.getLog().error("sendPingToAllModules() failed because " + opCallback.getName() + " has no getOpCallbackImplClass");
+				}
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+				return false;
+			} catch (SecurityException e) {
+				e.printStackTrace();
+				return false;
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+				return false;
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				return false;
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+				return false;
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	public Date getLastPing() {
+		return lastPing;
+	}
 
 	public boolean sendInitToAllModules(boolean send) {
 		if (send) {
@@ -160,7 +200,7 @@ public class Statemachine {
 						Method sendInit = opCallback.getOpCallbackImplClass().getDeclaredMethod("sendInit", new Class[]{});
 						sendInit.invoke(opCallback.getOpCallbackImplClass().newInstance());
 					}else{
-						System.err.println(opCallback.getName() + " has no getOpCallbackImplClass");
+						start.getLog().error(opCallback.getName() + " has no getOpCallbackImplClass");
 					}
 				} catch (NoSuchMethodException e) {
 					e.printStackTrace();
@@ -217,7 +257,7 @@ public class Statemachine {
 				return false;
 			}
 		}else{
-			System.err.println("initAndEnter failed because statemashine not set");
+			start.getLog().error("initAndEnter failed because statemashine not set");
 			return false;
 		}
 	}
@@ -231,7 +271,7 @@ public class Statemachine {
 				try {
 					start.getGui().updateTableStateInfoUI();
 				} catch (Exception e) {
-					System.err.println("Problem with runCycle()");
+					start.getLog().error("Problem with runCycle()");
 				}
 				
 				return true;
@@ -253,23 +293,28 @@ public class Statemachine {
 				return false;
 			}
 		}else{
-			System.err.println("runCycle failed because statemashine not set");
+			start.getLog().error("runCycle failed because statemashine not set");
 			return false;
 		}
 	}
 	
 	public boolean raiseEventOfSCI(String sciName, String eventName){
 		if (sciName == null || sciName.isEmpty()) {
-			System.err.println("raiseEventOfSCI failed bacause sciName is empty");
+			start.getLog().error("raiseEventOfSCI failed bacause sciName is empty");
 			return false;
 		}
 		
 		if (eventName == null || eventName.isEmpty()) {
-			System.err.println("raiseEventOfSCI failed bacause eventName is empty");
+			start.getLog().error("raiseEventOfSCI failed bacause eventName is empty");
 			return false;
 		}
 		
-		if (this.statemachine != null) {
+		if (this.statemachine == null) {
+			start.getLog().error("raiseEventOfSCI failed because statemashine not set");
+			return false;
+		}
+			
+		if (this.running) {
 			try {
 				Method getSCI = statemachineClass.getDeclaredMethod("getSCI" + sciName, new Class[]{});
 				Object sci = getSCI.invoke(this.statemachine);
@@ -297,23 +342,28 @@ public class Statemachine {
 				return false;
 			}
 		}else{
-			System.err.println("getSCI failed because statemashine not set");
+			start.getLog().error("raiseEventOfSCI failed because statemashine not running");
 			return false;
 		}
 	}
 	
 	public Object getVaribaleOfSCI(String sciName, String varName){
 		if (sciName == null || sciName.isEmpty()) {
-			System.err.println("getVaribaleOfSCI failed bacause sciName is empty");
+			start.getLog().error("getVaribaleOfSCI failed bacause sciName is empty");
 			return null;
 		}
 		
 		if (varName == null || varName.isEmpty()) {
-			System.err.println("getVaribaleOfSCI failed bacause varName is empty");
+			start.getLog().error("getVaribaleOfSCI failed bacause varName is empty");
 			return null;
 		}
 		
-		if (this.statemachine != null) {
+		if (this.statemachine == null) {
+			start.getLog().error("getVaribaleOfSCI failed because statemashine not set");
+			return false;
+		}
+		
+		if (this.running) {
 			try {
 				Method getSCI = statemachineClass.getDeclaredMethod("getSCI" + sciName, new Class[]{});
 				Object sci = getSCI.invoke(this.statemachine);
@@ -339,7 +389,7 @@ public class Statemachine {
 				return null;
 			}
 		}else{
-			System.err.println("getVaribaleOfSCI failed because statemashine not set");
+			start.getLog().error("getVaribaleOfSCI failed because statemashine not running");
 			return null;
 		}
 	}
@@ -372,7 +422,7 @@ public class Statemachine {
 				//Method isStateActive = statemachineClass.getDeclaredMethod("isStateActive", new Class[]{int.class});
 				for (Method m : statemachineClass.getDeclaredMethods()) {
 					if (m.getName().equals("isStateActive")) {
-						System.out.println(m.getName());
+						start.getLog().log(m.getName());
 						int i = 1;
 						Object sci = m.invoke(this.statemachine, i);
 					}
@@ -403,7 +453,7 @@ public class Statemachine {
 				try {
 					int[] states = (int[]) field.get(statemachine);
 					this.statesCount = states.length;
-					//System.out.println(states.length);
+					//start.getLog().log(states.length);
 					return true;
 				} catch (IllegalArgumentException e) {
 					//e.printStackTrace();

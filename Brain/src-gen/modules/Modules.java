@@ -25,8 +25,10 @@ public class Modules {
 		this.filePath = savingsFolderPath + "modules.brain";
 		
 		if(this.load()){
-			resetAllOpCallbacks();
 			//Modules wurden aus Datei geladen
+			resetAllOpCallbacks();
+			resetAllPongTimes();
+		
 			String ownIp = getOwnIpAddress();
 			
 			if (!get("Brain").getIp().equals(ownIp)) {
@@ -100,6 +102,15 @@ public class Modules {
 		}
 		return false;
 	}
+	
+	public boolean setPongTime(String name, long pongTime){
+		for (Module module : modules) {
+			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
+				return module.setPongTime(pongTime);
+			}
+		}
+		return false;
+	}
 		
 	public Module get(String name){
 		for (Module module : modules) {
@@ -135,6 +146,16 @@ public class Modules {
 		return null;
 	}
 	
+	public long getPongTime(String name){
+		for (Module module : modules) {
+			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
+				return module.getPongTime();
+			}
+		}
+		System.err.println(name + " not found in " + modules.toString());
+		return -1;
+	}
+	
 	public Object getParser(String name){
 		for (Module module : modules) {
 			if (module.getName().toLowerCase().equals(name.toLowerCase())) {
@@ -167,6 +188,12 @@ public class Modules {
 	public void resetAllOpCallbacks(){
 		for (Module module : modules) {
 			module.setOpCallbackId(0);
+		}
+	}
+	
+	public void resetAllPongTimes(){
+		for (Module module : modules) {
+			module.setPongTime(-1);
 		}
 	}
 	

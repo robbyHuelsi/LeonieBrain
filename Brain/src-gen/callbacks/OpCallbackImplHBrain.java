@@ -61,4 +61,8 @@ public class OpCallbackImplHBrain implements IOpCallbackImpl,
 		sendTTS("[:-|] {person} [blush:false] [idle:false] [idle2:false] [idle3:false]");
 	}
 	
+	public void sendPing() {
+		Communication.sendMessage("#HBRAIN#REQUEST#READY#", modules.get("HBrain"), log);
+	}
+	
 }

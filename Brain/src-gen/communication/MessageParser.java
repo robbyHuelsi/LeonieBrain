@@ -1,5 +1,6 @@
 package communication;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,10 +41,27 @@ public class MessageParser {
 			// Decide what should be done, depending on sender
 			boolean parsingDone = false;
 			try {
-				// ----------------------------------------------------------------------
-				// ----------------------------------------------------------------------
-				// General code to start parse
-				parsingDone = ((IParser) start.getModules().getParser(sender)).parse(data, start);
+				
+				//Nur weiter, wenn Sm gesetzt ist. Es sei denn, es handelt sich um CNS
+				if (!sender.equals("CNS") && start.getStatemachine() == null) {
+					start.getLog().error("Parsing impossible because statemachine is not set");
+					return false;
+				}
+				
+				//Get PongTime
+				if(data.equals("RESPONSE#READY")){
+					start.getModules().setPongTime(sender, (new Date()).getTime() - start.getStatemachine().getLastPing().getTime());
+					start.getLog().log("Pong " + sender + "@" + start.getModules().getIp(sender) + ":" + start.getModules().getPort(sender) + " -> " + start.getModules().getPongTime(sender) + " ms");
+					start.getGui().updateTableModulesUI();
+				}
+				
+				// Nur paser aufrufen, wenn Statemachine läuft oder wenn Daten von CNS kommen. (CNS-Daten dürfen immer.)
+				if(sender.equals("CNS") || start.getStatemachine().isRunning()){
+					parsingDone = ((IParser) start.getModules().getParser(sender)).parse(data, start);
+				}else{
+					parsingDone = true;
+				}
+				
 			} catch (Exception e) {
 				// parsing failed.
 				parsingDone = false;

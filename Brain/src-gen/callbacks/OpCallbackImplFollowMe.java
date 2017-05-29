@@ -70,6 +70,10 @@ public class OpCallbackImplFollowMe implements IOpCallbackImpl,
 		sendDetectionOff();
 	}
 	
+	public void sendPing() {
+		Communication.sendMessage("#FOLLOWME#REQUEST#READY#", modules.get("FollowMe"), log);
+	}
+	
 	
 	//TODO implement getterfunction for details
 }

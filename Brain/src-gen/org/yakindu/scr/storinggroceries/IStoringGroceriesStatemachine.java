@@ -93,7 +93,7 @@ public interface IStoringGroceriesStatemachine extends ITimerCallback,IStatemach
 	
 	public interface SCIObjectDetectionOperationCallback {
 	
-		public void sendReadyRequest();
+		public void sendPing();
 		
 		public void sendAnalyseCupboard();
 		

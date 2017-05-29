@@ -126,7 +126,7 @@ public class GUI extends JFrame{
 		// Build Modules table
 		class tableModulesModel extends AbstractTableModel {
 			private static final long serialVersionUID = 1L;
-			String[] columnNames = { "Name", "IP", "Port", "OP Callback", "Status"};
+			String[] columnNames = { "Name", "IP", "Port", "OP Callback", "Pong"};
 
 			public int getColumnCount() {
 				return columnNames.length;
@@ -174,6 +174,15 @@ public class GUI extends JFrame{
 						}else{ //Ansonsten ausgeben
 							return op.getException().getLocalizedMessage();
 						}
+					}else if (col == 4) {
+						long pongTime = start.getModules().get(row-1).getPongTime();
+						if (pongTime == -1) {
+							return "";
+						}else{
+							return pongTime + " ms";
+						}
+						
+						
 					}else{
 						return "";
 					}
@@ -217,9 +226,12 @@ public class GUI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				start.setStatemachine(comboStatemachines.getSelectedItem().toString(), start);
 				if (start.getStatemachine().setOperationCallbacks()){
+					// setOperationCallbacks() hat funktioniert
+					start.getStatemachine().sendPingToAllModules();
 					buttonStart.setEnabled(true);
 					checkBoxSendInitAll.setEnabled(true);
 				}else{
+					// setOperationCallbacks() hat nicht funktioniert
 					buttonStart.setEnabled(false);
 					checkBoxSendInitAll.setEnabled(false);
 				}

@@ -64,5 +64,9 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 		}
 		sendWavingDetectionOnOff(false);
 	}
+	
+	public void sendPing() {
+		Communication.sendMessage("#KINECT2#REQUEST#READY#", modules.get("Kinect2"), log);
+	}
 
 }

@@ -52,6 +52,10 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	public void sendInit() {
 		sendDetectionOff();
 	}
+	
+	public void sendPing() {
+		Communication.sendMessage("#CROWDDET#REQUEST#READY#", modules.get("CrowdDet"), log);
+	}
 
 	@Override
 	public String getAnswerForSecificCrowdDetails(String inDetails) {

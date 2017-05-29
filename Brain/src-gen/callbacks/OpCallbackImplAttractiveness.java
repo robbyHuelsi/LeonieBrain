@@ -19,13 +19,18 @@ public class OpCallbackImplAttractiveness implements IOpCallbackImpl,
 		 Communication.sendMessage("#ATTRACTIVENESS#START#", modules.get("Attractiveness"), log);
 	 }
 
-	public void sendInit() {
-		// nothing to do
-	}
 
 	@Override
 	public double getAttractiveness() {
 		return ((Attractiveness)modules.getParser("Attractiveness")).getAttrativeness();
+	}
+	
+	public void sendInit() {
+		// nothing to do
+	}
+
+	public void sendPing() {
+		Communication.sendMessage("#ATTRACTIVENESS#REQUEST#READY#", modules.get("Attractiveness"), log);
 	}
 	
 	

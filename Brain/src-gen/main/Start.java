@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -15,7 +16,7 @@ public class Start{
 	private static PersonList personList;
 	private static Modules modules;
 	private static GUI gui;
-	
+		
 	private static String savingsFolderPath = System.getProperty ("user.home") + System.getProperty("file.separator") + "LeonieBrain" + System.getProperty("file.separator");
 	
 	// ---- Communication -----------------------------------------------------
@@ -96,6 +97,7 @@ public class Start{
 		}).start();
 		
 	}
+
 	
 	public static Log getLog(){
 		return log;

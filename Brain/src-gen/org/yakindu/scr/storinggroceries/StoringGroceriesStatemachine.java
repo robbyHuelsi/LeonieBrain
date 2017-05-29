@@ -641,7 +641,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'requestReady'. */
 	private void entryAction_main_region_requestReady() {
-		sCIObjectDetection.operationCallback.sendReadyRequest();
+		sCIObjectDetection.operationCallback.sendPing();
 		
 		setCupboard(1);
 		

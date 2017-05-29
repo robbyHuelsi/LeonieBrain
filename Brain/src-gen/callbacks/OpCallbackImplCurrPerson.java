@@ -1,6 +1,7 @@
 package callbacks;
 
 import Persons.PersonList;
+import communication.Communication;
 import main.Log;
 import main.Start;
 
@@ -245,6 +246,10 @@ public class OpCallbackImplCurrPerson implements IOpCallbackImpl,
 
 	@Override
 	public void sendInit() {
+		// Nothing to do
+	}
+	
+	public void sendPing() {
 		// Nothing to do
 	}
 

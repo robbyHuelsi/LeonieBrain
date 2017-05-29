@@ -135,6 +135,10 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	public void sendInit() {
 		//sendPanTiltCamera(0, 0);
 	}
+	
+	public void sendPing() {
+		Communication.sendMessage("#MIRA#REQUEST#READY#", modules.get("Mira"), log);
+	}
 
 	@Override
 	public void sendInterrupt() {

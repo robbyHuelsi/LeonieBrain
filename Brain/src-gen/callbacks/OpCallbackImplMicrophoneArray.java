@@ -1,5 +1,6 @@
 package callbacks;
 
+import communication.Communication;
 import main.Log;
 import main.Start;
 
@@ -26,6 +27,10 @@ public class OpCallbackImplMicrophoneArray implements IOpCallbackImpl,
 	@Override
 	public void sendInit() {
 		// TODO implement sendInit
+	}
+	
+	public void sendPing() {
+		// TODO implement sndPing
 	}
 
 }

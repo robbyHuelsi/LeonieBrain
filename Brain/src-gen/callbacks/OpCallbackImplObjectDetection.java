@@ -12,7 +12,7 @@ public class OpCallbackImplObjectDetection implements IOpCallbackImpl,
 	private Log log = Start.instanceOf().getLog();
 	private Modules modules = Start.instanceOf().getModules();
 
-	public void sendReadyRequest() {
+	public void sendPing() {
 		Communication.sendMessage("#OBJECTDET#REQUEST#READY#" , modules.get("ObjectDet"), log);
 	}
 

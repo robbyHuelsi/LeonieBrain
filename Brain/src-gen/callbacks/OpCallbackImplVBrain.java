@@ -43,4 +43,8 @@ public class OpCallbackImplVBrain implements IOpCallbackImpl,
 	public void sendInit() {
 		sendACIOnOff(false);
 	}
+	
+	public void sendPing() {
+		Communication.sendMessage("#VBRAIN#REQUEST#READY#", modules.get("VBrain"), log);
+	}
 }

@@ -54,4 +54,8 @@ public class OpCallbackImplLeapMotion implements IOpCallbackImpl,
 	public void sendInit() {
 		sendGestureDetectionOnOff(0);
 	}
+	
+	public void sendPing() {
+		Communication.sendMessage("#LEAPMOTION#REQUEST#READY#", modules.get("LeapMotion"), log);
+	}
 }
