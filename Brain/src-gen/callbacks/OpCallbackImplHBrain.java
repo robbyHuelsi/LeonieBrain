@@ -3,6 +3,7 @@ package callbacks;
 import communication.Communication;
 import main.Log;
 import main.Start;
+import modules.Module;
 import modules.Modules;
 
 public class OpCallbackImplHBrain implements IOpCallbackImpl,
@@ -27,16 +28,34 @@ public class OpCallbackImplHBrain implements IOpCallbackImpl,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIHBrainOperationCallback
 {
 	private Log log = Start.instanceOf().getLog();
-	private Modules modules = Start.instanceOf().getModules();
+	private Module module = Start.instanceOf().getModules().get("HBrain");
+	
+	public void send(String command){
+		if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}
+	}
+	
+	public void sendInit() {
+		sendTTS("[:-|] {person} [blush:false] [idle:false] [idle2:false] [idle3:false]");
+	}
+	
+	public void sendPing() {
+		send("#HBRAIN#REQUEST#READY#");
+	}
+	
+	/* ---------------------------------------------------------------- */
 	
 	public void sendTTS(String inText){
 		//log.log(inText);
-		Communication.sendMessage("#BRAIN##TEXT#" + inText , modules.get("HBrain"), log); // # removed cause Leonie reads out the hash too
+		send("#BRAIN##TEXT#" + inText); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendTTS_num(long inNum){
 		//log.log(inText);
-		Communication.sendMessage("#BRAIN##TEXT#" + inNum , modules.get("HBrain"), log); // # removed cause Leonie reads out the hash too
+		send("#BRAIN##TEXT#" + inNum); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendTTS2(String inT1, String inT2){
@@ -56,13 +75,6 @@ public class OpCallbackImplHBrain implements IOpCallbackImpl,
 		
 	}
 
-	@Override
-	public void sendInit() {
-		sendTTS("[:-|] {person} [blush:false] [idle:false] [idle2:false] [idle3:false]");
-	}
 	
-	public void sendPing() {
-		Communication.sendMessage("#HBRAIN#REQUEST#READY#", modules.get("HBrain"), log);
-	}
 	
 }

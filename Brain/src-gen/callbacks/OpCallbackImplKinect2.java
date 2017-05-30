@@ -3,6 +3,7 @@ package callbacks;
 import communication.Communication;
 import main.Log;
 import main.Start;
+import modules.Module;
 import modules.Modules;
 import modules.parser.Kinect2;
 
@@ -20,41 +21,16 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIKinect2OperationCallback
 {
 	private Log log = Start.instanceOf().getLog();
-	private Modules modules = Start.instanceOf().getModules();
+	private Module module = Start.instanceOf().getModules().get("Kinect2");
 	
-	public void sendNoiseDetectionOnOff(boolean inOnOff){
-		Communication.sendMessage("#KINECT2#NOISE#" + (inOnOff?"1":"0") + "#", modules.get("Kinect2"), log);
-		
-		if (!inOnOff) {
-			Kinect2 k2 = ((Kinect2)modules.getParser("Kinect2"));
-			k2.setNoiseAngle(-1);
-			k2.setNoiseWithBoneDetected(false);
+	public void send(String command){
+		if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
 		}
 	}
 	
-	public void sendWavingDetectionOnOff(boolean inOnOff){
-		Communication.sendMessage("#KINECT2#PERSON#" + (inOnOff?"1":"0") + "#", modules.get("Kinect2"), log);
-		
-		if (!inOnOff) {
-			Kinect2 k2 = ((Kinect2)modules.getParser("Kinect2"));
-			k2.setWavingX(-1);
-			k2.setWavingY(-1);
-			k2.setWavingDetected(false);
-		}
-	}
-
-	public long getNoiseAngle() {
-		return ((Kinect2)modules.getParser("Kinect2")).getNoiseAngle();
-	}
-
-	public double getWavingX() {
-		return ((Kinect2)modules.getParser("Kinect2")).getWavingX();
-	}
-
-	public double getWavingY() {
-		return ((Kinect2)modules.getParser("Kinect2")).getWavingY();
-	}
-
 	public void sendInit() {
 		sendNoiseDetectionOnOff(false);
 		try {
@@ -66,7 +42,42 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 	}
 	
 	public void sendPing() {
-		Communication.sendMessage("#KINECT2#REQUEST#READY#", modules.get("Kinect2"), log);
+		send("#KINECT2#REQUEST#READY#");
+	}
+	
+	/* ---------------------------------------------------------------- */
+	
+	public void sendNoiseDetectionOnOff(boolean inOnOff){
+		send("#KINECT2#NOISE#" + (inOnOff?"1":"0") + "#");
+		
+		if (!inOnOff) {
+			Kinect2 k2 = ((Kinect2)module.getParser());
+			k2.setNoiseAngle(-1);
+			k2.setNoiseWithBoneDetected(false);
+		}
+	}
+	
+	public void sendWavingDetectionOnOff(boolean inOnOff){
+		send("#KINECT2#PERSON#" + (inOnOff?"1":"0") + "#");
+		
+		if (!inOnOff) {
+			Kinect2 k2 = ((Kinect2)module.getParser());
+			k2.setWavingX(-1);
+			k2.setWavingY(-1);
+			k2.setWavingDetected(false);
+		}
+	}
+
+	public long getNoiseAngle() {
+		return ((Kinect2)module.getParser()).getNoiseAngle();
+	}
+
+	public double getWavingX() {
+		return ((Kinect2)module.getParser()).getWavingX();
+	}
+
+	public double getWavingY() {
+		return ((Kinect2)module.getParser()).getWavingY();
 	}
 
 }

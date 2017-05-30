@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import HBrain.HBrain;
 import Persons.PersonList;
 import communication.Communication;
 import modules.Modules;
@@ -16,7 +17,8 @@ public class Start{
 	private static PersonList personList;
 	private static Modules modules;
 	private static GUI gui;
-		
+	private static HBrain hbrain;
+	
 	private static String savingsFolderPath = System.getProperty ("user.home") + System.getProperty("file.separator") + "LeonieBrain" + System.getProperty("file.separator");
 	
 	// ---- Communication -----------------------------------------------------

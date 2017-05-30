@@ -13,6 +13,24 @@ public class OpCallbackImplMicrophoneArray implements IOpCallbackImpl,
 	private Log log = Start.instanceOf().getLog();
 	//TODO impement in events for noiseDetected and noiseEndDetected
 	
+	public void send(String command){
+		/*if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}*/
+	}
+	
+	public void sendInit() {
+		// TODO implement sendInit
+	}
+	
+	public void sendPing() {
+		// TODO implement sndPing
+	}
+	
+	/* ---------------------------------------------------------------- */
+	
 	public long getNoiseAngle() {
 		// TODO implement getNoiseAngle()
 		log.error("getNoiseAngle() not implemented");
@@ -22,15 +40,6 @@ public class OpCallbackImplMicrophoneArray implements IOpCallbackImpl,
 	public void detectionOnOff(boolean onOff) {
 		// TODO implement sendDetectionOnOff(boolean onOff)
 		log.error("detectionOnOff(boolean onOff) not implemented");
-	}
-
-	@Override
-	public void sendInit() {
-		// TODO implement sendInit
-	}
-	
-	public void sendPing() {
-		// TODO implement sndPing
 	}
 
 }

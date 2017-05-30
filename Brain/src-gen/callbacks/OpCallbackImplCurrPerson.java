@@ -11,6 +11,26 @@ public class OpCallbackImplCurrPerson implements IOpCallbackImpl,
 	private Log log = Start.instanceOf().getLog();
 	private PersonList personList = Start.instanceOf().getPersonList();
 	
+	
+	public void send(String command){
+		/*if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}*/
+	}
+	
+	public void sendInit() {
+		// Nothing to do
+	}
+	
+	public void sendPing() {
+		// Nothing to do
+	}
+	
+	/* ---------------------------------------------------------------- */
+	
+	
 	public void setKnown(boolean inKnown) {
 		if(personList.getCurrPerson() != null){
 			personList.getCurrPerson().setKnown(inKnown, Start.instanceOf());
@@ -241,16 +261,6 @@ public class OpCallbackImplCurrPerson implements IOpCallbackImpl,
 		if(personList.getCurrPerson() != null){
 			personList.getCurrPerson().getCurrDynData().setEmotion(-1, Start.instanceOf());
 		}
-	}
-
-
-	@Override
-	public void sendInit() {
-		// Nothing to do
-	}
-	
-	public void sendPing() {
-		// Nothing to do
 	}
 
 }

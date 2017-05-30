@@ -4,6 +4,7 @@ package callbacks;
 import communication.Communication;
 import main.Log;
 import main.Start;
+import modules.Module;
 import modules.Modules;
 import modules.parser.LeapMotion;
 import modules.parser.STT;
@@ -15,10 +16,29 @@ public class OpCallbackImplLeapMotion implements IOpCallbackImpl,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCILeapMotionOperationCallback
 {
 	private Log log = Start.instanceOf().getLog();
-	private Modules modules = Start.instanceOf().getModules();
+	private Module module = Start.instanceOf().getModules().get("LeapMotion");
+	
+	public void send(String command){
+		if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}
+	}
+	
+	public void sendInit() {
+		sendGestureDetectionOnOff(0);
+	}
+	
+	public void sendPing() {
+		send("#LEAPMOTION#REQUEST#READY#");
+	}
+	
+	/* ---------------------------------------------------------------- */
+	
 	
 	public void sendGestureDetectionOnOff(long inOnOff){
-		Communication.sendMessage("#LEAPMOTION#" + (int)inOnOff + "#", modules.get("LeapMotion"), log);
+		send("#LEAPMOTION#" + (int)inOnOff + "#");
 		
 		if (inOnOff != 0) {
 			LeapMotion lm = (LeapMotion)Start.getModules().getParser("LeapMotion");		
@@ -30,32 +50,19 @@ public class OpCallbackImplLeapMotion implements IOpCallbackImpl,
 		
 	}
 
-	@Override
 	public String getGesture() {
-		return ((LeapMotion)modules.getParser("LeapMotion")).getGesture();
+		return ((LeapMotion)module.getParser()).getGesture();
 	}
 
-	@Override
 	public void resetGesture() {
-		((LeapMotion)modules.getParser("LeapMotion")).setGesture("");
+		((LeapMotion)module.getParser()).setGesture("");
 	}
 
-	@Override
 	public String getDetectedString() {
-		return ((LeapMotion)modules.getParser("LeapMotion")).getGesturedString();
+		return ((LeapMotion)module.getParser()).getGesturedString();
 	}
 
-	@Override
 	public void resetDetectedString() {
-		((LeapMotion)modules.getParser("LeapMotion")).setGesturedString("");
-	}
-
-	@Override
-	public void sendInit() {
-		sendGestureDetectionOnOff(0);
-	}
-	
-	public void sendPing() {
-		Communication.sendMessage("#LEAPMOTION#REQUEST#READY#", modules.get("LeapMotion"), log);
+		((LeapMotion)module.getParser()).setGesturedString("");
 	}
 }

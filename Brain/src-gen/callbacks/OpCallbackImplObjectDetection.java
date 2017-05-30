@@ -3,6 +3,7 @@ package callbacks;
 import communication.Communication;
 import main.Log;
 import main.Start;
+import modules.Module;
 import modules.Modules;
 import modules.parser.ObjectDet;
 
@@ -10,39 +11,50 @@ public class OpCallbackImplObjectDetection implements IOpCallbackImpl,
 	org.yakindu.scr.storinggroceries.IStoringGroceriesStatemachine.SCIObjectDetectionOperationCallback
 {
 	private Log log = Start.instanceOf().getLog();
-	private Modules modules = Start.instanceOf().getModules();
-
-	public void sendPing() {
-		Communication.sendMessage("#OBJECTDET#REQUEST#READY#" , modules.get("ObjectDet"), log);
+	private Module module = Start.instanceOf().getModules().get("ObjectDet");
+	
+	public void send(String command){
+		if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}
 	}
+	
+	public void sendPing() {
+		send("#OBJECTDET#REQUEST#READY#");
+	}
+	
+	public void sendInit() {
+		// Nothing to do
+	}
+	
+	/* ---------------------------------------------------------------- */
+
+
 
 	public void sendAnalyseCupboard() {
-		Communication.sendMessage("#OBJECTDET#REQUEST#CUPBOARD#" , modules.get("ObjectDet"), log);
+		send("#OBJECTDET#REQUEST#CUPBOARD#");
 		
 	}
 
 	public void sendAnalyseTable() {
-		Communication.sendMessage("#OBJECTDET#REQUEST#TABLE#" , modules.get("ObjectDet"), log);
+		send("#OBJECTDET#REQUEST#TABLE#");
 		
 	}
 
 	public void sendPrintPDF() {
-		Communication.sendMessage("#OBJECTDET#REQUEST#PDF#" , modules.get("ObjectDet"), log);
+		send("#OBJECTDET#REQUEST#PDF#");
 		
 	}
 
 	public String getSummaryText() {
-		return ((ObjectDet)modules.getParser("ObjectDet")).getSummaryText();
+		return ((ObjectDet)module.getParser()).getSummaryText();
 	}
 
-	@Override
-	public void sendInit() {
-		// Nothing to do
-	}
 
-	@Override
 	public String getNewesObject() {
-		return ((ObjectDet)modules.getParser("ObjectDet")).getNewesObject();
+		return ((ObjectDet)module.getParser()).getNewesObject();
 	}
 		
 }

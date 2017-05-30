@@ -15,29 +15,33 @@ public class Module implements Serializable{
 	private IParser parser;
 	private long udpTcp;
 	private int opCallbackId;
+	private boolean internal;
 	
 	
-	public Module(String name, String ip, Integer port, boolean setParser) {
+	public Module(String name, String ip, Integer port, boolean internal, boolean setParser) {
 		this.pongTime = -1;
 		this.name = name;
 		this.ip = ip;
 		this.port = port;
+		this.internal = internal;
 		if (setParser) this.setParser(name);
 	}
 	
-	public Module(String name, String ip, boolean setParser) {
+	/*public Module(String name, String ip, boolean internal, boolean setParser) {
 		this.pongTime = -1;
 		this.name = name;
 		this.ip = ip;
+		this.internal = internal;
 		if (setParser) this.setParser(name);
 	}
 	
-	public Module(String name, Integer port, boolean setParser) {
+	public Module(String name, Integer port, boolean internal, boolean setParser) {
 		this.pongTime = -1;
 		this.name = name;
 		this.port = port;
+		this.internal = internal;
 		if (setParser) this.setParser(name);
-	}
+	}*/
 	
 	public String getName() {
 		return name;
@@ -104,5 +108,9 @@ public class Module implements Serializable{
 
 	public void setOpCallbackId(int id) {
 		this.opCallbackId = id;
+	}
+
+	public boolean isInternal() {
+		return internal;
 	}
 }

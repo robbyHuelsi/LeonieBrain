@@ -21,10 +21,29 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 {
 	private Log log = Start.instanceOf().getLog();
 	private PersonList personList = Start.instanceOf().getPersonList();
-	private Modules modules = Start.instanceOf().getModules();
+	//private Modules modules = Start.instanceOf().getModules();
 	
 	
 	// ---- Brain General Functions Interface ---- //
+	
+	public void send(String command){
+		/*if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}*/
+	}
+	
+	public void sendInit() {
+		// Nothing to do
+	}
+	
+	public void sendPing() {
+		// Nothing to do
+	}
+	
+	/* ---------------------------------------------------------------- */
+	
 	public void printToConsole(String msg){
 		log.log(msg);
 		log.log(personList.toString());
@@ -38,13 +57,7 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 		return randNum;
 	}
 
-	public void sendInit() {
-		// Nothing to do
-	}
 	
-	public void sendPing() {
-		// Nothing to do
-	}
 
 	public String intToString(long inInt) {
 		return "" + inInt;

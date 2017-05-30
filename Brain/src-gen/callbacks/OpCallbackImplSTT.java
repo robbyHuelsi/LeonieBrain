@@ -4,6 +4,7 @@ package callbacks;
 import communication.Communication;
 import main.Log;
 import main.Start;
+import modules.Module;
 import modules.Modules;
 import modules.parser.STT;
 
@@ -22,50 +23,69 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCISTTOperationCallback
 {
 	private Log log = Start.instanceOf().getLog();
-	private Modules modules = Start.instanceOf().getModules();
+	private Module module = Start.instanceOf().getModules().get("STT");
+	
+	
+	public void send(String command){
+		if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}
+	}
+	
+	public void sendInit() {
+		sendSpeechDetectionOff();
+	}
+	
+	public void sendPing() {
+		send("#STT#REQUEST#READY#");
+	}
+	
+	/* ---------------------------------------------------------------- */
 	
 	public String getSpokenText() {
-		return ((STT)modules.getParser("STT")).getSpokenText();
+		return ((STT)module.getParser()).getSpokenText();
 	}
 	
 	public String getAnswer() {
-		return ((STT)modules.getParser("STT")).getAnswer();
+		return ((STT)module.getParser()).getAnswer();
 	}
 
 	public String getInstruction() {
-		return ((STT)modules.getParser("STT")).getInstruction();
+		return ((STT)module.getParser()).getInstruction();
 	}
 
 	public String getObject() {
-		return ((STT)modules.getParser("STT")).getObject();
+		return ((STT)module.getParser()).getObject();
 	}
 	
 	public long getActionListLength() {
-		return ((STT)modules.getParser("STT")).getActionListLength();
+		return ((STT)module.getParser()).getActionListLength();
 	}
 
 	public String getInstructionFromActionListAt(long i) {
-		return ((STT)modules.getParser("STT")).getInstructionFromActionListAt(i);
+		return ((STT)module.getParser()).getInstructionFromActionListAt(i);
 	}
 
 	public String getObjectFromActionListAt(long i) {
-		return ((STT)modules.getParser("STT")).getObjectFromActionListAt(i);
+		return ((STT)module.getParser()).getObjectFromActionListAt(i);
 	}
 
 	public String getLocationFromActionListAt(long i) {
-		return ((STT)modules.getParser("STT")).getLocationFromActionListAt(i);
+		return ((STT)module.getParser()).getLocationFromActionListAt(i);
 	}
 	
 	public String getActionCommandSentence() {
-		return ((STT)modules.getParser("STT")).getActionCommandSentence();
+		return ((STT)module.getParser()).getActionCommandSentence();
 	}
 
 	public void sendSpeechDetectionOff() {
-		Communication.sendMessage("#STT#0#", modules.get("STT"), log);
+		send("#STT#0#");
 	}
 
 	public void sendSpeechDetectionSmalltalk() {
-		Communication.sendMessage("#STT#1#", modules.get("STT"), log);
+		send("#STT#1#");
 		
 		STT stt = (STT)Start.getModules().getParser("STT");
 		stt.setSpokenText("");
@@ -79,7 +99,7 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	}
 
 	public void sendSpeechDetectionYesNo() {
-		Communication.sendMessage("#STT#2#", modules.get("STT"), log);
+		send("#STT#2#");
 		
 		STT stt = (STT)Start.getModules().getParser("STT");
 		stt.setSpokenText("");
@@ -93,7 +113,7 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	}
 
 	public void sendSpeechDetectionName() {
-		Communication.sendMessage("#STT#3#", modules.get("STT"), log);
+		send("#STT#3#");
 		
 		STT stt = (STT)Start.getModules().getParser("STT");
 		stt.setSpokenText("");
@@ -107,7 +127,7 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	}
 
 	public void sendSpeechDetectionActions() {
-	Communication.sendMessage("#STT#4#", modules.get("STT"), log);
+	send("#STT#4#");
 		
 		STT stt = (STT)Start.getModules().getParser("STT");
 		stt.setSpokenText("");
@@ -118,15 +138,6 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setIncomprehensible(false);
 		stt.setActionReceived(false);
 		stt.setActionsReceived(false);
-	}
-	
-
-	public void sendInit() {
-		sendSpeechDetectionOff();
-	}
-	
-	public void sendPing() {
-		Communication.sendMessage("#STT#REQUEST#READY#", modules.get("STT"), log);
 	}
 
 

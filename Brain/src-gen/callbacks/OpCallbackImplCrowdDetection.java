@@ -3,6 +3,7 @@ package callbacks;
 import communication.Communication;
 import main.Log;
 import main.Start;
+import modules.Module;
 import modules.Modules;
 import modules.parser.CrowdDet;
 import modules.parser.STT;
@@ -16,15 +17,33 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCICrowdDetectionOperationCallback
 {
 	private Log log = Start.instanceOf().getLog();
-	private Modules modules = Start.instanceOf().getModules();
+	private Module module = Start.instanceOf().getModules().get("CrowdDet");
+	
+	public void send(String command){
+		if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}
+	}
+	
+	public void sendInit() {
+		sendDetectionOff();
+	}
+	
+	public void sendPing() {
+		send("#CROWDDET#REQUEST#READY#");
+	}
+	
+	/* ---------------------------------------------------------------- */
 	
 	public void sendDetectionOn() {
-		Communication.sendMessage("#CROWDDET#ON#", modules.get("CrowdDet"), log);
+		send("#CROWDDET#ON#");
 		
 	}
 
 	public void sendDetectionOff() {
-		Communication.sendMessage("#CROWDDET#OFF#", modules.get("CrowdDet"), log);
+		send("#CROWDDET#OFF#");
 		
 	}
 
@@ -47,15 +66,7 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	public String getSummaryText() {
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getSummaryString();
 	}
-
-	@Override
-	public void sendInit() {
-		sendDetectionOff();
-	}
 	
-	public void sendPing() {
-		Communication.sendMessage("#CROWDDET#REQUEST#READY#", modules.get("CrowdDet"), log);
-	}
 
 	@Override
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
