@@ -27,12 +27,13 @@ public class OpCallbackImplHBrain implements IOpCallbackImpl,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIHBrainOperationCallback
 {
-	private Log log = Start.instanceOf().getLog();
-	private Module module = Start.instanceOf().getModules().get("HBrain");
+	private Start start = Start.instanceOf();
+	private Log log = start.getLog();
+	private Module module = start.getModules().get("HBrain");
 	
 	public void send(String command){
-		if (module.isInternal()) {
-			// for internal Modules
+		if (module.isInternal() && start.getHbrain() != null) {
+			start.getHbrain().addInput(command);
 		}else{
 			Communication.sendMessage(command, module, log);
 		}

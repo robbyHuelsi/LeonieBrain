@@ -8,12 +8,16 @@ import java.awt.FlowLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -30,6 +34,7 @@ public class GUI extends JFrame{
 	private JTable tableModules;
 	private JTable tablePersons;
 	private JTextArea textAreaLog;
+	private JPopupMenu tableModulesPopup;
 	
 	public GUI(Start start){
 		super("LeonieBrain");
@@ -203,6 +208,14 @@ public class GUI extends JFrame{
 		};
 
 		tableModules.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		
+		tableModules.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {}
+		    public void mouseReleased(MouseEvent e) {tableModulesMousePressedReleased(e);}
+			public void mousePressed(MouseEvent e) {tableModulesMousePressedReleased(e);}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+		});
 
 				
 		tablePersons = new JTable(2,2);
@@ -299,6 +312,12 @@ public class GUI extends JFrame{
 				
 			}
 		});
+		
+		tableModulesPopup = new JPopupMenu("Edit Module");
+//		JMenuItem cut = new JMenuItem("Cut");  
+//		JMenuItem copy = new JMenuItem("Copy");  
+//		JMenuItem paste = new JMenuItem("Paste");  
+//		tableModulesPopup.add(cut); tableModulesPopup.add(copy); tableModulesPopup.add(paste);
 	}
 	
 	public void updateTableStateInfoUI(){
@@ -307,6 +326,23 @@ public class GUI extends JFrame{
 	
 	public void updateTableModulesUI(){
 		tableModules.updateUI();
+	}
+	
+	private void tableModulesMousePressedReleased(MouseEvent e){
+		int r = tableModules.rowAtPoint(e.getPoint());
+        if (r >= 1 && r < tableModules.getRowCount()) {
+        	tableModules.setRowSelectionInterval(r, r);
+        } else {
+        	tableModules.clearSelection();
+        }
+
+        int rowindex = tableModules.getSelectedRow();
+        if (rowindex < 1){
+        	return;
+        }
+        if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
+        	tableModulesPopup.show(e.getComponent(), e.getX(), e.getY());
+        }
 	}
 
 }
