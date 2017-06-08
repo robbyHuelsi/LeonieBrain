@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,9 +22,14 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import callbacks.OpCallbacksInUse;
+
 public class GUI extends JFrame{
 	private JFrame total;
-	JTable tableStateInfo;
+	private JTable tableStateInfo;
+	private JTable tableModules;
+	private JTable tablePersons;
+	private JTextArea textAreaLog;
 	
 	public GUI(Start start){
 		super("LeonieBrain");
@@ -35,24 +41,30 @@ public class GUI extends JFrame{
 		total.setLayout(bl);
 		
 		JComboBox comboStatemachines = new JComboBox(start.getStatemachineNames());
-		comboStatemachines.setMaximumRowCount(20);
+		comboStatemachines.setSelectedIndex(-1);
+		comboStatemachines.setMaximumRowCount(50);
+		
 		JButton buttonStart = new JButton("Start");
 		buttonStart.setForeground(new Color(0, 255, 0));
+		buttonStart.setEnabled(false);
+		
+		JCheckBox checkBoxSendInitAll = new JCheckBox("Send Init To All Modules", true);
+		checkBoxSendInitAll.setEnabled(false);
 		
 		JPanel panelStateChoose = new JPanel();
 		panelStateChoose.setLayout(new FlowLayout(FlowLayout.CENTER));
 		panelStateChoose.add(comboStatemachines);
-		panelStateChoose.add(buttonStart); 
+		panelStateChoose.add(checkBoxSendInitAll);
+		panelStateChoose.add(buttonStart);
 		total.add(panelStateChoose,BorderLayout.NORTH);
 		
 		
 		
 		JTabbedPane tabPane = new JTabbedPane();
-		JPanel panelModules = new JPanel();
 		JPanel panelPersons = new JPanel();
 		JPanel panelLog = new JPanel();
 		
-		// Build computers table
+		// Build StateInfo table
 		class tableStateInfoModel extends AbstractTableModel {
 			private static final long serialVersionUID = 1L;
 			String[] columnNames = { "A", "B"};
@@ -109,57 +121,192 @@ public class GUI extends JFrame{
 		};
 
 		tableStateInfo.setPreferredScrollableViewportSize(new Dimension(500, 70));
+
 		
-		JTable tableModules = new JTable(2,2);
-		panelModules.add(tableModules);
+		// Build Modules table
+		class tableModulesModel extends AbstractTableModel {
+			private static final long serialVersionUID = 1L;
+			String[] columnNames = { "Name", "IP", "Port", "OP Callback", "Pong"};
+
+			public int getColumnCount() {
+				return columnNames.length;
+			}
+
+			public int getRowCount() {
+				if (start.getModules() == null) {
+					return 0;
+				}else{
+					return start.getModules().size() + 1; //Header
+				}
+			}
+
+			public String getColumnName(int col) {
+				return columnNames[col];
+			}
+			
+			public Object getValueAt(int row, int col) {
+				if (row == 0) {
+					return columnNames[col];
+				}else{
+					if (col == 0) {
+						return start.getModules().get(row-1).getName();
+					}else if (col == 1) {
+						return start.getModules().get(row-1).getIp();
+					}else if (col == 2) {
+						return start.getModules().get(row-1).getPort();
+					}else if (col == 3) {
+						//Nur weiter, wenn Sm vorhanden
+						if (start.getStatemachine() == null){return "No SM";}
+						
+						int id = start.getModules().get(row-1).getOpCallbackId();
+						
+						//Nur weiter, wenn OpCallbackId nicht Null ist
+						if (id == 0) {return "";}
+						
+						OpCallbacksInUse op = start.getStatemachine().getOpCallbackInUseById(id);
+						
+						//Nur weiter, wenn OpCallback gefunden wurde
+						if (op == null){return "OP not found";}
+						
+						//Wenn keine Exeption, dann gut
+						if (op.getException() == null) {
+							return "yes";
+						}else{ //Ansonsten ausgeben
+							return op.getException().getLocalizedMessage();
+						}
+					}else if (col == 4) {
+						long pongTime = start.getModules().get(row-1).getPongTime();
+						if (pongTime == -1) {
+							return "";
+						}else{
+							return pongTime + " ms";
+						}
+						
+						
+					}else{
+						return "";
+					}
+				}
+			}
+		}
 		
-		JTable tablePersons = new JTable(2,2);
+		tableModules = new JTable(new tableModulesModel()){
+			private static final long serialVersionUID = 1L;
+
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component component = super.prepareRenderer(renderer, row, column);
+				int rendererWidth = component.getPreferredSize().width;
+				TableColumn tableColumn = getColumnModel().getColumn(column);
+				tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+		        return component;
+	        }
+		};
+
+		tableModules.setPreferredScrollableViewportSize(new Dimension(500, 70));
+
+				
+		tablePersons = new JTable(2,2);
 		panelPersons.add(tablePersons);
 		
-		JTextArea textAreaLog = new JTextArea();
+		textAreaLog = new JTextArea();
 		panelLog.add(textAreaLog);
 		
 		tabPane.add("Statemachine", tableStateInfo);
-		tabPane.add("Modules", panelModules);
+		tabPane.add("Modules", tableModules);
 		tabPane.add("Persons", panelPersons);
 		tabPane.add("Log", panelLog);
 		
 		total.add(tabPane, BorderLayout.CENTER);
 		
-		total.setSize(500,500);
+		total.setSize(600,400);
 		total.setVisible(true);
 		
 		
+		comboStatemachines.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				start.setStatemachine(comboStatemachines.getSelectedItem().toString(), start);
+				if (start.getStatemachine().setOperationCallbacks()){
+					// setOperationCallbacks() hat funktioniert
+					start.getStatemachine().sendPingToAllModules();
+					buttonStart.setEnabled(true);
+					checkBoxSendInitAll.setEnabled(true);
+				}else{
+					// setOperationCallbacks() hat nicht funktioniert
+					buttonStart.setEnabled(false);
+					checkBoxSendInitAll.setEnabled(false);
+				}
+			}
+		});
 		
 		buttonStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (start.getStatemachine() == null) {
-					start.setStatemachine(comboStatemachines.getSelectedItem().toString(), start);
-					start.getStatemachine().setOperationCallbacks();
-					
-					comboStatemachines.setEnabled(false);
-					//buttonStart.setEnabled(false);
-					buttonStart.setText("Stop");
-					buttonStart.setForeground(new Color(255, 0, 0));
-					//buttonStart.updateUI();
-					
-					start.runStatemachine(start);
-				}else{
+				if(start.getStatemachine() != null && start.getStatemachine().isRunning()){
+					//Stoppen
 					start.setStatemachine(null, start);
 					
 					comboStatemachines.setEnabled(true);
-					//buttonStart.setEnabled(true);
+					checkBoxSendInitAll.setEnabled(true);
 					buttonStart.setText("Start");
 					buttonStart.setForeground(new Color(0, 255, 0));
-					//buttonStart.updateUI();
+					comboStatemachines.updateUI();
+					checkBoxSendInitAll.updateUI();
+					buttonStart.updateUI();
+					
+				}else if (start.getStatemachine() != null && !start.getStatemachine().isRunning()) {
+					//Starten
+					comboStatemachines.setEnabled(false);
+					checkBoxSendInitAll.setEnabled(false);
+					buttonStart.setText("Stop");
+					buttonStart.setForeground(new Color(255, 0, 0));
+					comboStatemachines.updateUI();
+					checkBoxSendInitAll.updateUI();
+					buttonStart.updateUI();
+					
+					start.getStatemachine().sendInitToAllModules(checkBoxSendInitAll.isSelected());
+					start.runStatemachine(start);
+				}else{
+					// Keine Statemashine ausgewählt
+					if (((String)comboStatemachines.getSelectedItem()).isEmpty()) {
+						System.err.println("statemashine is null");
+						//Ausgangszustand
+						comboStatemachines.setEnabled(true);
+						checkBoxSendInitAll.setEnabled(false);
+						buttonStart.setEnabled(false);
+						buttonStart.setText("Start");
+						buttonStart.setForeground(new Color(0, 255, 0));
+						comboStatemachines.updateUI();
+						checkBoxSendInitAll.updateUI();
+						buttonStart.updateUI();
+						
+					}else{
+						//Ausgewählte SM setzen und danach starten
+						start.setStatemachine(comboStatemachines.getSelectedItem().toString(), start);
+						if (start.getStatemachine().setOperationCallbacks()){
+							//Starten
+							comboStatemachines.setEnabled(false);
+							checkBoxSendInitAll.setEnabled(false);
+							buttonStart.setEnabled(true);
+							buttonStart.setText("Stop");
+							buttonStart.setForeground(new Color(255, 0, 0));
+							comboStatemachines.updateUI();
+							checkBoxSendInitAll.updateUI();
+							buttonStart.updateUI();
+							start.getStatemachine().sendInitToAllModules(checkBoxSendInitAll.isSelected());
+							start.runStatemachine(start);
+						}
+					}
 				}
 				
 			}
 		});
 	}
 	
-	public void updateUI(){
+	public void updateTableStateInfoUI(){
 		tableStateInfo.updateUI();
+	}
+	
+	public void updateTableModulesUI(){
+		tableModules.updateUI();
 	}
 
 }

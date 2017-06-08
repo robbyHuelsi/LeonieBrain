@@ -1,9 +1,40 @@
 package org.yakindu.scr.generalpurposeservicerobot;
 
 import org.yakindu.scr.IStatemachine;
+import org.yakindu.scr.ITimerCallback;
 
-public interface IGeneralPurposeServiceRobotStatemachine extends IStatemachine {
+public interface IGeneralPurposeServiceRobotStatemachine extends ITimerCallback,IStatemachine {
 
+	public interface SCIBGF {
+	
+		public long getEventNum();
+		
+		public void setEventNum(long value);
+		
+		public long getRandNum();
+		
+		public void setRandNum(long value);
+		
+		public void setSCIBGFOperationCallback(SCIBGFOperationCallback operationCallback);
+	
+	}
+	
+	public interface SCIBGFOperationCallback {
+	
+		public void printToConsole(String msg);
+		
+		public String intToString(long inInt);
+		
+		public long getRandNum(long max);
+		
+		public long getGWPByName(String inName);
+		
+		public boolean containsString(String main, String check);
+		
+	}
+	
+	public SCIBGF getSCIBGF();
+	
 	public interface SCIHBrain {
 	
 		public void raiseTTSReady();
@@ -60,6 +91,20 @@ public interface IGeneralPurposeServiceRobotStatemachine extends IStatemachine {
 		
 		public void sendSearchOnOff(boolean inOnOff);
 		
+		public void sendPanCamera(long inPan);
+		
+		public void sendTiltCamera(long inTilt);
+		
+		public void sendPanTiltCamera(long inPan, long inTilt);
+		
+		public void sendSaveRuntimeStartPoint();
+		
+		public void sendSaveRuntimeEndPoint();
+		
+		public void sendGoToRuntimeEndPoint();
+		
+		public void sendInterrupt();
+		
 	}
 	
 	public SCIMira getSCIMira();
@@ -70,9 +115,11 @@ public interface IGeneralPurposeServiceRobotStatemachine extends IStatemachine {
 		
 		public void raiseIncomprehensible();
 		
+		public void raiseAnswerReceived();
+		
 		public void raiseActionReceived();
 		
-		public void raiseAnswerReceived();
+		public void raiseActionsReceived();
 		
 		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
 	
@@ -88,6 +135,16 @@ public interface IGeneralPurposeServiceRobotStatemachine extends IStatemachine {
 		
 		public String getObject();
 		
+		public long getActionListLength();
+		
+		public String getInstructionFromActionListAt(long i);
+		
+		public String getObjectFromActionListAt(long i);
+		
+		public String getLocationFromActionListAt(long i);
+		
+		public String getActionCommandSentence();
+		
 		public void sendSpeechDetectionOff();
 		
 		public void sendSpeechDetectionSmalltalk();
@@ -96,23 +153,101 @@ public interface IGeneralPurposeServiceRobotStatemachine extends IStatemachine {
 		
 		public void sendSpeechDetectionName();
 		
+		public void sendSpeechDetectionActions();
+		
 	}
 	
 	public SCISTT getSCISTT();
 	
 	public interface SCICrowdDetection {
 	
+		public void raiseDetected();
+		
 		public void setSCICrowdDetectionOperationCallback(SCICrowdDetectionOperationCallback operationCallback);
 	
 	}
 	
 	public interface SCICrowdDetectionOperationCallback {
 	
-		public void detectionOnOff(boolean onOff);
+		public void sendDetectionOn();
+		
+		public void sendDetectionOff();
+		
+		public long getTotalCount();
+		
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position);
+		
+		public String getSummaryText();
+		
+		public String getAnswerForSecificCrowdDetails(String inDetails);
+		
+		public boolean areAllGendersDetected();
+		
+		public boolean areAllAgesDetected();
 		
 	}
 	
 	public SCICrowdDetection getSCICrowdDetection();
+	
+	public interface SCIFollowMe {
+	
+		public void raiseDetectionPersonFound();
+		
+		public void raiseTrackingPersonLost();
+		
+		public void setSCIFollowMeOperationCallback(SCIFollowMeOperationCallback operationCallback);
+	
+	}
+	
+	public interface SCIFollowMeOperationCallback {
+	
+		public void sendDetectionOff();
+		
+		public void sendDetectionOn();
+		
+		public void sendRequestDetectionDetails();
+		
+		public void sendTrackingOff();
+		
+		public void sendTrackingOnAtPos(long x, long y);
+		
+		public void sendTrackingOnAtNext();
+		
+		public long getNextPersonXPos();
+		
+		public long getNextpersonYPos();
+		
+	}
+	
+	public SCIFollowMe getSCIFollowMe();
+	
+	public interface SCIKinect2 {
+	
+		public void raisePersonDetected();
+		
+		public void raiseNoiseDetected();
+		
+		public void raiseWavingDetected();
+		
+		public void setSCIKinect2OperationCallback(SCIKinect2OperationCallback operationCallback);
+	
+	}
+	
+	public interface SCIKinect2OperationCallback {
+	
+		public long getNoiseAngle();
+		
+		public double getWavingX();
+		
+		public double getWavingY();
+		
+		public void sendNoiseDetectionOnOff(boolean inOnOff);
+		
+		public void sendWavingDetectionOnOff(boolean inOnOff);
+		
+	}
+	
+	public SCIKinect2 getSCIKinect2();
 	
 	public interface SCIMicrophoneArray {
 	
@@ -129,33 +264,5 @@ public interface IGeneralPurposeServiceRobotStatemachine extends IStatemachine {
 	}
 	
 	public SCIMicrophoneArray getSCIMicrophoneArray();
-	
-	public interface SCIObjectDetection {
-	
-		public void raiseDetectionDone();
-		
-		public long getTableAngle();
-		
-		public void setTableAngle(long value);
-		
-		public String getAnswerMatches();
-		
-		public void setAnswerMatches(String value);
-		
-		public void setSCIObjectDetectionOperationCallback(SCIObjectDetectionOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCIObjectDetectionOperationCallback {
-	
-		public void startStopDetection(boolean onOff);
-		
-		public void snapshot();
-		
-		public void printPDF();
-		
-	}
-	
-	public SCIObjectDetection getSCIObjectDetection();
 	
 }

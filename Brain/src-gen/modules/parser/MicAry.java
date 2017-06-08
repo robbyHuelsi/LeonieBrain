@@ -30,7 +30,7 @@ public class MicAry implements IParser, Serializable {
 				this.setNoiseDetected(true);
 				return true;
 			} catch (Exception e) {
-				System.err.println("MicrophoneArray: Parsing angle to int failed");
+				start.getLog().error("MicrophoneArray: Parsing angle to int failed");
 				return false;
 			}
 		}

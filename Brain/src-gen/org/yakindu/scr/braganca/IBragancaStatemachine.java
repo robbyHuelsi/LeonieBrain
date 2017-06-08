@@ -23,7 +23,13 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 	
 		public void printToConsole(String msg);
 		
+		public String intToString(long inInt);
+		
 		public long getRandNum(long max);
+		
+		public long getGWPByName(String inName);
+		
+		public boolean containsString(String main, String check);
 		
 	}
 	
@@ -97,7 +103,13 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 	
 	public interface SCIKinect2 {
 	
-		public void raiseNoiseDetected();
+		public void raisePersonDetected();
+		
+		public void raiseNoiseDeviatinWithoutBoneDetected();
+		
+		public void raiseNoiseWithBoneDetected();
+		
+		public void raiseWavingDetected();
 		
 		public void setSCIKinect2OperationCallback(SCIKinect2OperationCallback operationCallback);
 	
@@ -105,11 +117,15 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 	
 	public interface SCIKinect2OperationCallback {
 	
-		public String getGesture();
-		
 		public long getNoiseAngle();
 		
+		public double getWavingX();
+		
+		public double getWavingY();
+		
 		public void sendNoiseDetectionOnOff(boolean inOnOff);
+		
+		public void sendWavingDetectionOnOff(boolean inOnOff);
 		
 	}
 	
@@ -171,6 +187,18 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 		
 		public void sendSearchOnOff(boolean inOnOff);
 		
+		public void sendPanCamera(long inPan);
+		
+		public void sendTiltCamera(long inTilt);
+		
+		public void sendPanTiltCamera(long inPan, long inTilt);
+		
+		public void sendSaveRuntimeStartPoint();
+		
+		public void sendSaveRuntimeEndPoint();
+		
+		public void sendGoToRuntimeEndPoint();
+		
 	}
 	
 	public SCIMira getSCIMira();
@@ -181,9 +209,11 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 		
 		public void raiseIncomprehensible();
 		
+		public void raiseAnswerReceived();
+		
 		public void raiseActionReceived();
 		
-		public void raiseAnswerReceived();
+		public void raiseActionsReceived();
 		
 		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
 	
@@ -199,6 +229,14 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 		
 		public String getObject();
 		
+		public long getActionListLength();
+		
+		public String getInstructionFromActionListAt(long i);
+		
+		public String getObjectFromActionListAt(long i);
+		
+		public String getLocationFromActionListAt(long i);
+		
 		public void sendSpeechDetectionOff();
 		
 		public void sendSpeechDetectionSmalltalk();
@@ -206,6 +244,8 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 		public void sendSpeechDetectionYesNo();
 		
 		public void sendSpeechDetectionName();
+		
+		public void sendSpeechDetectionActions();
 		
 	}
 	
@@ -276,35 +316,5 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 	}
 	
 	public SCICurrPerson getSCICurrPerson();
-	
-	public interface SCICrowdDetection {
-	
-		public void setSCICrowdDetectionOperationCallback(SCICrowdDetectionOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCICrowdDetectionOperationCallback {
-	
-		public void detectionOnOff(boolean onOff);
-		
-	}
-	
-	public SCICrowdDetection getSCICrowdDetection();
-	
-	public interface SCIMicrophoneArray {
-	
-		public void setSCIMicrophoneArrayOperationCallback(SCIMicrophoneArrayOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCIMicrophoneArrayOperationCallback {
-	
-		public long getNoiseAngle();
-		
-		public void detectionOnOff(boolean onOff);
-		
-	}
-	
-	public SCIMicrophoneArray getSCIMicrophoneArray();
 	
 }

@@ -1,8 +1,10 @@
 package main;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import HBrain.HBrain;
 import Persons.PersonList;
 import communication.Communication;
 import modules.Modules;
@@ -10,11 +12,14 @@ import modules.Modules;
 public class Start{
 	
 	private static Start instance = null;
-	
+	private static Log log;
 	private Statemachine statemachine;
 	private static PersonList personList;
 	private static Modules modules;
 	private static GUI gui;
+	private static HBrain hbrain;
+	
+	private static String savingsFolderPath = System.getProperty ("user.home") + System.getProperty("file.separator") + "LeonieBrain" + System.getProperty("file.separator");
 	
 	// ---- Communication -----------------------------------------------------
 	static private int UDPListeningPort = 50000;
@@ -23,18 +28,28 @@ public class Start{
 	
 	public static void main(String[] args) throws Exception{
 		Start t = Start.instanceOf();
+		log  = new Log(savingsFolderPath);
 		
 		//Load modules and personList
-		modules = new Modules(UDPListeningPort);
-		personList = new PersonList();
+		modules = new Modules(t, savingsFolderPath);
+		personList = new PersonList(savingsFolderPath);
 		
 		// Start listening for messages via UDP or TCP
-		Communication.receive(modules.get("brain"));
+		Communication.receive(modules.get("brain"), log);
 		
 		//Show GUI
 		gui = new GUI(t);
 		
+		
+		//Before stopping application
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+	        public void run() {
+	            log.endSM();
+	        }
+	    }));
 	}
+	
+	
 	
 	
 	private Start(){
@@ -62,6 +77,7 @@ public class Start{
 		inStart.modules.removeParsedInformation();
 		
 		Statemachine sm = this.statemachine;
+		log.startSM(this.statemachine.getName());
 		System.out.println("----------  Statemachine " + this.statemachine.getName() + " start  ----------");
 		sm.initAndEnter();
 		
@@ -71,18 +87,34 @@ public class Start{
 				{
 		    		sm.runCycle();
 					try {
-						Thread.sleep(500);
+						Thread.sleep(200);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
 		    	
+		    	log.endSM();
 		    	System.out.println("----------   Statemachine " + sm.getName() + " end   ----------");
 		    }
 		}).start();
 		
 	}
+
 	
+	public static Log getLog(){
+		return log;
+	}
+	
+	public static int getUDPListeningPort() {
+		return UDPListeningPort;
+	}
+
+
+	public static int getTCPListeningPort() {
+		return TCPListeningPort;
+	}
+
+
 	public void setStatemachine(String statemachineName, Start inStart){
 		if (statemachineName != null) {
 			this.statemachine = new Statemachine(statemachineName, inStart); //Braganca, SpeechAndPersonRecognition, ...
@@ -113,7 +145,7 @@ public class Start{
 		List<Class<?>> classes = ClassFinder.find("org.yakindu.scr");
 		Vector<String> classNames = new Vector<String>();
 		for (Class<?> clazz : classes) {
-			if (clazz.getSimpleName().contains("Statemachine") && !clazz.getSimpleName().substring(0, 1).equals("I")) {
+			if (clazz.getSimpleName().contains("Statemachine") && !clazz.isInterface()) {
 				classNames.add(clazz.getSimpleName().substring(0, clazz.getSimpleName().lastIndexOf("Statemachine")));
 				//classNames.add(clazz.getSimpleName());
 			}

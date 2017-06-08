@@ -98,14 +98,35 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 				SCIKinect2OperationCallback operationCallback) {
 			this.operationCallback = operationCallback;
 		}
-		private boolean noiseDetected;
+		private boolean personDetected;
 		
-		public void raiseNoiseDetected() {
-			noiseDetected = true;
+		public void raisePersonDetected() {
+			personDetected = true;
+		}
+		
+		private boolean noiseDeviatinWithoutBoneDetected;
+		
+		public void raiseNoiseDeviatinWithoutBoneDetected() {
+			noiseDeviatinWithoutBoneDetected = true;
+		}
+		
+		private boolean noiseWithBoneDetected;
+		
+		public void raiseNoiseWithBoneDetected() {
+			noiseWithBoneDetected = true;
+		}
+		
+		private boolean wavingDetected;
+		
+		public void raiseWavingDetected() {
+			wavingDetected = true;
 		}
 		
 		protected void clearEvents() {
-			noiseDetected = false;
+			personDetected = false;
+			noiseDeviatinWithoutBoneDetected = false;
+			noiseWithBoneDetected = false;
+			wavingDetected = false;
 		}
 	}
 	
@@ -201,23 +222,30 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			incomprehensible = true;
 		}
 		
-		private boolean actionReceived;
-		
-		public void raiseActionReceived() {
-			actionReceived = true;
-		}
-		
 		private boolean answerReceived;
 		
 		public void raiseAnswerReceived() {
 			answerReceived = true;
 		}
 		
+		private boolean actionReceived;
+		
+		public void raiseActionReceived() {
+			actionReceived = true;
+		}
+		
+		private boolean actionsReceived;
+		
+		public void raiseActionsReceived() {
+			actionsReceived = true;
+		}
+		
 		protected void clearEvents() {
 			spokenTextReceived = false;
 			incomprehensible = false;
-			actionReceived = false;
 			answerReceived = false;
+			actionReceived = false;
+			actionsReceived = false;
 		}
 	}
 	
@@ -234,30 +262,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	protected SCICurrPersonImpl sCICurrPerson;
-	
-	protected class SCICrowdDetectionImpl implements SCICrowdDetection {
-	
-		private SCICrowdDetectionOperationCallback operationCallback;
-		
-		public void setSCICrowdDetectionOperationCallback(
-				SCICrowdDetectionOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-	}
-	
-	protected SCICrowdDetectionImpl sCICrowdDetection;
-	
-	protected class SCIMicrophoneArrayImpl implements SCIMicrophoneArray {
-	
-		private SCIMicrophoneArrayOperationCallback operationCallback;
-		
-		public void setSCIMicrophoneArrayOperationCallback(
-				SCIMicrophoneArrayOperationCallback operationCallback) {
-			this.operationCallback = operationCallback;
-		}
-	}
-	
-	protected SCIMicrophoneArrayImpl sCIMicrophoneArray;
 	
 	private boolean initialized = false;
 	
@@ -388,9 +392,11 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		main_endeGutallesGut_inner_region_drive,
 		main_wait,
 		main_GoToGWP0,
-		leonie_Bupered_init,
-		leonie_Bupered_sayAutsch,
-		leonie_Bupered_resetFace,
+		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
+		leonie_Bupered_Or_Emergency_Stop_Bumpered,
+		leonie_Bupered_Or_Emergency_Stop_resetFace,
+		leonie_Bupered_Or_Emergency_Stop_EmergencyStop,
+		leonie_Bupered_Or_Emergency_Stop_checkEmergency,
 		$NullState$
 	};
 	
@@ -400,7 +406,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[26];
+	private final boolean[] timeEvents = new boolean[27];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -451,8 +457,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		sCIMira = new SCIMiraImpl();
 		sCISTT = new SCISTTImpl();
 		sCICurrPerson = new SCICurrPersonImpl();
-		sCICrowdDetection = new SCICrowdDetectionImpl();
-		sCIMicrophoneArray = new SCIMicrophoneArrayImpl();
 	}
 	
 	public void init() {
@@ -489,12 +493,12 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			throw new IllegalStateException("timer not set.");
 		}
 		enterSequence_main_default();
-		enterSequence_Leonie_Bupered_default();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_default();
 	}
 	
 	public void exit() {
 		exitSequence_main();
-		exitSequence_Leonie_Bupered();
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop();
 	}
 	
 	/**
@@ -802,12 +806,16 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			return stateVector[0] == State.main_wait;
 		case main_GoToGWP0:
 			return stateVector[0] == State.main_GoToGWP0;
-		case leonie_Bupered_init:
-			return stateVector[1] == State.leonie_Bupered_init;
-		case leonie_Bupered_sayAutsch:
-			return stateVector[1] == State.leonie_Bupered_sayAutsch;
-		case leonie_Bupered_resetFace:
-			return stateVector[1] == State.leonie_Bupered_resetFace;
+		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
+		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_Bumpered;
+		case leonie_Bupered_Or_Emergency_Stop_resetFace:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_resetFace;
+		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
 		default:
 			return false;
 		}
@@ -873,14 +881,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		return sCICurrPerson;
 	}
 	
-	public SCICrowdDetection getSCICrowdDetection() {
-		return sCICrowdDetection;
-	}
-	
-	public SCIMicrophoneArray getSCIMicrophoneArray() {
-		return sCIMicrophoneArray;
-	}
-	
 	private boolean check_main_mainStorry_tr0_tr0() {
 		return sCIMira.blocked;
 	}
@@ -894,7 +894,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_tr1_tr1() {
-		return sCIKinect2.noiseDetected && sCIBGF.eventNum==2;
+		return sCIKinect2.noiseWithBoneDetected && sCIBGF.eventNum==2;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_PersonKnownWithName_tr0_tr0() {
@@ -1465,16 +1465,32 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		return 1==0;
 	}
 	
-	private boolean check_Leonie_Bupered_init_tr0_tr0() {
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
 		return sCIMira.bumpered;
 	}
 	
-	private boolean check_Leonie_Bupered_sayAutsch_tr0_tr0() {
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1_tr1() {
+		return sCIMira.emergencyStop;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
 		return timeEvents[25];
 	}
 	
-	private boolean check_Leonie_Bupered_resetFace_tr0_tr0() {
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
 		return true;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0_tr0() {
+		return true;
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
+		return timeEvents[26];
+	}
+	
+	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
+		return sCIMira.emergencyStop;
 	}
 	
 	private boolean check_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr1_tr1() {
@@ -2534,19 +2550,39 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		enterSequence_main_randTest_default();
 	}
 	
-	private void effect_Leonie_Bupered_init_tr0() {
-		exitSequence_Leonie_Bupered_init();
-		enterSequence_Leonie_Bupered_sayAutsch_default();
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered_default();
 	}
 	
-	private void effect_Leonie_Bupered_sayAutsch_tr0() {
-		exitSequence_Leonie_Bupered_sayAutsch();
-		enterSequence_Leonie_Bupered_resetFace_default();
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_default();
 	}
 	
-	private void effect_Leonie_Bupered_resetFace_tr0() {
-		exitSequence_Leonie_Bupered_resetFace();
-		enterSequence_Leonie_Bupered_init_default();
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default();
+	}
+	
+	private void effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1() {
+		exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default();
 	}
 	
 	private void effect_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation__choice_0_tr1() {
@@ -3225,17 +3261,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'Init'. */
 	private void entryAction_main_Init() {
-		timer.setTimer(this, 14, 500, false);
-		
-		sCIVBrain.operationCallback.sendACIOnOff(false);
-		
-		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(false);
-		
-		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
-		sCIHBrain.operationCallback.sendTTS("[:-|][blush:false]{Person}");
+		timer.setTimer(this, 14, 500*1000, false);
 		
 		sCIBGF.setEventNum(0);
 	}
@@ -3407,16 +3433,26 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		sCIMira.operationCallback.sendGoToGWP(0);
 	}
 	
-	/* Entry action for state 'sayAutsch'. */
-	private void entryAction_Leonie_Bupered_sayAutsch() {
-		timer.setTimer(this, 25, 5*1000, false);
+	/* Entry action for state 'Bumpered'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+		timer.setTimer(this, 25, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
 	
 	/* Entry action for state 'resetFace'. */
-	private void entryAction_Leonie_Bupered_resetFace() {
-		sCIHBrain.operationCallback.sendTTS("[:-|]");
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
+		sCIHBrain.operationCallback.sendTTS("[:-|] [blush:false]");
+	}
+	
+	/* Entry action for state 'EmergencyStop'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		sCIHBrain.operationCallback.sendTTS("[blush:true] [:-O] What happend?");
+	}
+	
+	/* Entry action for state 'checkEmergency'. */
+	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		timer.setTimer(this, 26, 3*1000, false);
 	}
 	
 	/* Exit action for state 'exitSad'. */
@@ -3590,9 +3626,14 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		timer.unsetTimer(this, 24);
 	}
 	
-	/* Exit action for state 'sayAutsch'. */
-	private void exitAction_Leonie_Bupered_sayAutsch() {
+	/* Exit action for state 'Bumpered'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
 		timer.unsetTimer(this, 25);
+	}
+	
+	/* Exit action for state 'checkEmergency'. */
+	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		timer.unsetTimer(this, 26);
 	}
 	
 	/* 'default' enter sequence for state exitSad */
@@ -4436,24 +4477,38 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		stateVector[0] = State.main_GoToGWP0;
 	}
 	
-	/* 'default' enter sequence for state init */
-	private void enterSequence_Leonie_Bupered_init_default() {
+	/* 'default' enter sequence for state waitForEvent */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default() {
 		nextStateIndex = 1;
-		stateVector[1] = State.leonie_Bupered_init;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 	}
 	
-	/* 'default' enter sequence for state sayAutsch */
-	private void enterSequence_Leonie_Bupered_sayAutsch_default() {
-		entryAction_Leonie_Bupered_sayAutsch();
+	/* 'default' enter sequence for state Bumpered */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
 		nextStateIndex = 1;
-		stateVector[1] = State.leonie_Bupered_sayAutsch;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_Bumpered;
 	}
 	
 	/* 'default' enter sequence for state resetFace */
-	private void enterSequence_Leonie_Bupered_resetFace_default() {
-		entryAction_Leonie_Bupered_resetFace();
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_resetFace();
 		nextStateIndex = 1;
-		stateVector[1] = State.leonie_Bupered_resetFace;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_resetFace;
+	}
+	
+	/* 'default' enter sequence for state EmergencyStop */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_EmergencyStop;
+	}
+	
+	/* 'default' enter sequence for state checkEmergency */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_default() {
+		entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
+		nextStateIndex = 1;
+		stateVector[1] = State.leonie_Bupered_Or_Emergency_Stop_checkEmergency;
 	}
 	
 	/* 'default' enter sequence for region main */
@@ -4516,9 +4571,9 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		react_main_endeGutallesGut_inner_region_entry_endOfStory1();
 	}
 	
-	/* 'default' enter sequence for region Leonie Bupered */
-	private void enterSequence_Leonie_Bupered_default() {
-		react_Leonie_Bupered__entry_Default();
+	/* 'default' enter sequence for region Leonie Bupered Or Emergency Stop */
+	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_default() {
+		react_Leonie_Bupered_Or_Emergency_Stop__entry_Default();
 	}
 	
 	/* Default exit sequence for state mainStorry */
@@ -5321,24 +5376,38 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state init */
-	private void exitSequence_Leonie_Bupered_init() {
+	/* Default exit sequence for state waitForEvent */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		nextStateIndex = 1;
 		stateVector[1] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state sayAutsch */
-	private void exitSequence_Leonie_Bupered_sayAutsch() {
+	/* Default exit sequence for state Bumpered */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
 		nextStateIndex = 1;
 		stateVector[1] = State.$NullState$;
 		
-		exitAction_Leonie_Bupered_sayAutsch();
+		exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
 	}
 	
 	/* Default exit sequence for state resetFace */
-	private void exitSequence_Leonie_Bupered_resetFace() {
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
 		nextStateIndex = 1;
 		stateVector[1] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state EmergencyStop */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state checkEmergency */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		nextStateIndex = 1;
+		stateVector[1] = State.$NullState$;
+		
+		exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 	}
 	
 	/* Default exit sequence for region main */
@@ -6676,17 +6745,23 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		}
 	}
 	
-	/* Default exit sequence for region Leonie Bupered */
-	private void exitSequence_Leonie_Bupered() {
+	/* Default exit sequence for region Leonie Bupered Or Emergency Stop */
+	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop() {
 		switch (stateVector[1]) {
-		case leonie_Bupered_init:
-			exitSequence_Leonie_Bupered_init();
+		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
 			break;
-		case leonie_Bupered_sayAutsch:
-			exitSequence_Leonie_Bupered_sayAutsch();
+		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
 			break;
-		case leonie_Bupered_resetFace:
-			exitSequence_Leonie_Bupered_resetFace();
+		case leonie_Bupered_Or_Emergency_Stop_resetFace:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_resetFace();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+			break;
+		case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+			exitSequence_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 			break;
 		default:
 			break;
@@ -8262,23 +8337,43 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		}
 	}
 	
-	/* The reactions of state init. */
-	private void react_Leonie_Bupered_init() {
-		if (check_Leonie_Bupered_init_tr0_tr0()) {
-			effect_Leonie_Bupered_init_tr0();
+	/* The reactions of state waitForEvent. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0();
+		} else {
+			if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1_tr1()) {
+				effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr1();
+			}
 		}
 	}
 	
-	/* The reactions of state sayAutsch. */
-	private void react_Leonie_Bupered_sayAutsch() {
-		if (check_Leonie_Bupered_sayAutsch_tr0_tr0()) {
-			effect_Leonie_Bupered_sayAutsch_tr0();
+	/* The reactions of state Bumpered. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0();
 		}
 	}
 	
 	/* The reactions of state resetFace. */
-	private void react_Leonie_Bupered_resetFace() {
-		effect_Leonie_Bupered_resetFace_tr0();
+	private void react_Leonie_Bupered_Or_Emergency_Stop_resetFace() {
+		effect_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0();
+	}
+	
+	/* The reactions of state EmergencyStop. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
+		effect_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop_tr0();
+	}
+	
+	/* The reactions of state checkEmergency. */
+	private void react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+		if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0()) {
+			effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0();
+		} else {
+			if (check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1()) {
+				effect_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1();
+			}
+		}
 	}
 	
 	/* The reactions of state null. */
@@ -8574,8 +8669,8 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	}
 	
 	/* Default react sequence for initial entry  */
-	private void react_Leonie_Bupered__entry_Default() {
-		enterSequence_Leonie_Bupered_init_default();
+	private void react_Leonie_Bupered_Or_Emergency_Stop__entry_Default() {
+		enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default();
 	}
 	
 	/* The reactions of exit exit_NameSaved. */
@@ -9042,14 +9137,20 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			case main_GoToGWP0:
 				react_main_GoToGWP0();
 				break;
-			case leonie_Bupered_init:
-				react_Leonie_Bupered_init();
+			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
+				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
 				break;
-			case leonie_Bupered_sayAutsch:
-				react_Leonie_Bupered_sayAutsch();
+			case leonie_Bupered_Or_Emergency_Stop_Bumpered:
+				react_Leonie_Bupered_Or_Emergency_Stop_Bumpered();
 				break;
-			case leonie_Bupered_resetFace:
-				react_Leonie_Bupered_resetFace();
+			case leonie_Bupered_Or_Emergency_Stop_resetFace:
+				react_Leonie_Bupered_Or_Emergency_Stop_resetFace();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_EmergencyStop:
+				react_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop();
+				break;
+			case leonie_Bupered_Or_Emergency_Stop_checkEmergency:
+				react_Leonie_Bupered_Or_Emergency_Stop_checkEmergency();
 				break;
 			default:
 				// $NullState$

@@ -12,15 +12,20 @@ import org.yakindu.scr.ITimer;
 import org.yakindu.scr.TimerService;
 import org.yakindu.scr.braganca.BragancaStatemachine;
 
+import callbacks.OpCallbacksInUse;
+
 public class Statemachine {
 	private Start start;
 	
 	private String statemachineName;
 	private Object statemachine = null;
 	private Class<?> statemachineClass = null;
+	private Vector<OpCallbacksInUse> opCallbacksInUse = new Vector<OpCallbacksInUse>();
 	private Date dateStarted;
+	private Date lastPing;
 	private String currState;
 	private int statesCount;
+	private boolean running;
 	
 	public Statemachine(Start start) {
 		this("", start);
@@ -31,7 +36,7 @@ public class Statemachine {
 		
 		try {
 			if (statemachineName == null || statemachineName.isEmpty()) {
-				System.err.println("Getting statemashine failed bacause statemachineName is empty");
+				start.getLog().error("Getting statemashine failed bacause statemachineName is empty");
 				return;
 			}
 			
@@ -46,7 +51,7 @@ public class Statemachine {
 			
 			// setTime()
 			for (Method m : statemachineClass.getDeclaredMethods()) {
-				//System.out.println(m.getName());
+				//start.getLog().log(m.getName());
 				if (m.getName().equals("setTimer")) {
 					Method setTime = statemachineClass.getDeclaredMethod("setTimer", new Class[] { ITimer.class });
 					setTime.invoke(statemachine, new TimerService());
@@ -74,27 +79,129 @@ public class Statemachine {
 	
 	public boolean setOperationCallbacks(){		
 		if (this.statemachine != null) {
-
-			Vector<String> opCallbackImplNames = new Vector<String>();
+			boolean failed = false;
+			this.opCallbacksInUse.removeAllElements();
+			start.getModules().resetAllOpCallbacks();
 			
 			// Get used SCI's from statemachine
 			Method[] methods = statemachineClass.getDeclaredMethods();
 			for (Method method : methods) {
 				if (method.getName().startsWith("getSCI")) {
-					opCallbackImplNames.add(method.getName().substring(6));
+					this.opCallbacksInUse.add(new OpCallbacksInUse(method.getName().substring(6)));
 				}
 			}
-			System.out.println("opCallbackImplNames for " + this.statemachineName + ": " + opCallbackImplNames.toString());
+			start.getLog().log("opCallbackImplNames for " + this.statemachineName + ": " + this.opCallbacksInUse.toString());
 						
-			for (String opCallbackImplName : opCallbackImplNames) {
+			for (OpCallbacksInUse opCallback : this.opCallbacksInUse) {
 				try {
-					Method getSCI = this.statemachineClass.getDeclaredMethod("getSCI" + opCallbackImplName, new Class[]{});
+					Method getSCI = this.statemachineClass.getDeclaredMethod("getSCI" + opCallback.getName(), new Class[]{});
 					Object sci = getSCI.invoke(this.statemachine);
 					Class<?> sciClass = sci.getClass();
-					Class<?> sciOperationCallback = Class.forName("org.yakindu.scr." + this.statemachineName.toLowerCase() + ".I" + this.statemachineName + "Statemachine$SCI" + opCallbackImplName + "OperationCallback");
-					Class<?> opCallbackImplClass = Class.forName("callbacks.OpCallbackImpl" + opCallbackImplName);
-					Method setSCIOperationCallback = sciClass.getDeclaredMethod("setSCI" + opCallbackImplName + "OperationCallback", new Class[]{sciOperationCallback});
-					setSCIOperationCallback.invoke(sci, opCallbackImplClass.newInstance());	
+					Class<?> sciOperationCallback = Class.forName("org.yakindu.scr." + this.statemachineName.toLowerCase() + ".I" + this.statemachineName + "Statemachine$SCI" + opCallback.getName() + "OperationCallback");
+					Class<?> opCallbackImplClass = Class.forName("callbacks.OpCallbackImpl" + opCallback.getName());
+					
+					opCallback.setOpCallbackImplClass(opCallbackImplClass);
+					start.getModules().setOpCallbackId(opCallback.getName(), opCallback.getUid());
+					start.getGui().updateTableModulesUI();
+					
+					Method setSCIOperationCallback = sciClass.getDeclaredMethod("setSCI" + opCallback.getName() + "OperationCallback", new Class[]{sciOperationCallback});
+					setSCIOperationCallback.invoke(sci, opCallbackImplClass.newInstance());
+					
+				} catch (NoSuchMethodException e) {
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
+				} catch (SecurityException e) {
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
+				} catch (IllegalAccessException e) {
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
+				} catch (IllegalArgumentException e) {
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
+				} catch (InvocationTargetException e) {
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
+				} catch (ClassNotFoundException e) {
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
+				} catch (InstantiationException e) {
+					start.getLog().error(opCallback.getName() + ": " + e.getLocalizedMessage());
+					opCallback.setException(e);
+					failed = true;
+				}
+			}
+
+			if (failed) {
+				return false;
+			}else{
+				return true;
+			}
+		}else{
+			start.getLog().error("setOperationCallbacks failed because statemashine not set");
+			return false;
+		}
+	}
+	
+//	public Vector<Class<?>> getOpCallbackImplClasses() {
+//		return opCallbackImplClasses;
+//	}
+	
+	public boolean sendPingToAllModules(){
+		this.lastPing = new Date();
+		
+		for (OpCallbacksInUse opCallback : this.opCallbacksInUse) {
+			try {
+				if (opCallback.getClass() != null) {
+					Method sendInit = opCallback.getOpCallbackImplClass().getDeclaredMethod("sendPing", new Class[]{});
+					sendInit.invoke(opCallback.getOpCallbackImplClass().newInstance());
+				}else{
+					start.getLog().error("sendPingToAllModules() failed because " + opCallback.getName() + " has no getOpCallbackImplClass");
+				}
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+				return false;
+			} catch (SecurityException e) {
+				e.printStackTrace();
+				return false;
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+				return false;
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				return false;
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+				return false;
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	public Date getLastPing() {
+		return lastPing;
+	}
+
+	public boolean sendInitToAllModules(boolean send) {
+		if (send) {
+			for (OpCallbacksInUse opCallback : this.opCallbacksInUse) {
+				try {
+					if (opCallback.getClass() != null) {
+						Method sendInit = opCallback.getOpCallbackImplClass().getDeclaredMethod("sendInit", new Class[]{});
+						sendInit.invoke(opCallback.getOpCallbackImplClass().newInstance());
+					}else{
+						start.getLog().error(opCallback.getName() + " has no getOpCallbackImplClass");
+					}
 				} catch (NoSuchMethodException e) {
 					e.printStackTrace();
 					return false;
@@ -110,20 +217,13 @@ public class Statemachine {
 				} catch (InvocationTargetException e) {
 					e.printStackTrace();
 					return false;
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-					return false;
 				} catch (InstantiationException e) {
 					e.printStackTrace();
 					return false;
 				}
 			}
-
-			return true;
-		}else{
-			System.err.println("setOperationCallbacks failed because statemashine not set");
-			return false;
 		}
+		return true;
 	}
 	
 	public boolean initAndEnter(){
@@ -134,8 +234,9 @@ public class Statemachine {
 				init.invoke(statemachine);
 				enter.invoke(statemachine);
 				dateStarted = new Date();
+				running = true;
 				
-				start.getGui().updateUI();
+				start.getGui().updateTableStateInfoUI();
 				
 				return true;
 				
@@ -156,7 +257,7 @@ public class Statemachine {
 				return false;
 			}
 		}else{
-			System.err.println("initAndEnter failed because statemashine not set");
+			start.getLog().error("initAndEnter failed because statemashine not set");
 			return false;
 		}
 	}
@@ -168,9 +269,9 @@ public class Statemachine {
 				runCycle.invoke(statemachine);
 				
 				try {
-					start.getGui().updateUI();
+					start.getGui().updateTableStateInfoUI();
 				} catch (Exception e) {
-					System.err.println("Problem with runCycle()");
+					start.getLog().error("Problem with runCycle()");
 				}
 				
 				return true;
@@ -192,23 +293,28 @@ public class Statemachine {
 				return false;
 			}
 		}else{
-			System.err.println("runCycle failed because statemashine not set");
+			start.getLog().error("runCycle failed because statemashine not set");
 			return false;
 		}
 	}
 	
 	public boolean raiseEventOfSCI(String sciName, String eventName){
 		if (sciName == null || sciName.isEmpty()) {
-			System.err.println("raiseEventOfSCI failed bacause sciName is empty");
+			start.getLog().error("raiseEventOfSCI failed bacause sciName is empty");
 			return false;
 		}
 		
 		if (eventName == null || eventName.isEmpty()) {
-			System.err.println("raiseEventOfSCI failed bacause eventName is empty");
+			start.getLog().error("raiseEventOfSCI failed bacause eventName is empty");
 			return false;
 		}
 		
-		if (this.statemachine != null) {
+		if (this.statemachine == null) {
+			start.getLog().error("raiseEventOfSCI failed because statemashine not set");
+			return false;
+		}
+			
+		if (this.running) {
 			try {
 				Method getSCI = statemachineClass.getDeclaredMethod("getSCI" + sciName, new Class[]{});
 				Object sci = getSCI.invoke(this.statemachine);
@@ -236,23 +342,28 @@ public class Statemachine {
 				return false;
 			}
 		}else{
-			System.err.println("getSCI failed because statemashine not set");
+			start.getLog().error("raiseEventOfSCI failed because statemashine not running");
 			return false;
 		}
 	}
 	
 	public Object getVaribaleOfSCI(String sciName, String varName){
 		if (sciName == null || sciName.isEmpty()) {
-			System.err.println("getVaribaleOfSCI failed bacause sciName is empty");
+			start.getLog().error("getVaribaleOfSCI failed bacause sciName is empty");
 			return null;
 		}
 		
 		if (varName == null || varName.isEmpty()) {
-			System.err.println("getVaribaleOfSCI failed bacause varName is empty");
+			start.getLog().error("getVaribaleOfSCI failed bacause varName is empty");
 			return null;
 		}
 		
-		if (this.statemachine != null) {
+		if (this.statemachine == null) {
+			start.getLog().error("getVaribaleOfSCI failed because statemashine not set");
+			return false;
+		}
+		
+		if (this.running) {
 			try {
 				Method getSCI = statemachineClass.getDeclaredMethod("getSCI" + sciName, new Class[]{});
 				Object sci = getSCI.invoke(this.statemachine);
@@ -278,7 +389,7 @@ public class Statemachine {
 				return null;
 			}
 		}else{
-			System.err.println("getVaribaleOfSCI failed because statemashine not set");
+			start.getLog().error("getVaribaleOfSCI failed because statemashine not running");
 			return null;
 		}
 	}
@@ -311,7 +422,7 @@ public class Statemachine {
 				//Method isStateActive = statemachineClass.getDeclaredMethod("isStateActive", new Class[]{int.class});
 				for (Method m : statemachineClass.getDeclaredMethods()) {
 					if (m.getName().equals("isStateActive")) {
-						System.out.println(m.getName());
+						start.getLog().log(m.getName());
 						int i = 1;
 						Object sci = m.invoke(this.statemachine, i);
 					}
@@ -342,7 +453,7 @@ public class Statemachine {
 				try {
 					int[] states = (int[]) field.get(statemachine);
 					this.statesCount = states.length;
-					//System.out.println(states.length);
+					//start.getLog().log(states.length);
 					return true;
 				} catch (IllegalArgumentException e) {
 					//e.printStackTrace();
@@ -354,6 +465,22 @@ public class Statemachine {
 			}
 		}
 		return false;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+	
+	public OpCallbacksInUse getOpCallbackInUseById(int id){
+		if (id <= 0) {return null;}
+		
+		for (OpCallbacksInUse op : opCallbacksInUse) {
+			if (op.getUid() == id) {
+				return op;
+			}
+		}
+		
+		return null;
 	}
 	
 }

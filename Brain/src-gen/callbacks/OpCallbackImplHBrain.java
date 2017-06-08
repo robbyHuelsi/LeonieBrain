@@ -1,10 +1,12 @@
 package callbacks;
 
 import communication.Communication;
+import main.Log;
 import main.Start;
+import modules.Module;
 import modules.Modules;
 
-public class OpCallbackImplHBrain implements
+public class OpCallbackImplHBrain implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.storinggroceries.IStoringGroceriesStatemachine.SCIHBrainOperationCallback,
@@ -13,19 +15,47 @@ public class OpCallbackImplHBrain implements
 	org.yakindu.scr.test_stt_smalltalk.ITest_STT_SmalltalkStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.test_stt_yesno.ITest_STT_YesNoStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.test_stt_names.ITest_STT_NamesStatemachine.SCIHBrainOperationCallback,
-	org.yakindu.scr.test_followme.ITest_FollowMeStatemachine.SCIHBrainOperationCallback
+	org.yakindu.scr.test_followme.ITest_FollowMeStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.test_waving.ITest_WavingStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.test_mira.ITest_MiraStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.robotinspection.IRobotInspectionStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.poster.IPosterStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.test_leapmotion.ITest_LeapMotionStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.finale.IFinaleStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIHBrainOperationCallback
 {
+	private Log log = Start.instanceOf().getLog();
+	private Module module = Start.instanceOf().getModules().get("HBrain");
 	
-	private Modules modules = Start.instanceOf().getModules();
+	public void send(String command){
+		if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}
+	}
+	
+	public void sendInit() {
+		sendTTS("[:-|] {person} [blush:false] [idle:false] [idle2:false] [idle3:false]");
+	}
+	
+	public void sendPing() {
+		send("#HBRAIN#REQUEST#READY#");
+	}
+	
+	/* ---------------------------------------------------------------- */
 	
 	public void sendTTS(String inText){
-		//System.out.println(inText);
-		Communication.sendMessage("#BRAIN##TEXT#" + inText , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
+		//log.log(inText);
+		send("#BRAIN##TEXT#" + inText); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendTTS_num(long inNum){
-		//System.out.println(inText);
-		Communication.sendMessage("#BRAIN##TEXT#" + inNum , modules.get("HBrain")); // # removed cause Leonie reads out the hash too
+		//log.log(inText);
+		send("#BRAIN##TEXT#" + inNum); // # removed cause Leonie reads out the hash too
 	}
 	
 	public void sendTTS2(String inT1, String inT2){
@@ -37,12 +67,14 @@ public class OpCallbackImplHBrain implements
 	}
 	
 	public void sendTTSWithPos(String inPos, String inText){
-		//System.out.println(inText);
+		//log.log(inText);
 		sendTTS("{0;" + inPos + "}" + inText);
 	}
 	
 	public void sendPersonPosition(){
 		
 	}
+
+	
 	
 }

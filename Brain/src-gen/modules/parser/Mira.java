@@ -20,7 +20,6 @@ public class Mira implements IParser, Serializable{
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
-		System.out.println("NAV: " + data);
 		//Arrived waypoint by pilot:  #MIRA#ARR_WP#1#   //#MIRA#ARR_WP#1# (=> arrived at global waypoint 
 		//Path blocked:  #MIRA#PATH_BLOCKED#1#      	//#MIRA#PATH_BLOCKED#1#  (=> path is blocked
 		//Bumpered: #MIRA#BUMPERED#1#            		//#MIRA#BUMPERED#1#  (=> leonie is bumpered
@@ -31,7 +30,7 @@ public class Mira implements IParser, Serializable{
 		} else if (data.contains("BUMPERED#1")) {
 			this.setBumpered(true);
 		}else{
-			System.err.println("emergencyStop not implemented");
+			this.setEmergencyStop(true);
 		}
 
 		return true;
@@ -49,7 +48,7 @@ public class Mira implements IParser, Serializable{
 		this.emergencyStop = emergencyStop;
 		
 		if (emergencyStop) {
-			System.out.println("Emergency Stop");
+			start.getLog().log("Emergency Stop");
 			start.getStatemachine().raiseEventOfSCI("Mira","emergencyStop");
 		}
 	}
@@ -63,7 +62,7 @@ public class Mira implements IParser, Serializable{
 	public void setArrivedWP(boolean arrivedWP) {
 		this.arrivedWP = arrivedWP;
 		if (arrivedWP) {
-			System.out.println("Arrived at next waypoint: ");
+			start.getLog().log("Arrived at next waypoint: ");
 			start.getStatemachine().raiseEventOfSCI("Mira","arrivedWP");
 		}
 	}
@@ -76,7 +75,7 @@ public class Mira implements IParser, Serializable{
 		this.blocked = blocked;
 
 		if (blocked) {
-			System.out.println("No way found");
+			start.getLog().log("No way found");
 			start.getStatemachine().raiseEventOfSCI("Mira","blocked");
 		}
 	}
@@ -89,7 +88,7 @@ public class Mira implements IParser, Serializable{
 		this.bumpered = bumpered;
 
 		if (bumpered) {
-			System.out.println("Leonie was bumperd");
+			start.getLog().log("Leonie was bumperd");
 			start.getStatemachine().raiseEventOfSCI("Mira","bumpered");
 		}	
 	}

@@ -61,6 +61,20 @@ public interface IStoringGroceriesStatemachine extends ITimerCallback,IStatemach
 		
 		public void sendSearchOnOff(boolean inOnOff);
 		
+		public void sendPanCamera(long inPan);
+		
+		public void sendTiltCamera(long inTilt);
+		
+		public void sendPanTiltCamera(long inPan, long inTilt);
+		
+		public void sendSaveRuntimeStartPoint();
+		
+		public void sendSaveRuntimeEndPoint();
+		
+		public void sendGoToRuntimeEndPoint();
+		
+		public void sendInterrupt();
+		
 	}
 	
 	public SCIMira getSCIMira();
@@ -71,13 +85,15 @@ public interface IStoringGroceriesStatemachine extends ITimerCallback,IStatemach
 		
 		public void raiseAnalyseDone();
 		
+		public void raiseObjectDetected();
+		
 		public void setSCIObjectDetectionOperationCallback(SCIObjectDetectionOperationCallback operationCallback);
 	
 	}
 	
 	public interface SCIObjectDetectionOperationCallback {
 	
-		public void sendReadyRequest();
+		public void sendPing();
 		
 		public void sendAnalyseCupboard();
 		
@@ -86,6 +102,8 @@ public interface IStoringGroceriesStatemachine extends ITimerCallback,IStatemach
 		public void sendPrintPDF();
 		
 		public String getSummaryText();
+		
+		public String getNewesObject();
 		
 	}
 	

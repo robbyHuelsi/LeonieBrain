@@ -13,8 +13,15 @@ public class CNS implements IParser, Serializable{
 		String name = attributes[0];
 		String ip = attributes[1];
 		int port = Integer.parseInt(attributes[2]);
-				
-		start.getModules().addModule(name, ip, port, true);
+		
+		boolean internal;
+		if (attributes.length == 4) {
+			internal = Boolean.parseBoolean(attributes[2]);
+		}else{
+			internal = false;
+		}
+		
+		start.getModules().addModule(name, ip, port, internal, true);
 		
 		return true;
 	}

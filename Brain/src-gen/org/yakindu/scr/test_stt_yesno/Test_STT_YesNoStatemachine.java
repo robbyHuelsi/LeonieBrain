@@ -44,23 +44,23 @@ public class Test_STT_YesNoStatemachine implements ITest_STT_YesNoStatemachine {
 			incomprehensible = true;
 		}
 		
-		private boolean actionReceived;
-		
-		public void raiseActionReceived() {
-			actionReceived = true;
-		}
-		
 		private boolean answerReceived;
 		
 		public void raiseAnswerReceived() {
 			answerReceived = true;
 		}
 		
+		private boolean actionReceived;
+		
+		public void raiseActionReceived() {
+			actionReceived = true;
+		}
+		
 		protected void clearEvents() {
 			spokenTextReceived = false;
 			incomprehensible = false;
-			actionReceived = false;
 			answerReceived = false;
+			actionReceived = false;
 		}
 	}
 	

@@ -13,6 +13,32 @@ GeneratorModel for yakindu::java {
 		}
 	}
 	
+	statechart RobotInspection {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart Poster {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
 	statechart SpeechAndPersonRecognition {
 
 		feature Outlet {
@@ -77,6 +103,72 @@ GeneratorModel for yakindu::java {
 	    	TimerService = true
 		}
 	}
+	
+	statechart OpenChallenge {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+		statechart EEGPSR {
+
+			feature Outlet {
+				targetProject = "Brain"
+				targetFolder = "src-gen"
+				libraryTargetFolder = "src"
+			}
+			
+			feature GeneralFeatures {
+		    	TimerService = true
+			}
+		}
+		
+		statechart Restaurant {
+
+			feature Outlet {
+				targetProject = "Brain"
+				targetFolder = "src-gen"
+				libraryTargetFolder = "src"
+			}
+		
+			feature GeneralFeatures {
+	    		TimerService = true
+			}
+		}
+	
+		statechart Finale {
+
+			feature Outlet {
+				targetProject = "Brain"
+				targetFolder = "src-gen"
+				libraryTargetFolder = "src"
+			}
+			
+			feature GeneralFeatures {
+		    	TimerService = true
+			}
+		}
+		
+		statechart IntroRT {
+
+			feature Outlet {
+				targetProject = "Brain"
+				targetFolder = "src-gen"
+				libraryTargetFolder = "src"
+			}
+			
+			feature GeneralFeatures {
+		    	TimerService = true
+			}
+		}
+		
 
 	
 	statechart Test_STT_Smalltalk {
@@ -143,4 +235,72 @@ GeneratorModel for yakindu::java {
 	    	TimerService = true
 		}
 	}
+	
+	statechart Test_Waving {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart Test_Noise {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart Test_Mira {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart Test_BlindMansBluff {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart Test_LeapMotion {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+
+		
 }

@@ -35,9 +35,9 @@ public interface ITest_STT_YesNoStatemachine extends ITimerCallback,IStatemachin
 		
 		public void raiseIncomprehensible();
 		
-		public void raiseActionReceived();
-		
 		public void raiseAnswerReceived();
+		
+		public void raiseActionReceived();
 		
 		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
 	

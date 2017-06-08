@@ -1,50 +1,79 @@
 package callbacks;
 
 import communication.Communication;
+import main.Log;
 import main.Start;
+import modules.Module;
 import modules.Modules;
 import modules.parser.FollowMe;
 import modules.parser.STT;
 
-public class OpCallbackImplFollowMe implements
+public class OpCallbackImplFollowMe implements IOpCallbackImpl,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIFollowMeOperationCallback,
-	org.yakindu.scr.test_followme.ITest_FollowMeStatemachine.SCIFollowMeOperationCallback
+	org.yakindu.scr.test_followme.ITest_FollowMeStatemachine.SCIFollowMeOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIFollowMeOperationCallback,
+	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIFollowMeOperationCallback,
+	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIFollowMeOperationCallback
 {
-	private Modules modules = Start.instanceOf().getModules();
+	private Log log = Start.instanceOf().getLog();
+	private Module module = Start.instanceOf().getModules().get("FollowMe");
+	
+	public void send(String command){
+		if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}
+	}
+	
+	public void sendInit() {
+		sendTrackingOff();
+		sendDetectionOff();
+	}
+	
+	public void sendPing() {
+		send("#FOLLOWME#REQUEST#READY#");
+	}
+	
+	/* ---------------------------------------------------------------- */
+	
+	
 
 	public void sendDetectionOff() {
-		System.out.println("FollowMe: sendDetectionOff()");
-		Communication.sendMessage("#FOLLOWME#DETECTION#false#", modules.get("FollowMe"));
+		log.log("FollowMe: sendDetectionOff()");
+		send("#FOLLOWME#DETECTION#false#");
 	}
 
 	public void sendDetectionOn() {
-		System.out.println("FollowMe: sendDetectionOn()");
-		Communication.sendMessage("#FOLLOWME#DETECTION#true#", modules.get("FollowMe"));
+		log.log("FollowMe: sendDetectionOn()");
+		send("#FOLLOWME#DETECTION#true#");
 	}
 
 	public void sendRequestDetectionDetails() {
-		System.out.println("FollowMe: sendRequestDetectionDetails()");
-		Communication.sendMessage("#FOLLOWME#DETAILS#REQUEST#", modules.get("FollowMe"));
+		log.log("FollowMe: sendRequestDetectionDetails()");
+		send("#FOLLOWME#DETAILS#REQUEST#");
 	}
 
 	public void sendTrackingOff() {
-		System.out.println("FollowMe: sendTrackingOff()");
-		Communication.sendMessage("#FOLLOWME#TRACKING#false#", modules.get("FollowMe"));
+		log.log("FollowMe: sendTrackingOff()");
+		send("#FOLLOWME#TRACKING#false#");
 	}
 
 	public void sendTrackingOnAtPos(long x, long y) {
-		System.out.println("FollowMe: sendTrackingOnAtPos(long x, long y)");
-		Communication.sendMessage("#FOLLOWME#TRACKING#POSITION#" + x + ";" + y + "#", modules.get("FollowMe"));
+		log.log("FollowMe: sendTrackingOnAtPos(long x, long y)");
+		send("#FOLLOWME#TRACKING#POSITION#" + x + ";" + y + "#");
 	}
 
 	public void sendTrackingOnAtNext() {
-		System.out.println("FollowMe: sendTrackingOnAtNext()");
+		log.log("FollowMe: sendTrackingOnAtNext()");
 		//Communication.sendMessage("#FOLLOWME#TRACKING#true#", modules.get("FollowMe"));
 		
-		FollowMe fm = (FollowMe)Start.getModules().getParser("FollowMe");
+		/*FollowMe fm = (FollowMe)Start.getModules().getParser("FollowMe");
 		int x = fm.getNextPersonXPos();
 		int y = fm.getNextPersonYPos();
-		sendTrackingOnAtPos(x,y);
+		sendTrackingOnAtPos(x,y);*/
+		
+		send("#FOLLOWME#TRACKING#POSITION#320;240#");
 	}
 
 	public long getNextPersonXPos() {

@@ -16,9 +16,11 @@ import main.Start;
 public class PersonList{
 	private Vector<Person> personList;
 	private Person currPerson = null;
-	private String filePath = System.getProperty ("user.home") + System.getProperty("file.separator") + "LeonieBrain"+ System.getProperty("file.separator") + "PersonList.brain";
+	private String filePath;
 	
-	public PersonList(){
+	public PersonList(String savingsFolderPath){
+		this.filePath = savingsFolderPath + "PersonList.brain";
+		
 		if(this.load()){
 			//personList wurde geladen aus Datei
 			System.out.println(this.toString());

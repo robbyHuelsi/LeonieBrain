@@ -1,23 +1,52 @@
 package callbacks;
 
 import communication.Communication;
+import main.Log;
 import main.Start;
+import modules.Module;
 import modules.Modules;
 import modules.parser.Mira;
 
-public class OpCallbackImplMira implements
+public class OpCallbackImplMira implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.storinggroceries.IStoringGroceriesStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIMiraOperationCallback,
-	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIMiraOperationCallback
+	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.test_mira.ITest_MiraStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.test_noise.ITest_NoiseStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.robotinspection.IRobotInspectionStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.test_leapmotion.ITest_LeapMotionStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.finale.IFinaleStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIMiraOperationCallback
 {
+	private Log log = Start.instanceOf().getLog();
+	private Module module = Start.instanceOf().getModules().get("Mira");
 	
-	private Modules modules = Start.instanceOf().getModules();
+	public void send(String command){
+		if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}
+	}
+	
+	public void sendInit() {
+		//sendPanTiltCamera(0, 0);
+	}
+	
+	public void sendPing() {
+		send("#MIRA#REQUEST#READY#");
+	}
+	
+	/* ---------------------------------------------------------------- */
 	
 	public void sendGoToGWP(long inWayPoint){
-		System.out.println("Go to global way point " + inWayPoint);
-		Communication.sendMessage("#MIRA#GWP#" + inWayPoint + "#", modules.get("Mira"));
+		log.log("Go to global way point " + inWayPoint);
+		send("#MIRA#GWP#" + inWayPoint + "#");
 	}
 	
 	public void sendGoToNextGWPForConf() {
@@ -34,53 +63,96 @@ public class OpCallbackImplMira implements
 			this.sendGoToGWP(0);
 		}
 	}
-	
-	public void sendGoToLC(String inX, String inY){
-		System.out.println("Go to local coordinates: x=" + inX + ", y=" + inY);
-		Communication.sendMessage("#MIRA#LC#" + inX + ";" + inY + ";#", modules.get("Mira"));
-	}
-	
-	public void sendTurnBody(String inAngle){  //#MIRA#ROTBODY#360#
-		System.out.println("Turn Body: angle=" + inAngle);
-		Communication.sendMessage("#MIRA#ROTBODY#" + inAngle + "#", modules.get("Mira"));
-	}
+
 	
 	public void sendBodyUTurn(){  //#MIRA#ROTBODY#360#
 		
-		Communication.sendMessage("#MIRA#ROTBODY#90#", modules.get("Mira"));
+		/*Communication.sendMessage("#MIRA#ROTBODY#90#", modules.get("Mira"));
 		try {
 			Thread.sleep(820);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		Communication.sendMessage("#MIRA#ROTBODY#90#", modules.get("Mira"));
+		Communication.sendMessage("#MIRA#ROTBODY#90#", modules.get("Mira"));*/
+		
+		//sendTurnBody(180);
+		sendTurnBody(200); // FÜR TEPPICHBODEN
 	}
-	
-	public void sendTurnHead(String inAngle){  //#MIRA#ROTBODY#360#
-		  System.out.println("Turn Body: angle=" + inAngle);
-		  Communication.sendMessage("#MIRA#ROTHEAD#" + inAngle + "#", modules.get("Mira"));
-		 }
 
 	
 	public void sendSearchOnOff(boolean inOnOff){
-		System.out.println(inOnOff?"Moving from WP to WP":"Standing");
-		Communication.sendMessage("#MIRA#RUN#" + (inOnOff?"1":"0") + "#", modules.get("Mira"));
+		log.log(inOnOff?"Moving from WP to WP":"Standing");
+		send("#MIRA#RUN#" + (inOnOff?"1":"0") + "#");
 //		this.sendToHBrain_TTS("[idle2:" + (inOnOff?"true":"false") + "]");
 	}
 
 	public void sendTurnBody(long inAngle) {
-		// TODO implement sendTurnBody(long inAngle)
-		System.err.println("sendTurnBody() not implemented");
+		log.log("Mira: Turn Body: angle=" + inAngle);
+		send("#MIRA#ROTBODY#" + inAngle + "#");
 	}
 
 	public void sendTurnHead(long inAngle) {
-		// TODO implement sendTurnHead(long inAngle)
-		System.err.println("sendTurnHead() not implemented");
+		log.log("Mira: Turn Body: angle=" + inAngle);
+		send("#MIRA#ROTHEAD#" + inAngle + "#");
+	}
+	
+	public void sendPanCamera(long inPan){
+		log.log("Mira: Pan Camera:" + inPan);
+		send("#MIRA#PTU#setPanVelocity#20#");
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		send("#MIRA#PTU#pan#" + inPan + "#");
+	}
+	
+	public void sendTiltCamera(long inTilt){
+		log.log("Mira: Pan Camera:" + inTilt);
+		send("#MIRA#PTU#setTiltVelocity#20#");
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		send("#MIRA#PTU#tilt#" + inTilt + "#");
+	}
+	
+	public void sendPanTiltCamera(long inPan, long inTilt) {
+		log.log("Mira: Pan Camera:" + inPan);
+		sendPanCamera(inPan);
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		sendTiltCamera(inTilt);
+		
 	}
 
 	public void sendGoToLC(long inX, long inY) {
-		// TODO implement sendGoToLC(long inX, long inY)
-		System.err.println("sendGoToLC() not implemented");
+		log.log("Mira: Go to local coordinates: x=" + inX + ", y=" + inY);
+		send("#MIRA#LC#" + inX + ";" + inY + ";#");
+	}
+
+	public void sendSaveRuntimeStartPoint() {
+		log.log("Mira: sendSaveRuntimeStartPoint");
+		send("#MIRA#ADDRUNTIMESTARTPOINT#");
+	}
+
+	public void sendSaveRuntimeEndPoint() {
+		log.log("Mira: sendSaveRuntimeEndPoint");
+		send("#MIRA#ADDRUNTIMEENDPOINT#");
+	}
+
+	public void sendGoToRuntimeEndPoint() {
+		log.log("Mira: sendGoToRuntimeEndPoint");
+		send("#MIRA#GOTORUNTIMEENDPOINT#");
+	}
+
+	public void sendInterrupt() {
+		log.log("Mira: sendInterrupt()");
+		send("#MIRA#INTERRUPT#");
 	}
 
 }
