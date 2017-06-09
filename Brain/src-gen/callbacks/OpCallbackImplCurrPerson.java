@@ -1,14 +1,35 @@
 package callbacks;
 
+import Persons.PersonList;
+import communication.Communication;
+import main.Log;
 import main.Start;
-import vBrain.PersonList;
 
-public class OpCallbackImplCurrPerson implements
-	org.yakindu.scr.braganca.IBragancaStatemachine.SCICurrPersonOperationCallback,
-	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCICurrPersonOperationCallback
+public class OpCallbackImplCurrPerson implements IOpCallbackImpl,
+	org.yakindu.scr.braganca.IBragancaStatemachine.SCICurrPersonOperationCallback
 {
-	
+	private Log log = Start.instanceOf().getLog();
 	private PersonList personList = Start.instanceOf().getPersonList();
+	
+	
+	public void send(String command){
+		/*if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}*/
+	}
+	
+	public void sendInit() {
+		// Nothing to do
+	}
+	
+	public void sendPing() {
+		// Nothing to do
+	}
+	
+	/* ---------------------------------------------------------------- */
+	
 	
 	public void setKnown(boolean inKnown) {
 		if(personList.getCurrPerson() != null){
@@ -80,7 +101,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getPersonID();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return -1;
 		}
 	}
@@ -90,7 +111,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().isKnown();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return false;
 		}
 	}
@@ -100,7 +121,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getFirstName();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return "";
 		}
 	}	
@@ -110,7 +131,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getLastName();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return "";
 		}
 	}
@@ -120,7 +141,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getEstimatedAge();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return -1;
 		}
 	}
@@ -130,7 +151,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getBdYear();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return -1;
 		}
 	}
@@ -140,7 +161,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getBdMonth();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return -1;
 		}
 	}
@@ -150,7 +171,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getBdDay();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return -1;
 		}
 	}
@@ -160,7 +181,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getGender();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return false;
 		}
 	}
@@ -170,7 +191,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getEthnicity();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return -1;
 		}
 	}
@@ -180,7 +201,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().hasGlasses();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return false;
 		}
 	}
@@ -190,7 +211,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getAttractiveness();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return -1;
 		}
 	}
@@ -200,7 +221,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getCurrDynData().getHeadgesture();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return -1;
 		}
 	}
@@ -210,7 +231,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getCurrDynData().isSpeaking();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return false;
 		}
 	}
@@ -220,7 +241,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getCurrDynData().getEmotion();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return -1;
 		}
 	}
@@ -230,7 +251,7 @@ public class OpCallbackImplCurrPerson implements
 		if(personList.getCurrPerson() != null){
 			return personList.getCurrPerson().getCurrDynData().getDistance();
 		}else{
-			System.err.println("No current person");
+			log.error("No current person");
 			return -1;
 		}
 	}

@@ -1,9 +1,9 @@
 package modules.parser;
 
 
+import Persons.*;
 import main.Start;
 import modules.Module;
-import vBrain.*;
 
 public interface IParser {
 

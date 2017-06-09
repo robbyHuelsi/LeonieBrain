@@ -2,38 +2,67 @@ package callbacks;
 
 
 import communication.Communication;
+import main.Log;
 import main.Start;
+import modules.Module;
 import modules.Modules;
 import modules.parser.LeapMotion;
+import modules.parser.STT;
 
-public class OpCallbackImplLeapMotion implements
+public class OpCallbackImplLeapMotion implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCILeapMotionOperationCallback,
-	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCILeapMotionOperationCallback
+	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCILeapMotionOperationCallback,
+	org.yakindu.scr.test_leapmotion.ITest_LeapMotionStatemachine.SCILeapMotionOperationCallback,
+	org.yakindu.scr.finale.IFinaleStatemachine.SCILeapMotionOperationCallback
 {
+	private Log log = Start.instanceOf().getLog();
+	private Module module = Start.instanceOf().getModules().get("LeapMotion");
 	
-	private Modules modules = Start.instanceOf().getModules();
+	public void send(String command){
+		if (module.isInternal()) {
+			// for internal Modules
+		}else{
+			Communication.sendMessage(command, module, log);
+		}
+	}
+	
+	public void sendInit() {
+		sendGestureDetectionOnOff(0);
+	}
+	
+	public void sendPing() {
+		send("#LEAPMOTION#REQUEST#READY#");
+	}
+	
+	/* ---------------------------------------------------------------- */
+	
 	
 	public void sendGestureDetectionOnOff(long inOnOff){
-		Communication.sendMessage("#HANDGESTURES#" + (int)inOnOff + "#", modules.get("HandGestures"));
+		send("#LEAPMOTION#" + (int)inOnOff + "#");
+		
+		if (inOnOff != 0) {
+			LeapMotion lm = (LeapMotion)Start.getModules().getParser("LeapMotion");		
+			lm.setGestureDetected(false);
+			lm.setStringFinished(false);
+			lm.setGesture("");
+			lm.setGesturedString("");
+		}
+		
 	}
 
-	@Override
 	public String getGesture() {
-		return ((LeapMotion)modules.getParser("LeapMotion")).getGesture();
+		return ((LeapMotion)module.getParser()).getGesture();
 	}
 
-	@Override
 	public void resetGesture() {
-		((LeapMotion)modules.getParser("LeapMotion")).setGesture("");
+		((LeapMotion)module.getParser()).setGesture("");
 	}
 
-	@Override
 	public String getDetectedString() {
-		return ((LeapMotion)modules.getParser("LeapMotion")).getGesturedString();
+		return ((LeapMotion)module.getParser()).getGesturedString();
 	}
 
-	@Override
 	public void resetDetectedString() {
-		((LeapMotion)modules.getParser("LeapMotion")).setGesturedString("");
+		((LeapMotion)module.getParser()).setGesturedString("");
 	}
 }

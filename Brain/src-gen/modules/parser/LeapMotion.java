@@ -19,25 +19,23 @@ public class LeapMotion implements IParser, Serializable{
 		this.start = start;
 		
 		String[] attributePartsHG = data.split(";");
-		//System.out.println(data);
-		if (attributePartsHG[0].contains("0")){
-			//System.out.println("LeapMotion: nothing detected");
+		//start.getLog().log(data);
+		/*if (attributePartsHG[0].contains("0")){
+			//start.getLog().log("LeapMotion: nothing detected");
 			this.setGestureDetected(false);
 			this.setStringFinished(false);
-		}else if(attributePartsHG.length > 1){
-			if(attributePartsHG[0].contains("1")) {
+			
+		}else if(attributePartsHG.length > 1){*/
+			//if(attributePartsHG[0].equals("1")) {
 				this.setGesture(attributePartsHG[1]);
 				this.setGestureDetected(true);
-//				if(attributePartsHG[1].contains("true") && attributePartsHG[1].contains("false")) {
-//				start.instanceOf().
-//				}
-				System.out.println("LeapMotion: " + attributePartsHG[1] + " detected");
-			} else if (attributePartsHG[0].contains("2")) {
-				System.out.println("Finished string is " + attributePartsHG[1]);
+				start.getLog().log("LeapMotion: " + attributePartsHG[1] + " detected");
+			/*} else if (attributePartsHG[0].equals("2")) {
+				start.getLog().log("Finished string is " + attributePartsHG[1]);
 				this.setGesturedString(attributePartsHG[1]);
 				this.setStringFinished(true);
-			}
-		}
+			}*/
+		//}
 		
 		return true;
 		

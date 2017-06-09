@@ -23,7 +23,13 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 		public void printToConsole(String msg);
 		
+		public String intToString(long inInt);
+		
 		public long getRandNum(long max);
+		
+		public long getGWPByName(String inName);
+		
+		public boolean containsString(String main, String check);
 		
 	}
 	
@@ -55,49 +61,15 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 	public SCIHBrain getSCIHBrain();
 	
-	public interface SCIVBrain {
-	
-		public void setSCIVBrainOperationCallback(SCIVBrainOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCIVBrainOperationCallback {
-	
-		public long getCountFoundFaces();
-		
-		public void resetCountFoundFaces();
-		
-		public boolean isNessesaryToSavePersonList();
-		
-		public void sendACIOnOff(boolean inOnOff);
-		
-		public void savePersonList();
-		
-	}
-	
-	public SCIVBrain getSCIVBrain();
-	
-	public interface SCIAttractiveness {
-	
-		public double getOld_attr();
-		
-		public void setOld_attr(double value);
-		
-		public void setSCIAttractivenessOperationCallback(SCIAttractivenessOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCIAttractivenessOperationCallback {
-	
-		public void sendToAttr_estimate();
-		
-	}
-	
-	public SCIAttractiveness getSCIAttractiveness();
-	
 	public interface SCIKinect2 {
 	
-		public void raiseNoiseDetected();
+		public void raisePersonDetected();
+		
+		public void raiseNoiseDeviatinWithoutBoneDetected();
+		
+		public void raiseNoiseWithBoneDetected();
+		
+		public void raiseWavingDetected();
 		
 		public void setSCIKinect2OperationCallback(SCIKinect2OperationCallback operationCallback);
 	
@@ -105,41 +77,19 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 	public interface SCIKinect2OperationCallback {
 	
-		public String getGesture();
-		
 		public long getNoiseAngle();
 		
+		public double getWavingX();
+		
+		public double getWavingY();
+		
 		public void sendNoiseDetectionOnOff(boolean inOnOff);
+		
+		public void sendWavingDetectionOnOff(boolean inOnOff);
 		
 	}
 	
 	public SCIKinect2 getSCIKinect2();
-	
-	public interface SCILeapMotion {
-	
-		public void raiseGestureDetected();
-		
-		public void raiseStringFinished();
-		
-		public void setSCILeapMotionOperationCallback(SCILeapMotionOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCILeapMotionOperationCallback {
-	
-		public String getGesture();
-		
-		public void resetGesture();
-		
-		public String getDetectedString();
-		
-		public void resetDetectedString();
-		
-		public void sendGestureDetectionOnOff(long inOnOff);
-		
-	}
-	
-	public SCILeapMotion getSCILeapMotion();
 	
 	public interface SCIMira {
 	
@@ -171,19 +121,35 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		
 		public void sendSearchOnOff(boolean inOnOff);
 		
+		public void sendPanCamera(long inPan);
+		
+		public void sendTiltCamera(long inTilt);
+		
+		public void sendPanTiltCamera(long inPan, long inTilt);
+		
+		public void sendSaveRuntimeStartPoint();
+		
+		public void sendSaveRuntimeEndPoint();
+		
+		public void sendGoToRuntimeEndPoint();
+		
+		public void sendInterrupt();
+		
 	}
 	
 	public SCIMira getSCIMira();
 	
 	public interface SCISTT {
 	
-		public void raiseTextReceived();
+		public void raiseSpokenTextReceived();
 		
 		public void raiseIncomprehensible();
 		
+		public void raiseAnswerReceived();
+		
 		public void raiseActionReceived();
 		
-		public void raiseAnswerReceived();
+		public void raiseActionsReceived();
 		
 		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
 	
@@ -199,6 +165,16 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		
 		public String getObject();
 		
+		public long getActionListLength();
+		
+		public String getInstructionFromActionListAt(long i);
+		
+		public String getObjectFromActionListAt(long i);
+		
+		public String getLocationFromActionListAt(long i);
+		
+		public String getActionCommandSentence();
+		
 		public void sendSpeechDetectionOff();
 		
 		public void sendSpeechDetectionSmalltalk();
@@ -207,81 +183,15 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		
 		public void sendSpeechDetectionName();
 		
+		public void sendSpeechDetectionActions();
+		
 	}
 	
 	public SCISTT getSCISTT();
 	
-	public interface SCICurrPerson {
-	
-		public void setSCICurrPersonOperationCallback(SCICurrPersonOperationCallback operationCallback);
-	
-	}
-	
-	public interface SCICurrPersonOperationCallback {
-	
-		public long getPersonID();
-		
-		public boolean isKnown();
-		
-		public String getFirstname();
-		
-		public String getLastname();
-		
-		public long getEstimatedAge();
-		
-		public long getBdYear();
-		
-		public long getBdMounth();
-		
-		public long getBdDay();
-		
-		public boolean getGender();
-		
-		public long getEthnicity();
-		
-		public boolean hasGlasses();
-		
-		public double getAttractiveness();
-		
-		public long getCurrHeadgestures();
-		
-		public boolean isCurrSpeaking();
-		
-		public long getCurrEmotion();
-		
-		public double getCurrDistance();
-		
-		public void resetCurrPerson();
-		
-		public void resetCurrEmotion();
-		
-		public void setKnown(boolean inKnown);
-		
-		public void setFirstname(String inFirstname);
-		
-		public void setLastname(String inLastname);
-		
-		public void setBdYear(long inBdYear);
-		
-		public void setBdMounth(long inBdMointh);
-		
-		public void setBdDay(long inBdDay);
-		
-		public void setGender(boolean inGender);
-		
-		public void setEthnicity(long inEthnicity);
-		
-		public void setAttractiveness(double attr);
-		
-	}
-	
-	public SCICurrPerson getSCICurrPerson();
-	
 	public interface SCICrowdDetection {
 	
-		public String getCrowdDetails();
-		
-		public void setCrowdDetails(String value);
+		public void raiseDetected();
 		
 		public void setSCICrowdDetectionOperationCallback(SCICrowdDetectionOperationCallback operationCallback);
 	
@@ -289,7 +199,21 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 	
 	public interface SCICrowdDetectionOperationCallback {
 	
-		public void detectionOnOff(boolean onOff);
+		public void sendDetectionOn();
+		
+		public void sendDetectionOff();
+		
+		public long getTotalCount();
+		
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position);
+		
+		public String getSummaryText();
+		
+		public String getAnswerForSecificCrowdDetails(String inDetails);
+		
+		public boolean areAllGendersDetected();
+		
+		public boolean areAllAgesDetected();
 		
 	}
 	

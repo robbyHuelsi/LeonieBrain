@@ -33,10 +33,10 @@ public class HBrain implements IParser, Serializable{
 		TTSReady = tTSReady;
 		if (tTSReady) {
 			start.getStatemachine().raiseEventOfSCI("HBrain","TTSReady");
-			//System.out.println("TTS ready");
+			//start.getLog().log("TTS ready");
 		}else{
 			//brain.getSCIHBrain().setTTSReady(false); //War auch vor dem Umbau auskommentiert
-			System.out.println("TSS jabbering");
+			start.getLog().log("TSS jabbering");
 		}
 	}
 

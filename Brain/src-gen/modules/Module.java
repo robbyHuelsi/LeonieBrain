@@ -3,6 +3,7 @@ package modules;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
+import callbacks.OpCallbacksInUse;
 import modules.parser.IParser;
 
 public class Module implements Serializable{
@@ -10,28 +11,37 @@ public class Module implements Serializable{
 	private String name;
 	private String ip;
 	private Integer port;
+	private long pongTime = -1;
 	private IParser parser;
 	private long udpTcp;
+	private int opCallbackId;
+	private boolean internal;
 	
 	
-	public Module(String name, String ip, Integer port, boolean setParser) {
+	public Module(String name, String ip, Integer port, boolean internal, boolean setParser) {
+		this.pongTime = -1;
 		this.name = name;
 		this.ip = ip;
 		this.port = port;
+		this.internal = internal;
 		if (setParser) this.setParser(name);
 	}
 	
-	public Module(String name, String ip, boolean setParser) {
+	/*public Module(String name, String ip, boolean internal, boolean setParser) {
+		this.pongTime = -1;
 		this.name = name;
 		this.ip = ip;
+		this.internal = internal;
 		if (setParser) this.setParser(name);
 	}
 	
-	public Module(String name, Integer port, boolean setParser) {
+	public Module(String name, Integer port, boolean internal, boolean setParser) {
+		this.pongTime = -1;
 		this.name = name;
 		this.port = port;
+		this.internal = internal;
 		if (setParser) this.setParser(name);
-	}
+	}*/
 	
 	public String getName() {
 		return name;
@@ -52,6 +62,15 @@ public class Module implements Serializable{
 	}
 	public boolean setPort(Integer port) {
 		this.port = port;
+		return true;
+	}
+
+	public long getPongTime() {
+		return pongTime;
+	}
+
+	public boolean setPongTime(long pongTime) {
+		this.pongTime = pongTime;
 		return true;
 	}
 
@@ -81,5 +100,17 @@ public class Module implements Serializable{
 
 	public void setUdpTcp(long connection) {
 		this.udpTcp = connection;
+	}
+
+	public int getOpCallbackId() {
+		return opCallbackId;
+	}
+
+	public void setOpCallbackId(int id) {
+		this.opCallbackId = id;
+	}
+
+	public boolean isInternal() {
+		return internal;
 	}
 }
