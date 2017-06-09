@@ -5,11 +5,16 @@ public class PersonCrowd {
 	private int gender;
 	private int age;
 	private int position;
+	private String color;
+	private int waving;
 	
-	public PersonCrowd(int gender, int age, int position) {
+
+	public PersonCrowd(int gender, int age, int position, String colour, int waving) {
 		setGender(gender);
 		setAge(age);
 		setPosition(position);
+		setColor(colour);
+		setWaving(waving);
 	}
 	
 	
@@ -38,6 +43,24 @@ public class PersonCrowd {
 
 	public int getPosition() {
 		return position;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+
+
+	public int getWaving() {
+		return waving;
+	}
+
+	public void setWaving(int waving) {
+		this.waving = waving;
 	}
 
 

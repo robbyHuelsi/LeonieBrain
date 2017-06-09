@@ -768,7 +768,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_main_region_Turn() {
-		timer.setTimer(this, 0, 3*1000, false);
+		timer.setTimer(this, 0, 3 * 1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -804,7 +804,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'GetOrder'. */
 	private void entryAction_main_region_GetOrder() {
-		timer.setTimer(this, 1, 8*1000, false);
+		timer.setTimer(this, 1, 8 * 1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
 	}
@@ -848,7 +848,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 2, 3*1000, false);
+		timer.setTimer(this, 2, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -865,7 +865,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 3, 3*1000, false);
+		timer.setTimer(this, 3, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'Turn'. */

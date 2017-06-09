@@ -22,6 +22,8 @@ public class Crowd implements IParser, Serializable{
 	private int standing = 0;
 	private int sitting = 0;
 	private int lying = 0;
+	private int waving = 0;
+	private String color = "";
 	
 	private ArrayList<PersonCrowd> crowdList = new ArrayList<>();
 
@@ -47,8 +49,18 @@ public class Crowd implements IParser, Serializable{
 				int gender=Integer.parseInt(p[0]);
 				int age=Integer.parseInt(p[1]);
 				int position=Integer.parseInt(p[2]);
-				PersonCrowd person = new PersonCrowd(gender, age, position);
+				//new version with color and waving
+				if(p.length==4){
+					String colour=p[3];
+					int wave=Integer.parseInt(p[4]);
+					PersonCrowd person = new PersonCrowd(gender, age, position, colour, wave);
+					crowdList.add(person);
+				}
+				//old version without waving
+				else{
+				PersonCrowd person = new PersonCrowd(gender, age, position,"", -1);
 				crowdList.add(person);
+				}
 			}
 			setAttributes();
 			

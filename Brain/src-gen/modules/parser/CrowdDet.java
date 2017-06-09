@@ -37,7 +37,13 @@ public class CrowdDet implements IParser, Serializable{
 					int gender = Integer.parseInt(person[0]);
 					int age = Integer.parseInt(person[1]);
 					int position = Integer.parseInt(person[2]);
+					if(person.length==4){
+						String color=person[3];
+						int waving = Integer.parseInt(person[4]);
+						personList.add(new PersonCrowd(gender, age, position,color,waving));
+					}else{
 					personList.add(new PersonCrowd(gender, age, position));
+					}
 				} catch (Exception e) {
 					start.getLog().error("CrowdDet: Parsing string to int failed");
 				}
@@ -99,7 +105,7 @@ public class CrowdDet implements IParser, Serializable{
 		return this.personList.size();
 	}
 	
-	public int getSpecificCount(long gender, long minAge, long maxAge, long position){
+	public int getSpecificCount(long gender, long minAge, long maxAge, long position, String color, long waving){
 		Vector<PersonCrowd> pl = this.personList;
 		
 		int removeCounter;
@@ -123,8 +129,18 @@ public class CrowdDet implements IParser, Serializable{
 			}else if(position != 1 && pl.get(i).getPosition() != position){
 				pl.remove(i);
 				removeCounter++;
+			
+			
+			//waving	- richtig??
+			}else if(waving != -1 && pl.get(i).getWaving() != waving){
+				pl.remove(i);
+				removeCounter++;
 			}
 			
+			//color
+			//TODO
+			
+		
 			i -= removeCounter;
 		}
 		
@@ -141,10 +157,12 @@ public class CrowdDet implements IParser, Serializable{
 	}
 	
 	public String getSummaryString(){
+	//no person detected
 		if (this.personList.isEmpty()) {
 			return "[:-(] I didn't find some people.";
 		}else{
 			String sum;
+	//one person detected	
 			if (this.personList.size() == 1) {
 				sum = "[:-)] I found one person!";
 				if (this.personList.get(0).getGender() == 0) {
@@ -168,6 +186,27 @@ public class CrowdDet implements IParser, Serializable{
 				}else if(this.personList.get(0).getPosition() == 2){
 					sum += " The person is lying.";
 				}
+				
+				if (this.personList.get(0).getWaving() == 1) {
+					sum += " The person is waving.";
+				}
+				
+				if (this.personList.get(0).getColor() == "blue") {
+						sum += " The person is wearing blue.";
+				}else if(this.personList.get(0).getColor() == "green"){
+					sum += " The person is wearing green.";
+				}else if(this.personList.get(0).getColor() == "red"){
+					sum += " The person is wearing red.";
+				}else if(this.personList.get(0).getColor() == "yellow"){
+					sum += " The person is wearing yellow.";
+				}else if(this.personList.get(0).getColor() == "pink"){
+					sum += " The person is wearing pink.";
+				}else if(this.personList.get(0).getColor() == "white"){
+					sum += " The person is wearing white.";
+				}else if(this.personList.get(0).getColor() == "black"){
+					sum += " The person is wearing black.";
+				}
+			//more than one person detected
 			}else{
 				sum = "[:-)] I found " + this.personList.size() + " persons!";
 				
@@ -182,6 +221,14 @@ public class CrowdDet implements IParser, Serializable{
 				int middleAged = 0;
 				int old = 0;
 				int unknownAge = 0;
+				int waving = 0;
+				int blue = 0;
+				int green = 0;
+				int red = 0;
+				int yellow = 0;
+				int pink = 0;
+				int white = 0;
+				int black = 0;
 				
 				for (PersonCrowd person : personList) {
 					if(person.getGender() == -1){unknownGender++;}
@@ -196,6 +243,15 @@ public class CrowdDet implements IParser, Serializable{
 					if(person.getPosition() == 0){standing++;}
 					if(person.getPosition() == 1){sitting++;}
 					if(person.getPosition() == 2){lying++;}
+					
+					if(person.getColor() == "blue"){blue++;}
+					if(person.getColor() == "green"){green++;}
+					if(person.getColor() == "red"){red++;}
+					if(person.getColor() == "yellow"){yellow++;}
+					if(person.getColor() == "pink"){pink++;}
+					if(person.getColor() == "white"){white++;}
+					if(person.getColor() == "black"){black++;}
+					
 				}
 				
 				if (female == 1) {
@@ -203,13 +259,11 @@ public class CrowdDet implements IParser, Serializable{
 				}else if (female > 1){
 					sum += " " + female + " of them are female.";
 				}
-				
 				if (male == 1) {
 					sum += " One person is male.";
 				}else if (male > 1){
 					sum += " " + male + " of them are male.";
 				}
-				
 				if (unknownGender == 1) {
 					sum += " For one person I was not able to get the gender.";
 				}else if (unknownGender > 1){
@@ -222,19 +276,16 @@ public class CrowdDet implements IParser, Serializable{
 				}else if (young > 1){
 					sum += " " + young + " of the people are young.";
 				}
-				
 				if (middleAged == 1) {
 					sum += " One person is middle aged.";
 				}else if (middleAged > 1){
 					sum += " " + middleAged + " of the people are middle aged.";
 				}
-				
 				if (old == 1) {
 					sum += " One person seems old.";
 				}else if (old > 1){
 					sum += " " + old + " of the people seem old.";
 				}
-				
 				if (unknownAge == 1) {
 					sum += " For one person I was not able to detect the age.";
 				}else if (unknownAge > 1){
@@ -247,28 +298,66 @@ public class CrowdDet implements IParser, Serializable{
 				}else if (standing > 1){
 					sum += " " + standing + " of the persons are standing.";
 				}
-				
 				if (sitting == 1) {
 					sum += " One person is sitting.";
 				}else if (sitting > 1){
 					sum += " " + sitting + " of the persons are sitting.";
 				}
-				
 				if (lying == 1) {
 					sum += " One person is lying.";
 				}else if (lying > 1){
 					sum += " " + lying + " of the persons are lying.";
 				}
-			}
-			
-			
 				
-			
+				
+				if (waving == 1) {
+					sum += " One person is waving.";
+				}else if (waving > 1){
+					sum += " " + waving + " of the persons are waving.";
+				}
+				
+				
+				if (blue == 1) {
+					sum += " One person is wearing blue.";
+				}else if (blue > 1){
+					sum += " " + blue + " of the persons are wearing blue.";
+				}
+				if (green == 1) {
+					sum += " One person is green.";
+				}else if (green > 1){
+					sum += " " + green + " of the persons are wearing green.";
+				}
+				if (red == 1) {
+					sum += " One person is red.";
+				}else if (red > 1){
+					sum += " " + red + " of the persons are wearing red.";
+				}
+				if (yellow == 1) {
+					sum += " One person is wearing yellow.";
+				}else if (yellow > 1){
+					sum += " " + yellow + " of the persons are wearing yellow.";
+				}
+				if (pink == 1) {
+					sum += " One person is wearing pink.";
+				}else if (pink > 1){
+					sum += " " + pink + " of the persons are wearing pink.";
+				}
+				if (white == 1) {
+					sum += " One person is wearing white.";
+				}else if (white > 1){
+					sum += " " + white + " of the persons are wearing white.";
+				}
+				if (black == 1) {
+					sum += " One person is wearing black.";
+				}else if (black > 1){
+					sum += " " + black + " of the persons are wearing black.";
+				}
+			}
 			return sum;
-		
 		}
 	}
 
+	
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
 		int count;
 		
@@ -285,7 +374,7 @@ public class CrowdDet implements IParser, Serializable{
 			
 			
 		case "countMale":
-			count = getSpecificCount(0,-1,-1,-1);
+			count = getSpecificCount(0,-1,-1,-1,"",-1);
 			if (count == 0) {
 				return "I found no male people.";
 			}else if(count == 1){
@@ -296,7 +385,7 @@ public class CrowdDet implements IParser, Serializable{
 			
 
 		case "countFemale":
-			count = getSpecificCount(1,-1,-1,-1);
+			count = getSpecificCount(1,-1,-1,-1,"",-1);
 			if (count == 0) {
 				return "I found no female people.";
 			}else if(count == 1){
@@ -307,7 +396,7 @@ public class CrowdDet implements IParser, Serializable{
 			
 
 		case "countStanding":
-			count = getSpecificCount(-1,-1,-1,0);
+			count = getSpecificCount(-1,-1,-1,0,"",-1);
 			if (count == 0) {
 				return "I found no standing people.";
 			}else if(count == 1){
@@ -318,7 +407,7 @@ public class CrowdDet implements IParser, Serializable{
 			
 
 		case "countSitting":
-			count = getSpecificCount(-1,-1,-1,1);
+			count = getSpecificCount(-1,-1,-1,1,"",-1);
 			if (count == 0) {
 				return "I found no sitting people.";
 			}else if(count == 1){
@@ -329,7 +418,7 @@ public class CrowdDet implements IParser, Serializable{
 			
 
 		case "countLaying":
-			count = getSpecificCount(-1,-1,-1,2);
+			count = getSpecificCount(-1,-1,-1,2,"",-1);
 			if (count == 0) {
 				return "I found no laying people.";
 			}else if(count == 1){
@@ -343,7 +432,7 @@ public class CrowdDet implements IParser, Serializable{
 			return "[:-(] I'm sorry, I can't detect hand signs";
 
 		case "countYoung":
-			count = getSpecificCount(-1,-1,18,-1);
+			count = getSpecificCount(-1,-1,18,-1,"",-1);
 			if (count == 0) {
 				return "I found no person younger than 21.";
 			}else if(count == 1){
@@ -354,7 +443,7 @@ public class CrowdDet implements IParser, Serializable{
 			
 
 		case "countOld":
-			count = getSpecificCount(-1,79,-1,1);
+			count = getSpecificCount(-1,79,-1,1,"",-1);
 			if (count == 0) {
 				return "I found no person older than 59.";
 			}else if(count == 1){
@@ -364,7 +453,7 @@ public class CrowdDet implements IParser, Serializable{
 			}
 			
 		case "countBoys":
-			count = getSpecificCount(0,-1,18,-1);
+			count = getSpecificCount(0,-1,18,-1,"",-1);
 			if (count == 0) {
 				return "I found no male person younger than 21.";
 			}else if(count == 1){
@@ -374,7 +463,7 @@ public class CrowdDet implements IParser, Serializable{
 			}
 			
 		case "countGirls":
-			count = getSpecificCount(1,-1,18,-1);
+			count = getSpecificCount(1,-1,18,-1,"",-1);
 			if (count == 0) {
 				return "I found no female person younger than 21.";
 			}else if(count == 1){
@@ -383,8 +472,18 @@ public class CrowdDet implements IParser, Serializable{
 				return "I found " + count + " female person younger than 21.";
 			}
 			
-		
-
+		case "countWaving":
+			count = getSpecificCount(-1,-1,-1,-1,"",1);
+			if (count == 0) {
+				return "I found no waving person.";
+			}else if(count == 1){
+					return "I found one waving person.";
+			}else{
+				return "I found " + count + " waving person.";
+			}
+			
+		//TODO - COLOR	
+			
 		default:
 			return "I don't know, what you mean with " + inDetails + ".";
 		}
