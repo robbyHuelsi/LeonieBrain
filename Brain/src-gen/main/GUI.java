@@ -5,17 +5,19 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.InetAddress;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
@@ -27,17 +29,26 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import callbacks.OpCallbacksInUse;
+import modules.Module;
 
 public class GUI extends JFrame{
+	private Start start;
+	private Module tableModulesSelectedModule;
+	
 	private JFrame total;
 	private JTable tableStateInfo;
 	private JTable tableModules;
 	private JTable tablePersons;
 	private JTextArea textAreaLog;
+	
 	private JPopupMenu tableModulesPopup;
+	private JMenuItem tableModulesPopupItemEditIp;
+	private JMenuItem tableModulesPopupItemEditPort;
+	private JCheckBoxMenuItem tableModulesPopupItemEditInternal;
 	
 	public GUI(Start start){
 		super("LeonieBrain");
+		this.start = start;
 		
 		total = new JFrame ("Leonie Brain");
 		total.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -156,9 +167,17 @@ public class GUI extends JFrame{
 					if (col == 0) {
 						return start.getModules().get(row-1).getName();
 					}else if (col == 1) {
-						return start.getModules().get(row-1).getIp();
+						if(start.getModules().get(row-1).isInternal()){
+							return "internal";
+						}else{
+							return start.getModules().get(row-1).getIp();
+						}
 					}else if (col == 2) {
-						return start.getModules().get(row-1).getPort();
+						if(start.getModules().get(row-1).isInternal()){
+							return "internal";
+						}else{
+							return start.getModules().get(row-1).getPort();
+						}
 					}else if (col == 3) {
 						//Nur weiter, wenn Sm vorhanden
 						if (start.getStatemachine() == null){return "No SM";}
@@ -314,10 +333,68 @@ public class GUI extends JFrame{
 		});
 		
 		tableModulesPopup = new JPopupMenu("Edit Module");
-//		JMenuItem cut = new JMenuItem("Cut");  
-//		JMenuItem copy = new JMenuItem("Copy");  
-//		JMenuItem paste = new JMenuItem("Paste");  
-//		tableModulesPopup.add(cut); tableModulesPopup.add(copy); tableModulesPopup.add(paste);
+		tableModulesPopupItemEditIp = new JMenuItem("Edit IP...");  
+		tableModulesPopupItemEditPort = new JMenuItem("Edit Port...");  
+		tableModulesPopupItemEditInternal = new JCheckBoxMenuItem("Internal");  
+		tableModulesPopup.add(tableModulesPopupItemEditIp);
+		tableModulesPopup.add(tableModulesPopupItemEditPort);
+		tableModulesPopup.add(tableModulesPopupItemEditInternal);
+		
+		tableModulesPopupItemEditIp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (tableModulesSelectedModule != null) {
+					String str = (String) JOptionPane.showInputDialog(null, "Enter IP address:", tableModulesSelectedModule.getName(), JOptionPane.QUESTION_MESSAGE, null, null, tableModulesSelectedModule.getIp());
+					if(str != null && !str.equals(tableModulesSelectedModule.getIp())){
+						InetAddress address = null;
+						try {
+							address = InetAddress.getByName(str);
+						} catch (Exception e2) {
+							System.err.println("input is not an address");
+						}
+						if(address != null){
+							tableModulesSelectedModule.setIp(str);
+							start.getModules().save();
+							updateTableModulesUI();
+						}
+					}else{
+						// System.out.println("nothing");
+					}
+				}
+			}
+		});
+		
+		tableModulesPopupItemEditPort.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (tableModulesSelectedModule != null) {
+					String str = (String) JOptionPane.showInputDialog(null, "Enter Port:", tableModulesSelectedModule.getName(), JOptionPane.QUESTION_MESSAGE, null, null, tableModulesSelectedModule.getPort().toString());
+					if(str != null && !str.equals(tableModulesSelectedModule.getPort().toString())){
+						int port = -1;
+						try {
+							port = Integer.parseInt(str);
+						} catch (Exception e2) {
+							System.err.println("input is not an integer");
+						}
+						if (port >-1) {
+							tableModulesSelectedModule.setPort(port);
+							start.getModules().save();
+							updateTableModulesUI();
+						}
+					}else{
+						// System.out.println("nothing");
+					}
+				}
+			}
+		});
+		
+		tableModulesPopupItemEditInternal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (tableModulesSelectedModule != null) {
+					tableModulesSelectedModule.setInternal(!tableModulesSelectedModule.isInternal());
+					start.getModules().save();
+					updateTableModulesUI();
+				}
+			}
+		});
 	}
 	
 	public void updateTableStateInfoUI(){
@@ -329,19 +406,25 @@ public class GUI extends JFrame{
 	}
 	
 	private void tableModulesMousePressedReleased(MouseEvent e){
-		int r = tableModules.rowAtPoint(e.getPoint());
-        if (r >= 1 && r < tableModules.getRowCount()) {
-        	tableModules.setRowSelectionInterval(r, r);
+		int r = this.tableModules.rowAtPoint(e.getPoint());
+        if (r >= 1 && r < this.tableModules.getRowCount()) {
+        	this.tableModules.setRowSelectionInterval(r, r);
         } else {
-        	tableModules.clearSelection();
+        	this.tableModules.clearSelection();
         }
 
-        int rowindex = tableModules.getSelectedRow();
-        if (rowindex < 1){
+        int rowindex = this.tableModules.getSelectedRow();
+        if (rowindex > 0){
+        	this.tableModulesSelectedModule = this.start.getModules().get(rowindex-1);
+        }else{
+        	this.tableModulesSelectedModule = null;
         	return;
         }
         if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
-        	tableModulesPopup.show(e.getComponent(), e.getX(), e.getY());
+        	this.tableModulesPopupItemEditInternal.setState(this.tableModulesSelectedModule.isInternal());
+        	this.tableModulesPopup.show(e.getComponent(), e.getX(), e.getY());
+        }else{
+        	
         }
 	}
 

@@ -113,4 +113,8 @@ public class Module implements Serializable{
 	public boolean isInternal() {
 		return internal;
 	}
+
+	public void setInternal(boolean internal) {
+		this.internal = internal;
+	}
 }
