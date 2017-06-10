@@ -421,7 +421,24 @@ public class GUI extends JFrame{
         	return;
         }
         if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
-        	this.tableModulesPopupItemEditInternal.setState(this.tableModulesSelectedModule.isInternal());
+        	this.tableModulesPopupItemEditIp.setEnabled(
+        			!this.tableModulesSelectedModule.getName().equals("Brain") &&
+        			!this.tableModulesSelectedModule.isInternal()
+        			);
+        	
+        	this.tableModulesPopupItemEditPort.setEnabled(
+        			!this.tableModulesSelectedModule.isInternal()
+        			);
+        	
+        	this.tableModulesPopupItemEditInternal.setEnabled(
+        			!this.tableModulesSelectedModule.getName().equals("Brain") &&
+        			(this.start.getStatemachine()==null || !this.start.getStatemachine().isRunning())
+        			);
+        	
+        	this.tableModulesPopupItemEditInternal.setState(
+        			this.tableModulesSelectedModule.isInternal()
+        			);
+        	
         	this.tableModulesPopup.show(e.getComponent(), e.getX(), e.getY());
         }else{
         	

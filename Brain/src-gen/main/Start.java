@@ -9,6 +9,7 @@ import HBrain.HBrain;
 import Persons.PersonList;
 import communication.Communication;
 import modules.Modules;
+import callbacks.InternalModulesCallback;
 
 public class Start{
 	
@@ -91,9 +92,12 @@ public class Start{
 					inStart.getModules().getIp("Mira"),
 					inStart.getModules().getPort("Mira").toString(),
 					};
+			
 			try {
 				hbrain = new HBrain(hBrainArgs);
-				hbrain.start();
+				InternalModulesCallback callback = new InternalModulesCallback();
+				hbrain.registerCallbackLog(callback.new Log());
+				hbrain.registerCallbackResponseBrain(callback.new ResponseBrain());
 			} catch (UnknownHostException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
