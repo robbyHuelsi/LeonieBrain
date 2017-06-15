@@ -483,4 +483,14 @@ public class Statemachine {
 		return null;
 	}
 	
+	
+	public boolean isModuleInUse(String name){
+		for (OpCallbacksInUse op : opCallbacksInUse) {
+			if (op.getName().equals(name)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

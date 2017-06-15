@@ -1,5 +1,6 @@
 package main;
 
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -8,6 +9,7 @@ import HBrain.HBrain;
 import Persons.PersonList;
 import communication.Communication;
 import modules.Modules;
+import callbacks.InternalModulesCallback;
 
 public class Start{
 	
@@ -76,6 +78,38 @@ public class Start{
 		//Remove all parsed informations in the modules
 		inStart.modules.removeParsedInformation();
 		
+		//Init HBrain if needed
+		if(inStart.getStatemachine().isModuleInUse("HBrain")){
+			String[] hBrainArgs = {
+					"hello",
+					inStart.getModules().getIp("HBrain"),
+					inStart.getModules().getPort("HBrain").toString(),
+					inStart.getModules().getIp("Brain"),
+					inStart.getModules().getPort("Brain").toString(),
+					inStart.getModules().getIp("TTS"),
+					inStart.getModules().getPort("TTS").toString(),
+					inStart.getModules().getIp("Emofani"),
+					inStart.getModules().getPort("Emofani").toString(),
+					inStart.getModules().getIp("Mira"),
+					inStart.getModules().getPort("Mira").toString(),
+					};
+			
+//			for (String string : hBrainArgs) {
+//				System.out.println(string);
+//			}
+			
+			try {
+				hbrain = HBrain.instanceOf(hBrainArgs);
+				InternalModulesCallback callback = new InternalModulesCallback();
+				hbrain.registerCallbackLog(callback.new Log());
+				hbrain.registerCallbackResponseBrain(callback.new ResponseBrain());
+			} catch (UnknownHostException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		
 		Statemachine sm = this.statemachine;
 		log.startSM(this.statemachine.getName());
 		System.out.println("----------  Statemachine " + this.statemachine.getName() + " start  ----------");
@@ -92,6 +126,10 @@ public class Start{
 						e.printStackTrace();
 					}
 				}
+		    	
+		    	if(hbrain != null){
+		    		hbrain.stop();
+		    	}
 		    	
 		    	log.endSM();
 		    	System.out.println("----------   Statemachine " + sm.getName() + " end   ----------");
@@ -152,5 +190,12 @@ public class Start{
 		}
 		//System.out.println(classNames.toString());
 		return classNames;
+	}
+
+
+
+
+	public static HBrain getHbrain() {
+		return hbrain;
 	}
 }
