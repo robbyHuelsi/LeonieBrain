@@ -255,11 +255,11 @@ public class Test_LeapMotionStatemachine implements ITest_LeapMotionStatemachine
 	}
 	
 	private boolean check_main_region_StartSTT_tr1_tr1() {
-		return (sCILeapMotion.operationCallback.getGesture()== null?"false" ==null :sCILeapMotion.operationCallback.getGesture().equals("false"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"right" ==null :sCILeapMotion.operationCallback.getGesture().equals("right"));
 	}
 	
 	private boolean check_main_region_StartSTT_tr2_tr2() {
-		return (sCILeapMotion.operationCallback.getGesture()== null?"true" ==null :sCILeapMotion.operationCallback.getGesture().equals("true"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"left" ==null :sCILeapMotion.operationCallback.getGesture().equals("left"));
 	}
 	
 	private boolean check_main_region_Left_tr0_tr0() {
@@ -283,7 +283,7 @@ public class Test_LeapMotionStatemachine implements ITest_LeapMotionStatemachine
 	}
 	
 	private boolean check_main_region__choice_0_tr0_tr0() {
-		return getCounter()<2;
+		return getCounter()<10;
 	}
 	
 	private boolean check_main_region__choice_0_tr1_tr1() {
@@ -342,7 +342,7 @@ public class Test_LeapMotionStatemachine implements ITest_LeapMotionStatemachine
 	private void entryAction_main_region_StartSTT() {
 		timer.setTimer(this, 0, 150 * 1000, false);
 		
-		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(4);
 		
 		setCounter(getCounter() + 1);
 	}

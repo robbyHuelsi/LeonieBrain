@@ -14,7 +14,7 @@ public class InternalModulesCallback{
 				MessageParser.ParseMessage(msg);
 				return true;
 			}
-			start.getLog().error("responseBrain callback: There is a problem with param");
+			start.getLog().error("responseBrain callback: Message is null");
 			return false;
 		}
 	}
@@ -23,7 +23,7 @@ public class InternalModulesCallback{
 		@Override
 		public boolean call(String msg) {
 			if(msg != null){
-					start.getLog().log(msg);
+					start.getLog().log("Inside HBrain: " + msg);
 					return true;
 			}
 			start.getLog().error("log callback: There is a problem with param");
