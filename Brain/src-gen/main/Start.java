@@ -81,6 +81,7 @@ public class Start{
 		//Init HBrain if needed
 		if(inStart.getStatemachine().isModuleInUse("HBrain")){
 			String[] hBrainArgs = {
+					"hello",
 					inStart.getModules().getIp("HBrain"),
 					inStart.getModules().getPort("HBrain").toString(),
 					inStart.getModules().getIp("Brain"),
@@ -93,8 +94,12 @@ public class Start{
 					inStart.getModules().getPort("Mira").toString(),
 					};
 			
+//			for (String string : hBrainArgs) {
+//				System.out.println(string);
+//			}
+			
 			try {
-				hbrain = new HBrain(hBrainArgs);
+				hbrain = HBrain.instanceOf(hBrainArgs);
 				InternalModulesCallback callback = new InternalModulesCallback();
 				hbrain.registerCallbackLog(callback.new Log());
 				hbrain.registerCallbackResponseBrain(callback.new ResponseBrain());
