@@ -8,14 +8,41 @@ public class PersonCrowd implements Serializable{
 	private int gender;
 	private int age;
 	private int position;
+	private String color;
+	private int waving;
 	
+
 	public PersonCrowd(int gender, int age, int position) {
 		setGender(gender);
 		setAge(age);
 		setPosition(position);
+		setColor("");
+		setWaving(0);
 	}
 	
+	public PersonCrowd(int gender, int age, int position, String color, int waving) {
+		setGender(gender);
+		setAge(age);
+		setPosition(position);
+		setColor(color);
+		setWaving(waving);
+	}
 	
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public int getWaving() {
+		return waving;
+	}
+
+	public void setWaving(int waving) {
+		this.waving = waving;
+	}
 
 	public void setGender(int gender) {
 		this.gender = gender;
@@ -25,7 +52,6 @@ public class PersonCrowd implements Serializable{
 		return gender;
 	}
 
-
 	public void setAge(int age) {
 		this.age = age;
 	}
@@ -33,7 +59,6 @@ public class PersonCrowd implements Serializable{
 	public int getAge() {
 		return age;
 	}
-
 	
 	public void setPosition(int position) {
 		this.position = position;
@@ -42,6 +67,5 @@ public class PersonCrowd implements Serializable{
 	public int getPosition() {
 		return position;
 	}
-
 
 }

@@ -51,9 +51,6 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getTotalCount();
 	}
 
-	public long getSpecificCount(long gender, long minAge, long maxAge, long position) {
-		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getSpecificCount(gender, minAge, maxAge, position);
-	}
 
 	public boolean areAllGendersDetected() {
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).areAllGendersDetected();
@@ -71,6 +68,11 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	@Override
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getAnswerForSecificCrowdDetails(inDetails);
+	}
+
+	@Override
+	public long getSpecificCount(long gender, long minAge, long maxAge, long position, String color, long waving) {
+		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getSpecificCount(gender, minAge, maxAge, position, color, waving);
 	}	
 	
 }
