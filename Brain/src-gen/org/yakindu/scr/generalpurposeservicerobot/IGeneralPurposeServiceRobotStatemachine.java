@@ -175,7 +175,7 @@ public interface IGeneralPurposeServiceRobotStatemachine extends ITimerCallback,
 		
 		public long getTotalCount();
 		
-		public long getSpecificCount(long gender, long minAge, long maxAge, long position);
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position, String color, long waving);
 		
 		public String getSummaryText();
 		
