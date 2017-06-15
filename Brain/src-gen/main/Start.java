@@ -132,6 +132,10 @@ public class Start{
 		    	}
 		    	
 		    	log.endSM();
+		    	if (hbrain != null) {
+					hbrain.stop();
+					log.log("HBrain stopped");
+				}
 		    	System.out.println("----------   Statemachine " + sm.getName() + " end   ----------");
 		    }
 		}).start();
