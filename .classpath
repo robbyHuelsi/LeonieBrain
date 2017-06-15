@@ -2,13 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="Brain/src"/>
 	<classpathentry kind="src" path="Brain/src-gen"/>
-	<classpathentry kind="src" path="JavaUDP/src"/>
-	<classpathentry kind="src" path="testTimer/src"/>
-	<classpathentry kind="src" path="testTimer/src-gen"/>
-	<classpathentry kind="src" path="traffic_light/src-gen"/>
-	<classpathentry kind="src" path="UDPBrain_Test/src"/>
-	<classpathentry kind="src" path="UDPBrain_Test/src-gen"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/robbyMBP/Documents/github/LeonieBrain/JavaUDP.zip"/>
 	<classpathentry kind="output" path="Brain/bin"/>
 </classpath>

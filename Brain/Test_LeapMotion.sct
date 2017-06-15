@@ -6,7 +6,7 @@
         <outgoingTransitions xmi:id="_cOsCwC7OEee6ptFPoPLOZA" specification="" target="_4s2hDTL2Eee3ivyYtmIuJg"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_j-AkzjKFEeerZKfLBGQ0NQ" specification="entry /&#xA;LeapMotion.sendGestureDetectionOnOff(3);&#xA;counter += 1&#xA;&#xA;exit /&#xA;LeapMotion.sendGestureDetectionOnOff(0)&#xD;&#xA;" name="StartSTT" incomingTransitions="_6v_dcDL2Eee3ivyYtmIuJg _MtAcoDL3Eee3ivyYtmIuJg">
-        <outgoingTransitions xmi:id="_ZM6S4DL3Eee3ivyYtmIuJg" specification="after 15s" target="_L-5HgDL5Eee3ivyYtmIuJg"/>
+        <outgoingTransitions xmi:id="_ZM6S4DL3Eee3ivyYtmIuJg" specification="after 150s" target="_L-5HgDL5Eee3ivyYtmIuJg"/>
         <outgoingTransitions xmi:id="_j-By4DKFEeerZKfLBGQ0NQ" specification="[LeapMotion.getGesture == &quot;false&quot;]" target="_j-FdQDKFEeerZKfLBGQ0NQ"/>
         <outgoingTransitions xmi:id="_j-BL-jKFEeerZKfLBGQ0NQ" specification="[LeapMotion.getGesture == &quot;true&quot;]" target="_j-EPIDKFEeerZKfLBGQ0NQ"/>
       </vertices>

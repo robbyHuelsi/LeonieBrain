@@ -340,7 +340,7 @@ public class Test_LeapMotionStatemachine implements ITest_LeapMotionStatemachine
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_StartSTT() {
-		timer.setTimer(this, 0, 15*1000, false);
+		timer.setTimer(this, 0, 150 * 1000, false);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 		
@@ -349,7 +349,7 @@ public class Test_LeapMotionStatemachine implements ITest_LeapMotionStatemachine
 	
 	/* Entry action for state 'Left'. */
 	private void entryAction_main_region_Left() {
-		timer.setTimer(this, 1, 1*1000, false);
+		timer.setTimer(this, 1, 1 * 1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(-30);
 		
@@ -358,7 +358,7 @@ public class Test_LeapMotionStatemachine implements ITest_LeapMotionStatemachine
 	
 	/* Entry action for state 'Right'. */
 	private void entryAction_main_region_Right() {
-		timer.setTimer(this, 2, 1*1000, false);
+		timer.setTimer(this, 2, 1 * 1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(30);
 		
