@@ -12,7 +12,7 @@ import modules.parser.STT;
 public class OpCallbackImplLeapMotion implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCILeapMotionOperationCallback,
 	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCILeapMotionOperationCallback,
-	org.yakindu.scr.test_leapmotion.ITest_LeapMotionStatemachine.SCILeapMotionOperationCallback,
+	org.yakindu.scr.test_leapmotionleftright.ITest_LeapMotionLeftRightStatemachine.SCILeapMotionOperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCILeapMotionOperationCallback
 {
 	private Log log = Start.instanceOf().getLog();

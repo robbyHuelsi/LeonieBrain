@@ -37,7 +37,7 @@ public class CrowdDet implements IParser, Serializable{
 					int gender = Integer.parseInt(person[0]);
 					int age = Integer.parseInt(person[1]);
 					int position = Integer.parseInt(person[2]);
-					if(person.length==4){
+					if(person.length==5){
 						int color=Integer.parseInt(person[3]);
 						int waving = Integer.parseInt(person[4]);
 						personList.add(new PersonCrowd(gender, age, position,color,waving));

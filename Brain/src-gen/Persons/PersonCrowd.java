@@ -25,7 +25,7 @@ public class PersonCrowd implements Serializable{
 		setAge(age);
 		setPosition(position);
 		setColor(-1);
-		setWaving(0);
+		setWaving(-1);
 	}
 	
 	public PersonCrowd(int gender, int age, int position, int color, int waving) {

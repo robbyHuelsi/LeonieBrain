@@ -18,6 +18,8 @@ public class FollowMe implements IParser, Serializable {
 		this.start = start;
 		
 		if (data.equals("FOUND")) {
+			//test
+			this.setDetectionPersonFound(true);
 			return true;
 			
 		}else if(data.equals("LOST")){
