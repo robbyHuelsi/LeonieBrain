@@ -79,7 +79,7 @@ public class Start{
 		inStart.modules.removeParsedInformation();
 		
 		//Init HBrain if needed
-		if(inStart.getStatemachine().isModuleInUse("HBrain")){
+		if(inStart.getStatemachine().isModuleInUse("HBrain") && inStart.getModules().get("HBrain").isInternal()){
 			String[] hBrainArgs = {
 					"hello",
 					inStart.getModules().getIp("HBrain"),

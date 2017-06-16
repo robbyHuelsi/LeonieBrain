@@ -645,7 +645,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		
 		setCupboard(1);
 		
-		setTiltAngle(-18);
+		setTiltAngle(-30);
 	}
 	
 	/* Entry action for state 'inspectTable'. */
@@ -728,7 +728,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	private void entryAction_main_region_C1() {
 		setCupboardGWP(23);
 		
-		setPanAngle(45);
+		setPanAngle(-45);
 	}
 	
 	/* Entry action for state 'Bumpered'. */
