@@ -2868,7 +2868,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		sCIVBrain.operationCallback.savePersonList();
 		
-		sCISTT.operationCallback.sendSpeechDetectionName();
+		sCISTT.operationCallback.sendSpeechDetectionName(10);
 		
 		setNameBuffer("");
 	}
@@ -2882,8 +2882,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	
 	/* Entry action for state 'STT3'. */
 	private void entryAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		setCounter(counter + 1);
 	}
 	
@@ -2917,7 +2915,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		setCounter(counter + 1);
 		
-		sCISTT.operationCallback.sendSpeechDetectionYesNo();
+		sCISTT.operationCallback.sendSpeechDetectionYesNo(7);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 	}
@@ -3013,7 +3011,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		setCounter(counter + 1);
 		
-		sCISTT.operationCallback.sendSpeechDetectionYesNo();
+		sCISTT.operationCallback.sendSpeechDetectionYesNo(7);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 	}
@@ -3143,7 +3141,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		setCounter(counter + 1);
 		
-		sCISTT.operationCallback.sendSpeechDetectionYesNo();
+		sCISTT.operationCallback.sendSpeechDetectionYesNo(7);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 	}
@@ -3279,7 +3277,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	private void entryAction_main_AtWP03_FingerAlphabet__inner_region_StartSTT() {
 		setCounter(counter + 1);
 		
-		sCISTT.operationCallback.sendSpeechDetectionYesNo();
+		sCISTT.operationCallback.sendSpeechDetectionYesNo(7);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 	}
@@ -3291,8 +3289,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(false);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
 		sCIMira.operationCallback.sendSearchOnOff(false);
 		
@@ -3405,14 +3401,10 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(false);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Entry action for state 'endOfStory'. */
 	private void entryAction_main_endeGutallesGut_inner_region_endOfStory() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("Puuuh I met so many interesting people! [:-)]I was waiting so long for this moment. You know my friends were in a big hurry to prepare me for this. I had to learn so many things from them: finding humans, recognising them, understanding their language and facial expressions. I saw attractive ladies, with and without glasses. I also found new robotics friends coming from many countries around the world. I am so happy that we came here together! The team RT Lions will go on to make me more and more intelligent and collaborative. The future is close!");
 	}
 	
@@ -3468,8 +3460,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCICurrPerson.operationCallback.resetCurrPerson();
 		
 		sCIVBrain.operationCallback.resetCountFoundFaces();
@@ -3482,11 +3472,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		timer.unsetTimer(this, 1);
 	}
 	
-	/* Exit action for state 'Getting Name'. */
-	private void exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-	}
-	
 	/* Exit action for state 'STT_1'. */
 	private void exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1() {
 		timer.unsetTimer(this, 2);
@@ -3497,8 +3482,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		timer.unsetTimer(this, 3);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Exit action for state 'Farewell_1'. */
@@ -3526,8 +3509,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		timer.unsetTimer(this, 8);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Exit action for state 'StartSTT'. */
@@ -3535,8 +3516,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		timer.unsetTimer(this, 9);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Exit action for state 'start_estimation'. */
@@ -3572,8 +3551,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_AtWP03_FingerAlphabet__inner_region_StartSTT() {
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Exit action for state 'Interrupt Normal Process'. */
@@ -4660,7 +4637,6 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 	/* Default exit sequence for state Getting Name */
 	private void exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name() {
 		exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName();
-		exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 	}
 	
 	/* Default exit sequence for state STT_1 */
@@ -5457,52 +5433,42 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1:
@@ -5897,52 +5863,42 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_mainStorry_inner_region_FaceDataInterpretation();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1:
@@ -6238,43 +6194,33 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo();
-			exitAction_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1:
 			exitSequence_main_mainStorry_inner_region_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1();

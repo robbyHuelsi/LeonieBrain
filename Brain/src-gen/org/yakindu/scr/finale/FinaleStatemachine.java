@@ -1006,11 +1006,11 @@ public class FinaleStatemachine implements IFinaleStatemachine {
 	}
 	
 	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr0_tr0() {
-		return (sCILeapMotion.operationCallback.getGesture()== null?"true" ==null :sCILeapMotion.operationCallback.getGesture().equals("true"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"left" ==null :sCILeapMotion.operationCallback.getGesture().equals("left"));
 	}
 	
 	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr1_tr1() {
-		return (sCILeapMotion.operationCallback.getGesture()== null?"false" ==null :sCILeapMotion.operationCallback.getGesture().equals("false"));
+		return (sCILeapMotion.operationCallback.getGesture()== null?"right" ==null :sCILeapMotion.operationCallback.getGesture().equals("right"));
 	}
 	
 	private boolean check_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region__choice_0_tr2_tr2() {
@@ -1619,8 +1619,6 @@ public class FinaleStatemachine implements IFinaleStatemachine {
 	private void entryAction_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness() {
 		timer.setTimer(this, 18, 30 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("I'm also helpful to find the best look for the day. I can analyse the attractiveness of a person and I want to demonstrate this now. Please hold on till I'm finished.");
 	}
 	
@@ -1684,7 +1682,7 @@ public class FinaleStatemachine implements IFinaleStatemachine {
 	private void entryAction_main_LeapMotion_LeapMotion_in_OpenChallenge_Detect_LeftRight_main_region_StartSTT() {
 		timer.setTimer(this, 27, 10 * 1000, false);
 		
-		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
+		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(4);
 		
 		setCounter(getCounter() + 1);
 		
@@ -1746,7 +1744,7 @@ public class FinaleStatemachine implements IFinaleStatemachine {
 	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_StartSTT() {
 		timer.setTimer(this, 33, 5 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
@@ -1761,8 +1759,6 @@ public class FinaleStatemachine implements IFinaleStatemachine {
 	/* Entry action for state 'StropSTT'. */
 	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_StropSTT() {
 		timer.setTimer(this, 35, 20 * 1000, false);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
 		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
@@ -1786,11 +1782,6 @@ public class FinaleStatemachine implements IFinaleStatemachine {
 		timer.setTimer(this, 38, 20 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
-	}
-	
-	/* Entry action for state 'StopSTT'. */
-	private void entryAction_main_WolframAlphaTest_main_region_StopSTT() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Entry action for state 'leave2'. */
@@ -2352,7 +2343,6 @@ public class FinaleStatemachine implements IFinaleStatemachine {
 	
 	/* 'default' enter sequence for state StopSTT */
 	private void enterSequence_main_WolframAlphaTest_main_region_StopSTT_default() {
-		entryAction_main_WolframAlphaTest_main_region_StopSTT();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_WolframAlphaTest_main_region_StopSTT;
 	}

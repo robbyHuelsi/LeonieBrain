@@ -323,7 +323,6 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 		main_WolframAlphaTest_main_region_STT,
 		main_WolframAlphaTest_main_region_STT_STT_StartSTT,
 		main_WolframAlphaTest_main_region_STT_STT_TellSpokenText,
-		main_WolframAlphaTest_main_region_STT_STT_StropSTT,
 		main_WolframAlphaTest_main_region_TellAnswer,
 		main_WolframAlphaTest_main_region_TellAction,
 		main_WolframAlphaTest_main_region_TellIncomprehensible,
@@ -343,7 +342,7 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[41];
+	private final boolean[] timeEvents = new boolean[40];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -593,13 +592,11 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 			return stateVector[0] == State.main_WolframAlphaTest_main_region_StateA;
 		case main_WolframAlphaTest_main_region_STT:
 			return stateVector[0].ordinal() >= State.
-					main_WolframAlphaTest_main_region_STT.ordinal()&& stateVector[0].ordinal() <= State.main_WolframAlphaTest_main_region_STT_STT_StropSTT.ordinal();
+					main_WolframAlphaTest_main_region_STT.ordinal()&& stateVector[0].ordinal() <= State.main_WolframAlphaTest_main_region_STT_STT_TellSpokenText.ordinal();
 		case main_WolframAlphaTest_main_region_STT_STT_StartSTT:
 			return stateVector[0] == State.main_WolframAlphaTest_main_region_STT_STT_StartSTT;
 		case main_WolframAlphaTest_main_region_STT_STT_TellSpokenText:
 			return stateVector[0] == State.main_WolframAlphaTest_main_region_STT_STT_TellSpokenText;
-		case main_WolframAlphaTest_main_region_STT_STT_StropSTT:
-			return stateVector[0] == State.main_WolframAlphaTest_main_region_STT_STT_StropSTT;
 		case main_WolframAlphaTest_main_region_TellAnswer:
 			return stateVector[0] == State.main_WolframAlphaTest_main_region_TellAnswer;
 		case main_WolframAlphaTest_main_region_TellAction:
@@ -910,6 +907,10 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_STT_STT_StartSTT_tr0_tr0() {
+		return sCISTT.spokenTextReceived;
+	}
+	
+	private boolean check_main_WolframAlphaTest_main_region_STT_STT_StartSTT_tr1_tr1() {
 		return timeEvents[33];
 	}
 	
@@ -929,20 +930,12 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 		return timeEvents[34];
 	}
 	
-	private boolean check_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr0_tr0() {
-		return sCISTT.spokenTextReceived;
-	}
-	
-	private boolean check_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr1_tr1() {
-		return timeEvents[35];
-	}
-	
 	private boolean check_main_WolframAlphaTest_main_region_TellAnswer_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellAnswer_tr1_tr1() {
-		return timeEvents[36];
+		return timeEvents[35];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellAction_tr0_tr0() {
@@ -950,7 +943,7 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellAction_tr1_tr1() {
-		return timeEvents[37];
+		return timeEvents[36];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellIncomprehensible_tr0_tr0() {
@@ -958,7 +951,7 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_TellIncomprehensible_tr1_tr1() {
-		return timeEvents[38];
+		return timeEvents[37];
 	}
 	
 	private boolean check_main_WolframAlphaTest_main_region_StopSTT_tr0_tr0() {
@@ -978,7 +971,7 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[39];
+		return timeEvents[38];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -990,7 +983,7 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[40];
+		return timeEvents[39];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -1355,7 +1348,12 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	
 	private void effect_main_WolframAlphaTest_main_region_STT_STT_StartSTT_tr0() {
 		exitSequence_main_WolframAlphaTest_main_region_STT_STT_StartSTT();
-		enterSequence_main_WolframAlphaTest_main_region_STT_STT_StropSTT_default();
+		react_main_WolframAlphaTest_main_region_STT_STT__choice_0();
+	}
+	
+	private void effect_main_WolframAlphaTest_main_region_STT_STT_StartSTT_tr1() {
+		exitSequence_main_WolframAlphaTest_main_region_STT_STT_StartSTT();
+		react_main_WolframAlphaTest_main_region_STT_STT_exit_incomprehensible();
 	}
 	
 	private void effect_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText_tr0() {
@@ -1375,16 +1373,6 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	
 	private void effect_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText_tr3() {
 		exitSequence_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText();
-		react_main_WolframAlphaTest_main_region_STT_STT_exit_incomprehensible();
-	}
-	
-	private void effect_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr0() {
-		exitSequence_main_WolframAlphaTest_main_region_STT_STT_StropSTT();
-		react_main_WolframAlphaTest_main_region_STT_STT__choice_0();
-	}
-	
-	private void effect_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr1() {
-		exitSequence_main_WolframAlphaTest_main_region_STT_STT_StropSTT();
 		react_main_WolframAlphaTest_main_region_STT_STT_exit_incomprehensible();
 	}
 	
@@ -1619,8 +1607,6 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	private void entryAction_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness() {
 		timer.setTimer(this, 18, 30 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("I'm also helpful to find the best look for the day. I can analyse the attractiveness of a person and I want to demonstrate this now. Please hold on till I'm finished.");
 	}
 	
@@ -1744,9 +1730,9 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_StartSTT() {
-		timer.setTimer(this, 33, 5 * 1000, false);
+		timer.setTimer(this, 33, 20 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
@@ -1758,39 +1744,25 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 		sCIHBrain.operationCallback.sendTTS2("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText());
 	}
 	
-	/* Entry action for state 'StropSTT'. */
-	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_StropSTT() {
-		timer.setTimer(this, 35, 20 * 1000, false);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
-		sCIHBrain.operationCallback.sendTTS("[:-|]");
-	}
-	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_WolframAlphaTest_main_region_TellAnswer() {
-		timer.setTimer(this, 36, 20 * 1000, false);
+		timer.setTimer(this, 35, 20 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
 	}
 	
 	/* Entry action for state 'TellAction'. */
 	private void entryAction_main_WolframAlphaTest_main_region_TellAction() {
-		timer.setTimer(this, 37, 20 * 1000, false);
+		timer.setTimer(this, 36, 20 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I think, that was a instruction to do something. Now, I just want to answer questions.");
 	}
 	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_WolframAlphaTest_main_region_TellIncomprehensible() {
-		timer.setTimer(this, 38, 20 * 1000, false);
+		timer.setTimer(this, 37, 20 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
-	}
-	
-	/* Entry action for state 'StopSTT'. */
-	private void entryAction_main_WolframAlphaTest_main_region_StopSTT() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Entry action for state 'leave2'. */
@@ -1800,7 +1772,7 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 39, 3 * 1000, false);
+		timer.setTimer(this, 38, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1817,7 +1789,7 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 40, 3 * 1000, false);
+		timer.setTimer(this, 39, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'GreetingsToVisitors'. */
@@ -1997,34 +1969,29 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 		timer.unsetTimer(this, 34);
 	}
 	
-	/* Exit action for state 'StropSTT'. */
-	private void exitAction_main_WolframAlphaTest_main_region_STT_STT_StropSTT() {
-		timer.unsetTimer(this, 35);
-	}
-	
 	/* Exit action for state 'TellAnswer'. */
 	private void exitAction_main_WolframAlphaTest_main_region_TellAnswer() {
-		timer.unsetTimer(this, 36);
+		timer.unsetTimer(this, 35);
 	}
 	
 	/* Exit action for state 'TellAction'. */
 	private void exitAction_main_WolframAlphaTest_main_region_TellAction() {
-		timer.unsetTimer(this, 37);
+		timer.unsetTimer(this, 36);
 	}
 	
 	/* Exit action for state 'TellIncomprehensible'. */
 	private void exitAction_main_WolframAlphaTest_main_region_TellIncomprehensible() {
-		timer.unsetTimer(this, 38);
+		timer.unsetTimer(this, 37);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 39);
+		timer.unsetTimer(this, 38);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 40);
+		timer.unsetTimer(this, 39);
 	}
 	
 	/* 'default' enter sequence for state Init */
@@ -2322,13 +2289,6 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 		stateVector[0] = State.main_WolframAlphaTest_main_region_STT_STT_TellSpokenText;
 	}
 	
-	/* 'default' enter sequence for state StropSTT */
-	private void enterSequence_main_WolframAlphaTest_main_region_STT_STT_StropSTT_default() {
-		entryAction_main_WolframAlphaTest_main_region_STT_STT_StropSTT();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_WolframAlphaTest_main_region_STT_STT_StropSTT;
-	}
-	
 	/* 'default' enter sequence for state TellAnswer */
 	private void enterSequence_main_WolframAlphaTest_main_region_TellAnswer_default() {
 		entryAction_main_WolframAlphaTest_main_region_TellAnswer();
@@ -2352,7 +2312,6 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 	
 	/* 'default' enter sequence for state StopSTT */
 	private void enterSequence_main_WolframAlphaTest_main_region_StopSTT_default() {
-		entryAction_main_WolframAlphaTest_main_region_StopSTT();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_WolframAlphaTest_main_region_StopSTT;
 	}
@@ -2766,14 +2725,6 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 		exitAction_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText();
 	}
 	
-	/* Default exit sequence for state StropSTT */
-	private void exitSequence_main_WolframAlphaTest_main_region_STT_STT_StropSTT() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_WolframAlphaTest_main_region_STT_STT_StropSTT();
-	}
-	
 	/* Default exit sequence for state TellAnswer */
 	private void exitSequence_main_WolframAlphaTest_main_region_TellAnswer() {
 		nextStateIndex = 0;
@@ -2961,9 +2912,6 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 		case main_WolframAlphaTest_main_region_STT_STT_TellSpokenText:
 			exitSequence_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText();
 			break;
-		case main_WolframAlphaTest_main_region_STT_STT_StropSTT:
-			exitSequence_main_WolframAlphaTest_main_region_STT_STT_StropSTT();
-			break;
 		case main_WolframAlphaTest_main_region_TellAnswer:
 			exitSequence_main_WolframAlphaTest_main_region_TellAnswer();
 			break;
@@ -3130,9 +3078,6 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 		case main_WolframAlphaTest_main_region_STT_STT_TellSpokenText:
 			exitSequence_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText();
 			break;
-		case main_WolframAlphaTest_main_region_STT_STT_StropSTT:
-			exitSequence_main_WolframAlphaTest_main_region_STT_STT_StropSTT();
-			break;
 		case main_WolframAlphaTest_main_region_TellAnswer:
 			exitSequence_main_WolframAlphaTest_main_region_TellAnswer();
 			break;
@@ -3158,9 +3103,6 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 			break;
 		case main_WolframAlphaTest_main_region_STT_STT_TellSpokenText:
 			exitSequence_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText();
-			break;
-		case main_WolframAlphaTest_main_region_STT_STT_StropSTT:
-			exitSequence_main_WolframAlphaTest_main_region_STT_STT_StropSTT();
 			break;
 		default:
 			break;
@@ -3530,6 +3472,10 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 		} else {
 			if (check_main_WolframAlphaTest_main_region_STT_STT_StartSTT_tr0_tr0()) {
 				effect_main_WolframAlphaTest_main_region_STT_STT_StartSTT_tr0();
+			} else {
+				if (check_main_WolframAlphaTest_main_region_STT_STT_StartSTT_tr1_tr1()) {
+					effect_main_WolframAlphaTest_main_region_STT_STT_StartSTT_tr1();
+				}
 			}
 		}
 	}
@@ -3552,21 +3498,6 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 							effect_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText_tr3();
 						}
 					}
-				}
-			}
-		}
-	}
-	
-	/* The reactions of state StropSTT. */
-	private void react_main_WolframAlphaTest_main_region_STT_STT_StropSTT() {
-		if (check_main_WolframAlphaTest_tr0_tr0()) {
-			effect_main_WolframAlphaTest_tr0();
-		} else {
-			if (check_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr0_tr0()) {
-				effect_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr0();
-			} else {
-				if (check_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr1_tr1()) {
-					effect_main_WolframAlphaTest_main_region_STT_STT_StropSTT_tr1();
 				}
 			}
 		}
@@ -3907,9 +3838,6 @@ public class IntroRTStatemachine implements IIntroRTStatemachine {
 				break;
 			case main_WolframAlphaTest_main_region_STT_STT_TellSpokenText:
 				react_main_WolframAlphaTest_main_region_STT_STT_TellSpokenText();
-				break;
-			case main_WolframAlphaTest_main_region_STT_STT_StropSTT:
-				react_main_WolframAlphaTest_main_region_STT_STT_StropSTT();
 				break;
 			case main_WolframAlphaTest_main_region_TellAnswer:
 				react_main_WolframAlphaTest_main_region_TellAnswer();

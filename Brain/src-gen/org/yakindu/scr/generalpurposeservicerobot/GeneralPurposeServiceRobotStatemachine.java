@@ -1626,8 +1626,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STToff() {
 		timer.setTimer(this, 10, 5 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
@@ -1635,7 +1633,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart() {
 		timer.setTimer(this, 11, 5 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
@@ -1755,11 +1753,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		sCIHBrain.operationCallback.sendTTS(sCICrowdDetection.operationCallback.getAnswerForSecificCrowdDetails(sCISTT.operationCallback.getObject()));
 	}
 	
-	/* Entry action for state 'StopSTT'. */
-	private void entryAction_main_region_StopSTT() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-	}
-	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_region_TellIncomprehensible() {
 		timer.setTimer(this, 21, 10 * 1000, false);
@@ -1778,7 +1771,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void entryAction_main_region_Copy_1_STT_STT_StartSTT() {
 		timer.setTimer(this, 23, 8 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
@@ -1793,8 +1786,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	/* Entry action for state 'StropSTT'. */
 	private void entryAction_main_region_Copy_1_STT_STT_StropSTT() {
 		timer.setTimer(this, 25, 5 * 1000, false);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Entry action for state 'leave2'. */
@@ -2255,7 +2246,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* 'default' enter sequence for state StopSTT */
 	private void enterSequence_main_region_StopSTT_default() {
-		entryAction_main_region_StopSTT();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_StopSTT;
 	}

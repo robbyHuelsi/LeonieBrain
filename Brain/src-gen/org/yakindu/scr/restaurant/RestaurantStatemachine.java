@@ -787,13 +787,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'WaitForOperator'. */
 	private void entryAction_main_region_WaitForOperator() {
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 	}
 	
 	/* Entry action for state 'LeonieChoosen'. */
 	private void entryAction_main_region_LeonieChoosen() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("Okay, I will take the order.");
 	}
 	
@@ -806,13 +804,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	private void entryAction_main_region_GetOrder() {
 		timer.setTimer(this, 1, 8 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 	}
 	
 	/* Entry action for state 'DriveToKitchen'. */
 	private void entryAction_main_region_DriveToKitchen() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIMira.operationCallback.sendGoToGWP(getGWPkitchen());
 	}
 	
@@ -838,7 +834,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'Answer'. */
 	private void entryAction_main_region_Answer() {
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 	}
 	
 	/* Entry action for state 'Stop'. */

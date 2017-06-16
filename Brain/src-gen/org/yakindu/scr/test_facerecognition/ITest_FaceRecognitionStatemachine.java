@@ -237,15 +237,15 @@ public interface ITest_FaceRecognitionStatemachine extends ITimerCallback,IState
 		
 		public String getLocationFromActionListAt(long i);
 		
-		public void sendSpeechDetectionOff();
+		public String getActionCommandSentence();
 		
-		public void sendSpeechDetectionSmalltalk();
+		public void sendSpeechDetectionSmalltalk(long timeout);
 		
-		public void sendSpeechDetectionYesNo();
+		public void sendSpeechDetectionYesNo(long timeout);
 		
-		public void sendSpeechDetectionName();
+		public void sendSpeechDetectionName(long timeout);
 		
-		public void sendSpeechDetectionActions();
+		public void sendSpeechDetectionActions(long timeout);
 		
 	}
 	

@@ -1594,8 +1594,6 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	private void entryAction_main_Attractiveness_openChallenge_attractiveness_Copy_1_ResponseToAskForAttractiveness() {
 		timer.setTimer(this, 18, 30 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("I'm also helpful to find the best look for the day. I can analyse the attractiveness of a person and I want to demonstrate this now. Please hold on till I'm finished.");
 	}
 	
@@ -1726,7 +1724,7 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_StartSTT() {
 		timer.setTimer(this, 33, 5 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
@@ -1741,8 +1739,6 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	/* Entry action for state 'StropSTT'. */
 	private void entryAction_main_WolframAlphaTest_main_region_STT_STT_StropSTT() {
 		timer.setTimer(this, 35, 10 * 1000, false);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 		
 		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
@@ -1766,11 +1762,6 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 		timer.setTimer(this, 38, 20 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS(sCISTT.operationCallback.getAnswer());
-	}
-	
-	/* Entry action for state 'StopSTT'. */
-	private void entryAction_main_WolframAlphaTest_main_region_StopSTT() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Entry action for state 'Bumpered'. */
@@ -2334,7 +2325,6 @@ public class OpenChallengeStatemachine implements IOpenChallengeStatemachine {
 	
 	/* 'default' enter sequence for state StopSTT */
 	private void enterSequence_main_WolframAlphaTest_main_region_StopSTT_default() {
-		entryAction_main_WolframAlphaTest_main_region_StopSTT();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_WolframAlphaTest_main_region_StopSTT;
 	}

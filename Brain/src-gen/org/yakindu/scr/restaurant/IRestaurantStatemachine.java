@@ -145,15 +145,13 @@ public interface IRestaurantStatemachine extends ITimerCallback,IStatemachine {
 		
 		public String getActionCommandSentence();
 		
-		public void sendSpeechDetectionOff();
+		public void sendSpeechDetectionSmalltalk(long timeout);
 		
-		public void sendSpeechDetectionSmalltalk();
+		public void sendSpeechDetectionYesNo(long timeout);
 		
-		public void sendSpeechDetectionYesNo();
+		public void sendSpeechDetectionName(long timeout);
 		
-		public void sendSpeechDetectionName();
-		
-		public void sendSpeechDetectionActions();
+		public void sendSpeechDetectionActions(long timeout);
 		
 	}
 	

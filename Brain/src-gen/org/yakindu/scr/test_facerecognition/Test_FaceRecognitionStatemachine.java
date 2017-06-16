@@ -2376,7 +2376,7 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 		
 		sCIVBrain.operationCallback.savePersonList();
 		
-		sCISTT.operationCallback.sendSpeechDetectionName();
+		sCISTT.operationCallback.sendSpeechDetectionName(7);
 		
 		setNameBuffer("");
 	}
@@ -2390,8 +2390,6 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 	
 	/* Entry action for state 'STT3'. */
 	private void entryAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		setCounter(counter + 1);
 	}
 	
@@ -2425,7 +2423,7 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 		
 		setCounter(counter + 1);
 		
-		sCISTT.operationCallback.sendSpeechDetectionYesNo();
+		sCISTT.operationCallback.sendSpeechDetectionYesNo(7);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 	}
@@ -2521,7 +2519,7 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 		
 		setCounter(counter + 1);
 		
-		sCISTT.operationCallback.sendSpeechDetectionYesNo();
+		sCISTT.operationCallback.sendSpeechDetectionYesNo(7);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 	}
@@ -2651,7 +2649,7 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 		
 		setCounter(counter + 1);
 		
-		sCISTT.operationCallback.sendSpeechDetectionYesNo();
+		sCISTT.operationCallback.sendSpeechDetectionYesNo(7);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(3);
 	}
@@ -2784,8 +2782,6 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCICurrPerson.operationCallback.resetCurrPerson();
 		
 		sCIVBrain.operationCallback.resetCountFoundFaces();
@@ -2798,11 +2794,6 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 		timer.unsetTimer(this, 0);
 	}
 	
-	/* Exit action for state 'Getting Name'. */
-	private void exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-	}
-	
 	/* Exit action for state 'STT_1'. */
 	private void exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1() {
 		timer.unsetTimer(this, 1);
@@ -2813,8 +2804,6 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 		timer.unsetTimer(this, 2);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Exit action for state 'Farewell_1'. */
@@ -2842,8 +2831,6 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 		timer.unsetTimer(this, 7);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Exit action for state 'StartSTT'. */
@@ -2851,8 +2838,6 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 		timer.unsetTimer(this, 8);
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
 	}
 	
 	/* Exit action for state 'start_estimation'. */
@@ -3689,7 +3674,6 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 	/* Default exit sequence for state Getting Name */
 	private void exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name() {
 		exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName();
-		exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 	}
 	
 	/* Default exit sequence for state STT_1 */
@@ -4271,52 +4255,42 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_FaceDataInterpretation();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_FaceDataInterpretation();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_FaceDataInterpretation();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_FaceDataInterpretation();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_FaceDataInterpretation();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_FaceDataInterpretation();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_FaceDataInterpretation();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_FaceDataInterpretation();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_FaceDataInterpretation();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			exitAction_main_FaceDataInterpretation();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1:
@@ -4606,43 +4580,33 @@ public class Test_FaceRecognitionStatemachine implements ITest_FaceRecognitionSt
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT_1();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Answere_name__and_ask();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_STT3();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Save_Firstname();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Ask_for_Repeat();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Didnt_get_it();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Bye_bye();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_StartSTT();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_Yes_No_Question_inner_region_Copy_1_STT3();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name_AskForName_asking_repeat_YesNo();
-			exitAction_main_FaceDataInterpretation_FaceDataInterpretation_Getting_Name();
 			break;
 		case main_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1:
 			exitSequence_main_FaceDataInterpretation_FaceDataInterpretation_AboutRobotica_1();

@@ -1669,8 +1669,6 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void entryAction_main_region_StartTracking_WaitingForStopCommand_STToff() {
 		timer.setTimer(this, 2, 2 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
@@ -1678,7 +1676,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void entryAction_main_region_StartTracking_WaitingForStopCommand_STTstart() {
 		timer.setTimer(this, 3, 5 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
@@ -1780,7 +1778,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StartSTT() {
 		timer.setTimer(this, 12, 5 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 		
@@ -1796,8 +1794,6 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'Repeat'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_Repeat() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("Where shall I go to?");
 	}
 	
@@ -1810,15 +1806,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StopSTT() {
 		timer.setTimer(this, 14, 10 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
 	/* Entry action for state 'Stop2'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_Stop2() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
@@ -1849,18 +1841,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_StartSTT() {
-		timer.setTimer(this, 18, 3 * 1000, false);
+		timer.setTimer(this, 18, 1 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionYesNo();
+		sCISTT.operationCallback.sendSpeechDetectionYesNo(5);
 	}
 	
 	/* Entry action for state 'StopSTT'. */
 	private void entryAction_main_region_StopSTT() {
 		timer.setTimer(this, 19, 5 * 1000, false);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
-		setCounterTwo(getCounterTwo() + 1);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
