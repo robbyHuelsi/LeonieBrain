@@ -203,7 +203,7 @@ public interface ISpeechAndPersonRecognitionStatemachine extends ITimerCallback,
 		
 		public long getTotalCount();
 		
-		public long getSpecificCount(long gender, long minAge, long maxAge, long position, String color, long waving);
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving);
 		
 		public String getSummaryText();
 		

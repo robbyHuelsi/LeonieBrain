@@ -8,19 +8,27 @@ public class PersonCrowd implements Serializable{
 	private int gender;
 	private int age;
 	private int position;
-	private String color;
+	private int color;
 	private int waving;
 	
+
+//	-1: not detectable
+//	0: black [0, 0, 0]
+//	1: white [255, 255, 255]
+//	2: red [255, 0, 0]
+//	3: yellow [255, 255, 255]
+//	4: green [0, 255, 0]
+//	5: blue [0, 0, 255]
 
 	public PersonCrowd(int gender, int age, int position) {
 		setGender(gender);
 		setAge(age);
 		setPosition(position);
-		setColor("");
+		setColor(-1);
 		setWaving(0);
 	}
 	
-	public PersonCrowd(int gender, int age, int position, String color, int waving) {
+	public PersonCrowd(int gender, int age, int position, int color, int waving) {
 		setGender(gender);
 		setAge(age);
 		setPosition(position);
@@ -28,11 +36,11 @@ public class PersonCrowd implements Serializable{
 		setWaving(waving);
 	}
 	
-	public String getColor() {
+	public int getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(int color) {
 		this.color = color;
 	}
 
