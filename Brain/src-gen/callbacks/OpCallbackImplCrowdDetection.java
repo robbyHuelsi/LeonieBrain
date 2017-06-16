@@ -71,7 +71,7 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	}
 
 	@Override
-	public long getSpecificCount(long gender, long minAge, long maxAge, long position, String color, long waving) {
+	public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving) {
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getSpecificCount(gender, minAge, maxAge, position, color, waving);
 	}	
 	

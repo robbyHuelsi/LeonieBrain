@@ -253,7 +253,7 @@ public interface ITest_STT_SmalltalkStatemachine extends ITimerCallback,IStatema
 		
 		public long getTotalCount();
 		
-		public long getSpecificCount(long gender, long minAge, long maxAge, long position);
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving);
 		
 		public String getSummaryText();
 		
