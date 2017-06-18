@@ -1,0 +1,13 @@
+internal documentation:
+
+How to start the brain:
+Brain -> src-gen -> main -> Start.java
+A GUI will open.
+Start the CNS Tool in Eclipse.
+Path...
+The CNS GUI will appear. 
+File -> Open Config -> example.txt
+Network -> send to brain
+Go back to the brain GUI.
+Choose in the dropdown menu the statemachine you want to start and press the Start button.
+

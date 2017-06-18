@@ -188,9 +188,16 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 			trackingPersonLost = true;
 		}
 		
+		private boolean obstacleDetected;
+		
+		public void raiseObstacleDetected() {
+			obstacleDetected = true;
+		}
+		
 		protected void clearEvents() {
 			detectionPersonFound = false;
 			trackingPersonLost = false;
+			obstacleDetected = false;
 		}
 	}
 	
