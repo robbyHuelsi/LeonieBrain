@@ -9,6 +9,8 @@ public interface ITest_LeapMotionLeftRightStatemachine extends ITimerCallback,IS
 	
 		public void raiseGestureDetected();
 		
+		public void raiseFail();
+		
 		public void raiseStringFinished();
 		
 		public void setSCILeapMotionOperationCallback(SCILeapMotionOperationCallback operationCallback);

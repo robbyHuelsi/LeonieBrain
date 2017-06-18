@@ -142,6 +142,10 @@ public class CrowdDet implements IParser, Serializable{
 				removeCounter++;
 			}
 			
+			//TODO every combination... 
+			/*
+			 * gender, minAge, maxAge, position, color, waving
+			 */
 			i -= removeCounter;
 		}
 		
@@ -363,8 +367,17 @@ public class CrowdDet implements IParser, Serializable{
 	
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
 		int count;
+		//inDetails = -1|-1|-1|4|-1
+//		String[] t = inDetails.split("|");
+//		int[] arguments = new int[t.length];
+//		for(int i=0; i<t.length; i++){
+//			int argument = Integer.parseInt(t[i]);
+//			arguments[i] = argument;
+//		}
+		//TODO switch/case umbauen so dass case auf -1|-1|-1|4|-1 reagieren kann.
 		
 		switch (inDetails) {
+
 		case "countAll":
 			count = getTotalCount();
 			if (count == 0) {

@@ -36,6 +36,8 @@ public class LeapMotion implements IParser, Serializable{
 					this.setGesture("true");
 				}else if(this.getGesture().equalsIgnoreCase("false")){
 					this.setGesture("false");
+				}else if(this.getGesture().equalsIgnoreCase("fail")){
+					start.getStatemachine().raiseEventOfSCI("LeapMotion", "fail");
 				}
 				start.getLog().log("LeapMotion: " + data + " detected");
 			/*} else if (attributePartsHG[0].equals("2")) {

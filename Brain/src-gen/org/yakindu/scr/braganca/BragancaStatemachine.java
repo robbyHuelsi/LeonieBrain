@@ -146,6 +146,12 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 			gestureDetected = true;
 		}
 		
+		private boolean fail;
+		
+		public void raiseFail() {
+			fail = true;
+		}
+		
 		private boolean stringFinished;
 		
 		public void raiseStringFinished() {
@@ -154,6 +160,7 @@ public class BragancaStatemachine implements IBragancaStatemachine {
 		
 		protected void clearEvents() {
 			gestureDetected = false;
+			fail = false;
 			stringFinished = false;
 		}
 	}

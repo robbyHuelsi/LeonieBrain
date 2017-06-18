@@ -1,6 +1,6 @@
 internal documentation:
 
-How to start the brain:
+*How to start the brain:
 Brain -> src-gen -> main -> Start.java
 A GUI will open.
 Start the CNS Tool in Eclipse.
@@ -11,3 +11,9 @@ Network -> send to brain
 Go back to the brain GUI.
 Choose in the dropdown menu the statemachine you want to start and press the Start button.
 
+*Yakindu Syntax 
+in event: 					interfaceName.eventName
+condition:					interfaceName.value1Name operation interfaceName.value2Name
+internal:					valueName
+in event and condition:		[interfaceName.eventName operation value1 == value2]
+transition exitnodes:		# exitnodeName >
