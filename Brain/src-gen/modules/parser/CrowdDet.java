@@ -366,9 +366,20 @@ public class CrowdDet implements IParser, Serializable{
 			int argument = Integer.parseInt(t[i]);
 			arguments[i] = argument;
 		}
+		//COUNT ALL
+		if(arguments[0]==-1 && arguments[1]==-1 && arguments[2]==-1 && arguments[3]==-1 && arguments[4]==-1 && arguments[5]==-1){
+			count = getTotalCount();
+			if (count == 0) {
+				return "I found no people.";
+			}else if(count == 1){
+				return "I found one person.";
+			}else{
+				return "I found " + count + " people.";
+			}
+		}
 		
 		//GENDER
-		if(arguments[0]==0){
+		else if(arguments[0]==0){
 			count = getSpecificCount(0,-1,-1,-1,-1,-1);
 			if (count == 0) {
 				return "I found no male people.";
@@ -522,19 +533,8 @@ public class CrowdDet implements IParser, Serializable{
 		}
 		
 		//TODO all and some more combinations
-		switch (inDetails) {
 
-		case "countAll":
-			count = getTotalCount();
-			if (count == 0) {
-				return "I found no people.";
-			}else if(count == 1){
-				return "I found one person.";
-			}else{
-				return "I found " + count + " people.";
-			}
-
-		default:
+		else{
 			return "I don't know, what you mean with " + inDetails + ".";
 		}
 	} 
