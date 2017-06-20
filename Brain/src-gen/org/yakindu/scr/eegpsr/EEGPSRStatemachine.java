@@ -1772,7 +1772,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'Hello'. */
 	private void entryAction_main_region_Hello() {
-		timer.setTimer(this, 0, 10 * 1000, false);
+		timer.setTimer(this, 0, 10*1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOff();
 		
@@ -1790,7 +1790,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'DetectionsOn'. */
 	private void entryAction_main_region_DetectionsOn() {
-		timer.setTimer(this, 1, 10 * 1000, false);
+		timer.setTimer(this, 1, 10*1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
@@ -1810,21 +1810,21 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_region_TellAnswer() {
-		timer.setTimer(this, 2, 30 * 1000, false);
+		timer.setTimer(this, 2, 30*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] Can you please try it again?");
 	}
 	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_region_TellIncomprehensible() {
-		timer.setTimer(this, 3, 10 * 1000, false);
+		timer.setTimer(this, 3, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("[:-(]", sCISTT.operationCallback.getAnswer(), "[:-|]");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_STT_and_Tell_Actions_s_StartSTT() {
-		timer.setTimer(this, 4, 15 * 1000, false);
+		timer.setTimer(this, 4, 15*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionActions(10);
 		
@@ -1833,35 +1833,35 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'TellSpokenText'. */
 	private void entryAction_main_region_STT_and_Tell_Actions_s_TellSpokenText() {
-		timer.setTimer(this, 5, 20 * 1000, false);
+		timer.setTimer(this, 5, 20*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("I unterstood: ", sCISTT.operationCallback.getSpokenText(), ". Is that right?");
 	}
 	
 	/* Entry action for state 'StropSTT'. */
 	private void entryAction_main_region_STT_and_Tell_Actions_s_StropSTT() {
-		timer.setTimer(this, 6, 10 * 1000, false);
+		timer.setTimer(this, 6, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
 	
 	/* Entry action for state 'YesNo'. */
 	private void entryAction_main_region_STT_and_Tell_Actions_s_YesNo() {
-		timer.setTimer(this, 7, 15 * 1000, false);
+		timer.setTimer(this, 7, 15*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionYesNo(5);
 	}
 	
 	/* Entry action for state 'GeneratedCommand'. */
 	private void entryAction_main_region_STT_and_Tell_Actions_s_GeneratedCommand() {
-		timer.setTimer(this, 8, 20 * 1000, false);
+		timer.setTimer(this, 8, 20*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2("Okay. ", sCISTT.operationCallback.getActionCommandSentence());
 	}
 	
 	/* Entry action for state 'leave2'. */
 	private void entryAction_main_region_leave2() {
-		timer.setTimer(this, 9, 10 * 1000, false);
+		timer.setTimer(this, 9, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-0] Thanks for your attention. I wish you a nice day at the German Open. [:-)]");
 	}
@@ -1878,28 +1878,28 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'livingroom'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_livingroom() {
-		timer.setTimer(this, 10, 60 * 1000, false);
+		timer.setTimer(this, 10, 60*1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter())));
 	}
 	
 	/* Entry action for state 'notFound'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_notFound() {
-		timer.setTimer(this, 11, 10 * 1000, false);
+		timer.setTimer(this, 11, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("I don't know a location called ", sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), ".");
 	}
 	
 	/* Entry action for state 'arrived'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_arrived() {
-		timer.setTimer(this, 12, 10 * 1000, false);
+		timer.setTimer(this, 12, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("I arrived at ", sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), ".");
 	}
 	
 	/* Entry action for state 'backToTheOperator'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_backToTheOperator() {
-		timer.setTimer(this, 13, 100 * 1000, false);
+		timer.setTimer(this, 13, 100*1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
 		
@@ -1908,35 +1908,35 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'notArrived'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_notArrived() {
-		timer.setTimer(this, 14, 10 * 1000, false);
+		timer.setTimer(this, 14, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I am not able to reach my destination. I will go back to my operator.");
 	}
 	
 	/* Entry action for state 'livingroom'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_livingroom() {
-		timer.setTimer(this, 15, 60 * 1000, false);
+		timer.setTimer(this, 15, 60*1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter())));
 	}
 	
 	/* Entry action for state 'notFound'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_notFound() {
-		timer.setTimer(this, 16, 10 * 1000, false);
+		timer.setTimer(this, 16, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("Furthermore, I don't know a location for ", sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), ".");
 	}
 	
 	/* Entry action for state 'arrived'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_arrived() {
-		timer.setTimer(this, 17, 10 * 1000, false);
+		timer.setTimer(this, 17, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("Here can you find the ", sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), ".");
 	}
 	
 	/* Entry action for state 'backToTheOperator'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_backToTheOperator() {
-		timer.setTimer(this, 18, 100 * 1000, false);
+		timer.setTimer(this, 18, 100*1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
 		
@@ -1945,7 +1945,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'bringGehtnicht'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_bringGehtnicht() {
-		timer.setTimer(this, 19, 10 * 1000, false);
+		timer.setTimer(this, 19, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] I'm sorry. I can't bring you something, because I have no manipulator. [:-)]");
 	}
@@ -1957,14 +1957,14 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'notArrived'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_notArrived() {
-		timer.setTimer(this, 20, 10 * 1000, false);
+		timer.setTimer(this, 20, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I am not able to reach my destination. I will go back to my operator.");
 	}
 	
 	/* Entry action for state 'open'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_open() {
-		timer.setTimer(this, 21, 10 * 1000, false);
+		timer.setTimer(this, 21, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] I'm sorry. I can't open something because I have no manipulator.");
 	}
@@ -1976,7 +1976,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'StartTracking'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking() {
-		timer.setTimer(this, 22, 30 * 1000, false);
+		timer.setTimer(this, 22, 30*1000, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOnAtNext();
 		
@@ -1985,14 +1985,14 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'STToff'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STToff() {
-		timer.setTimer(this, 23, 2 * 1000, false);
+		timer.setTimer(this, 23, 2*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
 	/* Entry action for state 'STTstart'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.setTimer(this, 24, 5 * 1000, false);
+		timer.setTimer(this, 24, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
@@ -2001,12 +2001,12 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'Wave'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave() {
-		timer.setTimer(this, 25, 10 * 1000, false);
+		timer.setTimer(this, 25, 10*1000, false);
 	}
 	
 	/* Entry action for state 'UTurn1'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn1() {
-		timer.setTimer(this, 26, 1 * 1000, false);
+		timer.setTimer(this, 26, 1*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -2020,7 +2020,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Turn() {
-		timer.setTimer(this, 27, 5 * 1000, false);
+		timer.setTimer(this, 27, 5*1000, false);
 		
 		sCIKinect2.operationCallback.sendWavingDetectionOnOff(true);
 		
@@ -2041,7 +2041,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'ILostYou'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_ILostYou() {
-		timer.setTimer(this, 28, 5 * 1000, false);
+		timer.setTimer(this, 28, 5*1000, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOff();
 		
@@ -2050,18 +2050,18 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'UTurn2'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn2() {
-		timer.setTimer(this, 29, 3 * 1000, false);
+		timer.setTimer(this, 29, 3*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'Detection'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Detection() {
-		timer.setTimer(this, 30, 1 * 1000, false);
+		timer.setTimer(this, 30, 1*1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
-		setActionCounter(actionCounter + 1);
+		setActionCounter(actionCounter+1);
 	}
 	
 	/* Entry action for state 'NotFound'. */
@@ -2073,7 +2073,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'Detect'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Detect() {
-		timer.setTimer(this, 31, 5 * 1000, false);
+		timer.setTimer(this, 31, 5*1000, false);
 		
 		sCIFollowMe.operationCallback.sendDetectionOff();
 	}
@@ -2102,42 +2102,42 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'unknown'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_unknown() {
-		timer.setTimer(this, 32, 10 * 1000, false);
+		timer.setTimer(this, 32, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-|] I'm sorry. This command is unknown.");
 	}
 	
 	/* Entry action for state 'crowd'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_crowd() {
-		timer.setTimer(this, 33, 10 * 1000, false);
+		timer.setTimer(this, 33, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I cannot detect the crowd in this moment.");
 	}
 	
 	/* Entry action for state 'tell'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_tell() {
-		timer.setTimer(this, 34, 20 * 1000, false);
+		timer.setTimer(this, 34, 20*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), " [:-|]");
 	}
 	
 	/* Entry action for state 'GoToOp'. */
 	private void entryAction_main_region_GoToOp() {
-		timer.setTimer(this, 35, 100 * 1000, false);
+		timer.setTimer(this, 35, 100*1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
 	}
 	
 	/* Entry action for state 'blocked'. */
 	private void entryAction_main_region_blocked() {
-		timer.setTimer(this, 36, 10 * 1000, false);
+		timer.setTimer(this, 36, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I am not able to come back to the operator. Please tell me my next command here.");
 	}
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 37, 3 * 1000, false);
+		timer.setTimer(this, 37, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -2154,7 +2154,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 38, 3 * 1000, false);
+		timer.setTimer(this, 38, 3*1000, false);
 	}
 	
 	/* Exit action for state 'Hello'. */
@@ -2214,7 +2214,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Exit action for state 'DoAction'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction() {
-		setActionCounter(actionCounter + 1);
+		setActionCounter(actionCounter+1);
 	}
 	
 	/* Exit action for state 'livingroom'. */

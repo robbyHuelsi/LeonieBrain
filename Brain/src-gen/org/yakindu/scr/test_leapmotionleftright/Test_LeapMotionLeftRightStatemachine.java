@@ -306,11 +306,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	}
 	
 	private boolean check_main_region__choice_0_tr0_tr0() {
-<<<<<<< HEAD
-		return getCounter()<5;
-=======
 		return getCounter()<getMaxCount();
->>>>>>> 82af10348ed4e6500500d0fa1e45e5060096b256
 	}
 	
 	private boolean check_main_region__choice_0_tr1_tr1() {
@@ -372,11 +368,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_StartSTT() {
-<<<<<<< HEAD
-		timer.setTimer(this, 0, 25 * 1000, false);
-=======
 		sCIHBrain.operationCallback.sendTTS("Okay I will try to detect your gesture.");
->>>>>>> 82af10348ed4e6500500d0fa1e45e5060096b256
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(4);
 		
@@ -385,7 +377,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	
 	/* Entry action for state 'Left'. */
 	private void entryAction_main_region_Left() {
-		timer.setTimer(this, 0, 1 * 1000, false);
+		timer.setTimer(this, 0, 1*1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(-30);
 		
@@ -394,7 +386,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	
 	/* Entry action for state 'Right'. */
 	private void entryAction_main_region_Right() {
-		timer.setTimer(this, 1, 1 * 1000, false);
+		timer.setTimer(this, 1, 1*1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(30);
 		

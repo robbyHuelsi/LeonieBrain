@@ -5,13 +5,8 @@
       <vertices xsi:type="sgraph:Entry" xmi:id="_agliMC7OEee6ptFPoPLOZA">
         <outgoingTransitions xmi:id="_cOsCwC7OEee6ptFPoPLOZA" specification="" target="_4s2hDTL2Eee3ivyYtmIuJg"/>
       </vertices>
-<<<<<<< HEAD
-      <vertices xsi:type="sgraph:State" xmi:id="_j-AkzjKFEeerZKfLBGQ0NQ" specification="entry /&#xA;LeapMotion.sendGestureDetectionOnOff(4);&#xA;counter += 1&#xA;&#xA;exit /&#xA;LeapMotion.sendGestureDetectionOnOff(0)&#xD;&#xA;" name="StartSTT" incomingTransitions="_6v_dcDL2Eee3ivyYtmIuJg _MtAcoDL3Eee3ivyYtmIuJg">
-        <outgoingTransitions xmi:id="_ZM6S4DL3Eee3ivyYtmIuJg" specification="after 25s" target="_L-5HgDL5Eee3ivyYtmIuJg"/>
-=======
       <vertices xsi:type="sgraph:State" xmi:id="_j-AkzjKFEeerZKfLBGQ0NQ" specification="entry /&#xA;HBrain.sendTTS(&quot;Okay I will try to detect your gesture.&quot;);&#xA;LeapMotion.sendGestureDetectionOnOff(4);&#xA;counter += 1&#xA;&#xA;exit /&#xA;LeapMotion.sendGestureDetectionOnOff(0)&#xD;&#xA;" name="StartSTT" incomingTransitions="_6v_dcDL2Eee3ivyYtmIuJg _MtAcoDL3Eee3ivyYtmIuJg _R6CDYFQuEeehmbeUSFBVgg">
         <outgoingTransitions xmi:id="_ZM6S4DL3Eee3ivyYtmIuJg" specification="LeapMotion.fail" target="_L-5HgDL5Eee3ivyYtmIuJg"/>
->>>>>>> 82af10348ed4e6500500d0fa1e45e5060096b256
         <outgoingTransitions xmi:id="_j-By4DKFEeerZKfLBGQ0NQ" specification="[LeapMotion.getGesture == &quot;right&quot;]" target="_j-FdQDKFEeerZKfLBGQ0NQ"/>
         <outgoingTransitions xmi:id="_j-BL-jKFEeerZKfLBGQ0NQ" specification="[LeapMotion.getGesture == &quot;left&quot;]" target="_j-EPIDKFEeerZKfLBGQ0NQ"/>
       </vertices>
@@ -25,11 +20,7 @@
         <outgoingTransitions xmi:id="_6v_dcDL2Eee3ivyYtmIuJg" specification="always" target="_j-AkzjKFEeerZKfLBGQ0NQ"/>
       </vertices>
       <vertices xsi:type="sgraph:Choice" xmi:id="_E9PUkDL3Eee3ivyYtmIuJg" incomingTransitions="_j-EPPTKFEeerZKfLBGQ0NQ _j-FdWzKFEeerZKfLBGQ0NQ">
-<<<<<<< HEAD
-        <outgoingTransitions xmi:id="_MtAcoDL3Eee3ivyYtmIuJg" specification="[counter &lt; 5]" target="_j-AkzjKFEeerZKfLBGQ0NQ"/>
-=======
         <outgoingTransitions xmi:id="_MtAcoDL3Eee3ivyYtmIuJg" specification="[counter &lt; maxCount]" target="_j-AkzjKFEeerZKfLBGQ0NQ"/>
->>>>>>> 82af10348ed4e6500500d0fa1e45e5060096b256
         <outgoingTransitions xmi:id="_WeasUDL3Eee3ivyYtmIuJg" specification="else" target="_HIMeUDL5Eee3ivyYtmIuJg"/>
       </vertices>
       <vertices xsi:type="sgraph:FinalState" xmi:id="_ShLlQDL4Eee3ivyYtmIuJg" incomingTransitions="_UMxH4DL5Eee3ivyYtmIuJg _Wa7BgDL5Eee3ivyYtmIuJg"/>
