@@ -1,0 +1,14 @@
+Jun 16, 2017 3:10:03 PM com.yakindu.licmgmt.core.LoggingHelper debug
+FINE: Properties loaded from file: /opt/yakindu-sctpro/configuration/ylm.properties
+Jun 16, 2017 3:10:03 PM com.yakindu.licmgmt.core.LoggingHelper debug
+FINE: LMX setting set: LMX_OPT_LICENSE_PATH=/opt/yakindu-sctpro:/home/nuc1/Documents/github/LeonieBrain:/home/nuc1/.YAKINDU
+Jun 16, 2017 3:10:03 PM com.yakindu.licmgmt.core.LoggingHelper debug
+FINE: LMX setting set: LMX_OPT_TRIAL_DAYS=30
+Jun 16, 2017 3:10:03 PM com.yakindu.licmgmt.core.LoggingHelper debug
+FINE: Environment variable set: LMX_AUTOMATIC_SERVER_DISCOVERY=
+Jun 16, 2017 3:10:03 PM com.yakindu.licmgmt.core.LoggingHelper debug
+FINE: Environment variable set: LMX_BORROW=0
+Jun 16, 2017 3:10:03 PM com.yakindu.licmgmt.core.LoggingHelper info
+INFO: License checkout performed for com_yakindu_sct_domain_c
+Jun 16, 2017 3:10:03 PM com.yakindu.licmgmt.core.LoggingHelper debug
+FINE: Environment variable set: LMX_CONNECTION_TIMEOUT=120

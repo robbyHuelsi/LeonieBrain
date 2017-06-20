@@ -209,9 +209,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			trackingPersonLost = true;
 		}
 		
+		private boolean obstacleDetected;
+		
+		public void raiseObstacleDetected() {
+			obstacleDetected = true;
+		}
+		
 		protected void clearEvents() {
 			detectionPersonFound = false;
 			trackingPersonLost = false;
+			obstacleDetected = false;
 		}
 	}
 	
@@ -277,6 +284,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_blocked,
 		main_region_nextTry,
 		main_region_arrived1,
+		main_region_ObstacleFollow,
+		main_region_ObstacleFollow_ObstacleAvoidingText_TTS,
+		main_region_ObstacleWayBack,
+		main_region_ObstacleWayBack_ObstacleAvoidingText_TTS,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
@@ -566,6 +577,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_nextTry;
 		case main_region_arrived1:
 			return stateVector[0] == State.main_region_arrived1;
+		case main_region_ObstacleFollow:
+			return stateVector[0].ordinal() >= State.
+					main_region_ObstacleFollow.ordinal()&& stateVector[0].ordinal() <= State.main_region_ObstacleFollow_ObstacleAvoidingText_TTS.ordinal();
+		case main_region_ObstacleFollow_ObstacleAvoidingText_TTS:
+			return stateVector[0] == State.main_region_ObstacleFollow_ObstacleAvoidingText_TTS;
+		case main_region_ObstacleWayBack:
+			return stateVector[0].ordinal() >= State.
+					main_region_ObstacleWayBack.ordinal()&& stateVector[0].ordinal() <= State.main_region_ObstacleWayBack_ObstacleAvoidingText_TTS.ordinal();
+		case main_region_ObstacleWayBack_ObstacleAvoidingText_TTS:
+			return stateVector[0] == State.main_region_ObstacleWayBack_ObstacleAvoidingText_TTS;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -659,6 +680,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private boolean check_main_region_StartTracking_tr0_tr0() {
 		return sCIFollowMe.trackingPersonLost;
+	}
+	
+	private boolean check_main_region_StartTracking_tr2_tr2() {
+		return sCIFollowMe.obstacleDetected;
 	}
 	
 	private boolean check_main_region_StartTracking_WaitingForStopCommand_STToff_tr0_tr0() {
@@ -873,6 +898,10 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		return sCIMira.blocked;
 	}
 	
+	private boolean check_main_region_GoTo_tr3_tr3() {
+		return sCIFollowMe.obstacleDetected;
+	}
+	
 	private boolean check_main_region_GoTo_goto_goto_tr0_tr0() {
 		return sCIMira.arrivedWP;
 	}
@@ -971,6 +1000,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private boolean check_main_region_arrived1_tr0_tr0() {
 		return sCIMira.arrivedWP;
+	}
+	
+	private boolean check_main_region_ObstacleFollow_ObstacleAvoidingText_TTS_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS_tr0_tr0() {
+		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
@@ -1112,6 +1149,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void effect_main_region_StartTracking_tr1() {
 		exitSequence_main_region_StartTracking();
 		enterSequence_main_region_DetectionOff_default();
+	}
+	
+	private void effect_main_region_StartTracking_tr2() {
+		exitSequence_main_region_StartTracking();
+		enterSequence_main_region_ObstacleFollow_default();
 	}
 	
 	private void effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr0() {
@@ -1399,6 +1441,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		enterSequence_main_region_blocked_default();
 	}
 	
+	private void effect_main_region_GoTo_tr3() {
+		exitSequence_main_region_GoTo();
+		enterSequence_main_region_ObstacleWayBack_default();
+	}
+	
 	private void effect_main_region_GoTo_goto_goto_tr0() {
 		exitSequence_main_region_GoTo_goto_goto();
 		enterSequence_main_region_GoTo_goto_gotoWP_default();
@@ -1532,6 +1579,26 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void effect_main_region_arrived1_tr0() {
 		exitSequence_main_region_arrived1();
 		enterSequence_main_region_ArrivedWaypoint_default();
+	}
+	
+	private void effect_main_region_ObstacleFollow_tr0() {
+		exitSequence_main_region_ObstacleFollow();
+		enterSequence_main_region_StartTracking_default();
+	}
+	
+	private void effect_main_region_ObstacleFollow_ObstacleAvoidingText_TTS_tr0() {
+		exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_TTS();
+		react_main_region_ObstacleFollow_ObstacleAvoidingText_exit_done();
+	}
+	
+	private void effect_main_region_ObstacleWayBack_tr0() {
+		exitSequence_main_region_ObstacleWayBack();
+		enterSequence_main_region_GoTo_default();
+	}
+	
+	private void effect_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS_tr0() {
+		exitSequence_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS();
+		react_main_region_ObstacleWayBack_ObstacleAvoidingText_exit_done();
 	}
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
@@ -1989,6 +2056,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* Entry action for state 'nextTry'. */
 	private void entryAction_main_region_nextTry() {
 		sCIMira.operationCallback.sendGoToGWP(getGWPtemp());
+	}
+	
+	/* Entry action for state 'TTS'. */
+	private void entryAction_main_region_ObstacleFollow_ObstacleAvoidingText_TTS() {
+		sCIHBrain.operationCallback.sendTTS("There is an obstacle in front of me. I'm trying to avoid it. Please wait for me or slow down.");
+	}
+	
+	/* Entry action for state 'TTS'. */
+	private void entryAction_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS() {
+		sCIHBrain.operationCallback.sendTTS("There is an obstacle in front of me. I'm trying to avoid it. Please wait for me or slow down.");
 	}
 	
 	/* Entry action for state 'Bumpered'. */
@@ -2544,6 +2621,30 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.main_region_arrived1;
 	}
 	
+	/* 'default' enter sequence for state ObstacleFollow */
+	private void enterSequence_main_region_ObstacleFollow_default() {
+		enterSequence_main_region_ObstacleFollow_ObstacleAvoidingText_default();
+	}
+	
+	/* 'default' enter sequence for state TTS */
+	private void enterSequence_main_region_ObstacleFollow_ObstacleAvoidingText_TTS_default() {
+		entryAction_main_region_ObstacleFollow_ObstacleAvoidingText_TTS();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_ObstacleFollow_ObstacleAvoidingText_TTS;
+	}
+	
+	/* 'default' enter sequence for state ObstacleWayBack */
+	private void enterSequence_main_region_ObstacleWayBack_default() {
+		enterSequence_main_region_ObstacleWayBack_ObstacleAvoidingText_default();
+	}
+	
+	/* 'default' enter sequence for state TTS */
+	private void enterSequence_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS_default() {
+		entryAction_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_ObstacleWayBack_ObstacleAvoidingText_TTS;
+	}
+	
 	/* 'default' enter sequence for state waitForEvent */
 	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default() {
 		nextStateIndex = 1;
@@ -2611,6 +2712,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* 'default' enter sequence for region Blocked */
 	private void enterSequence_main_region_PathBlocked_Blocked_default() {
 		react_main_region_PathBlocked_Blocked__entry_Default();
+	}
+	
+	/* 'default' enter sequence for region ObstacleAvoidingText */
+	private void enterSequence_main_region_ObstacleFollow_ObstacleAvoidingText_default() {
+		react_main_region_ObstacleFollow_ObstacleAvoidingText__entry_Default();
+	}
+	
+	/* 'default' enter sequence for region ObstacleAvoidingText */
+	private void enterSequence_main_region_ObstacleWayBack_ObstacleAvoidingText_default() {
+		react_main_region_ObstacleWayBack_ObstacleAvoidingText__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region Leonie Bupered Or Emergency Stop */
@@ -3008,6 +3119,28 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state ObstacleFollow */
+	private void exitSequence_main_region_ObstacleFollow() {
+		exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText();
+	}
+	
+	/* Default exit sequence for state TTS */
+	private void exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_TTS() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state ObstacleWayBack */
+	private void exitSequence_main_region_ObstacleWayBack() {
+		exitSequence_main_region_ObstacleWayBack_ObstacleAvoidingText();
+	}
+	
+	/* Default exit sequence for state TTS */
+	private void exitSequence_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for state waitForEvent */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		nextStateIndex = 1;
@@ -3198,6 +3331,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_arrived1:
 			exitSequence_main_region_arrived1();
 			break;
+		case main_region_ObstacleFollow_ObstacleAvoidingText_TTS:
+			exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_TTS();
+			break;
+		case main_region_ObstacleWayBack_ObstacleAvoidingText_TTS:
+			exitSequence_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS();
+			break;
 		default:
 			break;
 		}
@@ -3338,6 +3477,28 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		}
 	}
 	
+	/* Default exit sequence for region ObstacleAvoidingText */
+	private void exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText() {
+		switch (stateVector[0]) {
+		case main_region_ObstacleFollow_ObstacleAvoidingText_TTS:
+			exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_TTS();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region ObstacleAvoidingText */
+	private void exitSequence_main_region_ObstacleWayBack_ObstacleAvoidingText() {
+		switch (stateVector[0]) {
+		case main_region_ObstacleWayBack_ObstacleAvoidingText_TTS:
+			exitSequence_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS();
+			break;
+		default:
+			break;
+		}
+	}
+	
 	/* Default exit sequence for region Leonie Bupered Or Emergency Stop */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop() {
 		switch (stateVector[1]) {
@@ -3397,14 +3558,18 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		if (check_main_region_StartTracking_tr0_tr0()) {
 			effect_main_region_StartTracking_tr0();
 		} else {
-			if (check_main_region_StartTracking_WaitingForStopCommand_STToff_tr0_tr0()) {
-				effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr0();
+			if (check_main_region_StartTracking_tr2_tr2()) {
+				effect_main_region_StartTracking_tr2();
 			} else {
-				if (check_main_region_StartTracking_WaitingForStopCommand_STToff_tr1_tr1()) {
-					effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr1();
+				if (check_main_region_StartTracking_WaitingForStopCommand_STToff_tr0_tr0()) {
+					effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr0();
 				} else {
-					if (check_main_region_StartTracking_WaitingForStopCommand_STToff_tr2_tr2()) {
-						effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr2();
+					if (check_main_region_StartTracking_WaitingForStopCommand_STToff_tr1_tr1()) {
+						effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr1();
+					} else {
+						if (check_main_region_StartTracking_WaitingForStopCommand_STToff_tr2_tr2()) {
+							effect_main_region_StartTracking_WaitingForStopCommand_STToff_tr2();
+						}
 					}
 				}
 			}
@@ -3416,14 +3581,18 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		if (check_main_region_StartTracking_tr0_tr0()) {
 			effect_main_region_StartTracking_tr0();
 		} else {
-			if (check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr0_tr0()) {
-				effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr0();
+			if (check_main_region_StartTracking_tr2_tr2()) {
+				effect_main_region_StartTracking_tr2();
 			} else {
-				if (check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr1_tr1()) {
-					effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr1();
+				if (check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr0_tr0()) {
+					effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr0();
 				} else {
-					if (check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr2_tr2()) {
-						effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr2();
+					if (check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr1_tr1()) {
+						effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr1();
+					} else {
+						if (check_main_region_StartTracking_WaitingForStopCommand_STTstart_tr2_tr2()) {
+							effect_main_region_StartTracking_WaitingForStopCommand_STTstart_tr2();
+						}
 					}
 				}
 			}
@@ -3435,20 +3604,24 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		if (check_main_region_StartTracking_tr0_tr0()) {
 			effect_main_region_StartTracking_tr0();
 		} else {
-			if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr0_tr0()) {
-				effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr0();
+			if (check_main_region_StartTracking_tr2_tr2()) {
+				effect_main_region_StartTracking_tr2();
 			} else {
-				if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr1_tr1()) {
-					effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr1();
+				if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr0_tr0()) {
+					effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr0();
 				} else {
-					if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr2_tr2()) {
-						effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr2();
+					if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr1_tr1()) {
+						effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr1();
 					} else {
-						if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr3_tr3()) {
-							effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr3();
+						if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr2_tr2()) {
+							effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr2();
 						} else {
-							if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr4_tr4()) {
-								effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr4();
+							if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr3_tr3()) {
+								effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr3();
+							} else {
+								if (check_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr4_tr4()) {
+									effect_main_region_StartTracking_WaitingForStopCommand_TextReceived_tr4();
+								}
 							}
 						}
 					}
@@ -3462,7 +3635,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		if (check_main_region_StartTracking_tr0_tr0()) {
 			effect_main_region_StartTracking_tr0();
 		} else {
-			effect_main_region_StartTracking_WaitingForStopCommand_TTS_tr0();
+			if (check_main_region_StartTracking_tr2_tr2()) {
+				effect_main_region_StartTracking_tr2();
+			} else {
+				effect_main_region_StartTracking_WaitingForStopCommand_TTS_tr0();
+			}
 		}
 	}
 	
@@ -3695,8 +3872,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		if (check_main_region_GoTo_tr2_tr2()) {
 			effect_main_region_GoTo_tr2();
 		} else {
-			if (check_main_region_GoTo_goto_goto_tr0_tr0()) {
-				effect_main_region_GoTo_goto_goto_tr0();
+			if (check_main_region_GoTo_tr3_tr3()) {
+				effect_main_region_GoTo_tr3();
+			} else {
+				if (check_main_region_GoTo_goto_goto_tr0_tr0()) {
+					effect_main_region_GoTo_goto_goto_tr0();
+				}
 			}
 		}
 	}
@@ -3706,8 +3887,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		if (check_main_region_GoTo_tr2_tr2()) {
 			effect_main_region_GoTo_tr2();
 		} else {
-			if (check_main_region_GoTo_goto_goto_fallback_tr0_tr0()) {
-				effect_main_region_GoTo_goto_goto_fallback_tr0();
+			if (check_main_region_GoTo_tr3_tr3()) {
+				effect_main_region_GoTo_tr3();
+			} else {
+				if (check_main_region_GoTo_goto_goto_fallback_tr0_tr0()) {
+					effect_main_region_GoTo_goto_goto_fallback_tr0();
+				}
 			}
 		}
 	}
@@ -3717,8 +3902,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		if (check_main_region_GoTo_tr2_tr2()) {
 			effect_main_region_GoTo_tr2();
 		} else {
-			if (check_main_region_GoTo_goto_gotoWP_tr0_tr0()) {
-				effect_main_region_GoTo_goto_gotoWP_tr0();
+			if (check_main_region_GoTo_tr3_tr3()) {
+				effect_main_region_GoTo_tr3();
+			} else {
+				if (check_main_region_GoTo_goto_gotoWP_tr0_tr0()) {
+					effect_main_region_GoTo_goto_gotoWP_tr0();
+				}
 			}
 		}
 	}
@@ -3850,6 +4039,20 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	private void react_main_region_arrived1() {
 		if (check_main_region_arrived1_tr0_tr0()) {
 			effect_main_region_arrived1_tr0();
+		}
+	}
+	
+	/* The reactions of state TTS. */
+	private void react_main_region_ObstacleFollow_ObstacleAvoidingText_TTS() {
+		if (check_main_region_ObstacleFollow_ObstacleAvoidingText_TTS_tr0_tr0()) {
+			effect_main_region_ObstacleFollow_ObstacleAvoidingText_TTS_tr0();
+		}
+	}
+	
+	/* The reactions of state TTS. */
+	private void react_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS() {
+		if (check_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS_tr0_tr0()) {
+			effect_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS_tr0();
 		}
 	}
 	
@@ -4005,6 +4208,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	/* Default react sequence for initial entry  */
+	private void react_main_region_ObstacleFollow_ObstacleAvoidingText__entry_Default() {
+		enterSequence_main_region_ObstacleFollow_ObstacleAvoidingText_TTS_default();
+	}
+	
+	/* Default react sequence for initial entry  */
+	private void react_main_region_ObstacleWayBack_ObstacleAvoidingText__entry_Default() {
+		enterSequence_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS_default();
+	}
+	
+	/* Default react sequence for initial entry  */
 	private void react_Leonie_Bupered_Or_Emergency_Stop__entry_Default() {
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default();
 	}
@@ -4042,6 +4255,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* The reactions of exit exit_failed. */
 	private void react_main_region_PathBlocked_Blocked_exit_failed() {
 		effect_main_region_PathBlocked_tr1();
+	}
+	
+	/* The reactions of exit exit_done. */
+	private void react_main_region_ObstacleFollow_ObstacleAvoidingText_exit_done() {
+		effect_main_region_ObstacleFollow_tr0();
+	}
+	
+	/* The reactions of exit exit_done. */
+	private void react_main_region_ObstacleWayBack_ObstacleAvoidingText_exit_done() {
+		effect_main_region_ObstacleWayBack_tr0();
 	}
 	
 	public void runCycle() {
@@ -4203,6 +4426,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 				break;
 			case main_region_arrived1:
 				react_main_region_arrived1();
+				break;
+			case main_region_ObstacleFollow_ObstacleAvoidingText_TTS:
+				react_main_region_ObstacleFollow_ObstacleAvoidingText_TTS();
+				break;
+			case main_region_ObstacleWayBack_ObstacleAvoidingText_TTS:
+				react_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS();
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();

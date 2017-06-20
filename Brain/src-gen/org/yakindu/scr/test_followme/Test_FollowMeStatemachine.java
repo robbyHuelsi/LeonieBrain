@@ -23,9 +23,16 @@ public class Test_FollowMeStatemachine implements ITest_FollowMeStatemachine {
 			trackingPersonLost = true;
 		}
 		
+		private boolean obstacleDetected;
+		
+		public void raiseObstacleDetected() {
+			obstacleDetected = true;
+		}
+		
 		protected void clearEvents() {
 			detectionPersonFound = false;
 			trackingPersonLost = false;
+			obstacleDetected = false;
 		}
 	}
 	

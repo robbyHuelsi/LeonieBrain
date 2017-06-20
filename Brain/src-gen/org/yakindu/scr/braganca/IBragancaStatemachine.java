@@ -135,6 +135,8 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 	
 		public void raiseGestureDetected();
 		
+		public void raiseFail();
+		
 		public void raiseStringFinished();
 		
 		public void setSCILeapMotionOperationCallback(SCILeapMotionOperationCallback operationCallback);

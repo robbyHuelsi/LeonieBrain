@@ -22,7 +22,6 @@ public class CrowdDet implements IParser, Serializable{
 		//age: -1 = not detectable
 		//position: 0 = stehen; 1 = sitzen; 2 = liegen
 
-				
 		this.start = start;
 		
 		this.personList.removeAllElements();
@@ -62,7 +61,6 @@ public class CrowdDet implements IParser, Serializable{
 		}else{
 			return true; //Keine Person
 		}
-		
 	}
 	
 
@@ -73,7 +71,6 @@ public class CrowdDet implements IParser, Serializable{
 
 	public void setCrowdDetected(boolean crowdDetected) {
 		this.crowdDetected = crowdDetected;
-		
 		if (crowdDetected) {
 			start.getStatemachine().raiseEventOfSCI("CrowdDetection","detected");
 		}
@@ -130,7 +127,6 @@ public class CrowdDet implements IParser, Serializable{
 				pl.remove(i);
 				removeCounter++;
 			
-			
 			//waving
 			}else if(waving != -1 && pl.get(i).getWaving() != waving){
 				pl.remove(i);
@@ -142,11 +138,13 @@ public class CrowdDet implements IParser, Serializable{
 				removeCounter++;
 			}
 			
+			//TODO every combination... 
+			/*
+			 * gender, minAge, maxAge, position, color, waving
+			 */
 			i -= removeCounter;
 		}
-		
 		return pl.size();
-		
 	}
 
 
@@ -193,7 +191,6 @@ public class CrowdDet implements IParser, Serializable{
 				}
 				
 
-				
 				if (this.personList.get(0).getColor() == 5) {
 						sum += " The person is wearing blue.";
 				}else if(this.personList.get(0).getColor() == 4){
@@ -258,9 +255,8 @@ public class CrowdDet implements IParser, Serializable{
 					if(person.getColor() == 3){yellow++;}
 					if(person.getColor() == 1){white++;}
 					if(person.getColor() == 0){black++;}
-					
 				}
-				
+				//GENDER
 				if (female == 1) {
 						sum += " One person is female.";
 				}else if (female > 1){
@@ -277,7 +273,7 @@ public class CrowdDet implements IParser, Serializable{
 					sum += " For " + unknownGender + " persons I was not able to get the gender.";
 				}
 				
-				
+				//AGE
 				if (young == 1) {
 						sum += " One person is young.";
 				}else if (young > 1){
@@ -299,7 +295,7 @@ public class CrowdDet implements IParser, Serializable{
 					sum += " For " + unknownAge + " persons I was not able to detect the age.";
 				}
 				
-				
+				//POSITION
 				if (standing == 1) {
 						sum += " One person is standing.";
 				}else if (standing > 1){
@@ -316,14 +312,14 @@ public class CrowdDet implements IParser, Serializable{
 					sum += " " + lying + " of the persons are lying.";
 				}
 				
-				
+				//WAVING
 				if (waving == 1) {
 					sum += " One person is waving.";
 				}else if (waving > 1){
 					sum += " " + waving + " of the persons are waving.";
 				}
 				
-				
+				//COLOR
 				if (blue == 1) {
 					sum += " One person is wearing blue.";
 				}else if (blue > 1){
@@ -344,7 +340,6 @@ public class CrowdDet implements IParser, Serializable{
 				}else if (yellow > 1){
 					sum += " " + yellow + " of the persons are wearing yellow.";
 				}
-				
 				if (white == 1) {
 					sum += " One person is wearing white.";
 				}else if (white > 1){
@@ -364,8 +359,15 @@ public class CrowdDet implements IParser, Serializable{
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
 		int count;
 		
-		switch (inDetails) {
-		case "countAll":
+		//Example: inDetails = -1|-1|-1|4|-1
+		String[] t = inDetails.split("|");
+		int[] arguments = new int[t.length];
+		for(int i=0; i<t.length; i++){
+			int argument = Integer.parseInt(t[i]);
+			arguments[i] = argument;
+		}
+		//COUNT ALL
+		if(arguments[0]==-1 && arguments[1]==-1 && arguments[2]==-1 && arguments[3]==-1 && arguments[4]==-1 && arguments[5]==-1){
 			count = getTotalCount();
 			if (count == 0) {
 				return "I found no people.";
@@ -374,9 +376,10 @@ public class CrowdDet implements IParser, Serializable{
 			}else{
 				return "I found " + count + " people.";
 			}
-			
-			
-		case "countMale":
+		}
+		
+		//GENDER
+		else if(arguments[0]==0){
 			count = getSpecificCount(0,-1,-1,-1,-1,-1);
 			if (count == 0) {
 				return "I found no male people.";
@@ -385,9 +388,7 @@ public class CrowdDet implements IParser, Serializable{
 			}else{
 				return "I found " + count + " male people.";
 			}
-			
-
-		case "countFemale":
+		}else if(arguments[0]==1){
 			count = getSpecificCount(1,-1,-1,-1,-1,-1);
 			if (count == 0) {
 				return "I found no female people.";
@@ -396,9 +397,8 @@ public class CrowdDet implements IParser, Serializable{
 			}else{
 				return "I found " + count + " female people.";
 			}
-			
-
-		case "countStanding":
+		//POSITION
+		}else if(arguments[3]==0){
 			count = getSpecificCount(-1,-1,-1,0,-1,-1);
 			if (count == 0) {
 				return "I found no standing people.";
@@ -407,9 +407,7 @@ public class CrowdDet implements IParser, Serializable{
 			}else{
 				return "I found " + count + " standing people.";
 			}
-			
-
-		case "countSitting":
+		}else if(arguments[3]==1){
 			count = getSpecificCount(-1,-1,-1,1,-1,-1);
 			if (count == 0) {
 				return "I found no sitting people.";
@@ -418,9 +416,7 @@ public class CrowdDet implements IParser, Serializable{
 			}else{
 				return "I found " + count + " sitting people.";
 			}
-			
-
-		case "countLaying":
+		}else if(arguments[3]==2){
 			count = getSpecificCount(-1,-1,-1,2,-1,-1);
 			if (count == 0) {
 				return "I found no laying people.";
@@ -429,12 +425,9 @@ public class CrowdDet implements IParser, Serializable{
 			}else{
 				return "I found " + count + " laying people.";
 			}
-			
-
-		case "countHandSign":
-			return "[:-(] I'm sorry, I can't detect hand signs";
-
-		case "countYoung":
+		}
+		//AGE
+		else if(arguments[2]==18){
 			count = getSpecificCount(-1,-1,18,-1,-1,-1);
 			if (count == 0) {
 				return "I found no person younger than 21.";
@@ -443,9 +436,7 @@ public class CrowdDet implements IParser, Serializable{
 			}else{
 				return "I found " + count + "people younger than 21.";
 			}
-			
-
-		case "countOld":
+		}else if(arguments[1]==79){
 			count = getSpecificCount(-1,79,-1,1,-1,-1);
 			if (count == 0) {
 				return "I found no person older than 59.";
@@ -454,8 +445,8 @@ public class CrowdDet implements IParser, Serializable{
 			}else{
 				return "I found " + count + " old people older than 59.";
 			}
-			
-		case "countBoys":
+		//AGE & GENDER
+		}else if(arguments[0]==0 && arguments[2]==18){
 			count = getSpecificCount(0,-1,18,-1,-1,-1);
 			if (count == 0) {
 				return "I found no male person younger than 21.";
@@ -464,8 +455,7 @@ public class CrowdDet implements IParser, Serializable{
 			}else{
 				return "I found " + count + " male person younger than 21.";
 			}
-			
-		case "countGirls":
+		}else if(arguments[0]==1 && arguments[2]==18){
 			count = getSpecificCount(1,-1,18,-1,-1,-1);
 			if (count == 0) {
 				return "I found no female person younger than 21.";
@@ -474,22 +464,78 @@ public class CrowdDet implements IParser, Serializable{
 			}else{
 				return "I found " + count + " female person younger than 21.";
 			}
-			
-		case "countWaving":
-			count = getSpecificCount(-1,-1,-1,-1,-1,1);
-			if (count == 0) {
-				return "I found no waving person.";
-			}else if(count == 1){
+		//WAVING
+		}else if(arguments[5]==1){
+				count = getSpecificCount(-1,-1,-1,-1,-1,1);
+				if (count == 0) {
+					return "I found no waving person.";
+				}else if(count == 1){
 					return "I found one waving person.";
+				}else{
+					return "I found " + count + " waving person.";
+				}
+		}
+		//COLOR
+		else if(arguments[4]==0){
+			count = getSpecificCount(-1,-1,-1,-1,0,-1);
+			if (count == 0) {
+				return "I found no person wearing black.";
+			}else if(count == 1){
+				return "I found one person wearing black.";
 			}else{
-				return "I found " + count + " waving person.";
+				return "I found " + count + " people wearing black.";
 			}
-			
-		//TODO - COLOR	
-			
-		default:
-			return "I don't know, what you mean with " + inDetails + ".";
+		}else if(arguments[4]==1){
+			count = getSpecificCount(-1,-1,-1,-1,1,-1);
+			if (count == 0) {
+				return "I found no person wearing white.";
+			}else if(count == 1){
+				return "I found one person wearing white.";
+			}else{
+				return "I found " + count + " people wearing white.";
+			}
+		}else if(arguments[4]==2){
+			count = getSpecificCount(-1,-1,-1,-1,2,-1);
+			if (count == 0) {
+				return "I found no person wearing red.";
+			}else if(count == 1){
+				return "I found one person wearing red.";
+			}else{
+				return "I found " + count + " people wearing red.";
+			}
+		}else if(arguments[4]==3){
+			count = getSpecificCount(-1,-1,-1,-1,3,-1);
+			if (count == 0) {
+				return "I found no person wearing yellow.";
+			}else if(count == 1){
+				return "I found one person wearing yellow.";
+			}else{
+				return "I found " + count + " people wearing yellow.";
+			}
+		}else if(arguments[4]==4){
+			count = getSpecificCount(-1,-1,-1,-1,4,-1);
+			if (count == 0) {
+				return "I found no person wearing green.";
+			}else if(count == 1){
+				return "I found one person wearing green.";
+			}else{
+				return "I found " + count + " people wearing green.";
+			}
+		}else if(arguments[4]==5){
+			count = getSpecificCount(-1,-1,-1,-1,5,-1);
+			if (count == 0) {
+				return "I found no person wearing blue.";
+			}else if(count == 1){
+				return "I found one person wearing blue.";
+			}else{
+				return "I found " + count + " people wearing blue.";
+			}
 		}
 		
+		//TODO all and some more combinations
+
+		else{
+			return "I don't know, what you mean with " + inDetails + ".";
+		}
 	} 
 }

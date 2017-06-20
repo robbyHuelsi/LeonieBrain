@@ -20,7 +20,7 @@
         </regions>
       </vertices>
       <vertices xsi:type="sgraph:FinalState" xmi:id="_KVGowCbQEee6A5p4FHlpdA" incomingTransitions="_fHtq4C65Eee6ptFPoPLOZA"/>
-      <vertices xsi:type="sgraph:State" xmi:id="_QBO3MCkXEeerIsa7nI0F3w" specification="entry / ObjectDetection.sendPing();&#xA;cupboard = 1;&#xA;tiltAngle = -30" name="requestReady" incomingTransitions="_TApOoCkXEeerIsa7nI0F3w">
+      <vertices xsi:type="sgraph:State" xmi:id="_QBO3MCkXEeerIsa7nI0F3w" specification="entry / ObjectDetection.sendPing();&#xA;cupboard = 1;&#xA;tiltAngle = 0" name="requestReady" incomingTransitions="_TApOoCkXEeerIsa7nI0F3w">
         <outgoingTransitions xmi:id="_4tCcEC61Eee6ptFPoPLOZA" specification="ObjectDetection.ready" target="_6-pSsDFwEeeU_ICeZ3dfdQ"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_eHYr2S64Eee6ptFPoPLOZA" specification="entry/&#xA;ObjectDetection.sendAnalyseTable();&#xA;HBrain.sendTTS(&quot;[:-)]Okay. Now I am analysing the table. [attentive]&quot;)" name="inspectTable" incomingTransitions="_3nBbIDFmEeeU_ICeZ3dfdQ">
@@ -80,10 +80,10 @@
       <vertices xsi:type="sgraph:State" xmi:id="_WvQlYCz8Eeecj-uLLtmD-Q" specification="entry /&#xA;Mira.sendTiltCamera(tiltAngle)" name="tiltCupboard" incomingTransitions="_HM-t4C6qEeeSdrDiApNpGw">
         <outgoingTransitions xmi:id="_ZEHj8Cz8Eeecj-uLLtmD-Q" specification="after 4s" target="_XgbpUCbKEeebIf-clp-UOw"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_4jn6AC64Eee6ptFPoPLOZA" specification="entry/&#xA;HBrain.sendTTS(&quot;{0;0} [:-)]&quot;)" name="lookToFront" incomingTransitions="_fiJtkDBNEee0875Bvs1VDA">
+      <vertices xsi:type="sgraph:State" xmi:id="_4jn6AC64Eee6ptFPoPLOZA" specification="entry/&#xA;HBrain.sendTTS(&quot;{0;0} [:-)]&quot;);&#xA;ObjectDetection.sendPrintPDF" name="lookToFront" incomingTransitions="_fiJtkDBNEee0875Bvs1VDA">
         <outgoingTransitions xmi:id="_3nBbIDFmEeeU_ICeZ3dfdQ" specification="always" target="_eHYr2S64Eee6ptFPoPLOZA"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_6-pSsDFwEeeU_ICeZ3dfdQ" specification="entry/&#xD;&#xA;cupboardGWP = 23;&#xD;&#xA;panAngle = -45" name="C1" incomingTransitions="_4tCcEC61Eee6ptFPoPLOZA">
+      <vertices xsi:type="sgraph:State" xmi:id="_6-pSsDFwEeeU_ICeZ3dfdQ" specification="entry/&#xD;&#xA;cupboardGWP = 23;&#xD;&#xA;panAngle = 0" name="C1" incomingTransitions="_4tCcEC61Eee6ptFPoPLOZA">
         <outgoingTransitions xmi:id="_Ke0cADFxEeeU_ICeZ3dfdQ" specification="always" target="_rsmPIC62Eee6ptFPoPLOZA"/>
       </vertices>
     </regions>

@@ -645,7 +645,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		
 		setCupboard(1);
 		
-		setTiltAngle(-30);
+		setTiltAngle(0);
 	}
 	
 	/* Entry action for state 'inspectTable'. */
@@ -722,13 +722,15 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	/* Entry action for state 'lookToFront'. */
 	private void entryAction_main_region_lookToFront() {
 		sCIHBrain.operationCallback.sendTTS("{0;0} [:-)]");
+		
+		sCIObjectDetection.operationCallback.sendPrintPDF();
 	}
 	
 	/* Entry action for state 'C1'. */
 	private void entryAction_main_region_C1() {
 		setCupboardGWP(23);
 		
-		setPanAngle(-45);
+		setPanAngle(0);
 	}
 	
 	/* Entry action for state 'Bumpered'. */

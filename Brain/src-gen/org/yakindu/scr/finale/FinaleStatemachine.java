@@ -150,6 +150,12 @@ public class FinaleStatemachine implements IFinaleStatemachine {
 			gestureDetected = true;
 		}
 		
+		private boolean fail;
+		
+		public void raiseFail() {
+			fail = true;
+		}
+		
 		private boolean stringFinished;
 		
 		public void raiseStringFinished() {
@@ -158,6 +164,7 @@ public class FinaleStatemachine implements IFinaleStatemachine {
 		
 		protected void clearEvents() {
 			gestureDetected = false;
+			fail = false;
 			stringFinished = false;
 		}
 	}

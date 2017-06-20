@@ -17,6 +17,12 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 			gestureDetected = true;
 		}
 		
+		private boolean fail;
+		
+		public void raiseFail() {
+			fail = true;
+		}
+		
 		private boolean stringFinished;
 		
 		public void raiseStringFinished() {
@@ -25,6 +31,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 		
 		protected void clearEvents() {
 			gestureDetected = false;
+			fail = false;
 			stringFinished = false;
 		}
 	}
@@ -103,7 +110,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 		main_region_count,
 		main_region__final_,
 		main_region_end,
-		main_region_timeOut,
+		main_region_Failure,
 		$NullState$
 	};
 	
@@ -113,7 +120,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[3];
+	private final boolean[] timeEvents = new boolean[2];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -122,6 +129,16 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	
 	protected long getCounter() {
 		return counter;
+	}
+	
+	private long maxCount;
+	
+	protected void setMaxCount(long value) {
+		maxCount = value;
+	}
+	
+	protected long getMaxCount() {
+		return maxCount;
 	}
 	
 	public Test_LeapMotionLeftRightStatemachine() {
@@ -141,6 +158,8 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 		clearEvents();
 		clearOutEvents();
 		setCounter(0);
+		
+		setMaxCount(0);
 	}
 	
 	public void enter() {
@@ -207,8 +226,8 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 			return stateVector[0] == State.main_region__final_;
 		case main_region_end:
 			return stateVector[0] == State.main_region_end;
-		case main_region_timeOut:
-			return stateVector[0] == State.main_region_timeOut;
+		case main_region_Failure:
+			return stateVector[0] == State.main_region_Failure;
 		default:
 			return false;
 		}
@@ -251,7 +270,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	}
 	
 	private boolean check_main_region_StartSTT_tr0_tr0() {
-		return timeEvents[0];
+		return sCILeapMotion.fail;
 	}
 	
 	private boolean check_main_region_StartSTT_tr1_tr1() {
@@ -263,11 +282,11 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	}
 	
 	private boolean check_main_region_Left_tr0_tr0() {
-		return timeEvents[1];
+		return timeEvents[0];
 	}
 	
 	private boolean check_main_region_Right_tr0_tr0() {
-		return timeEvents[2];
+		return timeEvents[1];
 	}
 	
 	private boolean check_main_region_count_tr0_tr0() {
@@ -278,12 +297,20 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_timeOut_tr0_tr0() {
-		return sCIHBrain.tTSReady;
+	private boolean check_main_region_Failure_tr0_tr0() {
+		return sCIHBrain.tTSReady && getCounter()==getMaxCount();
+	}
+	
+	private boolean check_main_region_Failure_tr1_tr1() {
+		return sCIHBrain.tTSReady && getCounter()<getMaxCount();
 	}
 	
 	private boolean check_main_region__choice_0_tr0_tr0() {
+<<<<<<< HEAD
 		return getCounter()<5;
+=======
+		return getCounter()<getMaxCount();
+>>>>>>> 82af10348ed4e6500500d0fa1e45e5060096b256
 	}
 	
 	private boolean check_main_region__choice_0_tr1_tr1() {
@@ -292,7 +319,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	
 	private void effect_main_region_StartSTT_tr0() {
 		exitSequence_main_region_StartSTT();
-		enterSequence_main_region_timeOut_default();
+		enterSequence_main_region_Failure_default();
 	}
 	
 	private void effect_main_region_StartSTT_tr1() {
@@ -325,9 +352,14 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 		enterSequence_main_region__final__default();
 	}
 	
-	private void effect_main_region_timeOut_tr0() {
-		exitSequence_main_region_timeOut();
+	private void effect_main_region_Failure_tr0() {
+		exitSequence_main_region_Failure();
 		enterSequence_main_region__final__default();
+	}
+	
+	private void effect_main_region_Failure_tr1() {
+		exitSequence_main_region_Failure();
+		enterSequence_main_region_StartSTT_default();
 	}
 	
 	private void effect_main_region__choice_0_tr0() {
@@ -340,7 +372,11 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_StartSTT() {
+<<<<<<< HEAD
 		timer.setTimer(this, 0, 25 * 1000, false);
+=======
+		sCIHBrain.operationCallback.sendTTS("Okay I will try to detect your gesture.");
+>>>>>>> 82af10348ed4e6500500d0fa1e45e5060096b256
 		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(4);
 		
@@ -349,7 +385,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	
 	/* Entry action for state 'Left'. */
 	private void entryAction_main_region_Left() {
-		timer.setTimer(this, 1, 1 * 1000, false);
+		timer.setTimer(this, 0, 1 * 1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(-30);
 		
@@ -358,7 +394,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	
 	/* Entry action for state 'Right'. */
 	private void entryAction_main_region_Right() {
-		timer.setTimer(this, 2, 1 * 1000, false);
+		timer.setTimer(this, 1, 1 * 1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(30);
 		
@@ -368,6 +404,8 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	/* Entry action for state 'count'. */
 	private void entryAction_main_region_count() {
 		setCounter(0);
+		
+		setMaxCount(3);
 	}
 	
 	/* Entry action for state 'end'. */
@@ -375,26 +413,24 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 		sCIHBrain.operationCallback.sendTTS("Done. I go to sleep.");
 	}
 	
-	/* Entry action for state 'timeOut'. */
-	private void entryAction_main_region_timeOut() {
-		sCIHBrain.operationCallback.sendTTS("Time out.");
+	/* Entry action for state 'Failure'. */
+	private void entryAction_main_region_Failure() {
+		sCIHBrain.operationCallback.sendTTS("Wasn't able to detect a gesture.");
 	}
 	
 	/* Exit action for state 'StartSTT'. */
 	private void exitAction_main_region_StartSTT() {
-		timer.unsetTimer(this, 0);
-		
 		sCILeapMotion.operationCallback.sendGestureDetectionOnOff(0);
 	}
 	
 	/* Exit action for state 'Left'. */
 	private void exitAction_main_region_Left() {
-		timer.unsetTimer(this, 1);
+		timer.unsetTimer(this, 0);
 	}
 	
 	/* Exit action for state 'Right'. */
 	private void exitAction_main_region_Right() {
-		timer.unsetTimer(this, 2);
+		timer.unsetTimer(this, 1);
 	}
 	
 	/* 'default' enter sequence for state StartSTT */
@@ -438,11 +474,11 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 		stateVector[0] = State.main_region_end;
 	}
 	
-	/* 'default' enter sequence for state timeOut */
-	private void enterSequence_main_region_timeOut_default() {
-		entryAction_main_region_timeOut();
+	/* 'default' enter sequence for state Failure */
+	private void enterSequence_main_region_Failure_default() {
+		entryAction_main_region_Failure();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_timeOut;
+		stateVector[0] = State.main_region_Failure;
 	}
 	
 	/* 'default' enter sequence for region main region */
@@ -492,8 +528,8 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state timeOut */
-	private void exitSequence_main_region_timeOut() {
+	/* Default exit sequence for state Failure */
+	private void exitSequence_main_region_Failure() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -519,8 +555,8 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 		case main_region_end:
 			exitSequence_main_region_end();
 			break;
-		case main_region_timeOut:
-			exitSequence_main_region_timeOut();
+		case main_region_Failure:
+			exitSequence_main_region_Failure();
 			break;
 		default:
 			break;
@@ -572,10 +608,14 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 		}
 	}
 	
-	/* The reactions of state timeOut. */
-	private void react_main_region_timeOut() {
-		if (check_main_region_timeOut_tr0_tr0()) {
-			effect_main_region_timeOut_tr0();
+	/* The reactions of state Failure. */
+	private void react_main_region_Failure() {
+		if (check_main_region_Failure_tr0_tr0()) {
+			effect_main_region_Failure_tr0();
+		} else {
+			if (check_main_region_Failure_tr1_tr1()) {
+				effect_main_region_Failure_tr1();
+			}
 		}
 	}
 	
@@ -618,8 +658,8 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 			case main_region_end:
 				react_main_region_end();
 				break;
-			case main_region_timeOut:
-				react_main_region_timeOut();
+			case main_region_Failure:
+				react_main_region_Failure();
 				break;
 			default:
 				// $NullState$

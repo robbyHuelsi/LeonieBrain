@@ -193,6 +193,8 @@ public interface IGeneralPurposeServiceRobotStatemachine extends ITimerCallback,
 		
 		public void raiseTrackingPersonLost();
 		
+		public void raiseObstacleDetected();
+		
 		public void setSCIFollowMeOperationCallback(SCIFollowMeOperationCallback operationCallback);
 	
 	}

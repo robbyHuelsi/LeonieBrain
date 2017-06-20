@@ -193,6 +193,8 @@ public interface IEEGPSRStatemachine extends ITimerCallback,IStatemachine {
 		
 		public void raiseTrackingPersonLost();
 		
+		public void raiseObstacleDetected();
+		
 		public void setSCIFollowMeOperationCallback(SCIFollowMeOperationCallback operationCallback);
 	
 	}

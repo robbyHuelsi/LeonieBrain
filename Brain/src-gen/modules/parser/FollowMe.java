@@ -27,11 +27,21 @@ public class FollowMe implements IParser, Serializable {
 			return true;
 			
 		}else if(data.contains("DETAILS#")){
+			//Detection Details (Array Personen mit Raumkoordinate)
+			//#FOLLOWME#DETAILS#[x : int],y;x,y;x,y#
 			String[] persons = data.substring(8).split(";");
 			if (!persons[0].isEmpty()) {
 				this.setNextPersonXPos(Integer.parseInt(persons[0].split(",")[0]));
 				this.setNextPersonYPos(Integer.parseInt(persons[0].split(",")[1]));
 				this.setDetectionPersonFound(true);
+			}
+			return true;
+		}else if(data.contains("AVOID")){
+			 //Start avoidance: #FOLLOWME#AVOID#1 
+			 //End avoidance:   #FOLLOWME#AVOID#0
+			String avoidOnOff = data.substring(8);
+			if (avoidOnOff.contains("1")){
+				start.getStatemachine().raiseEventOfSCI("FollowMe", "obstacleDetected");
 			}
 			return true;
 		}
