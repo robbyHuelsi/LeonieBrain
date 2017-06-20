@@ -681,21 +681,21 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'Copy_1_panCupboard'. */
 	private void entryAction_main_region_Copy_1_Table__region1_Copy_1_panCupboard() {
-		timer.setTimer(this, 0, 10*1000, false);
+		timer.setTimer(this, 0, 10 * 1000, false);
 		
 		sCIMira.operationCallback.sendPanCamera(0);
 	}
 	
 	/* Entry action for state 'Copy_1_tiltCupboard'. */
 	private void entryAction_main_region_Copy_1_Table__region1_Copy_1_tiltCupboard() {
-		timer.setTimer(this, 1, 4*1000, false);
+		timer.setTimer(this, 1, 4 * 1000, false);
 		
 		sCIMira.operationCallback.sendTiltCamera(0);
 	}
 	
 	/* Entry action for state 'wait for Mira'. */
 	private void entryAction_main_region_Copy_1_Table__region1_wait_for_Mira() {
-		timer.setTimer(this, 2, 1*1000, false);
+		timer.setTimer(this, 2, 1 * 1000, false);
 	}
 	
 	/* Entry action for state 'move to wp'. */
@@ -707,14 +707,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'panCupboard'. */
 	private void entryAction_main_region_panCupboard() {
-		timer.setTimer(this, 3, 5*1000, false);
+		timer.setTimer(this, 3, 5 * 1000, false);
 		
 		sCIMira.operationCallback.sendPanCamera(getPanAngle());
 	}
 	
 	/* Entry action for state 'tiltCupboard'. */
 	private void entryAction_main_region_tiltCupboard() {
-		timer.setTimer(this, 4, 4*1000, false);
+		timer.setTimer(this, 4, 4 * 1000, false);
 		
 		sCIMira.operationCallback.sendTiltCamera(getTiltAngle());
 	}
@@ -735,7 +735,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 5, 3*1000, false);
+		timer.setTimer(this, 5, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -752,7 +752,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 6, 3*1000, false);
+		timer.setTimer(this, 6, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'Copy_1_panCupboard'. */
