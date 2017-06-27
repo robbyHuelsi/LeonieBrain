@@ -195,6 +195,8 @@ public interface IHelpMeCarryStatemachine extends ITimerCallback,IStatemachine {
 		
 		public void raiseObstacleDetected();
 		
+		public void raiseObstacleAvoidDone();
+		
 		public void setSCIFollowMeOperationCallback(SCIFollowMeOperationCallback operationCallback);
 	
 	}

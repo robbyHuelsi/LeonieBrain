@@ -36,14 +36,22 @@ public class FollowMe implements IParser, Serializable {
 				this.setDetectionPersonFound(true);
 			}
 			return true;
-		}else if(data.contains("AVOID")){
+		}else if(data.contains("AVOID#")){
+			System.out.println("TEST: " + data);
 			 //Start avoidance: #FOLLOWME#AVOID#1 
 			 //End avoidance:   #FOLLOWME#AVOID#0
-			String avoidOnOff = data.substring(8);
+			
+			
+			
+			String avoidOnOff = data.substring(6);
 			if (avoidOnOff.contains("1")){
 				start.getStatemachine().raiseEventOfSCI("FollowMe", "obstacleDetected");
+				return true;
+			}else if (avoidOnOff.contains("0")){
+				start.getStatemachine().raiseEventOfSCI("FollowMe", "obstacleAvoidDone");
+				return true;
 			}
-			return true;
+			
 		}
 		
 		return false;

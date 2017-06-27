@@ -261,6 +261,15 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		main_region_Stop,
 		main_region_Serve,
 		main_region__final_,
+		main_region_SearchingBarman,
+		main_region_SearchingBarman_SearchingBarman_SearchingForBarman,
+		main_region_SearchingBarman_SearchingBarman_SearchingRight,
+		main_region_SearchingBarman_SearchingBarman_FoundRight,
+		main_region_SearchingBarman_SearchingBarman_NoBarmanFound,
+		main_region_SearchingBarman_SearchingBarman_TiltCamera,
+		main_region_SearchingBarman_SearchingBarman_SearchingLeft,
+		main_region_SearchingBarman_SearchingBarman_FoundLeft,
+		main_region_SearchingBarman_SearchingBarman_Default,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
@@ -275,7 +284,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[4];
+	private final boolean[] timeEvents = new boolean[8];
 	private long gWPout;
 	
 	protected void setGWPout(long value) {
@@ -436,6 +445,25 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 			return stateVector[0] == State.main_region_Serve;
 		case main_region__final_:
 			return stateVector[0] == State.main_region__final_;
+		case main_region_SearchingBarman:
+			return stateVector[0].ordinal() >= State.
+					main_region_SearchingBarman.ordinal()&& stateVector[0].ordinal() <= State.main_region_SearchingBarman_SearchingBarman_Default.ordinal();
+		case main_region_SearchingBarman_SearchingBarman_SearchingForBarman:
+			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_SearchingForBarman;
+		case main_region_SearchingBarman_SearchingBarman_SearchingRight:
+			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_SearchingRight;
+		case main_region_SearchingBarman_SearchingBarman_FoundRight:
+			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_FoundRight;
+		case main_region_SearchingBarman_SearchingBarman_NoBarmanFound:
+			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_NoBarmanFound;
+		case main_region_SearchingBarman_SearchingBarman_TiltCamera:
+			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_TiltCamera;
+		case main_region_SearchingBarman_SearchingBarman_SearchingLeft:
+			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_SearchingLeft;
+		case main_region_SearchingBarman_SearchingBarman_FoundLeft:
+			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_FoundLeft;
+		case main_region_SearchingBarman_SearchingBarman_Default:
+			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_Default;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -511,12 +539,16 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		return sCIHBrain.tTSReady;
 	}
 	
+	private boolean check_main_region_Ready_tr1_tr1() {
+		return sCIHBrain.tTSReady;
+	}
+	
 	private boolean check_main_region_Turn_tr0_tr0() {
 		return timeEvents[0];
 	}
 	
 	private boolean check_main_region_SearchWave_tr0_tr0() {
-		return sCIKinect2.wavingDetected;
+		return sCICrowdDetection.detected;
 	}
 	
 	private boolean check_main_region_AnnounceGetWaving_tr0_tr0() {
@@ -571,6 +603,42 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		return sCIMira.arrivedWP;
 	}
 	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingForBarman_tr0_tr0() {
+		return timeEvents[2];
+	}
+	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr0_tr0() {
+		return sCICrowdDetection.detected;
+	}
+	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr1_tr1() {
+		return timeEvents[3];
+	}
+	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_FoundRight_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr0_tr0() {
+		return timeEvents[4];
+	}
+	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr0_tr0() {
+		return sCICrowdDetection.detected;
+	}
+	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr1_tr1() {
+		return timeEvents[5];
+	}
+	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_FoundLeft_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_Default_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
 		return sCIMira.bumpered;
 	}
@@ -580,7 +648,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[2];
+		return timeEvents[6];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -592,7 +660,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[3];
+		return timeEvents[7];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -627,6 +695,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	private void effect_main_region_Ready_tr0() {
 		exitSequence_main_region_Ready();
 		enterSequence_main_region_Turn_default();
+	}
+	
+	private void effect_main_region_Ready_tr1() {
+		exitSequence_main_region_Ready();
+		enterSequence_main_region_SearchingBarman_default();
 	}
 	
 	private void effect_main_region_Turn_tr0() {
@@ -704,6 +777,56 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		enterSequence_main_region__final__default();
 	}
 	
+	private void effect_main_region_SearchingBarman_tr0() {
+		exitSequence_main_region_SearchingBarman();
+		enterSequence_main_region_Turn_default();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_SearchingForBarman_tr0() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingForBarman();
+		enterSequence_main_region_SearchingBarman_SearchingBarman_SearchingRight_default();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr0() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingRight();
+		enterSequence_main_region_SearchingBarman_SearchingBarman_FoundRight_default();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr1() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingRight();
+		enterSequence_main_region_SearchingBarman_SearchingBarman_NoBarmanFound_default();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_FoundRight_tr0() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_FoundRight();
+		react_main_region_SearchingBarman_SearchingBarman_exit_done();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr0() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_TiltCamera();
+		enterSequence_main_region_SearchingBarman_SearchingBarman_SearchingLeft_default();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr0() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingLeft();
+		enterSequence_main_region_SearchingBarman_SearchingBarman_FoundLeft_default();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr1() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingLeft();
+		enterSequence_main_region_SearchingBarman_SearchingBarman_Default_default();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_FoundLeft_tr0() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_FoundLeft();
+		react_main_region_SearchingBarman_SearchingBarman_exit_done();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_Default_tr0() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_Default();
+		react_main_region_SearchingBarman_SearchingBarman_exit_done();
+	}
+	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
 		exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_Bumpered_default();
@@ -770,24 +893,24 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'Ready'. */
 	private void entryAction_main_region_Ready() {
-		sCIHBrain.operationCallback.sendTTS("I am ready! I will turn around to detect people waving");
+		sCIHBrain.operationCallback.sendTTS("I am ready! But first I'm looking for the barman.");
 	}
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_main_region_Turn() {
 		timer.setTimer(this, 0, 3 * 1000, false);
 		
-		sCIMira.operationCallback.sendBodyUTurn();
+		sCIMira.operationCallback.sendTiltCamera(45);
 	}
 	
 	/* Entry action for state 'SearchWave'. */
 	private void entryAction_main_region_SearchWave() {
-		sCIKinect2.operationCallback.sendWavingDetectionOnOff(true);
+		sCICrowdDetection.operationCallback.sendWaveDetectionOn();
 	}
 	
 	/* Entry action for state 'AnnounceGetWaving'. */
 	private void entryAction_main_region_AnnounceGetWaving() {
-		sCIKinect2.operationCallback.sendWavingDetectionOnOff(false);
+		sCICrowdDetection.operationCallback.sendDetectionOff();
 		
 		sCIHBrain.operationCallback.sendTTS("There is someone waving to order. If you want me to get the order, please let me know by saying my name.");
 	}
@@ -849,9 +972,57 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		sCIMira.operationCallback.sendGoToGWP(getGWPout());
 	}
 	
+	/* Entry action for state 'SearchingForBarman'. */
+	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingForBarman() {
+		timer.setTimer(this, 2, 3 * 1000, false);
+		
+		sCIMira.operationCallback.sendPanTiltCamera(-10, 45);
+	}
+	
+	/* Entry action for state 'SearchingRight'. */
+	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingRight() {
+		timer.setTimer(this, 3, 15 * 1000, false);
+		
+		sCICrowdDetection.operationCallback.sendDetectionOn();
+	}
+	
+	/* Entry action for state 'FoundRight'. */
+	private void entryAction_main_region_SearchingBarman_SearchingBarman_FoundRight() {
+		sCIHBrain.operationCallback.sendTTS("I found a person. I think I'm standing on the left site of the bar.");
+	}
+	
+	/* Entry action for state 'NoBarmanFound'. */
+	private void entryAction_main_region_SearchingBarman_SearchingBarman_NoBarmanFound() {
+		sCICrowdDetection.operationCallback.sendDetectionOff();
+	}
+	
+	/* Entry action for state 'TiltCamera'. */
+	private void entryAction_main_region_SearchingBarman_SearchingBarman_TiltCamera() {
+		timer.setTimer(this, 4, 4 * 1000, false);
+		
+		sCIMira.operationCallback.sendTiltCamera(-90);
+	}
+	
+	/* Entry action for state 'SearchingLeft'. */
+	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingLeft() {
+		timer.setTimer(this, 5, 15 * 1000, false);
+		
+		sCICrowdDetection.operationCallback.sendDetectionOn();
+	}
+	
+	/* Entry action for state 'FoundLeft'. */
+	private void entryAction_main_region_SearchingBarman_SearchingBarman_FoundLeft() {
+		sCIHBrain.operationCallback.sendTTS("I found a person. I think I'm standing on the right site of the bar.");
+	}
+	
+	/* Entry action for state 'Default'. */
+	private void entryAction_main_region_SearchingBarman_SearchingBarman_Default() {
+		sCIHBrain.operationCallback.sendTTS("I found a person. I think I'm standing on the right site of the bar.");
+	}
+	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 2, 3 * 1000, false);
+		timer.setTimer(this, 6, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -868,7 +1039,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 3, 3 * 1000, false);
+		timer.setTimer(this, 7, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'Turn'. */
@@ -881,14 +1052,34 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		timer.unsetTimer(this, 1);
 	}
 	
+	/* Exit action for state 'SearchingForBarman'. */
+	private void exitAction_main_region_SearchingBarman_SearchingBarman_SearchingForBarman() {
+		timer.unsetTimer(this, 2);
+	}
+	
+	/* Exit action for state 'SearchingRight'. */
+	private void exitAction_main_region_SearchingBarman_SearchingBarman_SearchingRight() {
+		timer.unsetTimer(this, 3);
+	}
+	
+	/* Exit action for state 'TiltCamera'. */
+	private void exitAction_main_region_SearchingBarman_SearchingBarman_TiltCamera() {
+		timer.unsetTimer(this, 4);
+	}
+	
+	/* Exit action for state 'SearchingLeft'. */
+	private void exitAction_main_region_SearchingBarman_SearchingBarman_SearchingLeft() {
+		timer.unsetTimer(this, 5);
+	}
+	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 2);
+		timer.unsetTimer(this, 6);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 3);
+		timer.unsetTimer(this, 7);
 	}
 	
 	/* 'default' enter sequence for state Init */
@@ -1027,6 +1218,67 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		stateVector[0] = State.main_region__final_;
 	}
 	
+	/* 'default' enter sequence for state SearchingBarman */
+	private void enterSequence_main_region_SearchingBarman_default() {
+		enterSequence_main_region_SearchingBarman_SearchingBarman_default();
+	}
+	
+	/* 'default' enter sequence for state SearchingForBarman */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_SearchingForBarman_default() {
+		entryAction_main_region_SearchingBarman_SearchingBarman_SearchingForBarman();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_SearchingForBarman;
+	}
+	
+	/* 'default' enter sequence for state SearchingRight */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_SearchingRight_default() {
+		entryAction_main_region_SearchingBarman_SearchingBarman_SearchingRight();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_SearchingRight;
+	}
+	
+	/* 'default' enter sequence for state FoundRight */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_FoundRight_default() {
+		entryAction_main_region_SearchingBarman_SearchingBarman_FoundRight();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_FoundRight;
+	}
+	
+	/* 'default' enter sequence for state NoBarmanFound */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_NoBarmanFound_default() {
+		entryAction_main_region_SearchingBarman_SearchingBarman_NoBarmanFound();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_NoBarmanFound;
+	}
+	
+	/* 'default' enter sequence for state TiltCamera */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_TiltCamera_default() {
+		entryAction_main_region_SearchingBarman_SearchingBarman_TiltCamera();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_TiltCamera;
+	}
+	
+	/* 'default' enter sequence for state SearchingLeft */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_SearchingLeft_default() {
+		entryAction_main_region_SearchingBarman_SearchingBarman_SearchingLeft();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_SearchingLeft;
+	}
+	
+	/* 'default' enter sequence for state FoundLeft */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_FoundLeft_default() {
+		entryAction_main_region_SearchingBarman_SearchingBarman_FoundLeft();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_FoundLeft;
+	}
+	
+	/* 'default' enter sequence for state Default */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_Default_default() {
+		entryAction_main_region_SearchingBarman_SearchingBarman_Default();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_Default;
+	}
+	
 	/* 'default' enter sequence for state waitForEvent */
 	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default() {
 		nextStateIndex = 1;
@@ -1064,6 +1316,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	/* 'default' enter sequence for region main region */
 	private void enterSequence_main_region_default() {
 		react_main_region__entry_Default();
+	}
+	
+	/* 'default' enter sequence for region SearchingBarman */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_default() {
+		react_main_region_SearchingBarman_SearchingBarman__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region Leonie Bupered Or Emergency Stop */
@@ -1195,6 +1452,67 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state SearchingBarman */
+	private void exitSequence_main_region_SearchingBarman() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman();
+	}
+	
+	/* Default exit sequence for state SearchingForBarman */
+	private void exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingForBarman() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_SearchingBarman_SearchingBarman_SearchingForBarman();
+	}
+	
+	/* Default exit sequence for state SearchingRight */
+	private void exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingRight() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_SearchingBarman_SearchingBarman_SearchingRight();
+	}
+	
+	/* Default exit sequence for state FoundRight */
+	private void exitSequence_main_region_SearchingBarman_SearchingBarman_FoundRight() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state NoBarmanFound */
+	private void exitSequence_main_region_SearchingBarman_SearchingBarman_NoBarmanFound() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state TiltCamera */
+	private void exitSequence_main_region_SearchingBarman_SearchingBarman_TiltCamera() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_SearchingBarman_SearchingBarman_TiltCamera();
+	}
+	
+	/* Default exit sequence for state SearchingLeft */
+	private void exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingLeft() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_SearchingBarman_SearchingBarman_SearchingLeft();
+	}
+	
+	/* Default exit sequence for state FoundLeft */
+	private void exitSequence_main_region_SearchingBarman_SearchingBarman_FoundLeft() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state Default */
+	private void exitSequence_main_region_SearchingBarman_SearchingBarman_Default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for state waitForEvent */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		nextStateIndex = 1;
@@ -1292,6 +1610,62 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		case main_region__final_:
 			exitSequence_main_region__final_();
 			break;
+		case main_region_SearchingBarman_SearchingBarman_SearchingForBarman:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingForBarman();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_SearchingRight:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingRight();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_FoundRight:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_FoundRight();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_NoBarmanFound:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_NoBarmanFound();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_TiltCamera:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_TiltCamera();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_SearchingLeft:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingLeft();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_FoundLeft:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_FoundLeft();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_Default:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_Default();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region SearchingBarman */
+	private void exitSequence_main_region_SearchingBarman_SearchingBarman() {
+		switch (stateVector[0]) {
+		case main_region_SearchingBarman_SearchingBarman_SearchingForBarman:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingForBarman();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_SearchingRight:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingRight();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_FoundRight:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_FoundRight();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_NoBarmanFound:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_NoBarmanFound();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_TiltCamera:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_TiltCamera();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_SearchingLeft:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingLeft();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_FoundLeft:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_FoundLeft();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_Default:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_Default();
+			break;
 		default:
 			break;
 		}
@@ -1331,6 +1705,10 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	private void react_main_region_Ready() {
 		if (check_main_region_Ready_tr0_tr0()) {
 			effect_main_region_Ready_tr0();
+		} else {
+			if (check_main_region_Ready_tr1_tr1()) {
+				effect_main_region_Ready_tr1();
+			}
 		}
 	}
 	
@@ -1451,6 +1829,67 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	private void react_main_region__final_() {
 	}
 	
+	/* The reactions of state SearchingForBarman. */
+	private void react_main_region_SearchingBarman_SearchingBarman_SearchingForBarman() {
+		if (check_main_region_SearchingBarman_SearchingBarman_SearchingForBarman_tr0_tr0()) {
+			effect_main_region_SearchingBarman_SearchingBarman_SearchingForBarman_tr0();
+		}
+	}
+	
+	/* The reactions of state SearchingRight. */
+	private void react_main_region_SearchingBarman_SearchingBarman_SearchingRight() {
+		if (check_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr0_tr0()) {
+			effect_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr0();
+		} else {
+			if (check_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr1_tr1()) {
+				effect_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr1();
+			}
+		}
+	}
+	
+	/* The reactions of state FoundRight. */
+	private void react_main_region_SearchingBarman_SearchingBarman_FoundRight() {
+		if (check_main_region_SearchingBarman_SearchingBarman_FoundRight_tr0_tr0()) {
+			effect_main_region_SearchingBarman_SearchingBarman_FoundRight_tr0();
+		}
+	}
+	
+	/* The reactions of state NoBarmanFound. */
+	private void react_main_region_SearchingBarman_SearchingBarman_NoBarmanFound() {
+	}
+	
+	/* The reactions of state TiltCamera. */
+	private void react_main_region_SearchingBarman_SearchingBarman_TiltCamera() {
+		if (check_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr0_tr0()) {
+			effect_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr0();
+		}
+	}
+	
+	/* The reactions of state SearchingLeft. */
+	private void react_main_region_SearchingBarman_SearchingBarman_SearchingLeft() {
+		if (check_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr0_tr0()) {
+			effect_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr0();
+		} else {
+			if (check_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr1_tr1()) {
+				effect_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr1();
+			}
+		}
+	}
+	
+	/* The reactions of state FoundLeft. */
+	private void react_main_region_SearchingBarman_SearchingBarman_FoundLeft() {
+		if (check_main_region_SearchingBarman_SearchingBarman_FoundLeft_tr0_tr0()) {
+			effect_main_region_SearchingBarman_SearchingBarman_FoundLeft_tr0();
+		}
+	}
+	
+	/* The reactions of state Default. */
+	private void react_main_region_SearchingBarman_SearchingBarman_Default() {
+		if (check_main_region_SearchingBarman_SearchingBarman_Default_tr0_tr0()) {
+			effect_main_region_SearchingBarman_SearchingBarman_Default_tr0();
+		}
+	}
+	
 	/* The reactions of state waitForEvent. */
 	private void react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		if (check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0()) {
@@ -1510,8 +1949,18 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	/* Default react sequence for initial entry  */
+	private void react_main_region_SearchingBarman_SearchingBarman__entry_Default() {
+		enterSequence_main_region_SearchingBarman_SearchingBarman_SearchingForBarman_default();
+	}
+	
+	/* Default react sequence for initial entry  */
 	private void react_Leonie_Bupered_Or_Emergency_Stop__entry_Default() {
 		enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default();
+	}
+	
+	/* The reactions of exit exit_done. */
+	private void react_main_region_SearchingBarman_SearchingBarman_exit_done() {
+		effect_main_region_SearchingBarman_tr0();
 	}
 	
 	public void runCycle() {
@@ -1580,6 +2029,30 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 				break;
 			case main_region__final_:
 				react_main_region__final_();
+				break;
+			case main_region_SearchingBarman_SearchingBarman_SearchingForBarman:
+				react_main_region_SearchingBarman_SearchingBarman_SearchingForBarman();
+				break;
+			case main_region_SearchingBarman_SearchingBarman_SearchingRight:
+				react_main_region_SearchingBarman_SearchingBarman_SearchingRight();
+				break;
+			case main_region_SearchingBarman_SearchingBarman_FoundRight:
+				react_main_region_SearchingBarman_SearchingBarman_FoundRight();
+				break;
+			case main_region_SearchingBarman_SearchingBarman_NoBarmanFound:
+				react_main_region_SearchingBarman_SearchingBarman_NoBarmanFound();
+				break;
+			case main_region_SearchingBarman_SearchingBarman_TiltCamera:
+				react_main_region_SearchingBarman_SearchingBarman_TiltCamera();
+				break;
+			case main_region_SearchingBarman_SearchingBarman_SearchingLeft:
+				react_main_region_SearchingBarman_SearchingBarman_SearchingLeft();
+				break;
+			case main_region_SearchingBarman_SearchingBarman_FoundLeft:
+				react_main_region_SearchingBarman_SearchingBarman_FoundLeft();
+				break;
+			case main_region_SearchingBarman_SearchingBarman_Default:
+				react_main_region_SearchingBarman_SearchingBarman_Default();
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();

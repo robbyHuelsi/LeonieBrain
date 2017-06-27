@@ -215,10 +215,17 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			obstacleDetected = true;
 		}
 		
+		private boolean obstacleAvoidDone;
+		
+		public void raiseObstacleAvoidDone() {
+			obstacleAvoidDone = true;
+		}
+		
 		protected void clearEvents() {
 			detectionPersonFound = false;
 			trackingPersonLost = false;
 			obstacleDetected = false;
+			obstacleAvoidDone = false;
 		}
 	}
 	
@@ -286,6 +293,8 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		main_region_arrived1,
 		main_region_ObstacleFollow,
 		main_region_ObstacleFollow_ObstacleAvoidingText_TTS,
+		main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding,
+		main_region_ObstacleFollow_ObstacleAvoidingText_GoOn,
 		main_region_ObstacleWayBack,
 		main_region_ObstacleWayBack_ObstacleAvoidingText_TTS,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
@@ -579,9 +588,13 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 			return stateVector[0] == State.main_region_arrived1;
 		case main_region_ObstacleFollow:
 			return stateVector[0].ordinal() >= State.
-					main_region_ObstacleFollow.ordinal()&& stateVector[0].ordinal() <= State.main_region_ObstacleFollow_ObstacleAvoidingText_TTS.ordinal();
+					main_region_ObstacleFollow.ordinal()&& stateVector[0].ordinal() <= State.main_region_ObstacleFollow_ObstacleAvoidingText_GoOn.ordinal();
 		case main_region_ObstacleFollow_ObstacleAvoidingText_TTS:
 			return stateVector[0] == State.main_region_ObstacleFollow_ObstacleAvoidingText_TTS;
+		case main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding:
+			return stateVector[0] == State.main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding;
+		case main_region_ObstacleFollow_ObstacleAvoidingText_GoOn:
+			return stateVector[0] == State.main_region_ObstacleFollow_ObstacleAvoidingText_GoOn;
 		case main_region_ObstacleWayBack:
 			return stateVector[0].ordinal() >= State.
 					main_region_ObstacleWayBack.ordinal()&& stateVector[0].ordinal() <= State.main_region_ObstacleWayBack_ObstacleAvoidingText_TTS.ordinal();
@@ -1003,6 +1016,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	}
 	
 	private boolean check_main_region_ObstacleFollow_ObstacleAvoidingText_TTS_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding_tr0_tr0() {
+		return sCIFollowMe.obstacleAvoidDone;
+	}
+	
+	private boolean check_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
@@ -1588,6 +1609,16 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	private void effect_main_region_ObstacleFollow_ObstacleAvoidingText_TTS_tr0() {
 		exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_TTS();
+		enterSequence_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding_default();
+	}
+	
+	private void effect_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding_tr0() {
+		exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding();
+		enterSequence_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn_default();
+	}
+	
+	private void effect_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn_tr0() {
+		exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn();
 		react_main_region_ObstacleFollow_ObstacleAvoidingText_exit_done();
 	}
 	
@@ -2061,6 +2092,11 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	/* Entry action for state 'TTS'. */
 	private void entryAction_main_region_ObstacleFollow_ObstacleAvoidingText_TTS() {
 		sCIHBrain.operationCallback.sendTTS("There is an obstacle in front of me. I'm trying to avoid it. Please wait for me or slow down.");
+	}
+	
+	/* Entry action for state 'GoOn'. */
+	private void entryAction_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn() {
+		sCIHBrain.operationCallback.sendTTS("Okay we can go on. [:-)]");
 	}
 	
 	/* Entry action for state 'TTS'. */
@@ -2633,6 +2669,19 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.main_region_ObstacleFollow_ObstacleAvoidingText_TTS;
 	}
 	
+	/* 'default' enter sequence for state WaitForAvoiding */
+	private void enterSequence_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding;
+	}
+	
+	/* 'default' enter sequence for state GoOn */
+	private void enterSequence_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn_default() {
+		entryAction_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_ObstacleFollow_ObstacleAvoidingText_GoOn;
+	}
+	
 	/* 'default' enter sequence for state ObstacleWayBack */
 	private void enterSequence_main_region_ObstacleWayBack_default() {
 		enterSequence_main_region_ObstacleWayBack_ObstacleAvoidingText_default();
@@ -3130,6 +3179,18 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		stateVector[0] = State.$NullState$;
 	}
 	
+	/* Default exit sequence for state WaitForAvoiding */
+	private void exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
+	/* Default exit sequence for state GoOn */
+	private void exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+	}
+	
 	/* Default exit sequence for state ObstacleWayBack */
 	private void exitSequence_main_region_ObstacleWayBack() {
 		exitSequence_main_region_ObstacleWayBack_ObstacleAvoidingText();
@@ -3334,6 +3395,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		case main_region_ObstacleFollow_ObstacleAvoidingText_TTS:
 			exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_TTS();
 			break;
+		case main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding:
+			exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding();
+			break;
+		case main_region_ObstacleFollow_ObstacleAvoidingText_GoOn:
+			exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn();
+			break;
 		case main_region_ObstacleWayBack_ObstacleAvoidingText_TTS:
 			exitSequence_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS();
 			break;
@@ -3482,6 +3549,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		switch (stateVector[0]) {
 		case main_region_ObstacleFollow_ObstacleAvoidingText_TTS:
 			exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_TTS();
+			break;
+		case main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding:
+			exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding();
+			break;
+		case main_region_ObstacleFollow_ObstacleAvoidingText_GoOn:
+			exitSequence_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn();
 			break;
 		default:
 			break;
@@ -4049,6 +4122,20 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 		}
 	}
 	
+	/* The reactions of state WaitForAvoiding. */
+	private void react_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding() {
+		if (check_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding_tr0_tr0()) {
+			effect_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding_tr0();
+		}
+	}
+	
+	/* The reactions of state GoOn. */
+	private void react_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn() {
+		if (check_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn_tr0_tr0()) {
+			effect_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn_tr0();
+		}
+	}
+	
 	/* The reactions of state TTS. */
 	private void react_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS() {
 		if (check_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS_tr0_tr0()) {
@@ -4429,6 +4516,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 				break;
 			case main_region_ObstacleFollow_ObstacleAvoidingText_TTS:
 				react_main_region_ObstacleFollow_ObstacleAvoidingText_TTS();
+				break;
+			case main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding:
+				react_main_region_ObstacleFollow_ObstacleAvoidingText_WaitForAvoiding();
+				break;
+			case main_region_ObstacleFollow_ObstacleAvoidingText_GoOn:
+				react_main_region_ObstacleFollow_ObstacleAvoidingText_GoOn();
 				break;
 			case main_region_ObstacleWayBack_ObstacleAvoidingText_TTS:
 				react_main_region_ObstacleWayBack_ObstacleAvoidingText_TTS();

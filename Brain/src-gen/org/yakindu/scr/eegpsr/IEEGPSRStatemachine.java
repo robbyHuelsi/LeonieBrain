@@ -169,11 +169,13 @@ public interface IEEGPSRStatemachine extends ITimerCallback,IStatemachine {
 	
 		public void sendDetectionOn();
 		
+		public void sendWaveDetectionOn();
+		
 		public void sendDetectionOff();
 		
 		public long getTotalCount();
 		
-		public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving);
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving, long angle, double distance);
 		
 		public String getSummaryText();
 		

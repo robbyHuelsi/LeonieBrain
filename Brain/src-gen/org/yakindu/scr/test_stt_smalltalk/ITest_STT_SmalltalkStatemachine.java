@@ -249,11 +249,13 @@ public interface ITest_STT_SmalltalkStatemachine extends ITimerCallback,IStatema
 	
 		public void sendDetectionOn();
 		
+		public void sendWaveDetectionOn();
+		
 		public void sendDetectionOff();
 		
 		public long getTotalCount();
 		
-		public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving);
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving, long angel, double distance);
 		
 		public String getSummaryText();
 		
@@ -262,6 +264,8 @@ public interface ITest_STT_SmalltalkStatemachine extends ITimerCallback,IStatema
 		public boolean areAllGendersDetected();
 		
 		public boolean areAllAgesDetected();
+		
+		public long getWavingAngle();
 		
 	}
 	

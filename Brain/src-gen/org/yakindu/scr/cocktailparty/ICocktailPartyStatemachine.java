@@ -161,11 +161,13 @@ public interface ICocktailPartyStatemachine extends ITimerCallback,IStatemachine
 	
 		public void sendDetectionOn();
 		
+		public void sendWaveDetectionOn();
+		
 		public void sendDetectionOff();
 		
 		public long getTotalCount();
 		
-		public long getSpecificCount(long gender, long minAge, long maxAge, long position);
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving, long angle, double distance);
 		
 		public boolean areAllGendersDetected();
 		
@@ -186,6 +188,8 @@ public interface ICocktailPartyStatemachine extends ITimerCallback,IStatemachine
 		public long getNoiseAngle();
 		
 		public void detectionOnOff(boolean onOff);
+		
+		public long getWavingAngle();
 		
 	}
 	

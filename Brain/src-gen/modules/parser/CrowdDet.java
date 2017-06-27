@@ -39,7 +39,9 @@ public class CrowdDet implements IParser, Serializable{
 					if(person.length==5){
 						int color=Integer.parseInt(person[3]);
 						int waving = Integer.parseInt(person[4]);
-						personList.add(new PersonCrowd(gender, age, position,color,waving));
+						int angle = Integer.parseInt(person[5]);
+						float distance = Integer.parseInt(person[6]);
+						personList.add(new PersonCrowd(gender, age, position,color,waving, angle, distance));
 					}else{
 					personList.add(new PersonCrowd(gender, age, position));
 					}
@@ -235,6 +237,8 @@ public class CrowdDet implements IParser, Serializable{
 				int white = 0;
 				int black = 0;
 				
+		
+				
 				for (PersonCrowd person : personList) {
 					if(person.getGender() == -1){unknownGender++;}
 					if(person.getGender() == 0){male++;}
@@ -355,6 +359,16 @@ public class CrowdDet implements IParser, Serializable{
 		}
 	}
 
+	public int getWavingAngle(){
+		int angle = 100; //100 because we are searching for the person with the shortest distance to Leonie (Barman in restaurant)
+		for (PersonCrowd person : personList) {
+			if(person.getAngle() != -1 && person.getAngle() < angle){
+				angle = person.getAngle();
+			}
+		}
+		return angle;
+	}
+	
 	
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
 		int count;

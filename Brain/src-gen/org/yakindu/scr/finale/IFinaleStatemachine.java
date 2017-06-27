@@ -251,11 +251,13 @@ public interface IFinaleStatemachine extends ITimerCallback,IStatemachine {
 	
 		public void sendDetectionOn();
 		
+		public void sendWaveDetectionOn();
+		
 		public void sendDetectionOff();
 		
 		public long getTotalCount();
 		
-		public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving);
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving, long angle, double distance);
 		
 		public String getSummaryText();
 		
@@ -264,6 +266,8 @@ public interface IFinaleStatemachine extends ITimerCallback,IStatemachine {
 		public boolean areAllGendersDetected();
 		
 		public boolean areAllAgesDetected();
+		
+		public long getWavingAngle();
 		
 	}
 	

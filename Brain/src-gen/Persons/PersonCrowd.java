@@ -10,7 +10,8 @@ public class PersonCrowd implements Serializable{
 	private int position;
 	private int color;
 	private int waving;
-	
+	private int angle; 
+	private float distance;
 
 //	-1: not detectable
 //	0: black [0, 0, 0]
@@ -26,14 +27,18 @@ public class PersonCrowd implements Serializable{
 		setPosition(position);
 		setColor(-1);
 		setWaving(-1);
+		setAngle(-1);
+		setDistance(-1);
 	}
 	
-	public PersonCrowd(int gender, int age, int position, int color, int waving) {
+	public PersonCrowd(int gender, int age, int position, int color, int waving, int angle, float distance) {
 		setGender(gender);
 		setAge(age);
 		setPosition(position);
 		setColor(color);
 		setWaving(waving);
+		setAngle(angle);
+		setDistance(distance);
 	}
 	
 	public int getColor() {
@@ -74,6 +79,22 @@ public class PersonCrowd implements Serializable{
 
 	public int getPosition() {
 		return position;
+	}
+
+	public int getAngle() {
+		return angle;
+	}
+
+	public void setAngle(int angle) {
+		this.angle = angle;
+	}
+
+	public float getDistance() {
+		return distance;
+	}
+
+	public void setDistance(float distance) {
+		this.distance = distance;
 	}
 
 }
