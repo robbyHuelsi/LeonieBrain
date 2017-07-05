@@ -44,7 +44,7 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	
 	@Override
 	public void sendWaveDetectionOn() {
-		send("#CROWDDET#ON#WAVE#");
+		send("#CROWDDET#WAVE#");
 		
 	}
 
