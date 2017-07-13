@@ -17,17 +17,19 @@ public class CrowdDet implements IParser, Serializable{
 
 
 	public boolean parse(String data, Start start) {
-		// #CROWDDET#[totalCount:int]#[gender1:int];[age1:int];[position1:int]+[gender2:int];[age2:int];[position2:int]+ etc. #
-		//gender: -1 = not detectable; 0 = male ; 1 = female
-		//age: -1 = not detectable
-		//position: 0 = stehen; 1 = sitzen; 2 = liegen
+		/* 
+		 * data: [totalCount:int]#[gender1:int],[age1:int],[position1:int],[shirtcolor1:int],[waving1:int],[angle1:int],[distance1:float];[position2:int],[gender2:int],[age2:int], etc. #
+		 * gender: -1=not detectable; 0=male ; 1=female
+		 * age: -1=not detectable
+		 * position: 0=standing; 1=sitting; 2=lying
+		 */ 
 
 		this.start = start;
 		
 		this.personList.removeAllElements();
 		if (!data.equals("0#")) {
 			String[] datas = data.split("#");
-			String[] crowd = datas[1].split(";");
+			String[] crowd = datas[1].split(";"); //crowd: 1 person per indices
 				
 			for(int i = 0; i < crowd.length; i++){
 				String[] person = crowd[i].split(",");
@@ -36,7 +38,7 @@ public class CrowdDet implements IParser, Serializable{
 					int gender = Integer.parseInt(person[0]);
 					int age = Integer.parseInt(person[1]);
 					int position = Integer.parseInt(person[2]);
-					if(person.length==5){
+					if(person.length>5){
 						int color=Integer.parseInt(person[3]);
 						int waving = Integer.parseInt(person[4]);
 						int angle = Integer.parseInt(person[5]);
@@ -49,7 +51,7 @@ public class CrowdDet implements IParser, Serializable{
 					start.getLog().error("CrowdDet: Parsing string to int failed");
 				}
 			}
-			int total = Integer.parseInt(datas[0]);
+			int total = Integer.parseInt(datas[0]); //datas[0] = total count 
 			if (total == personList.size()) {
 				if (total > 0) {
 					// Hier sollte das Programm eingentlich nie reingehen...
@@ -61,7 +63,7 @@ public class CrowdDet implements IParser, Serializable{
 				return false;
 			}
 		}else{
-			return true; //Keine Person
+			return true; //no person
 		}
 	}
 	
@@ -70,7 +72,9 @@ public class CrowdDet implements IParser, Serializable{
 		return crowdDetected;
 	}
 
-
+	/* 
+	 * sets transition in statemachine
+	 */	
 	public void setCrowdDetected(boolean crowdDetected) {
 		this.crowdDetected = crowdDetected;
 		if (crowdDetected) {
@@ -104,6 +108,9 @@ public class CrowdDet implements IParser, Serializable{
 		return this.personList.size();
 	}
 	
+	/*
+	 * returns the number of people matching the input conditions
+	 */
 	public int getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving){
 		Vector<PersonCrowd> pl = this.personList;
 		
@@ -153,10 +160,12 @@ public class CrowdDet implements IParser, Serializable{
 	public boolean removeParsedInformation() {
 		this.personList.removeAllElements();
 		this.crowdDetected = false;
-		
 		return true;
 	}
 	
+	/*
+	 * returns a string with detailed information about the people in the crowd
+	 */
 	public String getSummaryString(){
 	//no person detected
 		if (this.personList.isEmpty()) {
@@ -166,6 +175,7 @@ public class CrowdDet implements IParser, Serializable{
 	//one person detected	
 			if (this.personList.size() == 1) {
 				sum = "[:-)] I found one person!";
+				//GENDER
 				if (this.personList.get(0).getGender() == 0) {
 					sum += " He is male.";
 				}else if (this.personList.get(0).getGender() == 1){
@@ -173,13 +183,13 @@ public class CrowdDet implements IParser, Serializable{
 				}else{
 					sum += " I'm not sure what the gender of this person is.";
 				}
-				
+				//AGE
 				if (this.personList.get(0).getAge() == -1) {
 					sum += " I was not able to get the age.";
 				}else{
 					sum += " I think the person is approximately" + this.personList.get(0).getAge() + " years old.";
 				}
-				
+				//POSITION
 				if (this.personList.get(0).getPosition() == 0) {
 					sum += " The person is standing.";
 				}else if (this.personList.get(0).getPosition() == 1){
@@ -188,11 +198,12 @@ public class CrowdDet implements IParser, Serializable{
 					sum += " The person is lying.";
 				}
 				
+				//WAVING
 				if (this.personList.get(0).getWaving() == 1) {
 					sum += " The person is waving.";
 				}
 				
-
+				//COLOR
 				if (this.personList.get(0).getColor() == 5) {
 						sum += " The person is wearing blue.";
 				}else if(this.personList.get(0).getColor() == 4){
@@ -237,7 +248,6 @@ public class CrowdDet implements IParser, Serializable{
 				int white = 0;
 				int black = 0;
 				
-		
 				
 				for (PersonCrowd person : personList) {
 					if(person.getGender() == -1){unknownGender++;}
@@ -359,6 +369,7 @@ public class CrowdDet implements IParser, Serializable{
 		}
 	}
 
+	//returns the angle from the closest person waving 
 	public int getWavingAngle(){
 		int angle = 100; //100 because we are searching for the person with the shortest distance to Leonie (Barman in restaurant)
 		for (PersonCrowd person : personList) {
@@ -369,11 +380,14 @@ public class CrowdDet implements IParser, Serializable{
 		return angle;
 	}
 	
-	
+	/* Counts the number of people in the crowd matching the inDetails 
+	 * Example: inDetails = -1|-1|-1|4|-1
+	 * gender |	position | age | waving | color 
+	 * next step to do:	| angle | distance 
+	 */
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
 		int count;
-		
-		//Example: inDetails = -1|-1|-1|4|-1
+
 		String[] t = inDetails.split("|");
 		int[] arguments = new int[t.length];
 		for(int i=0; i<t.length; i++){
@@ -552,4 +566,16 @@ public class CrowdDet implements IParser, Serializable{
 			return "I don't know, what you mean with " + inDetails + ".";
 		}
 	} 
+
+	//indicates the distance to the nearest person to Leonie
+	public int getMinimalDistanceOfCrowd(){
+		int distance = 100;
+		for(int count = 0; count <= personList.size(); count++){
+			if(distance<=personList.get(count).getDistance()){
+				distance = (int) personList.get(count).getDistance();
+			}
+		}
+		return distance;
+	}
+
 }

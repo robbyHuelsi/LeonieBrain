@@ -39,26 +39,21 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	
 	public void sendDetectionOn() {
 		send("#CROWDDET#ON#");
-		
 	}
 	
 	@Override
 	public void sendWaveDetectionOn() {
 		send("#CROWDDET#WAVE#");
-		
 	}
-
 	
 
 	public void sendDetectionOff() {
 		send("#CROWDDET#OFF#");
-		
 	}
 
 	public long getTotalCount() {
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getTotalCount();
 	}
-
 
 	public boolean areAllGendersDetected() {
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).areAllGendersDetected();
@@ -86,6 +81,11 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving, long angle, double distance) {
 		//not necessary to count angle or distance at the moment
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getSpecificCount(gender, minAge, maxAge, position, color, waving);
+	}
+
+	@Override
+	public long getMinDistance() {
+		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getMinimalDistanceOfCrowd();
 	}
 
 

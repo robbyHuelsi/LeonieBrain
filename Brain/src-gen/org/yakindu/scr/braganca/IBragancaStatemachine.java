@@ -187,6 +187,8 @@ public interface IBragancaStatemachine extends ITimerCallback,IStatemachine {
 		
 		public void sendGoToLC(long inX, long inY);
 		
+		public void sendGoToPhi(long angle);
+		
 		public void sendSearchOnOff(boolean inOnOff);
 		
 		public void sendPanCamera(long inPan);

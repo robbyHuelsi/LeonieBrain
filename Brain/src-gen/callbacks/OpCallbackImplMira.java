@@ -155,4 +155,10 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 		send("#MIRA#INTERRUPT#");
 	}
 
+	@Override
+	public void sendGoToPhi(long angle) {
+		log.log("Mira: sendGoToPhi()");
+		send("#MIRA#LC#" + -3 + "#");		
+	}
+
 }

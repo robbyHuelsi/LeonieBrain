@@ -14,7 +14,7 @@ public class MicAry implements IParser, Serializable {
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
-		//TODO Muss getestet werden
+		//TODO there is no microphone array hardware at the moment..
 		
 		if (data.equals("NOISEEND")) {
 			this.setNoiseDetected(false);

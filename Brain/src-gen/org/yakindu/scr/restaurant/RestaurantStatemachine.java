@@ -608,7 +608,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr0_tr0() {
-		return sCICrowdDetection.detected;
+		return sCICrowdDetection.detected && sCICrowdDetection.operationCallback.getMinDistance()<=2;
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr1_tr1() {
@@ -624,7 +624,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr0_tr0() {
-		return sCICrowdDetection.detected;
+		return sCICrowdDetection.detected && sCICrowdDetection.operationCallback.getMinDistance()<=2;
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr1_tr1() {
@@ -925,6 +925,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		sCIHBrain.operationCallback.sendTTS("Okay, I will take the order.");
 	}
 	
+	/* Entry action for state 'GoToWavingPerson'. */
+	private void entryAction_main_region_GoToWavingPerson() {
+		sCIMira.operationCallback.sendGoToPhi(sCICrowdDetection.operationCallback.getWavingAngle());
+	}
+	
 	/* Entry action for state 'TakeTheOrder'. */
 	private void entryAction_main_region_TakeTheOrder() {
 		sCIHBrain.operationCallback.sendTTS("Hello, what do you want to order?");
@@ -988,7 +993,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'FoundRight'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_FoundRight() {
-		sCIHBrain.operationCallback.sendTTS("I found a person. I think I'm standing on the left site of the bar.");
+		sCIHBrain.operationCallback.sendTTS("There is a person in front of me. I think this is the barman so I'm standing on the left site of the bar.");
 	}
 	
 	/* Entry action for state 'NoBarmanFound'. */
@@ -1012,12 +1017,12 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'FoundLeft'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_FoundLeft() {
-		sCIHBrain.operationCallback.sendTTS("I found a person. I think I'm standing on the right site of the bar.");
+		sCIHBrain.operationCallback.sendTTS("There is a person in front of me. I think this is the barman so I'm standing on the right site of the bar.");
 	}
 	
 	/* Entry action for state 'Default'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_Default() {
-		sCIHBrain.operationCallback.sendTTS("I found a person. I think I'm standing on the right site of the bar.");
+		sCIHBrain.operationCallback.sendTTS("There is a person in front of me. I think this is the barman so I'm standing on the right site of the bar.");
 	}
 	
 	/* Entry action for state 'Bumpered'. */
@@ -1139,6 +1144,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* 'default' enter sequence for state GoToWavingPerson */
 	private void enterSequence_main_region_GoToWavingPerson_default() {
+		entryAction_main_region_GoToWavingPerson();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_GoToWavingPerson;
 	}

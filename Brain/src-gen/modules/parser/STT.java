@@ -12,12 +12,12 @@ public class STT implements IParser, Serializable{
 	private Start start;
 	
 	// Parsed information
-	private String spokenText;
-	private String answer;
-	private String instruction;
-	private String object;
+	private String spokenText;	//just returns the input from the microphone 
+	private String answer;		//answer sentence if a question is asked
+	private String instruction; //returns instruction if keywords like "bring", etc are detected
+	private String object;		
 	
-	private Vector<Action> actionList;
+	private Vector<Action> actionList; //there can be several instructions in one sentence detected
 
 	private boolean spokenTextReceived;
 	private boolean answerReceived;
@@ -76,7 +76,6 @@ public class STT implements IParser, Serializable{
 			this.setActionReceived(true);
 			start.getLog().log("Action: " + this.getInstruction() + ", " + this.getObject());
 			return true;
-				
 		}
 		
 		return false;
@@ -120,7 +119,6 @@ public class STT implements IParser, Serializable{
 		}else{
 			return 0;
 		}
-		
 	}
 	
 	public String getInstructionFromActionListAt(long i){
