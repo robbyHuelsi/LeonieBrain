@@ -2,6 +2,7 @@ package modules.parser;
 
 import java.io.Serializable;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 import Persons.PersonCrowd;
 import Persons.PersonList;
@@ -113,7 +114,7 @@ public class CrowdDet implements IParser, Serializable{
 	 */
 	public int getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving){
 		Vector<PersonCrowd> pl = this.personList;
-		
+		System.out.println("TEST: getSpecificCount");
 		int removeCounter;
 		for (int i = 0; i < pl.size(); i++) {
 			removeCounter = 0;
@@ -340,12 +341,12 @@ public class CrowdDet implements IParser, Serializable{
 					sum += " " + blue + " of the persons are wearing blue.";
 				}
 				if (green == 1) {
-					sum += " One person is green.";
+					sum += " One person is wearing green.";
 				}else if (green > 1){
 					sum += " " + green + " of the persons are wearing green.";
 				}
 				if (red == 1) {
-					sum += " One person is red.";
+					sum += " One person is wearing red.";
 				}else if (red > 1){
 					sum += " " + red + " of the persons are wearing red.";
 				}
@@ -382,18 +383,18 @@ public class CrowdDet implements IParser, Serializable{
 	
 	/* Counts the number of people in the crowd matching the inDetails 
 	 * Example: inDetails = -1|-1|-1|4|-1
-	 * gender |	position | age | waving | color 
+	 * gender |	position | minAge | maxAge | color | waving 
 	 * next step to do:	| angle | distance 
 	 */
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
 		int count;
-
-		String[] t = inDetails.split("|");
+		String[] t = inDetails.split(Pattern.quote("|"));
 		int[] arguments = new int[t.length];
-		for(int i=0; i<t.length; i++){
+		for(int i=0; i<arguments.length; i++){
 			int argument = Integer.parseInt(t[i]);
 			arguments[i] = argument;
 		}
+		System.out.println("splitting done");
 		//COUNT ALL
 		if(arguments[0]==-1 && arguments[1]==-1 && arguments[2]==-1 && arguments[3]==-1 && arguments[4]==-1 && arguments[5]==-1){
 			count = getTotalCount();

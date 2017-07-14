@@ -42,7 +42,7 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_6sc96CaYEeeInd9KxN6PKQ" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_6sc96SaYEeeInd9KxN6PKQ"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_6sdk8CaYEeeInd9KxN6PKQ" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6sdk8SaYEeeInd9KxN6PKQ" x="40" y="80"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6sdk8SaYEeeInd9KxN6PKQ" x="50" y="81"/>
         </children>
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_6sbvxyaYEeeInd9KxN6PKQ"/>
       </children>

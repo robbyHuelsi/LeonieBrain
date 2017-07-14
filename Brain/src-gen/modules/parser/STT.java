@@ -70,6 +70,7 @@ public class STT implements IParser, Serializable{
 			
 			
 		}else if(data.contains("ACTION#")){
+			//TODO  Action: crowd, -1|-1|-1|-1|4|-1
 			String[] t = data.substring(7).split(";");
 			this.setInstruction(t[0]);
 			this.setObject(t[1]);
