@@ -21,16 +21,7 @@ public class PersonCrowd implements Serializable{
 //	4: green [0, 255, 0]
 //	5: blue [0, 0, 255]
 
-	public PersonCrowd(int gender, int age, int position) {
-		setGender(gender);
-		setAge(age);
-		setPosition(position);
-		setColor(-1);
-		setWaving(-1);
-		setAngle(-1);
-		setDistance(-1);
-	}
-	
+
 	public PersonCrowd(int gender, int age, int position, int color, int waving, int angle, float distance) {
 		setGender(gender);
 		setAge(age);
@@ -97,4 +88,8 @@ public class PersonCrowd implements Serializable{
 		this.distance = distance;
 	}
 
+	@Override
+	public String toString(){
+		return "\nAge: " + this.age + "\nColor: " + this.color + "\nWaving: " + this.waving + "\nPosition : " + this.position + "\nDistance : " + this.distance + "\nAngle : " + this.angle + "\n";
+	}
 }

@@ -39,15 +39,12 @@ public class CrowdDet implements IParser, Serializable{
 					int gender = Integer.parseInt(person[0]);
 					int age = Integer.parseInt(person[1]);
 					int position = Integer.parseInt(person[2]);
-					if(person.length>5){
-						int color=Integer.parseInt(person[3]);
-						int waving = Integer.parseInt(person[4]);
-						int angle = Integer.parseInt(person[5]);
-						float distance = Integer.parseInt(person[6]);
-						personList.add(new PersonCrowd(gender, age, position,color,waving, angle, distance));
-					}else{
-					personList.add(new PersonCrowd(gender, age, position));
-					}
+					int color=Integer.parseInt(person[3]);
+					int waving = Integer.parseInt(person[4]);
+					int angle = Integer.parseInt(person[5]);
+					float distance = Integer.parseInt(person[6]);
+					personList.add(new PersonCrowd(gender, age, position,color,waving, angle, distance));
+					
 				} catch (Exception e) {
 					start.getLog().error("CrowdDet: Parsing string to int failed");
 				}
@@ -111,14 +108,16 @@ public class CrowdDet implements IParser, Serializable{
 	
 	/*
 	 * returns the number of people matching the input conditions
+	 * count = getSpecificCount(-1,-1,-1,-1,-1,1);
 	 */
 	public int getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving){
 		Vector<PersonCrowd> pl = this.personList;
-		System.out.println("TEST: getSpecificCount");
+		System.out.println("TEST: getSpecificCount\n" + " gender: " + gender + " minAge: " + minAge + " maxAge: " + maxAge + " position: " + position + " color: " + color + " waving: " + waving);
+		System.out.println("TestTest: " + this.personList.toString());
 		int removeCounter;
 		for (int i = 0; i < pl.size(); i++) {
 			removeCounter = 0;
-			
+			System.out.println("---------\n" + pl.get(i).getColor());
 			//gender: -1 = not detectable; 0 = male ; 1 = female
 			if (gender != -1 && pl.get(i).getGender() != gender) {
 				pl.remove(i);
@@ -144,6 +143,7 @@ public class CrowdDet implements IParser, Serializable{
 			
 			//color
 			}else if(color != -1 && pl.get(i).getColor() != color){
+				System.out.println("test123");
 				pl.remove(i);
 				removeCounter++;
 			}
@@ -374,17 +374,20 @@ public class CrowdDet implements IParser, Serializable{
 	public int getWavingAngle(){
 		int angle = 100; //100 because we are searching for the person with the shortest distance to Leonie (Barman in restaurant)
 		for (PersonCrowd person : personList) {
-			if(person.getAngle() != -1 && person.getAngle() < angle){
-				angle = person.getAngle();
+			if(person.getWaving()==1){
+				if(Math.abs(person.getAngle()) < angle){
+						angle = person.getAngle();
+
+				}
 			}
 		}
+		System.out.println("TEST angle: " + angle);
 		return angle;
 	}
 	
 	/* Counts the number of people in the crowd matching the inDetails 
 	 * Example: inDetails = -1|-1|-1|4|-1
-	 * gender |	position | minAge | maxAge | color | waving 
-	 * next step to do:	| angle | distance 
+	 * gender |	position | minAge | maxAge | color | waving | angle | distance 
 	 */
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
 		int count;
@@ -394,7 +397,7 @@ public class CrowdDet implements IParser, Serializable{
 			int argument = Integer.parseInt(t[i]);
 			arguments[i] = argument;
 		}
-		System.out.println("splitting done");
+		System.out.println("TEST: Personlist:\n" + personList.toString());
 		//COUNT ALL
 		if(arguments[0]==-1 && arguments[1]==-1 && arguments[2]==-1 && arguments[3]==-1 && arguments[4]==-1 && arguments[5]==-1){
 			count = getTotalCount();
@@ -571,11 +574,15 @@ public class CrowdDet implements IParser, Serializable{
 	//indicates the distance to the nearest person to Leonie
 	public int getMinimalDistanceOfCrowd(){
 		int distance = 100;
-		for(int count = 0; count <= personList.size(); count++){
-			if(distance<=personList.get(count).getDistance()){
-				distance = (int) personList.get(count).getDistance();
+		System.out.println("personlist:   " + personList.toString());
+		for(int persCounter=0; persCounter<personList.size(); persCounter++){
+			System.out.println("LOOOOOP " + personList.get(persCounter).getDistance());
+			if(distance>personList.get(persCounter).getDistance()){
+				System.out.println("LOOOOOOOOP");
+				distance = (int) personList.get(persCounter).getDistance();
 			}
 		}
+		System.out.println("Distance: " + distance);
 		return distance;
 	}
 

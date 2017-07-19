@@ -109,7 +109,7 @@
               </vertices>
             </regions>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_hPpfTjBPEee0875Bvs1VDA" specification="" name="STT" incomingTransitions="_U_hkcyzAEeecj-uLLtmD-Q __FsXYDBOEee0875Bvs1VDA _U_ERfizAEeecj-uLLtmD-Q _THyXQDBQEee0875Bvs1VDA">
+          <vertices xsi:type="sgraph:State" xmi:id="_hPpfTjBPEee0875Bvs1VDA" specification="" name="Scit0s" incomingTransitions="_U_hkcyzAEeecj-uLLtmD-Q __FsXYDBOEee0875Bvs1VDA _U_ERfizAEeecj-uLLtmD-Q _THyXQDBQEee0875Bvs1VDA">
             <outgoingTransitions xmi:id="_U_MNSizAEeecj-uLLtmD-Q" specification="# exit_answer >" target="_U_VXICzAEeecj-uLLtmD-Q"/>
             <outgoingTransitions xmi:id="_RqtggCzHEeecj-uLLtmD-Q" specification="# exit_action >" target="_QoWroCzHEeecj-uLLtmD-Q"/>
             <outgoingTransitions xmi:id="_U_M0QCzAEeecj-uLLtmD-Q" specification="#exit_incomprehensible >" target="_U_fvMCzAEeecj-uLLtmD-Q"/>
@@ -143,11 +143,12 @@
         <regions xmi:id="_Ph5NMDDVEeeR-YrH8iAE9Q" name="BlindMansBlufGame">
           <vertices xsi:type="sgraph:State" xmi:id="_Ph5NMTDVEeeR-YrH8iAE9Q" specification="entry /&#xD;&#xA;questionCounter = 0;&#xD;&#xA;questionRepeat = 0;&#xD;&#xA;HBrain.sendTTS(&quot;I'm ready for the blind mans bluff game. [:-)] Please stand in a circle close to me. I will start in 5 seconds.&quot;)" name="StartGame" incomingTransitions="_Ph50RjDVEeeR-YrH8iAE9Q" documentation="ask who wants to play">
             <outgoingTransitions xmi:id="_Ph50QDDVEeeR-YrH8iAE9Q" specification="HBrain.TTSReady" target="_PiC-MDDVEeeR-YrH8iAE9Q"/>
+            <outgoingTransitions xmi:id="_O6LjEGpTEeeMYpXukCTVGA" specification="after 3s" target="_PiC-MDDVEeeR-YrH8iAE9Q"/>
           </vertices>
           <vertices xsi:type="sgraph:Entry" xmi:id="_Ph50RTDVEeeR-YrH8iAE9Q" name="">
             <outgoingTransitions xmi:id="_Ph50RjDVEeeR-YrH8iAE9Q" specification="" target="_Ph5NMTDVEeeR-YrH8iAE9Q"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_Ph50RzDVEeeR-YrH8iAE9Q" specification="entry /&#xA;Kinect2.sendNoiseDetectionOnOff(true)" name="StartSTT" incomingTransitions="_PiCXMjDVEeeR-YrH8iAE9Q _PiCXJzDVEeeR-YrH8iAE9Q">
+          <vertices xsi:type="sgraph:State" xmi:id="_Ph50RzDVEeeR-YrH8iAE9Q" specification="entry /&#xA;Kinect2.sendNoiseDetectionOnOff(true)" name="StartSTT" incomingTransitions="_PiCXMjDVEeeR-YrH8iAE9Q _PiCXJzDVEeeR-YrH8iAE9Q _Sz1VMGpTEeeMYpXukCTVGA">
             <outgoingTransitions xmi:id="_Ph50UzDVEeeR-YrH8iAE9Q" specification="always" target="_Ph50VjDVEeeR-YrH8iAE9Q"/>
           </vertices>
           <vertices xsi:type="sgraph:Synchronization" xmi:id="_Ph50VjDVEeeR-YrH8iAE9Q" incomingTransitions="_Ph50UzDVEeeR-YrH8iAE9Q">
@@ -263,8 +264,9 @@
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_PiCXKDDVEeeR-YrH8iAE9Q" specification="entry /&#xA;HBrain.sendTTS(&quot;I'm ready for the blind mans bluff game. [:-)] Ask me the first question. [attentive]&quot;)" name="firstQ" incomingTransitions="_PiC-MjDVEeeR-YrH8iAE9Q">
             <outgoingTransitions xmi:id="_PiCXMjDVEeeR-YrH8iAE9Q" specification="HBrain.TTSReady" documentation="TTS is finished" target="_Ph50RzDVEeeR-YrH8iAE9Q"/>
+            <outgoingTransitions xmi:id="_Sz1VMGpTEeeMYpXukCTVGA" specification="after 7s" target="_Ph50RzDVEeeR-YrH8iAE9Q"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_PiC-MDDVEeeR-YrH8iAE9Q" name="wait" incomingTransitions="_Ph50QDDVEeeR-YrH8iAE9Q">
+          <vertices xsi:type="sgraph:State" xmi:id="_PiC-MDDVEeeR-YrH8iAE9Q" name="wait" incomingTransitions="_Ph50QDDVEeeR-YrH8iAE9Q _O6LjEGpTEeeMYpXukCTVGA">
             <outgoingTransitions xmi:id="_PiC-MjDVEeeR-YrH8iAE9Q" specification="after 5s" target="_PiCXKDDVEeeR-YrH8iAE9Q"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_PiC-ODDVEeeR-YrH8iAE9Q" specification="entry /&#xA;HBrain.sendTTS(&quot;Please repeat the question. [attentive]&quot;)" name="Repeat" incomingTransitions="_PiBwITDVEeeR-YrH8iAE9Q">
@@ -1976,6 +1978,27 @@
       <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_PiMIJjDVEeeR-YrH8iAE9Q" points="[1, 0, 66, -63]$[78, 54, 143, -9]"/>
       <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_PiMIJzDVEeeR-YrH8iAE9Q" id="(0.7285223367697594,1.0)"/>
     </edges>
+    <edges xmi:id="_O6RpsGpTEeeMYpXukCTVGA" type="Transition" element="_O6LjEGpTEeeMYpXukCTVGA" source="_Ph4mJTDVEeeR-YrH8iAE9Q" target="_Ph4nFjDVEeeR-YrH8iAE9Q">
+      <children xsi:type="notation:DecorationNode" xmi:id="_O6Te4GpTEeeMYpXukCTVGA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_O6Te4WpTEeeMYpXukCTVGA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_O6Te4mpTEeeMYpXukCTVGA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_O6RpsWpTEeeMYpXukCTVGA" routing="Rectilinear" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_O6SQwGpTEeeMYpXukCTVGA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_O6RpsmpTEeeMYpXukCTVGA" points="[0, 0, -73, -74]$[66, 50, -7, -24]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_O6d28GpTEeeMYpXukCTVGA" id="(0.22972972972972974,1.0)"/>
+    </edges>
+    <edges xmi:id="_Sz-fIGpTEeeMYpXukCTVGA" type="Transition" element="_Sz1VMGpTEeeMYpXukCTVGA" source="_Ph4nCjDVEeeR-YrH8iAE9Q" target="_Ph4mOzDVEeeR-YrH8iAE9Q">
+      <children xsi:type="notation:DecorationNode" xmi:id="_Sz_GMWpTEeeMYpXukCTVGA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_Sz_GMmpTEeeMYpXukCTVGA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_Sz_GM2pTEeeMYpXukCTVGA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_Sz-fIWpTEeeMYpXukCTVGA" routing="Rectilinear" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_Sz_GMGpTEeeMYpXukCTVGA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_Sz-fImpTEeeMYpXukCTVGA" points="[4, 0, 4, -32]$[4, 27, 4, -5]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_S0BicGpTEeeMYpXukCTVGA" id="(0.7759674134419552,1.0)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_S0BicWpTEeeMYpXukCTVGA" id="(0.6446540880503144,0.09836065573770492)"/>
+    </edges>
   </notation:Diagram>
   <notation:Diagram xmi:id="_QoVdgSzHEeecj-uLLtmD-Q" type="org.yakindu.sct.ui.editor.editor.StatechartDiagramEditor" element="_QoWroCzHEeecj-uLLtmD-Q" measurementUnit="Pixel">
     <children xmi:id="_QoVdgizHEeecj-uLLtmD-Q" type="Region" element="_QoWruSzHEeecj-uLLtmD-Q">
@@ -2123,7 +2146,7 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_Ppld4S6WEeeSdrDiApNpGw" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_Ppld4i6WEeeSdrDiApNpGw"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_Ppld6y6WEeeSdrDiApNpGw" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Ppld4y6WEeeSdrDiApNpGw" x="-278" y="209" width="402" height="53"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Ppld4y6WEeeSdrDiApNpGw" x="-278" y="203" width="525" height="68"/>
         </children>
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_QoVd8CzHEeecj-uLLtmD-Q"/>
       </children>

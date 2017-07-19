@@ -5,7 +5,9 @@ import main.Log;
 import main.Start;
 import modules.Module;
 import modules.Modules;
+import modules.parser.CrowdDet;
 import modules.parser.Mira;
+import modules.parser.STT;
 
 public class OpCallbackImplMira implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIMiraOperationCallback,
@@ -158,7 +160,7 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	@Override
 	public void sendGoToPhi(long angle) {
 		log.log("Mira: sendGoToPhi()");
-		send("#MIRA#LC#" + -3 + "#");		
+		send("#MIRA#LC#" +  angle + "#");		
 	}
 
 }

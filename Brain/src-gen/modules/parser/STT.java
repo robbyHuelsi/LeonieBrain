@@ -76,6 +76,7 @@ public class STT implements IParser, Serializable{
 			this.setObject(t[1]);
 			this.setActionReceived(true);
 			start.getLog().log("Action: " + this.getInstruction() + ", " + this.getObject());
+			
 			return true;
 		}
 		
