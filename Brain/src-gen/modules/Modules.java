@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Vector;
 
@@ -311,13 +312,31 @@ public class Modules {
 		return true;
 	}
 	
-	private String getOwnIpAddress(){
-		try {
-			String ip = InetAddress.getLocalHost().toString();
-			return ip.substring(ip.indexOf("/")+1);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			return null;
+	public String getOwnIpAddress(){
+		// Find OS and set command according to OS
+	    String OS = System.getProperty("os.name").toLowerCase();
+		if (OS.contains("win") || OS.contains("mac")) {
+	        // Windows and Mac
+			try {
+				String ip = InetAddress.getLocalHost().toString();
+				return ip.substring(ip.indexOf("/")+1);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return "";
+			}
+		}
+		else{
+			try {
+				Socket s = new Socket("google.com", 80);
+				String ip = s.getLocalAddress().getHostAddress().toString();
+				s.close();
+				return ip.substring(ip.indexOf("/")+1);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return "";
+			}
 		}
 	}
 

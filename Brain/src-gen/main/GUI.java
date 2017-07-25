@@ -366,8 +366,12 @@ public class GUI extends JFrame{
 		tableModulesPopupItemEditPort.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tableModulesSelectedModule != null) {
-					String str = (String) JOptionPane.showInputDialog(null, "Enter Port:", tableModulesSelectedModule.getName(), JOptionPane.QUESTION_MESSAGE, null, null, tableModulesSelectedModule.getPort().toString());
-					if(str != null && !str.equals(tableModulesSelectedModule.getPort().toString())){
+					String portString = "";
+					if(tableModulesSelectedModule.getPort() != null){
+						portString = tableModulesSelectedModule.getPort().toString();
+					}
+					String str = (String) JOptionPane.showInputDialog(null, "Enter Port:", tableModulesSelectedModule.getName(), JOptionPane.QUESTION_MESSAGE, null, null, portString);
+					if(str != null && !str.equals(portString)){
 						int port = -1;
 						try {
 							port = Integer.parseInt(str);

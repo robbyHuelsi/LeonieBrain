@@ -119,6 +119,8 @@ public interface IOpenChallengeStatemachine extends ITimerCallback,IStatemachine
 	
 		public void raiseGestureDetected();
 		
+		public void raiseFail();
+		
 		public void raiseStringFinished();
 		
 		public void setSCILeapMotionOperationCallback(SCILeapMotionOperationCallback operationCallback);
@@ -168,6 +170,8 @@ public interface IOpenChallengeStatemachine extends ITimerCallback,IStatemachine
 		public void sendTurnHead(long inAngle);
 		
 		public void sendGoToLC(long inX, long inY);
+		
+		public void sendGoToPhi(long angle);
 		
 		public void sendSearchOnOff(boolean inOnOff);
 		
@@ -223,15 +227,13 @@ public interface IOpenChallengeStatemachine extends ITimerCallback,IStatemachine
 		
 		public String getActionCommandSentence();
 		
-		public void sendSpeechDetectionOff();
+		public void sendSpeechDetectionSmalltalk(long timeout);
 		
-		public void sendSpeechDetectionSmalltalk();
+		public void sendSpeechDetectionYesNo(long timeout);
 		
-		public void sendSpeechDetectionYesNo();
+		public void sendSpeechDetectionName(long timeout);
 		
-		public void sendSpeechDetectionName();
-		
-		public void sendSpeechDetectionActions();
+		public void sendSpeechDetectionActions(long timeout);
 		
 	}
 	

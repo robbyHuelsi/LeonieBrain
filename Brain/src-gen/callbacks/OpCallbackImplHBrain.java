@@ -23,7 +23,8 @@ public class OpCallbackImplHBrain implements IOpCallbackImpl,
 	org.yakindu.scr.poster.IPosterStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIHBrainOperationCallback,
-	org.yakindu.scr.test_leapmotion.ITest_LeapMotionStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.test_leapmotionleftright.ITest_LeapMotionLeftRightStatemachine.SCIHBrainOperationCallback,
+	org.yakindu.scr.test_leapmotionyesno.ITest_LeapMotionYesNoStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIHBrainOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIHBrainOperationCallback
 {

@@ -39,20 +39,20 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	
 	public void sendDetectionOn() {
 		send("#CROWDDET#ON#");
-		
 	}
+	
+	@Override
+	public void sendWaveDetectionOn() {
+		send("#CROWDDET#WAVE#");
+	}
+	
 
 	public void sendDetectionOff() {
 		send("#CROWDDET#OFF#");
-		
 	}
 
 	public long getTotalCount() {
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getTotalCount();
-	}
-
-	public long getSpecificCount(long gender, long minAge, long maxAge, long position) {
-		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getSpecificCount(gender, minAge, maxAge, position);
 	}
 
 	public boolean areAllGendersDetected() {
@@ -67,10 +67,26 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getSummaryString();
 	}
 	
+	public long getWavingAngle() {
+		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getWavingAngle();
+	}
 
+	
 	@Override
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getAnswerForSecificCrowdDetails(inDetails);
-	}	
-	
+	}
+
+	@Override
+	public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving, long angle, double distance) {
+		//not necessary to count angle or distance at the moment
+		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getSpecificCount(gender, minAge, maxAge, position, color, waving);
+	}
+
+	@Override
+	public long getMinDistance() {
+		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getMinimalDistanceOfCrowd();
+	}
+
+
 }

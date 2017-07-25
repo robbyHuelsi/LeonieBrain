@@ -17,8 +17,8 @@ public class LeapMotion implements IParser, Serializable{
 
 	public boolean parse(String data, Start start) {
 		this.start = start;
-		
-		String[] attributePartsHG = data.split(";");
+		System.out.println("Parser Leapmotion");
+		//String[] attributePartsHG = data.split(";");
 		//start.getLog().log(data);
 		/*if (attributePartsHG[0].contains("0")){
 			//start.getLog().log("LeapMotion: nothing detected");
@@ -27,9 +27,19 @@ public class LeapMotion implements IParser, Serializable{
 			
 		}else if(attributePartsHG.length > 1){*/
 			//if(attributePartsHG[0].equals("1")) {
-				this.setGesture(attributePartsHG[1]);
-				this.setGestureDetected(true);
-				start.getLog().log("LeapMotion: " + attributePartsHG[1] + " detected");
+				this.setGesture(data);
+				if(this.getGesture().equalsIgnoreCase("left")){
+					this.setGesture("left");
+				}else if(this.getGesture().equalsIgnoreCase("right")){
+					this.setGesture("right");
+				}else if(this.getGesture().equalsIgnoreCase("true")){
+					this.setGesture("true");
+				}else if(this.getGesture().equalsIgnoreCase("false")){
+					this.setGesture("false");
+				}else if(this.getGesture().equalsIgnoreCase("fail")){
+					start.getStatemachine().raiseEventOfSCI("LeapMotion", "fail");
+				}
+				start.getLog().log("LeapMotion: " + data + " detected");
 			/*} else if (attributePartsHG[0].equals("2")) {
 				start.getLog().log("Finished string is " + attributePartsHG[1]);
 				this.setGesturedString(attributePartsHG[1]);

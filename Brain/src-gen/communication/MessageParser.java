@@ -79,11 +79,11 @@ public class MessageParser {
 					return true;
 				// break;
 					
-				case "HandGestures":
-					((IParser) start.getModules().getParser("LeapMotion")).parse(data, start);
-					start.getLog().log("ToDo: Update sender name HandGestures to LeapMotion");
-					return true;
-				// break;
+//				case "HandGestures":
+//					((IParser) start.getModules().getParser("LeapMotion")).parse(data, start);
+//					start.getLog().log("ToDo: Update sender name HandGestures to LeapMotion");
+//					return true;
+//				 break;
 					
 				case "NoiseDetection":
 					((IParser) start.getModules().getParser("Kinect2")).parse(data, start);

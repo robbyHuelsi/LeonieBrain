@@ -11,6 +11,8 @@ public interface ITest_FollowMeStatemachine extends ITimerCallback,IStatemachine
 		
 		public void raiseTrackingPersonLost();
 		
+		public void raiseObstacleDetected();
+		
 		public void setSCIFollowMeOperationCallback(SCIFollowMeOperationCallback operationCallback);
 	
 	}

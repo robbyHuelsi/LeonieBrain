@@ -247,10 +247,9 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_followme,
 		main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown,
 		main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd,
-		main_region_RiddleGame_RiddleGame_STT,
-		main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT,
-		main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText,
-		main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT,
+		main_region_RiddleGame_RiddleGame_Scit0s,
+		main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT,
+		main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText,
 		main_region_BlindMansBlufGame,
 		main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame,
 		main_region_BlindMansBlufGame_BlindMansBlufGame_StartSTT,
@@ -296,7 +295,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[22];
+	private final boolean[] timeEvents = new boolean[23];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -452,7 +451,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			return stateVector[0] == State.main_region_CrowdScanningAndCounting;
 		case main_region_RiddleGame:
 			return stateVector[0].ordinal() >= State.
-					main_region_RiddleGame.ordinal()&& stateVector[0].ordinal() <= State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT.ordinal();
+					main_region_RiddleGame.ordinal()&& stateVector[0].ordinal() <= State.main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText.ordinal();
 		case main_region_RiddleGame_RiddleGame_StartGame:
 			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_StartGame;
 		case main_region_RiddleGame_RiddleGame_WaitForOperator:
@@ -486,15 +485,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown;
 		case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd:
 			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd;
-		case main_region_RiddleGame_RiddleGame_STT:
+		case main_region_RiddleGame_RiddleGame_Scit0s:
 			return stateVector[0].ordinal() >= State.
-					main_region_RiddleGame_RiddleGame_STT.ordinal()&& stateVector[0].ordinal() <= State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT.ordinal();
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT:
-			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT;
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText:
-			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText;
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT:
-			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT;
+					main_region_RiddleGame_RiddleGame_Scit0s.ordinal()&& stateVector[0].ordinal() <= State.main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText.ordinal();
+		case main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT:
+			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT;
+		case main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText:
+			return stateVector[0] == State.main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText;
 		case main_region_BlindMansBlufGame:
 			return stateVector[0].ordinal() >= State.
 					main_region_BlindMansBlufGame.ordinal()&& stateVector[0].ordinal() <= State.main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat.ordinal();
@@ -739,36 +736,36 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_tr0_tr0() {
-		return timeEvents[12];
-	}
-	
-	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr0_tr0() {
-		return sCISTT.answerReceived;
-	}
-	
-	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr1_tr1() {
-		return sCISTT.actionReceived;
-	}
-	
-	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr2_tr2() {
-		return sCISTT.incomprehensible;
-	}
-	
-	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr3_tr3() {
-		return timeEvents[13];
-	}
-	
-	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr0_tr0() {
+	private boolean check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT_tr0_tr0() {
 		return sCISTT.spokenTextReceived;
 	}
 	
-	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr1_tr1() {
-		return timeEvents[14];
+	private boolean check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT_tr1_tr1() {
+		return timeEvents[12];
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr0_tr0() {
+		return sCISTT.answerReceived;
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr1_tr1() {
+		return sCISTT.actionReceived;
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr2_tr2() {
+		return sCISTT.incomprehensible;
+	}
+	
+	private boolean check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr3_tr3() {
+		return timeEvents[13];
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr0_tr0() {
 		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr1_tr1() {
+		return timeEvents[14];
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_StartSTT_tr0_tr0() {
@@ -875,8 +872,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_wait_tr0_tr0() {
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr1_tr1() {
 		return timeEvents[18];
+	}
+	
+	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_wait_tr0_tr0() {
+		return timeEvents[19];
 	}
 	
 	private boolean check_main_region_BlindMansBlufGame_BlindMansBlufGame_Repeat_tr0_tr0() {
@@ -888,7 +889,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_main_region_DetectionOn_tr0_tr0() {
-		return timeEvents[19];
+		return timeEvents[20];
 	}
 	
 	private boolean check_main_region_waitForMarc_tr0_tr0() {
@@ -904,7 +905,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[20];
+		return timeEvents[21];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -916,7 +917,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[21];
+		return timeEvents[22];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -959,11 +960,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		return true;
 	}
 	
-	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr1_tr1() {
+	private boolean check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame__choice_0_tr1_tr1() {
 		return (sCISTT.operationCallback.getSpokenText()== null?"" !=null : !sCISTT.operationCallback.getSpokenText().equals(""));
 	}
 	
-	private boolean check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr0_tr0() {
+	private boolean check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame__choice_0_tr0_tr0() {
 		return true;
 	}
 	
@@ -1076,12 +1077,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private void effect_main_region_RiddleGame_RiddleGame_Hello_tr0() {
 		exitSequence_main_region_RiddleGame_RiddleGame_Hello();
-		enterSequence_main_region_RiddleGame_RiddleGame_STT_default();
+		enterSequence_main_region_RiddleGame_RiddleGame_Scit0s_default();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_Hello_tr1() {
 		exitSequence_main_region_RiddleGame_RiddleGame_Hello();
-		enterSequence_main_region_RiddleGame_RiddleGame_STT_default();
+		enterSequence_main_region_RiddleGame_RiddleGame_Scit0s_default();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_Leave_the_arena_tr0() {
@@ -1121,12 +1122,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	private void effect_main_region_RiddleGame_RiddleGame_NextQuestion_tr0() {
 		exitSequence_main_region_RiddleGame_RiddleGame_NextQuestion();
-		enterSequence_main_region_RiddleGame_RiddleGame_STT_default();
+		enterSequence_main_region_RiddleGame_RiddleGame_Scit0s_default();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_NextQuestion_tr1() {
 		exitSequence_main_region_RiddleGame_RiddleGame_NextQuestion();
-		enterSequence_main_region_RiddleGame_RiddleGame_STT_default();
+		enterSequence_main_region_RiddleGame_RiddleGame_Scit0s_default();
 	}
 	
 	private void effect_main_region_RiddleGame_RiddleGame_TellAction_tr0() {
@@ -1174,54 +1175,49 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_exit_done();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_tr0() {
-		exitSequence_main_region_RiddleGame_RiddleGame_STT();
+	private void effect_main_region_RiddleGame_RiddleGame_Scit0s_tr0() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Scit0s();
 		enterSequence_main_region_RiddleGame_RiddleGame_TellAnswer_default();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_tr1() {
-		exitSequence_main_region_RiddleGame_RiddleGame_STT();
+	private void effect_main_region_RiddleGame_RiddleGame_Scit0s_tr1() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Scit0s();
 		enterSequence_main_region_RiddleGame_RiddleGame_TellAction_default();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_tr2() {
-		exitSequence_main_region_RiddleGame_RiddleGame_STT();
+	private void effect_main_region_RiddleGame_RiddleGame_Scit0s_tr2() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Scit0s();
 		enterSequence_main_region_RiddleGame_RiddleGame_TellIncomprehensible_default();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_tr0() {
-		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
-		enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_default();
+	private void effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT_tr0() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT();
+		react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame__choice_0();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr0() {
-		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
-		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_answer();
+	private void effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT_tr1() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT();
+		react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_exit_incomprehensible();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr1() {
-		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
-		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_action();
+	private void effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr0() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText();
+		react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_exit_answer();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr2() {
-		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
-		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_incomprehensible();
+	private void effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr1() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText();
+		react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_exit_action();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr3() {
-		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
-		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_incomprehensible();
+	private void effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr2() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText();
+		react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_exit_incomprehensible();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr0() {
-		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
-		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0();
-	}
-	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr1() {
-		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
-		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_incomprehensible();
+	private void effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr3() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText();
+		react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_exit_incomprehensible();
 	}
 	
 	private void effect_main_region_BlindMansBlufGame_tr0() {
@@ -1230,6 +1226,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr0() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame();
+		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_wait_default();
+	}
+	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr1() {
 		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame();
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_wait_default();
 	}
@@ -1362,6 +1363,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartSTT_default();
 	}
 	
+	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr1() {
+		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ();
+		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartSTT_default();
+	}
+	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_wait_tr0() {
 		exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_wait();
 		enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_default();
@@ -1458,12 +1464,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		enterSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_unknown_default();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr1() {
-		enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_default();
+	private void effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame__choice_0_tr1() {
+		enterSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_default();
 	}
 	
-	private void effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr0() {
-		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_incomprehensible();
+	private void effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame__choice_0_tr0() {
+		react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_exit_incomprehensible();
 	}
 	
 	private void effect_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_TellAction_Instructions_BlindMansBlufGame__choice_0_tr0() {
@@ -1525,19 +1531,19 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Announcement'. */
 	private void entryAction_main_region_Announcement() {
-		timer.setTimer(this, 0, 10*1000, false);
+		timer.setTimer(this, 0, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)] I want to play the riddle game in 10 seconds.");
 	}
 	
 	/* Entry action for state 'Wait'. */
 	private void entryAction_main_region_Wait() {
-		timer.setTimer(this, 1, 10*1000, false);
+		timer.setTimer(this, 1, 10 * 1000, false);
 	}
 	
 	/* Entry action for state 'TurnAround'. */
 	private void entryAction_main_region_TurnAround() {
-		timer.setTimer(this, 2, 7*1000, false);
+		timer.setTimer(this, 2, 7 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Lets go!");
 		
@@ -1546,7 +1552,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'CrowdScanningAndCounting'. */
 	private void entryAction_main_region_CrowdScanningAndCounting() {
-		timer.setTimer(this, 3, 50*1000, false);
+		timer.setTimer(this, 3, 50 * 1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOff();
 		
@@ -1557,7 +1563,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'StartGame'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_StartGame() {
-		timer.setTimer(this, 4, 15*1000, false);
+		timer.setTimer(this, 4, 15 * 1000, false);
 		
 		setQuestionCounter(0);
 		
@@ -1568,12 +1574,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'WaitForOperator'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_WaitForOperator() {
-		timer.setTimer(this, 5, 7*1000, false);
+		timer.setTimer(this, 5, 7 * 1000, false);
 	}
 	
 	/* Entry action for state 'Hello'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_Hello() {
-		timer.setTimer(this, 6, 10*1000, false);
+		timer.setTimer(this, 6, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)] Ask me a question! [attentive]");
 		
@@ -1582,42 +1588,40 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Leave the arena'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_Leave_the_arena() {
-		timer.setTimer(this, 7, 10*1000, false);
+		timer.setTimer(this, 7, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Okay, that's enough for now.");
 	}
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_TellAnswer() {
-		timer.setTimer(this, 8, 40*1000, false);
+		timer.setTimer(this, 8, 40 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getAnswer(), " [:-)]");
 	}
 	
 	/* Entry action for state 'PrepareForNextQuestion'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_PrepareForNextQuestion() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		setCounter(getCounter() + 1);
 	}
 	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_TellIncomprehensible() {
-		timer.setTimer(this, 9, 40*1000, false);
+		timer.setTimer(this, 9, 40 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("[:-(]", sCISTT.operationCallback.getAnswer(), "[:-|]");
 	}
 	
 	/* Entry action for state 'NextQuestion'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_NextQuestion() {
-		timer.setTimer(this, 10, 10*1000, false);
+		timer.setTimer(this, 10, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Please ask me the next question. [attentive]");
 	}
 	
 	/* Entry action for state 'TellAction'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_TellAction() {
-		timer.setTimer(this, 11, 40*1000, false);
+		timer.setTimer(this, 11, 40 * 1000, false);
 	}
 	
 	/* Entry action for state 'GoTo'. */
@@ -1651,30 +1655,25 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	/* Entry action for state 'StartSTT'. */
-	private void entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT() {
-		timer.setTimer(this, 12, 7*1000, false);
+	private void entryAction_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT() {
+		timer.setTimer(this, 12, 30 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
 	
 	/* Entry action for state 'TellSpokenText'. */
-	private void entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText() {
-		timer.setTimer(this, 13, 30*1000, false);
+	private void entryAction_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText() {
+		timer.setTimer(this, 13, 30 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
 	
-	/* Entry action for state 'StropSTT'. */
-	private void entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT() {
-		timer.setTimer(this, 14, 30*1000, false);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-	}
-	
 	/* Entry action for state 'StartGame'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame() {
+		timer.setTimer(this, 14, 3 * 1000, false);
+		
 		setQuestionCounter(0);
 		
 		setQuestionRepeat(0);
@@ -1684,14 +1683,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_StartSTT() {
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
-		
 		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(true);
 	}
 	
 	/* Entry action for state 'waitForSTT'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_waitForSTT() {
-		timer.setTimer(this, 15, 5*1000, false);
+		timer.setTimer(this, 15, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
@@ -1749,15 +1746,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		setQuestionRepeat(getQuestionRepeat() + 1);
 	}
 	
-	/* Entry action for state 'StopSTT2'. */
-	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-	}
-	
 	/* Entry action for state 'StopSTT'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
@@ -1789,7 +1779,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_Turn() {
-		timer.setTimer(this, 17, 2*1000, false);
+		timer.setTimer(this, 17, 2 * 1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -1801,12 +1791,14 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'firstQ'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ() {
+		timer.setTimer(this, 18, 7 * 1000, false);
+		
 		sCIHBrain.operationCallback.sendTTS("I'm ready for the blind mans bluff game. [:-)] Ask me the first question. [attentive]");
 	}
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_wait() {
-		timer.setTimer(this, 18, 5*1000, false);
+		timer.setTimer(this, 19, 5 * 1000, false);
 	}
 	
 	/* Entry action for state 'Repeat'. */
@@ -1821,7 +1813,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'DetectionOn'. */
 	private void entryAction_main_region_DetectionOn() {
-		timer.setTimer(this, 19, 5*1000, false);
+		timer.setTimer(this, 20, 5 * 1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 		
@@ -1830,7 +1822,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 20, 3*1000, false);
+		timer.setTimer(this, 21, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1847,7 +1839,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 21, 3*1000, false);
+		timer.setTimer(this, 22, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'Announcement'. */
@@ -1911,17 +1903,17 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	/* Exit action for state 'StartSTT'. */
-	private void exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT() {
+	private void exitAction_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT() {
 		timer.unsetTimer(this, 12);
 	}
 	
 	/* Exit action for state 'TellSpokenText'. */
-	private void exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText() {
+	private void exitAction_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText() {
 		timer.unsetTimer(this, 13);
 	}
 	
-	/* Exit action for state 'StropSTT'. */
-	private void exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT() {
+	/* Exit action for state 'StartGame'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame() {
 		timer.unsetTimer(this, 14);
 	}
 	
@@ -1940,24 +1932,29 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		timer.unsetTimer(this, 17);
 	}
 	
+	/* Exit action for state 'firstQ'. */
+	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ() {
+		timer.unsetTimer(this, 18);
+	}
+	
 	/* Exit action for state 'wait'. */
 	private void exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_wait() {
-		timer.unsetTimer(this, 18);
+		timer.unsetTimer(this, 19);
 	}
 	
 	/* Exit action for state 'DetectionOn'. */
 	private void exitAction_main_region_DetectionOn() {
-		timer.unsetTimer(this, 19);
+		timer.unsetTimer(this, 20);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 20);
+		timer.unsetTimer(this, 21);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 21);
+		timer.unsetTimer(this, 22);
 	}
 	
 	/* 'default' enter sequence for state Init */
@@ -2110,30 +2107,23 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		stateVector[0] = State.main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd;
 	}
 	
-	/* 'default' enter sequence for state STT */
-	private void enterSequence_main_region_RiddleGame_RiddleGame_STT_default() {
-		enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_default();
+	/* 'default' enter sequence for state Scit0s */
+	private void enterSequence_main_region_RiddleGame_RiddleGame_Scit0s_default() {
+		enterSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_default();
 	}
 	
 	/* 'default' enter sequence for state StartSTT */
-	private void enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_default() {
-		entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+	private void enterSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT_default() {
+		entryAction_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT;
+		stateVector[0] = State.main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT;
 	}
 	
 	/* 'default' enter sequence for state TellSpokenText */
-	private void enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_default() {
-		entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
+	private void enterSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_default() {
+		entryAction_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText;
-	}
-	
-	/* 'default' enter sequence for state StropSTT */
-	private void enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_default() {
-		entryAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT;
+		stateVector[0] = State.main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText;
 	}
 	
 	/* 'exit_done' enter sequence for state BlindMansBlufGame */
@@ -2232,7 +2222,6 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* 'default' enter sequence for state StopSTT2 */
 	private void enterSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2_default() {
-		entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2;
 	}
@@ -2389,8 +2378,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	/* 'default' enter sequence for region STT RiddleGame */
-	private void enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_default() {
-		react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__entry_Default();
+	private void enterSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_default() {
+		react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region BlindMansBlufGame */
@@ -2561,33 +2550,25 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state STT */
-	private void exitSequence_main_region_RiddleGame_RiddleGame_STT() {
-		exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame();
+	/* Default exit sequence for state Scit0s */
+	private void exitSequence_main_region_RiddleGame_RiddleGame_Scit0s() {
+		exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame();
 	}
 	
 	/* Default exit sequence for state StartSTT */
-	private void exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT() {
+	private void exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+		exitAction_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT();
 	}
 	
 	/* Default exit sequence for state TellSpokenText */
-	private void exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText() {
+	private void exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
-	}
-	
-	/* Default exit sequence for state StropSTT */
-	private void exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
+		exitAction_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText();
 	}
 	
 	/* Default exit sequence for state BlindMansBlufGame */
@@ -2599,6 +2580,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame();
 	}
 	
 	/* Default exit sequence for state StartSTT */
@@ -2742,6 +2725,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ();
 	}
 	
 	/* Default exit sequence for state wait */
@@ -2888,14 +2873,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd();
 			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT:
-			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+		case main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT:
+			exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT();
 			break;
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText:
-			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
-			break;
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT:
-			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
+		case main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText:
+			exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText();
 			break;
 		case main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame:
 			exitSequence_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame();
@@ -3046,14 +3028,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			exitSequence_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd();
 			exitAction_main_region_RiddleGame_RiddleGame_TellAction();
 			break;
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT:
-			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+		case main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT:
+			exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT();
 			break;
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText:
-			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
-			break;
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT:
-			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
+		case main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText:
+			exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText();
 			break;
 		default:
 			break;
@@ -3090,16 +3069,13 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	/* Default exit sequence for region STT RiddleGame */
-	private void exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame() {
+	private void exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame() {
 		switch (stateVector[0]) {
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT:
-			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+		case main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT:
+			exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT();
 			break;
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText:
-			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
-			break;
-		case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT:
-			exitSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
+		case main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText:
+			exitSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText();
 			break;
 		default:
 			break;
@@ -3498,38 +3474,31 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	/* The reactions of state StartSTT. */
-	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT() {
-		if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_tr0();
-		}
-	}
-	
-	/* The reactions of state TellSpokenText. */
-	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText() {
-		if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr0();
+	private void react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT() {
+		if (check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT_tr0_tr0()) {
+			effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT_tr0();
 		} else {
-			if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr1_tr1()) {
-				effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr1();
-			} else {
-				if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr2_tr2()) {
-					effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr2();
-				} else {
-					if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr3_tr3()) {
-						effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText_tr3();
-					}
-				}
+			if (check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT_tr1_tr1()) {
+				effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT_tr1();
 			}
 		}
 	}
 	
-	/* The reactions of state StropSTT. */
-	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT() {
-		if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr0_tr0()) {
-			effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr0();
+	/* The reactions of state TellSpokenText. */
+	private void react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText() {
+		if (check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr0_tr0()) {
+			effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr0();
 		} else {
-			if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr1_tr1()) {
-				effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT_tr1();
+			if (check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr1_tr1()) {
+				effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr1();
+			} else {
+				if (check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr2_tr2()) {
+					effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr2();
+				} else {
+					if (check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr3_tr3()) {
+						effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText_tr3();
+					}
+				}
 			}
 		}
 	}
@@ -3538,6 +3507,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame() {
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr0();
+		} else {
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame_tr1();
+			}
 		}
 	}
 	
@@ -3726,6 +3699,10 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	private void react_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ() {
 		if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr0_tr0()) {
 			effect_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr0();
+		} else {
+			if (check_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr1_tr1()) {
+				effect_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ_tr1();
+			}
 		}
 	}
 	
@@ -3844,11 +3821,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	/* The reactions of state null. */
-	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0() {
-		if (check_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr1_tr1()) {
-			effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr1();
+	private void react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame__choice_0() {
+		if (check_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame__choice_0_tr1_tr1()) {
+			effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame__choice_0_tr1();
 		} else {
-			effect_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__choice_0_tr0();
+			effect_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame__choice_0_tr0();
 		}
 	}
 	
@@ -3929,8 +3906,8 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	/* Default react sequence for initial entry  */
-	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame__entry_Default() {
-		enterSequence_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT_default();
+	private void react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame__entry_Default() {
+		enterSequence_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT_default();
 	}
 	
 	/* Default react sequence for initial entry  */
@@ -3969,18 +3946,18 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	}
 	
 	/* The reactions of exit exit_answer. */
-	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_answer() {
-		effect_main_region_RiddleGame_RiddleGame_STT_tr0();
+	private void react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_exit_answer() {
+		effect_main_region_RiddleGame_RiddleGame_Scit0s_tr0();
 	}
 	
 	/* The reactions of exit exit_action. */
-	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_action() {
-		effect_main_region_RiddleGame_RiddleGame_STT_tr1();
+	private void react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_exit_action() {
+		effect_main_region_RiddleGame_RiddleGame_Scit0s_tr1();
 	}
 	
 	/* The reactions of exit exit_incomprehensible. */
-	private void react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_exit_incomprehensible() {
-		effect_main_region_RiddleGame_RiddleGame_STT_tr2();
+	private void react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_exit_incomprehensible() {
+		effect_main_region_RiddleGame_RiddleGame_Scit0s_tr2();
 	}
 	
 	/* The reactions of exit exit_done. */
@@ -4071,14 +4048,11 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 			case main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd:
 				react_main_region_RiddleGame_RiddleGame_TellAction_Instructions_RiddleGame_crowd();
 				break;
-			case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT:
-				react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StartSTT();
+			case main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT:
+				react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT();
 				break;
-			case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText:
-				react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_TellSpokenText();
-				break;
-			case main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT:
-				react_main_region_RiddleGame_RiddleGame_STT_STT_RiddleGame_StropSTT();
+			case main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText:
+				react_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText();
 				break;
 			case main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame:
 				react_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame();

@@ -119,6 +119,8 @@ public interface IHelpMeCarryStatemachine extends ITimerCallback,IStatemachine {
 		
 		public void sendGoToLC(long inX, long inY);
 		
+		public void sendGoToPhi(long angle);
+		
 		public void sendSearchOnOff(boolean inOnOff);
 		
 		public void sendPanCamera(long inPan);
@@ -175,15 +177,13 @@ public interface IHelpMeCarryStatemachine extends ITimerCallback,IStatemachine {
 		
 		public String getActionCommandSentence();
 		
-		public void sendSpeechDetectionOff();
+		public void sendSpeechDetectionSmalltalk(long timeout);
 		
-		public void sendSpeechDetectionSmalltalk();
+		public void sendSpeechDetectionYesNo(long timeout);
 		
-		public void sendSpeechDetectionYesNo();
+		public void sendSpeechDetectionName(long timeout);
 		
-		public void sendSpeechDetectionName();
-		
-		public void sendSpeechDetectionActions();
+		public void sendSpeechDetectionActions(long timeout);
 		
 	}
 	
@@ -194,6 +194,10 @@ public interface IHelpMeCarryStatemachine extends ITimerCallback,IStatemachine {
 		public void raiseDetectionPersonFound();
 		
 		public void raiseTrackingPersonLost();
+		
+		public void raiseObstacleDetected();
+		
+		public void raiseObstacleAvoidDone();
 		
 		public void setSCIFollowMeOperationCallback(SCIFollowMeOperationCallback operationCallback);
 	

@@ -188,9 +188,16 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 			trackingPersonLost = true;
 		}
 		
+		private boolean obstacleDetected;
+		
+		public void raiseObstacleDetected() {
+			obstacleDetected = true;
+		}
+		
 		protected void clearEvents() {
 			detectionPersonFound = false;
 			trackingPersonLost = false;
+			obstacleDetected = false;
 		}
 	}
 	
@@ -248,7 +255,6 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		main_region_STT_and_Tell_Actions_s_StropSTT,
 		main_region_STT_and_Tell_Actions_s_YesNo,
 		main_region_STT_and_Tell_Actions_s_GeneratedCommand,
-		main_region_STT_and_Tell_Actions_s_Stop_YesNo,
 		main_region_leave2,
 		main_region_leave3,
 		main_region_DoAllActions,
@@ -307,7 +313,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[40];
+	private final boolean[] timeEvents = new boolean[39];
 	private long actionCounter;
 	
 	protected void setActionCounter(long value) {
@@ -458,7 +464,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 			return stateVector[0] == State.main_region_TellIncomprehensible;
 		case main_region_STT_and_Tell_Actions:
 			return stateVector[0].ordinal() >= State.
-					main_region_STT_and_Tell_Actions.ordinal()&& stateVector[0].ordinal() <= State.main_region_STT_and_Tell_Actions_s_Stop_YesNo.ordinal();
+					main_region_STT_and_Tell_Actions.ordinal()&& stateVector[0].ordinal() <= State.main_region_STT_and_Tell_Actions_s_GeneratedCommand.ordinal();
 		case main_region_STT_and_Tell_Actions_s_StartSTT:
 			return stateVector[0] == State.main_region_STT_and_Tell_Actions_s_StartSTT;
 		case main_region_STT_and_Tell_Actions_s_TellSpokenText:
@@ -469,8 +475,6 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 			return stateVector[0] == State.main_region_STT_and_Tell_Actions_s_YesNo;
 		case main_region_STT_and_Tell_Actions_s_GeneratedCommand:
 			return stateVector[0] == State.main_region_STT_and_Tell_Actions_s_GeneratedCommand;
-		case main_region_STT_and_Tell_Actions_s_Stop_YesNo:
-			return stateVector[0] == State.main_region_STT_and_Tell_Actions_s_Stop_YesNo;
 		case main_region_leave2:
 			return stateVector[0] == State.main_region_leave2;
 		case main_region_leave3:
@@ -702,6 +706,10 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_STT_and_Tell_Actions_s_YesNo_tr0_tr0() {
+		return sCISTT.spokenTextReceived;
+	}
+	
+	private boolean check_main_region_STT_and_Tell_Actions_s_YesNo_tr1_tr1() {
 		return timeEvents[7];
 	}
 	
@@ -713,20 +721,12 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		return timeEvents[8];
 	}
 	
-	private boolean check_main_region_STT_and_Tell_Actions_s_Stop_YesNo_tr0_tr0() {
-		return sCISTT.spokenTextReceived;
-	}
-	
-	private boolean check_main_region_STT_and_Tell_Actions_s_Stop_YesNo_tr1_tr1() {
-		return timeEvents[9];
-	}
-	
 	private boolean check_main_region_leave2_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
 	private boolean check_main_region_leave2_tr1_tr1() {
-		return timeEvents[10];
+		return timeEvents[9];
 	}
 	
 	private boolean check_main_region_leave3_tr0_tr0() {
@@ -738,7 +738,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_livingroom_tr1_tr1() {
-		return timeEvents[11];
+		return timeEvents[10];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_livingroom_tr2_tr2() {
@@ -750,7 +750,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_notFound_tr1_tr1() {
-		return timeEvents[12];
+		return timeEvents[11];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_arrived_tr0_tr0() {
@@ -758,7 +758,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_arrived_tr1_tr1() {
-		return timeEvents[13];
+		return timeEvents[12];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_backToTheOperator_tr0_tr0() {
@@ -770,7 +770,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_backToTheOperator_tr2_tr2() {
-		return timeEvents[14];
+		return timeEvents[13];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_notArrived_tr0_tr0() {
@@ -778,7 +778,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_notArrived_tr1_tr1() {
-		return timeEvents[15];
+		return timeEvents[14];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_surrounding_tr0_tr0() {
@@ -794,7 +794,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_livingroom_tr2_tr2() {
-		return timeEvents[16];
+		return timeEvents[15];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_notFound_tr0_tr0() {
@@ -802,7 +802,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_notFound_tr1_tr1() {
-		return timeEvents[17];
+		return timeEvents[16];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_arrived_tr0_tr0() {
@@ -810,7 +810,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_arrived_tr1_tr1() {
-		return timeEvents[18];
+		return timeEvents[17];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_backToTheOperator_tr0_tr0() {
@@ -822,7 +822,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_backToTheOperator_tr2_tr2() {
-		return timeEvents[19];
+		return timeEvents[18];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_bringGehtnicht_tr0_tr0() {
@@ -830,7 +830,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_bringGehtnicht_tr1_tr1() {
-		return timeEvents[20];
+		return timeEvents[19];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_stattdessen_goto_tr0_tr0() {
@@ -842,7 +842,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_notArrived_tr1_tr1() {
-		return timeEvents[21];
+		return timeEvents[20];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_open_tr0_tr0() {
@@ -850,7 +850,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_open_tr1_tr1() {
-		return timeEvents[22];
+		return timeEvents[21];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_tr0_tr0() {
@@ -858,7 +858,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_tr2_tr2() {
-		return timeEvents[23];
+		return timeEvents[22];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STToff_tr0_tr0() {
@@ -866,11 +866,11 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STToff_tr1_tr1() {
-		return timeEvents[24];
+		return timeEvents[23];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart_tr0_tr0() {
-		return timeEvents[25];
+		return timeEvents[24];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart_tr1_tr1() {
@@ -878,11 +878,11 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_tr1_tr1() {
-		return timeEvents[26];
+		return timeEvents[25];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn1_tr0_tr0() {
-		return timeEvents[27];
+		return timeEvents[26];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_WaveFound_tr0_tr0() {
@@ -894,7 +894,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Turn_tr1_tr1() {
-		return timeEvents[28];
+		return timeEvents[27];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_DetectionOn_tr0_tr0() {
@@ -910,15 +910,15 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_ILostYou_tr1_tr1() {
-		return timeEvents[29];
+		return timeEvents[28];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn2_tr0_tr0() {
-		return timeEvents[30];
+		return timeEvents[29];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Detection_tr0_tr0() {
-		return timeEvents[31];
+		return timeEvents[30];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Detection_tr1_tr1() {
@@ -938,7 +938,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Detect_tr1_tr1() {
-		return timeEvents[32];
+		return timeEvents[31];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_no_tr0_tr0() {
@@ -958,7 +958,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_unknown_tr1_tr1() {
-		return timeEvents[33];
+		return timeEvents[32];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_crowd_tr0_tr0() {
@@ -966,7 +966,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_crowd_tr1_tr1() {
-		return timeEvents[34];
+		return timeEvents[33];
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_tell_tr0_tr0() {
@@ -974,7 +974,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_DoAllActions__region0_DoAction_Instructions_tell_tr1_tr1() {
-		return timeEvents[35];
+		return timeEvents[34];
 	}
 	
 	private boolean check_main_region_GoToOp_tr0_tr0() {
@@ -986,7 +986,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_GoToOp_tr2_tr2() {
-		return timeEvents[36];
+		return timeEvents[35];
 	}
 	
 	private boolean check_main_region_blocked_tr0_tr0() {
@@ -994,7 +994,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_main_region_blocked_tr1_tr1() {
-		return timeEvents[37];
+		return timeEvents[36];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
@@ -1006,7 +1006,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[38];
+		return timeEvents[37];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -1018,7 +1018,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[39];
+		return timeEvents[38];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -1232,7 +1232,12 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	private void effect_main_region_STT_and_Tell_Actions_s_YesNo_tr0() {
 		exitSequence_main_region_STT_and_Tell_Actions_s_YesNo();
-		enterSequence_main_region_STT_and_Tell_Actions_s_Stop_YesNo_default();
+		react_main_region_STT_and_Tell_Actions_s__choice_1();
+	}
+	
+	private void effect_main_region_STT_and_Tell_Actions_s_YesNo_tr1() {
+		exitSequence_main_region_STT_and_Tell_Actions_s_YesNo();
+		react_main_region_STT_and_Tell_Actions_s_exit_correct();
 	}
 	
 	private void effect_main_region_STT_and_Tell_Actions_s_GeneratedCommand_tr0() {
@@ -1243,16 +1248,6 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	private void effect_main_region_STT_and_Tell_Actions_s_GeneratedCommand_tr1() {
 		exitSequence_main_region_STT_and_Tell_Actions_s_GeneratedCommand();
 		react_main_region_STT_and_Tell_Actions_s__choice_2();
-	}
-	
-	private void effect_main_region_STT_and_Tell_Actions_s_Stop_YesNo_tr0() {
-		exitSequence_main_region_STT_and_Tell_Actions_s_Stop_YesNo();
-		react_main_region_STT_and_Tell_Actions_s__choice_1();
-	}
-	
-	private void effect_main_region_STT_and_Tell_Actions_s_Stop_YesNo_tr1() {
-		exitSequence_main_region_STT_and_Tell_Actions_s_Stop_YesNo();
-		react_main_region_STT_and_Tell_Actions_s_exit_correct();
 	}
 	
 	private void effect_main_region_leave2_tr0() {
@@ -1777,7 +1772,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'Hello'. */
 	private void entryAction_main_region_Hello() {
-		timer.setTimer(this, 0, 10*1000, false);
+		timer.setTimer(this, 0, 10 * 1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOff();
 		
@@ -1795,7 +1790,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'DetectionsOn'. */
 	private void entryAction_main_region_DetectionsOn() {
-		timer.setTimer(this, 1, 10*1000, false);
+		timer.setTimer(this, 1, 10 * 1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
@@ -1815,72 +1810,58 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_region_TellAnswer() {
-		timer.setTimer(this, 2, 30*1000, false);
+		timer.setTimer(this, 2, 30 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] Can you please try it again?");
 	}
 	
-	/* Entry action for state 'StopSTT'. */
-	private void entryAction_main_region_StopSTT() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-	}
-	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_region_TellIncomprehensible() {
-		timer.setTimer(this, 3, 10*1000, false);
+		timer.setTimer(this, 3, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("[:-(]", sCISTT.operationCallback.getAnswer(), "[:-|]");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_STT_and_Tell_Actions_s_StartSTT() {
-		timer.setTimer(this, 4, 15*1000, false);
+		timer.setTimer(this, 4, 15 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionActions();
+		sCISTT.operationCallback.sendSpeechDetectionActions(10);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
 	
 	/* Entry action for state 'TellSpokenText'. */
 	private void entryAction_main_region_STT_and_Tell_Actions_s_TellSpokenText() {
-		timer.setTimer(this, 5, 20*1000, false);
+		timer.setTimer(this, 5, 20 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("I unterstood: ", sCISTT.operationCallback.getSpokenText(), ". Is that right?");
 	}
 	
 	/* Entry action for state 'StropSTT'. */
 	private void entryAction_main_region_STT_and_Tell_Actions_s_StropSTT() {
-		timer.setTimer(this, 6, 10*1000, false);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
+		timer.setTimer(this, 6, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
 	
 	/* Entry action for state 'YesNo'. */
 	private void entryAction_main_region_STT_and_Tell_Actions_s_YesNo() {
-		timer.setTimer(this, 7, 5*1000, false);
+		timer.setTimer(this, 7, 15 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionYesNo();
+		sCISTT.operationCallback.sendSpeechDetectionYesNo(5);
 	}
 	
 	/* Entry action for state 'GeneratedCommand'. */
 	private void entryAction_main_region_STT_and_Tell_Actions_s_GeneratedCommand() {
-		timer.setTimer(this, 8, 20*1000, false);
+		timer.setTimer(this, 8, 20 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2("Okay. ", sCISTT.operationCallback.getActionCommandSentence());
 	}
 	
-	/* Entry action for state 'Stop YesNo'. */
-	private void entryAction_main_region_STT_and_Tell_Actions_s_Stop_YesNo() {
-		timer.setTimer(this, 9, 3*1000, false);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-	}
-	
 	/* Entry action for state 'leave2'. */
 	private void entryAction_main_region_leave2() {
-		timer.setTimer(this, 10, 10*1000, false);
+		timer.setTimer(this, 9, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-0] Thanks for your attention. I wish you a nice day at the German Open. [:-)]");
 	}
@@ -1897,28 +1878,28 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'livingroom'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_livingroom() {
-		timer.setTimer(this, 11, 60*1000, false);
+		timer.setTimer(this, 10, 60 * 1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter())));
 	}
 	
 	/* Entry action for state 'notFound'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_notFound() {
-		timer.setTimer(this, 12, 10*1000, false);
+		timer.setTimer(this, 11, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("I don't know a location called ", sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), ".");
 	}
 	
 	/* Entry action for state 'arrived'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_arrived() {
-		timer.setTimer(this, 13, 10*1000, false);
+		timer.setTimer(this, 12, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("I arrived at ", sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), ".");
 	}
 	
 	/* Entry action for state 'backToTheOperator'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_backToTheOperator() {
-		timer.setTimer(this, 14, 100*1000, false);
+		timer.setTimer(this, 13, 100 * 1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
 		
@@ -1927,35 +1908,35 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'notArrived'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_notArrived() {
-		timer.setTimer(this, 15, 10*1000, false);
+		timer.setTimer(this, 14, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I am not able to reach my destination. I will go back to my operator.");
 	}
 	
 	/* Entry action for state 'livingroom'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_livingroom() {
-		timer.setTimer(this, 16, 60*1000, false);
+		timer.setTimer(this, 15, 60 * 1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter())));
 	}
 	
 	/* Entry action for state 'notFound'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_notFound() {
-		timer.setTimer(this, 17, 10*1000, false);
+		timer.setTimer(this, 16, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("Furthermore, I don't know a location for ", sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), ".");
 	}
 	
 	/* Entry action for state 'arrived'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_arrived() {
-		timer.setTimer(this, 18, 10*1000, false);
+		timer.setTimer(this, 17, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("Here can you find the ", sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), ".");
 	}
 	
 	/* Entry action for state 'backToTheOperator'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_backToTheOperator() {
-		timer.setTimer(this, 19, 100*1000, false);
+		timer.setTimer(this, 18, 100 * 1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
 		
@@ -1964,7 +1945,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'bringGehtnicht'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_bringGehtnicht() {
-		timer.setTimer(this, 20, 10*1000, false);
+		timer.setTimer(this, 19, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] I'm sorry. I can't bring you something, because I have no manipulator. [:-)]");
 	}
@@ -1976,14 +1957,14 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'notArrived'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_notArrived() {
-		timer.setTimer(this, 21, 10*1000, false);
+		timer.setTimer(this, 20, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I am not able to reach my destination. I will go back to my operator.");
 	}
 	
 	/* Entry action for state 'open'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_open() {
-		timer.setTimer(this, 22, 10*1000, false);
+		timer.setTimer(this, 21, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] I'm sorry. I can't open something because I have no manipulator.");
 	}
@@ -1995,7 +1976,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'StartTracking'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking() {
-		timer.setTimer(this, 23, 30*1000, false);
+		timer.setTimer(this, 22, 30 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOnAtNext();
 		
@@ -2004,30 +1985,28 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'STToff'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STToff() {
-		timer.setTimer(this, 24, 2*1000, false);
-		
-		sCISTT.operationCallback.sendSpeechDetectionOff();
+		timer.setTimer(this, 23, 2 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
 	/* Entry action for state 'STTstart'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.setTimer(this, 25, 5*1000, false);
+		timer.setTimer(this, 24, 5 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
 	
 	/* Entry action for state 'Wave'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave() {
-		timer.setTimer(this, 26, 10*1000, false);
+		timer.setTimer(this, 25, 10 * 1000, false);
 	}
 	
 	/* Entry action for state 'UTurn1'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn1() {
-		timer.setTimer(this, 27, 1*1000, false);
+		timer.setTimer(this, 26, 1 * 1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -2041,7 +2020,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Turn() {
-		timer.setTimer(this, 28, 5*1000, false);
+		timer.setTimer(this, 27, 5 * 1000, false);
 		
 		sCIKinect2.operationCallback.sendWavingDetectionOnOff(true);
 		
@@ -2062,7 +2041,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'ILostYou'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_ILostYou() {
-		timer.setTimer(this, 29, 5*1000, false);
+		timer.setTimer(this, 28, 5 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOff();
 		
@@ -2071,18 +2050,18 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'UTurn2'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn2() {
-		timer.setTimer(this, 30, 3*1000, false);
+		timer.setTimer(this, 29, 3 * 1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'Detection'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Detection() {
-		timer.setTimer(this, 31, 1*1000, false);
+		timer.setTimer(this, 30, 1 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
-		setActionCounter(actionCounter+1);
+		setActionCounter(actionCounter + 1);
 	}
 	
 	/* Entry action for state 'NotFound'. */
@@ -2094,7 +2073,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'Detect'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Detect() {
-		timer.setTimer(this, 32, 5*1000, false);
+		timer.setTimer(this, 31, 5 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendDetectionOff();
 	}
@@ -2123,42 +2102,42 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'unknown'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_unknown() {
-		timer.setTimer(this, 33, 10*1000, false);
+		timer.setTimer(this, 32, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-|] I'm sorry. This command is unknown.");
 	}
 	
 	/* Entry action for state 'crowd'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_crowd() {
-		timer.setTimer(this, 34, 10*1000, false);
+		timer.setTimer(this, 33, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I cannot detect the crowd in this moment.");
 	}
 	
 	/* Entry action for state 'tell'. */
 	private void entryAction_main_region_DoAllActions__region0_DoAction_Instructions_tell() {
-		timer.setTimer(this, 35, 20*1000, false);
+		timer.setTimer(this, 34, 20 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), " [:-|]");
 	}
 	
 	/* Entry action for state 'GoToOp'. */
 	private void entryAction_main_region_GoToOp() {
-		timer.setTimer(this, 36, 100*1000, false);
+		timer.setTimer(this, 35, 100 * 1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
 	}
 	
 	/* Entry action for state 'blocked'. */
 	private void entryAction_main_region_blocked() {
-		timer.setTimer(this, 37, 10*1000, false);
+		timer.setTimer(this, 36, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I am not able to come back to the operator. Please tell me my next command here.");
 	}
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 38, 3*1000, false);
+		timer.setTimer(this, 37, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -2175,7 +2154,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 39, 3*1000, false);
+		timer.setTimer(this, 38, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'Hello'. */
@@ -2223,14 +2202,9 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		timer.unsetTimer(this, 8);
 	}
 	
-	/* Exit action for state 'Stop YesNo'. */
-	private void exitAction_main_region_STT_and_Tell_Actions_s_Stop_YesNo() {
-		timer.unsetTimer(this, 9);
-	}
-	
 	/* Exit action for state 'leave2'. */
 	private void exitAction_main_region_leave2() {
-		timer.unsetTimer(this, 10);
+		timer.unsetTimer(this, 9);
 	}
 	
 	/* Exit action for state 'DoAllActions'. */
@@ -2240,152 +2214,152 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Exit action for state 'DoAction'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction() {
-		setActionCounter(actionCounter+1);
+		setActionCounter(actionCounter + 1);
 	}
 	
 	/* Exit action for state 'livingroom'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_livingroom() {
-		timer.unsetTimer(this, 11);
+		timer.unsetTimer(this, 10);
 	}
 	
 	/* Exit action for state 'notFound'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_notFound() {
-		timer.unsetTimer(this, 12);
+		timer.unsetTimer(this, 11);
 	}
 	
 	/* Exit action for state 'arrived'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_arrived() {
-		timer.unsetTimer(this, 13);
+		timer.unsetTimer(this, 12);
 	}
 	
 	/* Exit action for state 'backToTheOperator'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_backToTheOperator() {
-		timer.unsetTimer(this, 14);
+		timer.unsetTimer(this, 13);
 	}
 	
 	/* Exit action for state 'notArrived'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_notArrived() {
-		timer.unsetTimer(this, 15);
+		timer.unsetTimer(this, 14);
 	}
 	
 	/* Exit action for state 'livingroom'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_livingroom() {
-		timer.unsetTimer(this, 16);
+		timer.unsetTimer(this, 15);
 	}
 	
 	/* Exit action for state 'notFound'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_notFound() {
-		timer.unsetTimer(this, 17);
+		timer.unsetTimer(this, 16);
 	}
 	
 	/* Exit action for state 'arrived'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_arrived() {
-		timer.unsetTimer(this, 18);
+		timer.unsetTimer(this, 17);
 	}
 	
 	/* Exit action for state 'backToTheOperator'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_backToTheOperator() {
-		timer.unsetTimer(this, 19);
+		timer.unsetTimer(this, 18);
 	}
 	
 	/* Exit action for state 'bringGehtnicht'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_bringGehtnicht() {
-		timer.unsetTimer(this, 20);
+		timer.unsetTimer(this, 19);
 	}
 	
 	/* Exit action for state 'notArrived'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_bring_bring_GeneralP_extended_notArrived() {
-		timer.unsetTimer(this, 21);
+		timer.unsetTimer(this, 20);
 	}
 	
 	/* Exit action for state 'open'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_open() {
-		timer.unsetTimer(this, 22);
+		timer.unsetTimer(this, 21);
 	}
 	
 	/* Exit action for state 'StartTracking'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking() {
-		timer.unsetTimer(this, 23);
+		timer.unsetTimer(this, 22);
 	}
 	
 	/* Exit action for state 'STToff'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STToff() {
-		timer.unsetTimer(this, 24);
+		timer.unsetTimer(this, 23);
 	}
 	
 	/* Exit action for state 'STTstart'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.unsetTimer(this, 25);
+		timer.unsetTimer(this, 24);
 	}
 	
 	/* Exit action for state 'Wave'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave() {
-		timer.unsetTimer(this, 26);
+		timer.unsetTimer(this, 25);
 	}
 	
 	/* Exit action for state 'UTurn1'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn1() {
-		timer.unsetTimer(this, 27);
+		timer.unsetTimer(this, 26);
 	}
 	
 	/* Exit action for state 'Turn'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Turn() {
-		timer.unsetTimer(this, 28);
+		timer.unsetTimer(this, 27);
 	}
 	
 	/* Exit action for state 'ILostYou'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_ILostYou() {
-		timer.unsetTimer(this, 29);
+		timer.unsetTimer(this, 28);
 	}
 	
 	/* Exit action for state 'UTurn2'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn2() {
-		timer.unsetTimer(this, 30);
+		timer.unsetTimer(this, 29);
 	}
 	
 	/* Exit action for state 'Detection'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Detection() {
-		timer.unsetTimer(this, 31);
+		timer.unsetTimer(this, 30);
 	}
 	
 	/* Exit action for state 'Detect'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Detect() {
-		timer.unsetTimer(this, 32);
+		timer.unsetTimer(this, 31);
 	}
 	
 	/* Exit action for state 'unknown'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_unknown() {
-		timer.unsetTimer(this, 33);
+		timer.unsetTimer(this, 32);
 	}
 	
 	/* Exit action for state 'crowd'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_crowd() {
-		timer.unsetTimer(this, 34);
+		timer.unsetTimer(this, 33);
 	}
 	
 	/* Exit action for state 'tell'. */
 	private void exitAction_main_region_DoAllActions__region0_DoAction_Instructions_tell() {
-		timer.unsetTimer(this, 35);
+		timer.unsetTimer(this, 34);
 	}
 	
 	/* Exit action for state 'GoToOp'. */
 	private void exitAction_main_region_GoToOp() {
-		timer.unsetTimer(this, 36);
+		timer.unsetTimer(this, 35);
 	}
 	
 	/* Exit action for state 'blocked'. */
 	private void exitAction_main_region_blocked() {
-		timer.unsetTimer(this, 37);
+		timer.unsetTimer(this, 36);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 38);
+		timer.unsetTimer(this, 37);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 39);
+		timer.unsetTimer(this, 38);
 	}
 	
 	/* 'default' enter sequence for state Hello */
@@ -2431,7 +2405,6 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* 'default' enter sequence for state StopSTT */
 	private void enterSequence_main_region_StopSTT_default() {
-		entryAction_main_region_StopSTT();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_StopSTT;
 	}
@@ -2481,13 +2454,6 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		entryAction_main_region_STT_and_Tell_Actions_s_GeneratedCommand();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_STT_and_Tell_Actions_s_GeneratedCommand;
-	}
-	
-	/* 'default' enter sequence for state Stop YesNo */
-	private void enterSequence_main_region_STT_and_Tell_Actions_s_Stop_YesNo_default() {
-		entryAction_main_region_STT_and_Tell_Actions_s_Stop_YesNo();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_STT_and_Tell_Actions_s_Stop_YesNo;
 	}
 	
 	/* 'default' enter sequence for state leave2 */
@@ -2970,14 +2936,6 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		exitAction_main_region_STT_and_Tell_Actions_s_GeneratedCommand();
 	}
 	
-	/* Default exit sequence for state Stop YesNo */
-	private void exitSequence_main_region_STT_and_Tell_Actions_s_Stop_YesNo() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_region_STT_and_Tell_Actions_s_Stop_YesNo();
-	}
-	
 	/* Default exit sequence for state leave2 */
 	private void exitSequence_main_region_leave2() {
 		nextStateIndex = 0;
@@ -3367,9 +3325,6 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		case main_region_STT_and_Tell_Actions_s_GeneratedCommand:
 			exitSequence_main_region_STT_and_Tell_Actions_s_GeneratedCommand();
 			break;
-		case main_region_STT_and_Tell_Actions_s_Stop_YesNo:
-			exitSequence_main_region_STT_and_Tell_Actions_s_Stop_YesNo();
-			break;
 		case main_region_leave2:
 			exitSequence_main_region_leave2();
 			break;
@@ -3580,9 +3535,6 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 			break;
 		case main_region_STT_and_Tell_Actions_s_GeneratedCommand:
 			exitSequence_main_region_STT_and_Tell_Actions_s_GeneratedCommand();
-			break;
-		case main_region_STT_and_Tell_Actions_s_Stop_YesNo:
-			exitSequence_main_region_STT_and_Tell_Actions_s_Stop_YesNo();
 			break;
 		default:
 			break;
@@ -4150,6 +4102,10 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	private void react_main_region_STT_and_Tell_Actions_s_YesNo() {
 		if (check_main_region_STT_and_Tell_Actions_s_YesNo_tr0_tr0()) {
 			effect_main_region_STT_and_Tell_Actions_s_YesNo_tr0();
+		} else {
+			if (check_main_region_STT_and_Tell_Actions_s_YesNo_tr1_tr1()) {
+				effect_main_region_STT_and_Tell_Actions_s_YesNo_tr1();
+			}
 		}
 	}
 	
@@ -4160,17 +4116,6 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		} else {
 			if (check_main_region_STT_and_Tell_Actions_s_GeneratedCommand_tr1_tr1()) {
 				effect_main_region_STT_and_Tell_Actions_s_GeneratedCommand_tr1();
-			}
-		}
-	}
-	
-	/* The reactions of state Stop YesNo. */
-	private void react_main_region_STT_and_Tell_Actions_s_Stop_YesNo() {
-		if (check_main_region_STT_and_Tell_Actions_s_Stop_YesNo_tr0_tr0()) {
-			effect_main_region_STT_and_Tell_Actions_s_Stop_YesNo_tr0();
-		} else {
-			if (check_main_region_STT_and_Tell_Actions_s_Stop_YesNo_tr1_tr1()) {
-				effect_main_region_STT_and_Tell_Actions_s_Stop_YesNo_tr1();
 			}
 		}
 	}
@@ -4901,9 +4846,6 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 				break;
 			case main_region_STT_and_Tell_Actions_s_GeneratedCommand:
 				react_main_region_STT_and_Tell_Actions_s_GeneratedCommand();
-				break;
-			case main_region_STT_and_Tell_Actions_s_Stop_YesNo:
-				react_main_region_STT_and_Tell_Actions_s_Stop_YesNo();
 				break;
 			case main_region_leave2:
 				react_main_region_leave2();

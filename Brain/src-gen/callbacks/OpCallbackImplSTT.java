@@ -35,7 +35,7 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	}
 	
 	public void sendInit() {
-		sendSpeechDetectionOff();
+//		sendSpeechDetectionOff();
 	}
 	
 	public void sendPing() {
@@ -80,12 +80,28 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		return ((STT)module.getParser()).getActionCommandSentence();
 	}
 
-	public void sendSpeechDetectionOff() {
-		send("#STT#0#");
+
+	@Override
+	public void sendSpeechDetectionSmalltalk(long timeout) {
+		// TODO Auto-generated method stub
+		send("#STT#1#" + timeout + "#");
+		
+		STT stt = (STT)Start.getModules().getParser("STT");
+		stt.setSpokenText("");
+		stt.setInstruction("");
+		stt.setObject("");
+		stt.resetActionList();
+		stt.setSpokenTextReceived(false);
+		stt.setIncomprehensible(false);
+		stt.setActionReceived(false);
+		stt.setActionsReceived(false);
+		
 	}
 
-	public void sendSpeechDetectionSmalltalk() {
-		send("#STT#1#");
+	@Override
+	public void sendSpeechDetectionYesNo(long timeout) {
+		// TODO Auto-generated method stub
+		send("#STT#2#"+ timeout + "#");
 		
 		STT stt = (STT)Start.getModules().getParser("STT");
 		stt.setSpokenText("");
@@ -98,8 +114,10 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setActionsReceived(false);
 	}
 
-	public void sendSpeechDetectionYesNo() {
-		send("#STT#2#");
+	@Override
+	public void sendSpeechDetectionName(long timeout) {
+		// TODO Auto-generated method stub
+		send("#STT#3#"+ timeout + "#");
 		
 		STT stt = (STT)Start.getModules().getParser("STT");
 		stt.setSpokenText("");
@@ -110,10 +128,13 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setIncomprehensible(false);
 		stt.setActionReceived(false);
 		stt.setActionsReceived(false);
+		
 	}
 
-	public void sendSpeechDetectionName() {
-		send("#STT#3#");
+	@Override
+	public void sendSpeechDetectionActions(long timeout) {
+		// TODO Auto-generated method stub
+	send("#STT#4#"+ timeout + "#");
 		
 		STT stt = (STT)Start.getModules().getParser("STT");
 		stt.setSpokenText("");
@@ -124,21 +145,9 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setIncomprehensible(false);
 		stt.setActionReceived(false);
 		stt.setActionsReceived(false);
+		
 	}
 
-	public void sendSpeechDetectionActions() {
-	send("#STT#4#");
-		
-		STT stt = (STT)Start.getModules().getParser("STT");
-		stt.setSpokenText("");
-		stt.setInstruction("");
-		stt.setObject("");
-		stt.resetActionList();
-		stt.setSpokenTextReceived(false);
-		stt.setIncomprehensible(false);
-		stt.setActionReceived(false);
-		stt.setActionsReceived(false);
-	}
 
 
 }

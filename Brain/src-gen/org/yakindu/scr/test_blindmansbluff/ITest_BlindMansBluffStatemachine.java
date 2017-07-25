@@ -119,6 +119,8 @@ public interface ITest_BlindMansBluffStatemachine extends ITimerCallback,IStatem
 		
 		public void sendGoToLC(long inX, long inY);
 		
+		public void sendGoToPhi(long angle);
+		
 		public void sendSearchOnOff(boolean inOnOff);
 		
 		public void sendPanCamera(long inPan);
@@ -143,9 +145,11 @@ public interface ITest_BlindMansBluffStatemachine extends ITimerCallback,IStatem
 		
 		public void raiseIncomprehensible();
 		
+		public void raiseAnswerReceived();
+		
 		public void raiseActionReceived();
 		
-		public void raiseAnswerReceived();
+		public void raiseActionsReceived();
 		
 		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
 	
@@ -161,13 +165,23 @@ public interface ITest_BlindMansBluffStatemachine extends ITimerCallback,IStatem
 		
 		public String getObject();
 		
-		public void sendSpeechDetectionOff();
+		public long getActionListLength();
 		
-		public void sendSpeechDetectionSmalltalk();
+		public String getInstructionFromActionListAt(long i);
 		
-		public void sendSpeechDetectionYesNo();
+		public String getObjectFromActionListAt(long i);
 		
-		public void sendSpeechDetectionName();
+		public String getLocationFromActionListAt(long i);
+		
+		public String getActionCommandSentence();
+		
+		public void sendSpeechDetectionSmalltalk(long timeout);
+		
+		public void sendSpeechDetectionYesNo(long timeout);
+		
+		public void sendSpeechDetectionName(long timeout);
+		
+		public void sendSpeechDetectionActions(long timeout);
 		
 	}
 	
@@ -185,11 +199,13 @@ public interface ITest_BlindMansBluffStatemachine extends ITimerCallback,IStatem
 	
 		public void sendDetectionOn();
 		
+		public void sendWaveDetectionOn();
+		
 		public void sendDetectionOff();
 		
 		public long getTotalCount();
 		
-		public long getSpecificCount(long gender, long minAge, long maxAge, long position);
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving, long angle, double distance);
 		
 		public String getSummaryText();
 		
@@ -198,6 +214,8 @@ public interface ITest_BlindMansBluffStatemachine extends ITimerCallback,IStatem
 		public boolean areAllGendersDetected();
 		
 		public boolean areAllAgesDetected();
+		
+		public long getWavingAngle();
 		
 	}
 	

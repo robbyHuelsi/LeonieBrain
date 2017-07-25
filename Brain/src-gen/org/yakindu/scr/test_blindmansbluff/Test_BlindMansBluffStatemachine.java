@@ -160,23 +160,30 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 			incomprehensible = true;
 		}
 		
-		private boolean actionReceived;
-		
-		public void raiseActionReceived() {
-			actionReceived = true;
-		}
-		
 		private boolean answerReceived;
 		
 		public void raiseAnswerReceived() {
 			answerReceived = true;
 		}
 		
+		private boolean actionReceived;
+		
+		public void raiseActionReceived() {
+			actionReceived = true;
+		}
+		
+		private boolean actionsReceived;
+		
+		public void raiseActionsReceived() {
+			actionsReceived = true;
+		}
+		
 		protected void clearEvents() {
 			spokenTextReceived = false;
 			incomprehensible = false;
-			actionReceived = false;
 			answerReceived = false;
+			actionReceived = false;
+			actionsReceived = false;
 		}
 	}
 	
@@ -881,14 +888,14 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_BlindMansBlufGame_StartSTT() {
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk();
+		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
 		sCIKinect2.operationCallback.sendNoiseDetectionOnOff(true);
 	}
 	
 	/* Entry action for state 'waitForSTT'. */
 	private void entryAction_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_waitForSTT() {
-		timer.setTimer(this, 0, 5*1000, false);
+		timer.setTimer(this, 0, 5 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
@@ -946,15 +953,8 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 		setQuestionRepeat(getQuestionRepeat() + 1);
 	}
 	
-	/* Entry action for state 'StopSTT2'. */
-	private void entryAction_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-	}
-	
 	/* Entry action for state 'StopSTT'. */
 	private void entryAction_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT() {
-		sCISTT.operationCallback.sendSpeechDetectionOff();
-		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
@@ -986,7 +986,7 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_BlindMansBlufGame_Turn() {
-		timer.setTimer(this, 2, 2*1000, false);
+		timer.setTimer(this, 2, 2 * 1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -1003,7 +1003,7 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_BlindMansBlufGame_wait() {
-		timer.setTimer(this, 3, 5*1000, false);
+		timer.setTimer(this, 3, 5 * 1000, false);
 	}
 	
 	/* Entry action for state 'Repeat'. */
@@ -1122,7 +1122,6 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	
 	/* 'default' enter sequence for state StopSTT2 */
 	private void enterSequence_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2_default() {
-		entryAction_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2();
 		nextStateIndex = 0;
 		stateVector[0] = State.blindMansBlufGame_ParallelOfSTTAndKinect2_STT_StopSTT2;
 	}

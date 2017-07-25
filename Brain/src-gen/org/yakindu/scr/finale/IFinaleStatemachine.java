@@ -121,6 +121,8 @@ public interface IFinaleStatemachine extends ITimerCallback,IStatemachine {
 	
 		public void raiseGestureDetected();
 		
+		public void raiseFail();
+		
 		public void raiseStringFinished();
 		
 		public void setSCILeapMotionOperationCallback(SCILeapMotionOperationCallback operationCallback);
@@ -170,6 +172,8 @@ public interface IFinaleStatemachine extends ITimerCallback,IStatemachine {
 		public void sendTurnHead(long inAngle);
 		
 		public void sendGoToLC(long inX, long inY);
+		
+		public void sendGoToPhi(long angle);
 		
 		public void sendSearchOnOff(boolean inOnOff);
 		
@@ -225,15 +229,13 @@ public interface IFinaleStatemachine extends ITimerCallback,IStatemachine {
 		
 		public String getActionCommandSentence();
 		
-		public void sendSpeechDetectionOff();
+		public void sendSpeechDetectionSmalltalk(long timeout);
 		
-		public void sendSpeechDetectionSmalltalk();
+		public void sendSpeechDetectionYesNo(long timeout);
 		
-		public void sendSpeechDetectionYesNo();
+		public void sendSpeechDetectionName(long timeout);
 		
-		public void sendSpeechDetectionName();
-		
-		public void sendSpeechDetectionActions();
+		public void sendSpeechDetectionActions(long timeout);
 		
 	}
 	
@@ -251,11 +253,13 @@ public interface IFinaleStatemachine extends ITimerCallback,IStatemachine {
 	
 		public void sendDetectionOn();
 		
+		public void sendWaveDetectionOn();
+		
 		public void sendDetectionOff();
 		
 		public long getTotalCount();
 		
-		public long getSpecificCount(long gender, long minAge, long maxAge, long position);
+		public long getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving, long angle, double distance);
 		
 		public String getSummaryText();
 		
@@ -264,6 +268,8 @@ public interface IFinaleStatemachine extends ITimerCallback,IStatemachine {
 		public boolean areAllGendersDetected();
 		
 		public boolean areAllAgesDetected();
+		
+		public long getWavingAngle();
 		
 	}
 	
