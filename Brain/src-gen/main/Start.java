@@ -147,6 +147,11 @@ public class Start{
 		return log;
 	}
 	
+	public boolean setLog(Log l){
+		this.log = l;
+		return true;
+	}
+	
 	public static int getUDPListeningPort() {
 		return UDPListeningPort;
 	}

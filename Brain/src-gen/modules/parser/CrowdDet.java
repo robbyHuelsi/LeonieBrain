@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import Persons.PersonCrowd;
 import Persons.PersonList;
 import communication.MessageParser;
+import main.Log;
 import main.Start;
 import modules.Module;
 import modules.Modules;
@@ -430,89 +431,104 @@ public class CrowdDet implements IParser, Serializable{
 			//fullfill the sentence with the criterias.
 			msg += ", who ";
 			if(count == 1){
-				msg += " is ";
+				msg += "is ";
 			}else{
-				msg += " are ";
+				msg += "are ";
 			}
 		
+			Vector<String> criteria = new Vector<String>();
+			
 			//GENDER == MALE
 			if(arguments.get(0).get(0) == 0){
-				msg += "male, ";
+				criteria.add("male");
 			}
 			
 			//GENDER == FEMALE
 			if(arguments.get(0).get(0)==1){
-				msg += "female, ";
+				criteria.add("female");
 			}
 				
 			//POSITION == STANDING
 			if(arguments.get(3).get(0)==0){
-				msg += "standing, ";
+				criteria.add("standing");
 			}
 			
 			//POSITION == SITTING
 			if(arguments.get(3).get(0)==1){
-				msg += "sitting, ";
+				criteria.add("sitting");
 			}
 			
 			//POSITION == LAYING
 			if(arguments.get(3).get(0)==2){
-				msg += "laying, ";
+				criteria.add("laying");
 			}
 			
 			//YOUNGER THAN 21
 			if(arguments.get(2).get(0)==18){
-				msg += "young, ";
+				criteria.add("young");
 			}
 			
 			//OLDER THAN 59
 			if(arguments.get(1).get(0)==79){
-				msg += "old, ";
+				criteria.add("old");
 			}
 			
 			//TODO Add Middle aged?
 			
 			//WAVING == TRUE
 			if(arguments.get(5).get(0)==1){
-				msg += "waving, ";
+				criteria.add("waving");
 			}
 			
 			//WAVING == FALSE
 			if(arguments.get(5).get(0)==0){
-				msg += "not waving, ";
+				criteria.add("not waving");
 			}
 			
 			//COLOR == BLACK
 			if(arguments.get(4).get(0)==0){
-				msg += "wearing black, ";
+				criteria.add("wearing black");
 			}
 			
 			//COLOR == WHITE
 			if(arguments.get(4).get(0)==1){
-				msg += "wearing white, ";
+				criteria.add("wearing white");
 			}
 			
 			//COLOR == RED
 			if(arguments.get(4).get(0)==2){
-				msg += "wearing red, ";
+				criteria.add("wearing red");
 			}
 			
 			//COLOR == YELLOW
 			if(arguments.get(4).get(0)==3){
-				msg += "wearing yellow, ";
+				criteria.add("wearing yellow");
 			}
 			
 			//COLOR == GREEN
 			if(arguments.get(4).get(0)==4){
-				msg += "wearing green, ";
+				criteria.add("wearing green");
 			}
 			
 			//COLOR == BLUE
 			if(arguments.get(4).get(0)==5){
-				msg += "wearing blue, ";
+				criteria.add("wearing blue");
 			}
 			
-			msg = msg.substring(0, msg.length()-1);
+			
+			for (int i = 0; i < criteria.size(); i++) {
+				msg += criteria.get(i);
+				
+				if(i == criteria.size() - 2){
+					msg += " and ";
+				}else if(i == criteria.size() - 1){
+					msg += ".";
+				}else{
+					msg += ", ";
+				}
+			}
+			
+			
 			
 		}
 		
@@ -538,9 +554,13 @@ public class CrowdDet implements IParser, Serializable{
 	
 		Start t = Start.instanceOf();
 		t.setModules(new Modules(t, t.getSavingsFolderPath()));
+		t.setLog(new Log(t.getSavingsFolderPath()));
+		t.setStatemachine("SpeechAndPersonRecognition", t);
+		t.runStatemachine(t);
 		MessageParser.ParseMessage("#CROWDDET#10#-1,-1,0,0,0,16,-1;0,4,0,0,0,29,211;0,4,0,5,0,24,189;1,2,0,3,0,3,64;1,4,0,2,0,-18,79;-1,-1,0,0,0,-3,-1;0,4,0,5,0,-41,111;-1,-1,0,5,0,34,-1;-1,-1,0,-1,0,19,-1;1,4,0,-1,0,41,113#");
 		System.out.println(((CrowdDet)t.getModules().getParser("CrowdDet")).getAnswerForSecificCrowdDetails("-1|-1|-1|0|3|-1"));
 
+		System.out.println("end");
 		
 	}
 	
