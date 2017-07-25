@@ -377,7 +377,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	
 	/* Entry action for state 'Left'. */
 	private void entryAction_main_region_Left() {
-		timer.setTimer(this, 0, 1 * 1000, false);
+		timer.setTimer(this, 0, 1*1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(-30);
 		
@@ -386,7 +386,7 @@ public class Test_LeapMotionLeftRightStatemachine implements ITest_LeapMotionLef
 	
 	/* Entry action for state 'Right'. */
 	private void entryAction_main_region_Right() {
-		timer.setTimer(this, 1, 1 * 1000, false);
+		timer.setTimer(this, 1, 1*1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(30);
 		

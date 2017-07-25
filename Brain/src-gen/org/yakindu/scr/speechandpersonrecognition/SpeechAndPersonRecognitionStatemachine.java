@@ -1531,19 +1531,19 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Announcement'. */
 	private void entryAction_main_region_Announcement() {
-		timer.setTimer(this, 0, 10 * 1000, false);
+		timer.setTimer(this, 0, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)] I want to play the riddle game in 10 seconds.");
 	}
 	
 	/* Entry action for state 'Wait'. */
 	private void entryAction_main_region_Wait() {
-		timer.setTimer(this, 1, 10 * 1000, false);
+		timer.setTimer(this, 1, 10*1000, false);
 	}
 	
 	/* Entry action for state 'TurnAround'. */
 	private void entryAction_main_region_TurnAround() {
-		timer.setTimer(this, 2, 7 * 1000, false);
+		timer.setTimer(this, 2, 7*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Lets go!");
 		
@@ -1552,7 +1552,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'CrowdScanningAndCounting'. */
 	private void entryAction_main_region_CrowdScanningAndCounting() {
-		timer.setTimer(this, 3, 50 * 1000, false);
+		timer.setTimer(this, 3, 50*1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOff();
 		
@@ -1563,7 +1563,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'StartGame'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_StartGame() {
-		timer.setTimer(this, 4, 15 * 1000, false);
+		timer.setTimer(this, 4, 15*1000, false);
 		
 		setQuestionCounter(0);
 		
@@ -1574,12 +1574,12 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'WaitForOperator'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_WaitForOperator() {
-		timer.setTimer(this, 5, 7 * 1000, false);
+		timer.setTimer(this, 5, 7*1000, false);
 	}
 	
 	/* Entry action for state 'Hello'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_Hello() {
-		timer.setTimer(this, 6, 10 * 1000, false);
+		timer.setTimer(this, 6, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)] Ask me a question! [attentive]");
 		
@@ -1588,14 +1588,14 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Leave the arena'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_Leave_the_arena() {
-		timer.setTimer(this, 7, 10 * 1000, false);
+		timer.setTimer(this, 7, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Okay, that's enough for now.");
 	}
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_TellAnswer() {
-		timer.setTimer(this, 8, 40 * 1000, false);
+		timer.setTimer(this, 8, 40*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getAnswer(), " [:-)]");
 	}
@@ -1607,21 +1607,21 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_TellIncomprehensible() {
-		timer.setTimer(this, 9, 40 * 1000, false);
+		timer.setTimer(this, 9, 40*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("[:-(]", sCISTT.operationCallback.getAnswer(), "[:-|]");
 	}
 	
 	/* Entry action for state 'NextQuestion'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_NextQuestion() {
-		timer.setTimer(this, 10, 10 * 1000, false);
+		timer.setTimer(this, 10, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Please ask me the next question. [attentive]");
 	}
 	
 	/* Entry action for state 'TellAction'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_TellAction() {
-		timer.setTimer(this, 11, 40 * 1000, false);
+		timer.setTimer(this, 11, 40*1000, false);
 	}
 	
 	/* Entry action for state 'GoTo'. */
@@ -1656,7 +1656,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_StartSTT() {
-		timer.setTimer(this, 12, 30 * 1000, false);
+		timer.setTimer(this, 12, 30*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
@@ -1665,14 +1665,14 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'TellSpokenText'. */
 	private void entryAction_main_region_RiddleGame_RiddleGame_Scit0s_STT_RiddleGame_TellSpokenText() {
-		timer.setTimer(this, 13, 30 * 1000, false);
+		timer.setTimer(this, 13, 30*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-|]");
 	}
 	
 	/* Entry action for state 'StartGame'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_StartGame() {
-		timer.setTimer(this, 14, 3 * 1000, false);
+		timer.setTimer(this, 14, 3*1000, false);
 		
 		setQuestionCounter(0);
 		
@@ -1688,7 +1688,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'waitForSTT'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_waitForSTT() {
-		timer.setTimer(this, 15, 10 * 1000, false);
+		timer.setTimer(this, 15, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
@@ -1779,7 +1779,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_Turn() {
-		timer.setTimer(this, 17, 2 * 1000, false);
+		timer.setTimer(this, 17, 2*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -1791,14 +1791,14 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'firstQ'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_firstQ() {
-		timer.setTimer(this, 18, 7 * 1000, false);
+		timer.setTimer(this, 18, 7*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I'm ready for the blind mans bluff game. [:-)] Ask me the first question. [attentive]");
 	}
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_main_region_BlindMansBlufGame_BlindMansBlufGame_wait() {
-		timer.setTimer(this, 19, 5 * 1000, false);
+		timer.setTimer(this, 19, 5*1000, false);
 	}
 	
 	/* Entry action for state 'Repeat'. */
@@ -1813,7 +1813,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'DetectionOn'. */
 	private void entryAction_main_region_DetectionOn() {
-		timer.setTimer(this, 20, 5 * 1000, false);
+		timer.setTimer(this, 20, 5*1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 		
@@ -1822,7 +1822,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 21, 3 * 1000, false);
+		timer.setTimer(this, 21, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1839,7 +1839,7 @@ public class SpeechAndPersonRecognitionStatemachine implements ISpeechAndPersonR
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 22, 3 * 1000, false);
+		timer.setTimer(this, 22, 3*1000, false);
 	}
 	
 	/* Exit action for state 'Announcement'. */

@@ -1,13 +1,16 @@
 package modules.parser;
 
 import java.io.Serializable;
+import java.io.ObjectInputStream.GetField;
 import java.util.Vector;
 import java.util.regex.Pattern;
 
 import Persons.PersonCrowd;
 import Persons.PersonList;
+import communication.MessageParser;
 import main.Start;
 import modules.Module;
+import modules.Modules;
 
 public class CrowdDet implements IParser, Serializable{
 	private static final long serialVersionUID = 1L;
@@ -111,20 +114,22 @@ public class CrowdDet implements IParser, Serializable{
 	 * count = getSpecificCount(-1,-1,-1,-1,-1,1);
 	 */
 	public int getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving){
-		Vector<PersonCrowd> pl = this.personList;
-		System.out.println("TEST: getSpecificCount\n" + " gender: " + gender + " minAge: " + minAge + " maxAge: " + maxAge + " position: " + position + " color: " + color + " waving: " + waving);
-		System.out.println("TestTest: " + this.personList.toString());
-		int removeCounter;
+		Vector<PersonCrowd> pl = new Vector<PersonCrowd>(this.personList);
+		System.out.println("TEST: getSpecificCount\n" + " gender: " + gender + "; minAge: " + minAge + "; maxAge: " + maxAge + "; position: " + position + "; color: " + color + "; waving: " + waving);
+		//System.out.println("TestTest: " + this.personList.toString());
+		int removeCounter = 0;
 		for (int i = 0; i < pl.size(); i++) {
 			removeCounter = 0;
-			System.out.println("---------\n" + pl.get(i).getColor());
+
 			//gender: -1 = not detectable; 0 = male ; 1 = female
 			if (gender != -1 && pl.get(i).getGender() != gender) {
+				System.out.println("Person (Gender: " + pl.get(i).getGender() + ") removed, because gender doesn't fit. (Required: " + gender + ")");
 				pl.remove(i);
 				removeCounter++;
 				
 			//age: -1 = not detectable
 			}else if(minAge != -1 && pl.get(i).getAge() < minAge ){
+				System.out.println("Person (Age: " + pl.get(i).getAge() + ") removed, because too young. (Required minimum: " + minAge + ")");
 				pl.remove(i);
 				removeCounter++;
 			}else if(maxAge != -1 && pl.get(i).getAge() > maxAge){
@@ -132,18 +137,20 @@ public class CrowdDet implements IParser, Serializable{
 				removeCounter++;
 				
 			//position: 0 = stehen; 1 = sitzen; 2 = liegen
-			}else if(position != 1 && pl.get(i).getPosition() != position){
+			}else if(position != -1 && pl.get(i).getPosition() != position){
+				System.out.println("Person (Age: " + pl.get(i).getAge() + ") removed, because too old. (Required maximum: " + maxAge + ")");
 				pl.remove(i);
 				removeCounter++;
 			
 			//waving
 			}else if(waving != -1 && pl.get(i).getWaving() != waving){
+				System.out.println("Person (Waving: " + pl.get(i).getWaving() + ") removed, because waving doesn't fit. (Required: " + waving + ")");
 				pl.remove(i);
 				removeCounter++;
 			
 			//color
 			}else if(color != -1 && pl.get(i).getColor() != color){
-				System.out.println("test123");
+				System.out.println("Person (T-Shirt Color: " + pl.get(i).getColor() + ") removed, because color doesn't fit. (Required: " + color + ")");
 				pl.remove(i);
 				removeCounter++;
 			}
@@ -390,185 +397,126 @@ public class CrowdDet implements IParser, Serializable{
 	 * gender |	position | minAge | maxAge | color | waving | angle | distance 
 	 */
 	public String getAnswerForSecificCrowdDetails(String inDetails) {
-		int count;
-		String[] t = inDetails.split(Pattern.quote("|"));
-		int[] arguments = new int[t.length];
-		for(int i=0; i<arguments.length; i++){
-			int argument = Integer.parseInt(t[i]);
-			arguments[i] = argument;
+		String[] stringArgs = inDetails.split(Pattern.quote("|"));
+		Vector<Vector<Integer>> arguments = new Vector<Vector<Integer>>();
+		for (int i = 0; i < stringArgs.length; i++) {
+			String stringTmp[] = stringArgs[i].split(Pattern.quote(","));
+			Vector<Integer> intVecTmp= new Vector<Integer>();
+			for(int j = 0; j < stringTmp.length; j++){
+				intVecTmp.add(Integer.parseInt(stringTmp[j]));
+			}
+			arguments.add(intVecTmp);
 		}
-		System.out.println("TEST: Personlist:\n" + personList.toString());
+		
+		//Get the number of people with this criterias
+		int count = getSpecificCount(arguments.get(0).get(0),arguments.get(1).get(0),arguments.get(2).get(0),arguments.get(3).get(0), arguments.get(4).get(0), arguments.get(5).get(0));
+		
+		String msg = "I found ";
+		
+		if (count == 0) {
+			msg += "no persons";
+		}else if(count == 1){
+			msg += "one person";
+		}else{
+			msg += + count + " person";
+		}
+						
 		//COUNT ALL
-		if(arguments[0]==-1 && arguments[1]==-1 && arguments[2]==-1 && arguments[3]==-1 && arguments[4]==-1 && arguments[5]==-1){
-			count = getTotalCount();
-			if (count == 0) {
-				return "I found no people.";
-			}else if(count == 1){
-				return "I found one person.";
+		if(arguments.get(0).get(0)==-1 && arguments.get(1).get(0)==-1 && arguments.get(2).get(0)==-1 && arguments.get(3).get(0)==-1 && arguments.get(4).get(0)==-1 && arguments.get(5).get(0)==-1){
+			//There are no specific criterias, so "count" is the number of all people in the crowed. Finish the sentence with a fullstop.
+			msg += ".";
+			
+		}else{
+			//fullfill the sentence with the criterias.
+			msg += ", who ";
+			if(count == 1){
+				msg += " is ";
 			}else{
-				return "I found " + count + " people.";
+				msg += " are ";
 			}
+		
+			//GENDER == MALE
+			if(arguments.get(0).get(0) == 0){
+				msg += "male, ";
+			}
+			
+			//GENDER == FEMALE
+			if(arguments.get(0).get(0)==1){
+				msg += "female, ";
+			}
+				
+			//POSITION == STANDING
+			if(arguments.get(3).get(0)==0){
+				msg += "standing, ";
+			}
+			
+			//POSITION == SITTING
+			if(arguments.get(3).get(0)==1){
+				msg += "sitting, ";
+			}
+			
+			//POSITION == LAYING
+			if(arguments.get(3).get(0)==2){
+				msg += "laying, ";
+			}
+			
+			//YOUNGER THAN 21
+			if(arguments.get(2).get(0)==18){
+				msg += "young, ";
+			}
+			
+			//OLDER THAN 59
+			if(arguments.get(1).get(0)==79){
+				msg += "old, ";
+			}
+			
+			//TODO Add Middle aged?
+			
+			//WAVING == TRUE
+			if(arguments.get(5).get(0)==1){
+				msg += "waving, ";
+			}
+			
+			//WAVING == FALSE
+			if(arguments.get(5).get(0)==0){
+				msg += "not waving, ";
+			}
+			
+			//COLOR == BLACK
+			if(arguments.get(4).get(0)==0){
+				msg += "wearing black, ";
+			}
+			
+			//COLOR == WHITE
+			if(arguments.get(4).get(0)==1){
+				msg += "wearing white, ";
+			}
+			
+			//COLOR == RED
+			if(arguments.get(4).get(0)==2){
+				msg += "wearing red, ";
+			}
+			
+			//COLOR == YELLOW
+			if(arguments.get(4).get(0)==3){
+				msg += "wearing yellow, ";
+			}
+			
+			//COLOR == GREEN
+			if(arguments.get(4).get(0)==4){
+				msg += "wearing green, ";
+			}
+			
+			//COLOR == BLUE
+			if(arguments.get(4).get(0)==5){
+				msg += "wearing blue, ";
+			}
+			
+			msg = msg.substring(0, msg.length()-1);
+			
 		}
 		
-		//GENDER
-		else if(arguments[0]==0){
-			count = getSpecificCount(0,-1,-1,-1,-1,-1);
-			if (count == 0) {
-				return "I found no male people.";
-			}else if(count == 1){
-				return "I found one male person.";
-			}else{
-				return "I found " + count + " male people.";
-			}
-		}else if(arguments[0]==1){
-			count = getSpecificCount(1,-1,-1,-1,-1,-1);
-			if (count == 0) {
-				return "I found no female people.";
-			}else if(count == 1){
-				return "I found one lady.";
-			}else{
-				return "I found " + count + " female people.";
-			}
-		//POSITION
-		}else if(arguments[3]==0){
-			count = getSpecificCount(-1,-1,-1,0,-1,-1);
-			if (count == 0) {
-				return "I found no standing people.";
-			}else if(count == 1){
-				return "I found one standing person.";
-			}else{
-				return "I found " + count + " standing people.";
-			}
-		}else if(arguments[3]==1){
-			count = getSpecificCount(-1,-1,-1,1,-1,-1);
-			if (count == 0) {
-				return "I found no sitting people.";
-			}else if(count == 1){
-				return "I found one sitting person.";
-			}else{
-				return "I found " + count + " sitting people.";
-			}
-		}else if(arguments[3]==2){
-			count = getSpecificCount(-1,-1,-1,2,-1,-1);
-			if (count == 0) {
-				return "I found no laying people.";
-			}else if(count == 1){
-				return "I found one laying person.";
-			}else{
-				return "I found " + count + " laying people.";
-			}
-		}
-		//AGE
-		else if(arguments[2]==18){
-			count = getSpecificCount(-1,-1,18,-1,-1,-1);
-			if (count == 0) {
-				return "I found no person younger than 21.";
-			}else if(count == 1){
-				return "I found one person younger than 21.";
-			}else{
-				return "I found " + count + "people younger than 21.";
-			}
-		}else if(arguments[1]==79){
-			count = getSpecificCount(-1,79,-1,1,-1,-1);
-			if (count == 0) {
-				return "I found no person older than 59.";
-			}else if(count == 1){
-				return "I found one person older than 59.";
-			}else{
-				return "I found " + count + " old people older than 59.";
-			}
-		//AGE & GENDER
-		}else if(arguments[0]==0 && arguments[2]==18){
-			count = getSpecificCount(0,-1,18,-1,-1,-1);
-			if (count == 0) {
-				return "I found no male person younger than 21.";
-			}else if(count == 1){
-				return "I found one male person younger than 21.";
-			}else{
-				return "I found " + count + " male person younger than 21.";
-			}
-		}else if(arguments[0]==1 && arguments[2]==18){
-			count = getSpecificCount(1,-1,18,-1,-1,-1);
-			if (count == 0) {
-				return "I found no female person younger than 21.";
-			}else if(count == 1){
-				return "I found one female person younger than 21.";
-			}else{
-				return "I found " + count + " female person younger than 21.";
-			}
-		//WAVING
-		}else if(arguments[5]==1){
-				count = getSpecificCount(-1,-1,-1,-1,-1,1);
-				if (count == 0) {
-					return "I found no waving person.";
-				}else if(count == 1){
-					return "I found one waving person.";
-				}else{
-					return "I found " + count + " waving person.";
-				}
-		}
-		//COLOR
-		else if(arguments[4]==0){
-			count = getSpecificCount(-1,-1,-1,-1,0,-1);
-			if (count == 0) {
-				return "I found no person wearing black.";
-			}else if(count == 1){
-				return "I found one person wearing black.";
-			}else{
-				return "I found " + count + " people wearing black.";
-			}
-		}else if(arguments[4]==1){
-			count = getSpecificCount(-1,-1,-1,-1,1,-1);
-			if (count == 0) {
-				return "I found no person wearing white.";
-			}else if(count == 1){
-				return "I found one person wearing white.";
-			}else{
-				return "I found " + count + " people wearing white.";
-			}
-		}else if(arguments[4]==2){
-			count = getSpecificCount(-1,-1,-1,-1,2,-1);
-			if (count == 0) {
-				return "I found no person wearing red.";
-			}else if(count == 1){
-				return "I found one person wearing red.";
-			}else{
-				return "I found " + count + " people wearing red.";
-			}
-		}else if(arguments[4]==3){
-			count = getSpecificCount(-1,-1,-1,-1,3,-1);
-			if (count == 0) {
-				return "I found no person wearing yellow.";
-			}else if(count == 1){
-				return "I found one person wearing yellow.";
-			}else{
-				return "I found " + count + " people wearing yellow.";
-			}
-		}else if(arguments[4]==4){
-			count = getSpecificCount(-1,-1,-1,-1,4,-1);
-			if (count == 0) {
-				return "I found no person wearing green.";
-			}else if(count == 1){
-				return "I found one person wearing green.";
-			}else{
-				return "I found " + count + " people wearing green.";
-			}
-		}else if(arguments[4]==5){
-			count = getSpecificCount(-1,-1,-1,-1,5,-1);
-			if (count == 0) {
-				return "I found no person wearing blue.";
-			}else if(count == 1){
-				return "I found one person wearing blue.";
-			}else{
-				return "I found " + count + " people wearing blue.";
-			}
-		}
-		
-		//TODO all and some more combinations
-
-		else{
-			return "I don't know, what you mean with " + inDetails + ".";
-		}
+		return msg;
 	} 
 
 	//indicates the distance to the nearest person to Leonie
@@ -586,4 +534,14 @@ public class CrowdDet implements IParser, Serializable{
 		return distance;
 	}
 
+	public static void main(String[] args){
+	
+		Start t = Start.instanceOf();
+		t.setModules(new Modules(t, t.getSavingsFolderPath()));
+		MessageParser.ParseMessage("#CROWDDET#10#-1,-1,0,0,0,16,-1;0,4,0,0,0,29,211;0,4,0,5,0,24,189;1,2,0,3,0,3,64;1,4,0,2,0,-18,79;-1,-1,0,0,0,-3,-1;0,4,0,5,0,-41,111;-1,-1,0,5,0,34,-1;-1,-1,0,-1,0,19,-1;1,4,0,-1,0,41,113#");
+		System.out.println(((CrowdDet)t.getModules().getParser("CrowdDet")).getAnswerForSecificCrowdDetails("-1|-1|-1|0|3|-1"));
+
+		
+	}
+	
 }

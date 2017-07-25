@@ -179,6 +179,18 @@ public class Start{
 		return modules;
 	}
 	
+	public static boolean setModules(Modules m){
+		modules = m;
+		return true;
+	}
+	
+	public static String getSavingsFolderPath() {
+		return savingsFolderPath;
+	}
+
+
+
+
 	public GUI getGui(){
 		return gui;
 	}
