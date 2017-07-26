@@ -428,6 +428,7 @@ public class CrowdDet implements IParser, Serializable{
 			msg += ".";
 			
 		}else{
+			
 			//fullfill the sentence with the criterias.
 			msg += ", who ";
 			if(count == 1){
@@ -437,16 +438,31 @@ public class CrowdDet implements IParser, Serializable{
 			}
 		
 			Vector<String> criteria = new Vector<String>();
+			Vector<String> tmp = new Vector<String>();
 			
-			//GENDER == MALE
-			if(arguments.get(0).get(0) == 0){
-				criteria.add("male");
+			//GENDER
+			tmp.clear();
+			for (int i = 0; i < arguments.get(0).size(); i++) {
+				//GENDER == MALE
+				if(arguments.get(0).get(i) == 0){
+					tmp.add("male");
+				}
+				
+				//GENDER == FEMALE
+				if(arguments.get(0).get(i)==1){
+					tmp.add("female");
+				}
 			}
 			
-			//GENDER == FEMALE
-			if(arguments.get(0).get(0)==1){
-				criteria.add("female");
+			if (tmp.size() == 1) {
+				criteria.add(tmp.get(0));
+			}else if(tmp.size() == 2){
+				criteria.add(tmp.get(0) + " or " + tmp.get(1));
 			}
+			
+			
+			
+			
 				
 			//POSITION == STANDING
 			if(arguments.get(3).get(0)==0){
