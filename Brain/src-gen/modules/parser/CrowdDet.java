@@ -110,11 +110,29 @@ public class CrowdDet implements IParser, Serializable{
 		return this.personList.size();
 	}
 	
+	public int getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving){
+		Vector<Integer> vGender = new Vector<Integer>();
+		Vector<Integer> vMinAge = new Vector<Integer>();
+		Vector<Integer> vMaxAge = new Vector<Integer>();
+		Vector<Integer> vPosition = new Vector<Integer>();
+		Vector<Integer> vColor = new Vector<Integer>();
+		Vector<Integer> vWaving = new Vector<Integer>();
+		
+		vGender.add((int)gender);
+		vMinAge.add((int)minAge);
+		vMaxAge.add((int)maxAge);
+		vPosition.add((int)position);
+		vColor.add((int)color);
+		vWaving.add((int)waving);
+		
+		return getSpecificCount(vGender, vMinAge, vMaxAge, vPosition, vColor, vWaving);
+	}
+	
 	/*
 	 * returns the number of people matching the input conditions
 	 * count = getSpecificCount(-1,-1,-1,-1,-1,1);
 	 */
-	public int getSpecificCount(long gender, long minAge, long maxAge, long position, long color, long waving){
+	public int getSpecificCount(Vector<Integer> gender, Vector<Integer> minAge, Vector<Integer> maxAge, Vector<Integer> position, Vector<Integer> color, Vector<Integer> waving){
 		Vector<PersonCrowd> pl = new Vector<PersonCrowd>(this.personList);
 		System.out.println("TEST: getSpecificCount\n" + " gender: " + gender + "; minAge: " + minAge + "; maxAge: " + maxAge + "; position: " + position + "; color: " + color + "; waving: " + waving);
 		//System.out.println("TestTest: " + this.personList.toString());
@@ -123,34 +141,34 @@ public class CrowdDet implements IParser, Serializable{
 			removeCounter = 0;
 
 			//gender: -1 = not detectable; 0 = male ; 1 = female
-			if (gender != -1 && pl.get(i).getGender() != gender) {
+			if (gender.get(0) != -1 && pl.get(i).getGender() != gender.get(0)) {
 				System.out.println("Person (Gender: " + pl.get(i).getGender() + ") removed, because gender doesn't fit. (Required: " + gender + ")");
 				pl.remove(i);
 				removeCounter++;
 				
 			//age: -1 = not detectable
-			}else if(minAge != -1 && pl.get(i).getAge() < minAge ){
+			}else if(minAge.get(0) != -1 && pl.get(i).getAge() < minAge.get(0) ){
 				System.out.println("Person (Age: " + pl.get(i).getAge() + ") removed, because too young. (Required minimum: " + minAge + ")");
 				pl.remove(i);
 				removeCounter++;
-			}else if(maxAge != -1 && pl.get(i).getAge() > maxAge){
+			}else if(maxAge.get(0) != -1 && pl.get(i).getAge() > maxAge.get(0)){
 				pl.remove(i);
 				removeCounter++;
 				
 			//position: 0 = stehen; 1 = sitzen; 2 = liegen
-			}else if(position != -1 && pl.get(i).getPosition() != position){
+			}else if(position.get(0) != -1 && pl.get(i).getPosition() != position.get(0)){
 				System.out.println("Person (Age: " + pl.get(i).getAge() + ") removed, because too old. (Required maximum: " + maxAge + ")");
 				pl.remove(i);
 				removeCounter++;
 			
 			//waving
-			}else if(waving != -1 && pl.get(i).getWaving() != waving){
+			}else if(waving.get(0) != -1 && pl.get(i).getWaving() != waving.get(0)){
 				System.out.println("Person (Waving: " + pl.get(i).getWaving() + ") removed, because waving doesn't fit. (Required: " + waving + ")");
 				pl.remove(i);
 				removeCounter++;
 			
 			//color
-			}else if(color != -1 && pl.get(i).getColor() != color){
+			}else if(color.get(0) != -1 && pl.get(i).getColor() != color.get(0)){
 				System.out.println("Person (T-Shirt Color: " + pl.get(i).getColor() + ") removed, because color doesn't fit. (Required: " + color + ")");
 				pl.remove(i);
 				removeCounter++;
@@ -410,7 +428,7 @@ public class CrowdDet implements IParser, Serializable{
 		}
 		
 		//Get the number of people with this criterias
-		int count = getSpecificCount(arguments.get(0).get(0),arguments.get(1).get(0),arguments.get(2).get(0),arguments.get(3).get(0), arguments.get(4).get(0), arguments.get(5).get(0));
+		int count = getSpecificCount(arguments.get(0),arguments.get(1),arguments.get(2),arguments.get(3), arguments.get(4), arguments.get(5));
 		
 		String msg = "I found ";
 		
@@ -459,8 +477,6 @@ public class CrowdDet implements IParser, Serializable{
 			}else if(tmp.size() == 2){
 				criteria.add(tmp.get(0) + " or " + tmp.get(1));
 			}
-			
-			
 			
 			
 				
