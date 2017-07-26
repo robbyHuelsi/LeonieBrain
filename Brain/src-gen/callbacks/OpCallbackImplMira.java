@@ -77,8 +77,8 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 		}
 		Communication.sendMessage("#MIRA#ROTBODY#90#", modules.get("Mira"));*/
 		
-		//sendTurnBody(180);
-		sendTurnBody(200); // FÜR TEPPICHBODEN
+		sendTurnBody(180);
+		//sendTurnBody(200); // FÜR TEPPICHBODEN
 	}
 
 	
