@@ -6,14 +6,16 @@
         <outgoingTransitions xmi:id="_v-qjUCaJEeeInd9KxN6PKQ" specification="" target="_wyPYIDAHEee1LLy7pSGAmQ"/>
       </vertices>
       <vertices xsi:type="sgraph:FinalState" xmi:id="_BCCeYCaCEeeInd9KxN6PKQ" incomingTransitions="_bEG58DAWEee1LLy7pSGAmQ"/>
-      <vertices xsi:type="sgraph:State" xmi:id="_wyPYIDAHEee1LLy7pSGAmQ" specification="entry/ Mira.sendGoToGWP(16);&#xA;HBrain.sendTTS(&quot;[:-|]&quot;)" name="Entry" incomingTransitions="_v-qjUCaJEeeInd9KxN6PKQ">
-        <outgoingTransitions xmi:id="__MA6EDAHEee1LLy7pSGAmQ" specification="after 3s" target="_ZkxmcDAcEee1LLy7pSGAmQ"/>
+      <vertices xsi:type="sgraph:State" xmi:id="_wyPYIDAHEee1LLy7pSGAmQ" specification="entry/ Mira.sendGoToGWP(21);&#xA;HBrain.sendTTS(&quot;[:-|]&quot;)" name="Entry" incomingTransitions="_v-qjUCaJEeeInd9KxN6PKQ">
+        <outgoingTransitions xmi:id="__MA6EDAHEee1LLy7pSGAmQ" specification="Mira.arrivedWP" target="_ZkxmcDAcEee1LLy7pSGAmQ"/>
+        <outgoingTransitions xmi:id="_sqB5UHG1EeexMbnG3FF8Gg" specification="after 30s" target="_ZkxmcDAcEee1LLy7pSGAmQ"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_YL4voDAWEee1LLy7pSGAmQ" specification="entry/ Mira.sendGoToGWP(13)" name="LeaveTheArema" incomingTransitions="_Su9EgDAkEee0875Bvs1VDA">
+      <vertices xsi:type="sgraph:State" xmi:id="_YL4voDAWEee1LLy7pSGAmQ" specification="entry/ Mira.sendGoToGWP(13)" name="LeaveTheArema" incomingTransitions="_Su9EgDAkEee0875Bvs1VDA _DD3CEHG2EeexMbnG3FF8Gg">
         <outgoingTransitions xmi:id="_bEG58DAWEee1LLy7pSGAmQ" specification="Mira.arrivedWP" target="_BCCeYCaCEeeInd9KxN6PKQ"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_ZkxmcDAcEee1LLy7pSGAmQ" specification="entry /&#xA;HBrain.sendTTS(&quot;Hello. [:-)] My name is Leonie. I'm so exited to be here [happy]. Now, you can test my abilities.&quot;)" name="StartDrivingAroung" incomingTransitions="__MA6EDAHEee1LLy7pSGAmQ">
-        <outgoingTransitions xmi:id="_Su9EgDAkEee0875Bvs1VDA" specification="Mira.arrivedWP" target="_YL4voDAWEee1LLy7pSGAmQ"/>
+      <vertices xsi:type="sgraph:State" xmi:id="_ZkxmcDAcEee1LLy7pSGAmQ" specification="entry /&#xA;HBrain.sendTTS(&quot;[:-)] I'm so exited to be here!&quot;)" name="StartDrivingAroung" incomingTransitions="__MA6EDAHEee1LLy7pSGAmQ _sqB5UHG1EeexMbnG3FF8Gg">
+        <outgoingTransitions xmi:id="_Su9EgDAkEee0875Bvs1VDA" specification="HBrain.TTSReady" target="_YL4voDAWEee1LLy7pSGAmQ"/>
+        <outgoingTransitions xmi:id="_DD3CEHG2EeexMbnG3FF8Gg" specification="after 5s" target="_YL4voDAWEee1LLy7pSGAmQ"/>
       </vertices>
     </regions>
     <regions xmi:id="_piBUQzAhEee1LLy7pSGAmQ" name="Leonie Bupered Or Emergency Stop">
@@ -222,7 +224,7 @@
     <edges xmi:id="__MBhIDAHEee1LLy7pSGAmQ" type="Transition" element="__MA6EDAHEee1LLy7pSGAmQ" source="_wyP_MDAHEee1LLy7pSGAmQ" target="_ZkyNgDAcEee1LLy7pSGAmQ">
       <children xsi:type="notation:DecorationNode" xmi:id="__MCIMTAHEee1LLy7pSGAmQ" type="TransitionExpression">
         <styles xsi:type="notation:ShapeStyle" xmi:id="__MCIMjAHEee1LLy7pSGAmQ"/>
-        <layoutConstraint xsi:type="notation:Location" xmi:id="__MCIMzAHEee1LLy7pSGAmQ" y="10"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="__MCIMzAHEee1LLy7pSGAmQ" x="3" y="23"/>
       </children>
       <styles xsi:type="notation:ConnectorStyle" xmi:id="__MBhITAHEee1LLy7pSGAmQ" lineColor="4210752"/>
       <styles xsi:type="notation:FontStyle" xmi:id="__MCIMDAHEee1LLy7pSGAmQ" fontName="Verdana"/>
@@ -315,6 +317,26 @@
       <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_Su9rkjAkEee0875Bvs1VDA" points="[-2, 0, 2, -98]$[-2, 87, 2, -11]"/>
       <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_Su-SozAkEee0875Bvs1VDA" id="(0.2975970425138632,0.8867924528301887)"/>
       <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_Su-SpDAkEee0875Bvs1VDA" id="(0.12804878048780488,0.6981132075471698)"/>
+    </edges>
+    <edges xmi:id="_sqDugHG1EeexMbnG3FF8Gg" type="Transition" element="_sqB5UHG1EeexMbnG3FF8Gg" source="_wyP_MDAHEee1LLy7pSGAmQ" target="_ZkyNgDAcEee1LLy7pSGAmQ">
+      <children xsi:type="notation:DecorationNode" xmi:id="_sqFjsHG1EeexMbnG3FF8Gg" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_sqFjsXG1EeexMbnG3FF8Gg"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_sqFjsnG1EeexMbnG3FF8Gg" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_sqDugXG1EeexMbnG3FF8Gg" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_sqEVkHG1EeexMbnG3FF8Gg" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_sqDugnG1EeexMbnG3FF8Gg" points="[6, 0, 88, -86]$[189, 81, 271, -5]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_sqHY4HG1EeexMbnG3FF8Gg" id="(0.6526508226691042,1.0)"/>
+    </edges>
+    <edges xmi:id="_DD4QMHG2EeexMbnG3FF8Gg" type="Transition" element="_DD3CEHG2EeexMbnG3FF8Gg" source="_ZkyNgDAcEee1LLy7pSGAmQ" target="_YL7L4DAWEee1LLy7pSGAmQ">
+      <children xsi:type="notation:DecorationNode" xmi:id="_DD43QXG2EeexMbnG3FF8Gg" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_DD43QnG2EeexMbnG3FF8Gg"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_DD43Q3G2EeexMbnG3FF8Gg" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_DD4QMXG2EeexMbnG3FF8Gg" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_DD43QHG2EeexMbnG3FF8Gg" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_DD4QMnG2EeexMbnG3FF8Gg" points="[4, 0, 58, -95]$[85, 119, 139, 24]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_DD6FYHG2EeexMbnG3FF8Gg" id="(0.6014625228519196,1.0)"/>
     </edges>
   </notation:Diagram>
 </xmi:XMI>
