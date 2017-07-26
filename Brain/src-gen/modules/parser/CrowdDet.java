@@ -134,7 +134,7 @@ public class CrowdDet implements IParser, Serializable{
 	 */
 	public int getSpecificCount(Vector<Integer> gender, Vector<Integer> minAge, Vector<Integer> maxAge, Vector<Integer> position, Vector<Integer> color, Vector<Integer> waving){
 		Vector<PersonCrowd> pl = new Vector<PersonCrowd>(this.personList);
-		System.out.println("TEST: getSpecificCount\n" + " gender: " + gender + "; minAge: " + minAge + "; maxAge: " + maxAge + "; position: " + position + "; color: " + color + "; waving: " + waving);
+		start.getLog().log("Get Specific Count: " + "gender = " + genderString(gender) + "; minAge = " + minAge + "; maxAge = " + maxAge + "; position = " + posString(position) + "; color = " + colorString(color) + "; waving = " + wavingString(waving));
 		//System.out.println("TestTest: " + this.personList.toString());
 		int removeCounter = 0;
 		for (int i = 0; i < pl.size(); i++) {
@@ -142,34 +142,35 @@ public class CrowdDet implements IParser, Serializable{
 
 			//gender: -1 = not detectable; 0 = male ; 1 = female
 			if (gender.get(0) != -1 && pl.get(i).getGender() != gender.get(0)) {
-				System.out.println("Person (Gender: " + pl.get(i).getGender() + ") removed, because gender doesn't fit. (Required: " + gender + ")");
+				start.getLog().log("Person (Gender: " + pl.get(i).getGender() + ") removed, because gender doesn't fit. (Required: " + genderString(gender) + ")");
 				pl.remove(i);
 				removeCounter++;
 				
 			//age: -1 = not detectable
 			}else if(minAge.get(0) != -1 && pl.get(i).getAge() < minAge.get(0) ){
-				System.out.println("Person (Age: " + pl.get(i).getAge() + ") removed, because too young. (Required minimum: " + minAge + ")");
+				start.getLog().log("Person (Age: " + pl.get(i).getAge() + ") removed, because too young. (Required minimum: " + minAge + ")");
 				pl.remove(i);
 				removeCounter++;
 			}else if(maxAge.get(0) != -1 && pl.get(i).getAge() > maxAge.get(0)){
+				start.getLog().log("Person (Age: " + pl.get(i).getAge() + ") removed, because too old. (Required maximum: " + maxAge + ")");
 				pl.remove(i);
 				removeCounter++;
 				
 			//position: 0 = stehen; 1 = sitzen; 2 = liegen
 			}else if(position.get(0) != -1 && pl.get(i).getPosition() != position.get(0)){
-				System.out.println("Person (Age: " + pl.get(i).getAge() + ") removed, because too old. (Required maximum: " + maxAge + ")");
+				start.getLog().log("Person (Position: " + pl.get(i).getPosition() + ") removed, because position doesn't fit. (Required: " + posString(position) + ")");
 				pl.remove(i);
 				removeCounter++;
 			
 			//waving
 			}else if(waving.get(0) != -1 && pl.get(i).getWaving() != waving.get(0)){
-				System.out.println("Person (Waving: " + pl.get(i).getWaving() + ") removed, because waving doesn't fit. (Required: " + waving + ")");
+				start.getLog().log("Person (Waving: " + pl.get(i).getWaving() + ") removed, because waving doesn't fit. (Required: " + wavingString(waving) + ")");
 				pl.remove(i);
 				removeCounter++;
 			
-			//color
+			//color 0 = black [0, 0, 0]; 1 = white [255, 255, 255]; 2 = red [255, 0, 0]; 3 = yellow [255, 255, 255]; 4 = green [0, 255, 0]; 5 = blue [0, 0, 255]
 			}else if(color.get(0) != -1 && pl.get(i).getColor() != color.get(0)){
-				System.out.println("Person (T-Shirt Color: " + pl.get(i).getColor() + ") removed, because color doesn't fit. (Required: " + color + ")");
+				start.getLog().log("Person (T-Shirt Color: " + pl.get(i).getColor() + ") removed, because color doesn't fit. (Required: " + colorString(color) + ")");
 				pl.remove(i);
 				removeCounter++;
 			}
@@ -447,7 +448,7 @@ public class CrowdDet implements IParser, Serializable{
 			
 		}else{
 			
-			//fullfill the sentence with the criterias.
+			//fullfill the sentence with the criteria.
 			msg += ", who ";
 			if(count == 1){
 				msg += "is ";
@@ -459,113 +460,160 @@ public class CrowdDet implements IParser, Serializable{
 			Vector<String> tmp = new Vector<String>();
 			
 			//GENDER
-			tmp.clear();
-			for (int i = 0; i < arguments.get(0).size(); i++) {
-				//GENDER == MALE
-				if(arguments.get(0).get(i) == 0){
-					tmp.add("male");
-				}
-				
-				//GENDER == FEMALE
-				if(arguments.get(0).get(i)==1){
-					tmp.add("female");
-				}
-			}
-			
-			if (tmp.size() == 1) {
-				criteria.add(tmp.get(0));
-			}else if(tmp.size() == 2){
-				criteria.add(tmp.get(0) + " or " + tmp.get(1));
-			}
-			
-			
-				
-			//POSITION == STANDING
-			if(arguments.get(3).get(0)==0){
-				criteria.add("standing");
-			}
-			
-			//POSITION == SITTING
-			if(arguments.get(3).get(0)==1){
-				criteria.add("sitting");
-			}
-			
-			//POSITION == LAYING
-			if(arguments.get(3).get(0)==2){
-				criteria.add("laying");
-			}
-			
-			//YOUNGER THAN 21
-			if(arguments.get(2).get(0)==18){
-				criteria.add("young");
-			}
-			
-			//OLDER THAN 59
-			if(arguments.get(1).get(0)==79){
-				criteria.add("old");
-			}
-			
-			//TODO Add Middle aged?
-			
-			//WAVING == TRUE
-			if(arguments.get(5).get(0)==1){
-				criteria.add("waving");
-			}
-			
-			//WAVING == FALSE
-			if(arguments.get(5).get(0)==0){
-				criteria.add("not waving");
-			}
-			
-			//COLOR == BLACK
-			if(arguments.get(4).get(0)==0){
-				criteria.add("wearing black");
-			}
-			
-			//COLOR == WHITE
-			if(arguments.get(4).get(0)==1){
-				criteria.add("wearing white");
-			}
-			
-			//COLOR == RED
-			if(arguments.get(4).get(0)==2){
-				criteria.add("wearing red");
-			}
-			
-			//COLOR == YELLOW
-			if(arguments.get(4).get(0)==3){
-				criteria.add("wearing yellow");
-			}
-			
-			//COLOR == GREEN
-			if(arguments.get(4).get(0)==4){
-				criteria.add("wearing green");
-			}
-			
-			//COLOR == BLUE
-			if(arguments.get(4).get(0)==5){
-				criteria.add("wearing blue");
-			}
-			
-			
-			for (int i = 0; i < criteria.size(); i++) {
-				msg += criteria.get(i);
-				
-				if(i == criteria.size() - 2){
-					msg += " and ";
-				}else if(i == criteria.size() - 1){
-					msg += ".";
-				}else{
-					msg += ", ";
-				}
-			}
-			
-			
-			
-		}
-		
-		return msg;
-	} 
+            tmp.clear();
+            for (int i = 0; i < arguments.get(0).size(); i++) {
+                //GENDER == MALE
+                if(arguments.get(0).get(i) == 0){
+                    tmp.add("male");
+                }
+                
+                //GENDER == FEMALE
+                if(arguments.get(0).get(i)==1){
+                    tmp.add("female");
+                }
+            }
+            
+            if (tmp.size() == 1) {
+                criteria.add(tmp.get(0));
+            }else if(tmp.size() == 2){
+                criteria.add(tmp.get(0) + " or " + tmp.get(1));
+            }
+            
+            
+            
+            //AGE
+            tmp.clear();
+            
+            //AGE == OLD (Min Age older than or eq 40)
+            if(arguments.get(1).get(0) >= 40){
+                tmp.add("old");
+                criteria.add(tmp.get(0));
+            }
+            
+            //AGE == MIDDLE (Min Age older than or eq 17 and Max Age younger than or eq 40)
+            else if(arguments.get(1).get(0) >= 17 && arguments.get(2).get(0) <= 40){
+                tmp.add("middle aged");
+                criteria.add(tmp.get(0)); 
+            }
+            
+            //AGE == YOUNG (Max Age smaller than or eq 17)
+            else if(arguments.get(2).get(0) <= 17){
+                tmp.add("young");
+                criteria.add(tmp.get(0));
+            }
+            
+            else{
+            	tmp.add("older than " + arguments.get(2).get(0) + " and younger than " + arguments.get(3).get(0));
+                criteria.add(tmp.get(0));
+            }
+            
+          //POSITION
+            tmp.clear();
+            for (int i = 0; i < arguments.get(3).size(); i++) {
+                //POSITION == STANDING
+                if(arguments.get(3).get(i) == 0){
+                    tmp.add("standing");
+                }
+                //POSITION == SITTING
+                if(arguments.get(3).get(i)==1){
+                    tmp.add("sitting");
+                }
+                //POSITION == LAYING
+                if(arguments.get(3).get(i)==2){
+                    tmp.add("laying");
+                }
+            }
+            
+            if (tmp.size() == 1) {
+                criteria.add(tmp.get(0));
+            }else if(tmp.size() == 2){
+                criteria.add(tmp.get(0) + " or " + tmp.get(1));
+            }else if(tmp.size() == 3){
+                criteria.add(tmp.get(0) + ", " + tmp.get(1)+ " or " + tmp.get(2));
+            }
+            
+            //COLOR
+            tmp.clear();
+            for (int i = 0; i < arguments.get(4).size(); i++) {
+                //COLOR == 0 
+                if(arguments.get(4).get(i) == 0){
+                    tmp.add("black");
+                }
+                //COLOR == 1
+                else if(arguments.get(4).get(i)==1){
+                    tmp.add("white");
+                }
+                //COLOR == 2
+                else if(arguments.get(4).get(i)==2){
+                    tmp.add("red");
+                }
+                //COLOR == 3 
+                else if(arguments.get(4).get(i) == 3){
+                    tmp.add("yellow");
+                }
+                //COLOR == 4
+                else if(arguments.get(4).get(i)==4){
+                    tmp.add("green");
+                }
+                //COLOR == 5
+                else if(arguments.get(4).get(i)==5){
+                    tmp.add("blue");
+                }
+            }
+            
+            if (tmp.size() == 1) {
+                criteria.add("wearing " + tmp.get(0));
+            }else if(tmp.size() == 2){
+                criteria.add("wearing " + tmp.get(0) + " or " + tmp.get(1));
+            }else if(tmp.size() == 3){
+                criteria.add("wearing " + tmp.get(0) + ", " + tmp.get(1) + " or " + tmp.get(2));
+            }else if(tmp.size() == 4){
+                criteria.add("wearing " + tmp.get(0) + ", " + tmp.get(1)+ ", " + tmp.get(2) + " or " + tmp.get(3));
+            }else if(tmp.size() == 5){
+                criteria.add("wearing " + tmp.get(0) + ", " + tmp.get(1) + ", " + tmp.get(2) + ", " + tmp.get(3) + " or " + tmp.get(4));
+            }else if(tmp.size() == 6){
+                criteria.add("wearing " + tmp.get(0) + ", " + tmp.get(1) + ", " + tmp.get(2) + ", " + tmp.get(3) + ", " + tmp.get(4) + " or " + tmp.get(5));
+            }
+            
+            //WAVING
+            tmp.clear();
+            for (int i = 0; i < arguments.get(5).size(); i++) {
+                //WAVING == TRUE
+                if(arguments.get(5).get(i) == 0){
+                    tmp.add("not waving");
+                }else if(arguments.get(5).get(i) == 1){
+                    tmp.add("waving");
+                }
+            }
+            if (tmp.size() == 1) {
+                criteria.add(tmp.get(0));
+            }
+            
+           
+            
+
+            //summarize the text snippets to a full sentence
+            for (int i = 0; i < criteria.size(); i++) {
+                msg += criteria.get(i);
+                
+                if(i == criteria.size() - 2){
+                    msg += " and ";
+                    if(count == 1){
+        				msg += "is ";
+        			}else{
+        				msg += "are ";
+        			}
+                }else if(i == criteria.size() - 1){
+                    msg += ".";
+                }else{
+                    msg += ", ";
+                }
+            }
+            
+        }
+        return msg;
+    }
+	
 
 	//indicates the distance to the nearest person to Leonie
 	public int getMinimalDistanceOfCrowd(){
@@ -581,18 +629,88 @@ public class CrowdDet implements IParser, Serializable{
 		System.out.println("Distance: " + distance);
 		return distance;
 	}
-
-	public static void main(String[] args){
 	
+	//gender: -1 = not detectable; 0 = male ; 1 = female
+	private String genderString(Vector<Integer> gender){
+		String msg = "[";
+		for (Integer g : gender) {
+			if (g == 0) {
+				msg += "male, ";
+			}else if (g == 1) {
+				msg += "female, ";
+			}else{
+				msg += g + ", ";
+			}
+		}
+		return msg.substring(0, msg.length() - 2) + "]";
+	}
+	
+	//position: 0 = stehen; 1 = sitzen; 2 = liegen
+	private String posString(Vector<Integer> position){
+		String msg = "[";
+		for (Integer p : position) {
+			if (p == 0) {
+				msg += "standing, ";
+			}else if (p == 1) {
+				msg += "sitting, ";
+			}else if (p == 2) {
+				msg += "laying, ";
+			}else{
+				msg += p + ", ";
+			}
+		}
+		return msg.substring(0, msg.length() - 2) + "]";
+	}
+	
+	//waving
+	private String wavingString(Vector<Integer> waving){
+		String msg = "[";
+		for (Integer w : waving) {
+			if (w == 0) {
+				msg += "not waving, ";
+			}else if (w == 1) {
+				msg += "waving, ";
+			}else{
+				msg += w + ", ";
+			}
+		}
+		return msg.substring(0, msg.length() - 2) + "]";
+	}
+			
+	//color 0 = black [0, 0, 0]; 1 = white [255, 255, 255]; 2 = red [255, 0, 0]; 3 = yellow [255, 255, 255]; 4 = green [0, 255, 0]; 5 = blue [0, 0, 255]
+	private String colorString(Vector<Integer> color){
+		String msg = "[";
+		for (Integer c : color) {
+			if (c == 0) {
+				msg += "black, ";
+			}else if (c == 1) {
+				msg += "white, ";
+			}else if (c == 2) {
+				msg += "red, ";
+			}else if (c == 3) {
+				msg += "yellow, ";
+			}else if (c == 4) {
+				msg += "green, ";
+			}else if (c == 5) {
+				msg += "blue, ";
+			}else{
+				msg += c + ", ";
+			}
+		}
+		return msg.substring(0, msg.length() - 2) + "]";
+	}
+	
+	public static void main(String[] args){
+		
 		Start t = Start.instanceOf();
 		t.setModules(new Modules(t, t.getSavingsFolderPath()));
 		t.setLog(new Log(t.getSavingsFolderPath()));
 		t.setStatemachine("SpeechAndPersonRecognition", t);
 		t.runStatemachine(t);
 		MessageParser.ParseMessage("#CROWDDET#10#-1,-1,0,0,0,16,-1;0,4,0,0,0,29,211;0,4,0,5,0,24,189;1,2,0,3,0,3,64;1,4,0,2,0,-18,79;-1,-1,0,0,0,-3,-1;0,4,0,5,0,-41,111;-1,-1,0,5,0,34,-1;-1,-1,0,-1,0,19,-1;1,4,0,-1,0,41,113#");
-		System.out.println(((CrowdDet)t.getModules().getParser("CrowdDet")).getAnswerForSecificCrowdDetails("-1|-1|-1|0|3|-1"));
+		System.out.println(((CrowdDet)t.getModules().getParser("CrowdDet")).getAnswerForSecificCrowdDetails("1|-1|17|3|2,4|1"));
 
-		System.out.println("end");
+		System.out.println("end of test");
 		
 	}
 	
