@@ -32,7 +32,7 @@
       <vertices xsi:type="sgraph:State" xmi:id="_piDJPjAhEee1LLy7pSGAmQ" specification="entry / HBrain.sendTTS(&quot;[:-|]&quot;)" name="resetFace" incomingTransitions="_piDJOTAhEee1LLy7pSGAmQ _piEXWTAhEee1LLy7pSGAmQ">
         <outgoingTransitions xmi:id="_piDwSTAhEee1LLy7pSGAmQ" specification="always" target="_piB7EDAhEee1LLy7pSGAmQ"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_piDwTDAhEee1LLy7pSGAmQ" specification="entry /&#xA;HBrain.sendTTS(&quot;[:-O] Emergancy Stop!&quot;)" name="EmergencyStop" incomingTransitions="_piCiJDAhEee1LLy7pSGAmQ">
+      <vertices xsi:type="sgraph:State" xmi:id="_piDwTDAhEee1LLy7pSGAmQ" specification="entry /&#xA;HBrain.sendTTS(&quot;[:-O] emergency stop!&quot;)" name="EmergencyStop" incomingTransitions="_piCiJDAhEee1LLy7pSGAmQ">
         <outgoingTransitions xmi:id="_piEXWTAhEee1LLy7pSGAmQ" specification="after 3s" target="_piDJPjAhEee1LLy7pSGAmQ"/>
       </vertices>
     </regions>

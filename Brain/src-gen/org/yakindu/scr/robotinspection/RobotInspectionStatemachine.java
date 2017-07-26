@@ -346,7 +346,7 @@ public class RobotInspectionStatemachine implements IRobotInspectionStatemachine
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_EmergencyStop() {
 		timer.setTimer(this, 3, 3*1000, false);
 		
-		sCIHBrain.operationCallback.sendTTS("[:-O] Emergancy Stop!");
+		sCIHBrain.operationCallback.sendTTS("[:-O] emergency stop!");
 	}
 	
 	/* Exit action for state 'Entry'. */
