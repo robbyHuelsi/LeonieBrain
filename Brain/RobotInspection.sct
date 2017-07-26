@@ -8,12 +8,12 @@
       <vertices xsi:type="sgraph:FinalState" xmi:id="_BCCeYCaCEeeInd9KxN6PKQ" incomingTransitions="_bEG58DAWEee1LLy7pSGAmQ"/>
       <vertices xsi:type="sgraph:State" xmi:id="_wyPYIDAHEee1LLy7pSGAmQ" specification="entry/ Mira.sendGoToGWP(21);&#xA;HBrain.sendTTS(&quot;[:-|]&quot;)" name="Entry" incomingTransitions="_v-qjUCaJEeeInd9KxN6PKQ">
         <outgoingTransitions xmi:id="__MA6EDAHEee1LLy7pSGAmQ" specification="Mira.arrivedWP" target="_ZkxmcDAcEee1LLy7pSGAmQ"/>
-        <outgoingTransitions xmi:id="_sqB5UHG1EeexMbnG3FF8Gg" specification="after 30s" target="_ZkxmcDAcEee1LLy7pSGAmQ"/>
+        <outgoingTransitions xmi:id="_sqB5UHG1EeexMbnG3FF8Gg" specification="after 60s" target="_ZkxmcDAcEee1LLy7pSGAmQ"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_YL4voDAWEee1LLy7pSGAmQ" specification="entry/ Mira.sendGoToGWP(13)" name="LeaveTheArema" incomingTransitions="_Su9EgDAkEee0875Bvs1VDA _DD3CEHG2EeexMbnG3FF8Gg">
         <outgoingTransitions xmi:id="_bEG58DAWEee1LLy7pSGAmQ" specification="Mira.arrivedWP" target="_BCCeYCaCEeeInd9KxN6PKQ"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_ZkxmcDAcEee1LLy7pSGAmQ" specification="entry /&#xA;HBrain.sendTTS(&quot;[:-)] I'm so exited to be here!&quot;)" name="StartDrivingAroung" incomingTransitions="__MA6EDAHEee1LLy7pSGAmQ _sqB5UHG1EeexMbnG3FF8Gg">
+      <vertices xsi:type="sgraph:State" xmi:id="_ZkxmcDAcEee1LLy7pSGAmQ" specification="entry /&#xA;HBrain.sendTTS(&quot;[:-)] I'm so excited to be here!&quot;)" name="StartDrivingAroung" incomingTransitions="__MA6EDAHEee1LLy7pSGAmQ _sqB5UHG1EeexMbnG3FF8Gg">
         <outgoingTransitions xmi:id="_Su9EgDAkEee0875Bvs1VDA" specification="HBrain.TTSReady" target="_YL4voDAWEee1LLy7pSGAmQ"/>
         <outgoingTransitions xmi:id="_DD3CEHG2EeexMbnG3FF8Gg" specification="after 5s" target="_YL4voDAWEee1LLy7pSGAmQ"/>
       </vertices>
