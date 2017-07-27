@@ -20,7 +20,7 @@
         </regions>
       </vertices>
       <vertices xsi:type="sgraph:FinalState" xmi:id="_KVGowCbQEee6A5p4FHlpdA" incomingTransitions="_fHtq4C65Eee6ptFPoPLOZA"/>
-      <vertices xsi:type="sgraph:State" xmi:id="_QBO3MCkXEeerIsa7nI0F3w" specification="entry / setupNumber = 1" name="init" incomingTransitions="_TApOoCkXEeerIsa7nI0F3w">
+      <vertices xsi:type="sgraph:State" xmi:id="_QBO3MCkXEeerIsa7nI0F3w" specification="entry / setupNumber = 2" name="init" incomingTransitions="_TApOoCkXEeerIsa7nI0F3w">
         <outgoingTransitions xmi:id="_4tCcEC61Eee6ptFPoPLOZA" specification="always" target="_fHzNsHJVEee8EbYgELSTgQ"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_eHYr2S64Eee6ptFPoPLOZA" specification="entry / ObjectDetection.sendAnalyseTable(setupNumber);&#xA;HBrain.sendTTS(&quot;[:-)]Okay. Now I am analysing the table. [attentive]&quot;)" name="inspectTable" incomingTransitions="_xTDnwHJWEee8EbYgELSTgQ">

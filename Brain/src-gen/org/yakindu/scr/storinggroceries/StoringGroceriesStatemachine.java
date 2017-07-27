@@ -753,7 +753,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'init'. */
 	private void entryAction_main_region_init() {
-		setSetupNumber(1);
+		setSetupNumber(2);
 	}
 	
 	/* Entry action for state 'inspectTable'. */
