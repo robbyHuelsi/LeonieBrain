@@ -124,8 +124,8 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		main_region_panCupboard,
 		main_region_tiltCupboard,
 		main_region_move_to_Table,
-		main_region_C1,
-		main_region_C2,
+		main_region_Balcony,
+		main_region_Kitchen,
 		main_region_panTable,
 		main_region_tiltTable,
 		main_region_balcony,
@@ -176,14 +176,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		return questionCounter;
 	}
 	
-	private long cupboard;
+	private long setupNumber;
 	
-	protected void setCupboard(long value) {
-		cupboard = value;
+	protected void setSetupNumber(long value) {
+		setupNumber = value;
 	}
 	
-	protected long getCupboard() {
-		return cupboard;
+	protected long getSetupNumber() {
+		return setupNumber;
 	}
 	
 	private long cupboardGWP;
@@ -268,7 +268,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		
 		setQuestionCounter(0);
 		
-		setCupboard(0);
+		setSetupNumber(0);
 		
 		setCupboardGWP(0);
 		
@@ -382,10 +382,10 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			return stateVector[0] == State.main_region_tiltCupboard;
 		case main_region_move_to_Table:
 			return stateVector[0] == State.main_region_move_to_Table;
-		case main_region_C1:
-			return stateVector[0] == State.main_region_C1;
-		case main_region_C2:
-			return stateVector[0] == State.main_region_C2;
+		case main_region_Balcony:
+			return stateVector[0] == State.main_region_Balcony;
+		case main_region_Kitchen:
+			return stateVector[0] == State.main_region_Kitchen;
 		case main_region_panTable:
 			return stateVector[0] == State.main_region_panTable;
 		case main_region_tiltTable:
@@ -519,11 +519,11 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		return true;
 	}
 	
-	private boolean check_main_region_C1_tr0_tr0() {
+	private boolean check_main_region_Balcony_tr0_tr0() {
 		return true;
 	}
 	
-	private boolean check_main_region_C2_tr0_tr0() {
+	private boolean check_main_region_Kitchen_tr0_tr0() {
 		return true;
 	}
 	
@@ -576,7 +576,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	}
 	
 	private boolean check_main_region__choice_0_tr0_tr0() {
-		return getCupboard()==1;
+		return getSetupNumber()==1;
 	}
 	
 	private boolean check_main_region__choice_0_tr1_tr1() {
@@ -673,13 +673,13 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		enterSequence_main_region_panTable_default();
 	}
 	
-	private void effect_main_region_C1_tr0() {
-		exitSequence_main_region_C1();
+	private void effect_main_region_Balcony_tr0() {
+		exitSequence_main_region_Balcony();
 		enterSequence_main_region_balcony_default();
 	}
 	
-	private void effect_main_region_C2_tr0() {
-		exitSequence_main_region_C2();
+	private void effect_main_region_Kitchen_tr0() {
+		exitSequence_main_region_Kitchen();
 		enterSequence_main_region_kitchen_default();
 	}
 	
@@ -744,11 +744,11 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	}
 	
 	private void effect_main_region__choice_0_tr0() {
-		enterSequence_main_region_C1_default();
+		enterSequence_main_region_Balcony_default();
 	}
 	
 	private void effect_main_region__choice_0_tr1() {
-		enterSequence_main_region_C2_default();
+		enterSequence_main_region_Kitchen_default();
 	}
 	
 	/* Entry action for state 'ObjectDetection'. */
@@ -765,12 +765,12 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'init'. */
 	private void entryAction_main_region_init() {
-		setCupboard(1);
+		setSetupNumber(1);
 	}
 	
 	/* Entry action for state 'inspectTable'. */
 	private void entryAction_main_region_inspectTable() {
-		sCIObjectDetection.operationCallback.sendAnalyseTable();
+		sCIObjectDetection.operationCallback.sendAnalyseTable(getSetupNumber());
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]Okay. Now I am analysing the table. [attentive]");
 	}
@@ -801,21 +801,21 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'Copy_1_panCupboard'. */
 	private void entryAction_main_region_Copy_1_Table__region1_Copy_1_panCupboard() {
-		timer.setTimer(this, 0, 10 * 1000, false);
+		timer.setTimer(this, 0, 10*1000, false);
 		
 		sCIMira.operationCallback.sendPanCamera(0);
 	}
 	
 	/* Entry action for state 'Copy_1_tiltCupboard'. */
 	private void entryAction_main_region_Copy_1_Table__region1_Copy_1_tiltCupboard() {
-		timer.setTimer(this, 1, 4 * 1000, false);
+		timer.setTimer(this, 1, 4*1000, false);
 		
 		sCIMira.operationCallback.sendTiltCamera(0);
 	}
 	
 	/* Entry action for state 'wait for Mira'. */
 	private void entryAction_main_region_Copy_1_Table__region1_wait_for_Mira() {
-		timer.setTimer(this, 2, 1 * 1000, false);
+		timer.setTimer(this, 2, 1*1000, false);
 	}
 	
 	/* Entry action for state 'move to Cupboard'. */
@@ -827,14 +827,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'panCupboard'. */
 	private void entryAction_main_region_panCupboard() {
-		timer.setTimer(this, 3, 1 * 1000, false);
+		timer.setTimer(this, 3, 1*1000, false);
 		
 		sCIMira.operationCallback.sendPanCamera(getCupboardPanAngle());
 	}
 	
 	/* Entry action for state 'tiltCupboard'. */
 	private void entryAction_main_region_tiltCupboard() {
-		timer.setTimer(this, 4, 5 * 1000, false);
+		timer.setTimer(this, 4, 5*1000, false);
 		
 		sCIMira.operationCallback.sendTiltCamera(getCupboardTiltAngle());
 	}
@@ -846,8 +846,8 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		sCIMira.operationCallback.sendGoToGWP(getTableGWP());
 	}
 	
-	/* Entry action for state 'C1'. */
-	private void entryAction_main_region_C1() {
+	/* Entry action for state 'Balcony'. */
+	private void entryAction_main_region_Balcony() {
 		setCupboardGWP(3);
 		
 		setCupboardPanAngle(0);
@@ -861,8 +861,8 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		setTableTiltAngle(-35);
 	}
 	
-	/* Entry action for state 'C2'. */
-	private void entryAction_main_region_C2() {
+	/* Entry action for state 'Kitchen'. */
+	private void entryAction_main_region_Kitchen() {
 		setCupboardGWP(2);
 		
 		setCupboardPanAngle(0);
@@ -878,14 +878,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'panTable'. */
 	private void entryAction_main_region_panTable() {
-		timer.setTimer(this, 5, 2 * 1000, false);
+		timer.setTimer(this, 5, 2*1000, false);
 		
 		sCIMira.operationCallback.sendPanCamera(getTablePanAngle());
 	}
 	
 	/* Entry action for state 'tiltTable'. */
 	private void entryAction_main_region_tiltTable() {
-		timer.setTimer(this, 6, 5 * 1000, false);
+		timer.setTimer(this, 6, 5*1000, false);
 		
 		sCIMira.operationCallback.sendTiltCamera(getTableTiltAngle());
 	}
@@ -907,7 +907,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 7, 3 * 1000, false);
+		timer.setTimer(this, 7, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -924,7 +924,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 8, 3 * 1000, false);
+		timer.setTimer(this, 8, 3*1000, false);
 	}
 	
 	/* Exit action for state 'Copy_1_panCupboard'. */
@@ -1099,18 +1099,18 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[0] = State.main_region_move_to_Table;
 	}
 	
-	/* 'default' enter sequence for state C1 */
-	private void enterSequence_main_region_C1_default() {
-		entryAction_main_region_C1();
+	/* 'default' enter sequence for state Balcony */
+	private void enterSequence_main_region_Balcony_default() {
+		entryAction_main_region_Balcony();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_C1;
+		stateVector[0] = State.main_region_Balcony;
 	}
 	
-	/* 'default' enter sequence for state C2 */
-	private void enterSequence_main_region_C2_default() {
-		entryAction_main_region_C2();
+	/* 'default' enter sequence for state Kitchen */
+	private void enterSequence_main_region_Kitchen_default() {
+		entryAction_main_region_Kitchen();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_C2;
+		stateVector[0] = State.main_region_Kitchen;
 	}
 	
 	/* 'default' enter sequence for state panTable */
@@ -1330,14 +1330,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state C1 */
-	private void exitSequence_main_region_C1() {
+	/* Default exit sequence for state Balcony */
+	private void exitSequence_main_region_Balcony() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state C2 */
-	private void exitSequence_main_region_C2() {
+	/* Default exit sequence for state Kitchen */
+	private void exitSequence_main_region_Kitchen() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -1452,11 +1452,11 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		case main_region_move_to_Table:
 			exitSequence_main_region_move_to_Table();
 			break;
-		case main_region_C1:
-			exitSequence_main_region_C1();
+		case main_region_Balcony:
+			exitSequence_main_region_Balcony();
 			break;
-		case main_region_C2:
-			exitSequence_main_region_C2();
+		case main_region_Kitchen:
+			exitSequence_main_region_Kitchen();
 			break;
 		case main_region_panTable:
 			exitSequence_main_region_panTable();
@@ -1707,14 +1707,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		effect_main_region_move_to_Table_tr0();
 	}
 	
-	/* The reactions of state C1. */
-	private void react_main_region_C1() {
-		effect_main_region_C1_tr0();
+	/* The reactions of state Balcony. */
+	private void react_main_region_Balcony() {
+		effect_main_region_Balcony_tr0();
 	}
 	
-	/* The reactions of state C2. */
-	private void react_main_region_C2() {
-		effect_main_region_C2_tr0();
+	/* The reactions of state Kitchen. */
+	private void react_main_region_Kitchen() {
+		effect_main_region_Kitchen_tr0();
 	}
 	
 	/* The reactions of state panTable. */
@@ -1885,11 +1885,11 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			case main_region_move_to_Table:
 				react_main_region_move_to_Table();
 				break;
-			case main_region_C1:
-				react_main_region_C1();
+			case main_region_Balcony:
+				react_main_region_Balcony();
 				break;
-			case main_region_C2:
-				react_main_region_C2();
+			case main_region_Kitchen:
+				react_main_region_Kitchen();
 				break;
 			case main_region_panTable:
 				react_main_region_panTable();
