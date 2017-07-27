@@ -815,7 +815,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'panCupboard'. */
 	private void entryAction_main_region_panCupboard() {
-		timer.setTimer(this, 3, 1 * 1000, false);
+		timer.setTimer(this, 3, 5 * 1000, false);
 		
 		sCIMira.operationCallback.sendPanCamera(getCupboardPanAngle());
 		

@@ -75,7 +75,7 @@
         <outgoingTransitions xmi:id="_vxox4C62Eee6ptFPoPLOZA" specification="Mira.arrivedWP" target="_EK-VcC6qEeeSdrDiApNpGw"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_EK-VcC6qEeeSdrDiApNpGw" specification="entry /&#xA;Mira.sendPanCamera(cupboardPanAngle);&#xA;HBrain.sendTTS(&quot;I have no manipulator to open the doors. Can you do this for me, please?&quot;)" name="panCupboard" incomingTransitions="_vxox4C62Eee6ptFPoPLOZA">
-        <outgoingTransitions xmi:id="_HM-t4C6qEeeSdrDiApNpGw" specification="after 1s" target="_WvQlYCz8Eeecj-uLLtmD-Q"/>
+        <outgoingTransitions xmi:id="_HM-t4C6qEeeSdrDiApNpGw" specification="after 5s" target="_WvQlYCz8Eeecj-uLLtmD-Q"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_WvQlYCz8Eeecj-uLLtmD-Q" specification="entry /&#xA;Mira.sendTiltCamera(cupboardTiltAngle)" name="tiltCupboard" incomingTransitions="_HM-t4C6qEeeSdrDiApNpGw">
         <outgoingTransitions xmi:id="_ZEHj8Cz8Eeecj-uLLtmD-Q" specification="after 5s" target="_XgbpUCbKEeebIf-clp-UOw"/>
