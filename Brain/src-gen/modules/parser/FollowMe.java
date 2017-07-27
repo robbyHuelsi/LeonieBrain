@@ -41,7 +41,7 @@ public class FollowMe implements IParser, Serializable {
 				this.setDetectionPersonFound(true);
 			}
 			return true;
-		}else if(data.contains("AVOID#")){
+		}else if(data.contains("AVOID")){
 			System.out.println("TEST: " + data);
 			 //Start avoidance: #FOLLOWME#AVOID#1 
 			 //End avoidance:   #FOLLOWME#AVOID#0
