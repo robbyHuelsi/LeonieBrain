@@ -27,7 +27,7 @@
           </vertices>
           <vertices xsi:type="sgraph:Exit" xmi:id="_O-ULACj-EeerIsa7nI0F3w" name="exit_arrived" incomingTransitions="_PikuoCj-EeerIsa7nI0F3w _jHMrkDCjEeeGYMEkKz9wVA"/>
           <vertices xsi:type="sgraph:State" xmi:id="_z8QoACj_EeerIsa7nI0F3w" specification="entry /&#xA;STT.sendSpeechDetectionSmalltalk(5);&#xA;HBrain.sendTTS(&quot;[attentive]&quot;)" name="STTstart" incomingTransitions="_21NLECj_EeerIsa7nI0F3w _Z0WRsCkEEeerIsa7nI0F3w _zqXC4CkDEeerIsa7nI0F3w">
-            <outgoingTransitions xmi:id="_zqXC4CkDEeerIsa7nI0F3w" specification="after 500ms" target="_z8QoACj_EeerIsa7nI0F3w"/>
+            <outgoingTransitions xmi:id="_zqXC4CkDEeerIsa7nI0F3w" specification="after 7s" target="_z8QoACj_EeerIsa7nI0F3w"/>
             <outgoingTransitions xmi:id="_eZLVcCnNEee3XuzjSOHxBg" specification="STT.actionReceived" target="_E55RACkEEeerIsa7nI0F3w"/>
             <outgoingTransitions xmi:id="_fBAuwDCiEeeGYMEkKz9wVA" specification="STT.spokenTextReceived" target="_lzZBgDCiEeeGYMEkKz9wVA"/>
           </vertices>
@@ -180,8 +180,9 @@
         <outgoingTransitions xmi:id="_p5WAUCj5EeerIsa7nI0F3w" specification="[STT.getAnswer() == &quot;yes&quot;]" target="_WokdzCj6EeerIsa7nI0F3w"/>
         <outgoingTransitions xmi:id="_Zr29sCj8EeerIsa7nI0F3w" specification="else" target="_hjAtQDCpEeeGYMEkKz9wVA"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_WokdzCj6EeerIsa7nI0F3w" specification="entry/&#xD;&#xA;HBrain.sendTTS(&quot;[:-)] Okay. At first, first come close to me.&quot;);&#xD;&#xA;Mira.sendSaveRuntimeStartPoint()" name="FollowYes" incomingTransitions="_p5WAUCj5EeerIsa7nI0F3w _MKbBEDCTEeeGYMEkKz9wVA _l9CBgDCpEeeGYMEkKz9wVA">
-        <outgoingTransitions xmi:id="_g0amsCj6EeerIsa7nI0F3w" specification="always" target="_fnR3iyj1EeerIsa7nI0F3w"/>
+      <vertices xsi:type="sgraph:State" xmi:id="_WokdzCj6EeerIsa7nI0F3w" specification="entry/&#xD;&#xA;HBrain.sendTTS(&quot;[:-)] Okay. At first, please come close to me.&quot;);&#xD;&#xA;Mira.sendSaveRuntimeStartPoint()" name="FollowYes" incomingTransitions="_p5WAUCj5EeerIsa7nI0F3w _MKbBEDCTEeeGYMEkKz9wVA _l9CBgDCpEeeGYMEkKz9wVA _DzGasHKHEee3iv1xMpL5zA">
+        <outgoingTransitions xmi:id="_g0amsCj6EeerIsa7nI0F3w" specification="after 5s" target="_fnR3iyj1EeerIsa7nI0F3w"/>
+        <outgoingTransitions xmi:id="_DzGasHKHEee3iv1xMpL5zA" specification="" target="_WokdzCj6EeerIsa7nI0F3w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_V6C48Cj8EeerIsa7nI0F3w" specification="entry/&#xA;HBrain.sendTTS(&quot;No? [:-(] Okay. I'm looking for another person.&quot;)" name="FollowNo" incomingTransitions="_k3QFMDCpEeeGYMEkKz9wVA">
         <outgoingTransitions xmi:id="_YNETkDCTEeeGYMEkKz9wVA" specification="HBrain.TTSReady" target="_VzplIDCTEeeGYMEkKz9wVA"/>
@@ -1563,6 +1564,17 @@
       <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_a9IDQlQoEeeL5MsX9Eqx0g" points="[6, 0, 496, 26]$[6, 15, 496, 41]$[-437, 15, 53, 41]"/>
       <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_a9JRYFQoEeeL5MsX9Eqx0g" id="(0.4846938775510204,1.0)"/>
       <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_a9JRYVQoEeeL5MsX9Eqx0g" id="(0.8058608058608059,0.37735849056603776)"/>
+    </edges>
+    <edges xmi:id="_DzVrQHKHEee3iv1xMpL5zA" type="Transition" element="_DzGasHKHEee3iv1xMpL5zA" source="_WokdwCj6EeerIsa7nI0F3w" target="_WokdwCj6EeerIsa7nI0F3w">
+      <children xsi:type="notation:DecorationNode" xmi:id="_DzW5YHKHEee3iv1xMpL5zA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_DzW5YXKHEee3iv1xMpL5zA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_DzW5YnKHEee3iv1xMpL5zA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_DzVrQXKHEee3iv1xMpL5zA" routing="Rectilinear" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_DzWSUHKHEee3iv1xMpL5zA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_DzVrQnKHEee3iv1xMpL5zA" points="[2, -24, 2, -25]$[2, -24, 2, -25]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_DzZ8sHKHEee3iv1xMpL5zA" id="(0.24733096085409254,0.3617021276595745)"/>
+      <targetAnchor xsi:type="notation:IdentityAnchor" xmi:id="_DzZ8sXKHEee3iv1xMpL5zA" id="(0.24733096085409254,0.3723404255319149)"/>
     </edges>
   </notation:Diagram>
   <notation:Diagram xmi:id="_97kbsCj9EeerIsa7nI0F3w" type="org.yakindu.sct.ui.editor.editor.StatechartDiagramEditor" element="_fnR3iyj1EeerIsa7nI0F3w" measurementUnit="Pixel">
