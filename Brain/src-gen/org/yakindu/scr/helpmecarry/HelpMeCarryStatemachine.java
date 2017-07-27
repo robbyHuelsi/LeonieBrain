@@ -1706,7 +1706,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'Detection'. */
 	private void entryAction_main_region_Detection() {
-		timer.setTimer(this, 0, 1 * 1000, false);
+		timer.setTimer(this, 0, 1*1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
@@ -1722,7 +1722,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'Found'. */
 	private void entryAction_main_region_Found() {
-		timer.setTimer(this, 1, 10 * 1000, false);
+		timer.setTimer(this, 1, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)] Hello! Should I follow you? [attentive]");
 	}
@@ -1736,7 +1736,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'STTstart'. */
 	private void entryAction_main_region_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.setTimer(this, 2, 7 * 1000, false);
+		timer.setTimer(this, 2, 7*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(5);
 		
@@ -1745,7 +1745,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'TextReceived'. */
 	private void entryAction_main_region_StartTracking_WaitingForStopCommand_TextReceived() {
-		timer.setTimer(this, 3, 3 * 1000, false);
+		timer.setTimer(this, 3, 3*1000, false);
 	}
 	
 	/* Entry action for state 'TTS'. */
@@ -1765,14 +1765,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'UTurn1'. */
 	private void entryAction_main_region_Lost_WavingToFindPerson_UTurn1() {
-		timer.setTimer(this, 4, 1 * 1000, false);
+		timer.setTimer(this, 4, 1*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'WaveFound'. */
 	private void entryAction_main_region_Lost_WavingToFindPerson_WaveFound() {
-		timer.setTimer(this, 5, 3 * 1000, false);
+		timer.setTimer(this, 5, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("{Person}Thank you! Please hold on.");
 		
@@ -1781,7 +1781,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_main_region_Lost_WavingToFindPerson_Turn() {
-		timer.setTimer(this, 6, 5 * 1000, false);
+		timer.setTimer(this, 6, 5*1000, false);
 		
 		sCIKinect2.operationCallback.sendWavingDetectionOnOff(true);
 		
@@ -1790,7 +1790,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'DetectionOn'. */
 	private void entryAction_main_region_Lost_WavingToFindPerson_DetectionOn() {
-		timer.setTimer(this, 7, 1 * 1000, false);
+		timer.setTimer(this, 7, 1*1000, false);
 		
 		sCIFollowMe.operationCallback.sendDetectionOn();
 		
@@ -1804,25 +1804,25 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'ILostYou'. */
 	private void entryAction_main_region_Lost_WavingToFindPerson_ILostYou() {
-		timer.setTimer(this, 8, 2 * 1000, false);
+		timer.setTimer(this, 8, 2*1000, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOff();
 	}
 	
 	/* Entry action for state 'UTurn2'. */
 	private void entryAction_main_region_Lost_WavingToFindPerson_UTurn2() {
-		timer.setTimer(this, 9, 3 * 1000, false);
+		timer.setTimer(this, 9, 3*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'Detection'. */
 	private void entryAction_main_region_Lost_WavingToFindPerson_Detection() {
-		timer.setTimer(this, 10, 1 * 1000, false);
+		timer.setTimer(this, 10, 1*1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
-		setCounter(counter + 1);
+		setCounter(counter+1);
 	}
 	
 	/* Entry action for state 'NotFound'. */
@@ -1834,14 +1834,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'ILostU'. */
 	private void entryAction_main_region_Lost_WavingToFindPerson_ILostU() {
-		timer.setTimer(this, 11, 10 * 1000, false);
+		timer.setTimer(this, 11, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] I lost you! Please come back.");
 	}
 	
 	/* Entry action for state 'StateA'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StateA() {
-		timer.setTimer(this, 12, 10 * 1000, false);
+		timer.setTimer(this, 12, 10*1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(90);
 		
@@ -1852,7 +1852,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StartSTT() {
-		timer.setTimer(this, 13, 5 * 1000, false);
+		timer.setTimer(this, 13, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(5);
 		
@@ -1863,7 +1863,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_TellAnswer() {
-		timer.setTimer(this, 14, 15 * 1000, false);
+		timer.setTimer(this, 14, 15*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getAnswer(), ". That is interesting, but I think, I should send the grocery first!");
 	}
@@ -1880,7 +1880,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'StopSTT'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_StopSTT() {
-		timer.setTimer(this, 15, 10 * 1000, false);
+		timer.setTimer(this, 15, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
@@ -1892,12 +1892,12 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_wait() {
-		timer.setTimer(this, 16, 3 * 1000, false);
+		timer.setTimer(this, 16, 3*1000, false);
 	}
 	
 	/* Entry action for state 'stateB'. */
 	private void entryAction_main_region_HowCanIHelpYou_main_region_stateB() {
-		timer.setTimer(this, 17, 3 * 1000, false);
+		timer.setTimer(this, 17, 3*1000, false);
 		
 		sCIMira.operationCallback.sendTurnBody(-90);
 		
@@ -1906,7 +1906,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'ArrivedWaypoint'. */
 	private void entryAction_main_region_ArrivedWaypoint() {
-		timer.setTimer(this, 18, 10 * 1000, false);
+		timer.setTimer(this, 18, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I'm here. Is anyone here to help me? [:-)]");
 		
@@ -1922,14 +1922,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'StopSTT'. */
 	private void entryAction_main_region_StopSTT() {
-		timer.setTimer(this, 19, 5 * 1000, false);
+		timer.setTimer(this, 19, 5*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
 	/* Entry action for state 'FollowYes'. */
 	private void entryAction_main_region_FollowYes() {
-		timer.setTimer(this, 20, 5 * 1000, false);
+		timer.setTimer(this, 20, 5*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)] Okay. At first, please come close to me.");
 		
@@ -1938,7 +1938,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'FollowNo'. */
 	private void entryAction_main_region_FollowNo() {
-		timer.setTimer(this, 21, 7 * 1000, false);
+		timer.setTimer(this, 21, 7*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("No? [:-(] Okay. I'm looking for another person.");
 	}
@@ -1977,7 +1977,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'LockingForNextOperator'. */
 	private void entryAction_main_region_LockingForNextOperator() {
-		timer.setTimer(this, 22, 1 * 1000, false);
+		timer.setTimer(this, 22, 1*1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
@@ -1993,7 +1993,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'PersonFound'. */
 	private void entryAction_main_region_PersonFound() {
-		timer.setTimer(this, 23, 10 * 1000, false);
+		timer.setTimer(this, 23, 10*1000, false);
 		
 		sCIFollowMe.operationCallback.sendDetectionOff();
 		
@@ -2009,14 +2009,14 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'TTS'. */
 	private void entryAction_main_region_GuideMe_folllowMePleaseRepeat_TTS() {
-		timer.setTimer(this, 24, 10 * 1000, false);
+		timer.setTimer(this, 24, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Follow me please!");
 	}
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_main_region_wait() {
-		timer.setTimer(this, 25, 10 * 1000, false);
+		timer.setTimer(this, 25, 10*1000, false);
 	}
 	
 	/* Entry action for state 'arrived'. */
@@ -2055,7 +2055,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'blocked'. */
 	private void entryAction_main_region_blocked() {
-		timer.setTimer(this, 27, 2 * 1000, false);
+		timer.setTimer(this, 27, 2*1000, false);
 		
 		sCIMira.operationCallback.sendInterrupt();
 		
@@ -2074,7 +2074,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 28, 3 * 1000, false);
+		timer.setTimer(this, 28, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -2091,7 +2091,7 @@ public class HelpMeCarryStatemachine implements IHelpMeCarryStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 29, 3 * 1000, false);
+		timer.setTimer(this, 29, 3*1000, false);
 	}
 	
 	/* Exit action for state 'Detection'. */

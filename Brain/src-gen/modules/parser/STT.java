@@ -58,8 +58,10 @@ public class STT implements IParser, Serializable{
 				String[] actionDatas = action.split(";");
 				if (actionDatas.length > 2) {
 					this.actionList.add(new Action(actionDatas[0],actionDatas[1], actionDatas[2]));
-				}else{
+				}else if(actionDatas.length > 1){
 					this.actionList.add(new Action(actionDatas[0], actionDatas[1]));
+				}else{
+					this.actionList.add(new Action(actionDatas[0]));
 				}
 			}
 			
@@ -124,67 +126,107 @@ public class STT implements IParser, Serializable{
 	}
 	
 	public String getInstructionFromActionListAt(long i){
-		return this.actionList.get((int)i).getInstruction();
+		try {
+			if (this.actionList != null) {
+				return this.actionList.get((int)i).getInstruction();
+			}else{
+				return "";
+			}
+		} catch (Exception e) {
+			start.getLog().error("Error in getInstructionFromActionListAt(long i)");
+			return "";
+		}
 	}
 	
 	public String getObjectFromActionListAt(long i){
-		return this.actionList.get((int)i).getObject();
+		try{
+			if (this.actionList != null) {
+				return this.actionList.get((int)i).getObject();
+			}else{
+				return "";
+			}
+		} catch (Exception e) {
+			start.getLog().error("Error in getObjectFromActionListAt(long i)");
+			return "";
+		}
 	}
 	
 	public String getLocationFromActionListAt(long i){
-		return this.actionList.get((int)i).getLocation();
+		try{
+			if (this.actionList != null) {
+				return this.actionList.get((int)i).getLocation();
+			}else{
+				return "";
+			}
+		} catch (Exception e) {
+			start.getLog().error("Error in getLocationFromActionListAt(long i)");
+			return "";
+		}
 	}
 	
 	public String getActionCommandSentence() {
-		if (actionList.isEmpty()) {
-			return "I didnt get actions. Sorry [:-(]";
-		}else{
-			String answer = "";
-			for (Action action : actionList) {
-				switch (action.getInstruction()) {
-				case "goto":
-					answer += "I should go to the " + action.getLocation() + ". ";
-					break;
-					
-				case "crowd":
-					answer += "I should detect the crowd. "; // TODO: Hinzufügen, nachwas gefragt ist " + action.getLocation() + ". ";
-					break;
-					
-				case "surrounding":
-					answer += "I should look for something in the surrounding. "; //TODO: Ausweiten
-					break;
-					
-				case "bring":
-					if (action.getObject().isEmpty()) {
-						answer += "I should bring the " + action.getObject() + ". ";
-					}else{
-						answer += "I should bring the " + action.getObject() + ". "; //TODO: Ausweitern
+		try{
+			if (actionList.isEmpty()) {
+				return "I didnt get actions. Sorry [:-(]";
+			}else{
+				String answer = "";
+				for (Action action : actionList) {
+					switch (action.getInstruction()) {
+					case "goto":
+						answer += "I should go to the " + action.getLocation() + ". ";
+						break;
+						
+					case "crowd":
+						answer += "I should detect the crowd. "; // TODO: Hinzufügen, nachwas gefragt ist " + action.getLocation() + ". ";
+						break;
+						
+					case "surrounding":
+						answer += "I should look for something in the surrounding. "; //TODO: Ausweiten
+						break;
+						
+					case "bring":
+						if ( action.getObject() == null || action.getObject().isEmpty()) {
+							answer += "I should bring something. ";
+						}else{
+							answer += "I should bring the " + action.getObject() + ". "; //TODO: Ausweitern
+						}
+						
+						break;
+						
+					case "open":
+						if ( action.getObject() == null || action.getObject().isEmpty()) {
+							answer += "I should open something. ";
+						}else{
+							answer += "I should open the " + action.getObject() + ". ";
+						}
+						break;
+						
+					case "followme":
+						answer += "I should follow " + action.getLocation() + ". ";
+						break;
+						
+					case "tell":
+						if (action.getObject() == null || action.getObject().isEmpty()) {
+							answer += "I should tell something. ";
+						}else{
+							answer += "I should tell: " + action.getObject() + ". ";
+						}
+						break;
+						
+					case "question":
+						answer += "I should answer a question. ";
+						break;
+	
+					default:
+						answer += "I should do something unknown. ";
+						break;
 					}
-					
-					break;
-					
-				case "open":
-					answer += "I should open the " + action.getObject() + ". ";
-					break;
-					
-				case "followme":
-					answer += "I should follow " + action.getLocation() + ". ";
-					break;
-					
-				case "tell":
-					answer += "I should tell: " + action.getObject() + ". ";
-					break;
-					
-				case "question":
-					answer += "I answer a question. ";
-					break;
-
-				default:
-					answer += "I do something unknown. ";
-					break;
 				}
+				return answer;
 			}
-			return answer;
+		} catch (Exception e) {
+			start.getLog().error("Error in getActionCommandSentence()");
+			return "";
 		}
 	}
 	

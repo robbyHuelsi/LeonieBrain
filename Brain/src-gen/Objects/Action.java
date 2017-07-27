@@ -22,6 +22,11 @@ public class Action {
 			this.object = object;
 		}
 	}
+	
+	public Action(String instruction) {
+		super();
+		this.instruction = instruction;
+	}
 
 	public String getInstruction() {
 		return instruction;
