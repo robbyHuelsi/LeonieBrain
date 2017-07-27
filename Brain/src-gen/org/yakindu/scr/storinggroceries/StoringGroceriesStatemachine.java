@@ -130,7 +130,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		main_region_tiltTable,
 		main_region_balcony,
 		main_region_kitchen,
-		main_region_requestReady,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
@@ -394,8 +393,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			return stateVector[0] == State.main_region_balcony;
 		case main_region_kitchen:
 			return stateVector[0] == State.main_region_kitchen;
-		case main_region_requestReady:
-			return stateVector[0] == State.main_region_requestReady;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[2] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -516,7 +513,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	}
 	
 	private boolean check_main_region_move_to_Table_tr0_tr0() {
-		return true;
+		return sCIMira.arrivedWP;
 	}
 	
 	private boolean check_main_region_Balcony_tr0_tr0() {
@@ -541,10 +538,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private boolean check_main_region_kitchen_tr0_tr0() {
 		return true;
-	}
-	
-	private boolean check_main_region_requestReady_tr0_tr0() {
-		return sCIObjectDetection.ready;
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
@@ -695,16 +688,11 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	private void effect_main_region_balcony_tr0() {
 		exitSequence_main_region_balcony();
-		enterSequence_main_region_requestReady_default();
+		enterSequence_main_region_move_to_Cupboard_default();
 	}
 	
 	private void effect_main_region_kitchen_tr0() {
 		exitSequence_main_region_kitchen();
-		enterSequence_main_region_requestReady_default();
-	}
-	
-	private void effect_main_region_requestReady_tr0() {
-		exitSequence_main_region_requestReady();
 		enterSequence_main_region_move_to_Cupboard_default();
 	}
 	
@@ -820,7 +808,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'move to Cupboard'. */
 	private void entryAction_main_region_move_to_Cupboard() {
-		sCIHBrain.operationCallback.sendTTS("Ready to start");
+		sCIHBrain.operationCallback.sendTTS("Ready to start with the cupboard.");
 		
 		sCIMira.operationCallback.sendGoToGWP(getCupboardGWP());
 	}
@@ -830,6 +818,8 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		timer.setTimer(this, 3, 1*1000, false);
 		
 		sCIMira.operationCallback.sendPanCamera(getCupboardPanAngle());
+		
+		sCIHBrain.operationCallback.sendTTS("I have no manipulator to open the doors. Can you do this for me, please?");
 	}
 	
 	/* Entry action for state 'tiltCupboard'. */
@@ -844,6 +834,8 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		sCIHBrain.operationCallback.sendTTS("{0;0} [:-)]");
 		
 		sCIMira.operationCallback.sendGoToGWP(getTableGWP());
+		
+		sCIHBrain.operationCallback.sendTTS("I go on with the table.");
 	}
 	
 	/* Entry action for state 'Balcony'. */
@@ -898,11 +890,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	/* Entry action for state 'kitchen'. */
 	private void entryAction_main_region_kitchen() {
 		sCIHBrain.operationCallback.sendTTS("cupboard and table are in the kitchen.");
-	}
-	
-	/* Entry action for state 'requestReady'. */
-	private void entryAction_main_region_requestReady() {
-		sCIObjectDetection.operationCallback.sendPing();
 	}
 	
 	/* Entry action for state 'Bumpered'. */
@@ -1141,13 +1128,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[0] = State.main_region_kitchen;
 	}
 	
-	/* 'default' enter sequence for state requestReady */
-	private void enterSequence_main_region_requestReady_default() {
-		entryAction_main_region_requestReady();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_requestReady;
-	}
-	
 	/* 'default' enter sequence for state waitForEvent */
 	private void enterSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_default() {
 		nextStateIndex = 2;
@@ -1370,12 +1350,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 		stateVector[0] = State.$NullState$;
 	}
 	
-	/* Default exit sequence for state requestReady */
-	private void exitSequence_main_region_requestReady() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-	}
-	
 	/* Default exit sequence for state waitForEvent */
 	private void exitSequence_Leonie_Bupered_Or_Emergency_Stop_waitForEvent() {
 		nextStateIndex = 2;
@@ -1469,9 +1443,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 			break;
 		case main_region_kitchen:
 			exitSequence_main_region_kitchen();
-			break;
-		case main_region_requestReady:
-			exitSequence_main_region_requestReady();
 			break;
 		default:
 			break;
@@ -1704,7 +1675,9 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* The reactions of state move to Table. */
 	private void react_main_region_move_to_Table() {
-		effect_main_region_move_to_Table_tr0();
+		if (check_main_region_move_to_Table_tr0_tr0()) {
+			effect_main_region_move_to_Table_tr0();
+		}
 	}
 	
 	/* The reactions of state Balcony. */
@@ -1739,13 +1712,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	/* The reactions of state kitchen. */
 	private void react_main_region_kitchen() {
 		effect_main_region_kitchen_tr0();
-	}
-	
-	/* The reactions of state requestReady. */
-	private void react_main_region_requestReady() {
-		if (check_main_region_requestReady_tr0_tr0()) {
-			effect_main_region_requestReady_tr0();
-		}
 	}
 	
 	/* The reactions of state waitForEvent. */
@@ -1902,9 +1868,6 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 				break;
 			case main_region_kitchen:
 				react_main_region_kitchen();
-				break;
-			case main_region_requestReady:
-				react_main_region_requestReady();
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
