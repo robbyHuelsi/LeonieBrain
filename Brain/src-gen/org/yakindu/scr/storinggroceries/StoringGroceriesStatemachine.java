@@ -827,14 +827,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'panCupboard'. */
 	private void entryAction_main_region_panCupboard() {
-		timer.setTimer(this, 3, 1*1000, false);
+		timer.setTimer(this, 3, 1 * 1000, false);
 		
 		sCIMira.operationCallback.sendPanCamera(getCupboardPanAngle());
 	}
 	
 	/* Entry action for state 'tiltCupboard'. */
 	private void entryAction_main_region_tiltCupboard() {
-		timer.setTimer(this, 4, 5*1000, false);
+		timer.setTimer(this, 4, 5 * 1000, false);
 		
 		sCIMira.operationCallback.sendTiltCamera(getCupboardTiltAngle());
 	}
@@ -878,14 +878,14 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'panTable'. */
 	private void entryAction_main_region_panTable() {
-		timer.setTimer(this, 5, 2*1000, false);
+		timer.setTimer(this, 5, 2 * 1000, false);
 		
 		sCIMira.operationCallback.sendPanCamera(getTablePanAngle());
 	}
 	
 	/* Entry action for state 'tiltTable'. */
 	private void entryAction_main_region_tiltTable() {
-		timer.setTimer(this, 6, 5*1000, false);
+		timer.setTimer(this, 6, 5 * 1000, false);
 		
 		sCIMira.operationCallback.sendTiltCamera(getTableTiltAngle());
 	}
@@ -907,7 +907,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 7, 3*1000, false);
+		timer.setTimer(this, 7, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -924,7 +924,7 @@ public class StoringGroceriesStatemachine implements IStoringGroceriesStatemachi
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 8, 3*1000, false);
+		timer.setTimer(this, 8, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'Copy_1_panCupboard'. */
