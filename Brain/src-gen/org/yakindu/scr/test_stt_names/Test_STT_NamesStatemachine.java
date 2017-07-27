@@ -626,7 +626,7 @@ public class Test_STT_NamesStatemachine implements ITest_STT_NamesStatemachine {
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 0, 3 * 1000, false);
+		timer.setTimer(this, 0, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -643,7 +643,7 @@ public class Test_STT_NamesStatemachine implements ITest_STT_NamesStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 1, 3 * 1000, false);
+		timer.setTimer(this, 1, 3*1000, false);
 	}
 	
 	/* Entry action for state 'StateA'. */

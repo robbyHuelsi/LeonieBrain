@@ -5,11 +5,11 @@
       <vertices xsi:type="sgraph:Entry" xmi:id="_L43hmSj3EeerIsa7nI0F3w">
         <outgoingTransitions xmi:id="_lL7MsCmuEeevtqslXB21pw" target="_Too0wCmxEeevtqslXB21pw"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_L44IQij3EeerIsa7nI0F3w" specification="entry / CrowdDetection.sendDetectionOff();&#xD;&#xA;HBrain.sendTTS(&quot;[:-)] What can I do for you? [attentive]&quot;);&#xD;&#xA;actionCounter = 0" name="Hello" incomingTransitions="_1OnF0CmxEeevtqslXB21pw _PCCP8DCqEeeGYMEkKz9wVA _ktFXwCmyEeevtqslXB21pw">
+      <vertices xsi:type="sgraph:State" xmi:id="_L44IQij3EeerIsa7nI0F3w" specification="entry / CrowdDetection.sendDetectionOff();&#xD;&#xA;HBrain.sendTTS(&quot;[blush:false][:-)] What can I do for you? [attentive]&quot;);&#xD;&#xA;actionCounter = 0" name="Hello" incomingTransitions="_1OnF0CmxEeevtqslXB21pw _PCCP8DCqEeeGYMEkKz9wVA _ktFXwCmyEeevtqslXB21pw">
         <outgoingTransitions xmi:id="_L44ITCj3EeerIsa7nI0F3w" specification="HBrain.TTSReady" target="_MdfJ4jADEee0875Bvs1VDA"/>
         <outgoingTransitions xmi:id="_VYdmgDCqEeeGYMEkKz9wVA" specification="after 10s" target="_MdfJ4jADEee0875Bvs1VDA"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_L45WYCj3EeerIsa7nI0F3w" specification="entry /&#xA;HBrain.sendTTS(&quot;I hope, I was of any help! [:-)] Bye bye.&quot;);&#xA;Mira.sendGoToGWP(0)" name="Leave the arena" incomingTransitions="_tYqV4Cm0EeevtqslXB21pw">
+      <vertices xsi:type="sgraph:State" xmi:id="_L45WYCj3EeerIsa7nI0F3w" specification="entry /&#xA;HBrain.sendTTS(&quot;[blush:false]I hope, I was of any help! [:-)] Bye bye.&quot;);&#xA;Mira.sendGoToGWP(0)" name="Leave the arena" incomingTransitions="_tYqV4Cm0EeevtqslXB21pw">
         <outgoingTransitions xmi:id="_L45WYij3EeerIsa7nI0F3w" specification="Mira.arrivedWP" target="_zYKSkDGpEee6iepVRa3hDA"/>
       </vertices>
       <vertices xsi:type="sgraph:FinalState" xmi:id="_L45WYyj3EeerIsa7nI0F3w" incomingTransitions="_1RYeADGpEee6iepVRa3hDA"/>
@@ -17,7 +17,7 @@
         <outgoingTransitions xmi:id="_1OnF0CmxEeevtqslXB21pw" specification="CrowdDetection.detected" target="_L44IQij3EeerIsa7nI0F3w"/>
         <outgoingTransitions xmi:id="_PCCP8DCqEeeGYMEkKz9wVA" specification="after 10s" target="_L44IQij3EeerIsa7nI0F3w"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_Too0wCmxEeevtqslXB21pw" specification="entry /&#xA;GWPout = 13;&#xA;GWPstart = 28;&#xA;actionCounter = 0;&#xA;roundCounter = 0;&#xA;Mira.sendGoToGWP(GWPstart)" name="Init" incomingTransitions="_lL7MsCmuEeevtqslXB21pw">
+      <vertices xsi:type="sgraph:State" xmi:id="_Too0wCmxEeevtqslXB21pw" specification="entry /&#xA;GWPout = 13;&#xA;GWPstart = 12; //28&#xA;actionCounter = 0;&#xA;roundCounter = 0;&#xA;Mira.sendGoToGWP(GWPstart)" name="Init" incomingTransitions="_lL7MsCmuEeevtqslXB21pw">
         <outgoingTransitions xmi:id="_eO1-cCmxEeevtqslXB21pw" specification="Mira.arrivedWP" target="_L45WZCj3EeerIsa7nI0F3w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_CMHeECmyEeevtqslXB21pw" specification="entry / HBrain.sendTTS(&quot;[:-(] Can you please try it again?&quot;)" name="TellAnswer" incomingTransitions="_CMFo9ymyEeevtqslXB21pw _BM4kcDJfEeenB_tBbZAJFQ">
@@ -328,7 +328,7 @@
         <outgoingTransitions xmi:id="_oIfRYHMhEee9sO9ojrKZrw" specification="[roundCounter >=2]" target="_XohrEDJfEeenB_tBbZAJFQ"/>
         <outgoingTransitions xmi:id="_dkX88HMiEee9sO9ojrKZrw" specification="else" target="_0I-AsHMhEee9sO9ojrKZrw"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_0I-AsHMhEee9sO9ojrKZrw" specification="entry/&#xA;HBrain.sendTTS(&quot;I feel too shy to do that.&quot;)" name="DontDoIt" incomingTransitions="_dkX88HMiEee9sO9ojrKZrw">
+      <vertices xsi:type="sgraph:State" xmi:id="_0I-AsHMhEee9sO9ojrKZrw" specification="entry/&#xA;HBrain.sendTTS(&quot;[blush:true]I feel too shy to do that.&quot;)&#xA;exit / roundCounter += 1&#xA;//ACHTUNG: Da steht exit!" name="DontDoIt" incomingTransitions="_dkX88HMiEee9sO9ojrKZrw">
         <outgoingTransitions xmi:id="_feguYHMiEee9sO9ojrKZrw" specification="HBrain.TTSReady" target="_CMJ6UCmyEeevtqslXB21pw"/>
         <outgoingTransitions xmi:id="_ibxwwHMiEee9sO9ojrKZrw" specification="after 10s" target="_CMJ6UCmyEeevtqslXB21pw"/>
       </vertices>
@@ -647,7 +647,7 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_0I_O0XMhEee9sO9ojrKZrw" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_0I_O0nMhEee9sO9ojrKZrw"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_0JAc8XMhEee9sO9ojrKZrw" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_0I_O03MhEee9sO9ojrKZrw" x="151" y="531" width="223"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_0I_O03MhEee9sO9ojrKZrw" x="94" y="511" width="280" height="73"/>
         </children>
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_L43hlSj3EeerIsa7nI0F3w"/>
       </children>
