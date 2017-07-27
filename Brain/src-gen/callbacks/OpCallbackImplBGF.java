@@ -154,14 +154,31 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			
 		case "bistrotable":
 		case "bistro table":
+		case "balcony":
 			return 12; //15
 
 		case "littledesk": 		//NO WAYPOINT!!!!	
 		case "little desk": 		
 			return 15; //6
-
+			
+		case "entrance":		//NO WAYPOINT!!!!	
+			return 7; //11
+			
+		case "bedroom":	
+			return 19; 
+			
+		case "corridor":		
+			return 24; 
+			
+		case "kitchen":	
+			return 24; 
+			
 		case "bookcase":		//NO WAYPOINT!!!!	
 			return 24; //11
+			
+		case "livingroom":	
+		case "living room":		
+			return 27; 
 			
 		default:
 			return -1;
