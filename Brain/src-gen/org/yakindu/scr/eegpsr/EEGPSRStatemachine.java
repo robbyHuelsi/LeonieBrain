@@ -296,6 +296,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		xs_DoAllActions__region0_DoAction_Instructions_crowd,
 		xs_DoAllActions__region0_DoAction_Instructions_tell,
 		xs_DoAllActions__region0_DoAction_Instructions_question,
+		xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q,
 		xs_GoToOp,
 		xs_blocked,
 		xs_time_out,
@@ -314,7 +315,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[40];
+	private final boolean[] timeEvents = new boolean[41];
 	private long actionCounter;
 	
 	protected void setActionCounter(long value) {
@@ -480,10 +481,10 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 			return stateVector[0] == State.xs_leave3;
 		case xs_DoAllActions:
 			return stateVector[0].ordinal() >= State.
-					xs_DoAllActions.ordinal()&& stateVector[0].ordinal() <= State.xs_DoAllActions__region0_DoAction_Instructions_question.ordinal();
+					xs_DoAllActions.ordinal()&& stateVector[0].ordinal() <= State.xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q.ordinal();
 		case xs_DoAllActions__region0_DoAction:
 			return stateVector[0].ordinal() >= State.
-					xs_DoAllActions__region0_DoAction.ordinal()&& stateVector[0].ordinal() <= State.xs_DoAllActions__region0_DoAction_Instructions_question.ordinal();
+					xs_DoAllActions__region0_DoAction.ordinal()&& stateVector[0].ordinal() <= State.xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q.ordinal();
 		case xs_DoAllActions__region0_DoAction_Instructions_GoTo:
 			return stateVector[0].ordinal() >= State.
 					xs_DoAllActions__region0_DoAction_Instructions_GoTo.ordinal()&& stateVector[0].ordinal() <= State.xs_DoAllActions__region0_DoAction_Instructions_GoTo_goto_GeneralP_extended_notArrived.ordinal();
@@ -564,7 +565,10 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		case xs_DoAllActions__region0_DoAction_Instructions_tell:
 			return stateVector[0] == State.xs_DoAllActions__region0_DoAction_Instructions_tell;
 		case xs_DoAllActions__region0_DoAction_Instructions_question:
-			return stateVector[0] == State.xs_DoAllActions__region0_DoAction_Instructions_question;
+			return stateVector[0].ordinal() >= State.
+					xs_DoAllActions__region0_DoAction_Instructions_question.ordinal()&& stateVector[0].ordinal() <= State.xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q.ordinal();
+		case xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q:
+			return stateVector[0] == State.xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q;
 		case xs_GoToOp:
 			return stateVector[0] == State.xs_GoToOp;
 		case xs_blocked:
@@ -984,6 +988,14 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		return timeEvents[34];
 	}
 	
+	private boolean check_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q_tr0_tr0() {
+		return sCIHBrain.tTSReady;
+	}
+	
+	private boolean check_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q_tr1_tr1() {
+		return timeEvents[35];
+	}
+	
 	private boolean check_xs_GoToOp_tr0_tr0() {
 		return sCIMira.arrivedWP;
 	}
@@ -993,7 +1005,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_xs_GoToOp_tr2_tr2() {
-		return timeEvents[35];
+		return timeEvents[36];
 	}
 	
 	private boolean check_xs_blocked_tr0_tr0() {
@@ -1001,7 +1013,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_xs_blocked_tr1_tr1() {
-		return timeEvents[36];
+		return timeEvents[37];
 	}
 	
 	private boolean check_xs_time_out_tr0_tr0() {
@@ -1013,7 +1025,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_xs_DontDoIt_tr1_tr1() {
-		return timeEvents[37];
+		return timeEvents[38];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
@@ -1025,7 +1037,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[38];
+		return timeEvents[39];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -1037,7 +1049,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[39];
+		return timeEvents[40];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -1642,6 +1654,16 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		react_xs_DoAllActions__region0_DoAction_Instructions_exit_done();
 	}
 	
+	private void effect_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q_tr0() {
+		exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q();
+		react_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_exit_done();
+	}
+	
+	private void effect_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q_tr1() {
+		exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q();
+		react_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_exit_done();
+	}
+	
 	private void effect_xs_GoToOp_tr0() {
 		exitSequence_xs_GoToOp();
 		enterSequence_xs_StopSTT_default();
@@ -1854,7 +1876,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	private void entryAction_xs_Init() {
 		setGWPout(13);
 		
-		setGWPstart(12);
+		setGWPstart(28);
 		
 		setActionCounter(0);
 		
@@ -2174,16 +2196,23 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getObjectFromActionListAt(getActionCounter()), " [:-|]");
 	}
 	
+	/* Entry action for state 'Q'. */
+	private void entryAction_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q() {
+		timer.setTimer(this, 35, 10*1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("here is lot of space for notes");
+	}
+	
 	/* Entry action for state 'GoToOp'. */
 	private void entryAction_xs_GoToOp() {
-		timer.setTimer(this, 35, 100*1000, false);
+		timer.setTimer(this, 36, 100*1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(getGWPstart());
 	}
 	
 	/* Entry action for state 'blocked'. */
 	private void entryAction_xs_blocked() {
-		timer.setTimer(this, 36, 10*1000, false);
+		timer.setTimer(this, 37, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I am not able to come back to the operator. Please tell me my next command here.");
 	}
@@ -2195,14 +2224,14 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'DontDoIt'. */
 	private void entryAction_xs_DontDoIt() {
-		timer.setTimer(this, 37, 10*1000, false);
+		timer.setTimer(this, 38, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[blush:true]I feel too shy to do that.");
 	}
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 38, 3*1000, false);
+		timer.setTimer(this, 39, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -2219,7 +2248,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 39, 3*1000, false);
+		timer.setTimer(this, 40, 3*1000, false);
 	}
 	
 	/* Exit action for state 'Hello'. */
@@ -2404,31 +2433,36 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		timer.unsetTimer(this, 34);
 	}
 	
+	/* Exit action for state 'Q'. */
+	private void exitAction_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q() {
+		timer.unsetTimer(this, 35);
+	}
+	
 	/* Exit action for state 'GoToOp'. */
 	private void exitAction_xs_GoToOp() {
-		timer.unsetTimer(this, 35);
+		timer.unsetTimer(this, 36);
 	}
 	
 	/* Exit action for state 'blocked'. */
 	private void exitAction_xs_blocked() {
-		timer.unsetTimer(this, 36);
+		timer.unsetTimer(this, 37);
 	}
 	
 	/* Exit action for state 'DontDoIt'. */
 	private void exitAction_xs_DontDoIt() {
-		timer.unsetTimer(this, 37);
+		timer.unsetTimer(this, 38);
 		
 		setRoundCounter(getRoundCounter() + 1);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 38);
+		timer.unsetTimer(this, 39);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 39);
+		timer.unsetTimer(this, 40);
 	}
 	
 	/* 'default' enter sequence for state Hello */
@@ -2796,8 +2830,14 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* 'default' enter sequence for state question */
 	private void enterSequence_xs_DoAllActions__region0_DoAction_Instructions_question_default() {
+		enterSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_default();
+	}
+	
+	/* 'default' enter sequence for state Q */
+	private void enterSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q_default() {
+		entryAction_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q();
 		nextStateIndex = 0;
-		stateVector[0] = State.xs_DoAllActions__region0_DoAction_Instructions_question;
+		stateVector[0] = State.xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q;
 	}
 	
 	/* 'default' enter sequence for state GoToOp */
@@ -2905,6 +2945,11 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	/* 'default' enter sequence for region WavingToFindPerson */
 	private void enterSequence_xs_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_default() {
 		react_xs_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson__entry_Default();
+	}
+	
+	/* 'default' enter sequence for region Ask a question */
+	private void enterSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_default() {
+		react_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question__entry_Default();
 	}
 	
 	/* 'default' enter sequence for region Leonie Bupered Or Emergency Stop */
@@ -3298,8 +3343,15 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Default exit sequence for state question */
 	private void exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question() {
+		exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question();
+	}
+	
+	/* Default exit sequence for state Q */
+	private void exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q();
 	}
 	
 	/* Default exit sequence for state GoToOp */
@@ -3582,8 +3634,8 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 			exitAction_xs_DoAllActions__region0_DoAction();
 			exitAction_xs_DoAllActions();
 			break;
-		case xs_DoAllActions__region0_DoAction_Instructions_question:
-			exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question();
+		case xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q:
+			exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q();
 			exitAction_xs_DoAllActions__region0_DoAction();
 			exitAction_xs_DoAllActions();
 			break;
@@ -3766,8 +3818,8 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 			exitSequence_xs_DoAllActions__region0_DoAction_Instructions_tell();
 			exitAction_xs_DoAllActions__region0_DoAction();
 			break;
-		case xs_DoAllActions__region0_DoAction_Instructions_question:
-			exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question();
+		case xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q:
+			exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q();
 			exitAction_xs_DoAllActions__region0_DoAction();
 			break;
 		default:
@@ -3885,8 +3937,8 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		case xs_DoAllActions__region0_DoAction_Instructions_tell:
 			exitSequence_xs_DoAllActions__region0_DoAction_Instructions_tell();
 			break;
-		case xs_DoAllActions__region0_DoAction_Instructions_question:
-			exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question();
+		case xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q:
+			exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q();
 			break;
 		default:
 			break;
@@ -4052,6 +4104,17 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 			break;
 		case xs_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_NotFound:
 			exitSequence_xs_DoAllActions__region0_DoAction_Instructions_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_NotFound();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region Ask a question */
+	private void exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question() {
+		switch (stateVector[0]) {
+		case xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q:
+			exitSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q();
 			break;
 		default:
 			break;
@@ -4716,11 +4779,18 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 		}
 	}
 	
-	/* The reactions of state question. */
-	private void react_xs_DoAllActions__region0_DoAction_Instructions_question() {
+	/* The reactions of state Q. */
+	private void react_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q() {
 		if (check_xs_DoAllActions_tr1_tr1()) {
 			effect_xs_DoAllActions_tr1();
 		} else {
+			if (check_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q_tr0_tr0()) {
+				effect_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q_tr0();
+			} else {
+				if (check_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q_tr1_tr1()) {
+					effect_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q_tr1();
+				}
+			}
 		}
 	}
 	
@@ -4965,7 +5035,7 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 	
 	/* Default react sequence for initial entry  */
 	private void react_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question__entry_Default() {
-		react_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_exit_done();
+		enterSequence_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q_default();
 	}
 	
 	/* Default react sequence for initial entry  */
@@ -5183,8 +5253,8 @@ public class EEGPSRStatemachine implements IEEGPSRStatemachine {
 			case xs_DoAllActions__region0_DoAction_Instructions_tell:
 				react_xs_DoAllActions__region0_DoAction_Instructions_tell();
 				break;
-			case xs_DoAllActions__region0_DoAction_Instructions_question:
-				react_xs_DoAllActions__region0_DoAction_Instructions_question();
+			case xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q:
+				react_xs_DoAllActions__region0_DoAction_Instructions_question_Ask_a_question_Q();
 				break;
 			case xs_GoToOp:
 				react_xs_GoToOp();
