@@ -277,7 +277,8 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		main_region_SearchingBarman_SearchingBarman_SearchingLeft,
 		main_region_SearchingBarman_SearchingBarman_FoundLeft,
 		main_region_SearchingBarman_SearchingBarman_Default,
-		main_region_SearchingBarman_SearchingBarman_DistanceControl,
+		main_region_SearchingBarman_SearchingBarman_ighubzfhgz,
+		main_region_SearchingBarman_SearchingBarman_watzhgfvfgh,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
 		leonie_Bupered_Or_Emergency_Stop_Bumpered,
 		leonie_Bupered_Or_Emergency_Stop_resetFace,
@@ -292,7 +293,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[16];
+	private final boolean[] timeEvents = new boolean[19];
 	private long gWPout;
 	
 	protected void setGWPout(long value) {
@@ -455,7 +456,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 			return stateVector[0] == State.main_region__final_;
 		case main_region_SearchingBarman:
 			return stateVector[0].ordinal() >= State.
-					main_region_SearchingBarman.ordinal()&& stateVector[0].ordinal() <= State.main_region_SearchingBarman_SearchingBarman_DistanceControl.ordinal();
+					main_region_SearchingBarman.ordinal()&& stateVector[0].ordinal() <= State.main_region_SearchingBarman_SearchingBarman_watzhgfvfgh.ordinal();
 		case main_region_SearchingBarman_SearchingBarman_SearchingForBarman:
 			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_SearchingForBarman;
 		case main_region_SearchingBarman_SearchingBarman_SearchingRight:
@@ -472,8 +473,10 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_FoundLeft;
 		case main_region_SearchingBarman_SearchingBarman_Default:
 			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_Default;
-		case main_region_SearchingBarman_SearchingBarman_DistanceControl:
-			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_DistanceControl;
+		case main_region_SearchingBarman_SearchingBarman_ighubzfhgz:
+			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_ighubzfhgz;
+		case main_region_SearchingBarman_SearchingBarman_watzhgfvfgh:
+			return stateVector[0] == State.main_region_SearchingBarman_SearchingBarman_watzhgfvfgh;
 		case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 			return stateVector[1] == State.leonie_Bupered_Or_Emergency_Stop_waitForEvent;
 		case leonie_Bupered_Or_Emergency_Stop_Bumpered:
@@ -630,11 +633,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr0_tr0() {
-		return sCICrowdDetection.detected;
+		return timeEvents[8];
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr1_tr1() {
-		return timeEvents[8];
+		return timeEvents[9];
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_FoundRight_tr0_tr0() {
@@ -642,7 +645,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_FoundRight_tr1_tr1() {
-		return timeEvents[9];
+		return timeEvents[10];
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_NoBarmanFound_tr0_tr0() {
@@ -650,15 +653,19 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr0_tr0() {
-		return timeEvents[10];
+		return timeEvents[11];
+	}
+	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr1_tr1() {
+		return timeEvents[12];
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr0_tr0() {
-		return sCICrowdDetection.detected && sCICrowdDetection.operationCallback.getMinDistance()<=200 && sCICrowdDetection.operationCallback.getTotalNumberDistance()>sCICrowdDetection.operationCallback.getMinDistance();
+		return sCICrowdDetection.detected && sCICrowdDetection.operationCallback.getMinDistance()<=300 && sCICrowdDetection.operationCallback.getTotalNumberDistance()>sCICrowdDetection.operationCallback.getMinDistance();
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr1_tr1() {
-		return timeEvents[11];
+		return timeEvents[13];
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_FoundLeft_tr0_tr0() {
@@ -666,7 +673,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_FoundLeft_tr1_tr1() {
-		return timeEvents[12];
+		return timeEvents[14];
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_Default_tr0_tr0() {
@@ -674,11 +681,19 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_Default_tr1_tr1() {
-		return timeEvents[13];
+		return timeEvents[15];
 	}
 	
-	private boolean check_main_region_SearchingBarman_SearchingBarman_DistanceControl_tr0_tr0() {
-		return true;
+	private boolean check_main_region_SearchingBarman_SearchingBarman_ighubzfhgz_tr0_tr0() {
+		return timeEvents[16];
+	}
+	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_ighubzfhgz_tr1_tr1() {
+		return sCICrowdDetection.operationCallback.getMinDistance()<=300 && sCICrowdDetection.operationCallback.getTotalNumberDistance()>sCICrowdDetection.operationCallback.getMinDistance();
+	}
+	
+	private boolean check_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh_tr0_tr0() {
+		return sCICrowdDetection.detected;
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0_tr0() {
@@ -690,7 +705,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[14];
+		return timeEvents[17];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -702,7 +717,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[15];
+		return timeEvents[18];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -726,14 +741,6 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_main_region__choice_1_tr0() {
-		return true;
-	}
-	
-	private boolean check_main_region_SearchingBarman_SearchingBarman__choice_0_tr0_tr0() {
-		return sCICrowdDetection.operationCallback.getMinDistance()<=200 && sCICrowdDetection.operationCallback.getTotalNumberDistance()>sCICrowdDetection.operationCallback.getMinDistance();
-	}
-	
-	private boolean check_main_region_SearchingBarman_SearchingBarman__choice_0_tr1_tr1() {
 		return true;
 	}
 	
@@ -854,7 +861,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	private void effect_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr0() {
 		exitSequence_main_region_SearchingBarman_SearchingBarman_SearchingRight();
-		enterSequence_main_region_SearchingBarman_SearchingBarman_DistanceControl_default();
+		enterSequence_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh_default();
 	}
 	
 	private void effect_main_region_SearchingBarman_SearchingBarman_SearchingRight_tr1() {
@@ -878,6 +885,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private void effect_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr0() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_TiltCamera();
+		enterSequence_main_region_SearchingBarman_SearchingBarman_FoundLeft_default();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr1() {
 		exitSequence_main_region_SearchingBarman_SearchingBarman_TiltCamera();
 		enterSequence_main_region_SearchingBarman_SearchingBarman_SearchingLeft_default();
 	}
@@ -912,9 +924,19 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		react_main_region_SearchingBarman_SearchingBarman_exit_done();
 	}
 	
-	private void effect_main_region_SearchingBarman_SearchingBarman_DistanceControl_tr0() {
-		exitSequence_main_region_SearchingBarman_SearchingBarman_DistanceControl();
-		react_main_region_SearchingBarman_SearchingBarman__choice_0();
+	private void effect_main_region_SearchingBarman_SearchingBarman_ighubzfhgz_tr0() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_ighubzfhgz();
+		enterSequence_main_region_SearchingBarman_SearchingBarman_NoBarmanFound_default();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_ighubzfhgz_tr1() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_ighubzfhgz();
+		enterSequence_main_region_SearchingBarman_SearchingBarman_FoundRight_default();
+	}
+	
+	private void effect_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh_tr0() {
+		exitSequence_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh();
+		enterSequence_main_region_SearchingBarman_SearchingBarman_ighubzfhgz_default();
 	}
 	
 	private void effect_Leonie_Bupered_Or_Emergency_Stop_waitForEvent_tr0() {
@@ -972,14 +994,6 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		enterSequence_main_region_Stop_default();
 	}
 	
-	private void effect_main_region_SearchingBarman_SearchingBarman__choice_0_tr0() {
-		enterSequence_main_region_SearchingBarman_SearchingBarman_FoundRight_default();
-	}
-	
-	private void effect_main_region_SearchingBarman_SearchingBarman__choice_0_tr1() {
-		enterSequence_main_region_SearchingBarman_SearchingBarman_NoBarmanFound_default();
-	}
-	
 	/* Entry action for state 'Init'. */
 	private void entryAction_main_region_Init() {
 		timer.setTimer(this, 0, 2 * 1000, false);
@@ -989,6 +1003,10 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		setGWPkitchen(0);
 		
 		setGWPout(0);
+		
+		sCICrowdDetection.operationCallback.sendDetectionOff();
+		
+		sCIMira.operationCallback.sendPanTiltCamera(0, 0);
 	}
 	
 	/* Entry action for state 'Ready/setStartPoint'. */
@@ -1003,6 +1021,8 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	/* Entry action for state 'Wait1'. */
 	private void entryAction_main_region_Wait1() {
 		timer.setTimer(this, 2, 3 * 1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("Okay now I'm waiting for a guest to wave");
 	}
 	
 	/* Entry action for state 'SearchWave'. */
@@ -1091,23 +1111,25 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingForBarman() {
 		timer.setTimer(this, 7, 3 * 1000, false);
 		
-		sCIMira.operationCallback.sendPanTiltCamera(-10, 45);
+		sCIMira.operationCallback.sendPanTiltCamera(90, -10);
 	}
 	
 	/* Entry action for state 'SearchingRight'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingRight() {
-		timer.setTimer(this, 8, 15 * 1000, false);
+		timer.setTimer(this, 8, 100 * 1000, false);
+		
+		timer.setTimer(this, 9, 3 * 1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
 	
 	/* Entry action for state 'FoundRight'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_FoundRight() {
-		timer.setTimer(this, 9, 7 * 1000, false);
+		timer.setTimer(this, 10, 7 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("There is a person in front of me. I think this is the barman so I'm standing on the left side of the bar.");
 		
-		sCIMira.operationCallback.sendTiltCamera(-45);
+		sCIMira.operationCallback.sendPanCamera(-45);
 	}
 	
 	/* Entry action for state 'NoBarmanFound'. */
@@ -1117,39 +1139,48 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'TiltCamera'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_TiltCamera() {
-		timer.setTimer(this, 10, 4 * 1000, false);
+		timer.setTimer(this, 11, 4 * 1000, false);
 		
-		sCIMira.operationCallback.sendTiltCamera(-90);
+		timer.setTimer(this, 12, 100 * 1000, false);
+		
+		sCIMira.operationCallback.sendPanCamera(180);
 	}
 	
 	/* Entry action for state 'SearchingLeft'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingLeft() {
-		timer.setTimer(this, 11, 15 * 1000, false);
+		timer.setTimer(this, 13, 7 * 1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
 	
 	/* Entry action for state 'FoundLeft'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_FoundLeft() {
-		timer.setTimer(this, 12, 7 * 1000, false);
+		timer.setTimer(this, 14, 7 * 1000, false);
 		
-		sCIHBrain.operationCallback.sendTTS("There is a person in front of me. I think this is the barman so I'm standing on the right side of the bar.");
+		sCIHBrain.operationCallback.sendTTS("There is a person in front of me. I think this is the barman so I'm standing on the left side of the bar.");
 		
-		sCIMira.operationCallback.sendTiltCamera(45);
+		sCIMira.operationCallback.sendPanCamera(45);
 	}
 	
 	/* Entry action for state 'Default'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_Default() {
-		timer.setTimer(this, 13, 7 * 1000, false);
+		timer.setTimer(this, 15, 7 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Oh. There is a person in front of me. I think this is the barman so I'm standing on the right side of the bar.");
 		
-		sCIMira.operationCallback.sendTiltCamera(45);
+		sCIMira.operationCallback.sendPanCamera(45);
+	}
+	
+	/* Entry action for state 'ighubzfhgz'. */
+	private void entryAction_main_region_SearchingBarman_SearchingBarman_ighubzfhgz() {
+		timer.setTimer(this, 16, 1 * 1000, false);
+		
+		sCIHBrain.operationCallback.sendTTS("detected");
 	}
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 14, 3 * 1000, false);
+		timer.setTimer(this, 17, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1166,7 +1197,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 15, 3 * 1000, false);
+		timer.setTimer(this, 18, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'Init'. */
@@ -1212,41 +1243,50 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	/* Exit action for state 'SearchingRight'. */
 	private void exitAction_main_region_SearchingBarman_SearchingBarman_SearchingRight() {
 		timer.unsetTimer(this, 8);
+		
+		timer.unsetTimer(this, 9);
 	}
 	
 	/* Exit action for state 'FoundRight'. */
 	private void exitAction_main_region_SearchingBarman_SearchingBarman_FoundRight() {
-		timer.unsetTimer(this, 9);
+		timer.unsetTimer(this, 10);
 	}
 	
 	/* Exit action for state 'TiltCamera'. */
 	private void exitAction_main_region_SearchingBarman_SearchingBarman_TiltCamera() {
-		timer.unsetTimer(this, 10);
+		timer.unsetTimer(this, 11);
+		
+		timer.unsetTimer(this, 12);
 	}
 	
 	/* Exit action for state 'SearchingLeft'. */
 	private void exitAction_main_region_SearchingBarman_SearchingBarman_SearchingLeft() {
-		timer.unsetTimer(this, 11);
+		timer.unsetTimer(this, 13);
 	}
 	
 	/* Exit action for state 'FoundLeft'. */
 	private void exitAction_main_region_SearchingBarman_SearchingBarman_FoundLeft() {
-		timer.unsetTimer(this, 12);
+		timer.unsetTimer(this, 14);
 	}
 	
 	/* Exit action for state 'Default'. */
 	private void exitAction_main_region_SearchingBarman_SearchingBarman_Default() {
-		timer.unsetTimer(this, 13);
+		timer.unsetTimer(this, 15);
+	}
+	
+	/* Exit action for state 'ighubzfhgz'. */
+	private void exitAction_main_region_SearchingBarman_SearchingBarman_ighubzfhgz() {
+		timer.unsetTimer(this, 16);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 14);
+		timer.unsetTimer(this, 17);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 15);
+		timer.unsetTimer(this, 18);
 	}
 	
 	/* 'default' enter sequence for state Init */
@@ -1447,10 +1487,17 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_Default;
 	}
 	
-	/* 'default' enter sequence for state DistanceControl */
-	private void enterSequence_main_region_SearchingBarman_SearchingBarman_DistanceControl_default() {
+	/* 'default' enter sequence for state ighubzfhgz */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_ighubzfhgz_default() {
+		entryAction_main_region_SearchingBarman_SearchingBarman_ighubzfhgz();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_DistanceControl;
+		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_ighubzfhgz;
+	}
+	
+	/* 'default' enter sequence for state watzhgfvfgh */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh_default() {
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_watzhgfvfgh;
 	}
 	
 	/* 'default' enter sequence for state waitForEvent */
@@ -1703,8 +1750,16 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		exitAction_main_region_SearchingBarman_SearchingBarman_Default();
 	}
 	
-	/* Default exit sequence for state DistanceControl */
-	private void exitSequence_main_region_SearchingBarman_SearchingBarman_DistanceControl() {
+	/* Default exit sequence for state ighubzfhgz */
+	private void exitSequence_main_region_SearchingBarman_SearchingBarman_ighubzfhgz() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_region_SearchingBarman_SearchingBarman_ighubzfhgz();
+	}
+	
+	/* Default exit sequence for state watzhgfvfgh */
+	private void exitSequence_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 	}
@@ -1830,8 +1885,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		case main_region_SearchingBarman_SearchingBarman_Default:
 			exitSequence_main_region_SearchingBarman_SearchingBarman_Default();
 			break;
-		case main_region_SearchingBarman_SearchingBarman_DistanceControl:
-			exitSequence_main_region_SearchingBarman_SearchingBarman_DistanceControl();
+		case main_region_SearchingBarman_SearchingBarman_ighubzfhgz:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_ighubzfhgz();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_watzhgfvfgh:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh();
 			break;
 		default:
 			break;
@@ -1865,8 +1923,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		case main_region_SearchingBarman_SearchingBarman_Default:
 			exitSequence_main_region_SearchingBarman_SearchingBarman_Default();
 			break;
-		case main_region_SearchingBarman_SearchingBarman_DistanceControl:
-			exitSequence_main_region_SearchingBarman_SearchingBarman_DistanceControl();
+		case main_region_SearchingBarman_SearchingBarman_ighubzfhgz:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_ighubzfhgz();
+			break;
+		case main_region_SearchingBarman_SearchingBarman_watzhgfvfgh:
+			exitSequence_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh();
 			break;
 		default:
 			break;
@@ -2081,6 +2142,10 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	private void react_main_region_SearchingBarman_SearchingBarman_TiltCamera() {
 		if (check_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr0_tr0()) {
 			effect_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr0();
+		} else {
+			if (check_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr1_tr1()) {
+				effect_main_region_SearchingBarman_SearchingBarman_TiltCamera_tr1();
+			}
 		}
 	}
 	
@@ -2117,9 +2182,22 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		}
 	}
 	
-	/* The reactions of state DistanceControl. */
-	private void react_main_region_SearchingBarman_SearchingBarman_DistanceControl() {
-		effect_main_region_SearchingBarman_SearchingBarman_DistanceControl_tr0();
+	/* The reactions of state ighubzfhgz. */
+	private void react_main_region_SearchingBarman_SearchingBarman_ighubzfhgz() {
+		if (check_main_region_SearchingBarman_SearchingBarman_ighubzfhgz_tr0_tr0()) {
+			effect_main_region_SearchingBarman_SearchingBarman_ighubzfhgz_tr0();
+		} else {
+			if (check_main_region_SearchingBarman_SearchingBarman_ighubzfhgz_tr1_tr1()) {
+				effect_main_region_SearchingBarman_SearchingBarman_ighubzfhgz_tr1();
+			}
+		}
+	}
+	
+	/* The reactions of state watzhgfvfgh. */
+	private void react_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh() {
+		if (check_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh_tr0_tr0()) {
+			effect_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh_tr0();
+		}
 	}
 	
 	/* The reactions of state waitForEvent. */
@@ -2173,15 +2251,6 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	/* The reactions of state null. */
 	private void react_main_region__choice_1() {
 		effect_main_region__choice_1_tr1();
-	}
-	
-	/* The reactions of state null. */
-	private void react_main_region_SearchingBarman_SearchingBarman__choice_0() {
-		if (check_main_region_SearchingBarman_SearchingBarman__choice_0_tr0_tr0()) {
-			effect_main_region_SearchingBarman_SearchingBarman__choice_0_tr0();
-		} else {
-			effect_main_region_SearchingBarman_SearchingBarman__choice_0_tr1();
-		}
 	}
 	
 	/* Default react sequence for initial entry  */
@@ -2295,8 +2364,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 			case main_region_SearchingBarman_SearchingBarman_Default:
 				react_main_region_SearchingBarman_SearchingBarman_Default();
 				break;
-			case main_region_SearchingBarman_SearchingBarman_DistanceControl:
-				react_main_region_SearchingBarman_SearchingBarman_DistanceControl();
+			case main_region_SearchingBarman_SearchingBarman_ighubzfhgz:
+				react_main_region_SearchingBarman_SearchingBarman_ighubzfhgz();
+				break;
+			case main_region_SearchingBarman_SearchingBarman_watzhgfvfgh:
+				react_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh();
 				break;
 			case leonie_Bupered_Or_Emergency_Stop_waitForEvent:
 				react_Leonie_Bupered_Or_Emergency_Stop_waitForEvent();
