@@ -136,12 +136,19 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 			actionsReceived = true;
 		}
 		
+		private boolean orderReceived;
+		
+		public void raiseOrderReceived() {
+			orderReceived = true;
+		}
+		
 		protected void clearEvents() {
 			spokenTextReceived = false;
 			incomprehensible = false;
 			answerReceived = false;
 			actionReceived = false;
 			actionsReceived = false;
+			orderReceived = false;
 		}
 	}
 	
@@ -242,7 +249,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	public enum State {
 		main_region_Init,
-		main_region_Ready,
+		main_region_Ready_setStartPoint,
 		main_region_Wait1,
 		main_region_SearchWave,
 		main_region_AnnounceGetWaving,
@@ -408,8 +415,8 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		switch (state) {
 		case main_region_Init:
 			return stateVector[0] == State.main_region_Init;
-		case main_region_Ready:
-			return stateVector[0] == State.main_region_Ready;
+		case main_region_Ready_setStartPoint:
+			return stateVector[0] == State.main_region_Ready_setStartPoint;
 		case main_region_Wait1:
 			return stateVector[0] == State.main_region_Wait1;
 		case main_region_SearchWave:
@@ -535,18 +542,14 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_main_region_Init_tr0_tr0() {
-		return sCIMira.arrivedWP;
-	}
-	
-	private boolean check_main_region_Init_tr1_tr1() {
 		return timeEvents[0];
 	}
 	
-	private boolean check_main_region_Ready_tr0_tr0() {
+	private boolean check_main_region_Ready_setStartPoint_tr0_tr0() {
 		return sCIHBrain.tTSReady;
 	}
 	
-	private boolean check_main_region_Ready_tr1_tr1() {
+	private boolean check_main_region_Ready_setStartPoint_tr1_tr1() {
 		return timeEvents[1];
 	}
 	
@@ -651,7 +654,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr0_tr0() {
-		return sCICrowdDetection.detected && sCICrowdDetection.operationCallback.getMinDistance()<=2.0;
+		return sCICrowdDetection.detected && sCICrowdDetection.operationCallback.getMinDistance()<=200 && sCICrowdDetection.operationCallback.getTotalNumberDistance()>sCICrowdDetection.operationCallback.getMinDistance();
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman_SearchingLeft_tr1_tr1() {
@@ -727,7 +730,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman__choice_0_tr0_tr0() {
-		return sCICrowdDetection.operationCallback.getMinDistance()<=2.0;
+		return sCICrowdDetection.operationCallback.getMinDistance()<=200 && sCICrowdDetection.operationCallback.getTotalNumberDistance()>sCICrowdDetection.operationCallback.getMinDistance();
 	}
 	
 	private boolean check_main_region_SearchingBarman_SearchingBarman__choice_0_tr1_tr1() {
@@ -736,21 +739,16 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	private void effect_main_region_Init_tr0() {
 		exitSequence_main_region_Init();
-		enterSequence_main_region_Ready_default();
+		enterSequence_main_region_Ready_setStartPoint_default();
 	}
 	
-	private void effect_main_region_Init_tr1() {
-		exitSequence_main_region_Init();
-		enterSequence_main_region_Ready_default();
-	}
-	
-	private void effect_main_region_Ready_tr0() {
-		exitSequence_main_region_Ready();
+	private void effect_main_region_Ready_setStartPoint_tr0() {
+		exitSequence_main_region_Ready_setStartPoint();
 		enterSequence_main_region_SearchingBarman_default();
 	}
 	
-	private void effect_main_region_Ready_tr1() {
-		exitSequence_main_region_Ready();
+	private void effect_main_region_Ready_setStartPoint_tr1() {
+		exitSequence_main_region_Ready_setStartPoint();
 		enterSequence_main_region_SearchingBarman_default();
 	}
 	
@@ -984,7 +982,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'Init'. */
 	private void entryAction_main_region_Init() {
-		timer.setTimer(this, 0, 20*1000, false);
+		timer.setTimer(this, 0, 2 * 1000, false);
 		
 		setGWPstart(0);
 		
@@ -993,16 +991,18 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		setGWPout(0);
 	}
 	
-	/* Entry action for state 'Ready'. */
-	private void entryAction_main_region_Ready() {
-		timer.setTimer(this, 1, 5*1000, false);
+	/* Entry action for state 'Ready/setStartPoint'. */
+	private void entryAction_main_region_Ready_setStartPoint() {
+		timer.setTimer(this, 1, 5 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("I am ready! But first I'm looking for the barman.");
+		
+		sCIMira.operationCallback.sendSaveRuntimeEndPoint();
 	}
 	
 	/* Entry action for state 'Wait1'. */
 	private void entryAction_main_region_Wait1() {
-		timer.setTimer(this, 2, 3*1000, false);
+		timer.setTimer(this, 2, 3 * 1000, false);
 	}
 	
 	/* Entry action for state 'SearchWave'. */
@@ -1012,7 +1012,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'AnnounceGetWaving'. */
 	private void entryAction_main_region_AnnounceGetWaving() {
-		timer.setTimer(this, 3, 15*1000, false);
+		timer.setTimer(this, 3, 15 * 1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOff();
 		
@@ -1021,14 +1021,14 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'WaitForOperator'. */
 	private void entryAction_main_region_WaitForOperator() {
-		timer.setTimer(this, 4, 12*1000, false);
+		timer.setTimer(this, 4, 12 * 1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 	}
 	
 	/* Entry action for state 'LeonieChoosen'. */
 	private void entryAction_main_region_LeonieChoosen() {
-		timer.setTimer(this, 5, 3*1000, false);
+		timer.setTimer(this, 5, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Okay, I will take the order.");
 	}
@@ -1045,21 +1045,21 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'GetOrder'. */
 	private void entryAction_main_region_GetOrder() {
-		timer.setTimer(this, 6, 10*1000, false);
+		timer.setTimer(this, 6, 10 * 1000, false);
 		
-		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
+		sCISTT.operationCallback.sendSpeechDetectionOrder(15);
 	}
 	
 	/* Entry action for state 'DriveToKitchen'. */
 	private void entryAction_main_region_DriveToKitchen() {
 		sCIHBrain.operationCallback.sendTTS("Okay I will take the order to the  barman.");
 		
-		sCIMira.operationCallback.sendGoToGWP(getGWPkitchen());
+		sCIMira.operationCallback.sendGoToRuntimeEndPoint();
 	}
 	
 	/* Entry action for state 'ArrivedKitchen'. */
 	private void entryAction_main_region_ArrivedKitchen() {
-		sCIHBrain.operationCallback.sendTTS2("The guest said.", sCISTT.operationCallback.getSpokenText());
+		sCIHBrain.operationCallback.sendTTS3(sCISTT.operationCallback.getSpokenText(), "said the guest so I think he wants ", sCISTT.operationCallback.getOrderSentenceForBarkeeper());
 	}
 	
 	/* Entry action for state 'WaitForTray'. */
@@ -1089,21 +1089,21 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'SearchingForBarman'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingForBarman() {
-		timer.setTimer(this, 7, 3*1000, false);
+		timer.setTimer(this, 7, 3 * 1000, false);
 		
 		sCIMira.operationCallback.sendPanTiltCamera(-10, 45);
 	}
 	
 	/* Entry action for state 'SearchingRight'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingRight() {
-		timer.setTimer(this, 8, 15*1000, false);
+		timer.setTimer(this, 8, 15 * 1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
 	
 	/* Entry action for state 'FoundRight'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_FoundRight() {
-		timer.setTimer(this, 9, 7*1000, false);
+		timer.setTimer(this, 9, 7 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("There is a person in front of me. I think this is the barman so I'm standing on the left side of the bar.");
 		
@@ -1117,21 +1117,21 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'TiltCamera'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_TiltCamera() {
-		timer.setTimer(this, 10, 4*1000, false);
+		timer.setTimer(this, 10, 4 * 1000, false);
 		
 		sCIMira.operationCallback.sendTiltCamera(-90);
 	}
 	
 	/* Entry action for state 'SearchingLeft'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingLeft() {
-		timer.setTimer(this, 11, 15*1000, false);
+		timer.setTimer(this, 11, 15 * 1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
 	
 	/* Entry action for state 'FoundLeft'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_FoundLeft() {
-		timer.setTimer(this, 12, 7*1000, false);
+		timer.setTimer(this, 12, 7 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("There is a person in front of me. I think this is the barman so I'm standing on the right side of the bar.");
 		
@@ -1140,7 +1140,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'Default'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_Default() {
-		timer.setTimer(this, 13, 7*1000, false);
+		timer.setTimer(this, 13, 7 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Oh. There is a person in front of me. I think this is the barman so I'm standing on the right side of the bar.");
 		
@@ -1149,7 +1149,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 14, 3*1000, false);
+		timer.setTimer(this, 14, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1166,7 +1166,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 15, 3*1000, false);
+		timer.setTimer(this, 15, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'Init'. */
@@ -1174,8 +1174,8 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		timer.unsetTimer(this, 0);
 	}
 	
-	/* Exit action for state 'Ready'. */
-	private void exitAction_main_region_Ready() {
+	/* Exit action for state 'Ready/setStartPoint'. */
+	private void exitAction_main_region_Ready_setStartPoint() {
 		timer.unsetTimer(this, 1);
 	}
 	
@@ -1256,11 +1256,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		stateVector[0] = State.main_region_Init;
 	}
 	
-	/* 'default' enter sequence for state Ready */
-	private void enterSequence_main_region_Ready_default() {
-		entryAction_main_region_Ready();
+	/* 'default' enter sequence for state Ready/setStartPoint */
+	private void enterSequence_main_region_Ready_setStartPoint_default() {
+		entryAction_main_region_Ready_setStartPoint();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Ready;
+		stateVector[0] = State.main_region_Ready_setStartPoint;
 	}
 	
 	/* 'default' enter sequence for state Wait1 */
@@ -1510,12 +1510,12 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		exitAction_main_region_Init();
 	}
 	
-	/* Default exit sequence for state Ready */
-	private void exitSequence_main_region_Ready() {
+	/* Default exit sequence for state Ready/setStartPoint */
+	private void exitSequence_main_region_Ready_setStartPoint() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_region_Ready();
+		exitAction_main_region_Ready_setStartPoint();
 	}
 	
 	/* Default exit sequence for state Wait1 */
@@ -1749,8 +1749,8 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 		case main_region_Init:
 			exitSequence_main_region_Init();
 			break;
-		case main_region_Ready:
-			exitSequence_main_region_Ready();
+		case main_region_Ready_setStartPoint:
+			exitSequence_main_region_Ready_setStartPoint();
 			break;
 		case main_region_Wait1:
 			exitSequence_main_region_Wait1();
@@ -1900,20 +1900,16 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	private void react_main_region_Init() {
 		if (check_main_region_Init_tr0_tr0()) {
 			effect_main_region_Init_tr0();
-		} else {
-			if (check_main_region_Init_tr1_tr1()) {
-				effect_main_region_Init_tr1();
-			}
 		}
 	}
 	
-	/* The reactions of state Ready. */
-	private void react_main_region_Ready() {
-		if (check_main_region_Ready_tr0_tr0()) {
-			effect_main_region_Ready_tr0();
+	/* The reactions of state Ready/setStartPoint. */
+	private void react_main_region_Ready_setStartPoint() {
+		if (check_main_region_Ready_setStartPoint_tr0_tr0()) {
+			effect_main_region_Ready_setStartPoint_tr0();
 		} else {
-			if (check_main_region_Ready_tr1_tr1()) {
-				effect_main_region_Ready_tr1();
+			if (check_main_region_Ready_setStartPoint_tr1_tr1()) {
+				effect_main_region_Ready_setStartPoint_tr1();
 			}
 		}
 	}
@@ -2218,8 +2214,8 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 			case main_region_Init:
 				react_main_region_Init();
 				break;
-			case main_region_Ready:
-				react_main_region_Ready();
+			case main_region_Ready_setStartPoint:
+				react_main_region_Ready_setStartPoint();
 				break;
 			case main_region_Wait1:
 				react_main_region_Wait1();

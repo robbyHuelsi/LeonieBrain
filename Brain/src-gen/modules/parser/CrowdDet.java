@@ -775,4 +775,14 @@ public class CrowdDet implements IParser, Serializable{
 		
 	}
 	
+	
+	public Vector<PersonCrowd> getPersonList() {
+		return personList;
+	}
+
+
+	public void setPersonList(Vector<PersonCrowd> personList) {
+		this.personList = personList;
+	}
+
 }

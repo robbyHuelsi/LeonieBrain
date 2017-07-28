@@ -300,7 +300,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		main_region_Copy_1_STT,
 		main_region_Copy_1_STT_STT_StartSTT,
 		main_region_Copy_1_STT_STT_TellSpokenText,
-		main_region_Copy_1_STT_STT_StropSTT,
 		main_region_leave2,
 		main_region_leave3,
 		leonie_Bupered_Or_Emergency_Stop_waitForEvent,
@@ -317,7 +316,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	private ITimer timer;
 	
-	private final boolean[] timeEvents = new boolean[29];
+	private final boolean[] timeEvents = new boolean[27];
 	private long counter;
 	
 	protected void setCounter(long value) {
@@ -535,13 +534,11 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			return stateVector[0] == State.main_region_NextQuestion;
 		case main_region_Copy_1_STT:
 			return stateVector[0].ordinal() >= State.
-					main_region_Copy_1_STT.ordinal()&& stateVector[0].ordinal() <= State.main_region_Copy_1_STT_STT_StropSTT.ordinal();
+					main_region_Copy_1_STT.ordinal()&& stateVector[0].ordinal() <= State.main_region_Copy_1_STT_STT_TellSpokenText.ordinal();
 		case main_region_Copy_1_STT_STT_StartSTT:
 			return stateVector[0] == State.main_region_Copy_1_STT_STT_StartSTT;
 		case main_region_Copy_1_STT_STT_TellSpokenText:
 			return stateVector[0] == State.main_region_Copy_1_STT_STT_TellSpokenText;
-		case main_region_Copy_1_STT_STT_StropSTT:
-			return stateVector[0] == State.main_region_Copy_1_STT_STT_StropSTT;
 		case main_region_leave2:
 			return stateVector[0] == State.main_region_leave2;
 		case main_region_leave3:
@@ -858,7 +855,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_main_region_Copy_1_STT_STT_StartSTT_tr0_tr0() {
-		return timeEvents[23];
+		return sCISTT.spokenTextReceived;
 	}
 	
 	private boolean check_main_region_Copy_1_STT_STT_TellSpokenText_tr0_tr0() {
@@ -874,15 +871,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_main_region_Copy_1_STT_STT_TellSpokenText_tr3_tr3() {
-		return timeEvents[24];
-	}
-	
-	private boolean check_main_region_Copy_1_STT_STT_StropSTT_tr0_tr0() {
-		return sCISTT.spokenTextReceived;
-	}
-	
-	private boolean check_main_region_Copy_1_STT_STT_StropSTT_tr1_tr1() {
-		return timeEvents[25];
+		return timeEvents[23];
 	}
 	
 	private boolean check_main_region_leave2_tr0_tr0() {
@@ -890,7 +879,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_main_region_leave2_tr1_tr1() {
-		return timeEvents[26];
+		return timeEvents[24];
 	}
 	
 	private boolean check_main_region_leave3_tr0_tr0() {
@@ -906,7 +895,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_Bumpered_tr0_tr0() {
-		return timeEvents[27];
+		return timeEvents[25];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_resetFace_tr0_tr0() {
@@ -918,7 +907,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr0_tr0() {
-		return timeEvents[28];
+		return timeEvents[26];
 	}
 	
 	private boolean check_Leonie_Bupered_Or_Emergency_Stop_checkEmergency_tr1_tr1() {
@@ -1340,7 +1329,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	private void effect_main_region_Copy_1_STT_STT_StartSTT_tr0() {
 		exitSequence_main_region_Copy_1_STT_STT_StartSTT();
-		enterSequence_main_region_Copy_1_STT_STT_StropSTT_default();
+		react_main_region_Copy_1_STT_STT__choice_0();
 	}
 	
 	private void effect_main_region_Copy_1_STT_STT_TellSpokenText_tr0() {
@@ -1360,16 +1349,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	private void effect_main_region_Copy_1_STT_STT_TellSpokenText_tr3() {
 		exitSequence_main_region_Copy_1_STT_STT_TellSpokenText();
-		react_main_region_Copy_1_STT_STT_exit_incomprehensible();
-	}
-	
-	private void effect_main_region_Copy_1_STT_STT_StropSTT_tr0() {
-		exitSequence_main_region_Copy_1_STT_STT_StropSTT();
-		react_main_region_Copy_1_STT_STT__choice_0();
-	}
-	
-	private void effect_main_region_Copy_1_STT_STT_StropSTT_tr1() {
-		exitSequence_main_region_Copy_1_STT_STT_StropSTT();
 		react_main_region_Copy_1_STT_STT_exit_incomprehensible();
 	}
 	
@@ -1493,7 +1472,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Hello'. */
 	private void entryAction_main_region_Hello() {
-		timer.setTimer(this, 0, 10*1000, false);
+		timer.setTimer(this, 0, 10 * 1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOff();
 		
@@ -1511,7 +1490,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'DetectionsOn'. */
 	private void entryAction_main_region_DetectionsOn() {
-		timer.setTimer(this, 1, 10*1000, false);
+		timer.setTimer(this, 1, 10 * 1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
@@ -1527,16 +1506,16 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_region_TellAnswer() {
-		timer.setTimer(this, 2, 30*1000, false);
+		timer.setTimer(this, 2, 30 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getAnswer(), " [:-)]");
 		
-		setCounter(counter+1);
+		setCounter(counter + 1);
 	}
 	
 	/* Entry action for state 'DoAction'. */
 	private void entryAction_main_region_DoAction() {
-		setCounter(counter+1);
+		setCounter(counter + 1);
 	}
 	
 	/* Entry action for state 'GoTo'. */
@@ -1546,21 +1525,21 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'livingroom'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_GoTo_goto_GPSR_livingroom() {
-		timer.setTimer(this, 3, 180*1000, false);
+		timer.setTimer(this, 3, 180 * 1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObject()));
 	}
 	
 	/* Entry action for state 'notFound'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_GoTo_goto_GPSR_notFound() {
-		timer.setTimer(this, 4, 10*1000, false);
+		timer.setTimer(this, 4, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("I don't know a location called ", sCISTT.operationCallback.getObject(), ".");
 	}
 	
 	/* Entry action for state 'arrived'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_GoTo_goto_GPSR_arrived() {
-		timer.setTimer(this, 5, 10*1000, false);
+		timer.setTimer(this, 5, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("I arrived at ", sCISTT.operationCallback.getObject(), ". That was my task.");
 	}
@@ -1579,7 +1558,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'notFound'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_bring_bring_GPSR_notFound() {
-		timer.setTimer(this, 6, 10*1000, false);
+		timer.setTimer(this, 6, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("Furthermore, I don't know a location for ", sCISTT.operationCallback.getObject(), ".");
 	}
@@ -1598,7 +1577,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'bringGehtnicht'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_bring_bring_GPSR_bringGehtnicht() {
-		timer.setTimer(this, 7, 10*1000, false);
+		timer.setTimer(this, 7, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] I'm sorry. I can't bring you something, because I have no manipulator. [:-)]");
 	}
@@ -1610,7 +1589,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'open'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_open() {
-		timer.setTimer(this, 8, 10*1000, false);
+		timer.setTimer(this, 8, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] I'm sorry. I can't open something because I have no manipulator.");
 	}
@@ -1622,7 +1601,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'StartTracking'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_StartTracking() {
-		timer.setTimer(this, 9, 30*1000, false);
+		timer.setTimer(this, 9, 30 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOnAtNext();
 		
@@ -1631,14 +1610,14 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'STToff'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STToff() {
-		timer.setTimer(this, 10, 5*1000, false);
+		timer.setTimer(this, 10, 5 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
 	/* Entry action for state 'STTstart'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.setTimer(this, 11, 5*1000, false);
+		timer.setTimer(this, 11, 5 * 1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
@@ -1647,12 +1626,12 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Wave'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave() {
-		timer.setTimer(this, 12, 10*1000, false);
+		timer.setTimer(this, 12, 10 * 1000, false);
 	}
 	
 	/* Entry action for state 'UTurn1'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn1() {
-		timer.setTimer(this, 13, 1*1000, false);
+		timer.setTimer(this, 13, 1 * 1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -1666,7 +1645,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Turn() {
-		timer.setTimer(this, 14, 5*1000, false);
+		timer.setTimer(this, 14, 5 * 1000, false);
 		
 		sCIKinect2.operationCallback.sendWavingDetectionOnOff(true);
 		
@@ -1687,7 +1666,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'ILostYou'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_ILostYou() {
-		timer.setTimer(this, 15, 5*1000, false);
+		timer.setTimer(this, 15, 5 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOff();
 		
@@ -1696,18 +1675,18 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'UTurn2'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn2() {
-		timer.setTimer(this, 16, 3*1000, false);
+		timer.setTimer(this, 16, 3 * 1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'Detection'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Detection() {
-		timer.setTimer(this, 17, 1*1000, false);
+		timer.setTimer(this, 17, 1 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
-		setCounter(counter+1);
+		setCounter(counter + 1);
 	}
 	
 	/* Entry action for state 'NotFound'. */
@@ -1719,7 +1698,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Detect'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Detect() {
-		timer.setTimer(this, 18, 5*1000, false);
+		timer.setTimer(this, 18, 5 * 1000, false);
 		
 		sCIFollowMe.operationCallback.sendDetectionOff();
 	}
@@ -1748,36 +1727,34 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'unknown'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_unknown() {
-		timer.setTimer(this, 19, 10*1000, false);
+		timer.setTimer(this, 19, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-|] I'm sorry. This command is unknown.");
 	}
 	
 	/* Entry action for state 'Copy_1_crowd'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_Copy_1_crowd() {
-		timer.setTimer(this, 20, 10*1000, false);
+		timer.setTimer(this, 20, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS(sCICrowdDetection.operationCallback.getAnswerForSecificCrowdDetails(sCISTT.operationCallback.getObject()));
 	}
 	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_region_TellIncomprehensible() {
-		timer.setTimer(this, 21, 10*1000, false);
+		timer.setTimer(this, 21, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("[:-(]", sCISTT.operationCallback.getAnswer(), "[:-|]");
 	}
 	
 	/* Entry action for state 'NextQuestion'. */
 	private void entryAction_main_region_NextQuestion() {
-		timer.setTimer(this, 22, 10*1000, false);
+		timer.setTimer(this, 22, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Please give me the next command or ask me a question. [attentive]");
 	}
 	
 	/* Entry action for state 'StartSTT'. */
 	private void entryAction_main_region_Copy_1_STT_STT_StartSTT() {
-		timer.setTimer(this, 23, 8*1000, false);
-		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
@@ -1785,19 +1762,14 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'TellSpokenText'. */
 	private void entryAction_main_region_Copy_1_STT_STT_TellSpokenText() {
-		timer.setTimer(this, 24, 5*1000, false);
+		timer.setTimer(this, 23, 5 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText());
 	}
 	
-	/* Entry action for state 'StropSTT'. */
-	private void entryAction_main_region_Copy_1_STT_STT_StropSTT() {
-		timer.setTimer(this, 25, 5*1000, false);
-	}
-	
 	/* Entry action for state 'leave2'. */
 	private void entryAction_main_region_leave2() {
-		timer.setTimer(this, 26, 10*1000, false);
+		timer.setTimer(this, 24, 10 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-0] Thanks for your attention. I hope your enjoed your time here. See us in Japan again. [:-)]");
 	}
@@ -1809,7 +1781,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 27, 3*1000, false);
+		timer.setTimer(this, 25, 3 * 1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1826,7 +1798,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 28, 3*1000, false);
+		timer.setTimer(this, 26, 3 * 1000, false);
 	}
 	
 	/* Exit action for state 'Hello'. */
@@ -1944,34 +1916,24 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		timer.unsetTimer(this, 22);
 	}
 	
-	/* Exit action for state 'StartSTT'. */
-	private void exitAction_main_region_Copy_1_STT_STT_StartSTT() {
-		timer.unsetTimer(this, 23);
-	}
-	
 	/* Exit action for state 'TellSpokenText'. */
 	private void exitAction_main_region_Copy_1_STT_STT_TellSpokenText() {
-		timer.unsetTimer(this, 24);
-	}
-	
-	/* Exit action for state 'StropSTT'. */
-	private void exitAction_main_region_Copy_1_STT_STT_StropSTT() {
-		timer.unsetTimer(this, 25);
+		timer.unsetTimer(this, 23);
 	}
 	
 	/* Exit action for state 'leave2'. */
 	private void exitAction_main_region_leave2() {
-		timer.unsetTimer(this, 26);
+		timer.unsetTimer(this, 24);
 	}
 	
 	/* Exit action for state 'Bumpered'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.unsetTimer(this, 27);
+		timer.unsetTimer(this, 25);
 	}
 	
 	/* Exit action for state 'checkEmergency'. */
 	private void exitAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.unsetTimer(this, 28);
+		timer.unsetTimer(this, 26);
 	}
 	
 	/* 'default' enter sequence for state Hello */
@@ -2288,13 +2250,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		entryAction_main_region_Copy_1_STT_STT_TellSpokenText();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_Copy_1_STT_STT_TellSpokenText;
-	}
-	
-	/* 'default' enter sequence for state StropSTT */
-	private void enterSequence_main_region_Copy_1_STT_STT_StropSTT_default() {
-		entryAction_main_region_Copy_1_STT_STT_StropSTT();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_region_Copy_1_STT_STT_StropSTT;
 	}
 	
 	/* 'default' enter sequence for state leave2 */
@@ -2701,8 +2656,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	private void exitSequence_main_region_Copy_1_STT_STT_StartSTT() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_region_Copy_1_STT_STT_StartSTT();
 	}
 	
 	/* Default exit sequence for state TellSpokenText */
@@ -2711,14 +2664,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		stateVector[0] = State.$NullState$;
 		
 		exitAction_main_region_Copy_1_STT_STT_TellSpokenText();
-	}
-	
-	/* Default exit sequence for state StropSTT */
-	private void exitSequence_main_region_Copy_1_STT_STT_StropSTT() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_region_Copy_1_STT_STT_StropSTT();
 	}
 	
 	/* Default exit sequence for state leave2 */
@@ -2902,9 +2847,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			break;
 		case main_region_Copy_1_STT_STT_TellSpokenText:
 			exitSequence_main_region_Copy_1_STT_STT_TellSpokenText();
-			break;
-		case main_region_Copy_1_STT_STT_StropSTT:
-			exitSequence_main_region_Copy_1_STT_STT_StropSTT();
 			break;
 		case main_region_leave2:
 			exitSequence_main_region_leave2();
@@ -3190,9 +3132,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 			break;
 		case main_region_Copy_1_STT_STT_TellSpokenText:
 			exitSequence_main_region_Copy_1_STT_STT_TellSpokenText();
-			break;
-		case main_region_Copy_1_STT_STT_StropSTT:
-			exitSequence_main_region_Copy_1_STT_STT_StropSTT();
 			break;
 		default:
 			break;
@@ -3631,17 +3570,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 		}
 	}
 	
-	/* The reactions of state StropSTT. */
-	private void react_main_region_Copy_1_STT_STT_StropSTT() {
-		if (check_main_region_Copy_1_STT_STT_StropSTT_tr0_tr0()) {
-			effect_main_region_Copy_1_STT_STT_StropSTT_tr0();
-		} else {
-			if (check_main_region_Copy_1_STT_STT_StropSTT_tr1_tr1()) {
-				effect_main_region_Copy_1_STT_STT_StropSTT_tr1();
-			}
-		}
-	}
-	
 	/* The reactions of state leave2. */
 	private void react_main_region_leave2() {
 		if (check_main_region_leave2_tr0_tr0()) {
@@ -3989,9 +3917,6 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 				break;
 			case main_region_Copy_1_STT_STT_TellSpokenText:
 				react_main_region_Copy_1_STT_STT_TellSpokenText();
-				break;
-			case main_region_Copy_1_STT_STT_StropSTT:
-				react_main_region_Copy_1_STT_STT_StropSTT();
 				break;
 			case main_region_leave2:
 				react_main_region_leave2();

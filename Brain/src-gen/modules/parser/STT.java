@@ -1,6 +1,7 @@
 package modules.parser;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import main.*;
@@ -24,7 +25,8 @@ public class STT implements IParser, Serializable{
 	private boolean incomprehensible;
 	private boolean actionReceived;
 	private boolean actionsReceived;
-
+	private ArrayList<String> orderList = new ArrayList<>();
+	
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		
@@ -71,12 +73,17 @@ public class STT implements IParser, Serializable{
 			
 		}else if(data.contains("ACTION#")){
 			//TODO  Action: crowd, -1|-1|-1|-1|4|-1
-			String[] t = data.substring(7).split(";");
+			String actionData = data.substring(7);
+			String[] t = actionData.split(";");
 			this.setInstruction(t[0]);
 			this.setObject(t[1]);
 			this.setActionReceived(true);
+			if(t.length>1){
+				for(int counter=2; counter<=t.length; counter++){
+					orderList.add(t[counter]);
+				}
+			}
 			start.getLog().log("Action: " + this.getInstruction() + ", " + this.getObject());
-			
 			return true;
 		}
 		
@@ -115,6 +122,14 @@ public class STT implements IParser, Serializable{
 		this.object = object;
 	}
 	
+	public ArrayList<String> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(ArrayList<String> orderList) {
+		this.orderList = orderList;
+	}
+
 	public int getActionListLength(){
 		if (this.actionList != null) {
 			return this.actionList.size();
@@ -250,6 +265,14 @@ public class STT implements IParser, Serializable{
 		if (actionsReceived) {
 			start.getStatemachine().raiseEventOfSCI("STT","actionsReceived");
 		}
+	}
+	
+	public String getOrderSentence(){
+		String objects = "";
+		for(int count=0; count<=orderList.size(); count++){
+			objects += orderList.get(count) + " and ";
+		}
+		return objects;
 	}
 
 	public boolean removeParsedInformation() {

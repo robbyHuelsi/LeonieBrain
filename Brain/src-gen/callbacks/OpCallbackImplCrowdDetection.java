@@ -1,5 +1,10 @@
 package callbacks;
 
+import java.util.Vector;
+
+import Persons.Person;
+import Persons.PersonCrowd;
+import Persons.PersonList;
 import communication.Communication;
 import main.Log;
 import main.Start;
@@ -86,6 +91,19 @@ public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	@Override
 	public long getMinDistance() {
 		return ((CrowdDet) Start.getModules().getParser("CrowdDet")).getMinimalDistanceOfCrowd();
+	}
+
+	@Override
+	public long getTotalNumberDistance() {
+		Vector<PersonCrowd> list = ((CrowdDet) Start.getModules().getParser("CrowdDet")).getPersonList();
+		int distanceAverage = 0;
+		for(int counter=0; counter<=list.size(); counter++){
+			if(counter==0){
+				distanceAverage = (int) list.get(counter).getDistance();
+			}
+			distanceAverage = (distanceAverage + (int) list.get(counter).getDistance())/counter;
+		}
+		return distanceAverage;
 	}
 
 

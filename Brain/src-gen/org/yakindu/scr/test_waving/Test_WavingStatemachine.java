@@ -229,7 +229,7 @@ public class Test_WavingStatemachine implements ITest_WavingStatemachine {
 	
 	/* Entry action for state 'TrackingOn'. */
 	private void entryAction_main_region_TrackingOn() {
-		timer.setTimer(this, 0, 2*1000, false);
+		timer.setTimer(this, 0, 2 * 1000, false);
 		
 		sCIKinect2.operationCallback.sendWavingDetectionOnOff(false);
 		
