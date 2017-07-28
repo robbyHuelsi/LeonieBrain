@@ -38,8 +38,8 @@ public class OpCallbackImplObjectDetection implements IOpCallbackImpl,
 		
 	}
 
-	public void sendAnalyseTable() {
-		send("#OBJECTDET#REQUEST#TABLE#");
+	public void sendAnalyseTable(long tableNr) {
+		send("#OBJECTDET#REQUEST#TABLE" + tableNr + "#");
 		
 	}
 
