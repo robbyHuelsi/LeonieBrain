@@ -173,7 +173,9 @@ public interface ITest_BlindMansBluffStatemachine extends ITimerCallback,IStatem
 		
 		public String getLocationFromActionListAt(long i);
 		
-		public String getActionCommandSentence();
+		public String getAllActionCommandsSentence();
+		
+		public String getSingleActionCommandSentence(long i);
 		
 		public void sendSpeechDetectionSmalltalk(long timeout);
 		

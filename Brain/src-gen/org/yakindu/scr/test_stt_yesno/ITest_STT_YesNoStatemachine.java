@@ -225,7 +225,9 @@ public interface ITest_STT_YesNoStatemachine extends ITimerCallback,IStatemachin
 		
 		public String getLocationFromActionListAt(long i);
 		
-		public String getActionCommandSentence();
+		public String getAllActionCommandsSentence();
+		
+		public String getSingleActionCommandSentence(long i);
 		
 		public void sendSpeechDetectionSmalltalk(long timeout);
 		

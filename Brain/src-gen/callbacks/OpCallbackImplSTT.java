@@ -77,8 +77,12 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		return ((STT)module.getParser()).getLocationFromActionListAt(i);
 	}
 	
-	public String getActionCommandSentence() {
-		return ((STT)module.getParser()).getActionCommandSentence();
+	public String getAllActionCommandsSentence() {
+		return ((STT)module.getParser()).getAllActionCommandsSentence();
+	}
+	
+	public String getSingleActionCommandSentence(long i) {
+		return ((STT)module.getParser()).getSingleActionCommandSentence(i);
 	}
 
 
