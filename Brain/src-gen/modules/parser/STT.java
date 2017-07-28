@@ -183,51 +183,77 @@ public class STT implements IParser, Serializable{
 	
 	public String getSingleActionCommandSentence(long index) {
 		
+		String answer = "The ";
+		
 		if (index < 0 || index >= this.actionList.size()) {
 			return "";
 		}
+		
+		switch ((int)index) {
+		case 0:
+			answer += "first ";
+			break;
+			
+		case 1:
+			answer += "second ";
+			break;
+			
+		case 2:
+			answer += "third ";
+			break;
+			
+		case 3:
+			answer += "fourth ";
+			break;
+
+		default:
+			answer += "next ";
+			break;
+		}
+		
+		answer += "task is ";
 		
 		Action action = this.actionList.get((int)index);
 		
 		switch (action.getInstruction()) {
 		case "goto":
-			return "I should go to the " + action.getLocation() + ".";
+			return answer + "to go to the " + action.getLocation() + ".";
 			
 		case "crowd":
-			return "I should detect the crowd. "; // TODO: Hinzufügen, nachwas gefragt ist " + action.getLocation() + ". ";
+			return answer + "to detect the crowd. "; // TODO: Hinzufügen, nachwas gefragt ist " + action.getLocation() + ". ";
 			
 		case "surrounding":
-			return "I should look for something in the surrounding."; //TODO: Ausweiten
+			return answer + "to look for something in the surrounding."; //TODO: Ausweiten
 			
 		case "bring":
 			if ( action.getObject() == null || action.getObject().isEmpty()) {
-				return "I should bring something. ";
+				return answer + "to bring something. ";
 			}else{
-				return "I should bring the " + action.getObject() + "."; //TODO: Ausweitern
+				return answer + "to bring the " + action.getObject() + "."; //TODO: Ausweitern
 			}
 					
 		case "open":
 			if ( action.getObject() == null || action.getObject().isEmpty()) {
-				return "I should open something. ";
+				return answer + "to open something. ";
 			}else{
-				return "I should open the " + action.getObject() + ".";
+				return answer + "to open the " + action.getObject() + ".";
 			}
 			
 		case "followme":
-			return "I should follow " + action.getLocation() + ".";
+			return answer + "to follow " + action.getLocation() + ".";
 			
 		case "tell":
 			if (action.getObject() == null || action.getObject().isEmpty()) {
-				return "I should tell something. ";
+				return answer + "to tell something. ";
 			}else{
-				return "I should tell: " + action.getObject() + ".";
+				return answer + "to tell: " + action.getObject() + ".";
 			}
 			
 		case "question":
-			return "I should answer a question.";
+			return answer + "to answer a question.";
 
 		default:
-			return "I should do something unknown.";
+			return answer + "to do something unknown.";
 		}
 	}
 
