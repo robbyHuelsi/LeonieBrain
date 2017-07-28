@@ -99,10 +99,6 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			
 			switch (inName.toLowerCase()) {
 				
-			case "leftplanks":		//NO WAYPOINT!!!!!!!
-			case "left planks":
-				return 0; //16
-				
 			case "kitchentable":
 			case "kitchen table":
 				return 1; //5
@@ -111,36 +107,25 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			case "kitchen shelf":			
 				return 2; //10
 				
-			case "kitchenrack": 	//NO WAYPOINT!!!!	
-			case "kitchen rack":
-				return 2; //21
-				
-			case "rightrack": 		//NO WAYPOINT!!!!	
-			case "right rack":
-				return 2; //3
-	
 			case "balconyshelf":
 			case "balcony shelf":
 				return 3; //18
-				
-			case "fridge": 			//NO WAYPOINT!!!! 
-				return 4; //20
+
+			case "kitchen":	
+				return 4; //~
 				
 			case "coffee table": 	//NO WAYPOINT!!!!
 				return 5; //13
-				
-			case "sideboard": 		//NO WAYPOINT!!!!		
-				return 5; //4
-				
-			case "tv":				//NO WAYPOINT!!!!
-				return 5; //14
-				
+
 			case "sofa":
 				return 6; //12
 				
 			case "entranceshelf":	
 			case "entrance shelf":
-				return 7; //9
+				return 7; //~9
+
+			case "entrance": 		//NO WAYPOINT!!!!
+				return 7; //~9
 				
 			case "kitchencounter":
 			case "kitchen counter":
@@ -149,44 +134,64 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 			case "bed":
 				return 9; //8
 				
-			case "teepee":			//NO WAYPOINT!!!!
-				return 9; //7
-		
+			case "bookshelf":
+				return 10; //-
+				
 			case "desk":				
 				return 11; //1
-				
-			case "rightplanks":		//NO WAYPOINT!!!!	
-			case "right planks":
-				return 12; //17
 				
 			case "bistrotable":
 			case "bistro table":
 			case "balcony":
 				return 12; //15
-	
-			case "littledesk": 		//NO WAYPOINT!!!!	
-			case "little desk": 		
-				return 15; //6
-				
-			case "entrance":		//NO WAYPOINT!!!!	
-				return 7; //11
-				
-			case "bedroom":	
-				return 19; 
-				
+
 			case "corridor":		
-				return 24; 
-				
-			case "kitchen":	
-				return 4; 
-				
-			case "bookcase":		//NO WAYPOINT!!!!	
-				return 24; //11
+				return 21; 
 				
 			case "livingroom":	
 			case "living room":		
 				return 27; 
 				
+			case "bedroom":		
+				return 28; 
+				
+			case "leftrack":
+			case "left rack":
+				return 29; //2
+				
+			case "rightrack":
+			case "right rack":
+				return 30; //3
+				
+			case "sideboard":
+			case "side board":
+				return 31; //4
+				
+			case "little desk":
+				return 32; //6
+				
+			case "teepee":
+				return 33; //7
+				
+			case "bookcase":
+				return 34; //11
+				
+			case "tv":
+				return 35; //14
+				
+			case "left planks":
+				return 36; //16
+				
+			case "right planks":
+				return 37; //17
+				
+			case "fridge":
+				return 38; //20
+				
+			case "kitchenrack":
+			case "kitchen rack":
+				return 39; //21
+									
 			default:
 				return -1;
 			}
