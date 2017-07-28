@@ -17,7 +17,7 @@
         <outgoingTransitions xmi:id="_O610AHNfEeegULGyA4oEIQ" specification="HBrain.TTSReady" target="_IN0iYHNfEeegULGyA4oEIQ"/>
         <outgoingTransitions xmi:id="_SlsVIHNfEeegULGyA4oEIQ" specification="after 5s" target="_IN0iYHNfEeegULGyA4oEIQ"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_Too0wCmxEeevtqslXB21pw" specification="entry /&#xA;GWPout = 13;&#xA;GWPstart = 6;&#xA;actionCounter = 0;&#xA;roundCounter = 0;&#xA;Mira.sendGoToGWP(GWPstart)" name="Init" incomingTransitions="_lL7MsCmuEeevtqslXB21pw">
+      <vertices xsi:type="sgraph:State" xmi:id="_Too0wCmxEeevtqslXB21pw" specification="entry /&#xA;GWPout = 13;&#xA;GWPstart = 40;&#xA;actionCounter = 0;&#xA;roundCounter = 0;&#xA;Mira.sendGoToGWP(GWPstart)" name="Init" incomingTransitions="_lL7MsCmuEeevtqslXB21pw">
         <outgoingTransitions xmi:id="_eO1-cCmxEeevtqslXB21pw" specification="Mira.arrivedWP" target="_L45WZCj3EeerIsa7nI0F3w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_CMHeECmyEeevtqslXB21pw" specification="entry / HBrain.sendTTS(&quot;[:-(] Can you please try it again?&quot;)" name="TellAnswer" incomingTransitions="_CMFo9ymyEeevtqslXB21pw _BM4kcDJfEeenB_tBbZAJFQ">
@@ -33,7 +33,7 @@
       </vertices>
       <vertices xsi:type="sgraph:Choice" xmi:id="_K-PwICm0EeevtqslXB21pw" incomingTransitions="_bLc-kCm0EeevtqslXB21pw">
         <outgoingTransitions xmi:id="_ktFXwCmyEeevtqslXB21pw" specification="else" target="_L45WZCj3EeerIsa7nI0F3w"/>
-        <outgoingTransitions xmi:id="_tYqV4Cm0EeevtqslXB21pw" specification="[roundCounter >= 3]" target="_L45WYCj3EeerIsa7nI0F3w"/>
+        <outgoingTransitions xmi:id="_tYqV4Cm0EeevtqslXB21pw" specification="[1==0] //[roundCounter >= 3]" target="_L45WYCj3EeerIsa7nI0F3w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_MdfJ4jADEee0875Bvs1VDA" specification="" name="STT and Tell Actions" incomingTransitions="_L44ITCj3EeerIsa7nI0F3w _VYdmgDCqEeeGYMEkKz9wVA">
         <outgoingTransitions xmi:id="_CMFo9ymyEeevtqslXB21pw" specification="# exit_noActions >" target="_CMHeECmyEeevtqslXB21pw"/>
@@ -93,7 +93,7 @@
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_XohrEDJfEeenB_tBbZAJFQ" specification="exit / roundCounter += 1&#xA;//ACHTUNG: Da steht exit!" name="DoAllActions" incomingTransitions="_oIfRYHMhEee9sO9ojrKZrw">
         <outgoingTransitions xmi:id="_CMIsWymyEeevtqslXB21pw" specification="# exit_doneWithAll >" target="_38kdYDJjEeenB_tBbZAJFQ"/>
-        <outgoingTransitions xmi:id="_oSbIwHLaEee8EbYgELSTgQ" specification="after 150s" target="_WW-24HLaEee8EbYgELSTgQ"/>
+        <outgoingTransitions xmi:id="_oSbIwHLaEee8EbYgELSTgQ" specification="after 200s" target="_WW-24HLaEee8EbYgELSTgQ"/>
         <regions xmi:id="_f2NeMDJfEeenB_tBbZAJFQ">
           <vertices xsi:type="sgraph:State" xmi:id="_gdKJfTJfEeenB_tBbZAJFQ" specification="exit / actionCounter = actionCounter + 1&#xA;// ACHTUNG: Da steht exit!" name="DoAction" incomingTransitions="_-gMUwHOFEeegULGyA4oEIQ _CLlocHOGEeegULGyA4oEIQ _FOsNEHOGEeegULGyA4oEIQ">
             <outgoingTransitions xmi:id="_32eZQDJfEeenB_tBbZAJFQ" specification="# exit_done >" target="_pmFdgHMxEee9sO9ojrKZrw"/>
@@ -600,7 +600,7 @@
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_NF41ATGqEee6iepVRa3hDA" name="isHorizontal" booleanValue="true"/>
           <layoutConstraint xsi:type="notation:Bounds" xmi:id="_NF3m5jGqEee6iepVRa3hDA" x="323" y="1253" width="209" height="59"/>
         </children>
-        <children xsi:type="notation:Shape" xmi:id="_SvNj0DJAEeeZhsafwDkvZw" type="Note" fontName="Verdana" description="GWPStart bekommen wir 2h davor" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
+        <children xsi:type="notation:Shape" xmi:id="_SvNj0DJAEeeZhsafwDkvZw" type="Note" fontName="Verdana" description="GWPStart bekommen wir kurz davor: Entweder 40 (Livingroom) oder 28 (Bedroom)" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
           <children xsi:type="notation:BasicDecorationNode" xmi:id="_SvQAEDJAEeeZhsafwDkvZw" type="DiagramName">
             <element xsi:nil="true"/>
           </children>
@@ -610,7 +610,7 @@
           <styles xsi:type="notation:TextStyle" xmi:id="_SvNj0TJAEeeZhsafwDkvZw"/>
           <styles xsi:type="notation:LineTypeStyle" xmi:id="_SvNj0jJAEeeZhsafwDkvZw"/>
           <element xsi:nil="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_SvNj0zJAEeeZhsafwDkvZw" x="448" y="-131"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_SvNj0zJAEeeZhsafwDkvZw" x="446" y="-153" width="226"/>
         </children>
         <children xmi:id="_XoiSIDJfEeenB_tBbZAJFQ" type="State" element="_XohrEDJfEeenB_tBbZAJFQ">
           <children xsi:type="notation:DecorationNode" xmi:id="_XoiSJDJfEeenB_tBbZAJFQ" type="StateName">
@@ -962,7 +962,7 @@
     <edges xmi:id="_bLeMsCm0EeevtqslXB21pw" type="Transition" element="_bLc-kCm0EeevtqslXB21pw" source="_CMDMrCmyEeevtqslXB21pw" target="_K-PwISm0EeevtqslXB21pw">
       <children xsi:type="notation:DecorationNode" xmi:id="_bLeMtCm0EeevtqslXB21pw" type="TransitionExpression">
         <styles xsi:type="notation:ShapeStyle" xmi:id="_bLeMtSm0EeevtqslXB21pw"/>
-        <layoutConstraint xsi:type="notation:Location" xmi:id="_bLeMtim0EeevtqslXB21pw" x="-20" y="-22"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_bLeMtim0EeevtqslXB21pw" x="-9" y="-23"/>
       </children>
       <styles xsi:type="notation:ConnectorStyle" xmi:id="_bLeMsSm0EeevtqslXB21pw" lineColor="4210752"/>
       <styles xsi:type="notation:FontStyle" xmi:id="_bLeMsym0EeevtqslXB21pw" fontName="Verdana"/>
