@@ -243,10 +243,10 @@ public class STT implements IParser, Serializable{
 			return answer + "to follow " + action.getLocation() + ".";
 			
 		case "tell":
-			if (action.getObject() == null || action.getObject().isEmpty()) {
+			if (action.getLocation() == null || action.getLocation().isEmpty()) { //Location = Thema
 				return answer + "to tell something. ";
 			}else{
-				return answer + "to tell: " + action.getObject() + ".";
+				return answer + "to tell about " + action.getObject() + ".";
 			}
 			
 		case "question":
