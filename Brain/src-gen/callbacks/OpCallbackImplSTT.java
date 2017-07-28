@@ -90,7 +90,7 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setSpokenText("");
 		stt.setInstruction("");
 		stt.setObject("");
-		stt.resetActionList();
+		//stt.resetActionList(); //Für General Purpose muss ActionList weiterhin verfügbar bleiben!
 		stt.setSpokenTextReceived(false);
 		stt.setIncomprehensible(false);
 		stt.setActionReceived(false);
@@ -107,7 +107,7 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setSpokenText("");
 		stt.setInstruction("");
 		stt.setObject("");
-		stt.resetActionList();
+		//stt.resetActionList(); //Für General Purpose muss ActionList weiterhin verfügbar bleiben!
 		stt.setSpokenTextReceived(false);
 		stt.setIncomprehensible(false);
 		stt.setActionReceived(false);
@@ -123,7 +123,7 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setSpokenText("");
 		stt.setInstruction("");
 		stt.setObject("");
-		stt.resetActionList();
+		//stt.resetActionList(); //Für General Purpose muss ActionList weiterhin verfügbar bleiben!
 		stt.setSpokenTextReceived(false);
 		stt.setIncomprehensible(false);
 		stt.setActionReceived(false);

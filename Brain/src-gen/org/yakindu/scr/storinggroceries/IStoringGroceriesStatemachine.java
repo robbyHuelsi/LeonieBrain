@@ -99,7 +99,7 @@ public interface IStoringGroceriesStatemachine extends ITimerCallback,IStatemach
 		
 		public void sendAnalyseCupboard();
 		
-		public void sendAnalyseTable();
+		public void sendAnalyseTable(long tableNr);
 		
 		public void sendPrintPDF();
 		

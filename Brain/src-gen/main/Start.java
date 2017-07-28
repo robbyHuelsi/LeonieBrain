@@ -147,6 +147,11 @@ public class Start{
 		return log;
 	}
 	
+	public boolean setLog(Log l){
+		this.log = l;
+		return true;
+	}
+	
 	public static int getUDPListeningPort() {
 		return UDPListeningPort;
 	}
@@ -179,6 +184,18 @@ public class Start{
 		return modules;
 	}
 	
+	public static boolean setModules(Modules m){
+		modules = m;
+		return true;
+	}
+	
+	public static String getSavingsFolderPath() {
+		return savingsFolderPath;
+	}
+
+
+
+
 	public GUI getGui(){
 		return gui;
 	}

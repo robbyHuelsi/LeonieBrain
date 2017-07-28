@@ -236,7 +236,9 @@ public class Statemachine {
 				dateStarted = new Date();
 				running = true;
 				
-				start.getGui().updateTableStateInfoUI();
+				if(start.getGui() != null){ // For testing: if you want to run w/o GUI
+					start.getGui().updateTableStateInfoUI();
+				}
 				
 				return true;
 				
