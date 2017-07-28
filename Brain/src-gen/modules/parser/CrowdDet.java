@@ -19,6 +19,7 @@ public class CrowdDet implements IParser, Serializable{
 		
 	private Vector<PersonCrowd> personList = new Vector<PersonCrowd>();
 	private boolean crowdDetected;
+	private boolean noPerson;
 
 
 	public boolean parse(String data, Start start) {
@@ -65,6 +66,8 @@ public class CrowdDet implements IParser, Serializable{
 				return false;
 			}
 		}else{
+			this.setNoPerson(true);
+			start.getLog().log("No Person");
 			return true; //no person
 		}
 	}
@@ -81,6 +84,18 @@ public class CrowdDet implements IParser, Serializable{
 		this.crowdDetected = crowdDetected;
 		if (crowdDetected) {
 			start.getStatemachine().raiseEventOfSCI("CrowdDetection","detected");
+		}
+	}
+
+	public boolean isNoPerson() {
+		return noPerson;
+	}
+
+
+	public void setNoPerson(boolean noPerson) {
+		this.noPerson = noPerson;
+		if (noPerson) {
+			start.getStatemachine().raiseEventOfSCI("CrowdDetection","noPerson");
 		}
 	}
 

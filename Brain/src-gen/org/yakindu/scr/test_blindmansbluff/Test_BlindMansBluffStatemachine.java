@@ -203,8 +203,15 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 			detected = true;
 		}
 		
+		private boolean noPerson;
+		
+		public void raiseNoPerson() {
+			noPerson = true;
+		}
+		
 		protected void clearEvents() {
 			detected = false;
+			noPerson = false;
 		}
 	}
 	

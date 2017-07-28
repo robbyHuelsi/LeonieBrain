@@ -191,6 +191,8 @@ public interface ITest_BlindMansBluffStatemachine extends ITimerCallback,IStatem
 	
 		public void raiseDetected();
 		
+		public void raiseNoPerson();
+		
 		public void setSCICrowdDetectionOperationCallback(SCICrowdDetectionOperationCallback operationCallback);
 	
 	}

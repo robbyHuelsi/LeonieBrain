@@ -245,6 +245,8 @@ public interface IFinaleStatemachine extends ITimerCallback,IStatemachine {
 	
 		public void raiseDetected();
 		
+		public void raiseNoPerson();
+		
 		public void setSCICrowdDetectionOperationCallback(SCICrowdDetectionOperationCallback operationCallback);
 	
 	}

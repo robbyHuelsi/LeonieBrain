@@ -276,8 +276,15 @@ public class FinaleStatemachine implements IFinaleStatemachine {
 			detected = true;
 		}
 		
+		private boolean noPerson;
+		
+		public void raiseNoPerson() {
+			noPerson = true;
+		}
+		
 		protected void clearEvents() {
 			detected = false;
+			noPerson = false;
 		}
 	}
 	
