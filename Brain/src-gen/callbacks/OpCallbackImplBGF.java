@@ -12,10 +12,11 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIBGFOperationCallback,
-	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobotv1.IGeneralPurposeServiceRobotV1Statemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobotv2.IGeneralPurposeServiceRobotV2Statemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIBGFOperationCallback,
-	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.extendedgeneralpurposeservicerobot.IExtendedGeneralPurposeServiceRobotStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIBGFOperationCallback
 {
