@@ -111,9 +111,9 @@
                   </vertices>
                   <vertices xsi:type="sgraph:Choice" xmi:id="_gdKwlTJfEeenB_tBbZAJFQ" incomingTransitions="_gdKwlDJfEeenB_tBbZAJFQ">
                     <outgoingTransitions xmi:id="_gdKwljJfEeenB_tBbZAJFQ" specification="else" target="_gdLXmjJfEeenB_tBbZAJFQ"/>
-                    <outgoingTransitions xmi:id="_gdKwmDJfEeenB_tBbZAJFQ" specification="[BGF.getGWPByName(STT.getObjectFromActionListAt(actionCounter)) == -1]" target="_gdL-pDJfEeenB_tBbZAJFQ"/>
+                    <outgoingTransitions xmi:id="_gdKwmDJfEeenB_tBbZAJFQ" specification="[BGF.getGWPByName(STT.getLocationFromActionListAt(actionCounter)) == -1]" target="_gdL-pDJfEeenB_tBbZAJFQ"/>
                   </vertices>
-                  <vertices xsi:type="sgraph:State" xmi:id="_gdLXmjJfEeenB_tBbZAJFQ" specification="entry/&#xA;Mira.sendGoToGWP(BGF.getGWPByName(STT.getObjectFromActionListAt(actionCounter)))" name="livingroom" incomingTransitions="_gdKwljJfEeenB_tBbZAJFQ">
+                  <vertices xsi:type="sgraph:State" xmi:id="_gdLXmjJfEeenB_tBbZAJFQ" specification="entry/&#xA;Mira.sendGoToGWP(BGF.getGWPByName(STT.getLocationFromActionListAt(actionCounter)))" name="livingroom" incomingTransitions="_gdKwljJfEeenB_tBbZAJFQ">
                     <outgoingTransitions xmi:id="_gdLXpjJfEeenB_tBbZAJFQ" specification="Mira.arrivedWP" target="_gdL-vDJfEeenB_tBbZAJFQ"/>
                     <outgoingTransitions xmi:id="_gdLXqzJfEeenB_tBbZAJFQ" specification="after 60s" target="_gdNMxDJfEeenB_tBbZAJFQ"/>
                     <outgoingTransitions xmi:id="_gdLXsDJfEeenB_tBbZAJFQ" specification="Mira.blocked" target="_gdNMxDJfEeenB_tBbZAJFQ"/>
@@ -318,7 +318,7 @@
           <vertices xsi:type="sgraph:Entry" xmi:id="_P1DSQDJgEeenB_tBbZAJFQ">
             <outgoingTransitions xmi:id="_D4sDcHOGEeegULGyA4oEIQ" specification="" target="_898e4HOFEeegULGyA4oEIQ"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_pmFdgHMxEee9sO9ojrKZrw" specification="entry /&#xA;HBrain.sendTTS(&quot;This was&quot;);&#xA;HBrain.sendTTS_num(actionCounter);&#xA;HBrain.sendTTS(&quot;of&quot;);&#xA;HBrain.sendTTS_num(STT.getActionListLength)" name="wait" incomingTransitions="_32eZQDJfEeenB_tBbZAJFQ">
+          <vertices xsi:type="sgraph:State" xmi:id="_pmFdgHMxEee9sO9ojrKZrw" specification="/*entry /&#xA;HBrain.sendTTS(&quot;This was&quot;);&#xA;HBrain.sendTTS_num(actionCounter);&#xA;HBrain.sendTTS(&quot;of&quot;);&#xA;HBrain.sendTTS_num(STT.getActionListLength)*/" name="wait" incomingTransitions="_32eZQDJfEeenB_tBbZAJFQ">
             <outgoingTransitions xmi:id="_q4I7QHMxEee9sO9ojrKZrw" specification="always" target="_3MuRoDJfEeenB_tBbZAJFQ"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_4yz7MHOFEeegULGyA4oEIQ" specification="entry /&#xA;HBrain.sendTTS(STT.getSingleActionCommandSentence(actionCounter))" name="tellAction" incomingTransitions="_QR-e0DJgEeenB_tBbZAJFQ _Ufm84DJgEeenB_tBbZAJFQ">
