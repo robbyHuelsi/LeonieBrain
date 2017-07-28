@@ -33,7 +33,7 @@ public class CrowdDet implements IParser, Serializable{
 		this.start = start;
 		
 		this.personList.removeAllElements();
-		if (!data.equals("0#")) {
+		if (!data.equals("0#") && !data.equals("0")) {
 			String[] datas = data.split("#");
 			String[] crowd = datas[1].split(";"); //crowd: 1 person per indices
 				

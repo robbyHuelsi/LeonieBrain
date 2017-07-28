@@ -17,7 +17,7 @@
         <outgoingTransitions xmi:id="_O610AHNfEeegULGyA4oEIQ" specification="HBrain.TTSReady" target="_IN0iYHNfEeegULGyA4oEIQ"/>
         <outgoingTransitions xmi:id="_SlsVIHNfEeegULGyA4oEIQ" specification="after 5s" target="_IN0iYHNfEeegULGyA4oEIQ"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_Too0wCmxEeevtqslXB21pw" specification="entry /&#xA;GWPout = 13;&#xA;GWPstart = 28;&#xA;actionCounter = 0;&#xA;roundCounter = 0;&#xA;Mira.sendGoToGWP(GWPstart)" name="Init" incomingTransitions="_lL7MsCmuEeevtqslXB21pw">
+      <vertices xsi:type="sgraph:State" xmi:id="_Too0wCmxEeevtqslXB21pw" specification="entry /&#xA;GWPout = 13;&#xA;GWPstart = 1;&#xA;actionCounter = 0;&#xA;roundCounter = 0;&#xA;Mira.sendGoToGWP(GWPstart)" name="Init" incomingTransitions="_lL7MsCmuEeevtqslXB21pw">
         <outgoingTransitions xmi:id="_eO1-cCmxEeevtqslXB21pw" specification="Mira.arrivedWP" target="_L45WZCj3EeerIsa7nI0F3w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_CMHeECmyEeevtqslXB21pw" specification="entry / HBrain.sendTTS(&quot;[:-(] Can you please try it again?&quot;)" name="TellAnswer" incomingTransitions="_CMFo9ymyEeevtqslXB21pw _BM4kcDJfEeenB_tBbZAJFQ">
@@ -64,7 +64,7 @@
             <outgoingTransitions xmi:id="_vCT94FJ9Eee1SPQne49LsQ" specification="STT.answerReceived" target="_O5UjcDJYEeenB_tBbZAJFQ"/>
             <outgoingTransitions xmi:id="_wYo3oFJ9Eee1SPQne49LsQ" specification="after 15s" target="_Mdg-sjADEee0875Bvs1VDA"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_mCBPQDJWEeenB_tBbZAJFQ" specification="entry / HBrain.sendTTS2(&quot;Okay. &quot;, STT.getAllActionCommandsSentence())" name="GeneratedCommand" incomingTransitions="_SmhN8DJYEeenB_tBbZAJFQ _uYw3wDJWEeenB_tBbZAJFQ">
+          <vertices xsi:type="sgraph:State" xmi:id="_mCBPQDJWEeenB_tBbZAJFQ" specification="entry / HBrain.sendTTS3(&quot;Okay. &quot;, STT.getAllActionCommandsSentence(), &quot; Lets go!&quot;)" name="GeneratedCommand" incomingTransitions="_SmhN8DJYEeenB_tBbZAJFQ _uYw3wDJWEeenB_tBbZAJFQ">
             <outgoingTransitions xmi:id="_Mdg-pTADEee0875Bvs1VDA" specification="HBrain.TTSReady" target="_Nals4DJeEeenB_tBbZAJFQ"/>
             <outgoingTransitions xmi:id="_YJBlgDJeEeenB_tBbZAJFQ" specification="after 60s" target="_Nals4DJeEeenB_tBbZAJFQ"/>
           </vertices>
@@ -332,7 +332,7 @@
         <outgoingTransitions xmi:id="_52gqkHLaEee8EbYgELSTgQ" specification="always" target="_38kdYDJjEeenB_tBbZAJFQ"/>
       </vertices>
       <vertices xsi:type="sgraph:Choice" xmi:id="_l2VBgHMhEee9sO9ojrKZrw" incomingTransitions="_CMGP8CmyEeevtqslXB21pw">
-        <outgoingTransitions xmi:id="_oIfRYHMhEee9sO9ojrKZrw" specification="[roundCounter >=2]" target="_XohrEDJfEeenB_tBbZAJFQ"/>
+        <outgoingTransitions xmi:id="_oIfRYHMhEee9sO9ojrKZrw" specification="[roundCounter >=0]" target="_XohrEDJfEeenB_tBbZAJFQ"/>
         <outgoingTransitions xmi:id="_dkX88HMiEee9sO9ojrKZrw" specification="else" target="_0I-AsHMhEee9sO9ojrKZrw"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_0I-AsHMhEee9sO9ojrKZrw" specification="entry/&#xA;HBrain.sendTTS(&quot;[:-(]It seems to be quite hard to do. I will get to this task at some other time.[:-|]&quot;)&#xA;exit / roundCounter += 1&#xA;//ACHTUNG: Da steht exit!" name="DontDoIt" incomingTransitions="_dkX88HMiEee9sO9ojrKZrw">
@@ -347,7 +347,7 @@
           <vertices xsi:type="sgraph:Entry" xmi:id="_FCuNcHNhEeegULGyA4oEIQ">
             <outgoingTransitions xmi:id="_ISZ1gHNhEeegULGyA4oEIQ" specification="" target="_FcUZMHNhEeegULGyA4oEIQ"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_FcUZMHNhEeegULGyA4oEIQ" specification="entry/&#xA;HBrain.sendTTS(&quot;Should I help you? Please say yes or no.&quot;)" name="ask" incomingTransitions="_ISZ1gHNhEeegULGyA4oEIQ">
+          <vertices xsi:type="sgraph:State" xmi:id="_FcUZMHNhEeegULGyA4oEIQ" specification="entry/&#xA;HBrain.sendTTS(&quot;[:-)]Should I help you? Please say yes or no&quot;)" name="ask" incomingTransitions="_ISZ1gHNhEeegULGyA4oEIQ">
             <outgoingTransitions xmi:id="_TZZYEHNhEeegULGyA4oEIQ" specification="HBrain.TTSReady" target="_SZMfUHNhEeegULGyA4oEIQ"/>
             <outgoingTransitions xmi:id="_U4i2oHNhEeegULGyA4oEIQ" specification="after 5s" target="_SZMfUHNhEeegULGyA4oEIQ"/>
           </vertices>
@@ -3605,7 +3605,7 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_FcVnUXNhEeegULGyA4oEIQ" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_FcVnUnNhEeegULGyA4oEIQ"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_FcWOYXNhEeegULGyA4oEIQ" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_FcVnU3NhEeegULGyA4oEIQ" x="133" y="110" width="293" height="53"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_FcVnU3NhEeegULGyA4oEIQ" x="133" y="110" width="351" height="53"/>
         </children>
         <children xmi:id="_SZNGYHNhEeegULGyA4oEIQ" type="State" element="_SZMfUHNhEeegULGyA4oEIQ">
           <children xsi:type="notation:DecorationNode" xmi:id="_SZNGZHNhEeegULGyA4oEIQ" type="StateName">
