@@ -61,7 +61,7 @@
           <vertices xsi:type="sgraph:Exit" xmi:id="_Mdg-sjADEee0875Bvs1VDA" name="exit_correct" incomingTransitions="_cxBEUDJeEeenB_tBbZAJFQ _wYo3oFJ9Eee1SPQne49LsQ"/>
           <vertices xsi:type="sgraph:Exit" xmi:id="_Mdg-szADEee0875Bvs1VDA" name="exit_incomprehensible" incomingTransitions="_MdgXoTADEee0875Bvs1VDA _Mdg-qjADEee0875Bvs1VDA _kWvjsDCqEeeGYMEkKz9wVA _PObxwHLYEee8EbYgELSTgQ"/>
           <vertices xsi:type="sgraph:State" xmi:id="_lqW9MDJWEeenB_tBbZAJFQ" specification="entry /&#xA;STT.sendSpeechDetectionYesNo(3)" name="YesNo" incomingTransitions="_srBjkDJWEeenB_tBbZAJFQ">
-            <outgoingTransitions xmi:id="_vCT94FJ9Eee1SPQne49LsQ" specification="STT.spokenTextReceived" target="_O5UjcDJYEeenB_tBbZAJFQ"/>
+            <outgoingTransitions xmi:id="_vCT94FJ9Eee1SPQne49LsQ" specification="STT.answerReceived" target="_O5UjcDJYEeenB_tBbZAJFQ"/>
             <outgoingTransitions xmi:id="_wYo3oFJ9Eee1SPQne49LsQ" specification="after 15s" target="_Mdg-sjADEee0875Bvs1VDA"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_mCBPQDJWEeenB_tBbZAJFQ" specification="entry /&#xA;HBrain.sendTTS2(&quot;Okay. &quot;, STT.getActionCommandSentence())" name="GeneratedCommand" incomingTransitions="_SmhN8DJYEeenB_tBbZAJFQ _uYw3wDJWEeenB_tBbZAJFQ">
@@ -69,7 +69,7 @@
             <outgoingTransitions xmi:id="_YJBlgDJeEeenB_tBbZAJFQ" specification="after 60s" target="_Nals4DJeEeenB_tBbZAJFQ"/>
           </vertices>
           <vertices xsi:type="sgraph:Choice" xmi:id="_O5UjcDJYEeenB_tBbZAJFQ" incomingTransitions="_vCT94FJ9Eee1SPQne49LsQ">
-            <outgoingTransitions xmi:id="_SmhN8DJYEeenB_tBbZAJFQ" specification="[STT.getSpokenText() == &quot;yes&quot;]" target="_mCBPQDJWEeenB_tBbZAJFQ"/>
+            <outgoingTransitions xmi:id="_SmhN8DJYEeenB_tBbZAJFQ" specification="[STT.getAnswer() == &quot;yes&quot;]" target="_mCBPQDJWEeenB_tBbZAJFQ"/>
             <outgoingTransitions xmi:id="_g6FaMDJYEeenB_tBbZAJFQ" specification="else" target="_XaSe8DJYEeenB_tBbZAJFQ"/>
           </vertices>
           <vertices xsi:type="sgraph:Exit" xmi:id="_XaSe8DJYEeenB_tBbZAJFQ" name="exit_incorrect" incomingTransitions="_g6FaMDJYEeenB_tBbZAJFQ"/>
