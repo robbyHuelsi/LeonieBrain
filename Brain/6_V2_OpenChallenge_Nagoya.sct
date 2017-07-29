@@ -37,7 +37,7 @@
           <vertices xsi:type="sgraph:State" xmi:id="_fRoC4HQoEeeWGYJ2ermwjw" specification="entry/ HBrain.sendTTS(&quot;[:-|]okay[:-(]&quot;);&#xD;&#xA;HBrain.sendTTS(&quot;[idle:true]&quot;)" name="Start" incomingTransitions="_fRnb0nQoEeeWGYJ2ermwjw">
             <outgoingTransitions xmi:id="_fRoC7nQoEeeWGYJ2ermwjw" specification="after 5s" target="_fRop9HQoEeeWGYJ2ermwjw"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_fRop9HQoEeeWGYJ2ermwjw" specification="entry/ HBrain.sendTTS(&quot;waiting is boring.[-.-] im going to watch some tv.&quot;);&#xD;&#xA;Mira.sendGoToGWP(6)" name="GoToTV" incomingTransitions="_fRoC7nQoEeeWGYJ2ermwjw">
+          <vertices xsi:type="sgraph:State" xmi:id="_fRop9HQoEeeWGYJ2ermwjw" specification="entry/ HBrain.sendTTS(&quot;waiting is boring.[-.-] im going to watch some tv because I am so smart. At Home! [:-O]&quot;);&#xD;&#xA;Mira.sendGoToGWP(6)" name="GoToTV" incomingTransitions="_fRoC7nQoEeeWGYJ2ermwjw">
             <outgoingTransitions xmi:id="_fRoqAnQoEeeWGYJ2ermwjw" specification="Mira.arrivedWP" target="_fRpREXQoEeeWGYJ2ermwjw"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_fRpRAnQoEeeWGYJ2ermwjw" specification="entry/ HBrain.sendTTS(&quot;that was fun.&quot;)" name="AfterVideo" incomingTransitions="_fRrGSHQoEeeWGYJ2ermwjw">
