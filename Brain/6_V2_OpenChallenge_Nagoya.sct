@@ -140,7 +140,7 @@
             <outgoingTransitions xmi:id="_xltzdXQqEeeWGYJ2ermwjw" specification="after 30s" target="_xlqJE3QqEeeWGYJ2ermwjw"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_J99JkHQrEeeWGYJ2ermwjw" name="wait for marc" incomingTransitions="_xlqwGXQqEeeWGYJ2ermwjw _xlqwHnQqEeeWGYJ2ermwjw">
-            <outgoingTransitions xmi:id="_VMA9cHQrEeeWGYJ2ermwjw" specification="CrowdDetection.detected" target="_TEnMEHQrEeeWGYJ2ermwjw"/>
+            <outgoingTransitions xmi:id="_VMA9cHQrEeeWGYJ2ermwjw" specification="[1==0] //CrowdDetection.detected" target="_TEnMEHQrEeeWGYJ2ermwjw"/>
             <outgoingTransitions xmi:id="_YP4-IHQrEeeWGYJ2ermwjw" specification="after 3s" target="_xlo7vHQqEeeWGYJ2ermwjw"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_TEnMEHQrEeeWGYJ2ermwjw" specification="entry/&#xA;HBrain.sendTTS(&quot;I found &quot;);&#xA;HBrain.sendTTS_num(CrowdDetection.getTotalCount());&#xA;HBrain.sendTTS(&quot; people.&quot;)" name="crowd" incomingTransitions="_VMA9cHQrEeeWGYJ2ermwjw">
@@ -155,7 +155,7 @@
         <outgoingTransitions xmi:id="_xJ9nUHQxEeeWGYJ2ermwjw" specification="HBrain.TTSReady" target="_eLJcoHQgEeeWGYJ2ermwjw"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_EPmpMHQ3EeeWGYJ2ermwjw" specification="entry/&#xA;Mira.sendGoToGWP(21)" name="gwp1" incomingTransitions="_36I0QHQpEeeWGYJ2ermwjw">
-        <outgoingTransitions xmi:id="_LDO5IHQ3EeeWGYJ2ermwjw" specification="Mira.arrivedWP" target="_w1YYEHQpEeeWGYJ2ermwjw"/>
+        <outgoingTransitions xmi:id="_LDO5IHQ3EeeWGYJ2ermwjw" specification="always //Mira.arrivedWP" target="_w1YYEHQpEeeWGYJ2ermwjw"/>
       </vertices>
     </regions>
   </sgraph:Statechart>
