@@ -14,7 +14,8 @@ public class OpCallbackImplFollowMe implements IOpCallbackImpl,
 	org.yakindu.scr.generalpurposeservicerobotv1.IGeneralPurposeServiceRobotV1Statemachine.SCIFollowMeOperationCallback,
 	org.yakindu.scr.generalpurposeservicerobotv2.IGeneralPurposeServiceRobotV2Statemachine.SCIFollowMeOperationCallback,
 	org.yakindu.scr.extendedgeneralpurposeservicerobot.IExtendedGeneralPurposeServiceRobotStatemachine.SCIFollowMeOperationCallback,
-	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIFollowMeOperationCallback
+	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIFollowMeOperationCallback,
+	org.yakindu.scr.openchallengenagoya.IOpenChallengeNagoyaStatemachine.SCIFollowMeOperationCallback
 {
 	private Log log = Start.instanceOf().getLog();
 	private Module module = Start.instanceOf().getModules().get("FollowMe");
