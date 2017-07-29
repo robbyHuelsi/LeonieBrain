@@ -17,7 +17,7 @@
         <outgoingTransitions xmi:id="_O610AHNfEeegULGyA4oEIQ" specification="HBrain.TTSReady" target="_IN0iYHNfEeegULGyA4oEIQ"/>
         <outgoingTransitions xmi:id="_SlsVIHNfEeegULGyA4oEIQ" specification="after 5s" target="_IN0iYHNfEeegULGyA4oEIQ"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_Too0wCmxEeevtqslXB21pw" specification="entry /&#xA;GWPout = 13;&#xA;GWPstart = 40;&#xA;actionCounter = 0;&#xA;roundCounter = 0;&#xA;Mira.sendGoToGWP(GWPstart)" name="Init" incomingTransitions="_lL7MsCmuEeevtqslXB21pw">
+      <vertices xsi:type="sgraph:State" xmi:id="_Too0wCmxEeevtqslXB21pw" specification="entry /&#xA;GWPout = 13;&#xA;GWPstart = 26;&#xA;actionCounter = 0;&#xA;roundCounter = 0;&#xA;Mira.sendGoToGWP(GWPstart)" name="Init" incomingTransitions="_lL7MsCmuEeevtqslXB21pw">
         <outgoingTransitions xmi:id="_eO1-cCmxEeevtqslXB21pw" specification="Mira.arrivedWP" target="_L45WZCj3EeerIsa7nI0F3w"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_CMHeECmyEeevtqslXB21pw" specification="entry / HBrain.sendTTS(&quot;[:-(] Can you please try it again?&quot;)" name="TellAnswer" incomingTransitions="_CMFo9ymyEeevtqslXB21pw _BM4kcDJfEeenB_tBbZAJFQ">
@@ -101,7 +101,7 @@
               <vertices xsi:type="sgraph:Entry" xmi:id="_gdKJlTJfEeenB_tBbZAJFQ">
                 <outgoingTransitions xmi:id="_gdKJljJfEeenB_tBbZAJFQ" specification="" target="_gdNz0jJfEeenB_tBbZAJFQ"/>
               </vertices>
-              <vertices xsi:type="sgraph:Exit" xmi:id="_gdKwgDJfEeenB_tBbZAJFQ" name="exit_done" incomingTransitions="_gdKwjzJfEeenB_tBbZAJFQ _gdSFUzJfEeenB_tBbZAJFQ _gdYzCTJfEeenB_tBbZAJFQ _gdSsWTJfEeenB_tBbZAJFQ _gdZaFTJfEeenB_tBbZAJFQ _gdNM2jJfEeenB_tBbZAJFQ _gdOa-zJfEeenB_tBbZAJFQ _gdZaGjJfEeenB_tBbZAJFQ _gdSFWDJfEeenB_tBbZAJFQ _gdZaBDJfEeenB_tBbZAJFQ _gdaBFjJfEeenB_tBbZAJFQ _NID1oDJiEeenB_tBbZAJFQ _Q6IZEDJiEeenB_tBbZAJFQ _2OcYAHPoEeegULGyA4oEIQ"/>
+              <vertices xsi:type="sgraph:Exit" xmi:id="_gdKwgDJfEeenB_tBbZAJFQ" name="exit_done" incomingTransitions="_gdKwjzJfEeenB_tBbZAJFQ _gdSFUzJfEeenB_tBbZAJFQ _gdYzCTJfEeenB_tBbZAJFQ _gdSsWTJfEeenB_tBbZAJFQ _gdZaFTJfEeenB_tBbZAJFQ _gdNM2jJfEeenB_tBbZAJFQ _gdOa-zJfEeenB_tBbZAJFQ _gdZaGjJfEeenB_tBbZAJFQ _gdSFWDJfEeenB_tBbZAJFQ _gdZaBDJfEeenB_tBbZAJFQ _gdaBFjJfEeenB_tBbZAJFQ _NID1oDJiEeenB_tBbZAJFQ _Q6IZEDJiEeenB_tBbZAJFQ _2OcYAHPoEeegULGyA4oEIQ _JRxlYHPxEeeGLYHd5ialKA"/>
               <vertices xsi:type="sgraph:State" xmi:id="_gdKwgTJfEeenB_tBbZAJFQ" specification="" name="GoTo" incomingTransitions="_gdNz0zJfEeenB_tBbZAJFQ">
                 <outgoingTransitions xmi:id="_gdKwjzJfEeenB_tBbZAJFQ" specification="# exit_done >" target="_gdKwgDJfEeenB_tBbZAJFQ"/>
                 <regions xmi:id="_gdKwkTJfEeenB_tBbZAJFQ" name="goto GeneralP_extended">
@@ -199,7 +199,8 @@
                 <outgoingTransitions xmi:id="_gdSFWDJfEeenB_tBbZAJFQ" specification="after 10s" target="_gdKwgDJfEeenB_tBbZAJFQ"/>
               </vertices>
               <vertices xsi:type="sgraph:State" xmi:id="_gdSFXTJfEeenB_tBbZAJFQ" specification="entry/ HBrain.sendTTS(&quot;[:-(] I'm sorry. I can't follow somebody at the moment.&quot;)" name="followme" incomingTransitions="_gdOa5zJfEeenB_tBbZAJFQ">
-                <outgoingTransitions xmi:id="_gdSsWTJfEeenB_tBbZAJFQ" specification="# exit_done >" target="_gdKwgDJfEeenB_tBbZAJFQ"/>
+                <outgoingTransitions xmi:id="_gdSsWTJfEeenB_tBbZAJFQ" specification="HBrain.TTSReady" target="_gdKwgDJfEeenB_tBbZAJFQ"/>
+                <outgoingTransitions xmi:id="_JRxlYHPxEeeGLYHd5ialKA" specification="after 10s" target="_gdKwgDJfEeenB_tBbZAJFQ"/>
                 <regions xmi:id="_gdSsWzJfEeenB_tBbZAJFQ" name="FollowMe in GPSR">
                   <vertices xsi:type="sgraph:State" xmi:id="_gdSsXDJfEeenB_tBbZAJFQ" specification="entry/ FollowMe.sendTrackingOnAtNext();&#xA;HBrain.sendTTS(&quot;Okay, I follow you!&quot;)" name="StartTracking" incomingTransitions="_gdUhgzJfEeenB_tBbZAJFQ _gdXk8jJfEeenB_tBbZAJFQ">
                     <outgoingTransitions xmi:id="_gdSsaDJfEeenB_tBbZAJFQ" specification="FollowMe.trackingPersonLost" target="_gdUhgTJfEeenB_tBbZAJFQ"/>
@@ -600,7 +601,7 @@
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_NF41ATGqEee6iepVRa3hDA" name="isHorizontal" booleanValue="true"/>
           <layoutConstraint xsi:type="notation:Bounds" xmi:id="_NF3m5jGqEee6iepVRa3hDA" x="323" y="1253" width="209" height="59"/>
         </children>
-        <children xsi:type="notation:Shape" xmi:id="_SvNj0DJAEeeZhsafwDkvZw" type="Note" fontName="Verdana" description="GWPStart bekommen wir kurz davor: Entweder 40 (Livingroom) oder 28 (Bedroom)" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
+        <children xsi:type="notation:Shape" xmi:id="_SvNj0DJAEeeZhsafwDkvZw" type="Note" fontName="Verdana" description="GWPStart bekommen wir kurz davor: Entweder 26 (Livingroom) oder 28 (Bedroom)" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
           <children xsi:type="notation:BasicDecorationNode" xmi:id="_SvQAEDJAEeeZhsafwDkvZw" type="DiagramName">
             <element xsi:nil="true"/>
           </children>
@@ -2276,6 +2277,16 @@
       <styles xsi:type="notation:FontStyle" xmi:id="_2OdmI3PoEeegULGyA4oEIQ" fontName="Verdana"/>
       <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_2OdmInPoEeegULGyA4oEIQ" points="[0, 0, -301, -539]$[309, 539, 8, 0]"/>
       <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_2OeNMHPoEeegULGyA4oEIQ" id="(0.5544871794871795,1.0)"/>
+    </edges>
+    <edges xmi:id="_JRzakHPxEeeGLYHd5ialKA" type="Transition" element="_JRxlYHPxEeeGLYHd5ialKA" source="_gdEDHTJfEeenB_tBbZAJFQ" target="_gdEC4DJfEeenB_tBbZAJFQ">
+      <children xsi:type="notation:DecorationNode" xmi:id="_JR1PwHPxEeeGLYHd5ialKA" type="TransitionExpression">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_JR1PwXPxEeeGLYHd5ialKA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_JR1PwnPxEeeGLYHd5ialKA" y="10"/>
+      </children>
+      <styles xsi:type="notation:ConnectorStyle" xmi:id="_JRzakXPxEeeGLYHd5ialKA" routing="Rectilinear" lineColor="4210752"/>
+      <styles xsi:type="notation:FontStyle" xmi:id="_JR0BoHPxEeeGLYHd5ialKA" fontName="Verdana"/>
+      <bendpoints xsi:type="notation:RelativeBendpoints" xmi:id="_JRzaknPxEeeGLYHd5ialKA" points="[-5, 0, 2, -467]$[0, 464, 7, -3]"/>
+      <sourceAnchor xsi:type="notation:IdentityAnchor" xmi:id="_JR3sAHPxEeeGLYHd5ialKA" id="(0.6751269035532995,1.0)"/>
     </edges>
   </notation:Diagram>
   <notation:Diagram xmi:id="_gdEp4DJfEeenB_tBbZAJFQ" type="org.yakindu.sct.ui.editor.editor.StatechartDiagramEditor" element="_gdSFXTJfEeenB_tBbZAJFQ" measurementUnit="Pixel">
