@@ -165,4 +165,10 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 		send("#MIRA#LC#" +  angle + "#");		
 	}
 
+	@Override
+	public void sendMoonwalk() {
+		send("#MIRA#MOONWALK#");
+		
+	}
+
 }
