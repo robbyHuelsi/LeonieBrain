@@ -123,6 +123,8 @@ public interface IRestaurantStatemachine extends ITimerCallback,IStatemachine {
 		
 		public void raiseActionsReceived();
 		
+		public void raiseOrderReceived();
+		
 		public void setSCISTTOperationCallback(SCISTTOperationCallback operationCallback);
 	
 	}
@@ -147,8 +149,6 @@ public interface IRestaurantStatemachine extends ITimerCallback,IStatemachine {
 		
 		public String getAllActionCommandsSentence();
 		
-		public String getSingleActionCommandSentence(long i);
-		
 		public void sendSpeechDetectionSmalltalk(long timeout);
 		
 		public void sendSpeechDetectionYesNo(long timeout);
@@ -156,6 +156,10 @@ public interface IRestaurantStatemachine extends ITimerCallback,IStatemachine {
 		public void sendSpeechDetectionName(long timeout);
 		
 		public void sendSpeechDetectionActions(long timeout);
+		
+		public void sendSpeechDetectionOrder(long timeout);
+		
+		public String getOrderSentenceForBarkeeper();
 		
 	}
 	
@@ -192,6 +196,8 @@ public interface IRestaurantStatemachine extends ITimerCallback,IStatemachine {
 		public long getWavingAngle();
 		
 		public long getMinDistance();
+		
+		public long getTotalNumberDistance();
 		
 	}
 	

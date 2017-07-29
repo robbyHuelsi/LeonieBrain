@@ -152,6 +152,16 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setActionsReceived(false);
 		
 	}
+	
+	@Override
+	public void sendSpeechDetectionOrder(long timeout) {
+		send("#STT#5#"+ timeout + "#");
+	}
+
+	@Override
+	public String getOrderSentenceForBarkeeper() {
+		return ((STT)module.getParser()).getOrderSentence();
+	}
 
 
 
