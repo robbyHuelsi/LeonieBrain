@@ -118,7 +118,7 @@
           <vertices xsi:type="sgraph:State" xmi:id="_xlr-OnQqEeeWGYJ2ermwjw" name="wait4" incomingTransitions="_xlr-MHQqEeeWGYJ2ermwjw _xlr-NXQqEeeWGYJ2ermwjw">
             <outgoingTransitions xmi:id="_xlr-PHQqEeeWGYJ2ermwjw" specification="after 1s" target="_xlr-QXQqEeeWGYJ2ermwjw"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_xlr-QXQqEeeWGYJ2ermwjw" specification="entry /&#xD;&#xA;HBrain.sendTTS(&quot;{0;-150} In front of me is a Leap motion. {Person}This allows people to answer my questions also by giving me hand gestures.&quot;)" name="LeapMotion_Handgestures" incomingTransitions="_xlr-PHQqEeeWGYJ2ermwjw">
+          <vertices xsi:type="sgraph:State" xmi:id="_xlr-QXQqEeeWGYJ2ermwjw" specification="entry /&#xD;&#xA;HBrain.sendTTS(&quot;{0;-150} In front of me is a Action Cam. {Person}This allows me to recognize obsticles.&quot;)" name="LeapMotion_Handgestures" incomingTransitions="_xlr-PHQqEeeWGYJ2ermwjw">
             <outgoingTransitions xmi:id="_xlslSXQqEeeWGYJ2ermwjw" specification="HBrain.TTSReady" target="_xlslU3QqEeeWGYJ2ermwjw"/>
             <outgoingTransitions xmi:id="_xlslTnQqEeeWGYJ2ermwjw" specification="after 10s" target="_xlslU3QqEeeWGYJ2ermwjw"/>
           </vertices>
