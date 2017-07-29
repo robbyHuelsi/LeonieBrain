@@ -10,7 +10,7 @@ public class OpCallbackImplLEDControl implements IOpCallbackImpl,
 {
 	
 	private Log log = Start.instanceOf().getLog();
-	private Module module = Start.instanceOf().getModules().get("LEDCommand");
+	private Module module = Start.instanceOf().getModules().get("LEDControl");
 
 	@Override
 	public void send(String command) {

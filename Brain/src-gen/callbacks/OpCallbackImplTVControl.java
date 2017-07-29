@@ -10,7 +10,7 @@ public class OpCallbackImplTVControl implements IOpCallbackImpl,
 {
 	
 	private Log log = Start.instanceOf().getLog();
-	private Module module = Start.instanceOf().getModules().get("TVCommand");
+	private Module module = Start.instanceOf().getModules().get("TVControl");
 
 	@Override
 	public void send(String command) {
