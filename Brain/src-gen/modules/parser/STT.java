@@ -25,14 +25,9 @@ public class STT implements IParser, Serializable{
 	private boolean incomprehensible;
 	private boolean actionReceived;
 	private boolean actionsReceived;
-<<<<<<< HEAD
-	private ArrayList<String> orderList = new ArrayList<>();
-	
-=======
 	
 	private ArrayList<String> orderList = new ArrayList<>();
 
->>>>>>> EGPSR
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		
@@ -146,13 +141,6 @@ public class STT implements IParser, Serializable{
 		}
 	}
 	
-	public ArrayList<String> getOrderList() {
-		return orderList;
-	}
-
-	public void setOrderList(ArrayList<String> orderList) {
-		this.orderList = orderList;
-	}
 	
 	public String getInstructionFromActionListAt(long i){
 		try {
