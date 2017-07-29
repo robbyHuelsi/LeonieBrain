@@ -10,7 +10,7 @@ import modules.parser.STT;
 
 public class OpCallbackImplAttractiveness implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIAttractivenessOperationCallback,
-	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIAttractivenessOperationCallback,
+	//org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIAttractivenessOperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIAttractivenessOperationCallback
 {
 	private Log log = Start.instanceOf().getLog();

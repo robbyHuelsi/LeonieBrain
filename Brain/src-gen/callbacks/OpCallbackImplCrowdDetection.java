@@ -15,11 +15,13 @@ import modules.parser.STT;
 
 public class OpCallbackImplCrowdDetection implements IOpCallbackImpl,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCICrowdDetectionOperationCallback,
-	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCICrowdDetectionOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobotv1.IGeneralPurposeServiceRobotV1Statemachine.SCICrowdDetectionOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobotv2.IGeneralPurposeServiceRobotV2Statemachine.SCICrowdDetectionOperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCICrowdDetectionOperationCallback,
-	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCICrowdDetectionOperationCallback,
+	org.yakindu.scr.extendedgeneralpurposeservicerobot.IExtendedGeneralPurposeServiceRobotStatemachine.SCICrowdDetectionOperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCICrowdDetectionOperationCallback,
-	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCICrowdDetectionOperationCallback
+	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCICrowdDetectionOperationCallback,
+	org.yakindu.scr.openchallengenagoya.IOpenChallengeNagoyaStatemachine.SCICrowdDetectionOperationCallback
 {
 	private Log log = Start.instanceOf().getLog();
 	private Module module = Start.instanceOf().getModules().get("CrowdDet");

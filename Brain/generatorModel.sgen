@@ -91,7 +91,7 @@ GeneratorModel for yakindu::java {
 		}
 	}	
 	
-	statechart GeneralPurposeServiceRobot {
+	statechart GeneralPurposeServiceRobotV1 {
 
 		feature Outlet {
 			targetProject = "Brain"
@@ -104,7 +104,7 @@ GeneratorModel for yakindu::java {
 		}
 	}
 	
-	statechart OpenChallenge {
+	statechart GeneralPurposeServiceRobotV2 {
 
 		feature Outlet {
 			targetProject = "Brain"
@@ -117,7 +117,33 @@ GeneratorModel for yakindu::java {
 		}
 	}
 	
-		statechart EEGPSR {
+	statechart OpenChallengeMagdeburg {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+	statechart OpenChallengeNagoya {
+
+		feature Outlet {
+			targetProject = "Brain"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+		
+		feature GeneralFeatures {
+	    	TimerService = true
+		}
+	}
+	
+		statechart ExtendedGeneralPurposeServiceRobot {
 
 			feature Outlet {
 				targetProject = "Brain"

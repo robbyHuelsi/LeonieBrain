@@ -203,8 +203,15 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 			detected = true;
 		}
 		
+		private boolean noPerson;
+		
+		public void raiseNoPerson() {
+			noPerson = true;
+		}
+		
 		protected void clearEvents() {
 			detected = false;
+			noPerson = false;
 		}
 	}
 	
@@ -895,7 +902,7 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	
 	/* Entry action for state 'waitForSTT'. */
 	private void entryAction_BlindMansBlufGame_ParallelOfSTTAndKinect2_STT_waitForSTT() {
-		timer.setTimer(this, 0, 5 * 1000, false);
+		timer.setTimer(this, 0, 5*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[attentive]");
 	}
@@ -986,7 +993,7 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_BlindMansBlufGame_Turn() {
-		timer.setTimer(this, 2, 2 * 1000, false);
+		timer.setTimer(this, 2, 2*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -1003,7 +1010,7 @@ public class Test_BlindMansBluffStatemachine implements ITest_BlindMansBluffStat
 	
 	/* Entry action for state 'wait'. */
 	private void entryAction_BlindMansBlufGame_wait() {
-		timer.setTimer(this, 3, 5 * 1000, false);
+		timer.setTimer(this, 3, 5*1000, false);
 	}
 	
 	/* Entry action for state 'Repeat'. */

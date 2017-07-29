@@ -25,8 +25,14 @@ public class STT implements IParser, Serializable{
 	private boolean incomprehensible;
 	private boolean actionReceived;
 	private boolean actionsReceived;
+<<<<<<< HEAD
 	private ArrayList<String> orderList = new ArrayList<>();
 	
+=======
+	
+	private ArrayList<String> orderList = new ArrayList<>();
+
+>>>>>>> EGPSR
 	public boolean parse(String data, Start start) {
 		this.start = start;
 		
@@ -140,6 +146,14 @@ public class STT implements IParser, Serializable{
 		}
 	}
 	
+	public ArrayList<String> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(ArrayList<String> orderList) {
+		this.orderList = orderList;
+	}
+	
 	public String getInstructionFromActionListAt(long i){
 		try {
 			if (this.actionList != null) {
@@ -179,63 +193,14 @@ public class STT implements IParser, Serializable{
 		}
 	}
 	
-	public String getActionCommandSentence() {
+	public String getAllActionCommandsSentence() {
 		try{
 			if (actionList.isEmpty()) {
 				return "I didnt get actions. Sorry [:-(]";
 			}else{
 				String answer = "";
-				for (Action action : actionList) {
-					switch (action.getInstruction()) {
-					case "goto":
-						answer += "I should go to the " + action.getLocation() + ". ";
-						break;
-						
-					case "crowd":
-						answer += "I should detect the crowd. "; // TODO: Hinzufügen, nachwas gefragt ist " + action.getLocation() + ". ";
-						break;
-						
-					case "surrounding":
-						answer += "I should look for something in the surrounding. "; //TODO: Ausweiten
-						break;
-						
-					case "bring":
-						if ( action.getObject() == null || action.getObject().isEmpty()) {
-							answer += "I should bring something. ";
-						}else{
-							answer += "I should bring the " + action.getObject() + ". "; //TODO: Ausweitern
-						}
-						
-						break;
-						
-					case "open":
-						if ( action.getObject() == null || action.getObject().isEmpty()) {
-							answer += "I should open something. ";
-						}else{
-							answer += "I should open the " + action.getObject() + ". ";
-						}
-						break;
-						
-					case "followme":
-						answer += "I should follow " + action.getLocation() + ". ";
-						break;
-						
-					case "tell":
-						if (action.getObject() == null || action.getObject().isEmpty()) {
-							answer += "I should tell something. ";
-						}else{
-							answer += "I should tell: " + action.getObject() + ". ";
-						}
-						break;
-						
-					case "question":
-						answer += "I should answer a question. ";
-						break;
-	
-					default:
-						answer += "I should do something unknown. ";
-						break;
-					}
+				for (int i = 0; i < this.actionList.size(); i++) {
+					answer += getSingleActionCommandSentence(i) + " ";
 				}
 				return answer;
 			}
@@ -244,6 +209,83 @@ public class STT implements IParser, Serializable{
 			return "";
 		}
 	}
+	
+	public String getSingleActionCommandSentence(long index) {
+		
+		String answer = "The ";
+		
+		if (index < 0 || index >= this.actionList.size()) {
+			return "";
+		}
+		
+		switch ((int)index) {
+		case 0:
+			answer += "first ";
+			break;
+			
+		case 1:
+			answer += "second ";
+			break;
+			
+		case 2:
+			answer += "third ";
+			break;
+			
+		case 3:
+			answer += "fourth ";
+			break;
+
+		default:
+			answer += "next ";
+			break;
+		}
+		
+		answer += "task is ";
+		
+		Action action = this.actionList.get((int)index);
+		
+		switch (action.getInstruction()) {
+		case "goto":
+			return answer + "to go to the " + action.getLocation() + ".";
+			
+		case "crowd":
+			return answer + "to detect the crowd. "; // TODO: Hinzufügen, nachwas gefragt ist " + action.getLocation() + ". ";
+			
+		case "surrounding":
+			return answer + "to look for something in the surrounding."; //TODO: Ausweiten
+			
+		case "bring":
+			if ( action.getObject() == null || action.getObject().isEmpty()) {
+				return answer + "to bring something. ";
+			}else{
+				return answer + "to bring the " + action.getObject() + "."; //TODO: Ausweitern
+			}
+					
+		case "open":
+			if ( action.getObject() == null || action.getObject().isEmpty()) {
+				return answer + "to open something. ";
+			}else{
+				return answer + "to open the " + action.getObject() + ".";
+			}
+			
+		case "followme":
+			return answer + "to follow " + action.getLocation() + ".";
+			
+		case "tell":
+			if (action.getLocation() == null || action.getLocation().isEmpty()) { //Location = Thema
+				return answer + "to tell something. ";
+			}else{
+				return answer + "to tell about " + action.getObject() + ".";
+			}
+			
+		case "question":
+			return answer + "to answer a question.";
+
+		default:
+			return answer + "to do something unknown.";
+		}
+	}
+
 	
 	public void resetActionList(){
 		this.actionList = new Vector<Action>();

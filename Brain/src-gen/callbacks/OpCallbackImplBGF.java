@@ -12,10 +12,12 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIBGFOperationCallback,
-	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobotv1.IGeneralPurposeServiceRobotV1Statemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobotv2.IGeneralPurposeServiceRobotV2Statemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIBGFOperationCallback,
-	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIBGFOperationCallback,
-	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.openchallengemagdeburg.IOpenChallengeMagdeburgStatemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.openchallengenagoya.IOpenChallengeNagoyaStatemachine.SCIBGFOperationCallback,
+	org.yakindu.scr.extendedgeneralpurposeservicerobot.IExtendedGeneralPurposeServiceRobotStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIBGFOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIBGFOperationCallback
 {
@@ -90,97 +92,112 @@ public class OpCallbackImplBGF implements IOpCallbackImpl,
 	 * Moisturizer
 	 */
 	public long getGWPByName(String inName) {
-		switch (inName.toLowerCase()) {
+		
+		try {
+			if (inName == null || inName.equals("")) {
+				return -1;
+			}
 			
-		case "leftplanks":		//NO WAYPOINT!!!!!!!
-		case "left planks":
-			return 0; //16
-			
-		case "kitchentable":
-		case "kitchen table":
-			return 1; //5
-			
-		case "kitchenshelf":
-		case "kitchen shelf":			
-			return 2; //10
-			
-		case "kitchenrack": 	//NO WAYPOINT!!!!	
-		case "kitchen rack":
-			return 2; //21
-			
-		case "rightrack": 		//NO WAYPOINT!!!!	
-		case "right rack":
-			return 2; //3
+			switch (inName.toLowerCase()) {
+				
+			case "kitchentable":
+			case "kitchen table":
+				return 1; //5
+				
+			case "kitchenshelf":
+			case "kitchen shelf":			
+				return 2; //10
+				
+			case "balconyshelf":
+			case "balcony shelf":
+				return 3; //18
 
-		case "balconyshelf":
-		case "balcony shelf":
-			return 3; //18
-			
-		case "fridge": 			//NO WAYPOINT!!!! 
-			return 4; //20
-			
-		case "coffee table": 	//NO WAYPOINT!!!!
-			return 5; //13
-			
-		case "sideboard": 		//NO WAYPOINT!!!!		
-			return 5; //4
-			
-		case "tv":				//NO WAYPOINT!!!!
-			return 5; //14
-			
-		case "sofa":
-			return 6; //12
-			
-		case "entranceshelf":	
-		case "entrance shelf":
-			return 7; //9
-			
-		case "kitchencounter":
-		case "kitchen counter":
-			return 8; //19
-			
-		case "bed":
-			return 9; //8
-			
-		case "teepee":			//NO WAYPOINT!!!!
-			return 9; //7
-	
-		case "desk":				
-			return 11; //1
-			
-		case "rightplanks":		//NO WAYPOINT!!!!	
-		case "right planks":
-			return 12; //17
-			
-		case "bistrotable":
-		case "bistro table":
-		case "balcony":
-			return 12; //15
+			case "kitchen":	
+				return 4; //~
+				
+			case "coffee table": 	//NO WAYPOINT!!!!
+				return 5; //13
 
-		case "littledesk": 		//NO WAYPOINT!!!!	
-		case "little desk": 		
-			return 15; //6
-			
-		case "entrance":		//NO WAYPOINT!!!!	
-			return 7; //11
-			
-		case "bedroom":	
-			return 19; 
-			
-		case "corridor":		
-			return 24; 
-			
-		case "kitchen":	
-			return 24; 
-			
-		case "bookcase":		//NO WAYPOINT!!!!	
-			return 24; //11
-			
-		case "livingroom":	
-		case "living room":		
-			return 27; 
-			
-		default:
+			case "sofa":
+				return 6; //12
+				
+			case "entranceshelf":	
+			case "entrance shelf":
+				return 7; //~9
+
+			case "entrance": 		//NO WAYPOINT!!!!
+				return 7; //~9
+				
+			case "kitchencounter":
+			case "kitchen counter":
+				return 8; //19
+				
+			case "bed":
+				return 9; //8
+				
+			case "bookshelf":
+				return 10; //-
+				
+			case "desk":				
+				return 11; //1
+				
+			case "bistrotable":
+			case "bistro table":
+			case "balcony":
+				return 12; //15
+
+			case "corridor":		
+				return 21; 
+				
+			case "livingroom":	
+			case "living room":		
+				return 27; 
+				
+			case "bedroom":		
+				return 28; 
+				
+			case "leftrack":
+			case "left rack":
+				return 29; //2
+				
+			case "rightrack":
+			case "right rack":
+				return 30; //3
+				
+			case "sideboard":
+			case "side board":
+				return 31; //4
+				
+			case "little desk":
+				return 32; //6
+				
+			case "teepee":
+				return 33; //7
+				
+			case "bookcase":
+				return 34; //11
+				
+			case "tv":
+				return 35; //14
+				
+			case "left planks":
+				return 36; //16
+				
+			case "right planks":
+				return 37; //17
+				
+			case "fridge":
+				return 38; //20
+				
+			case "kitchenrack":
+			case "kitchen rack":
+				return 39; //21
+									
+			default:
+				return -1;
+			}
+		} catch (Exception e) {
+			Start.getLog().error("exeption in getGWPByName(String inName)");
 			return -1;
 		}
 	}

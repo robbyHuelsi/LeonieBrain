@@ -12,13 +12,14 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	org.yakindu.scr.braganca.IBragancaStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCISTTOperationCallback,
-	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCISTTOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobotv1.IGeneralPurposeServiceRobotV1Statemachine.SCISTTOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobotv2.IGeneralPurposeServiceRobotV2Statemachine.SCISTTOperationCallback,
 	org.yakindu.scr.test_stt_smalltalk.ITest_STT_SmalltalkStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.test_stt_yesno.ITest_STT_YesNoStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.test_stt_names.ITest_STT_NamesStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCISTTOperationCallback,
-	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCISTTOperationCallback,
-	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCISTTOperationCallback,
+	org.yakindu.scr.openchallengemagdeburg.IOpenChallengeMagdeburgStatemachine.SCISTTOperationCallback,
+	org.yakindu.scr.extendedgeneralpurposeservicerobot.IExtendedGeneralPurposeServiceRobotStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCISTTOperationCallback
 {
@@ -76,8 +77,12 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		return ((STT)module.getParser()).getLocationFromActionListAt(i);
 	}
 	
-	public String getActionCommandSentence() {
-		return ((STT)module.getParser()).getActionCommandSentence();
+	public String getAllActionCommandsSentence() {
+		return ((STT)module.getParser()).getAllActionCommandsSentence();
+	}
+	
+	public String getSingleActionCommandSentence(long i) {
+		return ((STT)module.getParser()).getSingleActionCommandSentence(i);
 	}
 
 
@@ -146,6 +151,16 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 		stt.setActionReceived(false);
 		stt.setActionsReceived(false);
 		
+	}
+	
+	@Override
+	public void sendSpeechDetectionOrder(long timeout) {
+		send("#STT#5#"+ timeout + "#");
+	}
+
+	@Override
+	public String getOrderSentenceForBarkeeper() {
+		return ((STT)module.getParser()).getOrderSentence();
 	}
 
 	@Override

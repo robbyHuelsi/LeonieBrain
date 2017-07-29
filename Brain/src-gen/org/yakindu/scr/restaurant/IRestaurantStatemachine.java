@@ -147,7 +147,7 @@ public interface IRestaurantStatemachine extends ITimerCallback,IStatemachine {
 		
 		public String getLocationFromActionListAt(long i);
 		
-		public String getActionCommandSentence();
+		public String getAllActionCommandsSentence();
 		
 		public void sendSpeechDetectionSmalltalk(long timeout);
 		

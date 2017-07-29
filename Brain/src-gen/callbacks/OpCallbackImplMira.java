@@ -14,13 +14,15 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	org.yakindu.scr.storinggroceries.IStoringGroceriesStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.speechandpersonrecognition.ISpeechAndPersonRecognitionStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.helpmecarry.IHelpMeCarryStatemachine.SCIMiraOperationCallback,
-	org.yakindu.scr.generalpurposeservicerobot.IGeneralPurposeServiceRobotStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobotv1.IGeneralPurposeServiceRobotV1Statemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.generalpurposeservicerobotv2.IGeneralPurposeServiceRobotV2Statemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.test_mira.ITest_MiraStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.test_noise.ITest_NoiseStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.robotinspection.IRobotInspectionStatemachine.SCIMiraOperationCallback,
-	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIMiraOperationCallback,
-	org.yakindu.scr.eegpsr.IEEGPSRStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.openchallengemagdeburg.IOpenChallengeMagdeburgStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.openchallengenagoya.IOpenChallengeNagoyaStatemachine.SCIMiraOperationCallback,
+	org.yakindu.scr.extendedgeneralpurposeservicerobot.IExtendedGeneralPurposeServiceRobotStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.test_leapmotionleftright.ITest_LeapMotionLeftRightStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIMiraOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIMiraOperationCallback
@@ -161,6 +163,12 @@ public class OpCallbackImplMira implements IOpCallbackImpl,
 	public void sendGoToPhi(long angle) {
 		log.log("Mira: sendGoToPhi()");
 		send("#MIRA#LC#" +  angle + "#");		
+	}
+
+	@Override
+	public void sendMoonwalk() {
+		send("#MIRA#MOONWALK#");
+		
 	}
 
 }

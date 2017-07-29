@@ -996,7 +996,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'Init'. */
 	private void entryAction_main_region_Init() {
+<<<<<<< HEAD
 		timer.setTimer(this, 0, 2 * 1000, false);
+=======
+		timer.setTimer(this, 0, 2*1000, false);
+>>>>>>> EGPSR
 		
 		setGWPstart(0);
 		
@@ -1011,7 +1015,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'Ready/setStartPoint'. */
 	private void entryAction_main_region_Ready_setStartPoint() {
+<<<<<<< HEAD
 		timer.setTimer(this, 1, 5 * 1000, false);
+=======
+		timer.setTimer(this, 1, 5*1000, false);
+>>>>>>> EGPSR
 		
 		sCIHBrain.operationCallback.sendTTS("I am ready! But first I'm looking for the barman.");
 		
@@ -1020,7 +1028,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'Wait1'. */
 	private void entryAction_main_region_Wait1() {
+<<<<<<< HEAD
 		timer.setTimer(this, 2, 3 * 1000, false);
+=======
+		timer.setTimer(this, 2, 3*1000, false);
+>>>>>>> EGPSR
 		
 		sCIHBrain.operationCallback.sendTTS("Okay now I'm waiting for a guest to wave");
 	}
@@ -1032,7 +1044,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'AnnounceGetWaving'. */
 	private void entryAction_main_region_AnnounceGetWaving() {
-		timer.setTimer(this, 3, 15 * 1000, false);
+		timer.setTimer(this, 3, 15*1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOff();
 		
@@ -1041,14 +1053,14 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'WaitForOperator'. */
 	private void entryAction_main_region_WaitForOperator() {
-		timer.setTimer(this, 4, 12 * 1000, false);
+		timer.setTimer(this, 4, 12*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 	}
 	
 	/* Entry action for state 'LeonieChoosen'. */
 	private void entryAction_main_region_LeonieChoosen() {
-		timer.setTimer(this, 5, 3 * 1000, false);
+		timer.setTimer(this, 5, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Okay, I will take the order.");
 	}
@@ -1065,7 +1077,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'GetOrder'. */
 	private void entryAction_main_region_GetOrder() {
-		timer.setTimer(this, 6, 10 * 1000, false);
+		timer.setTimer(this, 6, 10*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionOrder(15);
 	}
@@ -1109,23 +1121,33 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'SearchingForBarman'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingForBarman() {
-		timer.setTimer(this, 7, 3 * 1000, false);
+		timer.setTimer(this, 7, 3*1000, false);
 		
 		sCIMira.operationCallback.sendPanTiltCamera(90, -10);
 	}
 	
 	/* Entry action for state 'SearchingRight'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingRight() {
+<<<<<<< HEAD
 		timer.setTimer(this, 8, 100 * 1000, false);
 		
 		timer.setTimer(this, 9, 3 * 1000, false);
+=======
+		timer.setTimer(this, 8, 100*1000, false);
+		
+		timer.setTimer(this, 9, 3*1000, false);
+>>>>>>> EGPSR
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
 	
 	/* Entry action for state 'FoundRight'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_FoundRight() {
+<<<<<<< HEAD
 		timer.setTimer(this, 10, 7 * 1000, false);
+=======
+		timer.setTimer(this, 10, 7*1000, false);
+>>>>>>> EGPSR
 		
 		sCIHBrain.operationCallback.sendTTS("There is a person in front of me. I think this is the barman so I'm standing on the left side of the bar.");
 		
@@ -1139,23 +1161,37 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'TiltCamera'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_TiltCamera() {
+<<<<<<< HEAD
 		timer.setTimer(this, 11, 4 * 1000, false);
 		
 		timer.setTimer(this, 12, 100 * 1000, false);
+=======
+		timer.setTimer(this, 11, 4*1000, false);
+		
+		timer.setTimer(this, 12, 100*1000, false);
+>>>>>>> EGPSR
 		
 		sCIMira.operationCallback.sendPanCamera(180);
 	}
 	
 	/* Entry action for state 'SearchingLeft'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_SearchingLeft() {
+<<<<<<< HEAD
 		timer.setTimer(this, 13, 7 * 1000, false);
+=======
+		timer.setTimer(this, 13, 7*1000, false);
+>>>>>>> EGPSR
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
 	
 	/* Entry action for state 'FoundLeft'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_FoundLeft() {
+<<<<<<< HEAD
 		timer.setTimer(this, 14, 7 * 1000, false);
+=======
+		timer.setTimer(this, 14, 7*1000, false);
+>>>>>>> EGPSR
 		
 		sCIHBrain.operationCallback.sendTTS("There is a person in front of me. I think this is the barman so I'm standing on the left side of the bar.");
 		
@@ -1164,7 +1200,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'Default'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_Default() {
+<<<<<<< HEAD
 		timer.setTimer(this, 15, 7 * 1000, false);
+=======
+		timer.setTimer(this, 15, 7*1000, false);
+>>>>>>> EGPSR
 		
 		sCIHBrain.operationCallback.sendTTS("Oh. There is a person in front of me. I think this is the barman so I'm standing on the right side of the bar.");
 		
@@ -1173,14 +1213,22 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'ighubzfhgz'. */
 	private void entryAction_main_region_SearchingBarman_SearchingBarman_ighubzfhgz() {
+<<<<<<< HEAD
 		timer.setTimer(this, 16, 1 * 1000, false);
+=======
+		timer.setTimer(this, 16, 1*1000, false);
+>>>>>>> EGPSR
 		
 		sCIHBrain.operationCallback.sendTTS("detected");
 	}
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
+<<<<<<< HEAD
 		timer.setTimer(this, 17, 3 * 1000, false);
+=======
+		timer.setTimer(this, 17, 3*1000, false);
+>>>>>>> EGPSR
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1197,7 +1245,11 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
+<<<<<<< HEAD
 		timer.setTimer(this, 18, 3 * 1000, false);
+=======
+		timer.setTimer(this, 18, 3*1000, false);
+>>>>>>> EGPSR
 	}
 	
 	/* Exit action for state 'Init'. */
@@ -1490,6 +1542,7 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	/* 'default' enter sequence for state ighubzfhgz */
 	private void enterSequence_main_region_SearchingBarman_SearchingBarman_ighubzfhgz_default() {
 		entryAction_main_region_SearchingBarman_SearchingBarman_ighubzfhgz();
+<<<<<<< HEAD
 		nextStateIndex = 0;
 		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_ighubzfhgz;
 	}
@@ -1497,6 +1550,15 @@ public class RestaurantStatemachine implements IRestaurantStatemachine {
 	/* 'default' enter sequence for state watzhgfvfgh */
 	private void enterSequence_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh_default() {
 		nextStateIndex = 0;
+=======
+		nextStateIndex = 0;
+		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_ighubzfhgz;
+	}
+	
+	/* 'default' enter sequence for state watzhgfvfgh */
+	private void enterSequence_main_region_SearchingBarman_SearchingBarman_watzhgfvfgh_default() {
+		nextStateIndex = 0;
+>>>>>>> EGPSR
 		stateVector[0] = State.main_region_SearchingBarman_SearchingBarman_watzhgfvfgh;
 	}
 	
