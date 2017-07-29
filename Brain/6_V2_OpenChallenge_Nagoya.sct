@@ -30,7 +30,7 @@
       <vertices xsi:type="sgraph:State" xmi:id="_eLJcoHQgEeeWGYJ2ermwjw" specification="entry/&#xA;LEDControl.sendRainbow()" name="BandTest" incomingTransitions="_enQw4HQgEeeWGYJ2ermwjw">
         <outgoingTransitions xmi:id="_jYPhsHQiEeewIODv7OmBuA" specification="after 2s" target="_hUW-YHQiEeewIODv7OmBuA"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_hUW-YHQiEeewIODv7OmBuA" specification="entry/&#xA;LEDControl.send(&quot;0.0.0&quot;)" name="off" incomingTransitions="_jYPhsHQiEeewIODv7OmBuA"/>
+      <vertices xsi:type="sgraph:State" xmi:id="_hUW-YHQiEeewIODv7OmBuA" specification="entry/&#xA;LEDControl.send(&quot;0.0.0&quot;);&#xA;TVControl.sendStartVideo(&quot;duweisstschon&quot;)" name="off" incomingTransitions="_jYPhsHQiEeewIODv7OmBuA"/>
     </regions>
   </sgraph:Statechart>
   <notation:Diagram xmi:id="_uc3FYPipEeWcn8poFBqj7w" type="org.yakindu.sct.ui.editor.editor.StatechartDiagramEditor" element="_uc0CEPipEeWcn8poFBqj7w" measurementUnit="Pixel">
@@ -197,7 +197,7 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_hUmO8XQiEeewIODv7OmBuA" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_hUmO8nQiEeewIODv7OmBuA"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_hUoEJHQiEeewIODv7OmBuA" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_hUmO83QiEeewIODv7OmBuA" x="127" y="215" width="180"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_hUmO83QiEeewIODv7OmBuA" x="127" y="215" width="252" height="77"/>
         </children>
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_cXQdJHQgEeeWGYJ2ermwjw"/>
       </children>
