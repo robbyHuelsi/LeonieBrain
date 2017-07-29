@@ -40,7 +40,7 @@
           <vertices xsi:type="sgraph:State" xmi:id="_fRoC4HQoEeeWGYJ2ermwjw" specification="entry/ HBrain.sendTTS(&quot;[:-|]okay[:-(]&quot;);&#xD;&#xA;HBrain.sendTTS(&quot;[idle:true]&quot;)" name="Start" incomingTransitions="_fRnb0nQoEeeWGYJ2ermwjw">
             <outgoingTransitions xmi:id="_fRoC7nQoEeeWGYJ2ermwjw" specification="after 5s" target="_fRop9HQoEeeWGYJ2ermwjw"/>
           </vertices>
-          <vertices xsi:type="sgraph:State" xmi:id="_fRop9HQoEeeWGYJ2ermwjw" specification="entry/ HBrain.sendTTS(&quot;waiting is boring.[-.-] im going to watch some tv.&quot;);&#xD;&#xA;Mira.sendGoToGWP(35)" name="GoToTV" incomingTransitions="_fRoC7nQoEeeWGYJ2ermwjw">
+          <vertices xsi:type="sgraph:State" xmi:id="_fRop9HQoEeeWGYJ2ermwjw" specification="entry/ HBrain.sendTTS(&quot;waiting is boring.[-.-] im going to watch some tv.&quot;);&#xD;&#xA;Mira.sendGoToGWP(6)" name="GoToTV" incomingTransitions="_fRoC7nQoEeeWGYJ2ermwjw">
             <outgoingTransitions xmi:id="_fRoqAnQoEeeWGYJ2ermwjw" specification="Mira.arrivedWP" target="_fRpREXQoEeeWGYJ2ermwjw"/>
           </vertices>
           <vertices xsi:type="sgraph:State" xmi:id="_fRpRAnQoEeeWGYJ2ermwjw" specification="entry/ HBrain.sendTTS(&quot;that was fun. what to do now?&quot;)" name="AfterVideo" incomingTransitions="_fRrGSHQoEeeWGYJ2ermwjw">
@@ -64,13 +64,13 @@
           <vertices xsi:type="sgraph:Exit" xmi:id="_M9EwoHQsEeeWGYJ2ermwjw" name="exit_done" incomingTransitions="_fRpRDHQoEeeWGYJ2ermwjw"/>
         </regions>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_lMpaYHQpEeeWGYJ2ermwjw" specification="entry/&#xA;FollowMe.sendDetectionOff()" name="FollowMe aus" incomingTransitions="_enQw4HQgEeeWGYJ2ermwjw">
+      <vertices xsi:type="sgraph:State" xmi:id="_lMpaYHQpEeeWGYJ2ermwjw" specification="entry/&#xA;HBrain.sendTTS(&quot;Okay, I will wait.&quot;);&#xA;FollowMe.sendDetectionOff()" name="FollowMe aus" incomingTransitions="_enQw4HQgEeeWGYJ2ermwjw">
         <outgoingTransitions xmi:id="_t4cs4HQpEeeWGYJ2ermwjw" specification="after 200ms" target="_sFsV3HQpEeeWGYJ2ermwjw"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_sFsV3HQpEeeWGYJ2ermwjw" specification="entry/&#xA;FollowMe.sendTrackingOff()" name="Copy_1_FollowMe aus" incomingTransitions="_t4cs4HQpEeeWGYJ2ermwjw">
-        <outgoingTransitions xmi:id="_36I0QHQpEeeWGYJ2ermwjw" specification="after 200ms" target="_w1YYEHQpEeeWGYJ2ermwjw"/>
+        <outgoingTransitions xmi:id="_36I0QHQpEeeWGYJ2ermwjw" specification="after 10s" target="_w1YYEHQpEeeWGYJ2ermwjw"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_w1YYEHQpEeeWGYJ2ermwjw" specification="entry /&#xA;Mira.sendGoToGWP(21)" name="GWP" incomingTransitions="_36I0QHQpEeeWGYJ2ermwjw">
+      <vertices xsi:type="sgraph:State" xmi:id="_w1YYEHQpEeeWGYJ2ermwjw" specification="entry /&#xA;Mira.sendGoToGWP(21);&#xA;HBrain.sendTTS(&quot;[:-(] I think, he will not be back anytime soon. Let's see who else is here.&quot;)" name="GWP" incomingTransitions="_36I0QHQpEeeWGYJ2ermwjw">
         <outgoingTransitions xmi:id="_DXY6sHQqEeeWGYJ2ermwjw" specification="Mira.arrivedWP" target="_Z-_ZsHQqEeeWGYJ2ermwjw"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_BV3H0HQqEeeWGYJ2ermwjw" specification="" name="beruessung" incomingTransitions="_e9AzCHQqEeeWGYJ2ermwjw">
@@ -373,7 +373,7 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_w1Y_I3QpEeeWGYJ2ermwjw" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_w1Y_JHQpEeeWGYJ2ermwjw"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_w1ZmM3QpEeeWGYJ2ermwjw" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_w1Y_JXQpEeeWGYJ2ermwjw" x="127" y="139" width="193"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_w1Y_JXQpEeeWGYJ2ermwjw" x="125" y="156" width="193"/>
         </children>
         <children xmi:id="_BV3H03QqEeeWGYJ2ermwjw" type="State" element="_BV3H0HQqEeeWGYJ2ermwjw">
           <children xsi:type="notation:DecorationNode" xmi:id="_BV3u4HQqEeeWGYJ2ermwjw" type="StateName">
@@ -406,7 +406,7 @@
           <styles xsi:type="notation:ShapeStyle" xmi:id="_Z_AAwXQqEeeWGYJ2ermwjw" fontName="Verdana" fillColor="15981773" lineColor="12632256"/>
           <styles xsi:type="notation:FontStyle" xmi:id="_Z_AAwnQqEeeWGYJ2ermwjw"/>
           <styles xsi:type="notation:BooleanValueStyle" xmi:id="_Z_AAy3QqEeeWGYJ2ermwjw" name="isHorizontal" booleanValue="true"/>
-          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Z_AAw3QqEeeWGYJ2ermwjw" x="125" y="238" width="193"/>
+          <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Z_AAw3QqEeeWGYJ2ermwjw" x="122" y="264" width="193"/>
         </children>
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_cXQdJHQgEeeWGYJ2ermwjw"/>
       </children>
