@@ -18,7 +18,7 @@ public class OpCallbackImplSTT implements IOpCallbackImpl,
 	org.yakindu.scr.test_stt_yesno.ITest_STT_YesNoStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.test_stt_names.ITest_STT_NamesStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCISTTOperationCallback,
-	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCISTTOperationCallback,
+	org.yakindu.scr.openchallengemagdeburg.IOpenChallengeMagdeburgStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.extendedgeneralpurposeservicerobot.IExtendedGeneralPurposeServiceRobotStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCISTTOperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCISTTOperationCallback

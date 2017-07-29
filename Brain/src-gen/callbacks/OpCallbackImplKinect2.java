@@ -16,7 +16,7 @@ public class OpCallbackImplKinect2 implements IOpCallbackImpl,
 	org.yakindu.scr.test_waving.ITest_WavingStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.test_noise.ITest_NoiseStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.test_blindmansbluff.ITest_BlindMansBluffStatemachine.SCIKinect2OperationCallback,
-	org.yakindu.scr.openchallenge.IOpenChallengeStatemachine.SCIKinect2OperationCallback,
+	org.yakindu.scr.openchallengemagdeburg.IOpenChallengeMagdeburgStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.extendedgeneralpurposeservicerobot.IExtendedGeneralPurposeServiceRobotStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.finale.IFinaleStatemachine.SCIKinect2OperationCallback,
 	org.yakindu.scr.restaurant.IRestaurantStatemachine.SCIKinect2OperationCallback
