@@ -1472,7 +1472,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Hello'. */
 	private void entryAction_main_region_Hello() {
-		timer.setTimer(this, 0, 10 * 1000, false);
+		timer.setTimer(this, 0, 10*1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOff();
 		
@@ -1490,7 +1490,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'DetectionsOn'. */
 	private void entryAction_main_region_DetectionsOn() {
-		timer.setTimer(this, 1, 10 * 1000, false);
+		timer.setTimer(this, 1, 10*1000, false);
 		
 		sCICrowdDetection.operationCallback.sendDetectionOn();
 	}
@@ -1506,16 +1506,16 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'TellAnswer'. */
 	private void entryAction_main_region_TellAnswer() {
-		timer.setTimer(this, 2, 30 * 1000, false);
+		timer.setTimer(this, 2, 30*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2(sCISTT.operationCallback.getAnswer(), " [:-)]");
 		
-		setCounter(counter + 1);
+		setCounter(counter+1);
 	}
 	
 	/* Entry action for state 'DoAction'. */
 	private void entryAction_main_region_DoAction() {
-		setCounter(counter + 1);
+		setCounter(counter+1);
 	}
 	
 	/* Entry action for state 'GoTo'. */
@@ -1525,21 +1525,21 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'livingroom'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_GoTo_goto_GPSR_livingroom() {
-		timer.setTimer(this, 3, 180 * 1000, false);
+		timer.setTimer(this, 3, 180*1000, false);
 		
 		sCIMira.operationCallback.sendGoToGWP(sCIBGF.operationCallback.getGWPByName(sCISTT.operationCallback.getObject()));
 	}
 	
 	/* Entry action for state 'notFound'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_GoTo_goto_GPSR_notFound() {
-		timer.setTimer(this, 4, 10 * 1000, false);
+		timer.setTimer(this, 4, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("I don't know a location called ", sCISTT.operationCallback.getObject(), ".");
 	}
 	
 	/* Entry action for state 'arrived'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_GoTo_goto_GPSR_arrived() {
-		timer.setTimer(this, 5, 10 * 1000, false);
+		timer.setTimer(this, 5, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("I arrived at ", sCISTT.operationCallback.getObject(), ". That was my task.");
 	}
@@ -1558,7 +1558,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'notFound'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_bring_bring_GPSR_notFound() {
-		timer.setTimer(this, 6, 10 * 1000, false);
+		timer.setTimer(this, 6, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("Furthermore, I don't know a location for ", sCISTT.operationCallback.getObject(), ".");
 	}
@@ -1577,7 +1577,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'bringGehtnicht'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_bring_bring_GPSR_bringGehtnicht() {
-		timer.setTimer(this, 7, 10 * 1000, false);
+		timer.setTimer(this, 7, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] I'm sorry. I can't bring you something, because I have no manipulator. [:-)]");
 	}
@@ -1589,7 +1589,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'open'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_open() {
-		timer.setTimer(this, 8, 10 * 1000, false);
+		timer.setTimer(this, 8, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(] I'm sorry. I can't open something because I have no manipulator.");
 	}
@@ -1601,7 +1601,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'StartTracking'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_StartTracking() {
-		timer.setTimer(this, 9, 30 * 1000, false);
+		timer.setTimer(this, 9, 30*1000, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOnAtNext();
 		
@@ -1610,14 +1610,14 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'STToff'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STToff() {
-		timer.setTimer(this, 10, 5 * 1000, false);
+		timer.setTimer(this, 10, 5*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-)]");
 	}
 	
 	/* Entry action for state 'STTstart'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_StartTracking_WaitingForStopCommand_STTstart() {
-		timer.setTimer(this, 11, 5 * 1000, false);
+		timer.setTimer(this, 11, 5*1000, false);
 		
 		sCISTT.operationCallback.sendSpeechDetectionSmalltalk(10);
 		
@@ -1626,12 +1626,12 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Wave'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave() {
-		timer.setTimer(this, 12, 10 * 1000, false);
+		timer.setTimer(this, 12, 10*1000, false);
 	}
 	
 	/* Entry action for state 'UTurn1'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn1() {
-		timer.setTimer(this, 13, 1 * 1000, false);
+		timer.setTimer(this, 13, 1*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
@@ -1645,7 +1645,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Turn'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Turn() {
-		timer.setTimer(this, 14, 5 * 1000, false);
+		timer.setTimer(this, 14, 5*1000, false);
 		
 		sCIKinect2.operationCallback.sendWavingDetectionOnOff(true);
 		
@@ -1666,7 +1666,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'ILostYou'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_ILostYou() {
-		timer.setTimer(this, 15, 5 * 1000, false);
+		timer.setTimer(this, 15, 5*1000, false);
 		
 		sCIFollowMe.operationCallback.sendTrackingOff();
 		
@@ -1675,18 +1675,18 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'UTurn2'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_UTurn2() {
-		timer.setTimer(this, 16, 3 * 1000, false);
+		timer.setTimer(this, 16, 3*1000, false);
 		
 		sCIMira.operationCallback.sendBodyUTurn();
 	}
 	
 	/* Entry action for state 'Detection'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Wave_WavingToFindPerson_Detection() {
-		timer.setTimer(this, 17, 1 * 1000, false);
+		timer.setTimer(this, 17, 1*1000, false);
 		
 		sCIFollowMe.operationCallback.sendRequestDetectionDetails();
 		
-		setCounter(counter + 1);
+		setCounter(counter+1);
 	}
 	
 	/* Entry action for state 'NotFound'. */
@@ -1698,7 +1698,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Detect'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_followme_FollowMe_in_GPSR_Detect() {
-		timer.setTimer(this, 18, 5 * 1000, false);
+		timer.setTimer(this, 18, 5*1000, false);
 		
 		sCIFollowMe.operationCallback.sendDetectionOff();
 	}
@@ -1727,28 +1727,28 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'unknown'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_unknown() {
-		timer.setTimer(this, 19, 10 * 1000, false);
+		timer.setTimer(this, 19, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-|] I'm sorry. This command is unknown.");
 	}
 	
 	/* Entry action for state 'Copy_1_crowd'. */
 	private void entryAction_main_region_DoAction_Instructions_GPSR_Copy_1_crowd() {
-		timer.setTimer(this, 20, 10 * 1000, false);
+		timer.setTimer(this, 20, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS(sCICrowdDetection.operationCallback.getAnswerForSecificCrowdDetails(sCISTT.operationCallback.getObject()));
 	}
 	
 	/* Entry action for state 'TellIncomprehensible'. */
 	private void entryAction_main_region_TellIncomprehensible() {
-		timer.setTimer(this, 21, 10 * 1000, false);
+		timer.setTimer(this, 21, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS3("[:-(]", sCISTT.operationCallback.getAnswer(), "[:-|]");
 	}
 	
 	/* Entry action for state 'NextQuestion'. */
 	private void entryAction_main_region_NextQuestion() {
-		timer.setTimer(this, 22, 10 * 1000, false);
+		timer.setTimer(this, 22, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("Please give me the next command or ask me a question. [attentive]");
 	}
@@ -1762,14 +1762,14 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'TellSpokenText'. */
 	private void entryAction_main_region_Copy_1_STT_STT_TellSpokenText() {
-		timer.setTimer(this, 23, 5 * 1000, false);
+		timer.setTimer(this, 23, 5*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS2("[:-|] I unterstood: ", sCISTT.operationCallback.getSpokenText());
 	}
 	
 	/* Entry action for state 'leave2'. */
 	private void entryAction_main_region_leave2() {
-		timer.setTimer(this, 24, 10 * 1000, false);
+		timer.setTimer(this, 24, 10*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-0] Thanks for your attention. I hope your enjoed your time here. See us in Japan again. [:-)]");
 	}
@@ -1781,7 +1781,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'Bumpered'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_Bumpered() {
-		timer.setTimer(this, 25, 3 * 1000, false);
+		timer.setTimer(this, 25, 3*1000, false);
 		
 		sCIHBrain.operationCallback.sendTTS("[:-(]ouch!");
 	}
@@ -1798,7 +1798,7 @@ public class GeneralPurposeServiceRobotStatemachine implements IGeneralPurposeSe
 	
 	/* Entry action for state 'checkEmergency'. */
 	private void entryAction_Leonie_Bupered_Or_Emergency_Stop_checkEmergency() {
-		timer.setTimer(this, 26, 3 * 1000, false);
+		timer.setTimer(this, 26, 3*1000, false);
 	}
 	
 	/* Exit action for state 'Hello'. */
